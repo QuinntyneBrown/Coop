@@ -10,47 +10,50 @@ namespace Coop.Api.Features
 {
     public class CreateNotice
     {
-        public class Validator: AbstractValidator<Request>
+        public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
                 RuleFor(request => request.Notice).NotNull();
                 RuleFor(request => request.Notice).SetValidator(new NoticeValidator());
             }
-        
+
         }
 
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public NoticeDto Notice { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public NoticeDto Notice { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var notice = new Notice();
-                
+                var notice = new Notice(
+                    request.Notice.Name,
+                    request.Notice.Body,
+                    request.Notice.CreatedById);
+
                 _context.Notices.Add(notice);
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new Response()
                 {
                     Notice = notice.ToDto()
                 };
             }
-            
+
         }
     }
 }

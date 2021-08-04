@@ -1,8 +1,8 @@
 {
-  "projects": null,
+  "projects": "",
   "path": "C:\\Projects\\Coop",
-  "solutionName": null,
-  "rootNamespace": null,
+  "solutionName": "Coop.sln",
+  "rootNamespace": "Coop",
   "domainNamespace": "Coop.Api",
   "applicationNamespace": "Coop.Api",
   "infrastructureNamespace": "Coop.Api",
@@ -11,7 +11,9 @@
   "applicationDirectory": "C:\\Projects\\Coop\\src\\Coop.Api",
   "infrastructureDirectory": "C:\\Projects\\Coop\\src\\Coop.Api",
   "apiDirectory": "C:\\Projects\\Coop\\src\\Coop.Api",
-  "appDirectories": [ "C:\\Projects\\Coop\\src\\Coop.App"],
+  "appDirectories": [
+    "C:\\Projects\\Coop\\src\\Coop.App"
+  ],
   "buildingBlocksCoreNamespace": "BuildingBlocks.Core",
   "buildingBlocksEventStoreNamespace": "BuildingBlocks.EventStore",
   "store": null,
@@ -21,7 +23,7 @@
   "api": null,
   "entityIdDataType": null,
   "sourceFolder": "src",
-  "testFolder": null,
+  "testFolder": "test",
   "dbContext": "CoopDbContext",
   "eventSourcing": false,
   "resources": [
@@ -31,6 +33,8 @@
     "StaffMember",
     "BoardMember",
     "User",
-    "Role"
+    "Role",
+    "DigitalAsset",
+    "Privilege"
   ]
 }

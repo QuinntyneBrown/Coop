@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static BoardMemberDto ToDto(this BoardMember boardMember)
         {
-            return new ()
+            return new()
             {
                 BoardMemberId = boardMember.BoardMemberId
             };
         }
-        
+
     }
 }

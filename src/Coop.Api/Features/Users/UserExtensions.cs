@@ -1,5 +1,5 @@
-using System;
 using Coop.Api.Models;
+using System.Linq;
 
 namespace Coop.Api.Features
 {
@@ -7,11 +7,13 @@ namespace Coop.Api.Features
     {
         public static UserDto ToDto(this User user)
         {
-            return new ()
+            return new()
             {
-                UserId = user.UserId
+                UserId = user.UserId,
+                Username = user.Username,
+                Roles = user.Roles.Select(x => x.ToDto()).ToList()
             };
         }
-        
+
     }
 }

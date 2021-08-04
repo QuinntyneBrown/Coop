@@ -14,7 +14,9 @@ namespace Coop.Api.Interfaces
         DbSet<BoardMember> BoardMembers { get; }
         DbSet<User> Users { get; }
         DbSet<Role> Roles { get; }
+        DbSet<DigitalAsset> DigitalAssets { get; }
+        DbSet<Privilege> Privileges { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

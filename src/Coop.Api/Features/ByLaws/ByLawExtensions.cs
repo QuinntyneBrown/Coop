@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static ByLawDto ToDto(this ByLaw byLaw)
         {
-            return new ()
+            return new()
             {
                 ByLawId = byLaw.ByLawId
             };
         }
-        
+
     }
 }

@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static MaintenanceRequestDto ToDto(this MaintenanceRequest maintenanceRequest)
         {
-            return new ()
+            return new()
             {
                 MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId
             };
         }
-        
+
     }
 }

@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Coop.Api.Features
 {
-    public class MaintenanceRequestValidator: AbstractValidator<MaintenanceRequestDto> { }
+    public class MaintenanceRequestValidator : AbstractValidator<MaintenanceRequestDto> { }
 }

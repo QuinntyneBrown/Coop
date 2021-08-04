@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static NoticeDto ToDto(this Notice notice)
         {
-            return new ()
+            return new()
             {
                 NoticeId = notice.NoticeId
             };
         }
-        
+
     }
 }
