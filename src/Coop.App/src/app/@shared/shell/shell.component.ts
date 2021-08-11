@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { NavigationService } from '@core';
+import { Observable, of } from 'rxjs';
 
 
 
@@ -9,6 +10,8 @@ import { NavigationService } from '@core';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
+
+  public vm$ = of({ });
 
   constructor(
     private readonly _navigationService: NavigationService

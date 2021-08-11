@@ -1,0 +1,29 @@
+:host {
+  .header__pre-heading-container {
+    height: 120px;
+    position: relative;
+
+    .header__login {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  .header__heading-container {
+    display: grid;
+    place-items: center;
+    height: 180px;
+    background-color: #4E87B5;
+
+
+    h1 {
+      font-size: 45px;
+      color: #fff;
+    }
+  }
+}

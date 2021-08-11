@@ -32,6 +32,12 @@ namespace Coop.Api.Features
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+
+                if(!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new();
+                }
+
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
                 User user = _context.Users

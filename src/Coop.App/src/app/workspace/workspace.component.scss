@@ -1,0 +1,16 @@
+:host {
+
+  h1 {
+    padding:30px;
+  }
+
+  mat-drawer-container {
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  mat-drawer {
+    min-width: 300px;
+  }
+
+}

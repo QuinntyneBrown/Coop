@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '@api';
+import { AuthService } from '@core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-workspace',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
-export class WorkspaceComponent implements OnInit {
+export class WorkspaceComponent {
 
-  constructor() { }
+  constructor(
+    private readonly _authService: AuthService
+  ) { }
 
-  ngOnInit(): void {
-  }
+  public currentUser$: Observable<User> = this._authService.currentUser$;
 
 }
