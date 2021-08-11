@@ -40,6 +40,13 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetUsers.Response>> Get()
             => await _mediator.Send(new GetUsers.Request());
 
+        [HttpGet("current", Name = "GetCurrentUserRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CurrentUser.Response>> GetCurrent()
+            => await _mediator.Send(new CurrentUser.Request());
+
         [HttpPost(Name = "CreateUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

@@ -39,6 +39,7 @@ namespace Coop.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var privilege = new Privilege(
+                    request.Privilege.RoleId,
                     request.Privilege.AccessRight,
                     request.Privilege.Aggregate
                     );

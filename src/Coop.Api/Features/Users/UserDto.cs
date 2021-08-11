@@ -9,6 +9,7 @@ namespace Coop.Api.Features
         public Guid? UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public List<RoleDto> Roles { get; set; }
+        public List<RoleDto> Roles { get; set; } = new();
+        public List<ProfileDto> Profiles { get; set; } = new();
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Coop.Api.Models;
 
 namespace Coop.Api.Features
@@ -9,7 +8,9 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                ByLawId = byLaw.ByLawId
+                ByLawId = byLaw.ByLawId,
+                PdfDigitalAssetId = byLaw.PdfDigitalAssetId,
+                Name = byLaw.Name
             };
         }
 

@@ -12,6 +12,9 @@ namespace Coop.Api.Models
         public string Password { get; private set; }
         public byte[] Salt { get; private set; }
         public List<Role> Roles { get; private set; } = new();
+        public List<Profile> Profiles { get; private set; } = new();
+        public Guid CurrentProfileId { get; private set; }
+        public Guid DefaultProfileId { get; private set; }
 
         public User(string username, string password, IPasswordHasher passwordHasher)
         {
@@ -28,6 +31,37 @@ namespace Coop.Api.Models
         private User()
         {
 
+        }
+
+        public void SetDefaultProfileId(Guid profileId)
+        {
+            DefaultProfileId = profileId;
+        }
+
+        public User ChangePassword(string oldPassword, string newPassword, IPasswordHasher passwordHasher)
+        {
+            if(Password != passwordHasher.HashPassword(Salt,oldPassword))
+            {
+                throw new Exception("Old password is invalid");
+            }
+
+            var newPasswordHash = passwordHasher.HashPassword(Salt, newPassword);
+
+            if(Password == newPassword)
+            {
+                throw new Exception("Changed password is equal to old password");
+            }
+
+            Password = newPasswordHash;
+
+            return this;
+        }
+
+        public User SetPassword(string password, IPasswordHasher passwordHasher)
+        {
+            Password = passwordHasher.HashPassword(Salt, password);
+
+            return this;
         }
     }
 }

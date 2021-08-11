@@ -39,7 +39,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var byLaw = new ByLaw();
+                var byLaw = new ByLaw(request.ByLaw.PdfDigitalAssetId, request.ByLaw.Name);
 
                 _context.ByLaws.Add(byLaw);
 

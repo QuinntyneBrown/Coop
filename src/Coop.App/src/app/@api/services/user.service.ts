@@ -28,6 +28,13 @@ export class UserService implements IPagableService<User> {
       );
   }
 
+  public getCurrent(): Observable<User> {
+    return this._client.get<{ user: User }>(`${this._baseUrl}api/user/current`)
+      .pipe(
+        map(x => x.user)
+      );
+  }
+
   public getById(options: { userId: string }): Observable<User> {
     return this._client.get<{ user: User }>(`${this._baseUrl}api/user/${options.userId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class UserService implements IPagableService<User> {
   public create(options: { user: User }): Observable<{ user: User }> {
     return this._client.post<{ user: User }>(`${this._baseUrl}api/user`, { user: options.user });
   }
-  
+
   public update(options: { user: User }): Observable<{ user: User }> {
     return this._client.put<{ user: User }>(`${this._baseUrl}api/user`, { user: options.user });
   }

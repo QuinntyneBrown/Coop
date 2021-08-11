@@ -31,6 +31,10 @@ namespace Coop.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -38,7 +42,7 @@ namespace Coop.Api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coop.Api.Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coop.Api");
                 c.RoutePrefix = string.Empty;
             });
         }

@@ -9,6 +9,7 @@ namespace Coop.Api.Features
             return new()
             {
                 PrivilegeId = privilege.PrivilegeId,
+                RoleId = privilege.RoleId,
                 AccessRight = privilege.AccessRight,
                 Aggregate = privilege.Aggregate
             };

@@ -39,6 +39,7 @@ namespace Coop.Api.Features
                 var length = await _context.Users.CountAsync();
 
                 var users = await query.Page(request.Index, request.PageSize)
+                    .Include(x => x.Profiles)
                     .Include(x => x.Roles)
                     .Include("Roles.Privileges")
                     .Select(x => x.ToDto()).ToListAsync();

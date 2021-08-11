@@ -39,13 +39,17 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var boardMember = new BoardMember();
+                var boardMember = new BoardMember(
+                    request.BoardMember.UserId, 
+                    request.BoardMember.BoardTitle, 
+                    request.BoardMember.Firstname, 
+                    request.BoardMember.Lastname);
 
                 _context.BoardMembers.Add(boardMember);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     BoardMember = boardMember.ToDto()
                 };

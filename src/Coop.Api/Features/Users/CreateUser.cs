@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using static Coop.Api.Core.Constants;
 
 namespace Coop.Api.Features
 {
@@ -20,6 +21,7 @@ namespace Coop.Api.Features
 
         }
 
+        [AuthorizeResourceOperation(nameof(Operations.Create), nameof(Aggregates.User))]
         public class Request : IRequest<Response>
         {
             public UserDto User { get; set; }

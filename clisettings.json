@@ -35,6 +35,10 @@
     "User",
     "Role",
     "DigitalAsset",
-    "Privilege"
+    "Privilege",
+    "Member",
+    "Profile",
+    "Document",
+    "Report"
   ]
 }

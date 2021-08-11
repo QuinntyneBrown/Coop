@@ -43,6 +43,8 @@ namespace Coop.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users
+                    .Include(x => x.Roles)
+                    .ThenInclude(x => x.Privileges)
                     .SingleOrDefaultAsync(x => x.Username == request.Username);
 
                 if (user == null)
@@ -51,8 +53,20 @@ namespace Coop.Api.Features
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                     throw new Exception();
 
+                _tokenBuilder
+                    .AddUsername(user.Username)
+                    .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.UserId, $"{user.UserId}"))
+                    .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Username, $"{user.Username}"));
 
+                foreach (var role in user.Roles)
+                {
+                    _tokenBuilder.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role.Name));
 
+                    foreach (var privilege in role.Privileges)
+                    {
+                        _tokenBuilder.AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Privilege, $"{privilege.Aggregate}-{privilege.AccessRight}"));
+                    }
+                }
                 return new(_tokenBuilder.Build(), user.UserId);
 
             }

@@ -1,6 +1,5 @@
-using System;
-using System.Linq;
 using Coop.Api.Models;
+using System.Linq;
 
 namespace Coop.Api.Features
 {
@@ -10,9 +9,18 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                RoleId = role.RoleId,
-                Name = role.Name,
-                Privileges = role.Privileges.Select(x => x.ToDto()).ToList()
+                RoleId = role?.RoleId,
+                Name = role?.Name,
+                Privileges = role?.Privileges?.Select(x => x.ToDto()).ToList(),
+                AggregatePrivileges = role?.Privileges
+                .OrderBy(x => x.Aggregate)
+                .ThenBy(x => x.AccessRight)
+                .GroupBy(x => x.Aggregate)
+                .Select(g => new AggregatePrivilegeDto { 
+                    Aggregate = g.Key,
+                    Privileges = g.Select(x => x.ToDto()).ToList()
+                })
+                .ToList()
             };
         }
 

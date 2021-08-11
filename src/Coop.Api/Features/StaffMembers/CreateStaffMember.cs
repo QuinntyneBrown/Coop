@@ -39,7 +39,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var staffMember = new StaffMember();
+                var staffMember = new StaffMember(request.StaffMember.UserId, request.StaffMember.JobTitle, request.StaffMember.Firstname, request.StaffMember.Lastname);
 
                 _context.StaffMembers.Add(staffMember);
 

@@ -31,6 +31,7 @@ namespace Coop.Api.Features
                 return new()
                 {
                     Users = await _context.Users
+                    .Include(x => x.Profiles)
                     .Include(x => x.Roles)
                     .Include("Roles.Privileges")
                     .Select(x => x.ToDto()).ToListAsync()

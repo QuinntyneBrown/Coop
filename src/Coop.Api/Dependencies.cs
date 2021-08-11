@@ -4,6 +4,7 @@ using Coop.Api.Extensions;
 using Coop.Api.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,7 @@ namespace Coop.Api
                 {
                     Version = "v1",
                     Title = "Coop",
-                    Description = "e-Commerce",
+                    Description = "Co-op Management",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
@@ -81,6 +82,10 @@ namespace Coop.Api
 
         public static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ResourceOperationAuthorizationBehavior<,>));
+
+            services.AddSingleton<IAuthorizationHandler, ResourceOperationAuthorizationHandler>();
+
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
             services.AddSingleton<ITokenProvider, TokenProvider>();

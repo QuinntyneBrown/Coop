@@ -32,7 +32,7 @@ namespace Coop.Api.Behaviors
 
                 foreach (var failure in failures)
                 {
-                    response.ValidationErrors.Add(failure.ErrorMessage);
+                    response.Errors.Add(failure.ErrorMessage);
                 }
 
                 return response;

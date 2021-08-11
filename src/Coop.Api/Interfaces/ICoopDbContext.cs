@@ -16,7 +16,11 @@ namespace Coop.Api.Interfaces
         DbSet<Role> Roles { get; }
         DbSet<DigitalAsset> DigitalAssets { get; }
         DbSet<Privilege> Privileges { get; }
+        DbSet<Member> Members { get; }
+        DbSet<Profile> Profiles { get; }
+        DbSet<Document> Documents { get; }
+        DbSet<Report> Reports { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

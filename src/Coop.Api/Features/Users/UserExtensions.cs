@@ -11,7 +11,8 @@ namespace Coop.Api.Features
             {
                 UserId = user.UserId,
                 Username = user.Username,
-                Roles = user.Roles.Select(x => x.ToDto()).ToList()
+                Roles = user.Roles.Select(x => x.ToDto()).ToList(),
+                Profiles = user.Profiles.Select(x => x.ToDto()).ToList()
             };
         }
 
