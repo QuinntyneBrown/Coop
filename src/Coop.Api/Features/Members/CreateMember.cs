@@ -10,7 +10,7 @@ namespace Coop.Api.Features
 {
     public class CreateMember
     {
-        public class Validator: AbstractValidator<Request>
+        public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
@@ -19,38 +19,38 @@ namespace Coop.Api.Features
             }
         }
 
-        [AuthorizeResourceOperation(nameof(AccessRight.Create),nameof(Constants.Aggregates.Member))]
-        public class Request: IRequest<Response>
+        [AuthorizeResourceOperation(nameof(AccessRight.Create), nameof(Constants.Aggregates.Member))]
+        public class Request : IRequest<Response>
         {
             public MemberDto Member { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public MemberDto Member { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var member = new Member(request.Member.UserId, request.Member.Firstname, request.Member.Lastname);
-                
+
                 _context.Members.Add(member);
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
-                return new ()
+
+                return new()
                 {
                     Member = member.ToDto()
                 };
             }
-            
+
         }
     }
 }

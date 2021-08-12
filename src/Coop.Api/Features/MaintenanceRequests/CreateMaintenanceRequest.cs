@@ -38,7 +38,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var maintenanceRequest = new MaintenanceRequest(                    
+                var maintenanceRequest = new MaintenanceRequest(
                     request.MaintenanceRequest.Title,
                     request.MaintenanceRequest.Description,
                     request.MaintenanceRequest.CreatedById
@@ -48,7 +48,7 @@ namespace Coop.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new ()
+                return new()
                 {
                     MaintenanceRequest = maintenanceRequest.ToDto()
                 };

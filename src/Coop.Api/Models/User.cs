@@ -45,14 +45,14 @@ namespace Coop.Api.Models
 
         public User ChangePassword(string oldPassword, string newPassword, IPasswordHasher passwordHasher)
         {
-            if(Password != passwordHasher.HashPassword(Salt,oldPassword))
+            if (Password != passwordHasher.HashPassword(Salt, oldPassword))
             {
                 throw new Exception("Old password is invalid");
             }
 
             var newPasswordHash = passwordHasher.HashPassword(Salt, newPassword);
 
-            if(Password == newPassword)
+            if (Password == newPassword)
             {
                 throw new Exception("Changed password is equal to old password");
             }

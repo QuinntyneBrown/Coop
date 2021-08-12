@@ -21,6 +21,6 @@ namespace Coop.Api.Interfaces
         DbSet<Document> Documents { get; }
         DbSet<Report> Reports { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

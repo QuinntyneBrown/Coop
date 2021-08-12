@@ -28,7 +28,8 @@ namespace Coop.Api.Features
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
@@ -43,7 +44,8 @@ namespace Coop.Api.Features
 
                 var dto = profile.ToDto();
 
-                return new() { 
+                return new()
+                {
                     Profile = dto
                 };
             }

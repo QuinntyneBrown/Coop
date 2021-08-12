@@ -6,7 +6,7 @@ namespace Coop.Api.Features
     {
         public static ReportDto ToDto(this Report report)
         {
-            return new ()
+            return new()
             {
                 ReportId = report.ReportId,
                 Name = report.Name,
@@ -14,6 +14,6 @@ namespace Coop.Api.Features
                 Published = report.Published,
                 CreatedById = report.CreatedById
             };
-        }        
+        }
     }
 }

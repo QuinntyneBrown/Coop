@@ -2,7 +2,7 @@ using System;
 
 namespace Coop.Api.Models
 {
-    public class BoardMember: Profile
+    public class BoardMember : Profile
     {
         public Guid BoardMemberId { get; set; }
         public string BoardTitle { get; private set; }

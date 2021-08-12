@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Data\Seeding\Avatars\earl.webp" />
+    <None Remove="Data\Seeding\Avatars\marie.PNG" />
     <None Remove="Data\Seeding\Avatars\marie.webp" />
     <None Remove="Data\Seeding\Avatars\natasha.webp" />
     <None Remove="Data\Seeding\Documents\ByLaw.pdf" />
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Data\Seeding\Avatars\earl.webp" />
+    <EmbeddedResource Include="Data\Seeding\Avatars\marie.PNG" />
     <EmbeddedResource Include="Data\Seeding\Avatars\marie.webp" />
     <EmbeddedResource Include="Data\Seeding\Avatars\natasha.webp" />
     <EmbeddedResource Include="Data\Seeding\Documents\ByLaw.pdf" />

@@ -12,7 +12,7 @@ namespace Coop.Api.Features
 {
     public class GetCurrentUserMaintenanceRequests
     {
-        public class Request : IRequest<Response> {   }
+        public class Request : IRequest<Response> { }
 
         public class Response
         {
@@ -30,10 +30,12 @@ namespace Coop.Api.Features
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
-                return new () { 
+                return new()
+                {
                     MaintenanceRequests = _context.MaintenanceRequests
                     .Where(x => x.CreatedById == userId)
                     .Select(x => x.ToDto()).ToList()

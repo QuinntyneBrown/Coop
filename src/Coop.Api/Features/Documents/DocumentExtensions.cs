@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static DocumentDto ToDto(this Document document)
         {
-            return new ()
+            return new()
             {
                 DocumentId = document.DocumentId
             };
         }
-        
+
     }
 }

@@ -21,12 +21,15 @@ namespace Coop.Api.Features
         {
             private readonly ICoopDbContext _context;
 
-            public Handler(ICoopDbContext context){
+            public Handler(ICoopDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new () { 
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+                return new()
+                {
                     ByLaws = await _context.ByLaws
                     .Where(x => x.Published.HasValue)
                     .Select(x => x.ToDto()).ToListAsync()

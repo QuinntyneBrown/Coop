@@ -7,7 +7,7 @@ namespace Coop.Api.Features
     {
         public static MemberDto ToDto(this Member member)
         {
-            return new ()
+            return new()
             {
                 MemberId = member.MemberId,
                 Firstname = member.Firstname,
@@ -16,6 +16,6 @@ namespace Coop.Api.Features
                 AvatarDigitalAssetId = member.AvatarDigitalAssetId
             };
         }
-        
+
     }
 }

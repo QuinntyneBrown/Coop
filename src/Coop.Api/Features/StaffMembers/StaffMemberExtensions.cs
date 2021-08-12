@@ -15,7 +15,7 @@ namespace Coop.Api.Features
                 Lastname = staffMember.Lastname,
                 PhoneNumber = staffMember.PhoneNumber,
                 AvatarDigitalAssetId = staffMember.AvatarDigitalAssetId
-                
+
             };
         }
 

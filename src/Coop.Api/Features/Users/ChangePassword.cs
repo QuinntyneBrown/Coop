@@ -23,7 +23,8 @@ namespace Coop.Api.Features.Users
             }
         }
 
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public string OldPassword { get; set; }
             public string NewPassword { get; set; }
             public string ConfirmationPassword { get; set; }
@@ -39,12 +40,14 @@ namespace Coop.Api.Features.Users
             private readonly ICoopDbContext _context;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor) {            
+            public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
+            {
                 _context = context;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 return new Response()
                 {

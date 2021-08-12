@@ -31,9 +31,10 @@ namespace Coop.Api.Features
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
-                if(!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
                     return new();
                 }
@@ -42,11 +43,12 @@ namespace Coop.Api.Features
 
                 User user = _context.Users
                     .Include(x => x.Profiles)
-                    .Include(x => x.Roles)                    
+                    .Include(x => x.Roles)
                     .ThenInclude(x => x.Privileges)
                     .Single(x => x.UserId == userId);
 
-			    return new() { 
+                return new()
+                {
                     User = user.ToDto()
                 };
             }
