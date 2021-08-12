@@ -14,7 +14,7 @@ namespace Coop.Api.Features
 
         public class Response
         {
-            public ProfileDto Profile { get; set; }
+            public dynamic Profile { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -30,14 +30,21 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
+                if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new();
+                }
+
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
                 var user = await _context.Users.FindAsync(userId);
 
                 var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
 
-			    return new() { 
-                    Profile = profile.ToDto()
+                var dto = profile.ToDto();
+
+                return new() { 
+                    Profile = dto
                 };
             }
         }

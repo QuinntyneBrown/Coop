@@ -38,7 +38,14 @@ namespace Coop.Api.Controllers
         [ProducesResponseType(typeof(GetReports.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetReports.Response>> Get()
             => await _mediator.Send(new GetReports.Request());
-        
+
+        [HttpGet("published", Name = "GetPublishedReportsRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetPublishedReports.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetPublishedReports.Response>> GetPublished()
+            => await _mediator.Send(new GetPublishedReports.Request());
+
         [HttpPost(Name = "CreateReportRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

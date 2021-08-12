@@ -137,6 +137,8 @@ namespace Coop.Api.Data
 
                 user.SetDefaultProfileId(user.Profiles.First().ProfileId);
 
+                user.SetCurrentProfileId(user.Profiles.First().ProfileId);
+
                 context.SaveChanges();           
             }
         }
@@ -155,6 +157,10 @@ namespace Coop.Api.Data
 
                 context.BoardMembers.Add(profile);
 
+                user.SetDefaultProfileId(user.Profiles.First().ProfileId);
+
+                user.SetCurrentProfileId(user.Profiles.First().ProfileId);
+
                 context.SaveChanges();
             }
         }
@@ -172,6 +178,10 @@ namespace Coop.Api.Data
                 profile.SetAvatar(avatar.DigitalAssetId);
 
                 context.StaffMembers.Add(profile);
+
+                user.SetDefaultProfileId(user.Profiles.First().ProfileId);
+
+                user.SetCurrentProfileId(user.Profiles.First().ProfileId);
 
                 context.SaveChanges();
             }
@@ -225,7 +235,11 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    context.ByLaws.Add(new(digitalAsset.DigitalAssetId, "CHFC Guide to Model Occupancy"));
+                    var document = new ByLaw(digitalAsset.DigitalAssetId, "CHFC Guide to Model Occupancy");
+
+                    document.Publish();
+
+                    context.ByLaws.Add(document);
 
                     context.SaveChanges();
 
@@ -254,7 +268,11 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    context.Notices.Add(new(digitalAsset.DigitalAssetId, "New Position Opening"));
+                    var document = new Notice (digitalAsset.DigitalAssetId, "New Position Opening");
+
+                    document.Publish();
+
+                    context.Notices.Add(document);
 
                     context.SaveChanges();
                 }
@@ -282,7 +300,11 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    context.Reports.Add(new(digitalAsset.DigitalAssetId, "Econmomic Impact of the Co-operative Sector in Canada"));
+                    var document = new Report(digitalAsset.DigitalAssetId, "Econmomic Impact of the Co-operative Sector in Canada");
+
+                    document.Publish();
+
+                    context.Reports.Add(document);
 
                     context.SaveChanges();
 

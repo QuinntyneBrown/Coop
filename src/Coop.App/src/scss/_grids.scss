@@ -1,0 +1,6 @@
+.g-grid-container {
+  display: grid;
+  box-sizing: border-box;
+  gap:30px;
+  grid-template-columns: 1fr 1fr 1fr;
+}

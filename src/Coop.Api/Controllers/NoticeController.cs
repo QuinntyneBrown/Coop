@@ -39,6 +39,13 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetNotices.Response>> Get()
             => await _mediator.Send(new GetNotices.Request());
 
+        [HttpGet("published", Name = "GetPublishedNoticesRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetPublishedNotices.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetPublishedNotices.Response>> GetPublished()
+            => await _mediator.Send(new GetPublishedNotices.Request());
+
         [HttpPost(Name = "CreateNoticeRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

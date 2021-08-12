@@ -38,6 +38,11 @@ namespace Coop.Api.Models
             DefaultProfileId = profileId;
         }
 
+        public void SetCurrentProfileId(Guid profileId)
+        {
+            CurrentProfileId = profileId;
+        }
+
         public User ChangePassword(string oldPassword, string newPassword, IPasswordHasher passwordHasher)
         {
             if(Password != passwordHasher.HashPassword(Salt,oldPassword))

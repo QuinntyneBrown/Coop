@@ -12,7 +12,14 @@ const routes: Routes = [
         redirectTo: 'profile',
         pathMatch: 'full'
       },
-      { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) }
+      { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'maintenance-requests', loadChildren: () => import('./maintenance-requests/maintenance-requests.module').then(m => m.MaintenanceRequestsModule) },
+      { path: 'notices', loadChildren: () => import('./notices/notices.module').then(m => m.NoticesModule) },
+      { path: 'by-laws', loadChildren: () => import('./by-laws/by-laws.module').then(m => m.ByLawsModule) },
+      { path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule) },
+      { path: 'members', loadChildren: () => import('./members/members.module').then(m => m.MembersModule) },
+      { path: 'board-members', loadChildren: () => import('./board-members/board-members.module').then(m => m.BoardMembersModule) },
+      { path: 'staff-members', loadChildren: () => import('./staff-members/staff-members.module').then(m => m.StaffMembersModule) }
     ]
   }
 ];

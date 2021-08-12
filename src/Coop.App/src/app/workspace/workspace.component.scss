@@ -2,6 +2,8 @@
 
   h1 {
     padding:30px;
+    margin: 0px;
+    padding-bottom: 0px;
   }
 
   mat-drawer-container {
@@ -11,6 +13,41 @@
 
   mat-drawer {
     min-width: 300px;
+    padding-top: 60px;
   }
 
+  ul, li {
+    list-style: none;
+    padding:0;
+    margin:0;
+  }
+
+  ul {
+    padding:30px;
+  }
+
+  li {
+    cursor: pointer;
+    a {
+      line-height: 3em;
+      text-transform: uppercase;
+      padding: 0;
+      user-select: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      text-decoration: none;
+    }
+
+    a:hover {
+
+      color: #96C081;
+    }
+  }
+
+  main {
+    padding:60px 30px;
+    display: block;
+    box-sizing: border-box;
+  }
 }

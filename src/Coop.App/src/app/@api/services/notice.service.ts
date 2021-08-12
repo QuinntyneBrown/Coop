@@ -28,6 +28,13 @@ export class NoticeService implements IPagableService<Notice> {
       );
   }
 
+  public getPublished(): Observable<Notice[]> {
+    return this._client.get<{ notices: Notice[] }>(`${this._baseUrl}api/notice/published`)
+      .pipe(
+        map(x => x.notices)
+      );
+  }
+
   public getById(options: { noticeId: string }): Observable<Notice> {
     return this._client.get<{ notice: Notice }>(`${this._baseUrl}api/notice/${options.noticeId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class NoticeService implements IPagableService<Notice> {
   public create(options: { notice: Notice }): Observable<{ notice: Notice }> {
     return this._client.post<{ notice: Notice }>(`${this._baseUrl}api/notice`, { notice: options.notice });
   }
-  
+
   public update(options: { notice: Notice }): Observable<{ notice: Notice }> {
     return this._client.put<{ notice: Notice }>(`${this._baseUrl}api/notice`, { notice: options.notice });
   }

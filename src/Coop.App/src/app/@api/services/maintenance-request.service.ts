@@ -28,6 +28,13 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
       );
   }
 
+  public getMy(): Observable<MaintenanceRequest[]> {
+    return this._client.get<{ maintenanceRequests: MaintenanceRequest[] }>(`${this._baseUrl}api/maintenanceRequest/my`)
+      .pipe(
+        map(x => x.maintenanceRequests)
+      );
+  }
+
   public getById(options: { maintenanceRequestId: string }): Observable<MaintenanceRequest> {
     return this._client.get<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/${options.maintenanceRequestId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
   public create(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {
     return this._client.post<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, { maintenanceRequest: options.maintenanceRequest });
   }
-  
+
   public update(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {
     return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, { maintenanceRequest: options.maintenanceRequest });
   }

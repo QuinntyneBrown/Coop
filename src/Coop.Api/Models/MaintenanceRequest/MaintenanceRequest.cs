@@ -11,11 +11,12 @@ namespace Coop.Api.Models
         public string Title { get; private set; }
         public string Description { get; private set; }
         public MaintenanceRequestStatus Status { get; private set; }
-
-        public MaintenanceRequest(string title, string description)
+        public Guid CreatedById { get; private set; }
+        public MaintenanceRequest(string title, string description, Guid createdById)
         {
             Title = title;
             Description = description;
+            CreatedById = createdById;
             Events.Add(new MaintenanceRequestCreatedEvent() { });
         }
 

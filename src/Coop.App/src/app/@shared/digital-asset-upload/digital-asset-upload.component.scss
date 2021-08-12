@@ -1,0 +1,16 @@
+:host {
+    position: relative;
+    box-sizing: border-box;
+
+    .digital-asset-upload__button--upload {
+        height: 100px;
+        width: 100px;
+        cursor: pointer;
+        background-color: #E5E5E5;
+        box-shadow: none;
+    }
+
+    h4 {
+      user-select: none;
+    }
+}

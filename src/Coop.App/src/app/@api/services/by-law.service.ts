@@ -28,6 +28,13 @@ export class ByLawService implements IPagableService<ByLaw> {
       );
   }
 
+  public getPublished(): Observable<ByLaw[]> {
+    return this._client.get<{ byLaws: ByLaw[] }>(`${this._baseUrl}api/byLaw/published`)
+      .pipe(
+        map(x => x.byLaws)
+      );
+  }
+
   public getById(options: { byLawId: string }): Observable<ByLaw> {
     return this._client.get<{ byLaw: ByLaw }>(`${this._baseUrl}api/byLaw/${options.byLawId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class ByLawService implements IPagableService<ByLaw> {
   public create(options: { byLaw: ByLaw }): Observable<{ byLaw: ByLaw }> {
     return this._client.post<{ byLaw: ByLaw }>(`${this._baseUrl}api/byLaw`, { byLaw: options.byLaw });
   }
-  
+
   public update(options: { byLaw: ByLaw }): Observable<{ byLaw: ByLaw }> {
     return this._client.put<{ byLaw: ByLaw }>(`${this._baseUrl}api/byLaw`, { byLaw: options.byLaw });
   }

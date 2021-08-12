@@ -1,4 +1,77 @@
 <ng-container *ngIf="vm$ | async as vm">
 
+  <app-bento-box>
+
+    <div main class="profile__avatar-and-description">
+      <div>
+        <app-digital-asset-upload icon="photo_camera" [formControl]="vm.avatarFormControl"></app-digital-asset-upload>
+      </div>
+      <div class="profile__avatar-and-description__description">
+        <h2>{{ vm.profile.firstname }} {{ vm.profile.lastname }}</h2>
+        <h3>{{ vm.profile.jobTitle }}</h3>
+      </div>
+
+    </div>
+
+
+  </app-bento-box>
+
+  <!-- Member profile only -->
+  <div class="g-section">
+
+    <div class="g-section-header">
+      <h2>My Maintainence Requests</h2>
+      <button mat-stroked-button class="g-create-button">Create</button>
+    </div>
+
+    <div class="g-grid-container">
+
+    </div>
+
+  </div>
+
+  <div class="g-section">
+
+    <h2>Notices</h2>
+
+    <div class="g-grid-container">
+
+      <app-document-card [document]="notice" *ngFor="let notice of vm.notices">
+
+      </app-document-card>
+
+    </div>
+
+  </div>
+
+  <div class="g-section">
+
+    <h2>By Laws</h2>
+
+    <div class="g-grid-container">
+
+      <app-document-card [document]="byLaw" *ngFor="let byLaw of vm.byLaws">
+
+      </app-document-card>
+
+    </div>
+
+  </div>
+
+
+  <div class="g-section">
+
+    <h2>Reports</h2>
+
+    <div class="g-grid-container">
+
+      <app-document-card [document]="report" *ngFor="let report of vm.reports">
+
+      </app-document-card>
+    </div>
+
+  </div>
+
+
 
 </ng-container>

@@ -1,4 +1,7 @@
 export enum AccessRight {
   None,
-  WriteAccess
+  Read,
+  Write,
+  Create,
+  Delete
 }

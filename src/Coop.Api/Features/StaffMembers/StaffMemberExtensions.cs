@@ -9,7 +9,13 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                StaffMemberId = staffMember.StaffMemberId
+                StaffMemberId = staffMember.StaffMemberId,
+                JobTitle = staffMember.JobTitle,
+                Firstname = staffMember.Firstname,
+                Lastname = staffMember.Lastname,
+                PhoneNumber = staffMember.PhoneNumber,
+                AvatarDigitalAssetId = staffMember.AvatarDigitalAssetId
+                
             };
         }
 

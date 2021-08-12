@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './bento-box.component.html',
   styleUrls: ['./bento-box.component.scss']
 })
-export class BentoBoxComponent implements OnInit {
+export class BentoBoxComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

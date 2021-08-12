@@ -1,10 +1,10 @@
+using Coop.Api.Core;
+using Coop.Api.Interfaces;
+using Coop.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Api.Models;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
 
 namespace Coop.Api.Features
 {
@@ -17,7 +17,6 @@ namespace Coop.Api.Features
                 RuleFor(request => request.MaintenanceRequest).NotNull();
                 RuleFor(request => request.MaintenanceRequest).SetValidator(new MaintenanceRequestValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -39,16 +38,17 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var maintenanceRequest = new MaintenanceRequest(
+                var maintenanceRequest = new MaintenanceRequest(                    
                     request.MaintenanceRequest.Title,
-                    request.MaintenanceRequest.Description
+                    request.MaintenanceRequest.Description,
+                    request.MaintenanceRequest.CreatedById
                     );
 
                 _context.MaintenanceRequests.Add(maintenanceRequest);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     MaintenanceRequest = maintenanceRequest.ToDto()
                 };

@@ -8,7 +8,7 @@ namespace Coop.Api.Models
         public string JobTitle { get; private set; }
 
         public StaffMember(Guid userId, string jobTitle, string firstname, string lastname)
-            : base(ProfileType.Member, userId, firstname, lastname)
+            : base(ProfileType.StaffMember, userId, firstname, lastname)
         {
             JobTitle = jobTitle;
         }

@@ -1,9 +1,67 @@
 <mat-drawer-container>
+
   <mat-drawer mode="side" [opened]="true">
     <h1>OWN Housing Co-op</h1>
+
+    <ul>
+      <li>
+        <a cdkFocusInitial>Home</a>
+      </li>
+
+      <!-- If Profile is Member-->
+      <li>
+        <a>Create a Maintenance Request</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.BoardMember) | async">
+        <a>Board Members</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async">
+        <a>By Laws</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.MaintenanceRequest) | async">
+        <a>Maintenance Requests</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Member) | async">
+        <a>Members</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Notice) | async">
+        <a>Notices</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Report) | async">
+        <a>Reports</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.StaffMember) | async">
+        <a>Staff Members</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.User) | async">
+        <a>Users</a>
+      </li>
+
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Role) | async">
+        <a>Roles</a>
+      </li>
+
+
+      <li>
+        <a (click)="logout()">Logout</a>
+      </li>
+
+    </ul>
+
   </mat-drawer>
+
   <mat-drawer-content>
     <main>
       <router-outlet></router-outlet>
     </main>
   </mat-drawer-content>
+
+</mat-drawer-container>

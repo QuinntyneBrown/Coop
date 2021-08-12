@@ -23,5 +23,7 @@ export class AppComponent {
 
   constructor(
     private readonly _authService: AuthService
-    ) { }
+    ) {
+
+    }
 }

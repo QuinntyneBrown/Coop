@@ -28,6 +28,13 @@ export class ReportService implements IPagableService<Report> {
       );
   }
 
+  public getPublished(): Observable<Report[]> {
+    return this._client.get<{ reports: Report[] }>(`${this._baseUrl}api/report/published`)
+      .pipe(
+        map(x => x.reports)
+      );
+  }
+
   public getById(options: { reportId: string }): Observable<Report> {
     return this._client.get<{ report: Report }>(`${this._baseUrl}api/report/${options.reportId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class ReportService implements IPagableService<Report> {
   public create(options: { report: Report }): Observable<{ report: Report }> {
     return this._client.post<{ report: Report }>(`${this._baseUrl}api/report`, { report: options.report });
   }
-  
+
   public update(options: { report: Report }): Observable<{ report: Report }> {
     return this._client.put<{ report: Report }>(`${this._baseUrl}api/report`, { report: options.report });
   }

@@ -1,4 +1,3 @@
-using System;
 using Coop.Api.Models;
 
 namespace Coop.Api.Features
@@ -9,9 +8,12 @@ namespace Coop.Api.Features
         {
             return new ()
             {
-                ReportId = report.ReportId
+                ReportId = report.ReportId,
+                Name = report.Name,
+                PdfDigitalAssetId = report.PdfDigitalAssetId,
+                Published = report.Published,
+                CreatedById = report.CreatedById
             };
-        }
-        
+        }        
     }
 }

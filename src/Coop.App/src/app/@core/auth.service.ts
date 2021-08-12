@@ -1,10 +1,10 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { accessTokenKey, baseUrl, usernameKey } from './constants';
-import { User, UserService } from '@api';
-import { Observable, Subject } from 'rxjs';
+import { AccessRight, BoardMemberService, ProfileService, User, UserService } from '@api';
+import { combineLatest, Observable, of, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,9 @@ export class AuthService {
     @Inject(baseUrl) private _baseUrl: string,
     private _httpClient: HttpClient,
     private _localStorageService: LocalStorageService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _profileService: ProfileService,
+
   ) {}
 
   public logout() {
@@ -36,13 +38,38 @@ export class AuthService {
   }
 
   public tryToInitializeCurrentUser(): Observable<User> {
-    return this._userService.getCurrent()
+    return combineLatest([this._userService.getCurrent(), this._profileService.getCurrent()])
     .pipe(
-      tap(user => this._currentUserSubject.next(user))
+      map(([user, profile]) => Object.assign(user, { currentProfile: profile })),
+      tap(user => this._currentUserSubject.next(user)),
+      catchError(_ => of(null))
     );
   }
 
-  private _currentUserSubject: Subject<User> = new Subject();
+  private _currentUserSubject: ReplaySubject<User> = new ReplaySubject(1);
 
   public currentUser$: Observable<User> = this._currentUserSubject.asObservable();
+
+  public hasReadWritePrivileges$(aggregate:string): Observable<boolean> {
+    return this.currentUser$
+    .pipe(
+      map(user => this._hasPrivilege(user, aggregate, AccessRight.Read) && this._hasPrivilege(user, aggregate, AccessRight.Write))
+    )
+  }
+
+  _hasPrivilege(user: User, aggregate: string, accessRight: AccessRight):boolean {
+
+    let hasPrivilege = false;
+
+    for(let i = 0; i < user.roles.length; i++) {
+      for(let j = 0; j < user.roles[i].privileges.length; j++) {
+        let privilege = user.roles[i].privileges[j];
+        if(privilege.accessRight == accessRight && privilege.aggregate == aggregate) {
+          hasPrivilege = true;
+        }
+      }
+    }
+
+    return hasPrivilege;
+  }
 }
