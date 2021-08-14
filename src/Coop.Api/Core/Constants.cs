@@ -27,7 +27,7 @@ namespace Coop.Api.Core
             public const string BoardMember = nameof(BoardMember);
             public const string SystemAdministrator = nameof(SystemAdministrator);
             public const string Support = nameof(Support);
-            public static List<string> All => new List<string> { Member, Staff, BoardMember, SystemAdministrator, Support };
+            public static List<string> All => new () { Member, Staff, BoardMember, SystemAdministrator, Support };
         }
 
         public static class Aggregates
@@ -44,7 +44,8 @@ namespace Coop.Api.Core
             public const string User = nameof(User);
             public const string Report = nameof(Report);
             public const string Message = nameof(Message);
-
+            public const string HtmlContent = nameof(HtmlContent);
+            public const string CssCustomProperty = nameof(CssCustomProperty);
             public static List<string> All => new()
             {
                 BoardMember,
@@ -57,7 +58,9 @@ namespace Coop.Api.Core
                 Role,
                 StaffMember,
                 User,
-                Message
+                Message,
+                HtmlContent,
+                CssCustomProperty
             };
 
             public static List<string> Authenticated => new()

@@ -24,6 +24,8 @@ namespace Coop.Api.Interfaces
         DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; }
         DbSet<Message> Messages { get; }
         DbSet<Conversation> Conversations { get; }
+        DbSet<CssCustomProperty> CssCustomProperties { get; }
+        DbSet<HtmlContent> HtmlContents { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }
