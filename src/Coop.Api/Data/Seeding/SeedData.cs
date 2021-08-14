@@ -8,8 +8,8 @@ namespace Coop.Api.Data
 {
     public static class SeedData
     {
-        public const string MAILBOX_USERNAME = "mailbox";
-        public const string MAILBOX_AVATAR = "earl.webp";
+        public const string SUPPORT_USERNAME = "support";
+        public const string SUPPORT_AVATAR = "earl.webp";
         public const string MEMBER_USERNAME = "earl.plett@coop.ca";
         public const string MEMBER_AVATAR = "earl.webp";
         public const string BOARD_MEMBER_USERNAME = "natasha.falk@coop.ca";
@@ -114,7 +114,7 @@ namespace Coop.Api.Data
                     new User(MEMBER_USERNAME, PASSWORD, passwordHasher),
                     new User(BOARD_MEMBER_USERNAME, PASSWORD, passwordHasher),
                     new User(STAFF_MEMBER_USERNAME, PASSWORD, passwordHasher),
-                    new User(MAILBOX_USERNAME, PASSWORD, passwordHasher)
+                    new User(SUPPORT_USERNAME, PASSWORD, passwordHasher)
                 })
                 {
                     var entity = context.Users.SingleOrDefault(x => x.Username == user.Username);
@@ -128,7 +128,7 @@ namespace Coop.Api.Data
                             MEMBER_USERNAME => context.Roles.Single(x => x.Name == Constants.Roles.Member),
                             STAFF_MEMBER_USERNAME => context.Roles.Single(x => x.Name == Constants.Roles.Staff),
                             BOARD_MEMBER_USERNAME => context.Roles.Single(x => x.Name == Constants.Roles.BoardMember),
-                            MAILBOX_USERNAME => context.Roles.Single(x => x.Name == Constants.Roles.Member),
+                            SUPPORT_USERNAME => context.Roles.Single(x => x.Name == Constants.Roles.Support),
                             _ => null
                         };
 
@@ -137,7 +137,7 @@ namespace Coop.Api.Data
                             MEMBER_USERNAME => new() { role },
                             STAFF_MEMBER_USERNAME => new() { role, systemAdministratorRole },
                             BOARD_MEMBER_USERNAME => new() { role },
-                            MAILBOX_USERNAME => new() {  role },
+                            SUPPORT_USERNAME => new() {  role },
                             _ => new List<Role>()
                         };
 
@@ -159,11 +159,11 @@ namespace Coop.Api.Data
         {
             public static void Seed(CoopDbContext context)
             {
-                var user = context.Users.Single(x => x.Username == MAILBOX_USERNAME);
+                var user = context.Users.Single(x => x.Username == SUPPORT_USERNAME);
 
-                var profile = new Profile(ProfileType.Mailbox, user.UserId, default, default);
+                var profile = new Profile(ProfileType.Support, user.UserId, string.Empty, string.Empty);
 
-                var avatar = context.DigitalAssets.Single(x => x.Name == MAILBOX_AVATAR);
+                var avatar = context.DigitalAssets.Single(x => x.Name == SUPPORT_AVATAR);
 
                 profile.SetAvatar(avatar.DigitalAssetId);
 

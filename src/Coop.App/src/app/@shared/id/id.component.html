@@ -3,7 +3,7 @@
 </div>
 <div class="id__description-container">
   <div class="id__description">
-    <h2>{{ heading1 }}</h2>
-    <h3>{{ heading2 }}</h3>
+    <h2 *ngIf="heading1">{{ heading1 }}</h2>
+    <h3 *ngIf="heading2">{{ heading2 }}</h3>
   </div>
 </div>

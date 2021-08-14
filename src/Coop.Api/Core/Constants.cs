@@ -26,8 +26,8 @@ namespace Coop.Api.Core
             public const string Staff = nameof(Staff);
             public const string BoardMember = nameof(BoardMember);
             public const string SystemAdministrator = nameof(SystemAdministrator);
-            public const string Mailbox = nameof(Mailbox);
-            public static List<string> All => new List<string> { Member, Staff, BoardMember, SystemAdministrator, Mailbox };
+            public const string Support = nameof(Support);
+            public static List<string> All => new List<string> { Member, Staff, BoardMember, SystemAdministrator, Support };
         }
 
         public static class Aggregates

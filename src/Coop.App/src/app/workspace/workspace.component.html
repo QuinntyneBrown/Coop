@@ -13,6 +13,10 @@
         <a [routerLink]="['/','workspace','maintenance-requests', 'create']">Create a Maintenance Request</a>
       </li>
 
+      <li>
+        <a [routerLink]="['/','workspace','messages']">Messages</a>
+      </li>
+
       <li *ngIf="hasReadWritePrivileges$(Aggregate.BoardMember) | async">
         <a>Board Members</a>
       </li>

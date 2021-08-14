@@ -48,7 +48,7 @@ namespace Coop.Api.Features
             {
                 var user = new User(request.User.Username, request.User.Password, _passwordHasher);
 
-                switch (request.User.DefaultProfile.ProfileType)
+                switch (request.User.DefaultProfile.Type)
                 {
                     case ProfileType.BoardMember:
                         var boardMember = new BoardMember(default, default, request.User.DefaultProfile.Firstname, request.User.DefaultProfile.Lastname);

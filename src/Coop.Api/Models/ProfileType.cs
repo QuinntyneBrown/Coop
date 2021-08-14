@@ -5,6 +5,6 @@
         Member,
         BoardMember,
         StaffMember,
-        Mailbox
+        Support
     }
 }

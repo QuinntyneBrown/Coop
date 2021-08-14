@@ -1,0 +1,7 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: calc(100vh - 120px);
+  position: relative;
+  box-sizing: border-box;
+}
