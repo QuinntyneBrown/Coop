@@ -20,7 +20,7 @@ import { baseUrl } from '@core';
 export class DigitalAssetUploadComponent implements ControlValueAccessor {
   private readonly _destroyed$: Subject<void> = new Subject();
   public digitalAsset$: Subject<DigitalAsset> = new  Subject();
-  public digitalAssetId$: BehaviorSubject<string> = new BehaviorSubject(null);
+  public digitalAssetId$: BehaviorSubject<string| DigitalAsset> = new BehaviorSubject(null);
 
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
@@ -32,12 +32,12 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
   }
 
   public writeValue(obj: any): void {
-    if(obj) {
-      this.digitalAssetId$.next(obj)
-    }
+    this.digitalAssetId$.next(obj)
   }
 
   @Input() public icon:string = "file_upload";
+
+  @Input() public idOnly: boolean = true;
 
   public get baseUrl() { return this._baseUrl; }
 
@@ -100,7 +100,13 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
       this._digitalAssetService.upload({ data })
         .pipe(
           switchMap((x) => this._digitalAssetService.getByIds({ digitalAssetIds: x.digitalAssetIds })),
-          tap(x => this.digitalAssetId$.next(x[0].digitalAssetId)),
+          tap(x => {
+            if(this.idOnly) {
+              this.digitalAssetId$.next(x[0].digitalAssetId)
+            }else {
+              this.digitalAssetId$.next(x[0])
+            }
+          }),
           takeUntil(this._destroyed$)
         )
         .subscribe();

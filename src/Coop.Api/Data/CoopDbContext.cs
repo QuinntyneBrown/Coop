@@ -19,6 +19,8 @@ namespace Coop.Api.Data
         public DbSet<Profile> Profiles { get; private set; }
         public DbSet<Document> Documents { get; private set; }
         public DbSet<Report> Reports { get; private set; }
+        public DbSet<MaintenanceRequestComment> MaintenanceRequestComments { get; private set; }
+        public DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; private set; }
         public CoopDbContext(DbContextOptions options)
             : base(options) { }
 

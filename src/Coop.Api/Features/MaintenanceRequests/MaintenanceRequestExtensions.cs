@@ -9,9 +9,11 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId
+                MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId,
+                Title = maintenanceRequest.Title,
+                Description = maintenanceRequest.Description,
+                Status = maintenanceRequest.Status
             };
         }
-
     }
 }

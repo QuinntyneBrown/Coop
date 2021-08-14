@@ -41,6 +41,8 @@ namespace Coop.Api.Core
             public static readonly string Role = nameof(Role);
             public static readonly string StaffMember = nameof(StaffMember);
             public static readonly string User = nameof(User);
+            public static readonly string Report = nameof(Report);
+
             public static List<string> All => new()
             {
                 BoardMember,
@@ -53,6 +55,21 @@ namespace Coop.Api.Core
                 Role,
                 StaffMember,
                 User
+            };
+
+            public static List<string> Authenticated => new()
+            {
+
+            };
+
+            public static List<string> Board => new()
+            {
+                ByLaw,
+                DigitalAsset,
+                MaintenanceRequest,
+                Notice,
+                Report,
+                StaffMember
             };
         }
     }

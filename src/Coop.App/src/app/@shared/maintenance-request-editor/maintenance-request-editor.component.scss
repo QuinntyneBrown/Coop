@@ -1,0 +1,10 @@
+:host {
+  mat-tab-group {
+    margin-bottom: 30px;
+  }
+
+  .maintenance-request-editor__documents-tab-container {
+    display: grid;
+    place-items: start center;
+  }
+}

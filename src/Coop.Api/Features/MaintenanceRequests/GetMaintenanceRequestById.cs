@@ -31,7 +31,9 @@ namespace Coop.Api.Features
             {
                 return new()
                 {
-                    MaintenanceRequest = (await _context.MaintenanceRequests.SingleOrDefaultAsync(x => x.MaintenanceRequestId == request.MaintenanceRequestId)).ToDto()
+                    MaintenanceRequest = (await _context.MaintenanceRequests
+                    .Include(x => x.DigitalAssets)
+                    .SingleOrDefaultAsync(x => x.MaintenanceRequestId == request.MaintenanceRequestId)).ToDto()
                 };
             }
 

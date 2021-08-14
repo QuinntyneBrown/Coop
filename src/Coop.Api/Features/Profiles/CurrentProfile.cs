@@ -40,13 +40,16 @@ namespace Coop.Api.Features
 
                 var user = await _context.Users.FindAsync(userId);
 
-                var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
+                if (user == null)
+                {
+                    return new();
+                }
 
-                var dto = profile.ToDto();
+                var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
 
                 return new()
                 {
-                    Profile = dto
+                    Profile = profile.ToDto()
                 };
             }
         }

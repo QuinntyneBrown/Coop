@@ -62,6 +62,34 @@ namespace Coop.Api.Data
                             role.Privileges.Add(privilege);
                         }
 
+                        if (role.Name == Constants.Roles.Member)
+                        {
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.User);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.Role);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.MaintenanceRequest);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.ByLaw);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.Member);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.Notice);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.StaffMember);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.BoardMember);
+                        }
+
+                        if (role.Name == Constants.Roles.BoardMember)
+                        {
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.User);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.Role);
+
+                            role.Privileges.RemoveAll(x => x.Aggregate == Constants.Aggregates.MaintenanceRequest);
+                        }
+
                         context.Roles.Add(role);
 
                         context.SaveChanges();
@@ -101,8 +129,8 @@ namespace Coop.Api.Data
                         List<Role> roles = user.Username switch
                         {
                             MEMBER_USERNAME => new() { role },
-                            STAFF_MEMBER_USERNAME => new() { role },
-                            BOARD_MEMBER_USERNAME => new() { role, systemAdministratorRole },
+                            STAFF_MEMBER_USERNAME => new() { role, systemAdministratorRole },
+                            BOARD_MEMBER_USERNAME => new() { role },
                             _ => new List<Role>()
                         };
 

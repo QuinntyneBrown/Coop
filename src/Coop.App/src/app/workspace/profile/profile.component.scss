@@ -2,15 +2,4 @@
   app-bento-box {
     margin-bottom: 60px;
   }
-
-  .profile__avatar-and-description {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 30px;
-  }
-
-  .profile__avatar-and-description__description {
-    display: grid;
-    place-items: center start;
-  }
 }

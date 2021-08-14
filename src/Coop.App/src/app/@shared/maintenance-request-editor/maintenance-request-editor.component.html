@@ -1,0 +1,23 @@
+<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
+  <mat-tab-group [animationDuration]="0">
+    <mat-tab label="Details">
+      <mat-form-field appearance="outline" class="g-form-field">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder='Title'
+        formControlName='title' required>
+      </mat-form-field>
+
+      <h4>Description</h4>
+      <app-html-editor formControlName="description">
+
+      </app-html-editor>
+    </mat-tab>
+    <mat-tab label="Documents">
+      <div class="maintenance-request-editor__documents-tab-container">
+        <app-digital-asset-upload [idOnly]="false" [formControl]="digitalAssetControl"></app-digital-asset-upload>
+        <app-digital-asset-list formControlName="digitalAssets"></app-digital-asset-list>
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</form>

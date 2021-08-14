@@ -18,8 +18,10 @@ const routes: Routes = [
       { path: 'by-laws', loadChildren: () => import('./by-laws/by-laws.module').then(m => m.ByLawsModule) },
       { path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule) },
       { path: 'members', loadChildren: () => import('./members/members.module').then(m => m.MembersModule) },
+      { path: 'roles', loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule) },
       { path: 'board-members', loadChildren: () => import('./board-members/board-members.module').then(m => m.BoardMembersModule) },
-      { path: 'staff-members', loadChildren: () => import('./staff-members/staff-members.module').then(m => m.StaffMembersModule) }
+      { path: 'staff-members', loadChildren: () => import('./staff-members/staff-members.module').then(m => m.StaffMembersModule) },
+      { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) }
     ]
   }
 ];

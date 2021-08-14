@@ -1,0 +1,17 @@
+:host {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 30px;
+
+  .id__description-container {
+    display: grid;
+    place-items: center start;
+
+    .id__description {
+      h2,
+      h3 {
+        margin:0;
+      }
+    }
+  }
+}

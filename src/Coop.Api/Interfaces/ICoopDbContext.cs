@@ -20,6 +20,8 @@ namespace Coop.Api.Interfaces
         DbSet<Profile> Profiles { get; }
         DbSet<Document> Documents { get; }
         DbSet<Report> Reports { get; }
+        DbSet<MaintenanceRequestComment> MaintenanceRequestComments { get; }
+        DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     }

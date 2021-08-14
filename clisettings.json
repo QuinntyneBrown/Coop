@@ -39,6 +39,8 @@
     "Member",
     "Profile",
     "Document",
-    "Report"
+    "Report",
+    "MaintenanceRequestComment",
+    "MaintenanceRequestDigitalAsset"
   ]
 }

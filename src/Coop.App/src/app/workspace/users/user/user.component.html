@@ -1,35 +1,96 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <app-bento-box>
-    <div [main]>
-      <h2>User: {{ vm.user.username }}</h2>
+  <ng-container *ngIf="!vm.user">
+
+    <h2>Create User</h2>
+      <app-digital-asset-upload [formControl]="avatarControl"></app-digital-asset-upload>
+
+      <form [formGroup]="userForm">
+        <mat-form-field appearance="outline" class="g-form-field">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder='Username' required formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="g-form-field">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder='Password' type="password" required formControlName="password">
+        </mat-form-field>
+      </form>
+
+
+      <mat-form-field appearance="outline" class="g-form-field">
+        <mat-label>Firstname</mat-label>
+        <input matInput placeholder='Firstname' required [formControl]="firstnameControl">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="g-form-field">
+        <mat-label>Lastname</mat-label>
+        <input matInput placeholder='Lastname' required [formControl]="lastnameControl">
+      </mat-form-field>
+
+      <h3>Select Profile Type:</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Profile Type</mat-label>
+        <mat-select [formControl]="profileTypeControl">
+          <mat-option *ngFor="let profileType of profileTypes" [value]="profileType.value">
+            {{profileType.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <h3>Select Role:</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select [formControl]="roleControl">
+          <mat-option *ngFor="let role of roles$ | async" [value]="role.roleId">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <form>
+
+    </form>
+
+    <div class="g-actions">
+      <button mat-raised-button class="g-button">Cancel</button>
+      <button mat-stroked-button class="g-button" (click)="tryToSave()">Save</button>
     </div>
-  </app-bento-box>
+  </ng-container>
 
-  <a class="g-link" [routerLink]="['/','workspace','users']">Users</a>
+  <ng-container *ngIf="vm.user">
+    <app-bento-box>
 
-  <h3>Roles</h3>
+      <app-id main [heading1]="vm.user?.username" [formControl]="vm.formControl">
 
-  <ul class="g-list">
-    <li *ngFor="let role of roles" (click)="handleRoleClick(vm.user,role)">
-      <mat-icon *ngIf="has(vm.user,role)">radio_button_checked</mat-icon>
-      <mat-icon *ngIf="!has(vm.user,role)">radio_button_unchecked</mat-icon>
-      <a>{{ role }}</a>
-    </li>
-  </ul>
+      </app-id>
 
-  <h3>Change Password</h3>
+    </app-bento-box>
 
-  <form>
-    <mat-form-field appearance="outline" class="g-form-field">
-      <mat-label>Password</mat-label>
-      <input matInput placeholder='Pasword' required>
-    </mat-form-field>
-  </form>
+    <a class="g-link" [routerLink]="['/','workspace','users']">Users</a>
 
-  <div class="g-actions">
-    <button mat-stroked-button class="g-button">Save</button>
-  </div>
+    <h3>Roles</h3>
+
+    <ul class="g-list">
+      <li *ngFor="let role of roles" (click)="handleRoleClick(vm.user,role)">
+        <mat-icon *ngIf="has(vm.user,role)">radio_button_checked</mat-icon>
+        <mat-icon *ngIf="!has(vm.user,role)">radio_button_unchecked</mat-icon>
+        <a>{{ role }}</a>
+      </li>
+    </ul>
+
+    <h3>Change Password</h3>
+
+    <form>
+      <mat-form-field appearance="outline" class="g-form-field">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder='Pasword' required>
+      </mat-form-field>
+    </form>
+
+    <div class="g-actions">
+      <button mat-stroked-button class="g-button" (click)="tryToSave()">Save</button>
+    </div>
+  </ng-container>
 
 
 

@@ -2,6 +2,8 @@ export * from './board-member.service';
 export * from './by-law.service';
 export * from './digital-asset.service';
 export * from './document.service';
+export * from './maintenance-request-comment.service';
+export * from './maintenance-request-digital-asset.service';
 export * from './maintenance-request.service';
 export * from './member.service';
 export * from './notice.service';

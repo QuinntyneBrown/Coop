@@ -64,7 +64,7 @@ namespace Coop.Api.Features
 
                     foreach (var privilege in role.Privileges)
                     {
-                        _tokenBuilder.AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Privilege, $"{privilege.Aggregate}-{privilege.AccessRight}"));
+                        _tokenBuilder.AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Privilege, $"{privilege.AccessRight}{privilege.Aggregate}"));
                     }
                 }
                 return new(_tokenBuilder.Build(), user.UserId);

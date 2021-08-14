@@ -7,6 +7,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { UserComponent } from './user/user.component';
 import { BentoBoxModule } from '@shared/bento-box';
+import { MatDialogModule } from '@angular/material/dialog';
+import { IdModule } from '@shared/id/id.module';
+import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-asset-upload.module';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -19,9 +23,12 @@ import { BentoBoxModule } from '@shared/bento-box';
   imports: [
     COMMON_FORMS_MODULES,
     COMMON_TABLE_MODULES,
+    IdModule,
     BentoBoxModule,
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    MatDialogModule,
+    DigitalAssetUploadModule
   ]
 })
 export class UsersModule { }

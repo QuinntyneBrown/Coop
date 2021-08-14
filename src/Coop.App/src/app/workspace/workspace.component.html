@@ -5,12 +5,12 @@
 
     <ul>
       <li>
-        <a cdkFocusInitial>Home</a>
+        <a cdkFocusInitial [routerLink]="['/','workspace','profile']">Home</a>
       </li>
 
       <!-- If Profile is Member-->
       <li>
-        <a>Create a Maintenance Request</a>
+        <a [routerLink]="['/','workspace','maintenance-requests', 'create']">Create a Maintenance Request</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.BoardMember) | async">
@@ -21,7 +21,7 @@
         <a>By Laws</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.MaintenanceRequest) | async">
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.MaintenanceRequest) | async" [routerLink]="['/','workspace','maintenance-requests']">
         <a>Maintenance Requests</a>
       </li>
 
@@ -42,11 +42,11 @@
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.User) | async">
-        <a>Users</a>
+        <a [routerLink]="['/','workspace','users']">Users</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.Role) | async">
-        <a>Roles</a>
+        <a [routerLink]="['/','workspace','roles']">Roles</a>
       </li>
 
 

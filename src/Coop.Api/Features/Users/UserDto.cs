@@ -11,5 +11,7 @@ namespace Coop.Api.Features
         public string Password { get; set; }
         public List<RoleDto> Roles { get; set; } = new();
         public List<ProfileDto> Profiles { get; set; } = new();
+        public Guid? DefaultProfileId { get; set; }
+        public ProfileDto DefaultProfile { get; set; }
     }
 }

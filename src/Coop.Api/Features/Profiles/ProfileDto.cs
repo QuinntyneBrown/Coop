@@ -1,3 +1,4 @@
+using Coop.Api.Models;
 using System;
 
 namespace Coop.Api.Features
@@ -10,5 +11,6 @@ namespace Coop.Api.Features
         public string Lastname { get; set; }
         public string PhoneNumber { get; set; }
         public Guid AvatarDigitalAssetId { get; set; }
+        public ProfileType ProfileType { get; set; }
     }
 }

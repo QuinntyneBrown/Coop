@@ -30,7 +30,9 @@ namespace Coop.Api.Features
             {
                 return new()
                 {
-                    MaintenanceRequests = await _context.MaintenanceRequests.Select(x => x.ToDto()).ToListAsync()
+                    MaintenanceRequests = await _context.MaintenanceRequests
+                    .Include(x => x.DigitalAssets)
+                    .Select(x => x.ToDto()).ToListAsync()
                 };
             }
 

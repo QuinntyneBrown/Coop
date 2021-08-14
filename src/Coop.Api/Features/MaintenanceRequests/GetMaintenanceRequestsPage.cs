@@ -1,14 +1,12 @@
+using Coop.Api.Core;
+using Coop.Api.Extensions;
+using Coop.Api.Interfaces;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Coop.Api.Extensions;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
-using Coop.Api.Extensions;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -41,6 +39,7 @@ namespace Coop.Api.Features
                 var length = await _context.MaintenanceRequests.CountAsync();
 
                 var maintenanceRequests = await query.Page(request.Index, request.PageSize)
+                    .Include(x => x.DigitalAssets)
                     .Select(x => x.ToDto()).ToListAsync();
 
                 return new()

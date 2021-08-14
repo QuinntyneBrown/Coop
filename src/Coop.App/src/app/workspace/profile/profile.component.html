@@ -2,17 +2,9 @@
 
   <app-bento-box>
 
-    <div main class="profile__avatar-and-description">
-      <div>
-        <app-digital-asset-upload icon="photo_camera" [formControl]="vm.avatarFormControl"></app-digital-asset-upload>
-      </div>
-      <div class="profile__avatar-and-description__description">
-        <h2>{{ vm.profile.firstname }} {{ vm.profile.lastname }}</h2>
-        <h3>{{ vm.profile.jobTitle }}</h3>
-      </div>
+    <app-id main [formControl]="vm.avatarFormControl" [heading1]="vm.profile.fullname" [heading2]="vm.profile.jobTitle">
 
-    </div>
-
+    </app-id>
 
   </app-bento-box>
 
@@ -21,11 +13,13 @@
 
     <div class="g-section-header">
       <h2>My Maintainence Requests</h2>
-      <button mat-stroked-button class="g-create-button">Create</button>
+      <button (click)="handleCreateClick()" mat-stroked-button class="g-create-button">Create</button>
     </div>
 
     <div class="g-grid-container">
+      <app-maintenance-request-card [maintenanceRequest]="maintenanceRequest" *ngFor="let maintenanceRequest of vm.maintenanceRequests">
 
+      </app-maintenance-request-card>
     </div>
 
   </div>

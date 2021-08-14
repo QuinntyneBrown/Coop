@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,15 +13,21 @@ namespace Coop.Api.Core
             try
             {
                 var resourceName = resource as string;
-                var claim = context.User.Claims.SingleOrDefault(x => x.Type == Constants.ClaimTypes.Privilege && x.Value == $"{requirement.Name}{resourceName}");
+
+                var privilegeClaims = context.User.Claims.Where(x => x.Type == Constants.ClaimTypes.Privilege).ToList();
+
+                var aggregatePrivilegeClaims = privilegeClaims.Where(x => x.Value.EndsWith(resourceName)).ToList();
+
+                var claim = aggregatePrivilegeClaims.FirstOrDefault(x => x.Value.StartsWith(requirement.Name));
+
                 if (claim != null)
                 {
                     context.Succeed(requirement);
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                throw e;
             }
 
             await Task.CompletedTask;

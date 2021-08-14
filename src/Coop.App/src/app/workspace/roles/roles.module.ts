@@ -8,6 +8,7 @@ import { COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
 import { RoleComponent } from './role/role.component';
 import { BentoBoxModule } from '@shared';
 import { AggregatePrivilegesModule } from '@shared/aggregate-privilege/aggregate-privilege.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AggregatePrivilegesModule } from '@shared/aggregate-privilege/aggregate
     RolesRoutingModule,
     BentoBoxModule,
     AggregatePrivilegesModule,
+    MatDialogModule,
     COMMON_FORMS_MODULES,
     COMMON_TABLE_MODULES
   ]
