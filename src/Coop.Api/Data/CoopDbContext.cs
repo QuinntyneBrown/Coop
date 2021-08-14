@@ -25,6 +25,7 @@ namespace Coop.Api.Data
         public DbSet<Conversation> Conversations { get; private set; }
         public DbSet<CssCustomProperty> CssCustomProperties { get; private set; }
         public DbSet<HtmlContent> HtmlContents { get; private set; }
+        public DbSet<ImageContent> ImageContents { get; private set; }
         public CoopDbContext(DbContextOptions options)
             :base(options) { }
 

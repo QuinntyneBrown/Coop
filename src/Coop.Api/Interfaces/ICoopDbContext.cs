@@ -26,6 +26,7 @@ namespace Coop.Api.Interfaces
         DbSet<Conversation> Conversations { get; }
         DbSet<CssCustomProperty> CssCustomProperties { get; }
         DbSet<HtmlContent> HtmlContents { get; }
+        DbSet<ImageContent> ImageContents { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

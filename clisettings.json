@@ -45,6 +45,7 @@
     "Message",
     "Conversation",
     "CssCustomProperty",
-    "HtmlContent"
+    "HtmlContent",
+    "ImageContent"
   ]
 }

@@ -8,6 +8,7 @@ export * from './css-custom-property';
 export * from './digital-asset';
 export * from './document';
 export * from './html-content';
+export * from './image-content';
 export * from './maintenance-request-comment';
 export * from './maintenance-request-digital-asset';
 export * from './maintenance-request-statues';
