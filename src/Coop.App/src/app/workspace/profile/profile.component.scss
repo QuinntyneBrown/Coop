@@ -1,4 +1,10 @@
 :host {
+  .profile__messenger {
+    position: absolute;
+    top: 60px;
+    right: 30px;
+  }
+
   app-bento-box {
     margin-bottom: 60px;
   }

@@ -41,6 +41,8 @@
     "Document",
     "Report",
     "MaintenanceRequestComment",
-    "MaintenanceRequestDigitalAsset"
+    "MaintenanceRequestDigitalAsset",
+    "Message",
+    "Conversation"
   ]
 }

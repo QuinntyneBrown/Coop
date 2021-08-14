@@ -6,6 +6,7 @@ export * from './maintenance-request-comment.service';
 export * from './maintenance-request-digital-asset.service';
 export * from './maintenance-request.service';
 export * from './member.service';
+export * from './message.service';
 export * from './notice.service';
 export * from './privilege.service';
 export * from './profile.service';

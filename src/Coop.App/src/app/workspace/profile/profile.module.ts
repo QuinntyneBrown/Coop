@@ -12,6 +12,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MaintenanceRequestCardModule } from '@shared/maintenance-request-card/maintenance-request-card.module';
 import { ProfileListComponent } from './profile-list/profile-list.component';
 import { IdModule } from '@shared/id/id.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MessengerModule } from '@shared/messenger/messenger.module';
 
 
 @NgModule({
@@ -30,7 +32,10 @@ import { IdModule } from '@shared/id/id.module';
     CreateAMaintenaceRequestDialogModule,
     MatDialogModule,
     MaintenanceRequestCardModule,
-    IdModule
+    IdModule,
+    MatButtonModule,
+    MatIconModule,
+    MessengerModule
   ]
 })
 export class ProfileModule { }

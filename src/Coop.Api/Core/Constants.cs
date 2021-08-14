@@ -26,22 +26,24 @@ namespace Coop.Api.Core
             public const string Staff = nameof(Staff);
             public const string BoardMember = nameof(BoardMember);
             public const string SystemAdministrator = nameof(SystemAdministrator);
-            public static List<string> All => new List<string> { Member, Staff, BoardMember, SystemAdministrator };
+            public const string Mailbox = nameof(Mailbox);
+            public static List<string> All => new List<string> { Member, Staff, BoardMember, SystemAdministrator, Mailbox };
         }
 
         public static class Aggregates
         {
-            public static readonly string BoardMember = nameof(BoardMember);
-            public static readonly string ByLaw = nameof(ByLaw);
-            public static readonly string DigitalAsset = nameof(DigitalAsset);
-            public static readonly string MaintenanceRequest = nameof(MaintenanceRequest);
-            public static readonly string Member = nameof(Member);
-            public static readonly string Notice = nameof(Notice);
-            public static readonly string Privilege = nameof(Privilege);
-            public static readonly string Role = nameof(Role);
-            public static readonly string StaffMember = nameof(StaffMember);
-            public static readonly string User = nameof(User);
-            public static readonly string Report = nameof(Report);
+            public const string BoardMember = nameof(BoardMember);
+            public const string ByLaw = nameof(ByLaw);
+            public const string DigitalAsset = nameof(DigitalAsset);
+            public const string MaintenanceRequest = nameof(MaintenanceRequest);
+            public const string Member = nameof(Member);
+            public const string Notice = nameof(Notice);
+            public const string Privilege = nameof(Privilege);
+            public const string Role = nameof(Role);
+            public const string StaffMember = nameof(StaffMember);
+            public const string User = nameof(User);
+            public const string Report = nameof(Report);
+            public const string Message = nameof(Message);
 
             public static List<string> All => new()
             {
@@ -54,7 +56,8 @@ namespace Coop.Api.Core
                 Privilege,
                 Role,
                 StaffMember,
-                User
+                User,
+                Message
             };
 
             public static List<string> Authenticated => new()
@@ -69,7 +72,8 @@ namespace Coop.Api.Core
                 MaintenanceRequest,
                 Notice,
                 Report,
-                StaffMember
+                StaffMember,
+                Message
             };
         }
     }

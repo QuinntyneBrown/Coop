@@ -22,7 +22,9 @@ namespace Coop.Api.Interfaces
         DbSet<Report> Reports { get; }
         DbSet<MaintenanceRequestComment> MaintenanceRequestComments { get; }
         DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; }
+        DbSet<Message> Messages { get; }
+        DbSet<Conversation> Conversations { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

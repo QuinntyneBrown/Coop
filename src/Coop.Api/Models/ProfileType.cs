@@ -4,6 +4,7 @@
     {
         Member,
         BoardMember,
-        StaffMember
+        StaffMember,
+        Mailbox
     }
 }

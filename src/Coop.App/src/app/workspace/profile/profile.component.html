@@ -1,5 +1,11 @@
 <ng-container *ngIf="vm$ | async as vm">
 
+  <button mat-icon-button class="profile__messenger">
+    <mat-icon>
+      mail_outline
+    </mat-icon>
+  </button>
+
   <app-bento-box>
 
     <app-id main [formControl]="vm.avatarFormControl" [heading1]="vm.profile.fullname" [heading2]="vm.profile.jobTitle">

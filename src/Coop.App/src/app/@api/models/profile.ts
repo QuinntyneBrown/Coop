@@ -1,3 +1,5 @@
+import { Message } from "./message";
+
 export type Profile = {
     profileId: string,
     userId: string,
@@ -5,4 +7,5 @@ export type Profile = {
     lastname: string,
     avatarDigitalAssetId: string,
     phoneNumber: string,
+    messages: Message[]
 };

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Coop.Api.Models
 {
@@ -12,7 +13,8 @@ namespace Coop.Api.Models
         public string PhoneNumber { get; protected set; }
         public User User { get; protected set; }
         public ProfileType Type { get; protected set; }
-
+        public List<Message> Messages { get; protected set; } = new();
+        public List<Conversation> Conversations { get; protected set; } = new();
         public Profile(ProfileType type, Guid userId, string firstname, string lastname)
         {
             Type = type;
