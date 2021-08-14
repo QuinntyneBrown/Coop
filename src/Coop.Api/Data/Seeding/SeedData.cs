@@ -41,6 +41,12 @@ namespace Coop.Api.Data
             ReportsConfiguration.Seed(context);
 
             MainrenanceRequestConfiguration.Seed(context);
+
+            HtmlContentConfiguration.SeedData(context);
+
+            CssCustomProperyConfiguration.SeedData(context);
+
+            ImageContentConfiguration.SeedData(context);
         }
 
         internal static class RoleConfiguration
@@ -371,6 +377,44 @@ namespace Coop.Api.Data
         internal static class MainrenanceRequestConfiguration
         {
             internal static void Seed(CoopDbContext context)
+            {
+
+            }
+        }
+
+        internal static class HtmlContentConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
+            {
+                var htmlContents = new List<HtmlContent>
+                {
+                    new HtmlContent("Splash Page","Heading",""),
+                    new HtmlContent("Splash Page","Subheading",""),
+                };
+
+                foreach(var htmlContent in htmlContents)
+                {
+                    if(context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name  && x.PageName == htmlContent.PageName) == null)
+                    {
+                        context.HtmlContents.Add(htmlContent);
+                    }
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        internal static class ImageContentConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
+            {
+
+            }
+        }
+
+        internal static class CssCustomProperyConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
             {
 
             }
