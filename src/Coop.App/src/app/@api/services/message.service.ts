@@ -28,6 +28,13 @@ export class MessageService implements IPagableService<Message> {
       );
   }
 
+  public getMy(): Observable<Message[]> {
+    return this._client.get<{ messages: Message[] }>(`${this._baseUrl}api/message/my`)
+      .pipe(
+        map(x => x.messages)
+      );
+  }
+
   public getById(options: { messageId: string }): Observable<Message> {
     return this._client.get<{ message: Message }>(`${this._baseUrl}api/message/${options.messageId}`)
       .pipe(
@@ -42,7 +49,10 @@ export class MessageService implements IPagableService<Message> {
   public create(options: { message: Message }): Observable<{ message: Message }> {
     return this._client.post<{ message: Message }>(`${this._baseUrl}api/message`, { message: options.message });
   }
-  
+
+  public createSupport(options: { message: Partial<Message> }): Observable<{ message: Message }> {
+    return this._client.post<{ message: Message }>(`${this._baseUrl}api/message/support`, { message: options.message });
+  }
   public update(options: { message: Message }): Observable<{ message: Message }> {
     return this._client.put<{ message: Message }>(`${this._baseUrl}api/message`, { message: options.message });
   }

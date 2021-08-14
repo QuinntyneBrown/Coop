@@ -2,7 +2,7 @@
   <input matInput placeholder='Type a message...' [formControl]="formControl">
 </mat-form-field>
 
-<button mat-icon-button>
+<button mat-icon-button (click)="handleSendClick()">
   <mat-icon>
     send
   </mat-icon>

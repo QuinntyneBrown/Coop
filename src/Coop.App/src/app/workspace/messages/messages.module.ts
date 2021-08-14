@@ -5,6 +5,7 @@ import { MessagesRoutingModule } from './messages-routing.module';
 import { MessagesComponent } from './messages.component';
 import { TypeAMessageModule } from '@shared/type-a-message/type-a-message.module';
 import { ToModule } from '@shared/to/to.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ToModule } from '@shared/to/to.module';
     CommonModule,
     MessagesRoutingModule,
     ToModule,
-    TypeAMessageModule
+    TypeAMessageModule,
+    ReactiveFormsModule
   ]
 })
 export class MessagesModule { }

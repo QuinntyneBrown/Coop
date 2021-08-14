@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
@@ -23,11 +23,18 @@ import { fromEvent, Subject } from 'rxjs';
 export class TypeAMessageComponent implements ControlValueAccessor,  Validator, OnDestroy  {
   private readonly _destroyed$: Subject<void> = new Subject();
 
-  public formControl = new FormControl(null,[Validators.required]);
+  public formControl = new FormControl(null,[]);
+
+  @Output() public send: EventEmitter<string> = new EventEmitter();
 
   constructor(
     private readonly _elementRef: ElementRef
   ) { }
+
+  handleSendClick() {
+    this.send.emit(this.formControl.value);
+    this.formControl.setValue(null);
+  }
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.formControl.errors;

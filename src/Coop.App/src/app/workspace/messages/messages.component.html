@@ -1,5 +1,10 @@
-<app-to></app-to>
-<div>
+<ng-container *ngIf="vm$ | async as vm">
+  <app-to></app-to>
 
-</div>
-<app-type-a-message></app-type-a-message>
+  <div>
+    {{ vm.messages | json }}
+  </div>
+
+  <app-type-a-message (send)="handleSend($event)"></app-type-a-message>
+
+</ng-container>

@@ -38,14 +38,28 @@ namespace Coop.Api.Controllers
         [ProducesResponseType(typeof(GetMessages.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetMessages.Response>> Get()
             => await _mediator.Send(new GetMessages.Request());
-        
+
+        [HttpGet("my", Name = "GetMyMessagesRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetCurrentProfileMessages.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentProfileMessages.Response>> GetMy()
+            => await _mediator.Send(new GetCurrentProfileMessages.Request());
+
         [HttpPost(Name = "CreateMessageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CreateMessage.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CreateMessage.Response>> Create([FromBody]CreateMessage.Request request)
             => await _mediator.Send(request);
-        
+
+        [HttpPost("support", Name = "CreateSupportMessageRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(CreateSupportMessage.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateSupportMessage.Response>> CreateSupport([FromBody] CreateSupportMessage.Request request)
+            => await _mediator.Send(request);
+
         [HttpGet("page/{pageSize}/{index}", Name = "GetMessagesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
