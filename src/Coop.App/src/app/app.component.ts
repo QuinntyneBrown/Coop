@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from '@api';
+import { HtmlContentService, User } from '@api';
 import { AuthService } from '@core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,8 @@ export class AppComponent {
   public currentUser$: Observable<User> = this._authService.currentUser$;
 
   constructor(
-    private readonly _authService: AuthService
+    private readonly _authService: AuthService,
+    private readonly _htmlContentService: HtmlContentService
     ) {
 
     }
