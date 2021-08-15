@@ -6,11 +6,12 @@ namespace Coop.Api.Models
     {
         public Guid HtmlContentId { get; private set; }
         public string PageName { get; private set; }
+        public string Component { get; private set; }
         public string Name { get; private set; }
         public string Body { get; private set; }
-        public HtmlContent(string pageName, string name, string body)
+        public HtmlContent(string component, string name, string body)
         {
-            PageName = pageName;
+            Component = component;
             Name = name;
             Body = body;
         }

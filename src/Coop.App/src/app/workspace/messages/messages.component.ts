@@ -19,12 +19,9 @@ export class MessagesComponent implements OnDestroy {
   .pipe(
     takeUntil(this._destroyed$),
     switchMap(_ => this._messageService.getMy()),
-    map(messages => {
-
-      return {
-        messages
-      };
-    })
+    map(messages => ({
+      messages
+    }))
   );
 
   constructor(

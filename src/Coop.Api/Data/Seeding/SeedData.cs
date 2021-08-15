@@ -388,8 +388,8 @@ namespace Coop.Api.Data
             {
                 var htmlContents = new List<HtmlContent>
                 {
-                    new HtmlContent("Splash Page","Heading",""),
-                    new HtmlContent("Splash Page","Subheading",""),
+                    new HtmlContent("Header","Heading","OWN Housing Co-operative"),
+                    new HtmlContent("Header","Subheading","Integrity, Strenghth, Action"),
                 };
 
                 foreach(var htmlContent in htmlContents)
@@ -408,7 +408,29 @@ namespace Coop.Api.Data
         {
             public static void SeedData(CoopDbContext context)
             {
+                var logo = "Logo.jpg";
 
+                if (context.DigitalAssets.SingleOrDefault(x => x.Name == logo) == null)
+                {
+                    var provider = new FileExtensionContentTypeProvider();
+
+                    provider.TryGetContentType(logo, out string contentType);
+
+                    var digitalAsset = new DigitalAsset
+                    {
+                        Name = logo,
+                        Bytes = StaticFileLocator.Get(logo),
+                        ContentType = contentType
+                    };
+
+                    context.DigitalAssets.Add(digitalAsset);
+
+                    var imageContent = new ImageContent(Constants.Images.Logo, digitalAsset.DigitalAssetId);
+
+                    context.ImageContents.Add(imageContent);
+
+                    context.SaveChanges();
+                }
             }
         }
 
