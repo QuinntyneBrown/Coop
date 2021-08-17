@@ -1,28 +1,29 @@
 :host {
   .header__pre-heading-container {
-    height: 120px;
+    height: 7.5rem;
     position: relative;
 
     .header__login {
       position: absolute;
-      top: 30px;
-      right: 30px;
+      top: 1.875rem;
+      right: 1.875rem;
       text-transform: uppercase;
       cursor: pointer;
       color: #000;
       text-decoration: none;
+      font-size: 0.875rem;
     }
   }
 
   .header__heading-text {
     display: grid;
     place-items: center;
-    height: 180px;
+    height: 11.25rem;
     background-color: #4E87B5;
 
 
     h1 {
-      font-size: 45px;
+      font-size: 2.8125rem;
       color: #fff;
       padding:0;
       margin:0;

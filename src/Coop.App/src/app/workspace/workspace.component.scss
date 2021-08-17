@@ -3,6 +3,7 @@
   h1 {
     padding:0px 30px;
     margin: 0px;
+    font-size: 1.5rem;
   }
 
   mat-drawer-container {
@@ -11,7 +12,7 @@
   }
 
   mat-drawer {
-    min-width: 300px;
+    min-width: 22.5rem;
     padding-top: 60px;
   }
 
@@ -32,7 +33,7 @@
       text-transform: uppercase;
       padding: 0;
       user-select: none;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 500;
       color: #000;
       text-decoration: none;
