@@ -1,12 +1,22 @@
 
 :host {
   display: block;
+  mat-card {
+    padding: 40px 30px;
 
-  mat-form-field {
+    mat-form-field {
       display: block;
-  }
+    }
 
-  mat-card-title, form {
-      padding-bottom: 30px;
+    mat-card-title, form {
+        padding-bottom: 30px;
+    }
+
+    .mat-form-field {
+      label {
+        font-size: 3rem;
+      }
+    }
+
   }
 }

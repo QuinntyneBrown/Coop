@@ -1,3 +1,10 @@
+button[mat-stroked-button],
+button[mat-raised-button] {
+  padding: 0 1rem;
+  line-height: 2rem;
+  min-width: 108px;
+}
+
 button.g-create-button {
   margin-bottom: 16px;
 }
@@ -6,4 +13,17 @@ button.g-dialog-close-button {
   position: absolute;
   top: 0px;
   right: 0px;
+}
+
+button.g-icon-button {
+  height: 3.5rem;
+  width: 3.5rem;
+  line-height: 3.5rem;
+
+  .mat-icon {
+    font-size: 2rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    line-height: 3.5rem;
+  }
 }

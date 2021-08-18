@@ -1,10 +1,12 @@
 .g-section-header {
   display: grid;
   grid-template-columns: 1fr auto;
+  place-items: center start;
 }
 
 .g-heading-group{
   display: grid;
   grid-template-columns: 1fr auto;
+  place-items: center start;
 }
 
