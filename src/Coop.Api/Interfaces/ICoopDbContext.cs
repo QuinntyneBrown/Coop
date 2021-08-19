@@ -27,6 +27,7 @@ namespace Coop.Api.Interfaces
         DbSet<CssCustomProperty> CssCustomProperties { get; }
         DbSet<HtmlContent> HtmlContents { get; }
         DbSet<ImageContent> ImageContents { get; }
+        DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

@@ -46,6 +46,7 @@
     "Conversation",
     "CssCustomProperty",
     "HtmlContent",
-    "ImageContent"
+    "ImageContent",
+    "ProfileCssCustomProperty"
   ]
 }

@@ -26,6 +26,7 @@ namespace Coop.Api.Data
         public DbSet<CssCustomProperty> CssCustomProperties { get; private set; }
         public DbSet<HtmlContent> HtmlContents { get; private set; }
         public DbSet<ImageContent> ImageContents { get; private set; }
+        public DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; private set; }
         public CoopDbContext(DbContextOptions options)
             :base(options) { }
 
