@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Coop.Api.Features
 {
-    public class ConversationValidator: AbstractValidator<ConversationDto> { }
+    public class ConversationValidator : AbstractValidator<ConversationDto> { }
 }

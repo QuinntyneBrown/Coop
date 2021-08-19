@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Coop.Api.Features
 {
-    public class CssCustomPropertyValidator: AbstractValidator<CssCustomPropertyDto> { }
+    public class CssCustomPropertyValidator : AbstractValidator<CssCustomPropertyDto> { }
 }

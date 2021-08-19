@@ -24,7 +24,9 @@ const routes: Routes = [
       { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
       { path: 'messages', loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule) }
     ]
-  }
+  },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+  { path: 'personalize', loadChildren: () => import('./personalize/personalize.module').then(m => m.PersonalizeModule) }
 ];
 
 @NgModule({

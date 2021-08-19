@@ -10,7 +10,7 @@ namespace Coop.Api.Features
                 ProfileType.BoardMember => (profile as BoardMember).ToDto(),
                 ProfileType.StaffMember => (profile as StaffMember).ToDto(),
                 ProfileType.Member => (profile as Member).ToDto(),
-                _ => new ()
+                _ => new()
                 {
                     ProfileId = profile.ProfileId,
                     Type = profile.Type,

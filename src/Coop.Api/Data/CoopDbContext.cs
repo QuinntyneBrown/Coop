@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Data
 {
-    public class CoopDbContext: DbContext, ICoopDbContext
+    public class CoopDbContext : DbContext, ICoopDbContext
     {
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; private set; }
         public DbSet<Notice> Notices { get; private set; }
@@ -28,14 +28,14 @@ namespace Coop.Api.Data
         public DbSet<ImageContent> ImageContents { get; private set; }
         public DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; private set; }
         public CoopDbContext(DbContextOptions options)
-            :base(options) { }
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoopDbContext).Assembly);
         }
-        
+
     }
 }

@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static HtmlContentDto ToDto(this HtmlContent htmlContent)
         {
-            return new ()
+            return new()
             {
                 HtmlContentId = htmlContent.HtmlContentId
             };
         }
-        
+
     }
 }

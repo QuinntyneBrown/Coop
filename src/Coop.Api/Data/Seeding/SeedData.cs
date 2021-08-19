@@ -143,7 +143,7 @@ namespace Coop.Api.Data
                             MEMBER_USERNAME => new() { role },
                             STAFF_MEMBER_USERNAME => new() { role, systemAdministratorRole },
                             BOARD_MEMBER_USERNAME => new() { role },
-                            SUPPORT_USERNAME => new() {  role },
+                            SUPPORT_USERNAME => new() { role },
                             _ => new List<Role>()
                         };
 
@@ -392,9 +392,9 @@ namespace Coop.Api.Data
                     new HtmlContent("Header","Subheading","Integrity, Strenghth, Action"),
                 };
 
-                foreach(var htmlContent in htmlContents)
+                foreach (var htmlContent in htmlContents)
                 {
-                    if(context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name  && x.PageName == htmlContent.PageName) == null)
+                    if (context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name && x.PageName == htmlContent.PageName) == null)
                     {
                         context.HtmlContents.Add(htmlContent);
                     }
@@ -438,7 +438,14 @@ namespace Coop.Api.Data
         {
             public static void SeedData(CoopDbContext context)
             {
+                var cssCustomProperty = new CssCustomProperty("--font-size", "1rem");
 
+                if (context.CssCustomProperties.SingleOrDefault(x => x.Name == cssCustomProperty.Name) == null)
+                {
+                    context.CssCustomProperties.Add(cssCustomProperty);
+
+                    context.SaveChanges();
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ export * from './member.service';
 export * from './message.service';
 export * from './notice.service';
 export * from './privilege.service';
+export * from './profile-css-custom-property.service';
 export * from './profile.service';
 export * from './report.service';
 export * from './role.service';

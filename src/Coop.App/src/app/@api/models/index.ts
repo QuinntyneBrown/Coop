@@ -17,6 +17,7 @@ export * from './member';
 export * from './message';
 export * from './notice';
 export * from './privilege';
+export * from './profile-css-custom-property';
 export * from './profile-type';
 export * from './profile';
 export * from './report';

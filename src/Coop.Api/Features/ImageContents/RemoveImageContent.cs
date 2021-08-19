@@ -12,37 +12,37 @@ namespace Coop.Api.Features
 {
     public class RemoveImageContent
     {
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public Guid ImageContentId { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public ImageContentDto ImageContent { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var imageContent = await _context.ImageContents.SingleAsync(x => x.ImageContentId == request.ImageContentId);
-                
+
                 _context.ImageContents.Remove(imageContent);
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new Response()
                 {
                     ImageContent = imageContent.ToDto()
                 };
             }
-            
+
         }
     }
 }

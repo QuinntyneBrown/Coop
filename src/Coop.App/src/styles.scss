@@ -5,7 +5,7 @@
 // Plus imports for other components in your app.
 
 
-$app-typography: mat.define-typography-config(
+$App-typography: mat.define-typography-config(
   $headline:  mat.define-typography-level(2.8125rem, 3rem, 400),
   $title: mat.define-typography-level(1.75rem, 3rem, 400),
   $input: mat.define-typography-level(0.875rem, 1.25, 400),
@@ -17,7 +17,7 @@ $app-typography: mat.define-typography-config(
   $caption: mat.define-typography-level(0.875rem, 20px, 400),
 );
 
-@include mat.core($app-typography);
+@include mat.core($App-typography);
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -45,7 +45,5 @@ $App-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; font-size: 1rem;}
+html, body { height: 100%; font-size: var(--font-size,1rem);}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-

@@ -12,27 +12,28 @@ namespace Coop.Api.Features
 {
     public class GetCssCustomProperties
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<CssCustomPropertyDto> CssCustomProperties { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     CssCustomProperties = await _context.CssCustomProperties.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

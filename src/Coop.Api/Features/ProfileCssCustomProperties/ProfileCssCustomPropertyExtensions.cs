@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static ProfileCssCustomPropertyDto ToDto(this ProfileCssCustomProperty profileCssCustomProperty)
         {
-            return new ()
+            return new()
             {
                 ProfileCssCustomPropertyId = profileCssCustomProperty.ProfileCssCustomPropertyId
             };
         }
-        
+
     }
 }

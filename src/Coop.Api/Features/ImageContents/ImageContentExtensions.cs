@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static ImageContentDto ToDto(this ImageContent imageContent)
         {
-            return new ()
+            return new()
             {
                 ImageContentId = imageContent.ImageContentId
             };
         }
-        
+
     }
 }

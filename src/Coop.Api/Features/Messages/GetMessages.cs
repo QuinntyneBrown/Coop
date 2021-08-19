@@ -12,27 +12,28 @@ namespace Coop.Api.Features
 {
     public class GetMessages
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<MessageDto> Messages { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     Messages = await _context.Messages.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

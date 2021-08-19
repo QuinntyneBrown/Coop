@@ -13,37 +13,37 @@ namespace Coop.Api.Features
 {
     public class CreateSupportMessage
     {
-        public class Validator: AbstractValidator<Request>
+        public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
                 RuleFor(request => request.Message).NotNull();
                 RuleFor(request => request.Message).SetValidator(new MessageValidator());
             }
-        
+
         }
 
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public MessageDto Message { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public MessageDto Message { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
             private readonly IHttpContextAccessor _httpContextAccessor;
-        
+
             public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
             {
                 _context = context;
                 _httpContextAccessor = httpContextAccessor;
             }
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
@@ -52,21 +52,21 @@ namespace Coop.Api.Features
                 var support = await _context.Profiles.SingleAsync(x => x.Type == ProfileType.Support);
 
                 var message = new Message(
-                    request.Message.ConversationId, 
-                    support.ProfileId, 
+                    request.Message.ConversationId,
+                    support.ProfileId,
                     profile.ProfileId,
                     request.Message.Body);
-                
+
                 _context.Messages.Add(message);
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
-                return new ()
+
+                return new()
                 {
                     Message = message.ToDto()
                 };
             }
-            
+
         }
     }
 }

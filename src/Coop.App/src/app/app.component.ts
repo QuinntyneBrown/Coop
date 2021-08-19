@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { HtmlContentService, User } from '@api';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { CssCustomPropertyService, HtmlContentService, ProfileCssCustomPropertyService, User } from '@api';
 import { AuthService } from '@core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { AppContextService } from './app-context.service';
 
 @Component({
@@ -14,16 +15,36 @@ import { AppContextService } from './app-context.service';
   ]
 })
 export class AppComponent {
-  public vm$ = this._authService.tryToInitializeCurrentUser()
+  public vm$ = combineLatest([
+    this._authService.tryToInitializeCurrentUser(),
+    this._cssCustomPropertyService.get(),
+    this._profileCssCustomPropertyService.getCurrent()
+  ])
   .pipe(
-    map(user => ({ user }))
+    tap(([_, cssCustomProperties, profileCssCustomProperties]) => {
+      for(let i = 0; i < cssCustomProperties.length; i++) {
+        this._htmlElementStyle.setProperty(cssCustomProperties[i].name,cssCustomProperties[i].name);
+      }
+
+      for(let i = 0; i < profileCssCustomProperties.length; i++) {
+        this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,cssCustomProperties[i].name);
+      }
+    }),
+    map(([user]) => ({ user }))
   );
+
+  private get _htmlElementStyle(): CSSStyleDeclaration {
+    return this._document.querySelector("html").style;
+  }
 
   public currentUser$: Observable<User> = this._authService.currentUser$;
 
   constructor(
     private readonly _authService: AuthService,
-    private readonly _htmlContentService: HtmlContentService
+    private readonly _htmlContentService: HtmlContentService,
+    private readonly _cssCustomPropertyService: CssCustomPropertyService,
+    private readonly _profileCssCustomPropertyService: ProfileCssCustomPropertyService,
+    @Inject(DOCUMENT) private readonly _document: Document
     ) {
 
     }

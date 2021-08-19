@@ -13,14 +13,14 @@ namespace Coop.Api.Features
 {
     public class GetCurrentProfileMessages
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<MessageDto> Messages { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
             private readonly IHttpContextAccessor _httpContextAccessor;
@@ -39,14 +39,15 @@ namespace Coop.Api.Features
 
                 var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
 
-                return new () {
+                return new()
+                {
                     Messages = await _context.Messages
                     .Where(x => x.ToProfileId == profile.ProfileId || x.FromProfileId == profile.ProfileId)
                     .OrderByDescending(x => x.Created)
                     .Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

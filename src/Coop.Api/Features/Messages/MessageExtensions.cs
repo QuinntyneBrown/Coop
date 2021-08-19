@@ -6,7 +6,7 @@ namespace Coop.Api.Features
     {
         public static MessageDto ToDto(this Message message)
         {
-            return new ()
+            return new()
             {
                 MessageId = message.MessageId,
                 ConversationId = message.ConversationId,
@@ -17,6 +17,6 @@ namespace Coop.Api.Features
                 Created = message.Created
             };
         }
-        
+
     }
 }
