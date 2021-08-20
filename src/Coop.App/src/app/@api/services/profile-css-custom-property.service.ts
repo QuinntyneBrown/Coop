@@ -30,9 +30,9 @@ export class ProfileCssCustomPropertyService implements IPagableService<ProfileC
   }
 
   public getCurrent(): Observable<CssCustomProperty[]> {
-    return this._client.get<{ profileCssCustomProperties: CssCustomProperty[] }>(`${this._baseUrl}api/profileCssCustomProperty/current`)
+    return this._client.get<{ cssCustomProperties: CssCustomProperty[] }>(`${this._baseUrl}api/profileCssCustomProperty/current`)
       .pipe(
-        map(x => x.profileCssCustomProperties)
+        map(x => x.cssCustomProperties)
       );
   }
 

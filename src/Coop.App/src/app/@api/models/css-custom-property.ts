@@ -1,5 +1,5 @@
 export type CssCustomProperty = {
-    cssCustomPropertyId: string,
+    cssCustomPropertyId?: string,
     name: string,
     value: string,
 };

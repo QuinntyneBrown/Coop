@@ -17,18 +17,18 @@ import { AppContextService } from './app-context.service';
 export class AppComponent {
   public vm$ = combineLatest([
     this._authService.tryToInitializeCurrentUser(),
-    this._cssCustomPropertyService.get(),
+    this._cssCustomPropertyService.getSystem(),
     this._profileCssCustomPropertyService.getCurrent()
   ])
   .pipe(
     tap(([_, cssCustomProperties, profileCssCustomProperties]) => {
       for(let i = 0; i < cssCustomProperties.length; i++) {
-        this._htmlElementStyle.setProperty(cssCustomProperties[i].name,cssCustomProperties[i].name);
+        this._htmlElementStyle.setProperty(cssCustomProperties[i].name,cssCustomProperties[i].value);
       }
 
       if(profileCssCustomProperties) {
         for(let i = 0; i < profileCssCustomProperties.length; i++) {
-          this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,cssCustomProperties[i].name);
+          this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,profileCssCustomProperties[i].value);
         }
       }
 

@@ -41,6 +41,8 @@ namespace Coop.Api.Features
             {
                 var cssCustomProperty = await _context.CssCustomProperties.SingleAsync(x => x.CssCustomPropertyId == request.CssCustomProperty.CssCustomPropertyId);
 
+                cssCustomProperty.SetValue(request.CssCustomProperty.Value);
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response()

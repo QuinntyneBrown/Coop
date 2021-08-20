@@ -6,12 +6,19 @@ namespace Coop.Api.Models
     {
         public Guid ProfileCssCustomPropertyId { get; private set; }
         public Guid ProfileId { get; private set; }
-        public Guid CssCustomProperyId { get; private set; }
+        public Guid CssCustomPropertyId { get; private set; }
         public CssCustomProperty CssCustomProperty { get; private set; }
 
-        public ProfileCssCustomProperty(Guid cssCustomProperyId)
+        public ProfileCssCustomProperty(Guid cssCustomPropertyId)
         {
-            CssCustomProperyId = cssCustomProperyId;
+            CssCustomPropertyId = cssCustomPropertyId;
+        }
+
+
+        public ProfileCssCustomProperty(Guid profileId, CssCustomProperty cssCustomPropery)
+        {
+            ProfileId = profileId;
+            CssCustomProperty = cssCustomPropery;
         }
 
         private ProfileCssCustomProperty()

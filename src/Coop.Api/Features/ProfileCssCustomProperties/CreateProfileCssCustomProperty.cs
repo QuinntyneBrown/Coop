@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace Coop.Api.Features
 {
@@ -32,13 +34,24 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
+            private readonly IHttpContextAccessor _httpContextAccessor; 
 
-            public Handler(ICoopDbContext context)
-                => _context = context;
+            public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
+            {
+                _context = context;
+                _httpContextAccessor = httpContextAccessor;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profileCssCustomProperty = new ProfileCssCustomProperty(request.ProfileCssCustomProperty.CssCustomProperyId);
+                var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
+
+                var user = await _context.Users.FindAsync(userId);
+
+                var profileCssCustomProperty = new ProfileCssCustomProperty(
+                    user.CurrentProfileId, 
+                    new(CssCustomPropertyType.Profile, request.ProfileCssCustomProperty.CssCustomProperty.Name, request.ProfileCssCustomProperty.CssCustomProperty.Value)
+                    );
 
                 _context.ProfileCssCustomProperties.Add(profileCssCustomProperty);
 

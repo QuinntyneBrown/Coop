@@ -39,6 +39,13 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetCssCustomProperties.Response>> Get()
             => await _mediator.Send(new GetCssCustomProperties.Request());
 
+        [HttpGet("system", Name = "GetSystemCssCustomPropertiesRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetSystemCssCustomProperties.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetSystemCssCustomProperties.Response>> GetSystem()
+            => await _mediator.Send(new GetSystemCssCustomProperties.Request());
+
         [HttpPost(Name = "CreateCssCustomPropertyRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

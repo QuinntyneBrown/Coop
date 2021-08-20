@@ -28,6 +28,13 @@ export class CssCustomPropertyService implements IPagableService<CssCustomProper
       );
   }
 
+  public getSystem(): Observable<CssCustomProperty[]> {
+    return this._client.get<{ cssCustomProperties: CssCustomProperty[] }>(`${this._baseUrl}api/cssCustomProperty/system`)
+      .pipe(
+        map(x => x.cssCustomProperties)
+      );
+  }
+
   public getById(options: { cssCustomPropertyId: string }): Observable<CssCustomProperty> {
     return this._client.get<{ cssCustomProperty: CssCustomProperty }>(`${this._baseUrl}api/cssCustomProperty/${options.cssCustomPropertyId}`)
       .pipe(
@@ -42,7 +49,7 @@ export class CssCustomPropertyService implements IPagableService<CssCustomProper
   public create(options: { cssCustomProperty: CssCustomProperty }): Observable<{ cssCustomProperty: CssCustomProperty }> {
     return this._client.post<{ cssCustomProperty: CssCustomProperty }>(`${this._baseUrl}api/cssCustomProperty`, { cssCustomProperty: options.cssCustomProperty });
   }
-  
+
   public update(options: { cssCustomProperty: CssCustomProperty }): Observable<{ cssCustomProperty: CssCustomProperty }> {
     return this._client.put<{ cssCustomProperty: CssCustomProperty }>(`${this._baseUrl}api/cssCustomProperty`, { cssCustomProperty: options.cssCustomProperty });
   }

@@ -11,7 +11,8 @@ namespace Coop.Api.Features
             {
                 CssCustomPropertyId = cssCustomProperty.CssCustomPropertyId,
                 Name = cssCustomProperty.Name,
-                Value = cssCustomProperty.Value
+                Value = cssCustomProperty.Value,
+                Type = cssCustomProperty.Type
             };
         }
 
