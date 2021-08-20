@@ -26,15 +26,17 @@ export class NavigationService {
   }
 
   public redirectToPublicDefault(): void {
-    this.router.navigate(['']);
+    window.location.href = '';
+    //this.router.navigate(['']);
   }
 
   public redirectPreLogin(): void {
     if (this.lastPath && this.lastPath !== this.loginUrl) {
-      this.router.navigateByUrl(this.lastPath);
+      window.location.href = this.lastPath;
       this.lastPath = '';
     } else {
       this.router.navigate([this.defaultPath]);
+      window.location.href = this.defaultPath;
     }
   }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ApplicationRef, ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CssCustomPropertyService, ProfileCssCustomPropertyService } from '@api';
@@ -49,31 +50,28 @@ export class SettingsComponent {
     private readonly _cssCustomPropertyService: CssCustomPropertyService,
     private readonly _profileCssCustomPropertyService: ProfileCssCustomPropertyService,
     private readonly _router: Router
-  ) {
-
-  }
+  ) { }
 
   public cancel() {
     this._router.navigate(['/','workspace'])
   }
 
   public tryToSave(vm: { form: FormGroup }) {
-    vm.form.value.value = `${vm.form.value.value }rem`;
+    vm.form.value.value = `${vm.form.value.value}rem`;
 
     if(vm.form.value.cssCustomPropertyId) {
-
       this._cssCustomPropertyService.update({
         cssCustomProperty: vm.form.value
       }).subscribe()
 
     } else {
-
-      alert("?")
       this._profileCssCustomPropertyService.create({
         profileCssCustomProperty: {
           cssCustomProperty: vm.form.value
         }
       }).subscribe();
     }
+
+    window.location.href = '/workspace';
   }
 }

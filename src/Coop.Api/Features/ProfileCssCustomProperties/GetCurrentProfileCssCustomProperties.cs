@@ -48,9 +48,9 @@ namespace Coop.Api.Features
                     return new();
                 }
 
-                var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
-
+                
                 var cssCustomProperties = await _context.ProfileCssCustomProperties
+                    .Where(x => x.ProfileId == user.CurrentProfileId)
                     .Include(x => x.CssCustomProperty)
                     .Select(x => x.CssCustomProperty.ToDto())
                     .ToListAsync();
