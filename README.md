@@ -1,2 +1,2 @@
 # Co-op
-## Co-op Management Software
+Co-op Management Software
