@@ -1,10 +1,19 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <button mat-icon-button class="profile__messenger">
-    <mat-icon>
-      mail_outline
-    </mat-icon>
-  </button>
+  <div class="profile__actions">
+    <button mat-icon-button class="profile__actions--settings" (click)="handleSettingsClick()">
+      <mat-icon>
+        settings
+      </mat-icon>
+    </button>
+
+    <button mat-icon-button class="profile__actions--messenger" (click)="handleMessengerClick()">
+      <mat-icon>
+        mail_outline
+      </mat-icon>
+    </button>
+  </div>
+
 
   <app-bento-box>
 

@@ -22,10 +22,10 @@ const routes: Routes = [
       { path: 'board-members', loadChildren: () => import('./board-members/board-members.module').then(m => m.BoardMembersModule) },
       { path: 'staff-members', loadChildren: () => import('./staff-members/staff-members.module').then(m => m.StaffMembersModule) },
       { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-      { path: 'messages', loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule) }
+      { path: 'messages', loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule) },
+      { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) }
     ]
   },
-  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
   { path: 'personalize', loadChildren: () => import('./personalize/personalize.module').then(m => m.PersonalizeModule) }
 ];
 

@@ -26,9 +26,12 @@ export class AppComponent {
         this._htmlElementStyle.setProperty(cssCustomProperties[i].name,cssCustomProperties[i].name);
       }
 
-      for(let i = 0; i < profileCssCustomProperties.length; i++) {
-        this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,cssCustomProperties[i].name);
+      if(profileCssCustomProperties) {
+        for(let i = 0; i < profileCssCustomProperties.length; i++) {
+          this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,cssCustomProperties[i].name);
+        }
       }
+
     }),
     map(([user]) => ({ user }))
   );

@@ -1,18 +1,26 @@
 :host {
-  .profile__messenger {
+  .profile__actions {
     position: absolute;
     top: 60px;
     right: 30px;
-    height: 3.5rem;
-    width: 3.5rem;
-    line-height: 3.5rem;
+    display: flex;
+    gap:0.0625rem;
+    direction: rtl;
 
-    .mat-icon {
-      font-size: 2rem;
+    button {
       height: 3.5rem;
       width: 3.5rem;
       line-height: 3.5rem;
+
+      .mat-icon {
+        font-size: 2rem;
+        height: 3.5rem;
+        width: 3.5rem;
+        line-height: 3.5rem;
+      }
+
     }
+
   }
 
   app-bento-box {

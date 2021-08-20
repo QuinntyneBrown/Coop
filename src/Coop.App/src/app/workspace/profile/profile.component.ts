@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ByLawService, MaintenanceRequestService, NoticeService, ProfileService, ReportService, User } from '@api';
 import { AuthService } from '@core';
 import { CreateAMaintenaceRequestDialogComponent } from '@shared/create-a-maintenace-request-dialog/create-a-maintenace-request-dialog.component';
@@ -58,9 +59,18 @@ export class ProfileComponent implements OnDestroy {
     private readonly _maintenanceRequestService: MaintenanceRequestService,
     private readonly _byLawService: ByLawService,
     private readonly _reportService: ReportService,
-    private readonly _dialog: MatDialog
+    private readonly _dialog: MatDialog,
+    private readonly _router: Router
   ) {
 
+  }
+
+  public handleSettingsClick() {
+    this._router.navigate(['/','workspace','settings']);
+  }
+
+  public handleMessengerClick() {
+    this._router.navigate(['/','workspace','messages']);
   }
 
   public handleCreateClick() {
