@@ -1,9 +1,7 @@
 using Coop.Api.Models;
+using Innofactor.EfCoreJsonValueConverter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Innofactor.EfCoreJsonValueConverter;
 
 namespace Coop.Api.Data
 {

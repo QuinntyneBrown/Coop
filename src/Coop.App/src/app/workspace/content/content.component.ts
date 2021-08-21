@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { JsonContentService } from '@api';
+import { ContentContextService } from './content-context.service';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+  styleUrls: ['./content.component.scss'],
+  providers:[ContentContextService]
 })
 export class ContentComponent {
 

@@ -66,9 +66,7 @@ export class SettingsComponent {
 
     } else {
       this._profileCssCustomPropertyService.create({
-        profileCssCustomProperty: {
-          cssCustomProperty: vm.form.value
-        }
+        profileCssCustomProperty: vm.form.value
       }).subscribe();
     }
 

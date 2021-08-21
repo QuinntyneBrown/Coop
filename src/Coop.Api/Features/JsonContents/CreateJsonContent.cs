@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
-using System.Text.Json;
 
 namespace Coop.Api.Features
 {
@@ -42,12 +41,11 @@ namespace Coop.Api.Features
             {
                 var jsonContent = new JsonContent(request.JsonContent.Json);
 
-                
                 _context.JsonContents.Add(jsonContent);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     JsonContent = jsonContent.ToDto()
                 };
