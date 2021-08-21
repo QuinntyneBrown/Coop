@@ -1,5 +1,7 @@
 export * from './bento-box';
+export * from './elements';
 export * from './footer';
+export * from './logo';
 export * from './shell';
 export * from './common-forms-modules';
 export * from './common-table-modules';

@@ -10,7 +10,7 @@ $App-typography: mat.define-typography-config(
   $title: mat.define-typography-level(1.75rem, 3rem, 400),
   $input: mat.define-typography-level(0.875rem, 1.25, 400),
   $button: mat.define-typography-level(0.875rem, 1.85rem, 500),
-  $subheading-2: mat.define-typography-level(1rem, 32px, 400),
+  $subheading-2: mat.define-typography-level(1rem, 2rem, 400),
   $subheading-1: mat.define-typography-level(1rem, 30px, 400),
   $body-1: mat.define-typography-level(0.875rem, 24px, 400),
   $body-2: mat.define-typography-level(0.875rem, 24px, 600),

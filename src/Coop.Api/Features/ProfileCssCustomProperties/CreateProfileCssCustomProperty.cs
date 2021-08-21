@@ -48,10 +48,7 @@ namespace Coop.Api.Features
 
                 var user = await _context.Users.FindAsync(userId);
 
-                var profileCssCustomProperty = new ProfileCssCustomProperty(
-                    user.CurrentProfileId, 
-                    new(CssCustomPropertyType.Profile, request.ProfileCssCustomProperty.CssCustomProperty.Name, request.ProfileCssCustomProperty.CssCustomProperty.Value)
-                    );
+                var profileCssCustomProperty = new ProfileCssCustomProperty(user.CurrentProfileId, request.ProfileCssCustomProperty.Name, request.ProfileCssCustomProperty.Value);
 
                 _context.ProfileCssCustomProperties.Add(profileCssCustomProperty);
 

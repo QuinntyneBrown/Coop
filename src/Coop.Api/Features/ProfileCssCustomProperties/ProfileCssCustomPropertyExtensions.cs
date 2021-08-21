@@ -1,4 +1,3 @@
-using System;
 using Coop.Api.Models;
 
 namespace Coop.Api.Features
@@ -9,9 +8,12 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                ProfileCssCustomPropertyId = profileCssCustomProperty.ProfileCssCustomPropertyId
+                ProfileCssCustomPropertyId = profileCssCustomProperty.ProfileCssCustomPropertyId,
+                CssCustomPropertyId = profileCssCustomProperty.CssCustomPropertyId,
+                Name = profileCssCustomProperty.Name,
+                Value = profileCssCustomProperty.Value,
+                Type = profileCssCustomProperty.Type
             };
         }
-
     }
 }

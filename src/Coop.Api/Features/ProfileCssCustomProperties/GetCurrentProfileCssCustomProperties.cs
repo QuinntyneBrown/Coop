@@ -17,7 +17,7 @@ namespace Coop.Api.Features
 
         public class Response
         {
-            public List<CssCustomPropertyDto> CssCustomProperties { get; set; }
+            public List<ProfileCssCustomPropertyDto> CssCustomProperties { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -33,7 +33,6 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
                 if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
                     return new();
@@ -48,11 +47,9 @@ namespace Coop.Api.Features
                     return new();
                 }
 
-                
                 var cssCustomProperties = await _context.ProfileCssCustomProperties
                     .Where(x => x.ProfileId == user.CurrentProfileId)
-                    .Include(x => x.CssCustomProperty)
-                    .Select(x => x.CssCustomProperty.ToDto())
+                    .Select(x => x.ToDto())
                     .ToListAsync();
 
                 return new()

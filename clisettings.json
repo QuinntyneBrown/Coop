@@ -47,6 +47,7 @@
     "CssCustomProperty",
     "HtmlContent",
     "ImageContent",
-    "ProfileCssCustomProperty"
+    "ProfileCssCustomProperty",
+    "JsonContent"
   ]
 }

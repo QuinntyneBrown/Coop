@@ -21,7 +21,7 @@ namespace Coop.Api.Models
             Value = value;
         }
 
-        private CssCustomProperty()
+        protected CssCustomProperty()
         {
 
         }

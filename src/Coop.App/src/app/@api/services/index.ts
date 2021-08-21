@@ -6,6 +6,7 @@ export * from './digital-asset.service';
 export * from './document.service';
 export * from './html-content.service';
 export * from './image-content.service';
+export * from './json-content.service';
 export * from './maintenance-request-comment.service';
 export * from './maintenance-request-digital-asset.service';
 export * from './maintenance-request.service';

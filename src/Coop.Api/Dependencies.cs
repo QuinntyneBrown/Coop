@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Coop.Api
 {
@@ -77,7 +78,8 @@ namespace Coop.Api
                 .EnableSensitiveDataLogging();
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
         }
 
         public static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
@@ -91,6 +93,7 @@ namespace Coop.Api
             services.AddSingleton<ITokenProvider, TokenProvider>();
 
             services.AddTransient<ITokenBuilder, TokenBuilder>();
+
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
             {

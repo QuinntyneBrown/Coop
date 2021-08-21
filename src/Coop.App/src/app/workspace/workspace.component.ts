@@ -23,11 +23,14 @@ export class WorkspaceComponent {
 
   public logout() {
     this._authService.logout();
-    this._navigationService.redirectToPublicDefault();
+    this.redirectToPublicDefault();
   }
 
   public hasReadWritePrivileges$(aggregate:string) {
     return this._authService.hasReadWritePrivileges$(aggregate);
   }
 
+  public redirectToPublicDefault() {
+    this._navigationService.redirectToPublicDefault();
+  }
 }
