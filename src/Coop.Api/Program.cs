@@ -28,7 +28,9 @@ namespace Coop.Api
             {
                 var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
 
-                SeedData.Seed(context);
+                var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+
+                SeedData.Seed(context, configuration);
             }
         }
 

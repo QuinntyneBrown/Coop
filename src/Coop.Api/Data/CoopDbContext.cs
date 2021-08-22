@@ -28,6 +28,9 @@ namespace Coop.Api.Data
         public DbSet<ImageContent> ImageContents { get; private set; }
         public DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; private set; }
         public DbSet<JsonContent> JsonContents { get; private set; }
+        public DbSet<JsonContentType> JsonContentTypes { get; private set; }
+        public DbSet<JsonContentModel> JsonContentModels { get; private set; }
+        public DbSet<Fragment> Fragments { get; private set; }
         public CoopDbContext(DbContextOptions options)
             :base(options) { }
 

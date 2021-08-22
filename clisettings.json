@@ -48,6 +48,9 @@
     "HtmlContent",
     "ImageContent",
     "ProfileCssCustomProperty",
-    "JsonContent"
+    "JsonContent",
+    "JsonContentType",
+    "JsonContentModel",
+    "Fragment"
   ]
 }

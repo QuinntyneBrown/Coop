@@ -1,6 +1,11 @@
 using Coop.Api.Core;
 using Coop.Api.Models;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,8 +22,9 @@ namespace Coop.Api.Data
         public const string STAFF_MEMBER_USERNAME = "marie.enns@coop.ca";
         public const string STAFF_MEMBER_AVATAR = "marie.PNG";
         public const string PASSWORD = "password";
+        public const string LOGO = "Logo.jpg";
 
-        public static void Seed(CoopDbContext context)
+        public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
             DigitalAssetConfiguration.Seed(context);
 
@@ -47,6 +53,10 @@ namespace Coop.Api.Data
             CssCustomProperyConfiguration.SeedData(context);
 
             ImageContentConfiguration.SeedData(context);
+
+            JsonContentTypeConfiguration.SeedData(context);
+
+            JsonContentConfiguration.SeedData(context, configuration);
         }
 
         internal static class RoleConfiguration
@@ -382,44 +392,20 @@ namespace Coop.Api.Data
             }
         }
 
-        internal static class HtmlContentConfiguration
-        {
-            public static void SeedData(CoopDbContext context)
-            {
-                var htmlContents = new List<HtmlContent>
-                {
-                    new HtmlContent("Header","Heading","OWN Housing Co-operative"),
-                    new HtmlContent("Header","Subheading","Integrity, Strenghth, Action"),
-                };
-
-                foreach (var htmlContent in htmlContents)
-                {
-                    if (context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name && x.PageName == htmlContent.PageName) == null)
-                    {
-                        context.HtmlContents.Add(htmlContent);
-                    }
-                }
-
-                context.SaveChanges();
-            }
-        }
-
         internal static class ImageContentConfiguration
         {
             public static void SeedData(CoopDbContext context)
             {
-                var logo = "Logo.jpg";
-
-                if (context.DigitalAssets.SingleOrDefault(x => x.Name == logo) == null)
+                if (context.DigitalAssets.SingleOrDefault(x => x.Name == LOGO) == null)
                 {
                     var provider = new FileExtensionContentTypeProvider();
 
-                    provider.TryGetContentType(logo, out string contentType);
+                    provider.TryGetContentType(LOGO, out string contentType);
 
                     var digitalAsset = new DigitalAsset
                     {
-                        Name = logo,
-                        Bytes = StaticFileLocator.Get(logo),
+                        Name = LOGO,
+                        Bytes = StaticFileLocator.Get(LOGO),
                         ContentType = contentType
                     };
 
@@ -446,6 +432,69 @@ namespace Coop.Api.Data
 
                     context.SaveChanges();
                 }
+            }
+        }
+
+        internal static class JsonContentTypeConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
+            {
+                var jsonContentType = new JsonContentType("Hero");
+
+                if (context.JsonContentTypes.SingleOrDefault(x => x.Name == jsonContentType.Name) == null)
+                {
+                    context.JsonContentTypes.Add(jsonContentType);
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        internal static class JsonContentConfiguration
+        {
+            public static void SeedData(CoopDbContext context, IConfiguration configuration)
+            {
+                var jsonContentType = context.JsonContentTypes
+                    .Include(x => x.JsonContents)
+                    .Single(x => x.Name == "Hero");
+
+                if (jsonContentType.JsonContents.SingleOrDefault() == null)
+                {
+                    var logoDigitalAssetId = context.DigitalAssets.Single(x => x.Name == LOGO).DigitalAssetId;
+
+                    var json = JObject.Parse(JsonConvert.SerializeObject(new
+                    {
+                        Heading = "OWN Housing Co-operative",
+                        SubHeading = "Integrity, Strength, Action",
+                        logoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
+                    }));
+
+                    jsonContentType.JsonContents.Add(new (json));
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        internal static class HtmlContentConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
+            {
+                var htmlContents = new List<HtmlContent>
+                {
+                    new HtmlContent("Header","Heading","OWN Housing Co-operative"),
+                    new HtmlContent("Header","Subheading","Integrity, Strenghth, Action"),
+                };
+
+                foreach (var htmlContent in htmlContents)
+                {
+                    if (context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name && x.PageName == htmlContent.PageName) == null)
+                    {
+                        context.HtmlContents.Add(htmlContent);
+                    }
+                }
+
+                context.SaveChanges();
             }
         }
     }
