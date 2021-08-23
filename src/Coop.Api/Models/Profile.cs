@@ -6,7 +6,7 @@ namespace Coop.Api.Models
     public class Profile
     {
         public Guid ProfileId { get; protected set; }
-        public Guid UserId { get; protected set; }
+        public Guid? UserId { get; protected set; }
         public string Firstname { get; protected set; }
         public string Lastname { get; protected set; }
         public Guid AvatarDigitalAssetId { get; protected set; }

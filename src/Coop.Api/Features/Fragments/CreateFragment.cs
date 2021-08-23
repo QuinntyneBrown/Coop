@@ -39,13 +39,13 @@ namespace Coop.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var fragment = new Fragment();
+                var fragment = new Fragment(request.Fragment.Name, new (request.Fragment.HtmlContent.Name, request.Fragment.HtmlContent.Body));
                 
                 _context.Fragments.Add(fragment);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     Fragment = fragment.ToDto()
                 };
