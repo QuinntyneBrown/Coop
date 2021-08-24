@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    [Migration("20210824014153_InitialCreate")]
+    [Migration("20210824035913_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

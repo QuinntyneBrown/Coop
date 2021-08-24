@@ -439,14 +439,16 @@ namespace Coop.Api.Data
         {
             public static void SeedData(CoopDbContext context)
             {
-                var jsonContentType = new JsonContentType("Hero");
-
-                if (context.JsonContentTypes.SingleOrDefault(x => x.Name == jsonContentType.Name) == null)
+                foreach(var jsonContentType in Constants.JsonContentTypes.All.Select(x => new JsonContentType(x)))
                 {
-                    context.JsonContentTypes.Add(jsonContentType);
+                    if (context.JsonContentTypes.SingleOrDefault(x => x.Name == jsonContentType.Name) == null)
+                    {
+                        context.JsonContentTypes.Add(jsonContentType);
 
-                    context.SaveChanges();
+                        context.SaveChanges();
+                    }
                 }
+
             }
         }
 
@@ -454,32 +456,47 @@ namespace Coop.Api.Data
         {
             public static void SeedData(CoopDbContext context, IConfiguration configuration)
             {
-                var jsonContentType = context.JsonContentTypes
-                    .Include(x => x.JsonContents)
-                    .Single(x => x.Name == "Hero");
+                SeedDataHero(context, configuration);
+            }
 
-                if (jsonContentType.JsonContents.SingleOrDefault() == null)
+            public static void SeedDataHero(CoopDbContext context, IConfiguration configuration)
+            {
+                var heroJsonContentType = context.JsonContentTypes
+                    .Include(x => x.JsonContents)
+                    .Single(x => x.Name == Constants.JsonContentTypes.Hero);
+
+                if (heroJsonContentType.JsonContents.SingleOrDefault() == null)
                 {
                     var logoDigitalAssetId = context.DigitalAssets.Single(x => x.Name == LOGO).DigitalAssetId;
-
-                    DefaultContractResolver contractResolver = new DefaultContractResolver
-                    {
-                        NamingStrategy = new CamelCaseNamingStrategy()
-                    };
 
                     var json = JObject.Parse(JsonConvert.SerializeObject(new
                     {
                         Heading = "OWN Housing Co-operative",
                         SubHeading = "Integrity, Strength, Action",
                         LogoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
-                    }, new JsonSerializerSettings
+                    }, Constants.JsonSerializerSettings));
+
+                    heroJsonContentType.JsonContents.Add(new(json));
+
+                    context.SaveChanges();
+                }
+            }
+
+            public static void SeedDataBoardOfDirectors(CoopDbContext context, IConfiguration configuration)
+            {
+                var type = Constants.JsonContentTypes.BoardOfDirectors;
+
+                var jsonContentType = context.JsonContentTypes
+                    .Include(x => x.JsonContents)
+                    .Single(x => x.Name == type);
+
+                if (jsonContentType.JsonContents.SingleOrDefault() == null)
+                {
+                    var json = JObject.Parse(JsonConvert.SerializeObject(new
                     {
-                        ContractResolver = contractResolver,
-                        Formatting = Formatting.Indented
-                    }));
-
-                    jsonContentType.JsonContents.Add(new (json));
-
+                        Text = "The Board of Directors is hard working and dedicated to transparency & solid management protocols."
+                    }, Constants.JsonSerializerSettings));
+                    jsonContentType.JsonContents.Add(new(json));
                     context.SaveChanges();
                 }
             }

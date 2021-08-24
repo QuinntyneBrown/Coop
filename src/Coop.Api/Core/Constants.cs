@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Coop.Api.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Coop.Api.Core
 {
@@ -84,6 +86,23 @@ namespace Coop.Api.Core
                 Message
             };
         }
-    }
 
+
+        public static class JsonContentTypes
+        {
+            public const string Hero = nameof(Hero);
+            public const string BoardOfDirectors = nameof(BoardOfDirectors);
+            public static List<string> All => new() { Hero, BoardOfDirectors };
+        }
+
+        public static JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy(),
+
+            },
+            Formatting = Formatting.Indented
+        };
+    }
 }
