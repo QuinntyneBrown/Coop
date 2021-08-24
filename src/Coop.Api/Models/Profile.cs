@@ -10,7 +10,6 @@ namespace Coop.Api.Models
         public string Firstname { get; protected set; }
         public string Lastname { get; protected set; }
         public Guid AvatarDigitalAssetId { get; protected set; }
-        public Guid PublicAvatarDigitalAssetId { get; protected set; }
         public string PhoneNumber { get; protected set; }
         public User User { get; protected set; }
         public ProfileType Type { get; protected set; }

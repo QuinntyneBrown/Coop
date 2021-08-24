@@ -6,10 +6,15 @@ import { Route } from '@shared';
 const routes: Routes = [
   Route.withShell([
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
-    { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) }
+    { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
+    { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
+    { path: 'rental-interest-and-information', loadChildren: () => import('./rental-interest-and-information/rental-interest-and-information.module').then(m => m.RentalInterestAndInformationModule) },
+    { path: 'on-call-staff', loadChildren: () => import('./on-call-staff/on-call-staff.module').then(m => m.OnCallStaffModule) },
+    { path: 'management', loadChildren: () => import('./management/management.module').then(m => m.ManagementModule) },
+    { path: 'board-of-directors', loadChildren: () => import('./board-of-directors/board-of-directors.module').then(m => m.BoardOfDirectorsModule) }
   ]),
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'workspace', loadChildren: () => import('./workspace/workspace.module').then(m => m.WorkspaceModule), canActivate: [AuthGuard] }
+  { path: 'workspace', loadChildren: () => import('./workspace/workspace.module').then(m => m.WorkspaceModule), canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -1,11 +1,21 @@
 <div class="header__pre-heading-container">
+
+  <div class="header__logo-container">
+    <img class="header__logo" (click)="headerClick()" src="https://localhost:5001/api/digitalasset/serve/53777349-741e-40c4-7bb3-08d9663fa1a0">
+  </div>
+
+  <ul class="header__link-list">
+    <li><a [routerLink]="['/','board-of-directors']">Board of Directors</a></li>
+    <li><a [routerLink]="['/','management']">Management</a></li>
+    <li><a [routerLink]="['/','on-call-staff']">On Call Staff</a></li>
+    <li><a [routerLink]="['/','rental-interest-and-information']">Rental Interest and Information</a></li>
+    <li><a [routerLink]="['/','contact']">Contact</a></li>
+  </ul>
   <a class="header__login" [routerLink]="['/','login']">Login</a>
 </div>
-<div class="header__heading-text">
+<div class="header__heading-text" (click)="headerClick()">
   <div class="header__heading-text-container">
     <h1>{{ heading }}</h1>
     <h2>{{ subHeading }}</h2>
   </div>
 </div>
-
-

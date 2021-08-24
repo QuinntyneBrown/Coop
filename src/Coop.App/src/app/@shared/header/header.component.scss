@@ -2,7 +2,39 @@
   .header__pre-heading-container {
     height: 7.5rem;
     position: relative;
+    padding-top: 1.875rem;
 
+    .header__link-list {
+      padding:0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      text-transform: uppercase;
+      margin: 0 auto;
+      position: relative;
+      gap:30px;
+      width: fit-content;
+      line-height: 100px;
+      cursor: pointer;
+      user-select: none;
+
+      li a {
+        color: #000;
+        text-decoration: none;
+      }
+    }
+
+    .header__logo-container {
+      position: absolute;
+      top: 1.875rem;
+      left: 1.875rem;
+      height: 100px;
+      width: 100px;
+
+      img {
+        height: 100px;
+      }
+    }
     .header__login {
       position: absolute;
       top: 1.875rem;
@@ -12,6 +44,7 @@
       color: #000;
       text-decoration: none;
       font-size: 0.875rem;
+      line-height: 100px;
     }
   }
 
@@ -20,6 +53,8 @@
     place-items: center;
     height: 11.25rem;
     background-color: #4E87B5;
+    user-select: none;
+    cursor: pointer;
 
     h1 {
       color: #fff;

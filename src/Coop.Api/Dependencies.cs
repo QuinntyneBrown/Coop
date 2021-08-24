@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Coop.Api
 {
@@ -65,15 +64,10 @@ namespace Coop.Api
 
             services.AddTransient<ICoopDbContext, CoopDbContext>();
 
-            services.AddTransient<IPasswordHasher, PasswordHasher>();
-
-            services.AddTransient<ITokenBuilder, TokenBuilder>();
-
-            services.AddTransient<ITokenProvider, TokenProvider>();
-
             services.AddDbContext<CoopDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(Coop.Api))
+                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"],
+                    builder => builder.MigrationsAssembly("Coop.Api").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });
@@ -93,7 +87,6 @@ namespace Coop.Api
             services.AddSingleton<ITokenProvider, TokenProvider>();
 
             services.AddTransient<ITokenBuilder, TokenBuilder>();
-
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
             {
