@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    [Migration("20210823140923_InitialCreate")]
+    [Migration("20210824014153_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -376,9 +376,6 @@ namespace Coop.Api.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PublicAvatarDigitalAssetId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");

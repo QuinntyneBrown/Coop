@@ -291,7 +291,6 @@ namespace Coop.Api.Migrations
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarDigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PublicAvatarDigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
