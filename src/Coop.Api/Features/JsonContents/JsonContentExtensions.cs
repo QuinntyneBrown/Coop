@@ -8,12 +8,12 @@ namespace Coop.Api.Features
     {
         public static JsonContentDto ToDto(this JsonContent jsonContent)
         {
-            return new ()
+            return new()
             {
                 JsonContentId = jsonContent.JsonContentId,
                 Json = jsonContent.Json
             };
         }
-        
+
     }
 }

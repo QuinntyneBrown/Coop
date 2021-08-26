@@ -2,9 +2,12 @@
 
   <h2 class="g-page-title">Board of Directors</h2>
 
+  <h3>{{ vm.text }}</h3>
+
   <div *ngFor="let boardMember of vm.boardMembers">
     <h1>{{ boardMember.firstname + ' ' + boardMember.lastname  }}</h1>
     <h2>{{ boardMember.boardTitle  }}</h2>
     <img src="{{ baseUrl }}api/digitalAsset/serve/{{ boardMember.avatarDigitalAssetId }}">
   </div>
+
 </ng-container>

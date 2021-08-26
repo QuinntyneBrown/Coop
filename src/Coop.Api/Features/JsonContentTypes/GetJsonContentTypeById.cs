@@ -10,32 +10,33 @@ namespace Coop.Api.Features
 {
     public class GetJsonContentTypeById
     {
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public Guid JsonContentTypeId { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public JsonContentTypeDto JsonContentType { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-        
+
             public Handler(ICoopDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     JsonContentType = (await _context.JsonContentTypes
                     .Include(x => x.JsonContents)
                     .SingleOrDefaultAsync(x => x.JsonContentTypeId == request.JsonContentTypeId)).ToDto()
                 };
             }
-            
+
         }
     }
 }

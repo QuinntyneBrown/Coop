@@ -18,7 +18,7 @@
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.BoardMember) | async">
-        <a>Board Members</a>
+        <a [routerLink]="['/','workspace','board-members']">Board Members</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async">

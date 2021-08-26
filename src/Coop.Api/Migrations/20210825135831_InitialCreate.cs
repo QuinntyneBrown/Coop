@@ -71,45 +71,6 @@ namespace Coop.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HtmlContents",
-                columns: table => new
-                {
-                    HtmlContentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Component = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HtmlContents", x => x.HtmlContentId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImageContents",
-                columns: table => new
-                {
-                    ImageContentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImageContents", x => x.ImageContentId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JsonContentModels",
-                columns: table => new
-                {
-                    JsonContentModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JsonContentModels", x => x.JsonContentModelId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JsonContentTypes",
                 columns: table => new
                 {
@@ -185,21 +146,21 @@ namespace Coop.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fragments",
+                name: "JsonContents",
                 columns: table => new
                 {
-                    FragmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HtmlContentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    JsonContentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Json = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JsonContentTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fragments", x => x.FragmentId);
+                    table.PrimaryKey("PK_JsonContents", x => x.JsonContentId);
                     table.ForeignKey(
-                        name: "FK_Fragments_HtmlContents_HtmlContentId",
-                        column: x => x.HtmlContentId,
-                        principalTable: "HtmlContents",
-                        principalColumn: "HtmlContentId",
+                        name: "FK_JsonContents_JsonContentTypes_JsonContentTypeId",
+                        column: x => x.JsonContentTypeId,
+                        principalTable: "JsonContentTypes",
+                        principalColumn: "JsonContentTypeId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -336,32 +297,6 @@ namespace Coop.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JsonContents",
-                columns: table => new
-                {
-                    JsonContentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Json = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FragmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    JsonContentTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JsonContents", x => x.JsonContentId);
-                    table.ForeignKey(
-                        name: "FK_JsonContents_Fragments_FragmentId",
-                        column: x => x.FragmentId,
-                        principalTable: "Fragments",
-                        principalColumn: "FragmentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_JsonContents_JsonContentTypes_JsonContentTypeId",
-                        column: x => x.JsonContentTypeId,
-                        principalTable: "JsonContentTypes",
-                        principalColumn: "JsonContentTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ConversationProfile",
                 columns: table => new
                 {
@@ -421,16 +356,6 @@ namespace Coop.Api.Migrations
                 column: "ProfilesProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fragments_HtmlContentId",
-                table: "Fragments",
-                column: "HtmlContentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JsonContents_FragmentId",
-                table: "JsonContents",
-                column: "FragmentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_JsonContents_JsonContentTypeId",
                 table: "JsonContents",
                 column: "JsonContentTypeId");
@@ -483,12 +408,6 @@ namespace Coop.Api.Migrations
                 name: "DigitalAssets");
 
             migrationBuilder.DropTable(
-                name: "ImageContents");
-
-            migrationBuilder.DropTable(
-                name: "JsonContentModels");
-
-            migrationBuilder.DropTable(
                 name: "JsonContents");
 
             migrationBuilder.DropTable(
@@ -513,9 +432,6 @@ namespace Coop.Api.Migrations
                 name: "RoleUser");
 
             migrationBuilder.DropTable(
-                name: "Fragments");
-
-            migrationBuilder.DropTable(
                 name: "JsonContentTypes");
 
             migrationBuilder.DropTable(
@@ -532,9 +448,6 @@ namespace Coop.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "HtmlContents");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -1,4 +1,10 @@
 :host {
   position: relative;
   display: block;
+
+  main {
+    display: block;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
 }

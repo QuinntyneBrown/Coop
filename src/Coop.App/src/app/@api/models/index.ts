@@ -11,6 +11,7 @@ export * from './fragment';
 export * from './html-content';
 export * from './image-content';
 export * from './json-content-model';
+export * from './json-content-type-name';
 export * from './json-content-type';
 export * from './json-content';
 export * from './maintenance-request-comment';

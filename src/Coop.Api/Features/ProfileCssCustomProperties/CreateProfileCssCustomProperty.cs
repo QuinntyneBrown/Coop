@@ -34,7 +34,7 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-            private readonly IHttpContextAccessor _httpContextAccessor; 
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
             public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
             {

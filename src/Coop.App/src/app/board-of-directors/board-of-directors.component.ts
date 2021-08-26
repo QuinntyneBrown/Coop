@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { BoardMemberService, JsonContentTypeService } from '@api';
+import { BoardMemberService, JsonContentTypeName, JsonContentTypeService } from '@api';
 import { baseUrl } from '@core';
-import { map } from 'rxjs/operators';
+import { combineLatest, pipe } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-board-of-directors',
@@ -10,9 +11,9 @@ import { map } from 'rxjs/operators';
 })
 export class BoardOfDirectorsComponent {
 
-  public vm$ = this._boardMemberService.get()
+  public vm$ = combineLatest([this._boardMemberService.get(),this._jsonContentTypeService.getByName({ name: JsonContentTypeName.BoardOfDirectors })])
   .pipe(
-    map(boardMembers => ({ boardMembers }))
+    map(([boardMembers, jsonContentType]) => ({ boardMembers, text: jsonContentType.jsonContent.json.text }))
   );
 
   constructor(

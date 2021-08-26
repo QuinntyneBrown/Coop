@@ -7,7 +7,7 @@ namespace Coop.Api.Features
     {
         public static JsonContentTypeDto ToDto(this JsonContentType jsonContentType)
         {
-            return new ()
+            return new()
             {
                 JsonContentTypeId = jsonContentType.JsonContentTypeId,
                 Name = jsonContentType.Name,
@@ -15,6 +15,6 @@ namespace Coop.Api.Features
                 JsonContent = jsonContentType.JsonContent?.ToDto()
             };
         }
-        
+
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Data
 {
-    public class CoopDbContext: DbContext, ICoopDbContext
+    public class CoopDbContext : DbContext, ICoopDbContext
     {
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; private set; }
         public DbSet<Notice> Notices { get; private set; }
@@ -24,22 +24,17 @@ namespace Coop.Api.Data
         public DbSet<Message> Messages { get; private set; }
         public DbSet<Conversation> Conversations { get; private set; }
         public DbSet<CssCustomProperty> CssCustomProperties { get; private set; }
-        public DbSet<HtmlContent> HtmlContents { get; private set; }
-        public DbSet<ImageContent> ImageContents { get; private set; }
         public DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; private set; }
         public DbSet<JsonContent> JsonContents { get; private set; }
         public DbSet<JsonContentType> JsonContentTypes { get; private set; }
-        public DbSet<JsonContentModel> JsonContentModels { get; private set; }
-        public DbSet<Fragment> Fragments { get; private set; }
         public CoopDbContext(DbContextOptions options)
-            :base(options) { }
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoopDbContext).Assembly);
         }
-        
     }
 }

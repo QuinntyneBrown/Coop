@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    [Migration("20210824035913_InitialCreate")]
+    [Migration("20210825135831_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,72 +163,10 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Document");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Fragment", b =>
-                {
-                    b.Property<Guid>("FragmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("HtmlContentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FragmentId");
-
-                    b.HasIndex("HtmlContentId");
-
-                    b.ToTable("Fragments");
-                });
-
-            modelBuilder.Entity("Coop.Api.Models.HtmlContent", b =>
-                {
-                    b.Property<Guid>("HtmlContentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Component")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HtmlContentId");
-
-                    b.ToTable("HtmlContents");
-                });
-
-            modelBuilder.Entity("Coop.Api.Models.ImageContent", b =>
-                {
-                    b.Property<Guid>("ImageContentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DigitalAssetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ImageContentId");
-
-                    b.ToTable("ImageContents");
-                });
-
             modelBuilder.Entity("Coop.Api.Models.JsonContent", b =>
                 {
                     b.Property<Guid>("JsonContentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("FragmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Json")
@@ -239,22 +177,9 @@ namespace Coop.Api.Migrations
 
                     b.HasKey("JsonContentId");
 
-                    b.HasIndex("FragmentId");
-
                     b.HasIndex("JsonContentTypeId");
 
                     b.ToTable("JsonContents");
-                });
-
-            modelBuilder.Entity("Coop.Api.Models.JsonContentModel", b =>
-                {
-                    b.Property<Guid>("JsonContentModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("JsonContentModelId");
-
-                    b.ToTable("JsonContentModels");
                 });
 
             modelBuilder.Entity("Coop.Api.Models.JsonContentType", b =>
@@ -562,21 +487,8 @@ namespace Coop.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Fragment", b =>
-                {
-                    b.HasOne("Coop.Api.Models.HtmlContent", "HtmlContent")
-                        .WithMany()
-                        .HasForeignKey("HtmlContentId");
-
-                    b.Navigation("HtmlContent");
-                });
-
             modelBuilder.Entity("Coop.Api.Models.JsonContent", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Fragment", null)
-                        .WithMany("JsonContents")
-                        .HasForeignKey("FragmentId");
-
                     b.HasOne("Coop.Api.Models.JsonContentType", null)
                         .WithMany("JsonContents")
                         .HasForeignKey("JsonContentTypeId");
@@ -682,11 +594,6 @@ namespace Coop.Api.Migrations
             modelBuilder.Entity("Coop.Api.Models.Conversation", b =>
                 {
                     b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("Coop.Api.Models.Fragment", b =>
-                {
-                    b.Navigation("JsonContents");
                 });
 
             modelBuilder.Entity("Coop.Api.Models.JsonContentType", b =>

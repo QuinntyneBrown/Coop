@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,11 +47,7 @@ namespace Coop.Api.Data
 
             MainrenanceRequestConfiguration.Seed(context);
 
-            HtmlContentConfiguration.SeedData(context);
-
             CssCustomProperyConfiguration.SeedData(context);
-
-            ImageContentConfiguration.SeedData(context);
 
             JsonContentTypeConfiguration.SeedData(context);
 
@@ -263,12 +258,12 @@ namespace Coop.Api.Data
         {
             internal static void Seed(CoopDbContext context)
             {
+                var provider = new FileExtensionContentTypeProvider();
+
                 foreach (var avatarFile in new string[3] { MEMBER_AVATAR, BOARD_MEMBER_AVATAR, STAFF_MEMBER_AVATAR })
                 {
                     if (context.DigitalAssets.SingleOrDefault(x => x.Name == avatarFile) == null)
                     {
-                        var provider = new FileExtensionContentTypeProvider();
-
                         provider.TryGetContentType(avatarFile, out string contentType);
 
                         var digitalAsset = new DigitalAsset
@@ -282,6 +277,22 @@ namespace Coop.Api.Data
 
                         context.SaveChanges();
                     }
+                }
+
+                if (context.DigitalAssets.SingleOrDefault(x => x.Name == LOGO) == null)
+                {
+                    provider.TryGetContentType(LOGO, out string contentType);
+
+                    var digitalAsset = new DigitalAsset
+                    {
+                        Name = LOGO,
+                        Bytes = StaticFileLocator.Get(LOGO),
+                        ContentType = contentType
+                    };
+
+                    context.DigitalAssets.Add(digitalAsset);
+
+                    context.SaveChanges();
                 }
             }
         }
@@ -392,34 +403,6 @@ namespace Coop.Api.Data
             }
         }
 
-        internal static class ImageContentConfiguration
-        {
-            public static void SeedData(CoopDbContext context)
-            {
-                if (context.DigitalAssets.SingleOrDefault(x => x.Name == LOGO) == null)
-                {
-                    var provider = new FileExtensionContentTypeProvider();
-
-                    provider.TryGetContentType(LOGO, out string contentType);
-
-                    var digitalAsset = new DigitalAsset
-                    {
-                        Name = LOGO,
-                        Bytes = StaticFileLocator.Get(LOGO),
-                        ContentType = contentType
-                    };
-
-                    context.DigitalAssets.Add(digitalAsset);
-
-                    var imageContent = new ImageContent(Constants.Images.Logo, digitalAsset.DigitalAssetId);
-
-                    context.ImageContents.Add(imageContent);
-
-                    context.SaveChanges();
-                }
-            }
-        }
-
         internal static class CssCustomProperyConfiguration
         {
             public static void SeedData(CoopDbContext context)
@@ -439,7 +422,7 @@ namespace Coop.Api.Data
         {
             public static void SeedData(CoopDbContext context)
             {
-                foreach(var jsonContentType in Constants.JsonContentTypes.All.Select(x => new JsonContentType(x)))
+                foreach (var jsonContentType in Constants.JsonContentTypes.All.Select(x => new JsonContentType(x)))
                 {
                     if (context.JsonContentTypes.SingleOrDefault(x => x.Name == jsonContentType.Name) == null)
                     {
@@ -448,7 +431,6 @@ namespace Coop.Api.Data
                         context.SaveChanges();
                     }
                 }
-
             }
         }
 
@@ -457,6 +439,7 @@ namespace Coop.Api.Data
             public static void SeedData(CoopDbContext context, IConfiguration configuration)
             {
                 SeedDataHero(context, configuration);
+                SeedDataBoardOfDirectors(context, configuration);
             }
 
             public static void SeedDataHero(CoopDbContext context, IConfiguration configuration)
@@ -499,28 +482,6 @@ namespace Coop.Api.Data
                     jsonContentType.JsonContents.Add(new(json));
                     context.SaveChanges();
                 }
-            }
-        }
-
-        internal static class HtmlContentConfiguration
-        {
-            public static void SeedData(CoopDbContext context)
-            {
-                var htmlContents = new List<HtmlContent>
-                {
-                    new HtmlContent("Header","Heading","OWN Housing Co-operative"),
-                    new HtmlContent("Header","Subheading","Integrity, Strenghth, Action"),
-                };
-
-                foreach (var htmlContent in htmlContents)
-                {
-                    if (context.HtmlContents.SingleOrDefault(x => x.Name == htmlContent.Name && x.PageName == htmlContent.PageName) == null)
-                    {
-                        context.HtmlContents.Add(htmlContent);
-                    }
-                }
-
-                context.SaveChanges();
             }
         }
     }

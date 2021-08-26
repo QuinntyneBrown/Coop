@@ -45,12 +45,8 @@
     "Message",
     "Conversation",
     "CssCustomProperty",
-    "HtmlContent",
-    "ImageContent",
     "ProfileCssCustomProperty",
     "JsonContent",
-    "JsonContentType",
-    "JsonContentModel",
-    "Fragment"
+    "JsonContentType"
   ]
 }

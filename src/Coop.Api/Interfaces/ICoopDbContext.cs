@@ -25,14 +25,10 @@ namespace Coop.Api.Interfaces
         DbSet<Message> Messages { get; }
         DbSet<Conversation> Conversations { get; }
         DbSet<CssCustomProperty> CssCustomProperties { get; }
-        DbSet<HtmlContent> HtmlContents { get; }
-        DbSet<ImageContent> ImageContents { get; }
         DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; }
         DbSet<JsonContent> JsonContents { get; }
         DbSet<JsonContentType> JsonContentTypes { get; }
-        DbSet<JsonContentModel> JsonContentModels { get; }
-        DbSet<Fragment> Fragments { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

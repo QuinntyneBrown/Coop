@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
@@ -31,14 +31,16 @@ export class BoardMemberListComponent implements OnDestroy {
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
-        'name',
+        'title',
+        'firstname',
+        'lastname',
         'edit'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +52,7 @@ export class BoardMemberListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _boardMemberService: BoardMemberService,
     private readonly _dialog: MatDialog,
@@ -64,12 +66,12 @@ export class BoardMemberListComponent implements OnDestroy {
 
   }
 
-  public delete(boardMember: BoardMember) {    
+  public delete(boardMember: BoardMember) {
     this._boardMemberService.remove({ boardMember }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();
