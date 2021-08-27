@@ -21,6 +21,7 @@ export * from './maintenance-request';
 export * from './member';
 export * from './message';
 export * from './notice';
+export * from './on-call';
 export * from './privilege';
 export * from './profile-css-custom-property';
 export * from './profile-type';

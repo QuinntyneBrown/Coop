@@ -4,11 +4,13 @@ import { BoardMembersRoutingModule } from './board-members-routing.module';
 import { BoardMemberListComponent } from './board-member-list/board-member-list.component';
 import { COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BoardMemberComponent } from './board-member/board-member.component';
 
 
 @NgModule({
   declarations: [
-    BoardMemberListComponent
+    BoardMemberListComponent,
+    BoardMemberComponent
   ],
   imports: [
     CommonModule,

@@ -16,6 +16,7 @@ export * from './maintenance-request.service';
 export * from './member.service';
 export * from './message.service';
 export * from './notice.service';
+export * from './on-call.service';
 export * from './privilege.service';
 export * from './profile-css-custom-property.service';
 export * from './profile.service';

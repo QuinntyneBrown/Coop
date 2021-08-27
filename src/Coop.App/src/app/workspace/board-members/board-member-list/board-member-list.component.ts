@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy, ViewChild } from '@angul
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
 import { BoardMemberService, BoardMember } from '@api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-member-list',
@@ -55,11 +55,12 @@ export class BoardMemberListComponent implements OnDestroy {
 
   constructor(
     private readonly _boardMemberService: BoardMemberService,
-    private readonly _dialog: MatDialog,
+    private readonly _router: Router
   ) { }
 
   public edit(boardMember: BoardMember) {
 
+    this._router.navigate(['/','workspace','board-members','edit', boardMember.profileId]);
   }
 
   public create() {

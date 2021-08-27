@@ -5,12 +5,16 @@ table.g-table.mat-table {
 
   thead[role="rowgroup"] {
     background-color: rgba(0,0,0,0);
+
     .mat-header-row.cdk-header-row {
+      background-color: red;
       background-color: rgba(0,0,0,0);
       display: grid;
+      padding: 0px 20px;
       grid-template-columns:var(--grid-template-columns, 1fr 1fr 40px);
       th {
         background-color: rgba(0,0,0,0);
+        padding:0;
       }
     }
 

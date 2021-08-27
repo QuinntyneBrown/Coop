@@ -9,6 +9,7 @@ namespace Coop.Api.Features
         {
             return new()
             {
+                ProfileId = boardMember.ProfileId,
                 BoardMemberId = boardMember.BoardMemberId,
                 BoardTitle = boardMember.BoardTitle,
                 Firstname = boardMember.Firstname,

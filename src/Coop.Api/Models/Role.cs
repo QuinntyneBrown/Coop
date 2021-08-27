@@ -18,5 +18,14 @@ namespace Coop.Api.Models
         {
 
         }
+
+        public void Deconstruct(
+            out Guid roleId,
+            out string name
+            )
+        {
+            roleId = RoleId;
+            name = Name;
+        }
     }
 }

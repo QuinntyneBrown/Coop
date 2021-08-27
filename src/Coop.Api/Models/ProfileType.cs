@@ -5,6 +5,7 @@
         Member,
         BoardMember,
         StaffMember,
-        Support
+        Support,
+        OnCall
     }
 }
