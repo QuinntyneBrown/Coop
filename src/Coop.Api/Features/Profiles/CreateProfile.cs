@@ -39,7 +39,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profile = new Profile(default, request.Profile.UserId, request.Profile.Firstname, request.Profile.Lastname);
+                var profile = new Profile(default, request.Profile.UserId.Value, request.Profile.Firstname, request.Profile.Lastname);
 
                 _context.Profiles.Add(profile);
 

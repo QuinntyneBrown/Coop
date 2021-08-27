@@ -14,7 +14,7 @@ namespace Coop.Api.Features
     {
         public class Request : IRequest<Response>
         {
-            public Guid BoardMemberId { get; set; }
+            public Guid ProfileId { get; set; }
         }
 
         public class Response : ResponseBase
@@ -31,7 +31,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var boardMember = await _context.BoardMembers.SingleAsync(x => x.BoardMemberId == request.BoardMemberId);
+                var boardMember = await _context.BoardMembers.SingleAsync(x => x.ProfileId == request.ProfileId);
 
                 _context.BoardMembers.Remove(boardMember);
 

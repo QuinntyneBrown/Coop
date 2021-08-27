@@ -10,7 +10,7 @@ import { BentoBoxModule } from '@shared/bento-box';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IdModule } from '@shared/id/id.module';
 import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-asset-upload.module';
-import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     UsersRoutingModule,
     MatDialogModule,
-    DigitalAssetUploadModule
+    DigitalAssetUploadModule,
+    MatTabsModule
   ]
 })
 export class UsersModule { }

@@ -68,28 +68,61 @@
 
     <a class="g-link" [routerLink]="['/','workspace','users']">Users</a>
 
-    <h3>Roles</h3>
 
-    <ul class="g-list">
-      <li *ngFor="let role of roles" (click)="handleRoleClick(vm.user,role)">
-        <mat-icon *ngIf="has(vm.user,role)">radio_button_checked</mat-icon>
-        <mat-icon *ngIf="!has(vm.user,role)">radio_button_unchecked</mat-icon>
-        <a>{{ role }}</a>
-      </li>
-    </ul>
+    <mat-tab-group>
 
-    <h3>Change Password</h3>
+      <mat-tab label="Roles">
+        <h3>Roles</h3>
 
-    <form>
-      <mat-form-field appearance="outline" class="g-form-field">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder='Pasword' required>
-      </mat-form-field>
-    </form>
+        <ul class="g-list">
+          <li *ngFor="let role of roles" (click)="handleRoleClick(vm.user,role)">
+            <mat-icon *ngIf="has(vm.user,role)">radio_button_checked</mat-icon>
+            <mat-icon *ngIf="!has(vm.user,role)">radio_button_unchecked</mat-icon>
+            <a>{{ role }}</a>
+          </li>
+        </ul>
 
-    <div class="g-actions">
-      <button mat-stroked-button class="g-button" (click)="tryToSave()">Save</button>
-    </div>
+      </mat-tab>
+
+      <mat-tab label="Username">
+        <h3>Change Username</h3>
+
+        <form [formGroup]="vm.form">
+          <mat-form-field appearance="outline" class="g-form-field">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder='Username' formControlName="username" required>
+          </mat-form-field>
+        </form>
+
+        <div class="g-actions">
+          <button mat-stroked-button>
+            Cancel
+          </button>
+          <button mat-stroked-button class="g-button" (click)="tryToSaveUsername(vm)">
+            Save
+          </button>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Password">
+
+        <h3>Change Password</h3>
+
+        <form>
+          <mat-form-field appearance="outline" class="g-form-field">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder='Pasword' required>
+          </mat-form-field>
+        </form>
+
+        <div class="g-actions">
+          <button mat-stroked-button class="g-button" (click)="tryToSave()">Save</button>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+
+
   </ng-container>
 
 

@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <table mat-table [dataSource]="vm.dataSource" class="g-table" style="--grid-template-columns: 1fr 2fr 2fr 48px">
+  <table mat-table [dataSource]="vm.dataSource" class="g-table" style="--grid-template-columns: 1fr 2fr 2fr 48px 48px">
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -32,6 +32,15 @@
           </button>
         </td>
     </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let boardMember">
+        <button mat-icon-button (click)="delete(boardMember)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+  </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="vm.columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let data; columns: vm.columnsToDisplay"></tr>

@@ -58,6 +58,7 @@ export class UserComponent {
     map(user => {
 
       const form = new FormGroup({
+        userId: new FormControl(user?.userId,[Validators.required]),
         username: new FormControl(user?.username,[Validators.required])
       });
 
@@ -79,6 +80,10 @@ export class UserComponent {
 
   public roles$ = this._roleService.get();
 
+  public tryToSaveUsername(vm) {
+    this._userService.update({ user: vm.form.value })
+    .subscribe();
+  }
   public tryToSave() {
     let user = this.userForm.value;
     user.roles = [{ roleId: this.roleControl.value}];

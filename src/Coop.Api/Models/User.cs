@@ -68,5 +68,12 @@ namespace Coop.Api.Models
 
             return this;
         }
+
+        public User SetUsername(string username)
+        {
+            Username = username;
+
+            return this;
+        }
     }
 }

@@ -13,9 +13,23 @@ namespace Coop.Api.Models
             BoardTitle = boardTitle;
         }
 
+        public BoardMember(string boardTitle, string firstname, string lastname, Guid avatarDigitalAssetId)
+            : base(ProfileType.BoardMember,firstname, lastname, avatarDigitalAssetId)
+        {
+            BoardTitle = boardTitle;
+        }
+
         private BoardMember()
         {
 
+        }
+
+        public void Update(string title, string firstname, string lastname, Guid avatarDigitalAssetId)
+        {
+            BoardTitle = title;
+            Firstname = firstname;
+            Lastname = lastname;
+            AvatarDigitalAssetId = avatarDigitalAssetId;
         }
     }
 }

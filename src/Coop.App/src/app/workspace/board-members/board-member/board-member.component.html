@@ -1,12 +1,34 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  {{ vm | json}}
-  <!-- <app-bento-box>
+  <h2 *ngIf="vm.boardMember">Edit Board Member: {{ vm.boardMember.firstname + ' ' + vm.boardMember.lastname }}</h2>
 
-    <app-id main [heading1]="vm.user?.username" [formControl]="vm.formControl">
+  <h2 *ngIf="!vm.boardMember">Create Board Member</h2>
 
-    </app-id>
+  <form [formGroup]="vm.form">
 
-  </app-bento-box> -->
+    <app-digital-asset-upload formControlName="avatarDigitalAssetId"></app-digital-asset-upload>
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="boardTitle">
+    </mat-form-field>
 
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Firstname</mat-label>
+      <input matInput formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Lastname</mat-label>
+      <input matInput formControlName="lastname">
+    </mat-form-field>
+  </form>
+
+  <div class="g-actions">
+    <button mat-stroked-button (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-raised-button (click)="save(vm)">
+      Save
+    </button>
+  </div>
 </ng-container>

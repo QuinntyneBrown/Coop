@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Coop.Api.Models;
 
 namespace Coop.Api.Features
 {
@@ -39,11 +40,13 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var boardMember = await _context.BoardMembers.SingleAsync(x => x.BoardMemberId == request.BoardMember.BoardMemberId);
+                var boardMember = await _context.BoardMembers.SingleAsync(x => x.ProfileId == request.BoardMember.ProfileId);
+
+                boardMember.Update(request.BoardMember.BoardTitle, request.BoardMember.Firstname, request.BoardMember.Lastname, request.BoardMember.AvatarDigitalAssetId);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     BoardMember = boardMember.ToDto()
                 };

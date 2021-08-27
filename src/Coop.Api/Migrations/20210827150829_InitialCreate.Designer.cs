@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    [Migration("20210825135831_InitialCreate")]
+    [Migration("20210827150829_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,6 +439,16 @@ namespace Coop.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasDiscriminator().HasValue("Member");
+                });
+
+            modelBuilder.Entity("Coop.Api.Models.OnCall", b =>
+                {
+                    b.HasBaseType("Coop.Api.Models.Profile");
+
+                    b.Property<Guid>("OnCallId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasDiscriminator().HasValue("OnCall");
                 });
 
             modelBuilder.Entity("Coop.Api.Models.StaffMember", b =>

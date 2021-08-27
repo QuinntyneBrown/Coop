@@ -4,10 +4,14 @@
 
   <h3>{{ vm.text }}</h3>
 
-  <div *ngFor="let boardMember of vm.boardMembers">
-    <h1>{{ boardMember.firstname + ' ' + boardMember.lastname  }}</h1>
-    <h2>{{ boardMember.boardTitle  }}</h2>
-    <img src="{{ baseUrl }}api/digitalAsset/serve/{{ boardMember.avatarDigitalAssetId }}">
+  <div class="board__grid">
+    <div *ngFor="let boardMember of vm.boardMembers" class="board__card">
+      <div class="board__card__image" style="{{ 'background-image: url(' + baseUrl + 'api/digitalAsset/serve/' + boardMember.avatarDigitalAssetId + ');' }}">
+      </div>
+      <h2>{{ boardMember.firstname + ' ' + boardMember.lastname  }}</h2>
+      <h3>{{ boardMember.boardTitle  }}</h3>
+    </div>
   </div>
+
 
 </ng-container>

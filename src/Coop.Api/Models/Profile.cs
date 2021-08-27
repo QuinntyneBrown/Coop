@@ -23,6 +23,14 @@ namespace Coop.Api.Models
             Lastname = lastname;
         }
 
+        public Profile(ProfileType type, string firstname, string lastname, Guid avatarDigitalAssetId)
+        {
+            Type = type;
+            Firstname = firstname;
+            Lastname = lastname;
+            AvatarDigitalAssetId = avatarDigitalAssetId;
+        }
+
         protected Profile()
         {
 

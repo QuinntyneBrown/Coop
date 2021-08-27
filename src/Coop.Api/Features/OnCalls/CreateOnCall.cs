@@ -39,7 +39,7 @@ namespace Coop.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var onCall = new OnCall(request.OnCall.UserId, request.OnCall.Firstname, request.OnCall.Lastname);
+                var onCall = new OnCall(request.OnCall.UserId.Value, request.OnCall.Firstname, request.OnCall.Lastname);
                 
                 _context.OnCalls.Add(onCall);
                 

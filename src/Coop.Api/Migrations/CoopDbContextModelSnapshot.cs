@@ -439,6 +439,16 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("Member");
                 });
 
+            modelBuilder.Entity("Coop.Api.Models.OnCall", b =>
+                {
+                    b.HasBaseType("Coop.Api.Models.Profile");
+
+                    b.Property<Guid>("OnCallId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasDiscriminator().HasValue("OnCall");
+                });
+
             modelBuilder.Entity("Coop.Api.Models.StaffMember", b =>
                 {
                     b.HasBaseType("Coop.Api.Models.Profile");

@@ -258,6 +258,7 @@ namespace Coop.Api.Migrations
                     BoardMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     BoardTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OnCallId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     StaffMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

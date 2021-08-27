@@ -41,6 +41,8 @@ namespace Coop.Api.Features
             {
                 var user = await _context.Users.SingleAsync(x => x.UserId == request.User.UserId);
 
+                user.SetUsername(request.User.Username);
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new()
