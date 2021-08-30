@@ -1,7 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Coop.Api\Coop.Api.csproj" />
+    <ProjectReference Include="..\..\src\Coop.Core\Coop.Core.csproj" />
+    <ProjectReference Include="..\..\src\Coop.Domain\Coop.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.8" />
+    <PackageReference Include="Moq" Version="4.15.2" />
+    <PackageReference Include="Respawn" Version="3.3.0" />
+    <PackageReference Include="XUnit.Abstractions" Version="2.0.3" />
+  </ItemGroup>
 
 </Project>
