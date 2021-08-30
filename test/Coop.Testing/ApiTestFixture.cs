@@ -27,7 +27,6 @@ namespace Coop.Testing
 
             builder.ConfigureServices(services =>
             {
-
                 var serviceProvider = services.BuildServiceProvider();
 
                 using (var scope = serviceProvider.CreateScope())
