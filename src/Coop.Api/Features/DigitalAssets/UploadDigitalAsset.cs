@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -81,6 +82,12 @@ namespace Coop.Api.Features
 
                                 digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
                                 digitalAsset.ContentType = section.ContentType;
+                            }
+
+                            using (var image = Image.FromStream(new MemoryStream(digitalAsset.Bytes)))
+                            {
+                                digitalAsset.Height = image.PhysicalDimension.Height;
+                                digitalAsset.Width = image.PhysicalDimension.Width;
                             }
                         }
                     }

@@ -23,14 +23,14 @@ export class AppComponent {
   .pipe(
     tap(([_, cssCustomProperties, profileCssCustomProperties]) => {
       for(let i = 0; i < cssCustomProperties.length; i++) {
-        this._htmlElementStyle.setProperty(cssCustomProperties[i].name,"2rem");
+        this._htmlElementStyle.setProperty(cssCustomProperties[i].name, cssCustomProperties[i].value);
       }
 
-      // if(profileCssCustomProperties?.length > 0) {
-      //   for(let i = 0; i < profileCssCustomProperties.length; i++) {
-      //     this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,profileCssCustomProperties[i].value);
-      //   }
-      // }
+      if(profileCssCustomProperties?.length > 0) {
+        for(let i = 0; i < profileCssCustomProperties.length; i++) {
+          this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,profileCssCustomProperties[i].value);
+        }
+      }
 
     }),
     map(([user]) => ({ user }))

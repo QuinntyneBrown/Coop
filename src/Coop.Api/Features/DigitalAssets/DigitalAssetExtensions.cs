@@ -11,7 +11,9 @@ namespace Coop.Api.Features
                 DigitalAssetId = digitalAsset.DigitalAssetId,
                 Bytes = digitalAsset.Bytes,
                 ContentType = digitalAsset.ContentType,
-                Name = digitalAsset.Name
+                Name = digitalAsset.Name,
+                Height = digitalAsset.Height,
+                Width = digitalAsset.Width
             };
         }
 

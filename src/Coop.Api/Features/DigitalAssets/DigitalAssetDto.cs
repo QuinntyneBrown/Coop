@@ -8,5 +8,7 @@ namespace Coop.Api.Features
         public string Name { get; set; }
         public byte[] Bytes { get; set; }
         public string ContentType { get; set; }
+        public float Height { get; set; }
+        public float Width { get; set; }
     }
 }
