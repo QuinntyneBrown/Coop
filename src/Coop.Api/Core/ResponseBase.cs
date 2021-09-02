@@ -4,6 +4,6 @@ namespace Coop.Api.Core
 {
     public class ResponseBase
     {
-        public List<string> Errors { get; set; }
+        public List<string> Errors { get; set; } = new();
     }
 }
