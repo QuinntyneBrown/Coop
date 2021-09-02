@@ -1,4 +1,3 @@
-
 using Coop.Api;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
