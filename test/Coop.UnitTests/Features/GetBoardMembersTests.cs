@@ -30,7 +30,7 @@ namespace Coop.UnitTests.Features
 
             var context = container.GetService<ICoopDbContext>();
 
-            context.BoardMembers.Add(new("President", "Quinntyne", "Brown", Guid.NewGuid()));
+            context.BoardMembers.Add(new Api.Models.BoardMember("President", "Quinntyne", "Brown"));
 
             await context.SaveChangesAsync(default);
 

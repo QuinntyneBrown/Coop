@@ -13,7 +13,7 @@ namespace Coop.Api.Models
             BoardTitle = boardTitle;
         }
 
-        public BoardMember(string boardTitle, string firstname, string lastname, Guid avatarDigitalAssetId)
+        public BoardMember(string boardTitle, string firstname, string lastname, Guid? avatarDigitalAssetId = null)
             : base(ProfileType.BoardMember,firstname, lastname, avatarDigitalAssetId)
         {
             BoardTitle = boardTitle;
@@ -24,7 +24,7 @@ namespace Coop.Api.Models
 
         }
 
-        public void Update(string title, string firstname, string lastname, Guid avatarDigitalAssetId)
+        public void Update(string title, string firstname, string lastname, Guid? avatarDigitalAssetId)
         {
             BoardTitle = title;
             Firstname = firstname;

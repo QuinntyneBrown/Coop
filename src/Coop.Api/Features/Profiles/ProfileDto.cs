@@ -10,7 +10,7 @@ namespace Coop.Api.Features
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string PhoneNumber { get; set; }
-        public Guid AvatarDigitalAssetId { get; set; }
+        public Guid? AvatarDigitalAssetId { get; set; }
         public virtual ProfileType Type { get; set; }
     }
 }

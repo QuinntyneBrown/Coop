@@ -9,7 +9,7 @@ namespace Coop.Api.Models
         public Guid? UserId { get; protected set; }
         public string Firstname { get; protected set; }
         public string Lastname { get; protected set; }
-        public Guid AvatarDigitalAssetId { get; protected set; }
+        public Guid? AvatarDigitalAssetId { get; protected set; }
         public string PhoneNumber { get; protected set; }
         public User User { get; protected set; }
         public ProfileType Type { get; protected set; }
@@ -23,7 +23,7 @@ namespace Coop.Api.Models
             Lastname = lastname;
         }
 
-        public Profile(ProfileType type, string firstname, string lastname, Guid avatarDigitalAssetId)
+        public Profile(ProfileType type, string firstname, string lastname, Guid? avatarDigitalAssetId)
         {
             Type = type;
             Firstname = firstname;
@@ -31,12 +31,19 @@ namespace Coop.Api.Models
             AvatarDigitalAssetId = avatarDigitalAssetId;
         }
 
+        public Profile(ProfileType type, string firstname, string lastname)
+        {
+            Type = type;
+            Firstname = firstname;
+            Lastname = lastname;
+        }
+
         protected Profile()
         {
 
         }
 
-        public Profile SetAvatar(Guid digitalAssetId)
+        public Profile SetAvatar(Guid? digitalAssetId)
         {
             AvatarDigitalAssetId = digitalAssetId;
             return this;
