@@ -22,7 +22,6 @@ namespace Coop.Testing
                 .Returns(new HttpContextBuilder()
                 .WithUser(null)
                 .Build());
-
         }
 
         public HttpContextAccessorBuilder WithUser(User user)

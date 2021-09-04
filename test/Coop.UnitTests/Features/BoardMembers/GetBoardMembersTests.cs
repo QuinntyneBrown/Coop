@@ -14,12 +14,10 @@ namespace Coop.UnitTests.Features
         {
             var expectedResult = 1;
 
-            var context = new CoopDbContextBuilder()
-                .UseInMemoryDatabase()
-                .Build();
+            var context = CoopDbContextFactory.Create();
 
             var container = _serviceCollection
-                .AddSingleton<ICoopDbContext>(context)
+                .AddSingleton(context)
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();
 

@@ -14,12 +14,10 @@ namespace Coop.UnitTests
         [Fact]
         public async Task ShouldGetNullUser()
         {
-            var context = new CoopDbContextBuilder()
-                .UseInMemoryDatabase()
-                .Build();
+            var context = CoopDbContextFactory.Create();
 
             var container = _serviceCollection
-                .AddSingleton<ICoopDbContext>(context)
+                .AddSingleton(context)
                 .AddHttpContextAccessor()
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();
@@ -36,18 +34,16 @@ namespace Coop.UnitTests
         {
             var expectedUserName = "Quinntyne";
 
-            var context = new CoopDbContextBuilder()
-                .UseInMemoryDatabase()
-                .Build();
+            var context = CoopDbContextFactory.Create();
 
             var user = new User(expectedUserName, "password", new PasswordHasher());
 
             context.Users.Add(user);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync(default);
 
             var container = _serviceCollection
-                .AddSingleton<ICoopDbContext>(context)
+                .AddSingleton(context)
                 .AddHttpContextAccessor(user)
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();

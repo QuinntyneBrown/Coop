@@ -26,15 +26,13 @@ namespace Coop.UnitTests
 
             var expectedUserName = "Quinntyne";
 
-            var context = new CoopDbContextBuilder()
-                .UseInMemoryDatabase()
-                .Build();
+            var context = CoopDbContextFactory.Create();
 
             var user = new User(expectedUserName, "password", new PasswordHasher());
 
             context.Users.Add(user);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync(default);
 
             var container = _serviceCollection
                 .AddAuthorizationService()
@@ -59,9 +57,7 @@ namespace Coop.UnitTests
 
             var expectedUserName = "Quinntyne";
 
-            var context = new CoopDbContextBuilder()
-                .UseInMemoryDatabase()
-                .Build();
+            var context = CoopDbContextFactory.Create();
 
             var privilege = new Privilege(AccessRight.Create, nameof(User));
 
@@ -73,9 +69,9 @@ namespace Coop.UnitTests
 
             user.Roles.Add(role);
 
-            context.Add(user);
+            context.Users.Add(user);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync(default);
 
             var container = _serviceCollection
                 .AddAuthorizationService()
