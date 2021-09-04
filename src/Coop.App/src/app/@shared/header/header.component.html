@@ -1,11 +1,6 @@
 <ng-container *ngIf="vm$ | async as vm">
 
   <div class="header__pre-heading-container">
-
-    <div class="header__logo-container">
-      <img class="header__logo" (click)="headerClick()" [src]="vm.logoUrl">
-    </div>
-
     <ul class="header__link-list">
       <li><a [routerLink]="['/','board-of-directors']">Board of Directors</a></li>
       <li><a [routerLink]="['/','management']">Management</a></li>
@@ -15,10 +10,17 @@
     </ul>
     <a class="header__login" [routerLink]="['/','login']">Login</a>
   </div>
-  <div class="header__heading-text" (click)="headerClick()">
-    <div class="header__heading-text-container">
-      <h1>{{ vm.heading }}</h1>
-      <h2>{{ vm.subHeading }}</h2>
+  <div class="header__logo-and-text-container" (click)="headerClick()">
+    <div class="header__logo-and-text">
+      <div class="header__logo-container">
+        <img class="header__logo" (click)="headerClick()" [src]="vm.logoUrl">
+      </div>
+
+      <div class="header__heading-text-container">
+        <h1>{{ vm.heading }}</h1>
+        <h2>{{ vm.subHeading }}</h2>
+      </div>
     </div>
+
   </div>
 </ng-container>

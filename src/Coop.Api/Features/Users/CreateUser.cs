@@ -39,7 +39,6 @@ namespace Coop.Api.Features
 
             public Handler(ICoopDbContext context, IPasswordHasher passwordHasher)
             {
-
                 _context = context;
                 _passwordHasher = passwordHasher;
             }
