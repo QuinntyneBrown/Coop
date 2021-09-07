@@ -37,7 +37,7 @@ namespace Coop.UnitTests
             var container = _serviceCollection
                 .AddAuthorizationService()
                 .AddHttpContextAccessor(user)
-                .AddSingleton<ResourceOperationAuthorizationBehavior<Request,ResponseBase>>()
+                .AddSingleton<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>()
                 .BuildServiceProvider();
 
             var sut = container.GetRequiredService<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>();

@@ -28,11 +28,11 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new()
-                {
-                    JsonContentType = (await _context.JsonContentTypes
+            {
+                JsonContentType = (await _context.JsonContentTypes
                     .Include(x => x.JsonContents)
                     .SingleOrDefaultAsync(x => x.Name.ToLower() == request.Name.ToLower())).ToDto()
-                };
+            };
         }
     }
 }

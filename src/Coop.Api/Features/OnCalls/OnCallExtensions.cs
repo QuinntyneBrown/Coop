@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static OnCallDto ToDto(this OnCall onCall)
         {
-            return new ()
+            return new()
             {
                 OnCallId = onCall.OnCallId
             };
         }
-        
+
     }
 }

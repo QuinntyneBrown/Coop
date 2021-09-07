@@ -8,7 +8,7 @@ namespace Coop.Testing.Builders
 
         public static BoardMember WithDefaults()
         {
-            return new BoardMember("","","");
+            return new BoardMember("", "", "");
         }
 
         public BoardMemberBuilder()

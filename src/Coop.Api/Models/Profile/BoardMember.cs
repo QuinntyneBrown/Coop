@@ -14,7 +14,7 @@ namespace Coop.Api.Models
         }
 
         public BoardMember(string boardTitle, string firstname, string lastname, Guid? avatarDigitalAssetId = null)
-            : base(ProfileType.BoardMember,firstname, lastname, avatarDigitalAssetId)
+            : base(ProfileType.BoardMember, firstname, lastname, avatarDigitalAssetId)
         {
             BoardTitle = boardTitle;
         }

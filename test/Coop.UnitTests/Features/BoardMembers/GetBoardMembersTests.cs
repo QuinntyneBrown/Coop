@@ -7,7 +7,7 @@ using static Coop.Api.Features.GetBoardMembers;
 
 namespace Coop.UnitTests.Features
 {
-    public class GetBoardMembersTests: TestBase
+    public class GetBoardMembersTests : TestBase
     {
         [Fact]
         public async Task ShouldGetBoardMembers()
@@ -21,7 +21,7 @@ namespace Coop.UnitTests.Features
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();
 
-            context.BoardMembers.Add(new ("President", "Quinntyne", "Brown"));
+            context.BoardMembers.Add(new("President", "Quinntyne", "Brown"));
 
             await context.SaveChangesAsync(default);
 

@@ -4,7 +4,7 @@ using System;
 
 namespace Coop.IntegrationTests
 {
-    public class UserControllerTests: IClassFixture<ApiTestFixture>
+    public class UserControllerTests : IClassFixture<ApiTestFixture>
     {
     }
 

@@ -30,6 +30,6 @@ namespace Coop.Api.Interfaces
         DbSet<JsonContentType> JsonContentTypes { get; }
         DbSet<OnCall> OnCalls { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

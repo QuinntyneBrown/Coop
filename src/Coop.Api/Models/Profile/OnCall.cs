@@ -2,7 +2,7 @@ using System;
 
 namespace Coop.Api.Models
 {
-    public class OnCall: Profile
+    public class OnCall : Profile
     {
         public Guid OnCallId { get; set; }
 
