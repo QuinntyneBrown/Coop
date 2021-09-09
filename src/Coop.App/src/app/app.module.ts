@@ -6,9 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { baseUrl, HeadersInterceptor, JwtInterceptor } from '@core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ShellModule } from '@shared';
-import { registerBoardMember } from '@shared';
 
-registerBoardMember();
 
 @NgModule({
   declarations: [
@@ -34,7 +32,6 @@ registerBoardMember();
       multi: true
     }
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

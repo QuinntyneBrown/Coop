@@ -1,5 +1,4 @@
 export * from './bento-box';
-export * from './elements';
 export * from './footer';
 export * from './logo';
 export * from './shell';
