@@ -6,7 +6,6 @@
 
     .header__link-list {
       padding:0;
-      margin: 0;
       list-style: none;
       display: flex;
       text-transform: uppercase;
@@ -16,7 +15,7 @@
       line-height: 100px;
       cursor: pointer;
       user-select: none;
-      margin-left: 1.875rem;
+      margin: 0 auto;
       li a {
         color: #000;
         text-decoration: none;
@@ -39,6 +38,10 @@
 
   .header__logo-and-text-container {
     background-color: #4E87B5;
+    height: 14rem;
+    display: block;
+    display: grid;
+    place-items: center;
 
     .header__logo-container {
       display: grid;
