@@ -1,6 +1,4 @@
-using System;
 using Coop.Api.Models;
-using Newtonsoft.Json;
 
 namespace Coop.Api.Features
 {
@@ -10,10 +8,10 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                JsonContentId = jsonContent.JsonContentId,
-                Json = jsonContent.Json
+                JsonContentId = jsonContent?.JsonContentId,
+                Name = jsonContent?.Name,
+                Json = jsonContent?.Json
             };
         }
-
     }
 }

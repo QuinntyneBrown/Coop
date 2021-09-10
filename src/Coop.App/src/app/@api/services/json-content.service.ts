@@ -35,6 +35,13 @@ export class JsonContentService implements IPagableService<JsonContent> {
       );
   }
 
+  public getByName(options: { name: string }): Observable<JsonContent> {
+    return this._client.get<{ jsonContent: JsonContent }>(`${this._baseUrl}api/jsonContent/name/${options.name}`)
+      .pipe(
+        map(x => x.jsonContent)
+      );
+  }
+
   public remove(options: { jsonContent: JsonContent }): Observable<void> {
     return this._client.delete<void>(`${this._baseUrl}api/jsonContent/${options.jsonContent.jsonContentId}`);
   }
@@ -42,7 +49,7 @@ export class JsonContentService implements IPagableService<JsonContent> {
   public create(options: { jsonContent: JsonContent }): Observable<{ jsonContent: JsonContent }> {
     return this._client.post<{ jsonContent: JsonContent }>(`${this._baseUrl}api/jsonContent`, { jsonContent: options.jsonContent });
   }
-  
+
   public update(options: { jsonContent: JsonContent }): Observable<{ jsonContent: JsonContent }> {
     return this._client.put<{ jsonContent: JsonContent }>(`${this._baseUrl}api/jsonContent`, { jsonContent: options.jsonContent });
   }

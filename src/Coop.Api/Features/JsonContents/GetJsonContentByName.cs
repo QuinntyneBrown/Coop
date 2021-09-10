@@ -1,28 +1,18 @@
-using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Features
 {
-    public class CreateJsonContent
+    public class GetJsonContentByName
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.JsonContent).NotNull();
-                RuleFor(request => request.JsonContent).SetValidator(new JsonContentValidator());
-            }
-
-        }
-
         public class Request : IRequest<Response>
         {
-            public JsonContentDto JsonContent { get; set; }
+            public string Name { get; set; }
         }
 
         public class Response : ResponseBase
@@ -39,15 +29,9 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var jsonContent = new JsonContent(request.JsonContent.Name, request.JsonContent.Json);
-
-                _context.JsonContents.Add(jsonContent);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
                 return new()
                 {
-                    JsonContent = jsonContent.ToDto()
+                    JsonContent = (await _context.JsonContents.SingleOrDefaultAsync(x => x.Name == request.Name)).ToDto()
                 };
             }
 

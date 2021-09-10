@@ -7,8 +7,15 @@ namespace Coop.Api.Models
     {
         public Guid JsonContentId { get; private set; }
         public JObject Json { get; private set; }
+        public string Name { get; private set; }
         public JsonContent(JObject json)
         {
+            Json = json;
+        }
+
+        public JsonContent(string name, JObject json)
+        {
+            Name = name;
             Json = json;
         }
 

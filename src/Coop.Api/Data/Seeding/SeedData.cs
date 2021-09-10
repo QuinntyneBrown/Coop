@@ -22,6 +22,8 @@ namespace Coop.Api.Data
         public const string STAFF_MEMBER_AVATAR = "marie.PNG";
         public const string PASSWORD = "password";
         public const string LOGO = "Logo.jpg";
+        public const string BUILDING = "Building.jpg";
+        public const string DOORS = "Doors.jpg";
 
         public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
@@ -294,6 +296,26 @@ namespace Coop.Api.Data
 
                     context.SaveChanges();
                 }
+
+                foreach (var name in new string[2] { BUILDING, DOORS })
+                {
+                    if (context.DigitalAssets.SingleOrDefault(x => x.Name == name) == null)
+                    {
+                        provider.TryGetContentType(name, out string contentType);
+
+                        var digitalAsset = new DigitalAsset
+                        {
+                            Name = name,
+                            Bytes = StaticFileLocator.Get(name),
+                            ContentType = contentType
+                        };
+
+                        context.DigitalAssets.Add(digitalAsset);
+
+                        context.SaveChanges();
+                    }
+                }
+
             }
         }
 

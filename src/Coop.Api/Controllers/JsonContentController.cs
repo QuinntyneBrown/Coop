@@ -32,6 +32,23 @@ namespace Coop.Api.Controllers
             return response;
         }
 
+        [HttpGet("name/{name}", Name = "GetJsonContentByNameRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetJsonContentByName.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetJsonContentByName.Response>> GetByName([FromRoute] GetJsonContentByName.Request request)
+        {
+            var response = await _mediator.Send(request);
+
+            if (response.JsonContent == null)
+            {
+                return new NotFoundObjectResult(request.Name);
+            }
+
+            return response;
+        }
+
         [HttpGet(Name = "GetJsonContentsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

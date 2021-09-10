@@ -12,6 +12,8 @@
     <None Remove="Data\Seeding\Documents\ByLaw.pdf" />
     <None Remove="Data\Seeding\Documents\Notice.pdf" />
     <None Remove="Data\Seeding\Documents\Report.pdf" />
+    <None Remove="Data\Seeding\Images\Building.jpg" />
+    <None Remove="Data\Seeding\Images\Doors.jpg" />
     <None Remove="Data\Seeding\Images\Logo.jpg" />
   </ItemGroup>
 
@@ -23,6 +25,8 @@
     <EmbeddedResource Include="Data\Seeding\Documents\ByLaw.pdf" />
     <EmbeddedResource Include="Data\Seeding\Documents\Notice.pdf" />
     <EmbeddedResource Include="Data\Seeding\Documents\Report.pdf" />
+    <EmbeddedResource Include="Data\Seeding\Images\Building.jpg" />
+    <EmbeddedResource Include="Data\Seeding\Images\Doors.jpg" />
     <EmbeddedResource Include="Data\Seeding\Images\Logo.jpg" />
   </ItemGroup>
 
