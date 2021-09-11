@@ -27,33 +27,51 @@ namespace Coop.Api.Data
 
         public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
-            DigitalAssetConfiguration.Seed(context);
+            var jsonContentType = context.JsonContentTypes.Include(x => x.JsonContents).Single(x => x.Name == "Hero");
 
-            RoleConfiguration.Seed(context);
+            jsonContentType.JsonContents.Clear();
 
-            UserConfiguration.Seed(context);
+            var logoDigitalAssetId = context.DigitalAssets.Single(x => x.Name == LOGO).DigitalAssetId;
 
-            ProfileConfiguration.Seed(context);
+            var json = JObject.Parse(JsonConvert.SerializeObject(new
+            {
+                Heading = "OWN Housing Co-operative",
+                SubHeading = "Integrity, Strength, Action",
+                LogoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
+            }, Constants.JsonSerializerSettings));
 
-            MemberConfiguration.Seed(context);
+            jsonContentType.JsonContents.Add(new(json));
 
-            StaffMemeberConfiguration.Seed(context);
+            context.SaveChanges();
 
-            BoardMemberConfiguration.Seed(context);
 
-            ByLawConfiguration.Seed(context);
+            /*            DigitalAssetConfiguration.Seed(context);
 
-            NoticeConfiguration.Seed(context);
+                        RoleConfiguration.Seed(context);
 
-            ReportsConfiguration.Seed(context);
+                        UserConfiguration.Seed(context);
 
-            MainrenanceRequestConfiguration.Seed(context);
+                        ProfileConfiguration.Seed(context);
 
-            CssCustomProperyConfiguration.SeedData(context);
+                        MemberConfiguration.Seed(context);
 
-            JsonContentTypeConfiguration.SeedData(context);
+                        StaffMemeberConfiguration.Seed(context);
 
-            JsonContentConfiguration.SeedData(context, configuration);
+                        BoardMemberConfiguration.Seed(context);
+
+                        ByLawConfiguration.Seed(context);
+
+                        NoticeConfiguration.Seed(context);
+
+                        ReportsConfiguration.Seed(context);
+
+                        MainrenanceRequestConfiguration.Seed(context);
+
+                        CssCustomProperyConfiguration.SeedData(context);
+
+                        JsonContentTypeConfiguration.SeedData(context);
+
+                        JsonContentConfiguration.SeedData(context, configuration);*/
         }
 
         internal static class RoleConfiguration

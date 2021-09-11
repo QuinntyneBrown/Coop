@@ -1,5 +1,4 @@
-﻿using Coop.Api.Core;
-using Coop.Api.Models;
+﻿using Coop.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using System.Collections.Generic;
@@ -80,8 +79,8 @@ namespace Coop.Testing
         {
             var claims = new List<Claim>
             {
-                new (Constants.ClaimTypes.UserId, $"{user?.UserId}"),
-                new (Constants.ClaimTypes.Username, $"{user?.Username}")
+                new (Coop.Api.Core.Constants.ClaimTypes.UserId, $"{user?.UserId}"),
+                new (Coop.Api.Core.Constants.ClaimTypes.Username, $"{user?.Username}")
             };
 
             if (user != null)
@@ -92,7 +91,7 @@ namespace Coop.Testing
 
                     foreach (var privilege in role.Privileges)
                     {
-                        claims.Add(new Claim(Constants.ClaimTypes.Privilege, $"{privilege.AccessRight}{privilege.Aggregate}"));
+                        claims.Add(new Claim(Coop.Api.Core.Constants.ClaimTypes.Privilege, $"{privilege.AccessRight}{privilege.Aggregate}"));
                     }
                 }
             }

@@ -23,5 +23,10 @@ namespace Coop.Api.Models
         {
 
         }
+
+        public void SetJson(JObject json)
+        {
+            Json = json;
+        }
     }
 }

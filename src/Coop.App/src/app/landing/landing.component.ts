@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoardMemberService } from '@api';
+import { BoardMemberService, JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -9,13 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class LandingComponent {
 
-  public vm$ = this._boardMemberService.get()
+  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Landing })
   .pipe(
-    map(boardMembers => ({ boardMembers }))
+    map(jsonContent => ({ json: jsonContent.json }))
   )
 
   constructor(
-    private readonly _boardMemberService: BoardMemberService
+    private readonly _jsonContentService: JsonContentService
   ) { }
 
 

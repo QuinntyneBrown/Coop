@@ -14,12 +14,13 @@ export class SplashComponent {
   public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Landing })
   .pipe(
     map(content => {
+
       return {
+        jsonContentId: content.jsonContentId,
         form: new FormGroup({
-          jsonContentId: new FormControl(null, []),
-          doors: new FormControl(null, []),
-          building: new FormControl(null, []),
-          text: new FormControl(null, [])
+          doors: new FormControl(content?.json?.doors, []),
+          building: new FormControl(content?.json?.building, []),
+          rawText: new FormControl(content?.json?.rawText, []),
         })
       }
     })
@@ -31,17 +32,41 @@ export class SplashComponent {
 
   }
 
-  public save(form) {
+  public save(jsonContentId, json) {
 
-    let obs$ = form.value.jsonContentId ? this._jsonContentService.update : this._jsonContentService.create;
+
+
+    let el = document.createElement("div");
+
+    let image1 = document.createElement('img');
+    image1.src = `https://owncoop.azurewebsites.net/api/digitalasset/serve/${json.doors}`;
+
+    let image2 = document.createElement('img');
+    image2.src = `https://owncoop.azurewebsites.net/api/digitalasset/serve/${json.building}`;
+
+    el.innerHTML = json.rawText;
+
+    el.children[0].parentNode.insertBefore(image1,el.children[0]);
+
+    el.children[2].parentNode.insertBefore(image2,el.children[2]);
+
+
+    json.text = el.innerHTML;
+
+    console.log(el.innerHTML);
 
     let jsonContent: JsonContent = {
-      jsonContentId: form.value.jsonContentId,
-      json: form.value,
+      jsonContentId: jsonContentId,
+      json,
       name: JsonContentName.Landing
     };
 
-    obs$({ jsonContent })
+    let obs$ = jsonContentId ? this._jsonContentService.update({ jsonContent }) : this._jsonContentService.create({ jsonContent });
+
+
+    console.log(jsonContent);
+
+    obs$
     .subscribe();
 
 

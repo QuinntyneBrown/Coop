@@ -4,19 +4,23 @@
 
   <form [formGroup]="vm.form">
 
-    <mat-form-field appearance="outline" class="g-form-field">
-      <mat-label>Doors</mat-label>
-      <input matInput>
-    </mat-form-field>
+    <h3>Images</h3>
 
-    <mat-form-field appearance="outline" class="g-form-field">
-      <mat-label>Building</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <app-html-editor></app-html-editor>
+    <div class="g-digital-asset-uploads-container">
+
+      <app-digital-asset-upload formControlName="doors"></app-digital-asset-upload>
+
+      <app-digital-asset-upload formControlName="building"></app-digital-asset-upload>
+
+    </div>
+
+    <h3>Text</h3>
+
+    <app-html-editor formControlName="rawText"></app-html-editor>
+
   </form>
 
   <div class="g-actions">
-    <button mat-raised-button (click)="save(vm.form)">Save</button>
+    <button mat-raised-button (click)="save(vm.jsonContentId, vm.form.value)">Save</button>
   </div>
 </ng-container>

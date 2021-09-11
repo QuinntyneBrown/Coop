@@ -1,12 +1,5 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <img src="/assets/image7.jpg" alt="Building" class="landing__image--doors"/>
-<p>OWN Housing Cooperative was built in1997 spear-headed by the Older Women’s Network.</p>
-<p>We are a Vibrant Senior’s Building located directly across the world-renowned St. Lawrence Market with TTC access at our door.</p>
+  <app-text-and-images [text]="vm.json.text"></app-text-and-images>
 
-<img src="/assets/image8.jpg" alt="Building" class="landing__image--building" />
-
-<p>Our neighbourhood has everything within walking distance where we are surrounded by parks, an array of restaurants, salons, theatres, shopping, historic St. James Cathedral/Park and Sugar Beach.</p>
-<p>Note - The Older Women’s Network Office is located in a separate office within the Cooperative Building @ 115 The Esplanade, Tor, ON M5E1Y7.  For further information about OWN, please visit their website at www.olderwomensnetwork.org
-  or call 416-214-1518</p>
 </ng-container>

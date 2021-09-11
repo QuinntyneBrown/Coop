@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
+import { TextAndImagesModule } from '@shared/text-and-images/text-and-images.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LandingComponent } from './landing.component';
   ],
   imports: [
     CommonModule,
-    LandingRoutingModule
+    LandingRoutingModule,
+    TextAndImagesModule
   ]
 })
 export class LandingModule { }

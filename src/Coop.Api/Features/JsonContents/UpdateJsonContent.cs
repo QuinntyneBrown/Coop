@@ -17,7 +17,6 @@ namespace Coop.Api.Features
                 RuleFor(request => request.JsonContent).NotNull();
                 RuleFor(request => request.JsonContent).SetValidator(new JsonContentValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -41,6 +40,8 @@ namespace Coop.Api.Features
             {
                 var jsonContent = await _context.JsonContents.SingleAsync(x => x.JsonContentId == request.JsonContent.JsonContentId);
 
+                jsonContent.SetJson(request.JsonContent.Json);
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response()
@@ -48,7 +49,6 @@ namespace Coop.Api.Features
                     JsonContent = jsonContent.ToDto()
                 };
             }
-
         }
     }
 }

@@ -1,0 +1,27 @@
+
+.mat-typography {
+
+  .g-content {
+    p {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    img {
+      height: 200px;
+      float: left;
+      padding-right:40px;
+      padding-bottom: 40px;
+    }
+
+    img:nth-of-type(2) {
+      float: right;
+      padding-right:0px;
+      padding-bottom: 40px;
+      padding-top: 40px;
+      padding-left: 40px;
+      height: 300px;
+    }
+  }
+}

@@ -50,7 +50,7 @@ namespace Coop.Api
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder => builder
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins("http://localhost:4200", "https://white-bay-0cf53f60f.azurestaticapps.net/")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(isOriginAllowed: _ => true)
@@ -66,7 +66,7 @@ namespace Coop.Api
 
             services.AddDbContext<CoopDbContext>(options =>
             {
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"],
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
                     builder => builder.MigrationsAssembly("Coop.Api").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();

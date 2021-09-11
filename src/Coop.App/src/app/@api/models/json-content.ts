@@ -1,4 +1,4 @@
-import { JsonContentName } from "@api/constants";
+import { JsonContentName } from "@api/models/json-content-name";
 
 export type JsonContent = {
     jsonContentId?: string,

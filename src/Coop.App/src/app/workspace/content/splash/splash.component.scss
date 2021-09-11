@@ -1,0 +1,9 @@
+:host {
+  .g-digital-asset-uploads-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min-content;
+    gap:60px;
+    margin-bottom: 30px;
+  }
+}
