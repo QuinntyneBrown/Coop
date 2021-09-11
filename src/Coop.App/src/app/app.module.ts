@@ -20,7 +20,7 @@ import { ShellModule } from '@shared';
     ShellModule
   ],
   providers: [
-    { provide: baseUrl, useValue: "http://owncoop.azurewebsites.net/" },
+    { provide: baseUrl, useValue: "https://owncoop.azurewebsites.net/" },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
