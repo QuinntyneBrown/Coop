@@ -15,7 +15,9 @@ namespace Coop.Api.Features.Users
         {
             public Validator()
             {
-
+                RuleFor(x => x.Password)
+                    .NotNull()
+                    .NotEmpty();
             }
         }
 
@@ -44,10 +46,11 @@ namespace Coop.Api.Features.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
                 var user = await _context.Users.FindAsync(request.UserId);
 
                 user.SetPassword(request.Password, _passwordHasher);
+
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return new()
                 {

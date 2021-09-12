@@ -36,7 +36,8 @@ export class UserListComponent implements OnDestroy {
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
         'name',
-        'edit'
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
       of(pageSize)

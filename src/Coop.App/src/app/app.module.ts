@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { baseUrl, HeadersInterceptor, JwtInterceptor } from '@core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ShellModule } from '@shared';
+import { environment } from 'src/environments/environment';
+
 
 
 @NgModule({
@@ -20,7 +22,7 @@ import { ShellModule } from '@shared';
     ShellModule
   ],
   providers: [
-    { provide: baseUrl, useValue: "https://owncoop.azurewebsites.net/" },
+    { provide: baseUrl, useValue: environment.baseUrl },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

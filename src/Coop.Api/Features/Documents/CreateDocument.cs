@@ -17,7 +17,6 @@ namespace Coop.Api.Features
                 RuleFor(request => request.Document).NotNull();
                 RuleFor(request => request.Document).SetValidator(new DocumentValidator());
             }
-
         }
 
         public class Request : IRequest<Response>

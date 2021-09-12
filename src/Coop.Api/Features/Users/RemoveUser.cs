@@ -1,12 +1,10 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -33,7 +31,7 @@ namespace Coop.Api.Features
             {
                 var user = await _context.Users.SingleAsync(x => x.UserId == request.UserId);
 
-                _context.Users.Remove(user);
+                user.Delete();
 
                 await _context.SaveChangesAsync(cancellationToken);
 

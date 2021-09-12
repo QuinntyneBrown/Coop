@@ -15,7 +15,7 @@ namespace Coop.Api.Models
         public List<Profile> Profiles { get; private set; } = new();
         public Guid CurrentProfileId { get; private set; }
         public Guid DefaultProfileId { get; private set; }
-
+        public bool IsDeleted { get; private set; }
         public User(string username, string password, IPasswordHasher passwordHasher)
         {
 
@@ -72,6 +72,13 @@ namespace Coop.Api.Models
         public User SetUsername(string username)
         {
             Username = username;
+
+            return this;
+        }
+
+        public User Delete()
+        {
+            IsDeleted = true;
 
             return this;
         }

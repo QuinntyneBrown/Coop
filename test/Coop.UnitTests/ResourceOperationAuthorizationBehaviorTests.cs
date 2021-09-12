@@ -26,7 +26,7 @@ namespace Coop.UnitTests
 
             var expectedUserName = "Quinntyne";
 
-            var context = CoopDbContextFactory.Create();
+            var context = await CoopDbContextFactory.Create();
 
             var user = new User(expectedUserName, "password", new PasswordHasher());
 
@@ -57,7 +57,7 @@ namespace Coop.UnitTests
 
             var expectedUserName = "Quinntyne";
 
-            var context = CoopDbContextFactory.Create();
+            var context = await CoopDbContextFactory.Create();
 
             var privilege = new Privilege(AccessRight.Create, nameof(User));
 

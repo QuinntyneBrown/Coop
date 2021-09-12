@@ -14,7 +14,7 @@ namespace Coop.UnitTests.Features
         {
             var expectedResult = 1;
 
-            var context = CoopDbContextFactory.Create();
+            var context = await CoopDbContextFactory.Create();
 
             var container = _serviceCollection
                 .AddSingleton(context)

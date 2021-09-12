@@ -50,7 +50,7 @@ namespace Coop.Api
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder => builder
-                .WithOrigins("http://localhost:4200", "https://white-bay-0cf53f60f.azurestaticapps.net/")
+                .WithOrigins("https://localhost:4200", "https://white-bay-0cf53f60f.azurestaticapps.net/")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(isOriginAllowed: _ => true)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Coop.Api;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace Coop.Testing
@@ -16,6 +17,7 @@ namespace Coop.Testing
                 _configuration = new ConfigurationBuilder()
                     .SetBasePath(basePath)
                     .AddJsonFile("appsettings.json")
+                    .AddUserSecrets<Startup>()
                     .Build();
             }
 
