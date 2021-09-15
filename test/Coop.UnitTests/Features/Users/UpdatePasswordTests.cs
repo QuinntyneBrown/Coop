@@ -13,26 +13,34 @@ namespace Coop.UnitTests
     {
         [Fact]
         public async Task UpdatePassword()
-        {            
+        {
+            var expectedNewPassword = "test";
+
             var context = await CoopDbContextFactory.Create();
 
             var container = _serviceCollection
-                .AddSingleton<IPasswordHasher,PasswordHasher>()                
+                .AddSingleton<IPasswordHasher,PasswordHasher>()
                 .AddSingleton(context)
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();
+
+            var passwordHasher = container.GetService<IPasswordHasher>();
 
             var sut = container.GetRequiredService<Handler>();
 
             var user = context.Users.Single(x => x.Username == SeedData.MEMBER_USERNAME);
 
-            var result = await sut.Handle(new Api.Features.Users.UpdatePassword.Request
+            Assert.Equal(user.Password, passwordHasher.HashPassword(user.Salt, SeedData.PASSWORD));
+
+            var result = await sut.Handle(new()
             {
                 UserId = user.UserId,
-                Password = "Test"
-
+                Password = expectedNewPassword
             }, default);
 
+            user = context.Users.Find(user.UserId);
+
+            Assert.Equal(user.Password, passwordHasher.HashPassword(user.Salt, expectedNewPassword));
         }
     }
 }

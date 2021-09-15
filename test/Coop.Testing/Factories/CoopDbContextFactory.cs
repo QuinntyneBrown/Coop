@@ -3,7 +3,6 @@ using Coop.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
-using System;
 using System.Threading.Tasks;
 
 namespace Coop.Testing
@@ -12,7 +11,7 @@ namespace Coop.Testing
     {
         private static Checkpoint _checkpoint;
 
-        public static async Task<ICoopDbContext> Create()
+        public static async Task<ICoopDbContext> Create(string nameOfConnectionString = "ConnectionStrings:TestConnection")
         {
             var configuration = ConfigurationFactory.Create();
 
@@ -20,13 +19,13 @@ namespace Coop.Testing
             {
                 TablesToIgnore = new string[1] {
                 "__EFMigrationsHistory"
-            }
+                }
             };
 
             var container = new ServiceCollection()
                 .AddDbContext<CoopDbContext>(options =>
                 {
-                    options.UseSqlServer(configuration["ConnectionStrings:TestConnection"]);
+                    options.UseSqlServer(configuration[nameOfConnectionString]);
                 })
                 .BuildServiceProvider();
 
@@ -38,7 +37,7 @@ namespace Coop.Testing
 
             var connection = context.Database.GetDbConnection();
 
-            await _checkpoint.Reset(configuration["ConnectionStrings:TestConnection"]);
+            await _checkpoint.Reset(configuration[nameOfConnectionString]);
 
             SeedData.Seed(context, configuration);
 
