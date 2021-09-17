@@ -1,0 +1,31 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <h2 class="g-tab-heading">Hero</h2>
+
+  <form [formGroup]="vm.form">
+
+    <ng-container formGroupName="json">
+
+      <app-digital-asset-upload formControlName="logoDigitalAssetId"></app-digital-asset-upload>
+
+      <div class="hero__fields">
+        <mat-form-field class="g-form-field" appearance="outline">
+          <mat-label>Heading</mat-label>
+          <input  matInput placeholder='Heading' formControlName='heading'>
+        </mat-form-field>
+
+        <mat-form-field class="g-form-field" appearance="outline">
+          <mat-label>Sub Heading</mat-label>
+          <input matInput placeholder='Sub Heading' formControlName='subHeading' required>
+        </mat-form-field>
+      </div>
+
+
+    </ng-container>
+
+  </form>
+
+  <div class="g-actions">
+    <button mat-raised-button (click)="save(vm.form.value)">Save</button>
+  </div>
+</ng-container>

@@ -34,15 +34,13 @@ export class SplashComponent {
 
   public save(jsonContentId, json) {
 
-
-
     let el = document.createElement("div");
 
     let image1 = document.createElement('img');
-    image1.src = `https://localhost:5001/api/digitalasset/serve/${json.doors}`;
+    image1.src = `https://owncoop.azurewebsites.net/api/digitalasset/serve/${json.doors}`;
 
     let image2 = document.createElement('img');
-    image2.src = `https://localhost:5001/api/digitalasset/serve/${json.building}`;
+    image2.src = `https://owncoop.azurewebsites.net/api/digitalasset/serve/${json.building}`;
 
     el.innerHTML = json.rawText;
 

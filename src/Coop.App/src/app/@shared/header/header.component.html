@@ -13,7 +13,7 @@
   <div class="header__logo-and-text-container" (click)="headerClick()">
     <div class="header__logo-and-text">
       <div class="header__logo-container">
-        <img class="header__logo" (click)="headerClick()" [src]="vm.logoUrl">
+        <img class="header__logo" (click)="headerClick()" src="{{ baseUrl + 'api/digitalasset/serve/'  + vm.logoDigitalAssetId }}">
       </div>
 
       <div class="header__heading-text-container">
