@@ -12,7 +12,7 @@
   .board__grid {
     display: grid;
     margin-top: 80px;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: repeat(4, minmax(0,1fr));
     gap: 30px;
 
     h2,h3 {
