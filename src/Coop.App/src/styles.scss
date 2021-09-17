@@ -45,5 +45,10 @@ $App-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; font-size: var(--font-size,1rem);}
+html, body {
+  --box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  height: 100%;
+  font-size: var(--font-size,1rem);
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -44,6 +44,7 @@
     display: block;
     display: grid;
     place-items: center;
+    box-shadow: var(--box-shadow, none);
 
 
     .header__logo-container {
