@@ -1,8 +1,7 @@
 import { Component, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { JsonContent, JsonContentName, JsonContentService, JsonContentTypeName } from '@api';
+import { JsonContent, JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
-
 
 const name = JsonContentName.ContactUs;
 

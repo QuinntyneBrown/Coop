@@ -1,0 +1,21 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <h2 class="g-tab-heading">Rental Interest and Information</h2>
+
+  <form [formGroup]="vm.form">
+    <ng-container formGroupName="json">
+      <div class="g-fields">
+        <mat-form-field class="g-form-field" appearance="outline">
+          <mat-label>Heading</mat-label>
+          <input  matInput placeholder='Heading' formControlName='heading'>
+        </mat-form-field>
+
+        <app-html-editor formControlName='body' ></app-html-editor>
+      </div>
+    </ng-container>
+  </form>
+
+  <div class="g-actions">
+    <button mat-raised-button (click)="save(vm.form.value)">Save</button>
+  </div>
+</ng-container>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { JsonContentName, JsonContentService, JsonContentTypeName, JsonContentTypeService } from '@api';
-
+import { JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
 
 @Component({
