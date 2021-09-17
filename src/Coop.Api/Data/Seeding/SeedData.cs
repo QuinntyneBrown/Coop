@@ -1,12 +1,12 @@
 using Coop.Api.Core;
 using Coop.Api.Models;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using static Coop.Api.Core.Constants;
 
 namespace Coop.Api.Data
 {
@@ -51,8 +51,6 @@ namespace Coop.Api.Data
             MainrenanceRequestConfiguration.Seed(context);
 
             CssCustomProperyConfiguration.SeedData(context);
-
-            JsonContentTypeConfiguration.SeedData(context);
 
             JsonContentConfiguration.SeedData(context, configuration);
         }
@@ -441,69 +439,40 @@ namespace Coop.Api.Data
             }
         }
 
-        internal static class JsonContentTypeConfiguration
-        {
-            public static void SeedData(CoopDbContext context)
-            {
-                foreach (var jsonContentType in Constants.JsonContentTypes.All.Select(x => new JsonContentType(x)))
-                {
-                    if (context.JsonContentTypes.SingleOrDefault(x => x.Name == jsonContentType.Name) == null)
-                    {
-                        context.JsonContentTypes.Add(jsonContentType);
-
-                        context.SaveChanges();
-                    }
-                }
-            }
-        }
 
         internal static class JsonContentConfiguration
         {
             public static void SeedData(CoopDbContext context, IConfiguration configuration)
             {
-                SeedDataHero(context, configuration);
-                SeedDataBoardOfDirectors(context, configuration);
-            }
+                var logoDigitalAssetId = context.DigitalAssets.Single(x => x.Name == LOGO).DigitalAssetId;
 
-            public static void SeedDataHero(CoopDbContext context, IConfiguration configuration)
-            {
-                var heroJsonContentType = context.JsonContentTypes
-                    .Include(x => x.JsonContents)
-                    .Single(x => x.Name == Constants.JsonContentTypes.Hero);
-
-                if (heroJsonContentType.JsonContents.SingleOrDefault() == null)
+                var heroJsonContent = new JsonContent(JsonContentName.Hero, JObject.Parse(JsonConvert.SerializeObject(new
                 {
-                    var logoDigitalAssetId = context.DigitalAssets.Single(x => x.Name == LOGO).DigitalAssetId;
+                    Heading = "OWN Housing Co-operative",
+                    SubHeading = "Integrity, Strength, Action",
+                    LogoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
+                }, Constants.JsonSerializerSettings)));
 
-                    var json = JObject.Parse(JsonConvert.SerializeObject(new
-                    {
-                        Heading = "OWN Housing Co-operative",
-                        SubHeading = "Integrity, Strength, Action",
-                        LogoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
-                    }, Constants.JsonSerializerSettings));
+                AddIfDoesntExist(heroJsonContent);
 
-                    heroJsonContentType.JsonContents.Add(new(json));
-
-                    context.SaveChanges();
-                }
-            }
-
-            public static void SeedDataBoardOfDirectors(CoopDbContext context, IConfiguration configuration)
-            {
-                var type = Constants.JsonContentTypes.BoardOfDirectors;
-
-                var jsonContentType = context.JsonContentTypes
-                    .Include(x => x.JsonContents)
-                    .Single(x => x.Name == type);
-
-                if (jsonContentType.JsonContents.SingleOrDefault() == null)
+                var boardOfDirectorsJsonContent = new JsonContent(JsonContentName.BoardOfDirectors, JObject.Parse(JsonConvert.SerializeObject(new
                 {
-                    var json = JObject.Parse(JsonConvert.SerializeObject(new
+                    Heading = "Board of Directors",
+                    SubHeading = "The Board of Directors is hard working and dedicated to transparency & solid management protocols.",
+                    LogoUrl = $"{configuration["BaseUrl"]}api/digitalasset/serve/{logoDigitalAssetId}"
+                }, Constants.JsonSerializerSettings)));
+
+                AddIfDoesntExist(boardOfDirectorsJsonContent);
+
+
+                void AddIfDoesntExist(JsonContent jsonContent)
+                {
+                    if(context.JsonContents.SingleOrDefault(x => x.Name == jsonContent.Name) == null)
                     {
-                        Text = "The Board of Directors is hard working and dedicated to transparency & solid management protocols."
-                    }, Constants.JsonSerializerSettings));
-                    jsonContentType.JsonContents.Add(new(json));
-                    context.SaveChanges();
+                        context.Add(jsonContent);
+
+                        context.SaveChanges();
+                    }
                 }
             }
         }

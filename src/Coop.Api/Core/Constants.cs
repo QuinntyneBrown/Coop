@@ -90,7 +90,9 @@ namespace Coop.Api.Core
 
         public static class JsonContentName
         {
-            public const string Landing = nameof(Landing); 
+            public const string Landing = nameof(Landing);
+            public const string Hero = nameof(Hero);
+            public const string BoardOfDirectors = nameof(BoardOfDirectors);
         }
 
         public static class JsonContentTypes

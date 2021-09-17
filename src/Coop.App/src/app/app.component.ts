@@ -23,12 +23,12 @@ export class AppComponent {
   .pipe(
     tap(([_, cssCustomProperties, profileCssCustomProperties]) => {
       for(let i = 0; i < cssCustomProperties.length; i++) {
-        this._htmlElementStyle.setProperty(cssCustomProperties[i].name, cssCustomProperties[i].value);
+        this._htmlElementStyle.setProperty("--font-size", cssCustomProperties[i].value);
       }
 
       if(profileCssCustomProperties?.length > 0) {
         for(let i = 0; i < profileCssCustomProperties.length; i++) {
-          this._htmlElementStyle.setProperty(profileCssCustomProperties[i].name,profileCssCustomProperties[i].value);
+          this._htmlElementStyle.setProperty("--font-size",profileCssCustomProperties[i].value);
         }
       }
 

@@ -7,8 +7,6 @@ export * from './document.service';
 export * from './fragment.service';
 export * from './html-content.service';
 export * from './image-content.service';
-export * from './json-content-model.service';
-export * from './json-content-type.service';
 export * from './json-content.service';
 export * from './maintenance-request-comment.service';
 export * from './maintenance-request-digital-asset.service';

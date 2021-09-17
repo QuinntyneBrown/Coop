@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { JsonContentService, JsonContentTypeName } from '@api';
-import { JsonContentTypeService } from '@api/services/json-content-type.service';
+import { JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -14,14 +13,13 @@ export class HeaderComponent {
   @Input() public heading: string = "OWN Housing Co-operative";
   @Input() public subHeading: string = "Integrity, Strength, Action";
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentTypeName.Hero })
+  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Hero })
   .pipe(
     map(jsonContent => jsonContent.json)
   );
 
   constructor(
     private readonly _router: Router,
-    private readonly _jsonContentTypeService: JsonContentTypeService,
     private readonly _jsonContentService: JsonContentService
   ) {
 

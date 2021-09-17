@@ -1,10 +1,9 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {

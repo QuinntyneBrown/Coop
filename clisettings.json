@@ -47,7 +47,6 @@
     "CssCustomProperty",
     "ProfileCssCustomProperty",
     "JsonContent",
-    "JsonContentType",
     "OnCall"
   ]
 }

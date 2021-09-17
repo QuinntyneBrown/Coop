@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BoardMemberService, JsonContentName, JsonContentService, JsonContentTypeName, JsonContentTypeService } from '@api';
+import { BoardMemberService, JsonContentName, JsonContentService } from '@api';
 import { baseUrl } from '@core';
 import { combineLatest, pipe } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

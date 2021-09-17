@@ -40,10 +40,11 @@
 
   .header__logo-and-text-container {
     background-color: #4E87B5;
-    height: 14rem;
+    height: 16rem;
     display: block;
     display: grid;
     place-items: center;
+
 
     .header__logo-container {
       display: grid;
@@ -61,7 +62,7 @@
     .header__logo-and-text{
       display: grid;
       grid-template-columns:  auto auto;
-      column-gap: 60px;
+      column-gap: 2rem;
       width: fit-content;
       place-items: center start;
       height: 11.25rem;

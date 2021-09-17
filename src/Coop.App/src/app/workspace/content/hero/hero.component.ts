@@ -1,7 +1,9 @@
 import { Component, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { JsonContent, JsonContentService, JsonContentTypeName } from '@api';
+import { JsonContent, JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
+
+const name =  JsonContentName.Hero;
 
 @Component({
   selector: 'app-hero',
@@ -10,12 +12,12 @@ import { map } from 'rxjs/operators';
 })
 export class HeroComponent {
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentTypeName.Hero })
+  public vm$ = this._jsonContentService.getByName({ name })
   .pipe(
     map(jsonContent => {
       const form = new FormGroup({
         jsonContentId: new FormControl(jsonContent?.jsonContentId,[Validators.required]),
-        name: new FormControl(JsonContentTypeName.Hero,[Validators.required]),
+        name: new FormControl(name,[Validators.required]),
         json: new FormGroup({
           logoDigitalAssetId: new FormControl(jsonContent?.json?.logoDigitalAssetId,[Validators.required]),
           heading: new FormControl(jsonContent?.json?.heading, [Validators.required]),

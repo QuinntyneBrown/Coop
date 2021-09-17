@@ -1,4 +1,4 @@
-export const storageKey = 'huntress';
+export const storageKey = 'coop';
 export const accessTokenKey = `${storageKey}:accessTokenKey`;
 export const usernameKey = `${storageKey}:usernameKey`;
 export const baseUrl = 'baseUrl';

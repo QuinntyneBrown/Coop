@@ -1,17 +1,18 @@
-import { DOCUMENT } from '@angular/common';
-import { ApplicationRef, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CssCustomPropertyService, ProfileCssCustomPropertyService } from '@api';
-import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Subject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnDestroy {
+
+  private readonly _destroyed = new Subject();
 
   public fontSizeControl: FormControl = new FormControl(1, []);
 
@@ -26,6 +27,7 @@ export class SettingsComponent {
     ]) => ({ cssCustomProperties, profileCssCustomProperties })),
     map(options => {
 
+      let systemFontSize = options.cssCustomProperties.filter(x => x.name == "--font-size")[0];
       let fontSize = options.cssCustomProperties.filter(x => x.name == "--font-size")[0];
       let cssCustomPropertyId = null;
 
@@ -36,7 +38,8 @@ export class SettingsComponent {
 
       const form: FormGroup = new FormGroup({
         cssCustomPropertyId: new FormControl(cssCustomPropertyId,[]),
-        value: new FormControl(fontSize.value.replace("rem",""),[Validators.required]),
+        fontSize: new FormControl(fontSize.value.replace("rem",""),[Validators.required]),
+        systemFontSize: new FormControl(systemFontSize.value.replace("rem",""),[Validators.required]),
         name: new FormControl('--font-size',[Validators.required])
       });
 
@@ -59,17 +62,19 @@ export class SettingsComponent {
   public tryToSave(vm: { form: FormGroup }) {
     vm.form.value.value = `${vm.form.value.value}rem`;
 
-    if(vm.form.value.cssCustomPropertyId) {
-      this._cssCustomPropertyService.update({
-        cssCustomProperty: vm.form.value
-      }).subscribe()
+    const obs$: Observable<any> = vm.form.value.cssCustomPropertyId
+    ? this._cssCustomPropertyService.update({ cssCustomProperty: vm.form.value })
+    : this._profileCssCustomPropertyService.create({ profileCssCustomProperty: vm.form.value });
 
-    } else {
-      this._profileCssCustomPropertyService.create({
-        profileCssCustomProperty: vm.form.value
-      }).subscribe();
-    }
+    obs$
+    .pipe(
+      tap(_ => window.location.href = '/workspace')
+    )
+    .subscribe()
+  }
 
-    window.location.href = '/workspace';
+  public ngOnDestroy() {
+    this._destroyed.next();
+    this._destroyed.complete();
   }
 }
