@@ -1,7 +1,6 @@
 import { Component, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JsonContent, JsonContentService, JsonContentTypeName } from '@api';
-
 import { map } from 'rxjs/operators';
 
 @Component({

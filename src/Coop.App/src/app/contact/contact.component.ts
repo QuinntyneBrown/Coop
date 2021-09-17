@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { JsonContentName, JsonContentService, JsonContentTypeName, JsonContentTypeService } from '@api';
+
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
 
-  constructor() { }
+  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.ContactUs })
+  .pipe(
+    map(jsonContent => jsonContent.json)
+  );
 
-  ngOnInit(): void {
+  constructor(
+    private readonly _jsonContentService: JsonContentService
+  ) {
+
   }
 
 }

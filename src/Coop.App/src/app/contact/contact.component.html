@@ -1,2 +1,7 @@
-<h2 class="g-page-title">Contact</h2>
+<ng-container *ngIf="vm$ | async as vm">
 
+  <h2 class="g-page-title">{{ vm.heading }}</h2>
+
+  <div [innerHtml]="vm.body"></div>
+
+</ng-container>
