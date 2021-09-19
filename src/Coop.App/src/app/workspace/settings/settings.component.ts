@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CssCustomPropertyService, ProfileCssCustomPropertyService, ThemeService } from '@api';
-import { combineLatest, Subject, Observable } from 'rxjs';
+import { ThemeService } from '@api';
+import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Component({

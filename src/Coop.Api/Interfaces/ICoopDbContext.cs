@@ -24,8 +24,6 @@ namespace Coop.Api.Interfaces
         DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; }
         DbSet<Message> Messages { get; }
         DbSet<Conversation> Conversations { get; }
-        DbSet<CssCustomProperty> CssCustomProperties { get; }
-        DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; }
         DbSet<JsonContent> JsonContents { get; }
         DbSet<OnCall> OnCalls { get; }
         DbSet<Theme> Themes { get; }

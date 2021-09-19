@@ -23,8 +23,6 @@ namespace Coop.Api.Data
         public DbSet<MaintenanceRequestDigitalAsset> MaintenanceRequestDigitalAssets { get; private set; }
         public DbSet<Message> Messages { get; private set; }
         public DbSet<Conversation> Conversations { get; private set; }
-        public DbSet<CssCustomProperty> CssCustomProperties { get; private set; }
-        public DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; private set; }
         public DbSet<JsonContent> JsonContents { get; private set; }
         public DbSet<OnCall> OnCalls { get; private set; }
         public DbSet<Theme> Themes { get; private set; }

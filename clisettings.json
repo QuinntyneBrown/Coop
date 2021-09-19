@@ -44,8 +44,6 @@
     "MaintenanceRequestDigitalAsset",
     "Message",
     "Conversation",
-    "CssCustomProperty",
-    "ProfileCssCustomProperty",
     "JsonContent",
     "OnCall",
     "Theme"
