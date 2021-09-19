@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Renderer2, AfterContentInit } from '@angular/core';
+import { Component, Output, EventEmitter, Renderer2, AfterContentInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -7,9 +7,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements AfterContentInit {
+  @Input()
+  public username: string = null;
+
+  @Input()
+  public password: string = null;
+
+  @Input()
+  public rememberMe: boolean = null;
+
   public form = new FormGroup({
-    username: new FormControl("marie.enns@coop.ca", [Validators.required]),
-    password: new FormControl("", [Validators.required])
+    username: new FormControl(this.username, [Validators.required]),
+    password: new FormControl(this.password, [Validators.required]),
+    rememberMe: new FormControl(this.rememberMe,[])
   });
 
   @Output() public tryToLogin: EventEmitter<{ username: string, password: string }> = new EventEmitter();
@@ -17,6 +27,13 @@ export class LoginFormComponent implements AfterContentInit {
   constructor(private readonly _renderer: Renderer2) { }
 
   ngAfterContentInit(): void {
-    this._renderer.selectRootElement('.username').focus();
+
+    this.form.patchValue({
+      username: this.username,
+      password: this.password,
+      rememberMe: this.rememberMe
+    });
+
   }
+
 }

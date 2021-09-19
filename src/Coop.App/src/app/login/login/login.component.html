@@ -1,1 +1,6 @@
-<app-login-form (tryToLogin)='handleTryToLogin($event)'></app-login-form>
+<app-login-form
+(tryToLogin)='handleTryToLogin($event)'
+[username]="username"
+[password]="password"
+[rememberMe]="rememberMe"
+></app-login-form>
