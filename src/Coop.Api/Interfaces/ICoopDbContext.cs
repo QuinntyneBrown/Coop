@@ -28,7 +28,8 @@ namespace Coop.Api.Interfaces
         DbSet<ProfileCssCustomProperty> ProfileCssCustomProperties { get; }
         DbSet<JsonContent> JsonContents { get; }
         DbSet<OnCall> OnCalls { get; }
+        DbSet<Theme> Themes { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

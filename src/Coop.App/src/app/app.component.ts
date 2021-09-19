@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { CssCustomPropertyService, HtmlContentService, ProfileCssCustomPropertyService, User } from '@api';
+import { ThemeService, User } from '@api';
 import { AuthService } from '@core';
 import { combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -17,21 +17,13 @@ import { AppContextService } from './app-context.service';
 export class AppComponent {
   public vm$ = combineLatest([
     this._authService.tryToInitializeCurrentUser(),
-    this._cssCustomPropertyService.getSystem(),
-    this._profileCssCustomPropertyService.getCurrent()
+    this._themeService.getDefault()
   ])
   .pipe(
-    tap(([_, cssCustomProperties, profileCssCustomProperties]) => {
-      for(let i = 0; i < cssCustomProperties.length; i++) {
-        this._htmlElementStyle.setProperty("--font-size", cssCustomProperties[i].value);
+    tap(([_, theme]) => {
+      for (const [key, value] of Object.entries(theme.cssCustomProperties)) {
+        this._htmlElementStyle.setProperty(key, value as string);
       }
-
-      if(profileCssCustomProperties?.length > 0) {
-        for(let i = 0; i < profileCssCustomProperties.length; i++) {
-          this._htmlElementStyle.setProperty("--font-size",profileCssCustomProperties[i].value);
-        }
-      }
-
     }),
     map(([user]) => ({ user }))
   );
@@ -44,9 +36,7 @@ export class AppComponent {
 
   constructor(
     private readonly _authService: AuthService,
-    private readonly _htmlContentService: HtmlContentService,
-    private readonly _cssCustomPropertyService: CssCustomPropertyService,
-    private readonly _profileCssCustomPropertyService: ProfileCssCustomPropertyService,
+    private readonly _themeService: ThemeService,
     @Inject(DOCUMENT) private readonly _document: Document
     ) {
 

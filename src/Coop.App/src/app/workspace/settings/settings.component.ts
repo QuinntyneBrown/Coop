@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CssCustomPropertyService, ProfileCssCustomPropertyService } from '@api';
+import { CssCustomPropertyService, ProfileCssCustomPropertyService, ThemeService } from '@api';
 import { combineLatest, Subject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -16,31 +16,15 @@ export class SettingsComponent implements OnDestroy {
 
   public fontSizeControl: FormControl = new FormControl(1, []);
 
-  public vm$ = combineLatest([
-    this._cssCustomPropertyService.get(),
-    this._profileCssCustomPropertyService.getCurrent()
-  ])
+  public vm$ = this._themeService.getDefault()
   .pipe(
-    map(([
-      cssCustomProperties,
-      profileCssCustomProperties
-    ]) => ({ cssCustomProperties, profileCssCustomProperties })),
-    map(options => {
 
-      let systemFontSize = options.cssCustomProperties.filter(x => x.name == "--font-size")[0];
-      let fontSize = options.cssCustomProperties.filter(x => x.name == "--font-size")[0];
-      let cssCustomPropertyId = null;
-
-      if(options.profileCssCustomProperties?.length > 0) {
-        fontSize = options.profileCssCustomProperties.filter(x => x.name == "--font-size")[0];
-        cssCustomPropertyId = fontSize.cssCustomPropertyId;
-      }
-
+    map(theme => {
       const form: FormGroup = new FormGroup({
-        cssCustomPropertyId: new FormControl(cssCustomPropertyId,[]),
-        fontSize: new FormControl(fontSize.value.replace("rem",""),[Validators.required]),
-        systemFontSize: new FormControl(systemFontSize.value.replace("rem",""),[Validators.required]),
-        name: new FormControl('--font-size',[Validators.required])
+        themeId: new FormControl(theme.themeId,[Validators.required]),
+        cssCustomProperties: new FormGroup({
+          "--font-size": new FormControl(theme.cssCustomProperties["--font-size"].replace("px",""), [Validators.required])
+        })
       });
 
       return {
@@ -50,8 +34,7 @@ export class SettingsComponent implements OnDestroy {
   );
 
   constructor(
-    private readonly _cssCustomPropertyService: CssCustomPropertyService,
-    private readonly _profileCssCustomPropertyService: ProfileCssCustomPropertyService,
+    private readonly _themeService: ThemeService,
     private readonly _router: Router
   ) { }
 
@@ -60,13 +43,10 @@ export class SettingsComponent implements OnDestroy {
   }
 
   public tryToSave(vm: { form: FormGroup }) {
-    vm.form.value.value = `${vm.form.value.value}rem`;
 
-    const obs$: Observable<any> = vm.form.value.cssCustomPropertyId
-    ? this._cssCustomPropertyService.update({ cssCustomProperty: vm.form.value })
-    : this._profileCssCustomPropertyService.create({ profileCssCustomProperty: vm.form.value });
+    vm.form.value.cssCustomProperties["--font-size"] = vm.form.value.cssCustomProperties["--font-size"] + "px";
 
-    obs$
+    this._themeService.update({ theme: vm.form.value })
     .pipe(
       tap(_ => window.location.href = '/workspace')
     )

@@ -27,4 +27,5 @@ export * from './profile';
 export * from './report';
 export * from './role';
 export * from './staff-member';
+export * from './theme';
 export * from './user';

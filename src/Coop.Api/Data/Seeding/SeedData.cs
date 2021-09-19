@@ -27,7 +27,7 @@ namespace Coop.Api.Data
 
         public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
-
+/*
             DigitalAssetConfiguration.Seed(context);
 
             RoleConfiguration.Seed(context);
@@ -50,9 +50,11 @@ namespace Coop.Api.Data
 
             MainrenanceRequestConfiguration.Seed(context);
 
-            CssCustomProperyConfiguration.SeedData(context);
+            CssCustomProperyConfiguration.SeedData(context);*/
 
-            JsonContentConfiguration.SeedData(context, configuration);
+            ThemeConfiguration.SeedData(context);
+
+/*            JsonContentConfiguration.SeedData(context, configuration);*/
         }
 
         internal static class RoleConfiguration
@@ -433,6 +435,21 @@ namespace Coop.Api.Data
                 if (context.CssCustomProperties.SingleOrDefault(x => x.Name == cssCustomProperty.Name) == null)
                 {
                     context.CssCustomProperties.Add(cssCustomProperty);
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        internal static class ThemeConfiguration
+        {
+            public static void SeedData(CoopDbContext context)
+            {
+                var theme = new Theme(JObject.Parse("{ \"--font-size\":\"16px\"}"));
+
+                if (context.Themes.SingleOrDefault(x => x.ProfileId == null) == null)
+                {
+                    context.Themes.Add(theme);
 
                     context.SaveChanges();
                 }

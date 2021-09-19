@@ -48,7 +48,7 @@ $App-theme: mat.define-light-theme((
 html, body {
   --box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
   height: 100%;
-  font-size: 16px;
+  font-size: var(--font-size);
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

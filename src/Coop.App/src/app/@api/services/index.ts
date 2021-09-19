@@ -21,4 +21,5 @@ export * from './profile.service';
 export * from './report.service';
 export * from './role.service';
 export * from './staff-member.service';
+export * from './theme.service';
 export * from './user.service';
