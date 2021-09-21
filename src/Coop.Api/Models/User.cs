@@ -1,6 +1,7 @@
 using Coop.Api.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace Coop.Api.Models
@@ -41,6 +42,21 @@ namespace Coop.Api.Models
         public void SetCurrentProfileId(Guid profileId)
         {
             CurrentProfileId = profileId;
+        }
+
+        public void AddProfile(Profile profile)
+        {
+            if (!Profiles.Contains(profile))
+            {
+                Profiles.Add(profile);
+            }
+
+            if (Profiles.Count() == 1)
+            {
+                SetCurrentProfileId(profile.ProfileId);
+
+                SetDefaultProfileId(profile.ProfileId);
+            }
         }
 
         public User ChangePassword(string oldPassword, string newPassword, IPasswordHasher passwordHasher)

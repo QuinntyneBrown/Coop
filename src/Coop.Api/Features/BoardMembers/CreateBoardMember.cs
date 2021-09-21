@@ -1,10 +1,11 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Coop.Core.Messages;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -16,12 +17,13 @@ namespace Coop.Api.Features
             {
                 RuleFor(request => request.BoardMember).NotNull();
                 RuleFor(request => request.BoardMember).SetValidator(new BoardMemberValidator());
+                RuleFor(request => request.User).SetValidator(new UserValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
         {
+            public UserDto User { get; set; }
             public BoardMemberDto BoardMember { get; set; }
         }
 
@@ -33,28 +35,54 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
+            private readonly IMessageHandlerContext _messageHandlerContext;
 
-            public Handler(ICoopDbContext context)
-                => _context = context;
+            public Handler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+            {
+                _context = context;
+                _messageHandlerContext = messageHandlerContext;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var boardMember = new BoardMember(
-                    request.BoardMember.BoardTitle,
-                    request.BoardMember.Firstname,
-                    request.BoardMember.Lastname,
-                    request.BoardMember.AvatarDigitalAssetId);
+                var tcs = new TaskCompletionSource<Response>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-                _context.BoardMembers.Add(boardMember);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new()
+                _messageHandlerContext.Subscribe(async notification =>
                 {
-                    BoardMember = boardMember.ToDto()
-                };
-            }
+                    switch (notification)
+                    {
+                        case CreatedUser createdUser:
+                            await _messageHandlerContext.Publish(new Coop.Core.Messages.CreateBoardMember() { 
+                                UserId = createdUser.UserId,
+                                BoardTitle = request.BoardMember.BoardTitle,
+                                Firstname = request.BoardMember.Firstname,
+                                Lastname = request.BoardMember.Lastname
+                            });
+                            break;
 
+                        case CreatedBoardMember createdBoardMember:
+                            await _messageHandlerContext.Publish(new Coop.Core.Messages.AddProfile() { 
+                                UserId = createdBoardMember.UserId,
+                                ProfileId = createdBoardMember.ProfileId
+                            });
+                            break;
+
+                        case AddedProfile addedProfile:
+                            tcs.SetResult(new Response
+                            {
+                                BoardMember = (await _context.BoardMembers.SingleAsync(x => x.ProfileId == addedProfile.ProfileId)).ToDto()
+                            });
+                            break;
+                    }
+                });
+
+                await _messageHandlerContext.Publish(new Models.CreateUser() { 
+                    Username = request.User.Username,
+                    Password = request.User.Password
+                });
+
+                return await tcs.Task;
+            }
         }
     }
 }

@@ -62,6 +62,8 @@ namespace Coop.Api
 
             services.AddMediatR(typeof(ICoopDbContext));
 
+            services.AddScoped<IMessageHandlerContext, MessageHandlerContext>();
+
             services.AddTransient<ICoopDbContext, CoopDbContext>();
 
             services.AddDbContext<CoopDbContext>(options =>

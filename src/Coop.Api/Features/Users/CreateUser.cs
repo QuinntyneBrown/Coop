@@ -1,9 +1,9 @@
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
+using Coop.Core.Messages;
 using FluentValidation;
 using MediatR;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Coop.Api.Core.Constants;
@@ -12,6 +12,7 @@ namespace Coop.Api.Features
 {
     public class CreateUser
     {
+        
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
@@ -32,54 +33,22 @@ namespace Coop.Api.Features
             public UserDto User { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>, INotificationHandler<Models.CreateUser>
         {
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
+            private readonly IMessageHandlerContext _messageHandlerContext;
 
-            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher)
+            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, IMessageHandlerContext messageHandlerContext)
             {
                 _context = context;
                 _passwordHasher = passwordHasher;
+                _messageHandlerContext = messageHandlerContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = new User(request.User.Username, request.User.Password, _passwordHasher);
-
-                switch (request.User.DefaultProfile.Type)
-                {
-                    case ProfileType.BoardMember:
-                        var boardMember = new BoardMember(default, default, request.User.DefaultProfile.Firstname, request.User.DefaultProfile.Lastname);
-                        boardMember.SetAvatar(request.User.DefaultProfile.AvatarDigitalAssetId);
-                        user.Profiles.Add(boardMember);
-                        break;
-
-                    case ProfileType.Member:
-                        var member = new Member(default, request.User.DefaultProfile.Firstname, request.User.DefaultProfile.Lastname);
-                        member.SetAvatar(request.User.DefaultProfile.AvatarDigitalAssetId);
-                        user.Profiles.Add(member);
-                        break;
-
-                    case ProfileType.StaffMember:
-                        var staffMember = new StaffMember(default, default, request.User.DefaultProfile.Firstname, request.User.DefaultProfile.Lastname);
-                        staffMember.SetAvatar(request.User.DefaultProfile.AvatarDigitalAssetId);
-                        user.Profiles.Add(staffMember);
-                        break;
-                }
-
-                foreach (var role in request.User.Roles)
-                {
-                    user.Roles.Add(_context.Roles.Find(role.RoleId));
-                }
-
-                _context.Users.Add(user);
-
-                user.SetDefaultProfileId(user.Profiles.First().ProfileId);
-
-                user.SetCurrentProfileId(user.Profiles.First().ProfileId);
-
-                await _context.SaveChangesAsync(cancellationToken);
+                var user = await  Handle(request.User.Username, request.User.Password, cancellationToken);
 
                 return new()
                 {
@@ -87,6 +56,26 @@ namespace Coop.Api.Features
                 };
             }
 
+            public async Task Handle(Models.CreateUser notification, CancellationToken cancellationToken)
+            {
+                var user = await Handle(notification.Username, notification.Password, cancellationToken);
+
+                await _messageHandlerContext.Publish(new CreatedUser
+                {
+                    UserId = user.UserId
+                });
+            }
+
+            public async Task<User> Handle(string username, string password, CancellationToken cancellationToken)
+            {
+                var user = new User(username, password, _passwordHasher);
+
+                _context.Users.Add(user);
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return user;
+            }
         }
     }
 }

@@ -1,10 +1,13 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Coop.Api.Models;
+using Coop.Core.Messages;
+using FluentValidation;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -33,9 +36,13 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
+            private readonly IMessageHandlerContext _messageHandlerContext;
 
-            public Handler(ICoopDbContext context)
-                => _context = context;
+            public Handler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+            {
+                _context = context;
+                _messageHandlerContext = messageHandlerContext;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
@@ -45,10 +52,35 @@ namespace Coop.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new()
+                var repsonse = new Response
                 {
                     JsonContent = jsonContent.ToDto()
                 };
+
+                try
+                {
+                    await _messageHandlerContext.Publish(new CreatedJsonContent
+                    {
+                        JsonContentId = jsonContent.JsonContentId,
+                        Name = jsonContent.Name
+                    });
+                } 
+                catch
+                {
+                    _context.JsonContents.Remove(jsonContent);
+
+                    await _context.SaveChangesAsync(default);
+
+                    repsonse = new Response
+                    {
+                        Errors = new List<string>
+                        {
+                            "Duplicate Name"
+                        }
+                    };
+                }
+
+                return repsonse;
             }
 
         }
