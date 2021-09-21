@@ -20,7 +20,7 @@ namespace Coop.Api.Features
 
         public async Task Handle(Coop.Core.Messages.CreateBoardMember notification, CancellationToken cancellationToken)
         {
-            var boardMember = new BoardMember(notification.UserId, notification.BoardTitle, notification.Firstname, notification.Lastname);
+            var boardMember = new BoardMember(notification.BoardTitle, notification.Firstname, notification.Lastname, notification.AvatarDigitalAssetId);
 
             _context.BoardMembers.Add(boardMember);
 

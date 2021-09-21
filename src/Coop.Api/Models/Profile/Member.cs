@@ -9,6 +9,12 @@ namespace Coop.Api.Models
             : base(ProfileType.Member, userId, firstname, lastname)
         { }
 
+        public Member(string firstname, string lastname)
+            :base(ProfileType.Member,firstname,lastname)
+        {
+
+        }
+
         private Member()
         {
 

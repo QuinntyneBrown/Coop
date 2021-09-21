@@ -26,6 +26,7 @@ namespace Coop.Api.Data
         public DbSet<JsonContent> JsonContents { get; private set; }
         public DbSet<OnCall> OnCalls { get; private set; }
         public DbSet<Theme> Themes { get; private set; }
+        public DbSet<InvitationToken> InvitationTokens { get; private set; }
         public CoopDbContext(DbContextOptions options)
             :base(options) { }
 

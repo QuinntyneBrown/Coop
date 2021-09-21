@@ -9,5 +9,6 @@ namespace Coop.Core.Messages
         public string BoardTitle { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public Guid? AvatarDigitalAssetId { get; set; }
     }
 }

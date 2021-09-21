@@ -33,7 +33,7 @@ namespace Coop.Api.Features
             public UserDto User { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request, Response>, INotificationHandler<Models.CreateUser>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
@@ -48,33 +48,16 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = await  Handle(request.User.Username, request.User.Password, cancellationToken);
-
-                return new()
-                {
-                    User = user.ToDto()
-                };
-            }
-
-            public async Task Handle(Models.CreateUser notification, CancellationToken cancellationToken)
-            {
-                var user = await Handle(notification.Username, notification.Password, cancellationToken);
-
-                await _messageHandlerContext.Publish(new CreatedUser
-                {
-                    UserId = user.UserId
-                });
-            }
-
-            public async Task<User> Handle(string username, string password, CancellationToken cancellationToken)
-            {
-                var user = new User(username, password, _passwordHasher);
+                var user = new User(request.User.Username, request.User.Password, _passwordHasher);
 
                 _context.Users.Add(user);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return user;
+                return new()
+                {
+                    User = user.ToDto()
+                };
             }
         }
     }

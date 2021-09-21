@@ -53,18 +53,15 @@ namespace Coop.Api.Features
                     {
                         case CreatedUser createdUser:
                             await _messageHandlerContext.Publish(new Coop.Core.Messages.CreateBoardMember() { 
-                                UserId = createdUser.UserId,
                                 BoardTitle = request.BoardMember.BoardTitle,
                                 Firstname = request.BoardMember.Firstname,
-                                Lastname = request.BoardMember.Lastname
+                                Lastname = request.BoardMember.Lastname,
+                                AvatarDigitalAssetId = request.BoardMember.AvatarDigitalAssetId
                             });
                             break;
 
                         case CreatedBoardMember createdBoardMember:
-                            await _messageHandlerContext.Publish(new Coop.Core.Messages.AddProfile() { 
-                                UserId = createdBoardMember.UserId,
-                                ProfileId = createdBoardMember.ProfileId
-                            });
+                            await _messageHandlerContext.Publish(new Coop.Core.Messages.AddProfile(createdBoardMember.UserId, createdBoardMember.ProfileId));
                             break;
 
                         case AddedProfile addedProfile:
@@ -76,10 +73,7 @@ namespace Coop.Api.Features
                     }
                 });
 
-                await _messageHandlerContext.Publish(new Models.CreateUser() { 
-                    Username = request.User.Username,
-                    Password = request.User.Password
-                });
+                await _messageHandlerContext.Publish(new Coop.Core.Messages.CreateUser(request.User.Username, request.User.Password));
 
                 return await tcs.Task;
             }
