@@ -25,10 +25,10 @@
 
     </form>
 
+    <p>No Account? <a routerLink="/create-account">Create one!</a></p>
+
     <div class="g-actions">
       <button mat-raised-button (click)='tryToLogin.emit(form.value)' [disabled]='!form.valid'>Sign In</button>
-
-      <button mat-raised-button (click)='tryToLogin.emit(form.value)' [disabled]='!form.valid'>Create Account</button>
     </div>
 
   </mat-card>

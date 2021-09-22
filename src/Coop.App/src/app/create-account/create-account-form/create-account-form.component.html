@@ -1,0 +1,43 @@
+<mat-card class="g-card">
+  <mat-card-title class="g-card-title">
+    Create Account
+  </mat-card-title>
+
+  <form [formGroup]="form">
+
+    <mat-form-field>
+      <mat-label>Invitation Token</mat-label>
+      <input  matInput placeholder='Invitation Token' required formControlName="invitationToken">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Firstname</mat-label>
+      <input  matInput placeholder='Firstname' required  formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lastname</mat-label>
+      <input  matInput placeholder='Lastname' required  formControlName="lastname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input  matInput placeholder='Email' required formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password"  matInput placeholder='Password' required formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input type="password"  matInput placeholder='Confirm  Password' required formControlName="passwordConfirmation">
+    </mat-form-field>
+  </form>
+
+  <div class="g-actions">
+    <button mat-raised-button (click)="tryToSignUp.emit(form.value)">Complete</button>
+  </div>
+
+</mat-card>

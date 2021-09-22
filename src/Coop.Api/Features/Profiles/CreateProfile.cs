@@ -18,6 +18,8 @@ namespace Coop.Api.Features
             {
                 RuleFor(x => x.Firstname).NotEmpty();
                 RuleFor(x => x.Lastname).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Password).NotEmpty();
             }
         }
 

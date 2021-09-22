@@ -1,0 +1,12 @@
+:host {
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  background-color: #f0f0f0;
+  place-items: center;
+
+  app-create-account-form {
+    margin-top: 60px;
+    min-width: 400px;
+  }
+}

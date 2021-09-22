@@ -46,8 +46,8 @@ export class ProfileService implements IPagableService<Profile> {
     return this._client.delete<void>(`${this._baseUrl}api/profile/${options.profile.profileId}`);
   }
 
-  public create(options: CreateProfileRequest ): Observable<{ profile: Profile }> {
-    return this._client.post<{ profile: Profile }>(`${this._baseUrl}api/profile`, options);
+  public create(request: CreateProfileRequest ): Observable<{ profile: Profile }> {
+    return this._client.post<{ profile: Profile }>(`${this._baseUrl}api/profile`, request);
   }
 
   public update(options: { profile: Profile }): Observable<{ profile: Profile }> {
