@@ -18,7 +18,7 @@ export class BoardMemberListComponent implements OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
-  private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
+  private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(10);
   private readonly _dataSource: EntityDataSource<BoardMember> = new EntityDataSource(this._boardMemberService);
   private readonly _refresh: Subject<void> = new Subject();
 

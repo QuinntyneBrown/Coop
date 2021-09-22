@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BoardMemberComponent } from './board-member/board-member.component';
 import { IdModule } from '@shared/id/id.module';
 import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-asset-upload.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-a
     MatDialogModule,
     IdModule,
     BentoBoxModule,
-    DigitalAssetUploadModule
+    DigitalAssetUploadModule,
+    MatPaginatorModule
   ]
 })
 export class BoardMembersModule { }
