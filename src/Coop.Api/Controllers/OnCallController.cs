@@ -39,12 +39,6 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetOnCalls.Response>> Get()
             => await _mediator.Send(new GetOnCalls.Request());
 
-        [HttpPost(Name = "CreateOnCallRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateOnCall.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateOnCall.Response>> Create([FromBody] CreateOnCall.Request request)
-            => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetOnCallsPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

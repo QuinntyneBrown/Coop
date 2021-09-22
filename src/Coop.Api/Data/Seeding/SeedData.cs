@@ -27,6 +27,7 @@ namespace Coop.Api.Data
 
         public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
+            InviteTokenConfiguration.Seed(context);
 
             DigitalAssetConfiguration.Seed(context);
 
@@ -48,13 +49,32 @@ namespace Coop.Api.Data
 
             ReportsConfiguration.Seed(context);
 
-            MainrenanceRequestConfiguration.Seed(context);
+            MaintenanceRequestConfiguration.Seed(context);
 
             ThemeConfiguration.SeedData(context);
 
             JsonContentConfiguration.SeedData(context, configuration);
         }
 
+        internal static class InviteTokenConfiguration
+        {
+            public static void Seed(CoopDbContext context)
+            {
+                var invitationTokens = Constants.InvitationTypes.All
+                    .Select(x => new InvitationToken(x));
+
+                foreach (var invitationToken in invitationTokens)
+                {
+                    if (context.InvitationTokens.SingleOrDefault(x => x.Type == invitationToken.Type) == null)
+                    {
+                        context.Add(invitationToken);
+                    }
+                }
+
+                context.SaveChanges();
+            }
+
+        }
         internal static class RoleConfiguration
         {
             public static void Seed(CoopDbContext context)
@@ -416,7 +436,7 @@ namespace Coop.Api.Data
             }
         }
 
-        internal static class MainrenanceRequestConfiguration
+        internal static class MaintenanceRequestConfiguration
         {
             internal static void Seed(CoopDbContext context)
             {
@@ -466,7 +486,7 @@ namespace Coop.Api.Data
 
                 void AddIfDoesntExist(JsonContent jsonContent)
                 {
-                    if(context.JsonContents.SingleOrDefault(x => x.Name == jsonContent.Name) == null)
+                    if (context.JsonContents.SingleOrDefault(x => x.Name == jsonContent.Name) == null)
                     {
                         context.Add(jsonContent);
 

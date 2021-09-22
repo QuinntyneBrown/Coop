@@ -6,13 +6,13 @@ namespace Coop.Api.Features
     {
         public static ThemeDto ToDto(this Theme theme)
         {
-            return new ()
+            return new()
             {
                 ThemeId = theme.ThemeId,
                 ProfileId = theme.ProfileId,
                 CssCustomProperties = theme.CssCustomProperties
             };
         }
-        
+
     }
 }

@@ -39,13 +39,6 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetStaffMembers.Response>> Get()
             => await _mediator.Send(new GetStaffMembers.Request());
 
-        [HttpPost(Name = "CreateStaffMemberRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateStaffMember.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateStaffMember.Response>> Create([FromBody] CreateStaffMember.Request request)
-            => await _mediator.Send(request);
-
         [HttpGet("page/{pageSize}/{index}", Name = "GetStaffMembersPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

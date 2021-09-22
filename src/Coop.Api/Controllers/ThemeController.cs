@@ -20,15 +20,15 @@ namespace Coop.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetThemeById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetThemeById.Response>> GetById([FromRoute]GetThemeById.Request request)
+        public async Task<ActionResult<GetThemeById.Response>> GetById([FromRoute] GetThemeById.Request request)
         {
             var response = await _mediator.Send(request);
-        
+
             if (response.Theme == null)
             {
                 return new NotFoundObjectResult(request.ThemeId);
             }
-        
+
             return response;
         }
 
@@ -72,34 +72,34 @@ namespace Coop.Api.Controllers
         [ProducesResponseType(typeof(GetThemes.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetThemes.Response>> Get()
             => await _mediator.Send(new GetThemes.Request());
-        
+
         [HttpPost(Name = "CreateThemeRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CreateTheme.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateTheme.Response>> Create([FromBody]CreateTheme.Request request)
+        public async Task<ActionResult<CreateTheme.Response>> Create([FromBody] CreateTheme.Request request)
             => await _mediator.Send(request);
-        
+
         [HttpGet("page/{pageSize}/{index}", Name = "GetThemesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetThemesPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetThemesPage.Response>> Page([FromRoute]GetThemesPage.Request request)
+        public async Task<ActionResult<GetThemesPage.Response>> Page([FromRoute] GetThemesPage.Request request)
             => await _mediator.Send(request);
-        
+
         [HttpPut(Name = "UpdateThemeRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateTheme.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateTheme.Response>> Update([FromBody]UpdateTheme.Request request)
+        public async Task<ActionResult<UpdateTheme.Response>> Update([FromBody] UpdateTheme.Request request)
             => await _mediator.Send(request);
-        
+
         [HttpDelete("{themeId}", Name = "RemoveThemeRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveTheme.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveTheme.Response>> Remove([FromRoute]RemoveTheme.Request request)
+        public async Task<ActionResult<RemoveTheme.Response>> Remove([FromRoute] RemoveTheme.Request request)
             => await _mediator.Send(request);
-        
+
     }
 }

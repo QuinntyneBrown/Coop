@@ -19,7 +19,7 @@ namespace Coop.UnitTests
             var context = await CoopDbContextFactory.Create();
 
             var container = _serviceCollection
-                .AddSingleton<IPasswordHasher,PasswordHasher>()
+                .AddSingleton<IPasswordHasher, PasswordHasher>()
                 .AddSingleton(context)
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();

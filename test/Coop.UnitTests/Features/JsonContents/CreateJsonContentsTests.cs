@@ -14,7 +14,7 @@ namespace Coop.UnitTests.Features.JsonContents
 {
     using Request = Coop.Api.Features.CreateJsonContent.Request;
 
-    public class CreateJsonContentsTests: TestBase
+    public class CreateJsonContentsTests : TestBase
     {
         [Fact]
         public async Task Handle()
@@ -30,7 +30,8 @@ namespace Coop.UnitTests.Features.JsonContents
 
             var sut = container.GetRequiredService<Handler>();
 
-            var result = await sut.Handle(new Request() { 
+            var result = await sut.Handle(new Request()
+            {
                 JsonContent = new JsonContentDto
                 {
                     Json = default,

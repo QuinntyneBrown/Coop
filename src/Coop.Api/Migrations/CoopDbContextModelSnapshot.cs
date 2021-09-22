@@ -34,44 +34,6 @@ namespace Coop.Api.Migrations
                     b.ToTable("ConversationProfile");
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.MaintenanceRequestDomainEvent", b =>
-                {
-                    b.Property<Guid>("MaintenanceRequestDomainEventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("MaintenanceRequestId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("MaintenanceRequestDomainEventId");
-
-                    b.HasIndex("MaintenanceRequestId");
-
-                    b.ToTable("MaintenanceRequestDomainEvent");
-                });
-
-            modelBuilder.Entity("Coop.Api.DomainEvents.NoticeDomainEvent", b =>
-                {
-                    b.Property<Guid>("NoticeDomainEventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("NoticeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("NoticeDomainEventId");
-
-                    b.HasIndex("NoticeId");
-
-                    b.ToTable("NoticeDomainEvent");
-                });
-
             modelBuilder.Entity("Coop.Api.Models.Conversation", b =>
                 {
                     b.Property<Guid>("ConversationId")
@@ -310,6 +272,49 @@ namespace Coop.Api.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("Coop.Api.Models.StoredEvent", b =>
+                {
+                    b.Property<Guid>("StoredEventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Aggregate")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AggregateDotNetType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DotNetType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sequence")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StreamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("StoredEventId");
+
+                    b.HasIndex("StreamId", "Aggregate");
+
+                    b.ToTable("StoredEvents");
+                });
+
             modelBuilder.Entity("Coop.Api.Models.Theme", b =>
                 {
                     b.Property<Guid>("ThemeId")
@@ -349,9 +354,13 @@ namespace Coop.Api.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Username")
+                        .IsUnique()
+                        .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -465,24 +474,6 @@ namespace Coop.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.MaintenanceRequestDomainEvent", b =>
-                {
-                    b.HasOne("Coop.Api.Models.MaintenanceRequest", null)
-                        .WithMany("Events")
-                        .HasForeignKey("MaintenanceRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Coop.Api.DomainEvents.NoticeDomainEvent", b =>
-                {
-                    b.HasOne("Coop.Api.Models.Notice", null)
-                        .WithMany("Events")
-                        .HasForeignKey("NoticeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Coop.Api.Models.MaintenanceRequest", b =>
                 {
                     b.OwnsMany("Coop.Api.Models.MaintenanceRequestComment", "Comments", b1 =>
@@ -585,11 +576,6 @@ namespace Coop.Api.Migrations
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.MaintenanceRequest", b =>
-                {
-                    b.Navigation("Events");
-                });
-
             modelBuilder.Entity("Coop.Api.Models.Profile", b =>
                 {
                     b.Navigation("Messages");
@@ -603,11 +589,6 @@ namespace Coop.Api.Migrations
             modelBuilder.Entity("Coop.Api.Models.User", b =>
                 {
                     b.Navigation("Profiles");
-                });
-
-            modelBuilder.Entity("Coop.Api.Models.Notice", b =>
-                {
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

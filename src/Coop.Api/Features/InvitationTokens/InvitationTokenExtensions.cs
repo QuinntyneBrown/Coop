@@ -7,11 +7,11 @@ namespace Coop.Api.Features
     {
         public static InvitationTokenDto ToDto(this InvitationToken invitationToken)
         {
-            return new ()
+            return new()
             {
                 InvitationTokenId = invitationToken.InvitationTokenId
             };
         }
-        
+
     }
 }

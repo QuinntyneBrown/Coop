@@ -1,7 +1,7 @@
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
-using Coop.Core.Messages;
+using Coop.Core.DomainEvents;
 using FluentValidation;
 using MediatR;
 using System.Threading;
@@ -12,7 +12,7 @@ namespace Coop.Api.Features
 {
     public class CreateUser
     {
-        
+
         public class Validator : AbstractValidator<Request>
         {
             public Validator()

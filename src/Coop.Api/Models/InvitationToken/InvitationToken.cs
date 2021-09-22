@@ -10,13 +10,13 @@ namespace Coop.Api.Models
         public InvitationTokenType Type { get; private set; } = InvitationTokenType.Member;
 
         public InvitationToken(string value, DateTime? expiry)
-            :this(value)
+            : this(value)
         {
             Expiry = expiry;
         }
 
         public InvitationToken(string value, InvitationTokenType type)
-            :this(value)
+            : this(value)
         {
             Type = type;
         }

@@ -9,6 +9,7 @@ export * from './document';
 export * from './fragment';
 export * from './html-content';
 export * from './image-content';
+export * from './invitation-token';
 export * from './json-content-name';
 export * from './json-content';
 export * from './maintenance-request-comment';

@@ -10,9 +10,9 @@ namespace Coop.Api.Models
         public JObject CssCustomProperties { get; private set; }
 
         public Theme(Guid? profileId, JObject cssCustomProperties)
-            :this(cssCustomProperties)
+            : this(cssCustomProperties)
         {
-            ProfileId = profileId;            
+            ProfileId = profileId;
         }
 
         public Theme(JObject cssCustomProperties)

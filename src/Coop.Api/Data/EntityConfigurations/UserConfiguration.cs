@@ -8,7 +8,10 @@ namespace Coop.Api.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasQueryFilter(p => !p.IsDeleted);
+            builder
+                .HasQueryFilter(p => !p.IsDeleted)
+                .HasIndex(x => x.Username)
+                .IsUnique();
         }
     }
 }

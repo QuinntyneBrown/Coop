@@ -1,7 +1,7 @@
 ﻿using Coop.Api.Core;
 using Coop.Api.Interfaces;
-using Coop.Core.Messages;
-using Coop.Core.Messages.InvitationToken;
+using Coop.Core.DomainEvents;
+using Coop.Core.DomainEvents.InvitationToken;
 using MediatR;
 using System;
 using System.Linq;
@@ -23,9 +23,13 @@ namespace Coop.Api.Features.InvitationTokens
 
         public async Task Handle(ValidateInvitationToken notification, CancellationToken cancellationToken)
         {
+            var invitationToken = _context.InvitationTokens
+                .SingleOrDefault((x => (x.Expiry == null || x.Expiry.Value > DateTime.UtcNow) && x.Value == notification.InvitationToken));
+
             await _messageHandlerContext.Publish(new ValidatedInvitationToken()
             {
-                IsValid = _context.InvitationTokens.SingleOrDefault(x => x.Expiry == null || x.Expiry.Value > DateTime.UtcNow) != null
+                IsValid = invitationToken != null,
+                InvitationTokenType = invitationToken?.Type.ToString()
             });
         }
     }

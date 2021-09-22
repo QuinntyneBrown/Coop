@@ -1,6 +1,6 @@
 ﻿using Coop.Api.Interfaces;
 using Coop.Api.Models;
-using Coop.Core.Messages;
+using Coop.Core.DomainEvents;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +21,7 @@ namespace Coop.Api.Features.JsonContents
 
         public async Task Handle(CreatedJsonContent notification, CancellationToken cancellationToken)
         {
-            if(await _context.JsonContents.Where(x => x.Name == notification.Name).CountAsync() > 1)
+            if (await _context.JsonContents.Where(x => x.Name == notification.Name).CountAsync() > 1)
             {
                 throw new Exception("Duplicate");
             }

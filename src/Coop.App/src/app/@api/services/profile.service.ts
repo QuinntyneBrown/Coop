@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Profile } from '@api';
+import { CreateProfileRequest, Profile } from '@api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { baseUrl, EntityPage, IPagableService } from '@core';
@@ -46,8 +46,8 @@ export class ProfileService implements IPagableService<Profile> {
     return this._client.delete<void>(`${this._baseUrl}api/profile/${options.profile.profileId}`);
   }
 
-  public create(options: { profile: Profile }): Observable<{ profile: Profile }> {
-    return this._client.post<{ profile: Profile }>(`${this._baseUrl}api/profile`, { profile: options.profile });
+  public create(options: CreateProfileRequest ): Observable<{ profile: Profile }> {
+    return this._client.post<{ profile: Profile }>(`${this._baseUrl}api/profile`, options);
   }
 
   public update(options: { profile: Profile }): Observable<{ profile: Profile }> {

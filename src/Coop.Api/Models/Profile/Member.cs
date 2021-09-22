@@ -10,7 +10,7 @@ namespace Coop.Api.Models
         { }
 
         public Member(string firstname, string lastname)
-            :base(ProfileType.Member,firstname,lastname)
+            : base(ProfileType.Member, firstname, lastname)
         {
 
         }

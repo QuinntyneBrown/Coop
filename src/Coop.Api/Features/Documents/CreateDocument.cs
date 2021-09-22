@@ -1,10 +1,10 @@
+using Coop.Api.Core;
+using Coop.Api.Interfaces;
+using Coop.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Api.Models;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
 
 namespace Coop.Api.Features
 {

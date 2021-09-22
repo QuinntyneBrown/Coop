@@ -1,6 +1,7 @@
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
+using Coop.Core.DomainEvents;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -23,21 +24,21 @@ namespace Coop.Api.Features
 
         public record Request(string Username, string Password) : IRequest<Response>;
 
-        public record Response(string AccessToken, System.Guid UserId);
+        public record Response(string AccessToken, Guid UserId);
 
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
-            private readonly ITokenProvider _tokenProvider;
             private readonly ITokenBuilder _tokenBuilder;
+            private readonly IMessageHandlerContext _messageHandlerContext;
 
-            public Handler(ICoopDbContext context, ITokenProvider tokenProvider, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder)
+            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IMessageHandlerContext messageHandlerContext)
             {
                 _context = context;
-                _tokenProvider = tokenProvider;
                 _passwordHasher = passwordHasher;
                 _tokenBuilder = tokenBuilder;
+                _messageHandlerContext = messageHandlerContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -67,6 +68,9 @@ namespace Coop.Api.Features
                         _tokenBuilder.AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Privilege, $"{privilege.AccessRight}{privilege.Aggregate}"));
                     }
                 }
+
+                await _messageHandlerContext.Publish(new AuthenticatedUser(user.Username));
+
                 return new(_tokenBuilder.Build(), user.UserId);
 
             }

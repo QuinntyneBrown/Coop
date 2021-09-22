@@ -1,10 +1,9 @@
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
-using Coop.Core.Messages;
+using Coop.Core.DomainEvents;
 using FluentValidation;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +19,6 @@ namespace Coop.Api.Features
                 RuleFor(request => request.JsonContent).NotNull();
                 RuleFor(request => request.JsonContent).SetValidator(new JsonContentValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -64,7 +62,7 @@ namespace Coop.Api.Features
                         JsonContentId = jsonContent.JsonContentId,
                         Name = jsonContent.Name
                     });
-                } 
+                }
                 catch
                 {
                     _context.JsonContents.Remove(jsonContent);

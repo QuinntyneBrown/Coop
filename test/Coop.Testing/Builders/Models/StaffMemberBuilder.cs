@@ -8,7 +8,7 @@ namespace Coop.Testing.Builders.Models
 
         public static StaffMember WithDefaults()
         {
-            return new StaffMember(default,default,default,default);
+            return new StaffMember(default, default, default, default);
         }
 
         public StaffMemberBuilder()

@@ -37,6 +37,24 @@ namespace Coop.Api.Core
             public static List<string> All => new() { Member, Staff, BoardMember, SystemAdministrator, Support };
         }
 
+        public static class ProfileTypes
+        {
+            public const string Member = nameof(Member);
+            public const string Staff = nameof(Staff);
+            public const string BoardMember = nameof(BoardMember);
+            public const string SystemAdministrator = nameof(SystemAdministrator);
+            public const string Support = nameof(Support);
+            public static List<string> All => new() { Member, Staff, BoardMember, SystemAdministrator, Support };
+        }
+
+        public static class InvitationTypes
+        {
+            public const string Member = nameof(Member);
+            public const string Staff = nameof(Staff);
+            public const string BoardMember = nameof(BoardMember);
+            public static List<string> All => new() { Member, Staff, BoardMember };
+        }
+
         public static class Aggregates
         {
             public const string BoardMember = nameof(BoardMember);

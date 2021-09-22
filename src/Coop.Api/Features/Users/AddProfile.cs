@@ -10,7 +10,8 @@ namespace Coop.Api.Features
 {
     public class AddProfile
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public Guid UserId { get; set; }
             public Guid ProfileId { get; set; }
 
@@ -37,7 +38,8 @@ namespace Coop.Api.Features
                 _messageHandlerContext = messageHandlerContext;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var (userId, profileId) = request;
 
@@ -49,7 +51,8 @@ namespace Coop.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new() {
+                return new()
+                {
                     User = user.ToDto()
                 };
             }

@@ -47,6 +47,7 @@
     "JsonContent",
     "OnCall",
     "Theme",
-    "InvitationToken"
+    "InvitationToken",
+    "StoredEvent"
   ]
 }

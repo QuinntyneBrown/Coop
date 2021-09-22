@@ -1,7 +1,7 @@
 ﻿using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
-using Coop.Core.Messages;
+using Coop.Core.DomainEvents;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
-    using Messages = Coop.Core.Messages;
+    using Messages = Coop.Core.DomainEvents;
 
-    public class UserMessageHandler : INotificationHandler<Messages.AddProfile>
+    public class UserMessageHandler : INotificationHandler<Messages.AddProfile>, INotificationHandler<Messages.CreateUser>
     {
         private readonly ICoopDbContext _context;
         private readonly IMessageHandlerContext _messageHandlerContext;
@@ -31,8 +31,8 @@ namespace Coop.Api.Features
 
             var user = await _context.Users
                 .Include(x => x.Profiles)
-                .SingleAsync(x => x.UserId ==  userId);
-                  
+                .SingleAsync(x => x.UserId == userId);
+
             var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == profileId);
 
             user.AddProfile(profile);
@@ -50,7 +50,7 @@ namespace Coop.Api.Features
         {
             var user = new User(notification.Username, notification.Password, _passwordHasher);
 
-            foreach(var roleName in notification.Roles)
+            foreach (var roleName in notification.Roles)
             {
                 var role = await _context.Roles.SingleAsync(x => x.Name == roleName);
 

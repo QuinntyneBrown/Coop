@@ -17,7 +17,6 @@ namespace Coop.Api.Features
                 RuleFor(request => request.User).NotNull();
                 RuleFor(request => request.User).SetValidator(new UserValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -50,7 +49,6 @@ namespace Coop.Api.Features
                     User = user.ToDto()
                 };
             }
-
         }
     }
 }

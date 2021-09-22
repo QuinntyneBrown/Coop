@@ -28,7 +28,8 @@ namespace Coop.Api.Interfaces
         DbSet<OnCall> OnCalls { get; }
         DbSet<Theme> Themes { get; }
         DbSet<InvitationToken> InvitationTokens { get; }
+        DbSet<StoredEvent> StoredEvents { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

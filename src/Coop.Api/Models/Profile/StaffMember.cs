@@ -13,6 +13,13 @@ namespace Coop.Api.Models
             JobTitle = jobTitle;
         }
 
+        public StaffMember(string firstname, string lastname, Guid? avatarDigitalAssetId = null)
+            : base(ProfileType.StaffMember, firstname, lastname, avatarDigitalAssetId)
+        {
+
+        }
+
+
         private StaffMember()
         {
 

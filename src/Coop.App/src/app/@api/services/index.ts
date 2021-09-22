@@ -6,6 +6,7 @@ export * from './document.service';
 export * from './fragment.service';
 export * from './html-content.service';
 export * from './image-content.service';
+export * from './invitation-token.service';
 export * from './json-content.service';
 export * from './maintenance-request-comment.service';
 export * from './maintenance-request-digital-asset.service';

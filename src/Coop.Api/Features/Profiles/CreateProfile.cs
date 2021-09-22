@@ -1,10 +1,12 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Coop.Api.Models;
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Coop.Core.DomainEvents;
+using Coop.Core.DomainEvents.InvitationToken;
+using FluentValidation;
+using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -14,15 +16,29 @@ namespace Coop.Api.Features
         {
             public Validator()
             {
-                RuleFor(request => request.Profile).NotNull();
-                RuleFor(request => request.Profile).SetValidator(new ProfileValidator());
+                RuleFor(x => x.Firstname).NotEmpty();
+                RuleFor(x => x.Lastname).NotEmpty();
             }
-
         }
 
         public class Request : IRequest<Response>
         {
-            public ProfileDto Profile { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string PasswordConfirmation { get; set; }
+            public string InvitationToken { get; set; }
+            public string Firstname { get; set; }
+            public string Lastname { get; set; }
+            public Guid? AvatarDigitalAssetId { get; set; }
+            public void Deconstruct(out string email, out string password, out string passwordConfirmation, out string invitationToken, out string firstname, out string lastname)
+            {
+                email = Email;
+                password = Password;
+                passwordConfirmation = PasswordConfirmation;
+                invitationToken = InvitationToken;
+                firstname = Firstname;
+                lastname = Lastname;
+            }
         }
 
         public class Response : ResponseBase
@@ -33,24 +49,87 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-
-            public Handler(ICoopDbContext context)
-                => _context = context;
+            private readonly IMessageHandlerContext _messageHandlerContext;
+            public Handler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+            {
+                _context = context;
+                _messageHandlerContext = messageHandlerContext;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profile = new Profile(default, request.Profile.UserId.Value, request.Profile.Firstname, request.Profile.Lastname);
+                var (email, password, passwordConfirmation, invitationToken, firstname, lastname) = request;
 
-                _context.Profiles.Add(profile);
+                var tcs = new TaskCompletionSource<Response>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                Guid userId = default;
 
-                return new Response()
+                string invitationTokenType = default;
+
+                _messageHandlerContext.Subscribe(async message =>
                 {
-                    Profile = profile.ToDto()
-                };
-            }
+                    switch (message)
+                    {
+                        case ValidatedInvitationToken validatedToken:
+                            if (!validatedToken.IsValid)
+                            {
+                                throw new System.Exception();
+                            }
 
+                            invitationTokenType = validatedToken.InvitationTokenType;
+
+                            var role = invitationTokenType switch
+                            {
+                                Constants.InvitationTypes.Member => Constants.Roles.Member,
+                                Constants.InvitationTypes.Staff => Constants.Roles.Staff,
+                                Constants.InvitationTypes.BoardMember => Constants.Roles.BoardMember,
+                                _ => throw new NotImplementedException()
+                            };
+
+                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.CreateUser(email, password, role));
+
+                            break;
+
+                        case CreatedUser createdUser:
+                            userId = createdUser.UserId;
+
+                            var profileType = invitationTokenType switch
+                            {
+                                Constants.InvitationTypes.Member => Constants.ProfileTypes.Member,
+                                Constants.InvitationTypes.Staff => Constants.ProfileTypes.Staff,
+                                Constants.InvitationTypes.BoardMember => Constants.ProfileTypes.BoardMember,
+                                _ => throw new NotImplementedException()
+                            };
+                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.CreateProfile(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId));
+                            break;
+
+                        case CreatedProfile createdProfile:
+                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.AddProfile(userId, createdProfile.ProfileId));
+                            break;
+
+                        case AddedProfile addedProfile:
+
+                            var profile = await _context.Profiles.FindAsync(addedProfile.ProfileId);
+
+                            tcs.SetResult(new()
+                            {
+                                Profile = new ProfileDto
+                                {
+                                    ProfileId = profile.ProfileId,
+                                    UserId = profile.UserId,
+                                    Firstname = profile.Firstname,
+                                    Lastname = profile.Lastname,
+                                    AvatarDigitalAssetId = profile.AvatarDigitalAssetId
+                                }
+                            });
+                            break;
+                    }
+                });
+
+                await _messageHandlerContext.Publish(new ValidateInvitationToken(request.InvitationToken));
+
+                return await tcs.Task;
+            }
         }
     }
 }
