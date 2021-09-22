@@ -5,6 +5,6 @@
         Member,
         BoardMember,
         OnCall,
-        StaffMember
+        Staff
     }
 }

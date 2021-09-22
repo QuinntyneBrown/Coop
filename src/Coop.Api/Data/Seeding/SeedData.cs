@@ -66,7 +66,7 @@ namespace Coop.Api.Data
                         var type = x switch
                         {
                             Constants.InvitationTypes.Member => InvitationTokenType.Member,
-                            Constants.InvitationTypes.Staff => InvitationTokenType.StaffMember,
+                            Constants.InvitationTypes.Staff => InvitationTokenType.Staff,
                             Constants.InvitationTypes.BoardMember => InvitationTokenType.BoardMember,
                             _ => throw new System.NotImplementedException()
                         };

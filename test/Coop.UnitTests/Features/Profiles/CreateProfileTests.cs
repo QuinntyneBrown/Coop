@@ -38,10 +38,10 @@ namespace Coop.UnitTests.Features
                 Email = "default@default.com",
                 Firstname = "Firstname",
                 Lastname = "Lastname",
-                InvitationToken = Constants.InvitationTypes.BoardMember
+                InvitationToken = Constants.InvitationTypes.Staff
             }, default);
 
-            Assert.NotNull(result.Profile);
+            Assert.Equal(Api.Models.ProfileType.StaffMember, result.Profile.Type);
         }
     }
 }
