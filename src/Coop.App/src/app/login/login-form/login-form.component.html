@@ -28,6 +28,7 @@
     <p>No Account? <a routerLink="/create-account">Create one!</a></p>
 
     <div class="g-actions">
+      <button mat-stroked-button routerLink="/">Cancel</button>
       <button mat-raised-button (click)='tryToLogin.emit(form.value)' [disabled]='!form.valid'>Sign In</button>
     </div>
 
