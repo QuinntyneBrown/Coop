@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonContentName, JsonContentService } from '@api';
 import { ImageHeadingSubheadingPopupComponent } from '@shared/image-heading-subheading-popup/image-heading-subheading-popup.component';

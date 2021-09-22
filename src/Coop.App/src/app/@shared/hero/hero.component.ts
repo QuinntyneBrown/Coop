@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-hero',
+  templateUrl: './hero.component.html',
+  styleUrls: ['./hero.component.scss']
 })
-export class HeaderComponent {
+export class HeroComponent {
 
-  @Output() public menuClick: EventEmitter<void> = new EventEmitter();
+  @Output() public menuClick: EventEmitter<any> = new EventEmitter();
 
   public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Hero })
   .pipe(
@@ -25,7 +25,7 @@ export class HeaderComponent {
 
   }
 
-  public headerClick() {
+  public handleLogoClick() {
     this._router.navigate(["/"]);
   }
 

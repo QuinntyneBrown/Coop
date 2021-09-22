@@ -1,0 +1,14 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <div class="hero__container">
+    <div class="hero__logo-container">
+      <img class="hero__logo" (click)="handleLogoClick()" src="{{ baseUrl + 'api/digitalasset/serve/'  + vm.logoDigitalAssetId }}">
+    </div>
+
+    <div class="header__heading-text-container">
+      <div>
+        <h1>{{ vm.heading }}</h1>
+        <h2>{{ vm.subHeading }}</h2>
+      </div>
+    </div>
+  </div>
+</ng-container>

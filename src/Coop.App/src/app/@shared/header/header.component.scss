@@ -1,92 +1,68 @@
-:host {
-  .header__pre-heading-container {
-    height: 7.5rem;
-    position: relative;
-    padding-top: 1.875rem;
+@use '/src/scss/breakpoints';
 
-    .header__link-list {
-      padding:0;
-      list-style: none;
+:host {
+  min-height: 70px;
+  display: grid;
+  padding:0 20px;
+  place-items: center end;
+
+  .header__container {
+    display: none;
+    grid-template-columns: 150px 1fr 150px;
+    height: 7.5rem;
+    place-items: center center;
+
+
+    ul {
       display: flex;
-      text-transform: uppercase;
-      position: relative;
-      gap:30px;
-      width: fit-content;
-      line-height: 100px;
-      cursor: pointer;
-      user-select: none;
-      margin: 0 auto;
-      li a {
-        color: #000;
+      column-gap:40px;
+      font-size: 1.25rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    ul, li {
+      padding:0;
+      margin:0;
+      list-style: none;
+      grid-column: 2;
+    }
+
+    li {
+      display: inline-block;
+
+      a {
         text-decoration: none;
-        font-size: 1.25rem;
+        color: #000;
+        text-transform: uppercase;
       }
     }
 
+    .header__login {
+      text-align: right;
+      width: 100%;
+    }
 
     .header__login {
-      position: absolute;
-      top: 1.875rem;
-      right: 3.75rem;
       text-transform: uppercase;
       cursor: pointer;
       color: #000;
       text-decoration: none;
-      font-size: 0.875rem;
-      line-height: 100px;
       font-size: 1.25rem;
     }
   }
+}
 
-  .header__logo-and-text-container {
-    background-color: #4E87B5;
-    height: 16rem;
+@media screen and (min-width: breakpoints.$screen-lg) {
+  :host {
     display: block;
-    display: grid;
-    place-items: center;
-    box-shadow: var(--box-shadow, none);
 
-
-    .header__logo-container {
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      height: 11.25rem;
-      width: 11.25rem;
-      background-color: #fff;
-      img {
-        height: 6.25rem;
-        mix-blend-mode: darken;
-      }
+    .header__menu-button {
+      display: none;
     }
 
-    .header__logo-and-text{
+    .header__container {
       display: grid;
-      grid-template-columns:  auto auto;
-      column-gap: 2rem;
-      width: fit-content;
-      place-items: center start;
-      height: 11.25rem;
-      max-width: 1500px;
-      margin: 0 auto;
-      user-select: none;
-      cursor: pointer;
-
-      h1 {
-        color: #fff;
-        padding:0;
-        margin:0;
-      }
-
-      h2 {
-        color: #fff;
-        padding:0;
-        margin:0;
-        text-align: center;
-        font-weight: 400;
-        letter-spacing: 0.15rem;
-      }
     }
   }
-
 }

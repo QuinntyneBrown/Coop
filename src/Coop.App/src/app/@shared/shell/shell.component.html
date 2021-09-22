@@ -1,11 +1,47 @@
 <ng-container *ngIf="vm$ | async as vm">
-  <app-header>
 
-  </app-header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer>
+  <mat-drawer-container>
 
-  </app-footer>
+    <mat-drawer #drawer mode="over" [opened]="opened">
+
+      <button mat-icon-button class="shell__drawer-close" (click)="opened = false">
+        <mat-icon>
+          close
+        </mat-icon>
+      </button>
+
+      <ul class="shell__navigation-links" (click)="opened = false">
+        <li><a [routerLink]="['/']" cdkFocusInitial>Home</a></li>
+        <li><a [routerLink]="['/','board-of-directors']">Board of Directors</a></li>
+        <li><a [routerLink]="['/','management']">Management</a></li>
+        <li><a [routerLink]="['/','on-call-staff']">On Call Staff</a></li>
+        <li><a [routerLink]="['/','rental-interest-and-information']">Rental Interest and Information</a></li>
+        <li><a [routerLink]="['/','contact']">Contact</a></li>
+        <li><a [routerLink]="['/','login']">Login</a></li>
+      </ul>
+
+    </mat-drawer>
+
+    <mat-drawer-content>
+
+      <app-header (menuClick)="handleMenuClick()">
+
+      </app-header>
+
+      <app-hero></app-hero>
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+
+      <app-footer>
+
+      </app-footer>
+
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+
 </ng-container>
+
+

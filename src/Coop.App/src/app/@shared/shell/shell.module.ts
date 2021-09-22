@@ -7,6 +7,7 @@ import { FooterModule } from '@shared/footer';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HeroModule } from '@shared/hero/hero.module';
 
 
 
@@ -24,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
     FooterModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HeroModule
   ]
 })
 export class ShellModule { }

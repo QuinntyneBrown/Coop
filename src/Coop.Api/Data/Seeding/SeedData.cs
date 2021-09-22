@@ -27,36 +27,6 @@ namespace Coop.Api.Data
 
         public static void Seed(CoopDbContext context, IConfiguration configuration)
         {
-/*            var boardMembers = new List<dynamic>();
-
-            foreach (var boardMember in context.BoardMembers)
-            {
-                boardMembers.Add(new
-                {
-
-                    DigitalAssetId = boardMember.AvatarDigitalAssetId,
-                    Heading = $"{boardMember.Firstname} {boardMember.Lastname}",
-                    Subheading = boardMember.BoardTitle
-                });
-            }
-
-            var boardOfDirectorsJsonContent = new JsonContent(JsonContentName.BoardOfDirectors, JObject.Parse(JsonConvert.SerializeObject(new
-            {
-                Heading = "Board of Directors",
-                Subheading = "The Board of Directors is hard working and dedicated to transparency & solid management protocols.",
-                BoardMembers = boardMembers
-            }, Constants.JsonSerializerSettings)));
-
-            var jsonContent = context.JsonContents.Single(x => x.Name == JsonContentName.BoardOfDirectors);
-
-            context.JsonContents.Remove(jsonContent);
-
-            context.SaveChanges();
-
-            context.Add(boardOfDirectorsJsonContent);
-
-            context.SaveChanges();*/
-
             InviteTokenConfiguration.Seed(context);
 
             DigitalAssetConfiguration.Seed(context);

@@ -1,6 +1,12 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <div class="header__pre-heading-container">
+  <button mat-icon-button (click)="menuClick.emit()" class="header__menu-button">
+    <mat-icon>
+      menu
+    </mat-icon>
+  </button>
+
+  <div class="header__container">
     <ul class="header__link-list">
       <li><a [routerLink]="['/','board-of-directors']">Board of Directors</a></li>
       <li><a [routerLink]="['/','management']">Management</a></li>
@@ -9,18 +15,5 @@
       <li><a [routerLink]="['/','contact']">Contact</a></li>
     </ul>
     <a class="header__login" [routerLink]="['/','login']">Login</a>
-  </div>
-  <div class="header__logo-and-text-container" (click)="headerClick()">
-    <div class="header__logo-and-text">
-      <div class="header__logo-container">
-        <img class="header__logo" (click)="headerClick()" src="{{ baseUrl + 'api/digitalasset/serve/'  + vm.logoDigitalAssetId }}">
-      </div>
-
-      <div class="header__heading-text-container">
-        <h1>{{ vm.heading }}</h1>
-        <h2>{{ vm.subHeading }}</h2>
-      </div>
-    </div>
-
   </div>
 </ng-container>

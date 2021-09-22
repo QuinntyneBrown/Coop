@@ -1,0 +1,60 @@
+@use '/src/scss/breakpoints';
+
+:host {
+  display: block;
+  background-color: #4E87B5;
+  min-height: 70px;
+  position: relative;
+  color: #fff;
+  padding: 1.5rem 0px;
+  cursor: pointer;
+
+  h1, h2 {
+    margin:0;
+    padding:0;
+    margin-left: 20px;
+    text-align: center;
+  }
+
+  .hero__logo-container {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    height: 11.25rem;
+    width: 11.25rem;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-bottom: 0.75rem;
+    img {
+      height: 6.25rem;
+      mix-blend-mode: darken;
+    }
+  }
+}
+
+@media screen and (min-width: breakpoints.$screen-lg) {
+  :host {
+    h1, h2 {
+      margin:0;
+      padding:0;
+      text-align: left;
+    }
+
+    .hero__container {
+      display: grid;
+      margin: 0 auto;
+      grid-template-columns: auto auto;
+      width: fit-content;
+      gap:2rem;
+    }
+
+    .hero__logo-container {
+      margin:0;
+    }
+
+    .header__heading-text-container {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
