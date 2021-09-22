@@ -121,7 +121,8 @@ namespace Coop.Api.Features
                                     UserId = profile.UserId,
                                     Firstname = profile.Firstname,
                                     Lastname = profile.Lastname,
-                                    AvatarDigitalAssetId = profile.AvatarDigitalAssetId
+                                    AvatarDigitalAssetId = profile.AvatarDigitalAssetId,
+                                    Type = profile.Type
                                 }
                             });
                             break;

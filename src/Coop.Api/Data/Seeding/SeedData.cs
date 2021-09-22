@@ -61,7 +61,18 @@ namespace Coop.Api.Data
             public static void Seed(CoopDbContext context)
             {
                 var invitationTokens = Constants.InvitationTypes.All
-                    .Select(x => new InvitationToken(x));
+                    .Select(x => {
+
+                        var type = x switch
+                        {
+                            Constants.InvitationTypes.Member => InvitationTokenType.Member,
+                            Constants.InvitationTypes.Staff => InvitationTokenType.StaffMember,
+                            Constants.InvitationTypes.BoardMember => InvitationTokenType.BoardMember,
+                            _ => throw new System.NotImplementedException()
+                        };
+
+                        return new InvitationToken(x, type);
+                    });
 
                 foreach (var invitationToken in invitationTokens)
                 {

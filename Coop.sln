@@ -12,17 +12,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		clisettings.json = clisettings.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.Core", "src\Coop.Core\Coop.Core.csproj", "{35EDB51F-1D98-4202-AC2F-E3EF5C73C353}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Core", "src\Coop.Core\Coop.Core.csproj", "{35EDB51F-1D98-4202-AC2F-E3EF5C73C353}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.Domain", "src\Coop.Domain\Coop.Domain.csproj", "{D845B3A7-D24D-497B-B2BF-CBD87022AA56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Domain", "src\Coop.Domain\Coop.Domain.csproj", "{D845B3A7-D24D-497B-B2BF-CBD87022AA56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E3660B5D-6CBE-4BF4-8C64-6AB44F2E2FD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.UnitTests", "test\Coop.UnitTests\Coop.UnitTests.csproj", "{71E12FC8-60BA-40CD-A88C-E5C2BE02B506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.UnitTests", "test\Coop.UnitTests\Coop.UnitTests.csproj", "{71E12FC8-60BA-40CD-A88C-E5C2BE02B506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.IntegrationTests", "test\Coop.IntegrationTests\Coop.IntegrationTests.csproj", "{52AA376E-F914-47C3-98EE-102791846855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.IntegrationTests", "test\Coop.IntegrationTests\Coop.IntegrationTests.csproj", "{52AA376E-F914-47C3-98EE-102791846855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.Testing", "test\Coop.Testing\Coop.Testing.csproj", "{A3DF2849-50B0-42D9-8552-19CC58B8D76B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Testing", "test\Coop.Testing\Coop.Testing.csproj", "{A3DF2849-50B0-42D9-8552-19CC58B8D76B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

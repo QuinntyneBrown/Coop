@@ -26,6 +26,8 @@ namespace Coop.Api.Features.InvitationTokens
             var invitationToken = _context.InvitationTokens
                 .SingleOrDefault((x => (x.Expiry == null || x.Expiry.Value > DateTime.UtcNow) && x.Value == notification.InvitationToken));
 
+            var i = _context.InvitationTokens.ToList();
+
             await _messageHandlerContext.Publish(new ValidatedInvitationToken()
             {
                 IsValid = invitationToken != null,

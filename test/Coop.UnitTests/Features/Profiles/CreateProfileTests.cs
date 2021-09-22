@@ -1,7 +1,5 @@
 ﻿using Coop.Api;
 using Coop.Api.Core;
-using Coop.Api.Features;
-using Coop.Api.Interfaces;
 using Coop.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +38,7 @@ namespace Coop.UnitTests.Features
                 Email = "default@default.com",
                 Firstname = "Firstname",
                 Lastname = "Lastname",
-                InvitationToken = Constants.InvitationTypes.Member
+                InvitationToken = Constants.InvitationTypes.BoardMember
             }, default);
 
             Assert.NotNull(result.Profile);
