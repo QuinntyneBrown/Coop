@@ -1,7 +1,7 @@
 <mat-drawer-container>
 
   <mat-drawer #drawer [mode]="mode$ | async">
-    <button mat-icon-button (click)="opened = false" class="drawer__close-button">
+    <button mat-icon-button (click)="drawer.close()" class="drawer__close-button">
       <mat-icon>
         close
       </mat-icon>
@@ -75,7 +75,7 @@
 
   <mat-drawer-content>
     <div class="workspace-header">
-      <button mat-icon-button (click)="opened = true">
+      <button mat-icon-button (click)="drawer.open()">
         <mat-icon>
           menu
         </mat-icon>
