@@ -1,0 +1,33 @@
+<button class="image-heading-subheading__close-button" mat-icon-button mat-dialog-close>
+  <mat-icon>
+    close
+  </mat-icon>
+</button>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <h2>
+    Image and Heading
+  </h2>
+
+  <form [formGroup]="vm.form">
+
+    <div class="image-heading-subheading__digital-upload-container">
+      <app-digital-asset-upload formControlName="digitalAssetId"></app-digital-asset-upload>
+    </div>
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Heading</mat-label>
+      <input type="text" matInput formControlName="heading" placeholder="Heading" cdkInitialFocus />
+    </mat-form-field>
+
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Subheading</mat-label>
+      <input type="text" matInput formControlName="subheading" placeholder="Subheading" />
+    </mat-form-field>
+
+  </form>
+
+  <div class="g-actions">
+    <button mat-stroked-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button (click)=save(vm.form.value)>Save</button>
+  </div>
+</ng-container>

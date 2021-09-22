@@ -2,14 +2,14 @@
 
   <h2 class="g-page-title">{{ vm.heading }}</h2>
 
-  <h3>{{ vm.subHeading }}</h3>
+  <h3>{{ vm.subheading }}</h3>
 
   <div class="board__grid">
     <div *ngFor="let boardMember of vm.boardMembers" class="board__card">
-      <div class="board__card__image" style="{{ 'background-image: url(' + baseUrl + 'api/digitalAsset/serve/' + boardMember.avatarDigitalAssetId + ');' }}">
+      <div class="board__card__image" style="{{ 'background-image: url(' + baseUrl + 'api/digitalAsset/serve/' + boardMember.digitalAssetId + ');' }}">
       </div>
-      <h2>{{ boardMember.firstname + ' ' + boardMember.lastname  }}</h2>
-      <h3>{{ boardMember.boardTitle  }}</h3>
+      <h2>{{ boardMember.heading }}</h2>
+      <h3>{{ boardMember.subheading }}</h3>
     </div>
   </div>
 

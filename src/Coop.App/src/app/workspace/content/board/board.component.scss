@@ -2,4 +2,14 @@
   .g-fields {
     display: block;
   }
+
+  .board__grid-container {
+    margin-top: 40px;
+  }
+
+  .board__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    max-width: 600px;
+  }
 }

@@ -11,14 +11,36 @@
         </mat-form-field>
 
         <mat-form-field class="g-form-field" appearance="outline">
-          <mat-label>Sub Heading</mat-label>
-          <input matInput placeholder='Sub Heading' formControlName='subHeading' required>
+          <mat-label>Subheading</mat-label>
+          <input matInput placeholder='Subheading' formControlName='subheading' required>
         </mat-form-field>
+      </div>
+
+      <button mat-raised-button (click)="addBoardMember(vm)">Add Board Member</button>
+
+      <div cdkDropList  (cdkDropListDropped)="drop(vm.boardMembers, $event)" class="board__grid-container">
+        <div *ngFor="let control of vm.boardMembers; index as i" cdkDrag class="board__grid">
+
+          <span>{{ vm.boardMembers[i]?.heading }}</span>
+
+          <span>{{ vm.boardMembers[i]?.subheading }}</span>
+
+          <div>
+            <button mat-icon-button (click)="edit(vm.boardMembers, vm.boardMembers[i], i)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="remove(vm.boardMembers, i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+
+        </div>
       </div>
     </ng-container>
   </form>
 
   <div class="g-actions">
-    <button mat-raised-button (click)="save(vm.form.value)">Save</button>
+    <button mat-raised-button (click)="save(vm)">Save</button>
   </div>
 </ng-container>

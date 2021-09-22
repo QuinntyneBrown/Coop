@@ -4,7 +4,10 @@ import { BoardRoutingModule } from './board-routing.module';
 import { BoardComponent } from './board.component';
 import { COMMON_FORMS_MODULES } from '@shared';
 import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-asset-upload.module';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ImageHeadingSubheadingPopupModule } from '@shared/image-heading-subheading-popup/image-heading-subheading-popup.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,11 @@ import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-a
     DigitalAssetUploadModule,
     COMMON_FORMS_MODULES,
     CommonModule,
-    BoardRoutingModule
+    BoardRoutingModule,
+    DragDropModule,
+    ImageHeadingSubheadingPopupModule,
+    MatDialogModule,
+    MatIconModule
   ]
 })
 export class BoardModule { }

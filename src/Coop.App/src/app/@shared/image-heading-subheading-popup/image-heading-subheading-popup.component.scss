@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  position: relative;
+
+  .image-heading-subheading__close-button {
+    position: absolute;
+    top:0;
+    right: 0;;
+  }
+
+  .image-heading-subheading__digital-upload-container {
+    display: block;
+    margin-bottom: 30px;
+  }
+}
