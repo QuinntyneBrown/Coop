@@ -1,4 +1,24 @@
+
+@use '/src/scss/breakpoints';
+
 :host {
+
+  .drawer__close-button {
+    position: absolute;
+    top:20px;
+    right: 20px;
+  }
+
+  mat-drawer {
+    width: 100%;
+  }
+
+  .workspace-header {
+    min-height: 70px;
+    display: grid;
+    padding:0 20px;
+    place-items: center end;
+  }
 
   h1 {
     padding:0px 30px;
@@ -53,4 +73,20 @@
     box-sizing: border-box;
     min-height: 100vh;
   }
+}
+
+@media screen and (min-width: breakpoints.$screen-md) {
+ :host {
+  .drawer__close-button {
+    display: none;
+  }
+
+  mat-drawer {
+    width: initial;
+  }
+ }
+  .workspace-header {
+    display: none;
+  }
+
 }

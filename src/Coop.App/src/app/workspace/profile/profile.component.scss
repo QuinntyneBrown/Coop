@@ -1,4 +1,11 @@
+@use '/src/scss/breakpoints';
+
 :host {
+  .profile__actions--settings,
+  .profile__actions--messenger {
+    display: none;
+  }
+
   .profile__actions {
     position: absolute;
     top: 60px;
@@ -28,4 +35,15 @@
   }
 
 
+}
+
+
+@media screen and (min-width: breakpoints.$screen-lg) {
+
+  :host {
+    .profile__actions--settings,
+    .profile__actions--messenger {
+      display: block;
+    }
+  }
 }

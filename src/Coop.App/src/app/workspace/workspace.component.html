@@ -1,6 +1,11 @@
 <mat-drawer-container>
 
-  <mat-drawer mode="side" [opened]="true">
+  <mat-drawer #drawer [mode]="mode$ | async">
+    <button mat-icon-button (click)="opened = false" class="drawer__close-button">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
     <h1 (click)="redirectToPublicDefault()">OWN Housing Co-op</h1>
 
     <ul>
@@ -69,6 +74,13 @@
   </mat-drawer>
 
   <mat-drawer-content>
+    <div class="workspace-header">
+      <button mat-icon-button (click)="opened = true">
+        <mat-icon>
+          menu
+        </mat-icon>
+      </button>
+    </div>
     <main>
       <router-outlet></router-outlet>
     </main>

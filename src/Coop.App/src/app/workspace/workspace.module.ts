@@ -4,6 +4,8 @@ import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { WorkspaceComponent } from './workspace.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     WorkspaceRoutingModule,
     MatSidenavModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class WorkspaceModule { }
