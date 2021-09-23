@@ -1,0 +1,46 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <h2 class="g-tab-heading">On Call Staff</h2>
+
+  <form [formGroup]="vm.form">
+    <ng-container formGroupName="json">
+      <div class="g-fields">
+        <mat-form-field class="g-form-field" appearance="outline">
+          <mat-label>Heading</mat-label>
+          <input  matInput placeholder='Heading' formControlName='heading'>
+        </mat-form-field>
+
+        <mat-form-field class="g-form-field" appearance="outline">
+          <mat-label>Subheading</mat-label>
+          <input matInput placeholder='Subheading' formControlName='subheading' required>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button (click)="add(vm)">Add Staff Member</button>
+
+      <div cdkDropList  (cdkDropListDropped)="drop(vm.onCallStaff, $event)" class="image-heading-subheading__grid-container">
+        <div *ngFor="let control of vm.onCallStaff; index as i" cdkDrag class="image-heading-subheading__grid">
+
+          <span>{{ vm.onCallStaff[i]?.heading }}</span>
+
+          <span>{{ vm.onCallStaff[i]?.subheading }}</span>
+
+          <div>
+            <button mat-icon-button (click)="edit(vm.onCallStaff, vm.onCallStaff[i], i)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="remove(vm.onCallStaff, i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </form>
+
+  <div class="g-actions">
+    <button mat-raised-button (click)="save(vm)">Save</button>
+  </div>
+</ng-container>

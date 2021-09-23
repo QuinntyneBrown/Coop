@@ -1,0 +1,15 @@
+:host {
+  .g-fields {
+    display: block;
+  }
+
+  .image-heading-subheading__grid-container {
+    margin-top: 40px;
+  }
+
+  .image-heading-subheading__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    max-width: 600px;
+  }
+}

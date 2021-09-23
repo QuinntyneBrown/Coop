@@ -4,5 +4,6 @@ export enum JsonContentName {
   BoardOfDirectors = "BoardOfDirectors",
   ContactUs = "ContactUs",
   RentalInterestAndInformation = "RentalInterestAndInformation",
-  ManagementStaff = "ManagementStaff"
+  ManagementStaff = "ManagementStaff",
+  OnCall = "OnCall"
 };

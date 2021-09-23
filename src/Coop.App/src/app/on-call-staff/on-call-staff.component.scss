@@ -1,0 +1,58 @@
+@use 'src/scss/breakpoints';
+
+:host {
+  display: block;
+  position: relative;
+
+  h3 {
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  .board__grid {
+    display: grid;
+    margin-top: 80px;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 30px;
+
+    h2,h3 {
+      text-align: left;
+      padding:0;
+      margin:0;
+    }
+
+    h2 {
+      text-transform: uppercase;
+    }
+
+    .board__card {
+      .board__card__image{
+        display: block;
+        width: 75%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin:0 auto;
+        margin-bottom: 30px;
+      }
+
+      .board__card__image:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+    }
+
+
+  }
+}
+
+
+@media screen and (min-width: breakpoints.$screen-lg) {
+  :host {
+    .board__grid {
+      grid-template-columns: repeat(4, minmax(0,1fr));
+    }
+  }
+}
