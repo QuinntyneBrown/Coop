@@ -15,10 +15,12 @@
 
     ul {
       display: flex;
-      column-gap:40px;
+      justify-content: space-evenly;
       font-size: 1.25rem;
       flex-wrap: wrap;
       text-align: center;
+      width: 100%;
+      gap:20px;
     }
 
     ul, li {
