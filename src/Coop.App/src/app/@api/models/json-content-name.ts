@@ -3,5 +3,6 @@ export enum JsonContentName {
   Hero = "Hero",
   BoardOfDirectors = "BoardOfDirectors",
   ContactUs = "ContactUs",
-  RentalInterestAndInformation = "RentalInterestAndInformation"
+  RentalInterestAndInformation = "RentalInterestAndInformation",
+  ManagementStaff = "ManagementStaff"
 };
