@@ -13,11 +13,27 @@
     width: 100%;
   }
 
+  mat-drawer-content {
+    padding-top:40px;
+  }
   .workspace-header {
     min-height: 70px;
     display: grid;
+    position: fixed;
+    top:0;
+    width: 100vw;
+    box-sizing: border-box;
+    grid-template-columns: 1fr auto;
     padding:0 20px;
-    place-items: center end;
+    place-items: center center;
+    box-shadow: var(--box-shadow, none);
+    background-color: #fff;
+    z-index: 100;
+
+    h1 {
+      display: block;
+      width: 100%;
+    }
   }
 
   h1 {
@@ -86,6 +102,10 @@
   }
   .workspace-header {
     display: none;
+  }
+
+  mat-drawer-content {
+    padding-top:0;
   }
  }
 

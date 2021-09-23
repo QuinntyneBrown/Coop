@@ -80,6 +80,7 @@ namespace Coop.Api.Core
                 Member,
                 Notice,
                 Privilege,
+                Report,
                 Role,
                 StaffMember,
                 User,

@@ -25,7 +25,7 @@
         <a [routerLink]="['/','workspace','board-members']">Board Members</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async">
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async" [routerLink]="['/','workspace','by-laws']">
         <a>By Laws</a>
       </li>
 
@@ -37,11 +37,11 @@
         <a>Members</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.Notice) | async">
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Notice) | async" [routerLink]="['/','workspace','notices']">
         <a>Notices</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.Report) | async">
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Report) | async"  [routerLink]="['/','workspace','reports']">
         <a>Reports</a>
       </li>
 
@@ -75,6 +75,7 @@
 
   <mat-drawer-content>
     <div class="workspace-header">
+      <h1 (click)="redirectToPublicDefault()">OWN Housing Co-op</h1>
       <button mat-icon-button (click)="drawer.open()">
         <mat-icon>
           menu

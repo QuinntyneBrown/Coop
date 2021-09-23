@@ -30,6 +30,7 @@ export class RoleComponent {
     "Member",
     "Notice",
     "Privilege",
+    "Report",
     "Role",
     "StaffMember",
     "User"
