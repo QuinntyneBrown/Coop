@@ -1,6 +1,8 @@
+@use '/src/scss/breakpoints';
+
 :host {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   column-gap: 30px;
 
   .id__description-container {
@@ -13,5 +15,12 @@
         margin:0;
       }
     }
+  }
+}
+
+@media screen and (min-width: breakpoints.$screen-lg) {
+  :host {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: unset;
   }
 }
