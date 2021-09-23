@@ -8,37 +8,43 @@
     <mat-form-field>
       <mat-label>Invitation Token</mat-label>
       <input  matInput placeholder='Invitation Token' required formControlName="invitationToken">
+      <mat-error>Invitation Token is required. Contact owncoop@rogers.com to obtain a token.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Firstname</mat-label>
       <input  matInput placeholder='Firstname' required  formControlName="firstname">
+      <mat-error>Firstname is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Lastname</mat-label>
       <input  matInput placeholder='Lastname' required  formControlName="lastname">
+      <mat-error>Lastname is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input  matInput placeholder='Email' required formControlName="email">
+      <mat-error>Email is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Password</mat-label>
       <input type="password"  matInput placeholder='Password' required formControlName="password">
+      <mat-error>Password is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Confirm Password</mat-label>
       <input type="password"  matInput placeholder='Confirm  Password' required formControlName="passwordConfirmation">
+      <mat-error>Password confirmation is required.</mat-error>
     </mat-form-field>
   </form>
 
   <div class="g-actions">
     <button mat-stroked-button routerLink="/">Cancel</button>
-    <button mat-raised-button (click)="tryToSignUp.emit(form.value)">Complete</button>
+    <button mat-raised-button (click)="tryToSignUp.emit(form.value)" [disabled]="!form.valid">Complete</button>
   </div>
 
 </mat-card>
