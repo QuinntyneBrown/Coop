@@ -20,26 +20,22 @@
 
 @media screen and (min-width: breakpoints.$screen-md) {
   .mat-typography {
-
     .g-content {
-
-
       img {
         width: unset;
-        height: 20rem;
-        float: right;
+        height: 16rem;
+        float: left;
         padding:0;
-        margin-left: 24px;
-
+        margin-right: 24px;
         box-shadow: var(--box-shadow, none);
       }
 
       img:nth-of-type(2) {
-        float: left;
+        float: right;
         margin-left:0px;
         margin-top: 24px;
-        margin-right: 24px;
-        height: 25rem;
+        margin-left: 24px;
+        height: 20rem;
       }
     }
   }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { JsonContentName, JsonContentService } from '@api';
-import { map } from 'rxjs/operators';
+import { combineLatest, merge, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,22 +14,32 @@ export class HeroComponent {
 
   @Output() public menuClick: EventEmitter<any> = new EventEmitter();
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Hero })
-  .pipe(
-    map(jsonContent => jsonContent.json)
-  );
+
 
   constructor(
     private readonly _router: Router,
     private readonly _jsonContentService: JsonContentService
-  ) {
+  ) { }
 
-  }
+
+  private _navigatedToLandingPage$ = this._router.events
+  .pipe(
+    filter(e => e instanceof NavigationEnd),
+    map((e:any) => e.url),
+    map(url => url == '/'),
+  );
+
+  private _onLandingPage$ = merge(this._navigatedToLandingPage$, of(location.href.indexOf('landing') >= 0));
 
   public handleLogoClick() {
     this._router.navigate(["/"]);
   }
 
   public baseUrl = environment.baseUrl;
+
+  public vm$ = combineLatest([this._jsonContentService.getByName({ name: JsonContentName.Hero }), this._onLandingPage$])
+  .pipe(
+    map(([jsonContent, onLandingPage]) => (Object.assign(jsonContent.json, { onLandingPage })))
+  );
 
 }

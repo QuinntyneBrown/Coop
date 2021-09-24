@@ -34,7 +34,7 @@ namespace Coop.Api.Features
             public string Firstname { get; set; }
             public string Lastname { get; set; }
             public Guid? AvatarDigitalAssetId { get; set; }
-            public void Deconstruct(out string email, out string password, out string passwordConfirmation, out string invitationToken, out string firstname, out string lastname)
+            public void Deconstruct(out string email, out string password, out string passwordConfirmation, out string invitationToken, out string firstname, out string lastname, out Guid? avatarDigitalAssetId)
             {
                 email = Email;
                 password = Password;
@@ -42,6 +42,7 @@ namespace Coop.Api.Features
                 invitationToken = InvitationToken;
                 firstname = Firstname;
                 lastname = Lastname;
+                avatarDigitalAssetId = AvatarDigitalAssetId;
             }
         }
 
@@ -74,7 +75,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var (email, password, passwordConfirmation, invitationToken, firstname, lastname) = request;
+                var (email, password, passwordConfirmation, invitationToken, firstname, lastname, avatarDigitalAssetId) = request;
 
                 Guid userId = default;
 
@@ -82,7 +83,7 @@ namespace Coop.Api.Features
 
                 var startWith = new ValidateInvitationToken(request.InvitationToken);
 
-                return await _orchestrationHandler.Handle<Response>(startWith, (tcs) => async message =>
+                return await _orchestrationHandler.Handle<Response>(startWith, (ctx) => async message =>
                 {
                     switch (message)
                     {
@@ -97,7 +98,7 @@ namespace Coop.Api.Features
                         case CreatedUser createdUser:
                             userId = createdUser.UserId;
                             var profileType = _resolveProfileTypeByInvitationTokenType(invitationTokenType);
-                            await _orchestrationHandler.PublishCreateProfileEvent(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId);
+                            await _orchestrationHandler.PublishCreateProfileEvent(profileType, firstname, lastname, avatarDigitalAssetId);
                             break;
 
                         case CreatedProfile createdProfile:
@@ -106,13 +107,13 @@ namespace Coop.Api.Features
 
                         case AddedProfile addedProfile:
                             var profile = await _context.Profiles.FindAsync(addedProfile.ProfileId);
-                            tcs.SetResult(new Response(profile));
+                            ctx.SetResult(new Response(profile));
                             break;
                     }
                 });
             }
 
-            public string _resolveRoleByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
+            private string _resolveRoleByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
             {
                 Constants.InvitationTypes.Member => Constants.Roles.Member,
                 Constants.InvitationTypes.Staff => Constants.Roles.Staff,
@@ -120,7 +121,7 @@ namespace Coop.Api.Features
                 _ => throw new NotImplementedException()
             };
 
-            public string _resolveProfileTypeByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
+            private string _resolveProfileTypeByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
             {
                 Constants.InvitationTypes.Member => Constants.ProfileTypes.Member,
                 Constants.InvitationTypes.Staff => Constants.ProfileTypes.Staff,

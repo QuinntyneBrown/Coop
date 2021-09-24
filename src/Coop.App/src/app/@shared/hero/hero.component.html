@@ -6,8 +6,8 @@
 
     <div class="header__heading-text-container">
       <div>
-        <h1>{{ vm.heading }}</h1>
-        <h2>{{ vm.subHeading }}</h2>
+        <h1 [ngClass]="{'g-heading--large': !vm.onLandingPage }">{{ vm.heading }}</h1>
+        <h2 *ngIf="vm.onLandingPage">{{ vm.subHeading }}</h2>
       </div>
     </div>
   </div>

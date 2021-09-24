@@ -1,9 +1,13 @@
-.g-page-title {
-  position: relative;
-  margin: 0 auto;
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding-top: 3.75rem;
-  line-height: 1em;
+.mat-typography {
+  .g-page-title {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 3.75rem;
+    line-height: 3em;
+    font-weight: 500;
+    font-size: 2.1rem;
+  }
 }
