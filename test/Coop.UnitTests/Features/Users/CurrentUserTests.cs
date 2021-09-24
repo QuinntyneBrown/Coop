@@ -1,7 +1,9 @@
 ﻿using Coop.Api.Core;
+using Coop.Api.Data;
 using Coop.Api.Interfaces;
 using Coop.Api.Models;
 using Coop.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,6 +13,7 @@ namespace Coop.UnitTests
 {
     public class CurrentUserTests : TestBase
     {
+
         [Fact]
         public async Task ShouldGetNullUser()
         {
@@ -32,18 +35,23 @@ namespace Coop.UnitTests
         [Fact]
         public async Task ShouldGetUser()
         {
-            var expectedUserName = "Quinntyne";
+            var expectedUserName = "quinntynebrown@gmail.com";
 
-            var context = await CoopDbContextFactory.Create();
+            //var context = await CoopDbContextFactory.Create();
 
-            var user = new User(expectedUserName, "password", new PasswordHasher());
+            var configuration = ConfigurationFactory.Create();
 
-            context.Users.Add(user);
+            _serviceCollection
+                .AddDbContext<CoopDbContext>(o => o.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
+
+            var context = _serviceCollection.BuildServiceProvider().GetRequiredService<CoopDbContext>();
+
+            var user = await context.Users.SingleAsync(x => x.Username == expectedUserName);
 
             await context.SaveChangesAsync(default);
 
             var container = _serviceCollection
-                .AddSingleton(context)
+                .AddSingleton<ICoopDbContext>(context)
                 .AddHttpContextAccessor(user)
                 .AddSingleton<Handler>()
                 .BuildServiceProvider();

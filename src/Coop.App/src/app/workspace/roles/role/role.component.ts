@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Privilege, PrivilegeService, Role, RoleService } from '@api';
+import { Aggregate, Privilege, PrivilegeService, Role, RoleService } from '@api';
 import { merge, Subject } from 'rxjs';
 import { map, startWith, switchMap, tap } from 'rxjs/operators';
 
@@ -30,10 +30,14 @@ export class RoleComponent {
     "Member",
     "Notice",
     "Privilege",
-    "Report",
     "Role",
     "StaffMember",
-    "User"
+    "User",
+    Aggregate.Report,
+    Aggregate.Message,
+    Aggregate.JsonContent,
+    Aggregate.Theme
+
   ];
 
   public accessRights: number[] = [0,1,2,3,4];

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NoticesComponent } from './notices.component';
+import { NoticeListComponent } from './notice-list/notice-list.component';
 
-const routes: Routes = [{ path: '', component: NoticesComponent }];
+const routes: Routes = [{ path: '', component: NoticeListComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

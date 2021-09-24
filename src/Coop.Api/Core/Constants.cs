@@ -71,6 +71,8 @@ namespace Coop.Api.Core
             public const string Message = nameof(Message);
             public const string HtmlContent = nameof(HtmlContent);
             public const string CssCustomProperty = nameof(CssCustomProperty);
+            public const string JsonContent = nameof(JsonContent);
+            public const string Theme = nameof(Theme);
             public static List<string> All => new()
             {
                 BoardMember,
@@ -86,7 +88,9 @@ namespace Coop.Api.Core
                 User,
                 Message,
                 HtmlContent,
-                CssCustomProperty
+                CssCustomProperty,
+                JsonContent,
+                Theme
             };
 
             public static List<string> Authenticated => new()

@@ -32,14 +32,14 @@ namespace Coop.Api.Features
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
             private readonly ITokenBuilder _tokenBuilder;
-            private readonly IOrchestrationHandler _messageHandlerContext;
+            private readonly IOrchestrationHandler _orchestrationHandler;
 
-            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IOrchestrationHandler messageHandlerContext)
+            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IOrchestrationHandler orchestrationHandler)
             {
                 _context = context;
                 _passwordHasher = passwordHasher;
                 _tokenBuilder = tokenBuilder;
-                _messageHandlerContext = messageHandlerContext;
+                _orchestrationHandler = orchestrationHandler;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -55,25 +55,16 @@ namespace Coop.Api.Features
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                     throw new Exception();
 
-                _tokenBuilder
-                    .AddUsername(user.Username)
-                    .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.UserId, $"{user.UserId}"))
-                    .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Username, $"{user.Username}"));
-
-                foreach (var role in user.Roles)
-                {
-                    _tokenBuilder.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role.Name));
-
-                    foreach (var privilege in role.Privileges)
-                    {
-                        _tokenBuilder.AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Privilege, $"{privilege.AccessRight}{privilege.Aggregate}"));
-                    }
-                }
-
-                await _messageHandlerContext.Publish(new AuthenticatedUser(user.Username));
-
-                return new(_tokenBuilder.Build(), user.UserId);
-
+                return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
+                 {
+                     switch(message)
+                     {
+                         case BuiltToken builtToken:
+                             await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
+                             tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));                             
+                             break;
+                     }
+                 });
             }
 
             public bool ValidateUser(User user, string transformedPassword)

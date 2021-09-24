@@ -31,14 +31,16 @@ export class MemberListComponent implements OnDestroy {
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
-        'name',
-        'edit'
+        'firstname',
+        'lastname',
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +52,7 @@ export class MemberListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _memberService: MemberService,
     private readonly _dialog: MatDialog,
@@ -64,12 +66,12 @@ export class MemberListComponent implements OnDestroy {
 
   }
 
-  public delete(member: Member) {    
+  public delete(member: Member) {
     this._memberService.remove({ member }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

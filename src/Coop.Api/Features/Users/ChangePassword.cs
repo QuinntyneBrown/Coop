@@ -1,11 +1,13 @@
+using Coop.Api.Core;
 using Coop.Api.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Coop.Api.Features.Users
+namespace Coop.Api.Features
 {
     public class ChangePassword
     {
@@ -48,6 +50,13 @@ namespace Coop.Api.Features.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new();
+                }
+
+                var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
+
 
                 return new Response()
                 {

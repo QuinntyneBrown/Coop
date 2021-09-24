@@ -17,7 +17,7 @@
         <a [routerLink]="['/','workspace','maintenance-requests', 'create']">Create a Maintenance Request</a>
       </li>
 
-      <li>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Message) | async">
         <a [routerLink]="['/','workspace','messages']">Messages</a>
       </li>
 
@@ -25,28 +25,28 @@
         <a [routerLink]="['/','workspace','board-members']">Board Members</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async" [routerLink]="['/','workspace','by-laws']">
-        <a>By Laws</a>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.ByLaw) | async">
+        <a [routerLink]="['/','workspace','by-laws']">By Laws</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.MaintenanceRequest) | async" [routerLink]="['/','workspace','maintenance-requests']">
-        <a>Maintenance Requests</a>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.MaintenanceRequest) | async">
+        <a [routerLink]="['/','workspace','maintenance-requests']">Maintenance Requests</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.Member) | async">
-        <a>Members</a>
+        <a [routerLink]="['/','workspace','members']">Members</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.Notice) | async" [routerLink]="['/','workspace','notices']">
-        <a>Notices</a>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Notice) | async">
+        <a [routerLink]="['/','workspace','notices']">Notices</a>
       </li>
 
-      <li *ngIf="hasReadWritePrivileges$(Aggregate.Report) | async"  [routerLink]="['/','workspace','reports']">
-        <a>Reports</a>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Report) | async">
+        <a [routerLink]="['/','workspace','reports']">Reports</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.StaffMember) | async">
-        <a>Staff Members</a>
+        <a [routerLink]="['/','workspace','staff-members']">Staff Members</a>
       </li>
 
       <li *ngIf="hasReadWritePrivileges$(Aggregate.User) | async">
@@ -57,11 +57,11 @@
         <a [routerLink]="['/','workspace','roles']">Roles</a>
       </li>
 
-      <li>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.Theme) | async">
         <a [routerLink]="['/','workspace','settings']">Settings</a>
       </li>
 
-      <li>
+      <li *ngIf="hasReadWritePrivileges$(Aggregate.JsonContent) | async">
         <a [routerLink]="['/','workspace','content']">Content</a>
       </li>
 

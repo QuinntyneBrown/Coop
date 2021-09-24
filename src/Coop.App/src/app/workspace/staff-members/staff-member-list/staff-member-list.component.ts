@@ -31,14 +31,16 @@ export class StaffMemberListComponent implements OnDestroy {
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
-        'name',
-        'edit'
+        'firstname',
+        'lastname',
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +52,7 @@ export class StaffMemberListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _staffMemberService: StaffMemberService,
     private readonly _dialog: MatDialog,
@@ -64,12 +66,12 @@ export class StaffMemberListComponent implements OnDestroy {
 
   }
 
-  public delete(staffMember: StaffMember) {    
+  public delete(staffMember: StaffMember) {
     this._staffMemberService.remove({ staffMember }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

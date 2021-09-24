@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ByLawsComponent } from './by-laws.component';
+import { ByLawListComponent } from './by-law-list/by-law-list.component';
 
-const routes: Routes = [{ path: '', component: ByLawsComponent }];
+
+const routes: Routes = [{ path: '', component: ByLawListComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

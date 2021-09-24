@@ -7,5 +7,8 @@ export enum Aggregate {
   Report = "Report",
   Role = "Role",
   StaffMember = "StaffMember",
-  User = "User"
+  User = "User",
+  Message = "Message",
+  JsonContent = "JsonContent",
+  Theme = "Theme"
 }
