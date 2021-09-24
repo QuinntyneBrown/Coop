@@ -34,9 +34,9 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-            private readonly IMessageHandlerContext _messageHandlerContext;
+            private readonly IOrchestrationHandler _messageHandlerContext;
 
-            public Handler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+            public Handler(ICoopDbContext context, IOrchestrationHandler messageHandlerContext)
             {
                 _context = context;
                 _messageHandlerContext = messageHandlerContext;

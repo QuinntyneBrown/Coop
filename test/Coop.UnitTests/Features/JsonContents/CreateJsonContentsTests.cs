@@ -25,7 +25,7 @@ namespace Coop.UnitTests.Features.JsonContents
                 .AddSingleton(context)
                 .AddSingleton<Handler>()
                 .AddMediatR(typeof(Startup))
-                .AddSingleton<IMessageHandlerContext, MessageHandlerContext>()
+                .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
                 .BuildServiceProvider();
 
             var sut = container.GetRequiredService<Handler>();

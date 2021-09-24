@@ -8,19 +8,13 @@ using static Newtonsoft.Json.JsonConvert;
 
 namespace Coop.Api.Core
 {
-    public interface IMessageHandlerContext
-    {
-        public void Subscribe(Action<INotification> onNext);
-        public Task Publish(INotification message);
-        public Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory);
-    }
 
-    public class MessageHandlerContext : IMessageHandlerContext
+    public class OrchestrationHandler : IOrchestrationHandler
     {
         private readonly IMediator _mediator;
         private readonly ICoopDbContext _context;
 
-        public MessageHandlerContext(IMediator mediator, ICoopDbContext context)
+        public OrchestrationHandler(IMediator mediator, ICoopDbContext context)
         {
             _mediator = mediator;
             _context = context;
@@ -45,16 +39,11 @@ namespace Coop.Api.Core
             await _mediator.Publish(@event);
         }
 
-        public void Subscribe(Action<INotification> onNext)
-        {
-            _messages.Subscribe(onNext);
-        }
-
         public async Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>,Action<INotification>> onNextFactory)
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            Subscribe(onNextFactory(tcs));
+            _messages.Subscribe(onNextFactory(tcs));
 
             await Publish(startWith);
 

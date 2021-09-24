@@ -10,9 +10,9 @@ namespace Coop.Api.Features
     public class ProfileEventHandler : INotificationHandler<Coop.Core.DomainEvents.CreateProfile>
     {
         private readonly ICoopDbContext _context;
-        private readonly IMessageHandlerContext _messageHandlerContext;
+        private readonly IOrchestrationHandler _messageHandlerContext;
 
-        public ProfileEventHandler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+        public ProfileEventHandler(ICoopDbContext context, IOrchestrationHandler messageHandlerContext)
         {
             _context = context;
             _messageHandlerContext = messageHandlerContext;

@@ -51,11 +51,11 @@ namespace Coop.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICoopDbContext _context;
-            private readonly IMessageHandlerContext _messageHandlerContext;
-            public Handler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+            private readonly IOrchestrationHandler _orchestrationHandler;
+            public Handler(ICoopDbContext context, IOrchestrationHandler orchestrationHandler)
             {
                 _context = context;
-                _messageHandlerContext = messageHandlerContext;
+                _orchestrationHandler = orchestrationHandler;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -68,17 +68,14 @@ namespace Coop.Api.Features
 
                 var startWith = new ValidateInvitationToken(request.InvitationToken);
 
-                return await _messageHandlerContext.Handle<Response>(startWith, (tcs) => async message => {
+                return await _orchestrationHandler.Handle<Response>(startWith, (tcs) => async message => {
+
                     switch (message)
                     {
                         case ValidatedInvitationToken validatedToken:
                             if (!validatedToken.IsValid)
-                            {
-                                throw new System.Exception();
-                            }
-
+                                throw new Exception();
                             invitationTokenType = validatedToken.InvitationTokenType;
-
                             var role = invitationTokenType switch
                             {
                                 Constants.InvitationTypes.Member => Constants.Roles.Member,
@@ -87,13 +84,12 @@ namespace Coop.Api.Features
                                 _ => throw new NotImplementedException()
                             };
 
-                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.CreateUser(email, password, role));
+                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.CreateUser(email, password, role));
 
                             break;
 
                         case CreatedUser createdUser:
                             userId = createdUser.UserId;
-
                             var profileType = invitationTokenType switch
                             {
                                 Constants.InvitationTypes.Member => Constants.ProfileTypes.Member,
@@ -101,17 +97,15 @@ namespace Coop.Api.Features
                                 Constants.InvitationTypes.BoardMember => Constants.ProfileTypes.BoardMember,
                                 _ => throw new NotImplementedException()
                             };
-                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.CreateProfile(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId));
+                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.CreateProfile(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId));
                             break;
 
                         case CreatedProfile createdProfile:
-                            await _messageHandlerContext.Publish(new Coop.Core.DomainEvents.AddProfile(userId, createdProfile.ProfileId));
+                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.AddProfile(userId, createdProfile.ProfileId));
                             break;
 
                         case AddedProfile addedProfile:
-
                             var profile = await _context.Profiles.FindAsync(addedProfile.ProfileId);
-
                             tcs.SetResult(new()
                             {
                                 Profile = new ProfileDto
@@ -127,9 +121,6 @@ namespace Coop.Api.Features
                             break;
                     }
                 });
-
-
-
             }
         }
     }

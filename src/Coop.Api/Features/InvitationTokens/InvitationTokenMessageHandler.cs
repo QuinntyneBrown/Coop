@@ -13,9 +13,9 @@ namespace Coop.Api.Features.InvitationTokens
     public class InvitationTokenMessageHandler : INotificationHandler<ValidateInvitationToken>
     {
         private readonly ICoopDbContext _context;
-        private readonly IMessageHandlerContext _messageHandlerContext;
+        private readonly IOrchestrationHandler _messageHandlerContext;
 
-        public InvitationTokenMessageHandler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext)
+        public InvitationTokenMessageHandler(ICoopDbContext context, IOrchestrationHandler messageHandlerContext)
         {
             _context = context;
             _messageHandlerContext = messageHandlerContext;

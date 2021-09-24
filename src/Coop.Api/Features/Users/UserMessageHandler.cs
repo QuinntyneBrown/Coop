@@ -15,10 +15,10 @@ namespace Coop.Api.Features
     public class UserMessageHandler : INotificationHandler<Messages.AddProfile>, INotificationHandler<Messages.CreateUser>
     {
         private readonly ICoopDbContext _context;
-        private readonly IMessageHandlerContext _messageHandlerContext;
+        private readonly IOrchestrationHandler _messageHandlerContext;
         private readonly IPasswordHasher _passwordHasher;
 
-        public UserMessageHandler(ICoopDbContext context, IMessageHandlerContext messageHandlerContext, IPasswordHasher passwordHasher)
+        public UserMessageHandler(ICoopDbContext context, IOrchestrationHandler messageHandlerContext, IPasswordHasher passwordHasher)
         {
             _context = context;
             _messageHandlerContext = messageHandlerContext;

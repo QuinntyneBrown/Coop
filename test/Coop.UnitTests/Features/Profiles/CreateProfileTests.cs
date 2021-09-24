@@ -1,5 +1,6 @@
 ﻿using Coop.Api;
 using Coop.Api.Core;
+using Coop.Api.Interfaces;
 using Coop.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,7 @@ namespace Coop.UnitTests.Features
                 .AddSingleton<Handler>()
                 .AddSingleton<IPasswordHasher, PasswordHasher>()
                 .AddMediatR(typeof(Startup))
-                .AddSingleton<IMessageHandlerContext, MessageHandlerContext>()
+                .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
                 .BuildServiceProvider();
 
             await context.SaveChangesAsync(default);

@@ -32,9 +32,9 @@ namespace Coop.Api.Features
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
             private readonly ITokenBuilder _tokenBuilder;
-            private readonly IMessageHandlerContext _messageHandlerContext;
+            private readonly IOrchestrationHandler _messageHandlerContext;
 
-            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IMessageHandlerContext messageHandlerContext)
+            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IOrchestrationHandler messageHandlerContext)
             {
                 _context = context;
                 _passwordHasher = passwordHasher;
