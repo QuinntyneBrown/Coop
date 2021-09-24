@@ -1,5 +1,7 @@
 using Coop.Api.Core;
 using Coop.Api.Interfaces;
+using Coop.Api.Models;
+using Coop.Core;
 using Coop.Core.DomainEvents;
 using Coop.Core.DomainEvents.InvitationToken;
 using FluentValidation;
@@ -7,7 +9,6 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Core;
 
 namespace Coop.Api.Features
 {
@@ -46,7 +47,19 @@ namespace Coop.Api.Features
 
         public class Response : ResponseBase
         {
-            public ProfileDto Profile { get; set; }
+            public Response(Profile profile)
+            {
+                Profile = new()
+                {
+                    ProfileId = profile.ProfileId,
+                    UserId = profile.UserId,
+                    Firstname = profile.Firstname,
+                    Lastname = profile.Lastname,
+                    AvatarDigitalAssetId = profile.AvatarDigitalAssetId,
+                    Type = profile.Type
+                };
+            }
+            public ProfileDto Profile { get; private set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -69,60 +82,51 @@ namespace Coop.Api.Features
 
                 var startWith = new ValidateInvitationToken(request.InvitationToken);
 
-                return await _orchestrationHandler.Handle<Response>(startWith, (tcs) => async message => {
-
+                return await _orchestrationHandler.Handle<Response>(startWith, (tcs) => async message =>
+                {
                     switch (message)
                     {
                         case ValidatedInvitationToken validatedToken:
                             if (!validatedToken.IsValid)
                                 throw new Exception();
                             invitationTokenType = validatedToken.InvitationTokenType;
-                            var role = invitationTokenType switch
-                            {
-                                Constants.InvitationTypes.Member => Constants.Roles.Member,
-                                Constants.InvitationTypes.Staff => Constants.Roles.Staff,
-                                Constants.InvitationTypes.BoardMember => Constants.Roles.BoardMember,
-                                _ => throw new NotImplementedException()
-                            };
-
-                            await _orchestrationHandler.PublishCreateUserEvent(email,password,role);
-
+                            var role = _resolveRoleByInvitationTokenType(invitationTokenType);
+                            await _orchestrationHandler.PublishCreateUserEvent(email, password, role);
                             break;
 
                         case CreatedUser createdUser:
                             userId = createdUser.UserId;
-                            var profileType = invitationTokenType switch
-                            {
-                                Constants.InvitationTypes.Member => Constants.ProfileTypes.Member,
-                                Constants.InvitationTypes.Staff => Constants.ProfileTypes.Staff,
-                                Constants.InvitationTypes.BoardMember => Constants.ProfileTypes.BoardMember,
-                                _ => throw new NotImplementedException()
-                            };
-                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.CreateProfile(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId));
+                            var profileType = _resolveProfileTypeByInvitationTokenType(invitationTokenType);
+                            await _orchestrationHandler.PublishCreateProfileEvent(profileType, request.Firstname, request.Lastname, request.AvatarDigitalAssetId);
                             break;
 
                         case CreatedProfile createdProfile:
-                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.AddProfile(userId, createdProfile.ProfileId));
+                            await _orchestrationHandler.PublishAddProfileEvent(userId, createdProfile.ProfileId);
                             break;
 
                         case AddedProfile addedProfile:
                             var profile = await _context.Profiles.FindAsync(addedProfile.ProfileId);
-                            tcs.SetResult(new()
-                            {
-                                Profile = new ProfileDto
-                                {
-                                    ProfileId = profile.ProfileId,
-                                    UserId = profile.UserId,
-                                    Firstname = profile.Firstname,
-                                    Lastname = profile.Lastname,
-                                    AvatarDigitalAssetId = profile.AvatarDigitalAssetId,
-                                    Type = profile.Type
-                                }
-                            });
+                            tcs.SetResult(new Response(profile));
                             break;
                     }
                 });
             }
+
+            public string _resolveRoleByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
+            {
+                Constants.InvitationTypes.Member => Constants.Roles.Member,
+                Constants.InvitationTypes.Staff => Constants.Roles.Staff,
+                Constants.InvitationTypes.BoardMember => Constants.Roles.BoardMember,
+                _ => throw new NotImplementedException()
+            };
+
+            public string _resolveProfileTypeByInvitationTokenType(string invitationTokenType) => invitationTokenType switch
+            {
+                Constants.InvitationTypes.Member => Constants.ProfileTypes.Member,
+                Constants.InvitationTypes.Staff => Constants.ProfileTypes.Staff,
+                Constants.InvitationTypes.BoardMember => Constants.ProfileTypes.BoardMember,
+                _ => throw new NotImplementedException()
+            };
         }
     }
 }

@@ -61,7 +61,8 @@ namespace Coop.Api.Data
             public static void Seed(CoopDbContext context)
             {
                 var invitationTokens = Constants.InvitationTypes.All
-                    .Select(x => {
+                    .Select(x =>
+                    {
 
                         var type = x switch
                         {

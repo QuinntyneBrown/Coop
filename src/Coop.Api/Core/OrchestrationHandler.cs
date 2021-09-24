@@ -39,7 +39,7 @@ namespace Coop.Api.Core
             await _mediator.Publish(@event);
         }
 
-        public async Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>,Action<INotification>> onNextFactory)
+        public async Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory)
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 
