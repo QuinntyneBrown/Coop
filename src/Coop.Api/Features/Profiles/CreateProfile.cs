@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Coop.Core;
 
 namespace Coop.Api.Features
 {
@@ -84,7 +85,7 @@ namespace Coop.Api.Features
                                 _ => throw new NotImplementedException()
                             };
 
-                            await _orchestrationHandler.Publish(new Coop.Core.DomainEvents.CreateUser(email, password, role));
+                            await _orchestrationHandler.PublishCreateUserEvent(email,password,role);
 
                             break;
 
