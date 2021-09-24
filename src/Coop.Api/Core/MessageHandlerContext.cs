@@ -12,6 +12,7 @@ namespace Coop.Api.Core
     {
         public void Subscribe(Action<INotification> onNext);
         public Task Publish(INotification message);
+        public Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory);
     }
 
     public class MessageHandlerContext : IMessageHandlerContext
@@ -47,6 +48,17 @@ namespace Coop.Api.Core
         public void Subscribe(Action<INotification> onNext)
         {
             _messages.Subscribe(onNext);
+        }
+
+        public async Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>,Action<INotification>> onNextFactory)
+        {
+            var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            Subscribe(onNextFactory(tcs));
+
+            await Publish(startWith);
+
+            return await tcs.Task;
         }
     }
 }

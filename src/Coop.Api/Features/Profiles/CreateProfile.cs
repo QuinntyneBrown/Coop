@@ -62,14 +62,13 @@ namespace Coop.Api.Features
             {
                 var (email, password, passwordConfirmation, invitationToken, firstname, lastname) = request;
 
-                var tcs = new TaskCompletionSource<Response>(TaskCreationOptions.RunContinuationsAsynchronously);
-
                 Guid userId = default;
 
                 string invitationTokenType = default;
 
-                _messageHandlerContext.Subscribe(async message =>
-                {
+                var startWith = new ValidateInvitationToken(request.InvitationToken);
+
+                return await _messageHandlerContext.Handle<Response>(startWith, (tcs) => async message => {
                     switch (message)
                     {
                         case ValidatedInvitationToken validatedToken:
@@ -129,9 +128,8 @@ namespace Coop.Api.Features
                     }
                 });
 
-                await _messageHandlerContext.Publish(new ValidateInvitationToken(request.InvitationToken));
 
-                return await tcs.Task;
+
             }
         }
     }
