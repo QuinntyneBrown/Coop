@@ -1,12 +1,12 @@
 <form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="g-form-field">
     <mat-label>{{ street$ | async }}</mat-label>
     <input matInput placeholder='{{ addressEditorIntl.street$ | async }}' formControlName='street' required  autocomplete="off">
     <mat-error>{{ addressEditorIntl.streetError$ | async }}</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="g-form-field">
     <mat-label>{{ addressEditorIntl.unit$ | async }}</mat-label>
     <input matInput placeholder='{{ addressEditorIntl.unit$ | async }}' formControlName='unit' required  autocomplete="off">
     <mat-error>

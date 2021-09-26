@@ -14,11 +14,6 @@ export class CreateMaintenanceRequestComponent {
   public vm$ = this._profileService.getCurrent()
   .pipe(
     map(profile => {
-
-      console.log(profile);
-
-      alert(profile.profileId);
-
       let fullname = `${profile.firstname} ${profile.lastname}`;
 
       const form = new FormGroup({

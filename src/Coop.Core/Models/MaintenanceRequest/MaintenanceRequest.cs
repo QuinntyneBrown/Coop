@@ -1,12 +1,14 @@
 using Coop.Core.DomainEvents;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Coop.Core.Models
 {
     public class MaintenanceRequest: AggregateRoot
     {
         public Guid MaintenanceRequestId { get; private set; }
+        [ForeignKey("RequestedByProfile")]
         public Guid RequestedByProfileId { get; private set; }
         public string RequestedByName { get; set; }
         public DateTime Date { get; set; }
@@ -22,6 +24,7 @@ namespace Coop.Core.Models
         public DateTime WorkCompleted { get; set; }
         public string WorkCompletedByName { get; set; }
         public UnitEntered UnitEntered { get; private set; }
+        public Profile RequestedByProfile { get; private set; }
         public MaintenanceRequestStatus Status { get; private set; } = MaintenanceRequestStatus.New;
         public List<MaintenanceRequestComment> Comments { get; private set; } = new();
         public List<MaintenanceRequestDigitalAsset> DigitalAssets { get; private set; } = new();

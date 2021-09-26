@@ -36,10 +36,20 @@ namespace Coop.Api.Features
             {
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
+                var user = await _context.Users.FindAsync(userId);
+
+                if (user == null)
+                {
+                    return new();
+                }
+
+                var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
+
                 return new()
                 {
                     MaintenanceRequests = _context.MaintenanceRequests
                     .Include(x => x.DigitalAssets)
+                    .Where(x =>x.RequestedByProfileId == profile.ProfileId)
                     .Select(x => x.ToDto()).ToList()
                 };
             }
