@@ -4,14 +4,16 @@ using Coop.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    partial class CoopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210926122024_UpdateMaintenanceRequestPropertities")]
+    partial class UpdateMaintenanceRequestPropertities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,11 +175,11 @@ namespace Coop.Api.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<bool>("UnattendedUnitEntryAllowed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("UnitEntered")
                         .HasColumnType("int");
+
+                    b.Property<bool>("UnitEntry")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("WorkCompleted")
                         .HasColumnType("datetime2");

@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MaintenanceRequest } from '@api';
+import { CreateMaintenanceRequest, MaintenanceRequest } from '@api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { baseUrl, EntityPage, IPagableService } from '@core';
@@ -46,8 +46,8 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
     return this._client.delete<void>(`${this._baseUrl}api/maintenanceRequest/${options.maintenanceRequest.maintenanceRequestId}`);
   }
 
-  public create(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {
-    return this._client.post<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, { maintenanceRequest: options.maintenanceRequest });
+  public create(createMaintenanceRequest: CreateMaintenanceRequest): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.post<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, createMaintenanceRequest);
   }
 
   public update(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {

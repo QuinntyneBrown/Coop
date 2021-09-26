@@ -1,0 +1,42 @@
+<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ street$ | async }}</mat-label>
+    <input matInput placeholder='{{ addressEditorIntl.street$ | async }}' formControlName='street' required  autocomplete="off">
+    <mat-error>{{ addressEditorIntl.streetError$ | async }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ addressEditorIntl.unit$ | async }}</mat-label>
+    <input matInput placeholder='{{ addressEditorIntl.unit$ | async }}' formControlName='unit' required  autocomplete="off">
+    <mat-error>
+      {{ addressEditorIntl.unitError$ | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ addressEditorIntl.city$ | async }}</mat-label>
+    <input matInput placeholder='{{ addressEditorIntl.city$ | async }}' formControlName='city' required  autocomplete="off">
+    <mat-error>
+      {{ addressEditorIntl.cityError$ | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ addressEditorIntl.province$ | async }}</mat-label>
+    <input matInput placeholder='{{ addressEditorIntl.province$ | async }}' formControlName='province' required  autocomplete="off">
+    <mat-error>
+      {{ addressEditorIntl.provinceError$ | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ addressEditorIntl.postalCode$ | async }}</mat-label>
+    <input matInput placeholder='{{ addressEditorIntl.postalCode$ | async }}' formControlName='postalCode' required minlength="6" maxlength="7"  autocomplete="off">
+    <mat-error>
+      {{ addressEditorIntl.postalCodeError$ | async }}
+    </mat-error>
+  </mat-form-field>
+
+</form>
+

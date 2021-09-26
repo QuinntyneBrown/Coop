@@ -18,8 +18,6 @@ namespace Coop.Core.Models
 
         public string PostalCode { get; private set; }
 
-        
-
         protected Address() { }
 
         private Address(string street, string city, string province, string postalCode)

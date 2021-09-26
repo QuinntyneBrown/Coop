@@ -22,7 +22,7 @@ export class CreateAMaintenaceRequestDialogComponent implements OnDestroy {
 
   handleSaveClick() {
     const maintenanceRequest = this.formControl.value;
-    this._maintenanceRequestService.create({ maintenanceRequest})
+    this._maintenanceRequestService.create(maintenanceRequest)
     .pipe(
       takeUntil(this._destroyed$),
       tap(_ => this._dialogRef.close())

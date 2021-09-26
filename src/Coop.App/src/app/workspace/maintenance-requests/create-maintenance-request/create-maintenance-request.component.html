@@ -1,0 +1,20 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <h1>Create Maintenace Request</h1>
+
+  <form [formGroup]="vm.form">
+    <app-address-editor formControlName="address">
+
+    </app-address-editor>
+
+    <app-html-editor formControlName="description">
+
+    </app-html-editor>
+  </form>
+
+  <div class="g-actions">
+    <button mat-stroked-button>Cancel</button>
+    <button mat-raised-button (click)="save(vm.form.value)">Save</button>
+  </div>
+</ng-container>
+

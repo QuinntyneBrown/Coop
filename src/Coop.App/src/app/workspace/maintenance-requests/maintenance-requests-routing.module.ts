@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateMaintenanceRequestComponent } from './create-maintenance-request/create-maintenance-request.component';
 import { MaintenanceRequestListComponent } from './maintenance-request-list/maintenance-request-list.component';
 import { MaintenanceRequestComponent } from './maintenance-request/maintenance-request.component';
 
 
 const routes: Routes = [
   { path: '', component: MaintenanceRequestListComponent },
-  { path: 'create', component: MaintenanceRequestComponent },
+  { path: 'create', component: CreateMaintenanceRequestComponent },
   { path: 'edit/:maintenanceRequestId', component: MaintenanceRequestComponent }
 ];
 

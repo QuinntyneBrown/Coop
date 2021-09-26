@@ -1,4 +1,3 @@
-using System;
 using Coop.Core.Models;
 
 namespace Coop.Api.Features
@@ -10,12 +9,12 @@ namespace Coop.Api.Features
             return new()
             {
                 StaffMemberId = staffMember.StaffMemberId,
+                ProfileId = staffMember.ProfileId,
                 JobTitle = staffMember.JobTitle,
                 Firstname = staffMember.Firstname,
                 Lastname = staffMember.Lastname,
                 PhoneNumber = staffMember.PhoneNumber,
                 AvatarDigitalAssetId = staffMember.AvatarDigitalAssetId
-
             };
         }
 

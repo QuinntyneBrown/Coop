@@ -1,13 +1,20 @@
-import { MaintenanceRequestComment } from "./maintenance-request-comment";
-import { MaintenanceRequestDigitalAsset } from "./maintenance-request-digital-asset";
-import { MaintenanceRequestStatus } from "./maintenance-request-statues";
+import { Address } from "./address";
 
 export type MaintenanceRequest = {
     maintenanceRequestId: string,
-    title: string,
+    requestedByName: string,
+    address: Address,
+    phone: string,
     description: string,
-    createdById: string,
-    status: MaintenanceRequestStatus,
-    comments: MaintenanceRequestComment[],
-    digitalAssets: MaintenanceRequestDigitalAsset[]
+    unattendedUnitEntryAllowed: boolean
 };
+
+
+export type CreateMaintenanceRequest = {
+  requestedByName: string,
+  requestedByProfileId: string,
+  address: Address,
+  phone: string,
+  description: string,
+  unattendedUnitEntryAllowed: boolean
+}

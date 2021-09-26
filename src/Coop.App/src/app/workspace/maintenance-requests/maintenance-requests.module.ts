@@ -7,12 +7,15 @@ import { COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
 import { MaintenanceRequestComponent } from './maintenance-request/maintenance-request.component';
 import { MaintenanceRequestEditorModule } from '@shared/maintenance-request-editor/maintenance-request-editor.module';
 import { RouterModule } from '@angular/router';
+import { CreateMaintenanceRequestComponent } from './create-maintenance-request/create-maintenance-request.component';
+import { AddressEditorModule } from '@shared/address-editor';
 
 
 @NgModule({
   declarations: [
     MaintenanceRequestListComponent,
-    MaintenanceRequestComponent
+    MaintenanceRequestComponent,
+    CreateMaintenanceRequestComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,7 @@ import { RouterModule } from '@angular/router';
     HtmlEditorModule,
     MaintenanceRequestEditorModule,
     RouterModule,
+    AddressEditorModule,
     COMMON_TABLE_MODULES,
     COMMON_FORMS_MODULES
   ]

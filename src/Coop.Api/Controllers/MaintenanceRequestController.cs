@@ -33,7 +33,14 @@ namespace Coop.Api.Controllers
         
             return response;
         }
-        
+
+        [HttpGet("my", Name = "GetCurrentUserMaintenanceRequestsRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetCurrentUserMaintenanceRequests.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentUserMaintenanceRequests.Response>> GetByCurrentProfile()
+            => await _mediator.Send(new GetCurrentUserMaintenanceRequests.Request());
+
         [HttpGet(Name = "GetMaintenanceRequestsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
