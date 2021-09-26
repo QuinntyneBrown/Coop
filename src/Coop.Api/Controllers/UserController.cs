@@ -2,6 +2,7 @@ using Coop.Api.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -45,7 +46,16 @@ namespace Coop.Api.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CurrentUser.Response>> GetCurrent()
-            => await _mediator.Send(new CurrentUser.Request());
+        {
+            try
+            {
+                return await _mediator.Send(new CurrentUser.Request());
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         [HttpPost(Name = "CreateUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

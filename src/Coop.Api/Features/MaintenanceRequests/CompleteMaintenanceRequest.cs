@@ -1,5 +1,4 @@
 using Coop.Core.Interfaces;
-using Coop.Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +9,7 @@ namespace Coop.Api.Features
 {
     public class CompleteMaintenanceRequest
     {
+        
         public class Request : Coop.Core.DomainEvents.CompleteMaintenanceRequest, IRequest<Response>
         {
             public Guid MaitenanceRequestId { get; set; }

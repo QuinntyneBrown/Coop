@@ -60,7 +60,7 @@ namespace Coop.Api
 
             services.AddHttpContextAccessor();
 
-            services.AddMediatR(typeof(ICoopDbContext));
+            services.AddMediatR(typeof(Startup), typeof(ICoopDbContext));
 
             services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
 

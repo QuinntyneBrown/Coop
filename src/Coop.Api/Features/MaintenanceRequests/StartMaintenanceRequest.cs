@@ -1,4 +1,5 @@
 using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;

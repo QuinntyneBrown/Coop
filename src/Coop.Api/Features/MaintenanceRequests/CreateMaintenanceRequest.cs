@@ -19,7 +19,9 @@ namespace Coop.Api.Features
         
         }
 
-        public class Request: Coop.Core.DomainEvents.CreateMaintenanceRequest, IRequest<Response> { }
+        public class Request: Coop.Core.DomainEvents.CreateMaintenanceRequest, IRequest<Response> {
+
+        }
 
         public class Response: ResponseBase
         {
