@@ -1,5 +1,5 @@
-using Coop.Api.Models;
-using Coop.Api.Interfaces;
+using Coop.Core.Models;
+using Coop.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Data

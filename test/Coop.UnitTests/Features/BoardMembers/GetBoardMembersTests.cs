@@ -1,4 +1,4 @@
-﻿using Coop.Api.Interfaces;
+﻿using Coop.Core.Interfaces;
 using Coop.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;

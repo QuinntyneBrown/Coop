@@ -1,5 +1,6 @@
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core;
+using Coop.Core.Interfaces;
+using Coop.Core;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,6 @@ namespace Coop.Api.Features
                 {
                     MaintenanceRequests = _context.MaintenanceRequests
                     .Include(x => x.DigitalAssets)
-                    .Where(x => x.CreatedById == userId)
                     .Select(x => x.ToDto()).ToList()
                 };
             }

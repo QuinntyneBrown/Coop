@@ -1,7 +1,7 @@
-using Coop.Api.Core;
+using Coop.Core;
 using Coop.Api.Data;
 using Coop.Api.Extensions;
-using Coop.Api.Interfaces;
+using Coop.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

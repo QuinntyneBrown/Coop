@@ -2,11 +2,12 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Api.Models;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core.Models;
+using Coop.Core;
+using Coop.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
+using Coop.Core;
 
 namespace Coop.Api.Features
 {

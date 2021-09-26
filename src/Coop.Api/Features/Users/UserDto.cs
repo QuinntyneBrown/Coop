@@ -1,4 +1,4 @@
-using Coop.Api.Models;
+using Coop.Core.Models;
 using System;
 using System.Collections.Generic;
 

@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Coop.Api.Models;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core.Models;
+using Coop.Core;
+using Coop.Core.Interfaces;
 
 namespace Coop.Api.Features
 {

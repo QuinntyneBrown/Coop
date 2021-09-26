@@ -1,10 +1,10 @@
-using Coop.Api.Interfaces;
+using Coop.Core.Interfaces;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Coop.Api.Core;
-using static Coop.Api.Core.Constants;
+using Coop.Core;
+using static Coop.Core.Constants;
 using System;
 
 namespace Coop.Api.Features.Users

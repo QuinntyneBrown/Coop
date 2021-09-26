@@ -1,6 +1,6 @@
-using Coop.Api.Core;
+using Coop.Core;
 using Coop.Api.Extensions;
-using Coop.Api.Interfaces;
+using Coop.Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

@@ -1,8 +1,8 @@
 ﻿using Coop.Api;
-using Coop.Api.Core;
+using Coop.Core;
 using Coop.Api.Data;
 using Coop.Api.Features;
-using Coop.Api.Interfaces;
+using Coop.Core.Interfaces;
 using Coop.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

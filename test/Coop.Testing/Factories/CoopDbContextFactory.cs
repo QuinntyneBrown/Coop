@@ -1,5 +1,5 @@
 ﻿using Coop.Api.Data;
-using Coop.Api.Interfaces;
+using Coop.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;

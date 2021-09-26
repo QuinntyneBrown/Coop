@@ -55,7 +55,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("NoticeDomainEvent");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Conversation", b =>
+            modelBuilder.Entity("Coop.Core.Models.Conversation", b =>
                 {
                     b.Property<Guid>("ConversationId")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("Conversations");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.DigitalAsset", b =>
+            modelBuilder.Entity("Coop.Core.Models.DigitalAsset", b =>
                 {
                     b.Property<Guid>("DigitalAssetId")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("DigitalAssets");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Document", b =>
+            modelBuilder.Entity("Coop.Core.Models.Document", b =>
                 {
                     b.Property<Guid>("DocumentId")
                         .ValueGeneratedOnAdd()
@@ -124,7 +124,7 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Document");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.InvitationToken", b =>
+            modelBuilder.Entity("Coop.Core.Models.InvitationToken", b =>
                 {
                     b.Property<Guid>("InvitationTokenId")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("InvitationTokens");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.JsonContent", b =>
+            modelBuilder.Entity("Coop.Core.Models.JsonContent", b =>
                 {
                     b.Property<Guid>("JsonContentId")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("JsonContents");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.MaintenanceRequest", b =>
+            modelBuilder.Entity("Coop.Core.Models.MaintenanceRequest", b =>
                 {
                     b.Property<Guid>("MaintenanceRequestId")
                         .ValueGeneratedOnAdd()
@@ -184,7 +184,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("MaintenanceRequests");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Message", b =>
+            modelBuilder.Entity("Coop.Core.Models.Message", b =>
                 {
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -220,7 +220,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Privilege", b =>
+            modelBuilder.Entity("Coop.Core.Models.Privilege", b =>
                 {
                     b.Property<Guid>("PrivilegeId")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("Privileges");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Profile", b =>
+            modelBuilder.Entity("Coop.Core.Models.Profile", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
@@ -279,7 +279,7 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Profile");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Role", b =>
+            modelBuilder.Entity("Coop.Core.Models.Role", b =>
                 {
                     b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -293,7 +293,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.StoredEvent", b =>
+            modelBuilder.Entity("Coop.Core.Models.StoredEvent", b =>
                 {
                     b.Property<Guid>("StoredEventId")
                         .ValueGeneratedOnAdd()
@@ -336,7 +336,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("StoredEvents");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Theme", b =>
+            modelBuilder.Entity("Coop.Core.Models.Theme", b =>
                 {
                     b.Property<Guid>("ThemeId")
                         .ValueGeneratedOnAdd()
@@ -353,7 +353,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("Themes");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.User", b =>
+            modelBuilder.Entity("Coop.Core.Models.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -401,9 +401,9 @@ namespace Coop.Api.Migrations
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.ByLaw", b =>
+            modelBuilder.Entity("Coop.Core.Models.ByLaw", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Document");
+                    b.HasBaseType("Coop.Core.Models.Document");
 
                     b.Property<Guid>("ByLawId")
                         .HasColumnType("uniqueidentifier");
@@ -411,9 +411,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("ByLaw");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Notice", b =>
+            modelBuilder.Entity("Coop.Core.Models.Notice", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Document");
+                    b.HasBaseType("Coop.Core.Models.Document");
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -424,9 +424,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("Notice");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Report", b =>
+            modelBuilder.Entity("Coop.Core.Models.Report", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Document");
+                    b.HasBaseType("Coop.Core.Models.Document");
 
                     b.Property<Guid>("ReportId")
                         .HasColumnType("uniqueidentifier");
@@ -434,9 +434,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("Report");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.BoardMember", b =>
+            modelBuilder.Entity("Coop.Core.Models.BoardMember", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Profile");
+                    b.HasBaseType("Coop.Core.Models.Profile");
 
                     b.Property<Guid>("BoardMemberId")
                         .HasColumnType("uniqueidentifier");
@@ -447,9 +447,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("BoardMember");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Member", b =>
+            modelBuilder.Entity("Coop.Core.Models.Member", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Profile");
+                    b.HasBaseType("Coop.Core.Models.Profile");
 
                     b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
@@ -457,9 +457,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("Member");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.OnCall", b =>
+            modelBuilder.Entity("Coop.Core.Models.OnCall", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Profile");
+                    b.HasBaseType("Coop.Core.Models.Profile");
 
                     b.Property<Guid>("OnCallId")
                         .HasColumnType("uniqueidentifier");
@@ -467,9 +467,9 @@ namespace Coop.Api.Migrations
                     b.HasDiscriminator().HasValue("OnCall");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.StaffMember", b =>
+            modelBuilder.Entity("Coop.Core.Models.StaffMember", b =>
                 {
-                    b.HasBaseType("Coop.Api.Models.Profile");
+                    b.HasBaseType("Coop.Core.Models.Profile");
 
                     b.Property<string>("JobTitle")
                         .HasColumnType("nvarchar(max)");
@@ -482,13 +482,13 @@ namespace Coop.Api.Migrations
 
             modelBuilder.Entity("ConversationProfile", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Conversation", null)
+                    b.HasOne("Coop.Core.Models.Conversation", null)
                         .WithMany()
                         .HasForeignKey("ConversationsConversationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Coop.Api.Models.Profile", null)
+                    b.HasOne("Coop.Core.Models.Profile", null)
                         .WithMany()
                         .HasForeignKey("ProfilesProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -497,16 +497,16 @@ namespace Coop.Api.Migrations
 
             modelBuilder.Entity("Coop.Api.DomainEvents.NoticeDomainEvent", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Notice", null)
+                    b.HasOne("Coop.Core.Models.Notice", null)
                         .WithMany("Events")
                         .HasForeignKey("NoticeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.MaintenanceRequest", b =>
+            modelBuilder.Entity("Coop.Core.Models.MaintenanceRequest", b =>
                 {
-                    b.OwnsMany("Coop.Api.Models.MaintenanceRequestComment", "Comments", b1 =>
+                    b.OwnsMany("Coop.Core.Models.MaintenanceRequestComment", "Comments", b1 =>
                         {
                             b1.Property<Guid>("MaintenanceRequestId")
                                 .HasColumnType("uniqueidentifier");
@@ -532,7 +532,7 @@ namespace Coop.Api.Migrations
                                 .HasForeignKey("MaintenanceRequestId");
                         });
 
-                    b.OwnsMany("Coop.Api.Models.MaintenanceRequestDigitalAsset", "DigitalAssets", b1 =>
+                    b.OwnsMany("Coop.Core.Models.MaintenanceRequestDigitalAsset", "DigitalAssets", b1 =>
                         {
                             b1.Property<Guid>("MaintenanceRequestId")
                                 .HasColumnType("uniqueidentifier");
@@ -557,29 +557,29 @@ namespace Coop.Api.Migrations
                     b.Navigation("DigitalAssets");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Message", b =>
+            modelBuilder.Entity("Coop.Core.Models.Message", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Conversation", null)
+                    b.HasOne("Coop.Core.Models.Conversation", null)
                         .WithMany("Messages")
                         .HasForeignKey("ConversationId");
 
-                    b.HasOne("Coop.Api.Models.Profile", null)
+                    b.HasOne("Coop.Core.Models.Profile", null)
                         .WithMany("Messages")
                         .HasForeignKey("ProfileId");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Privilege", b =>
+            modelBuilder.Entity("Coop.Core.Models.Privilege", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Role", null)
+                    b.HasOne("Coop.Core.Models.Role", null)
                         .WithMany("Privileges")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Profile", b =>
+            modelBuilder.Entity("Coop.Core.Models.Profile", b =>
                 {
-                    b.HasOne("Coop.Api.Models.User", "User")
+                    b.HasOne("Coop.Core.Models.User", "User")
                         .WithMany("Profiles")
                         .HasForeignKey("UserId");
 
@@ -588,40 +588,40 @@ namespace Coop.Api.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("Coop.Api.Models.Role", null)
+                    b.HasOne("Coop.Core.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Coop.Api.Models.User", null)
+                    b.HasOne("Coop.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Conversation", b =>
+            modelBuilder.Entity("Coop.Core.Models.Conversation", b =>
                 {
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Profile", b =>
+            modelBuilder.Entity("Coop.Core.Models.Profile", b =>
                 {
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Role", b =>
+            modelBuilder.Entity("Coop.Core.Models.Role", b =>
                 {
                     b.Navigation("Privileges");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.User", b =>
+            modelBuilder.Entity("Coop.Core.Models.User", b =>
                 {
                     b.Navigation("Profiles");
                 });
 
-            modelBuilder.Entity("Coop.Api.Models.Notice", b =>
+            modelBuilder.Entity("Coop.Core.Models.Notice", b =>
                 {
                     b.Navigation("Events");
                 });

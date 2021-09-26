@@ -1,12 +1,13 @@
-using Coop.Api.Core;
-using Coop.Api.Models;
+using Coop.Core;
+using Coop.Core.Models;
+using Coop.Core;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
-using static Coop.Api.Core.Constants;
+using static Coop.Core.Constants;
 
 namespace Coop.Api.Data
 {

@@ -1,9 +1,9 @@
 ﻿using Coop.Api;
-using Coop.Api.Core;
+using Coop.Core;
 using Coop.Api.Data;
 using Coop.Api.Features;
-using Coop.Api.Interfaces;
-using Coop.Api.Models;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using Coop.Testing;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

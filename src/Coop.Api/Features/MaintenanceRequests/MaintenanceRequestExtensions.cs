@@ -1,5 +1,4 @@
-using System;
-using Coop.Api.Models;
+using Coop.Core.Models;
 
 namespace Coop.Api.Features
 {
@@ -10,7 +9,6 @@ namespace Coop.Api.Features
             return new()
             {
                 MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId,
-                Title = maintenanceRequest.Title,
                 Description = maintenanceRequest.Description,
                 Status = maintenanceRequest.Status
             };

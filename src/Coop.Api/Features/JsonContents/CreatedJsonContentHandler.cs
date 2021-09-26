@@ -1,5 +1,5 @@
-﻿using Coop.Api.Interfaces;
-using Coop.Api.Models;
+﻿using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using Coop.Core.DomainEvents;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

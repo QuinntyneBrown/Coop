@@ -4,10 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core;
+using Coop.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Coop.Core;
 
 namespace Coop.Api.Features
 {

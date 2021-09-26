@@ -1,6 +1,7 @@
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
-using Coop.Api.Models;
+using Coop.Core;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
+using Coop.Core;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

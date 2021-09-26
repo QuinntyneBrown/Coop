@@ -1,4 +1,4 @@
-using Coop.Api.Models;
+using Coop.Core.Models;
 using Innofactor.EfCoreJsonValueConverter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

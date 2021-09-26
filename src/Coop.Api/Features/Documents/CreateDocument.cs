@@ -1,6 +1,6 @@
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
-using Coop.Api.Models;
+using Coop.Core;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;

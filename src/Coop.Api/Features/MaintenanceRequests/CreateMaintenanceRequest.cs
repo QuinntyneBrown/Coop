@@ -1,6 +1,7 @@
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
-using Coop.Api.Models;
+using Coop.Core;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
+using Coop.Core;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -46,11 +47,7 @@ namespace Coop.Api.Features
             {
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
-                var maintenanceRequest = new MaintenanceRequest(
-                    request.MaintenanceRequest.Title,
-                    request.MaintenanceRequest.Description,
-                    userId
-                    );
+                var maintenanceRequest = new MaintenanceRequest(new Core.DomainEvents.CreateMaintenanceRequest());
 
                 foreach (var digitalAsset in request.MaintenanceRequest.DigitalAssets)
                 {

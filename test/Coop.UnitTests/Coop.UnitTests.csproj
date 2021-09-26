@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Coop.Testing\Coop.Testing.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\MaintenceRequests\" />
+  </ItemGroup>
+
 </Project>

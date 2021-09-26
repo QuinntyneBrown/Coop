@@ -1,5 +1,5 @@
-﻿using Coop.Api.Core;
-using Coop.Api.Interfaces;
+﻿using Coop.Core;
+using Coop.Core.Interfaces;
 using Coop.Core.DomainEvents;
 using Coop.Core.DomainEvents.InvitationToken;
 using MediatR;

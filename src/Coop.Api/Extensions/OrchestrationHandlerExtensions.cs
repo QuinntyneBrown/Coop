@@ -1,4 +1,4 @@
-﻿using Coop.Api.Interfaces;
+﻿using Coop.Core.Interfaces;
 using Coop.Core.DomainEvents;
 using System;
 using System.Threading.Tasks;

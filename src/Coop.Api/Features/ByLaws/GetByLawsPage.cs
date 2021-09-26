@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Coop.Api.Extensions;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core;
+using Coop.Core.Interfaces;
 using Coop.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 

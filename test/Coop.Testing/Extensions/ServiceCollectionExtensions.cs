@@ -1,5 +1,5 @@
-﻿using Coop.Api.Core;
-using Coop.Api.Models;
+﻿using Coop.Core;
+using Coop.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 

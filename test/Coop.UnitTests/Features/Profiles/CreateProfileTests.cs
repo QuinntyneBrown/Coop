@@ -1,6 +1,7 @@
 ﻿using Coop.Api;
-using Coop.Api.Core;
-using Coop.Api.Interfaces;
+using Coop.Core;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using Coop.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,12 +20,17 @@ namespace Coop.UnitTests.Features
         {
             var context = await CoopDbContextFactory.Create();
 
+            var configuration = ConfigurationFactory.Create();
+
             var container = _serviceCollection
                 .AddSingleton(context)
+                .AddSingleton(configuration)
                 .AddSingleton<Handler>()
                 .AddSingleton<IPasswordHasher, PasswordHasher>()
                 .AddMediatR(typeof(Startup))
                 .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
+                .AddSingleton<ITokenBuilder, TokenBuilder>()
+                .AddSingleton<ITokenProvider, TokenProvider>()
                 .BuildServiceProvider();
 
             await context.SaveChangesAsync(default);
@@ -42,7 +48,7 @@ namespace Coop.UnitTests.Features
                 InvitationToken = Constants.InvitationTypes.Staff
             }, default);
 
-            Assert.Equal(Api.Models.ProfileType.StaffMember, result.Profile.Type);
+            Assert.Equal(ProfileType.StaffMember, result.Profile.Type);
         }
     }
 }
