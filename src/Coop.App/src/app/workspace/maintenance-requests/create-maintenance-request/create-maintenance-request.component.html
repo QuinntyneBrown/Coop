@@ -3,6 +3,12 @@
   <h2>Create Maintenace Request</h2>
 
   <form [formGroup]="vm.form">
+
+    <mat-form-field class="g-form-field" appearance="outline">
+      <mat-label>Member Name</mat-label>
+      <input matInput type="text" formControlName="requestedByName">
+    </mat-form-field>
+
     <app-address-editor formControlName="address">
 
     </app-address-editor>

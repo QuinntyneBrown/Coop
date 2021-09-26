@@ -15,6 +15,12 @@ namespace Coop.Core.Models
 
         }
 
+        public Member(string firstname, string lastname, Address address)
+            : base(ProfileType.Member, firstname, lastname)
+        {
+            Address = address;
+        }
+
         private Member()
         {
 

@@ -24,6 +24,10 @@ namespace Coop.Core
         {
             var type = GetType();
 
+            var eventType = @event.GetType();
+
+            var resolvedEventType = eventType.Name == "Request" ? eventType.BaseType : eventType;
+
             var storedEvent = new StoredEvent
             {
                 StoredEventId = Guid.NewGuid(),
@@ -31,8 +35,8 @@ namespace Coop.Core
                 AggregateDotNetType = GetType().AssemblyQualifiedName,
                 Data = SerializeObject(@event),
                 StreamId = (Guid)type.GetProperty($"{type.Name}Id").GetValue(this, null),
-                DotNetType = @event.GetType().BaseType.AssemblyQualifiedName,
-                Type = @event.GetType().BaseType.Name,
+                DotNetType = resolvedEventType.AssemblyQualifiedName,
+                Type = resolvedEventType.Name,
                 CreatedOn = @event.Created,
                 CorrelationId = new Guid()
             };

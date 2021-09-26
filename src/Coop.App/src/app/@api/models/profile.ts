@@ -1,3 +1,4 @@
+import { Address } from "./address";
 import { Message } from "./message";
 
 export type Profile = {
@@ -7,6 +8,7 @@ export type Profile = {
   lastname: string,
   avatarDigitalAssetId: string,
   phoneNumber: string,
+  address: Address,
   messages: Message[]
 };
 

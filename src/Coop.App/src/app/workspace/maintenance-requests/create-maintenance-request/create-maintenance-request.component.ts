@@ -19,7 +19,7 @@ export class CreateMaintenanceRequestComponent {
       const form = new FormGroup({
         requestedByName: new FormControl(fullname,[Validators.required]),
         requestedByProfileId: new FormControl(profile.profileId,[Validators.required]),
-        address: new FormControl(null,[Validators.required]),
+        address: new FormControl(profile.address,[Validators.required]),
         phone: new FormControl(null, [Validators.required]),
         description: new FormControl(null,[Validators.required]),
         unattendedUnitEntryAllowed: new FormControl(false,[Validators.required])

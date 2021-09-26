@@ -31,18 +31,10 @@ namespace Coop.Core.Models
 
         public MaintenanceRequest(CreateMaintenanceRequest createMaintenanceRequest)
         {
-            var address = Address.Create(
-                createMaintenanceRequest.Address.Street,
-                createMaintenanceRequest.Address.Unit,
-                createMaintenanceRequest.Address.City,
-                createMaintenanceRequest.Address.Province,
-                createMaintenanceRequest.Address.PostalCode)
-                .Value;
-            
             MaintenanceRequestId = createMaintenanceRequest.MaintenanceRequestId;
             RequestedByProfileId = createMaintenanceRequest.RequestedByProfileId;
             RequestedByName = createMaintenanceRequest.RequestedByName;
-            Address = address;
+            Address = createMaintenanceRequest.Address;
             Phone = createMaintenanceRequest.Phone;
             Description = createMaintenanceRequest.Description;
             UnattendedUnitEntryAllowed = createMaintenanceRequest.UnattendedUnitEntryAllowed;

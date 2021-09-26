@@ -4,7 +4,9 @@ using Coop.Core.Interfaces;
 using Coop.Core.Models;
 using Coop.Testing;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using static Coop.Api.Features.CreateProfile;
@@ -44,11 +46,11 @@ namespace Coop.UnitTests.Features
                 PasswordConfirmation = "Default",
                 Email = "default@default.com",
                 Firstname = "Firstname",
-                Lastname = "Lastname",
-                InvitationToken = Constants.InvitationTypes.Staff
+                Lastname = "Lastname",                
+                InvitationToken = Constants.InvitationTypes.Member
             }, default);
 
-            Assert.Equal(ProfileType.StaffMember, result.Profile.Type);
+            Assert.Equal(ProfileType.Member, result.Profile.Type);
         }
     }
 }

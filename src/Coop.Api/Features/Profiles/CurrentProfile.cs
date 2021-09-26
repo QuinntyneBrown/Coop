@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Features
 {
@@ -46,7 +47,9 @@ namespace Coop.Api.Features
                     return new();
                 }
 
-                var profile = await _context.Profiles.FindAsync(user.CurrentProfileId);
+                var profile = await _context.Profiles
+                    .Include(x => x.Address)
+                    .SingleAsync(x => x.ProfileId == user.CurrentProfileId);
 
                 return new()
                 {

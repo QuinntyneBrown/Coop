@@ -13,7 +13,8 @@ namespace Coop.Api.Features
                 Firstname = member.Firstname,
                 Lastname = member.Lastname,
                 PhoneNumber = member.PhoneNumber,
-                AvatarDigitalAssetId = member.AvatarDigitalAssetId
+                AvatarDigitalAssetId = member.AvatarDigitalAssetId,
+                Address = member.Address.ToDto()
             };
         }
 
