@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreateUser : DomainEventBase
+    public class CreateUser : EventBase
     {
         public string Username { get; private set; }
         public string Password { get; private set; }

@@ -36,7 +36,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("ConversationProfile");
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.MaintenanceRequestDomainEvent", b =>
+            modelBuilder.Entity("Coop.Core.DomainEvents.MaintenanceRequestDomainEvent", b =>
                 {
                     b.Property<Guid>("MaintenanceRequestDomainEventId")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace Coop.Api.Migrations
                     b.ToTable("MaintenanceRequestDomainEvent");
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.NoticeDomainEvent", b =>
+            modelBuilder.Entity("Coop.Core.DomainEvents.NoticeDomainEvent", b =>
                 {
                     b.Property<Guid>("NoticeDomainEventId")
                         .ValueGeneratedOnAdd()
@@ -488,7 +488,7 @@ namespace Coop.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.MaintenanceRequestDomainEvent", b =>
+            modelBuilder.Entity("Coop.Core.DomainEvents.MaintenanceRequestDomainEvent", b =>
                 {
                     b.HasOne("Coop.Core.Models.MaintenanceRequest", null)
                         .WithMany("Events")
@@ -497,7 +497,7 @@ namespace Coop.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Coop.Api.DomainEvents.NoticeDomainEvent", b =>
+            modelBuilder.Entity("Coop.Core.DomainEvents.NoticeDomainEvent", b =>
                 {
                     b.HasOne("Coop.Core.Models.Notice", null)
                         .WithMany("Events")

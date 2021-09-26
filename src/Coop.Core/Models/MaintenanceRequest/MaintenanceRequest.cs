@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 namespace Coop.Core.Models
 {
-    public class MaintenanceRequest
+    public class MaintenanceRequest: AggregateRoot
     {
         public Guid MaintenanceRequestId { get; private set; }
-
         public string MemberName { get; set; }
         public DateTime Date { get; set; }
         public Address Address { get; set; }
@@ -31,6 +30,16 @@ namespace Coop.Core.Models
         }
 
         private MaintenanceRequest()
+        {
+
+        }
+
+        protected override void When(dynamic @event)
+        {
+
+        }
+
+        protected override void EnsureValidState()
         {
 
         }

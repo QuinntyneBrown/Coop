@@ -1,4 +1,5 @@
 using Coop.Core.Interfaces;
+using Coop.Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
-    public class UpdateMaintenanceRequestWorkDetails
+    public class ReceiveMaintenanceRequest
     {
-        public class Request : Coop.Core.DomainEvents.UpdateMaintenanceRequestWorkDetails, IRequest<Response>
+        public class Request : Coop.Core.DomainEvents.ReceiveMaintenanceRequest, IRequest<Response>
         {
             public Guid MaitenanceRequestId { get; set; }
         }

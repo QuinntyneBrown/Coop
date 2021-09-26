@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class BuiltToken: DomainEventBase
+    public class BuiltToken: EventBase
     {
         public BuiltToken(Guid userId, string accessToken)
         {

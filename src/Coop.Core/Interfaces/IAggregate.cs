@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Coop.Api.Interfaces
+namespace Coop.Core.Interfaces
 {
     public interface IAggregate
     {

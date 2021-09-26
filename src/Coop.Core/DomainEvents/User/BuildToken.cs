@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class BuildToken : DomainEventBase
+    public class BuildToken : EventBase
     {
         public BuildToken(string username)
         {

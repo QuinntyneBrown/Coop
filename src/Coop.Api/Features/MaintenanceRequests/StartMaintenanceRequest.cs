@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
-    public class UpdateMaintenanceRequestWorkDetails
+    public class StartMaintenanceRequest
     {
-        public class Request : Coop.Core.DomainEvents.UpdateMaintenanceRequestWorkDetails, IRequest<Response>
+        public class Request : Coop.Core.DomainEvents.StartMaintenanceRequest, IRequest<Response>
         {
             public Guid MaitenanceRequestId { get; set; }
         }
