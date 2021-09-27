@@ -69,11 +69,18 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<CreateMaintenanceRequest.Response>> Create([FromBody] CreateMaintenanceRequest.Request request)
             => await _mediator.Send(request);
 
-        [HttpPut(Name = "UpdateMaintenanceRequestWorkDetailsRoute")]
+        [HttpPut(Name = "UpdateMaintenanceRequestDescriptionRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateMaintenanceRequestDescription.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateMaintenanceRequestDescription.Response>> Update([FromBody] UpdateMaintenanceRequestDescription.Request request)
+            => await _mediator.Send(request);
+
+        [HttpPut("work-details", Name = "UpdateMaintenanceRequestWorkDetailsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateMaintenanceRequestWorkDetails.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateMaintenanceRequestWorkDetails.Response>> Update([FromBody] UpdateMaintenanceRequestWorkDetails.Request request)
+        public async Task<ActionResult<UpdateMaintenanceRequestWorkDetails.Response>> UpdateWorkDetails([FromBody] UpdateMaintenanceRequestWorkDetails.Request request)
             => await _mediator.Send(request);
 
         [HttpPut("start", Name = "StartMaintenanceRequestRoute")]

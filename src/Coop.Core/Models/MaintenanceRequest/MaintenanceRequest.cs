@@ -40,12 +40,12 @@ namespace Coop.Core.Models
             UnattendedUnitEntryAllowed = createMaintenanceRequest.UnattendedUnitEntryAllowed;
         }
 
-        private MaintenanceRequest()
+        public void When(UpdateMaintenanceRequestDescription updateMaintenanceRequestDescription)
         {
-
+            Description = updateMaintenanceRequestDescription.Description;
         }
 
-        protected override void When(dynamic @event)
+        private MaintenanceRequest()
         {
 
         }
@@ -53,6 +53,11 @@ namespace Coop.Core.Models
         protected override void EnsureValidState()
         {
 
+        }
+
+        protected override void When(dynamic @event)
+        {
+            this.When(@event);
         }
     }
 }

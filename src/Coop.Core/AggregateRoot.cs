@@ -1,6 +1,7 @@
 ﻿using Coop.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using static Newtonsoft.Json.JsonConvert;
 using static System.Runtime.Serialization.FormatterServices;
 
@@ -8,6 +9,7 @@ namespace Coop.Core
 {
     public abstract class AggregateRoot : IAggregateRoot
     {
+        [NotMapped]
         public List<StoredEvent> StoredEvents { get; private set; } = new List<StoredEvent>();
 
         public AggregateRoot(IEnumerable<IEvent> events)

@@ -1,2 +1,2 @@
 <p [innerHTML]="maintenanceRequest.description"></p>
-<a target="blank">Link</a>
+<a [routerLink]="['/','workspace','maintenance-requests','edit', maintenanceRequest.maintenanceRequestId]">Link</a>

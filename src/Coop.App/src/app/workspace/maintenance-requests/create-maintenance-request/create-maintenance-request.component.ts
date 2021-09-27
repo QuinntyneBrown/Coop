@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateMaintenanceRequest, MaintenanceRequestService, ProfileService } from '@api';
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -38,6 +37,7 @@ export class CreateMaintenanceRequestComponent {
   }
 
   public save(createMainenanceRequest: CreateMaintenanceRequest) {
+    //alert(JSON.stringify())
     this._maintenanceRequestService.create(createMainenanceRequest)
     .subscribe();
   }

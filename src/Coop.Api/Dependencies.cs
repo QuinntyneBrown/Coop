@@ -64,7 +64,7 @@ namespace Coop.Api
 
             services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
 
-            services.AddTransient<ICoopDbContext, CoopDbContext>();
+            services.AddScoped<ICoopDbContext, CoopDbContext>();
 
             services.AddDbContext<CoopDbContext>(options =>
             {

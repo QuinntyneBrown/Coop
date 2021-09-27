@@ -4,14 +4,16 @@ using Coop.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Coop.Api.Migrations
 {
     [DbContext(typeof(CoopDbContext))]
-    partial class CoopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210927014534_UnmapStoredEvents")]
+    partial class UnmapStoredEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

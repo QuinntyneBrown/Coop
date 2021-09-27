@@ -10,6 +10,7 @@ namespace Coop.Api.Features
             return new()
             {
                 MemberId = member.MemberId,
+                ProfileId = member.ProfileId,
                 Firstname = member.Firstname,
                 Lastname = member.Lastname,
                 PhoneNumber = member.PhoneNumber,

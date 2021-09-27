@@ -53,4 +53,8 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
   public update(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {
     return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, { maintenanceRequest: options.maintenanceRequest });
   }
+
+  public updateDescription(maintenanceRequest: Partial<MaintenanceRequest>): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, maintenanceRequest);
+  }
 }

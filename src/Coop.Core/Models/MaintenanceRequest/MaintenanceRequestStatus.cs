@@ -3,7 +3,8 @@
     public enum MaintenanceRequestStatus
     {
         New,
-        Viewed,
+        Received,
+        Started,
         Completed
     }
 }

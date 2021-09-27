@@ -22,8 +22,6 @@ namespace Coop.Api.Features
         }
 
         public class Request: IRequest<Response> {
-
-            public Guid MaintenanceRequestId { get; set; } = Guid.NewGuid();
             public Guid RequestedByProfileId { get; set; }
             public string RequestedByName { get; set; }
             public AddressDto Address { get; set; }
@@ -35,7 +33,6 @@ namespace Coop.Api.Features
             {
                 return new Core.DomainEvents.CreateMaintenanceRequest
                 {
-                    MaintenanceRequestId = MaintenanceRequestId,
                     RequestedByProfileId = RequestedByProfileId,
                     RequestedByName = RequestedByName,
                     Address = Coop.Core.Models.Address.Create(Address.Street, Address.Unit.Value, Address.City, Address.Province, Address.PostalCode).Value,

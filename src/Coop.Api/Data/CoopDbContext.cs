@@ -1,6 +1,8 @@
 using Coop.Core.Models;
 using Coop.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Coop.Api.Data
 {
@@ -29,13 +31,46 @@ namespace Coop.Api.Data
         public DbSet<InvitationToken> InvitationTokens { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public CoopDbContext(DbContextOptions options)
-            : base(options) { }
+            : base(options) {
+
+            SavingChanges += CoopDbContext_SavingChanges;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoopDbContext).Assembly);
+        }
+
+        private void CoopDbContext_SavingChanges(object sender, SavingChangesEventArgs e)
+        {
+            var entries = ChangeTracker.Entries<Coop.Core.AggregateRoot>()
+                .Where(
+                    e => e.State == EntityState.Added ||
+                    e.State == EntityState.Modified)
+                .Select(e => e.Entity)
+                .ToList();
+
+            foreach (var aggregate in entries)
+            {
+                foreach(var storedEvent in aggregate.StoredEvents)
+                {
+                    StoredEvents.Add(storedEvent);
+                }                
+            }
+        }
+
+        public override void Dispose()
+        {
+            SavingChanges -= CoopDbContext_SavingChanges;
+            base.Dispose();
+        }
+
+        public override ValueTask DisposeAsync()
+        {
+            SavingChanges -= CoopDbContext_SavingChanges;
+            return base.DisposeAsync();
         }
 
     }
