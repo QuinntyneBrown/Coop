@@ -1,6 +1,12 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <h2>Create Maintenace Request</h2>
+  <h2>Maintenace Request Form</h2>
+
+  <section>
+    <p>If this is a request to replace a lightbulb, please include a cheque as follows:</p>
+    <p>Kitchen bulb - $5.25</p>
+    <p>Hallway bulb - $4.50</p>
+  </section>
 
   <form [formGroup]="vm.form">
 
@@ -16,6 +22,11 @@
     <app-html-editor formControlName="description">
 
     </app-html-editor>
+
+    <app-unattended-unit-entry-allowed formControlName="unattendedUnitEntryAllowed">
+
+    </app-unattended-unit-entry-allowed>
+
   </form>
 
   <div class="g-actions">

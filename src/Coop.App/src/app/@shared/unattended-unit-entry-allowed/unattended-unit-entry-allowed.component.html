@@ -1,0 +1,14 @@
+<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
+  <p>
+    Will you allow entry if you are not home at the time of the repair?
+  </p>
+  <section>
+    <mat-checkbox formControlName="unattendedUnitEntryAllowed" class="g-checkbox">
+      Yes, You can enter my unit if I am not home
+    </mat-checkbox>
+
+    <mat-checkbox formControlName="unattendedUnitEntryNotAllowed" class="g-checkbox">
+      No, please do not enter my unit if I am not home
+    </mat-checkbox>
+  </section>
+</form>

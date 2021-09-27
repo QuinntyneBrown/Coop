@@ -9,6 +9,7 @@ import { MaintenanceRequestEditorModule } from '@shared/maintenance-request-edit
 import { RouterModule } from '@angular/router';
 import { CreateMaintenanceRequestComponent } from './create-maintenance-request/create-maintenance-request.component';
 import { AddressEditorModule } from '@shared/address-editor';
+import { UnattendedUnitEntryAllowedModule } from '@shared/unattended-unit-entry-allowed/unattended-unit-entry-allowed.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AddressEditorModule } from '@shared/address-editor';
     RouterModule,
     AddressEditorModule,
     COMMON_TABLE_MODULES,
-    COMMON_FORMS_MODULES
+    COMMON_FORMS_MODULES,
+    UnattendedUnitEntryAllowedModule
   ]
 })
 export class MaintenanceRequestsModule { }
