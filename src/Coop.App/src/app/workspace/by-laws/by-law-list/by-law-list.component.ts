@@ -32,13 +32,14 @@ export class ByLawListComponent implements OnDestroy {
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
         'name',
-        'edit'
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +51,7 @@ export class ByLawListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _byLawService: ByLawService,
     private readonly _dialog: MatDialog,
@@ -64,12 +65,12 @@ export class ByLawListComponent implements OnDestroy {
 
   }
 
-  public delete(byLaw: ByLaw) {    
+  public delete(byLaw: ByLaw) {
     this._byLawService.remove({ byLaw }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

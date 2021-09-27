@@ -9,11 +9,11 @@ namespace Coop.Api.Features
         {
             return new AddressDto
             {
-                Street = address.Street,
-                Unit = address.Unit,
-                City = address.City,
-                Province = address.Province,
-                PostalCode = address.PostalCode
+                Street = address?.Street,
+                Unit = address?.Unit,
+                City = address?.City,
+                Province = address?.Province,
+                PostalCode = address?.PostalCode
             };
         }
     }

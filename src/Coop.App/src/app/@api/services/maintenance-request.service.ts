@@ -46,12 +46,12 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
     return this._client.delete<void>(`${this._baseUrl}api/maintenanceRequest/${options.maintenanceRequest.maintenanceRequestId}`);
   }
 
-  public create(createMaintenanceRequest: CreateMaintenanceRequest): Observable<{ maintenanceRequest: MaintenanceRequest }> {
-    return this._client.post<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, createMaintenanceRequest);
+  public create(maintenanceRequest: Partial<MaintenanceRequest>): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.post<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, maintenanceRequest);
   }
 
-  public update(options: { maintenanceRequest: MaintenanceRequest }): Observable<{ maintenanceRequest: MaintenanceRequest }> {
-    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, { maintenanceRequest: options.maintenanceRequest });
+  public update(maintenanceRequest: Partial<MaintenanceRequest>): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, maintenanceRequest);
   }
 
   public updateDescription(maintenanceRequest: Partial<MaintenanceRequest>): Observable<{ maintenanceRequest: MaintenanceRequest }> {

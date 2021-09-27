@@ -32,13 +32,14 @@ export class ReportListComponent implements OnDestroy {
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
         'name',
-        'edit'
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +51,7 @@ export class ReportListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _reportService: ReportService,
     private readonly _dialog: MatDialog,
@@ -64,12 +65,12 @@ export class ReportListComponent implements OnDestroy {
 
   }
 
-  public delete(report: Report) {    
+  public delete(report: Report) {
     this._reportService.remove({ report }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

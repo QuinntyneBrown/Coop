@@ -2,6 +2,7 @@ import { Address } from "./address";
 
 export type MaintenanceRequest = {
     maintenanceRequestId: string,
+    date: string,
     requestedByName: string,
     address: Address,
     phone: string,

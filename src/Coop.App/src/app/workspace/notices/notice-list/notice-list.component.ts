@@ -32,13 +32,14 @@ export class NoticeListComponent implements OnDestroy {
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
         'name',
-        'edit'
+        'edit',
+        'delete'
       ]),
       of(pageIndex),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -50,7 +51,7 @@ export class NoticeListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _noticeService: NoticeService,
     private readonly _dialog: MatDialog,
@@ -64,12 +65,12 @@ export class NoticeListComponent implements OnDestroy {
 
   }
 
-  public delete(notice: Notice) {    
+  public delete(notice: Notice) {
     this._noticeService.remove({ notice }).pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

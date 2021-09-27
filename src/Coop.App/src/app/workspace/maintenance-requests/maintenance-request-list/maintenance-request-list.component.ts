@@ -18,7 +18,7 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
-  private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
+  private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(10);
   private readonly _dataSource: EntityDataSource<MaintenanceRequest> = new EntityDataSource(this._maintenanceRequestService);
 
   public readonly vm$: Observable<{
@@ -31,8 +31,11 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
-        'title',
-        'edit'
+        'date',
+        'requestedByName',
+        'unit',
+        'status',
+        'actions'
       ]),
       of(pageIndex),
       of(pageSize)
@@ -61,6 +64,13 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public create() {
 
+  }
+
+  public convertFromEnum(status: number) {
+    let lookup = {
+      "0": "New"
+    };
+    return lookup[status];
   }
 
   public delete(maintenanceRequest: MaintenanceRequest) {

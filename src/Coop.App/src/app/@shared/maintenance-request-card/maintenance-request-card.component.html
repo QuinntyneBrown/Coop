@@ -1,2 +1,3 @@
 <p [innerHTML]="maintenanceRequest.description"></p>
-<a [routerLink]="['/','workspace','maintenance-requests','edit', maintenanceRequest.maintenanceRequestId]">Link</a>
+<p>Date: {{ maintenanceRequest.date | date:'short'}}</p>
+<a [routerLink]="['/','workspace','maintenance-requests','edit', maintenanceRequest.maintenanceRequestId]">Edit</a>

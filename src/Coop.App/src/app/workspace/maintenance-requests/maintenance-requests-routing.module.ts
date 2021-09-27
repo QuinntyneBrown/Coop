@@ -9,7 +9,7 @@ import { UpdateMaintenanceRequestDescriptionComponent } from './update-maintenan
 const routes: Routes = [
   { path: '', component: MaintenanceRequestListComponent },
   { path: 'create', component: CreateMaintenanceRequestComponent },
-  { path: 'edit/:maintenanceRequestId', component: UpdateMaintenanceRequestDescriptionComponent }
+  { path: 'edit/:maintenanceRequestId', component: CreateMaintenanceRequestComponent }
 ];
 
 @NgModule({

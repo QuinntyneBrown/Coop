@@ -4,24 +4,39 @@
 
     <h2>Maintenance Request List</h2>
 
-    <button mat-raised-button (click)='create()' class="g-button">Create</button>
-
   </div>
 
 
-  <table mat-table [dataSource]="vm.dataSource" class="g-table" style="--grid-template-columns: 1fr auto">
+  <table mat-table [dataSource]="vm.dataSource" class="g-table" style="--grid-template-columns: 1fr 1fr 1fr 1fr 1fr">
 
-      <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef> Title </th>
-          <td mat-cell *matCellDef="let maintenanceRequest"> {{ maintenanceRequest.title }} </td>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let maintenanceRequest"> {{ maintenanceRequest.date | date: 'shortDate' }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="edit">
+      <ng-container matColumnDef="requestedByName">
+          <th mat-header-cell *matHeaderCellDef> Requested By Name </th>
+          <td mat-cell *matCellDef="let maintenanceRequest"> {{ maintenanceRequest.requestedByName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef> Unit</th>
+        <td mat-cell *matCellDef="let maintenanceRequest"> {{ maintenanceRequest.address.unit }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let maintenanceRequest"> {{ convertFromEnum(maintenanceRequest.status) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let maintenanceRequest">
-            <button mat-icon-button (click)="edit(maintenanceRequest)">
-              <mat-icon>edit</mat-icon>
-            </button>
+          <td mat-cell *matCellDef="let maintenanceRequest" class="g-actions-cell">
+            <a class="g-actiion-cell">Receive</a>
+            <a class="g-actiion-cell">Start</a>
+            <a class="g-actiion-cell">Update</a>
+            <a class="g-actiion-cell">Complete</a>
           </td>
       </ng-container>
 

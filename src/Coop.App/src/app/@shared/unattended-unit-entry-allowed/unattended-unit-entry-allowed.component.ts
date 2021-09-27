@@ -20,7 +20,7 @@ import { fromEvent, Subject } from 'rxjs';
     }
   ]
 })
-export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor,  Validator, OnDestroy, OnInit  {
+export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor,  Validator, OnDestroy  {
   private readonly _destroyed$: Subject<void> = new Subject();
 
   public form = new FormGroup({
@@ -31,27 +31,6 @@ export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor
   constructor(
     private readonly _elementRef: ElementRef
   ) { }
-
-  ngOnInit() {
-    this.form.get("unattendedUnitEntryAllowed")
-    .valueChanges
-    .pipe(
-      takeUntil(this._destroyed$),
-      tap(value => {
-        console.log(value);
-        (this.form.get("unattendedUnitEntryNotAllowed") as FormControl).patchValue(!value, { emitEvent: false });
-      }),
-    ).subscribe();
-
-    this.form.get("unattendedUnitEntryNotAllowed")
-    .valueChanges
-    .pipe(
-      takeUntil(this._destroyed$),
-      tap(value => {
-        (this.form.get("unattendedUnitEntryAllowed") as FormControl).patchValue(!value, { emitEvent: false });
-      }),
-    ).subscribe();
-  }
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.valid ? null
@@ -81,6 +60,25 @@ export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor
           unattendedUnitEntryNotAllowed: !unattendedUnitEntryAllowed
         }, { emitEvent: false });
     }
+
+    this.form.get("unattendedUnitEntryAllowed")
+    .valueChanges
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(value => {
+        (this.form.get("unattendedUnitEntryNotAllowed") as FormControl).patchValue(!value, { emitEvent: false });
+      }),
+    ).subscribe();
+
+    this.form.get("unattendedUnitEntryNotAllowed")
+    .valueChanges
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(value => {
+        (this.form.get("unattendedUnitEntryAllowed") as FormControl).patchValue(!value, { emitEvent: false });
+      }),
+    ).subscribe();
+
   }
 
   registerOnChange(fn: any): void {

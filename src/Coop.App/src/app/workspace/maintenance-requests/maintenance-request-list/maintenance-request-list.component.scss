@@ -1,1 +1,10 @@
 
+:host {
+  .g-actions-cell {
+    grid-template-columns: auto auto auto auto;
+    a.g-actiion-cell {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

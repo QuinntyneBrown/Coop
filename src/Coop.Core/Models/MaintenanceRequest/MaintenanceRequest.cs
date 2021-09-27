@@ -38,11 +38,20 @@ namespace Coop.Core.Models
             Phone = createMaintenanceRequest.Phone;
             Description = createMaintenanceRequest.Description;
             UnattendedUnitEntryAllowed = createMaintenanceRequest.UnattendedUnitEntryAllowed;
+            Date = createMaintenanceRequest.Created;
         }
 
         public void When(UpdateMaintenanceRequestDescription updateMaintenanceRequestDescription)
         {
             Description = updateMaintenanceRequestDescription.Description;
+        }
+
+        public void When(UpdateMaintenanceRequest updateMaintenanceRequest)
+        {
+            Address = updateMaintenanceRequest.Address;
+            Phone = updateMaintenanceRequest.Phone;
+            Description = updateMaintenanceRequest.Description;
+            UnattendedUnitEntryAllowed = updateMaintenanceRequest.UnattendedUnitEntryAllowed;
         }
 
         private MaintenanceRequest()
@@ -55,9 +64,6 @@ namespace Coop.Core.Models
 
         }
 
-        protected override void When(dynamic @event)
-        {
-            this.When(@event);
-        }
+        protected override void When(dynamic @event) => this.When(@event);
     }
 }
