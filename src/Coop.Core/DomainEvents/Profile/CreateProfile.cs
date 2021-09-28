@@ -3,8 +3,9 @@ using System;
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreateProfile : INotification
+    public class CreateProfile : BaseDomainEvent, INotification
     {
+        public Guid ProfileId { get; set; } = Guid.NewGuid();
         public string Firstname { get; private set; }
         public string Lastname { get; private set; }
         public Guid? AvatarDigitalAssetId { get; private set; }

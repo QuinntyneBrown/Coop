@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Newtonsoft.Json.JsonConvert;
-using static System.Runtime.Serialization.FormatterServices;
 
 namespace Coop.Core
 {
     public abstract class AggregateRoot : IAggregateRoot
     {
+        internal List<StoredEvent> _storedEvents = new List<StoredEvent>();
+
         [NotMapped]
-        public List<StoredEvent> StoredEvents { get; private set; } = new List<StoredEvent>();
+        public IReadOnlyList<StoredEvent> StoredEvents => _storedEvents.AsReadOnly();
 
         public AggregateRoot(IEnumerable<IEvent> events)
         {
@@ -43,7 +44,7 @@ namespace Coop.Core
                 CorrelationId = new Guid()
             };
 
-            StoredEvents.Add(storedEvent);
+            _storedEvents.Add(storedEvent);
         }
 
         public AggregateRoot Apply(IEvent @event)
@@ -55,9 +56,5 @@ namespace Coop.Core
         }
         protected abstract void When(dynamic @event);
         protected abstract void EnsureValidState();
-
-        public static TAggregateRoot Create<TAggregateRoot>()
-            => (TAggregateRoot)GetUninitializedObject(typeof(TAggregateRoot));
-
     }
 }

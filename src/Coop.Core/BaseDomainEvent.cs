@@ -3,8 +3,8 @@ using System;
 
 namespace Coop.Core
 {
-    public abstract class BaseDomainEvent : INotification
+    public abstract class BaseDomainEvent : INotification, IEvent
     {
-        public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
+        public DateTime Created { get; set; } = DateTime.UtcNow;
     }
 }

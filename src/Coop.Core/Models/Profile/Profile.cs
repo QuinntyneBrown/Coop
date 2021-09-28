@@ -1,9 +1,10 @@
+using Coop.Core.DomainEvents;
 using System;
 using System.Collections.Generic;
 
 namespace Coop.Core.Models
 {
-    public class Profile
+    public class Profile: AggregateRoot
     {
         public Guid ProfileId { get; protected set; }
         public Guid? UserId { get; protected set; }
@@ -16,6 +17,13 @@ namespace Coop.Core.Models
         public ProfileType Type { get; protected set; }
         public List<Message> Messages { get; protected set; } = new();
         public List<Conversation> Conversations { get; protected set; } = new();
+
+
+        public Profile(CreateProfile createProfile)
+        {
+
+        }
+
         public Profile(ProfileType type, Guid userId, string firstname, string lastname)
         {
             Type = type;
@@ -48,6 +56,16 @@ namespace Coop.Core.Models
         {
             AvatarDigitalAssetId = digitalAssetId;
             return this;
+        }
+
+        protected override void When(dynamic @event)
+        {
+            this.When(@event);
+        }
+
+        protected override void EnsureValidState()
+        {
+
         }
     }
 }

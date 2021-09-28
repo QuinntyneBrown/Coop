@@ -1,3 +1,4 @@
+using Coop.Core.DomainEvents;
 using System;
 
 namespace Coop.Core.Models
@@ -21,9 +22,29 @@ namespace Coop.Core.Models
             Address = address;
         }
 
+        public Member(CreateProfile createProfile)
+            : base(createProfile)
+        {
+            Apply(createProfile);
+        }
+
         private Member()
         {
 
+        }
+
+        protected override void When(dynamic @event)
+        {
+            this.When(@event);
+        }
+
+        public void When(CreateProfile createProfile)
+        {
+            ProfileId = createProfile.ProfileId;
+            Firstname = createProfile.Firstname;
+            Lastname = createProfile.Lastname;
+            AvatarDigitalAssetId = createProfile.AvatarDigitalAssetId;
+            Type = ProfileType.Member;
         }
     }
 }
