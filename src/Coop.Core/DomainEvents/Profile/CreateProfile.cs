@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Coop.Core.Models;
+using MediatR;
 using System;
 
 namespace Coop.Core.DomainEvents
@@ -10,6 +11,7 @@ namespace Coop.Core.DomainEvents
         public string Lastname { get; private set; }
         public Guid? AvatarDigitalAssetId { get; private set; }
         public string ProfileType { get; private set; }
+        public Address Address { get; set; }
 
         public CreateProfile(string profileType, string firstname, string lastname, Guid? avatarDigitalAssetId)
         {

@@ -44,6 +44,7 @@ namespace Coop.Core.Models
             Firstname = createProfile.Firstname;
             Lastname = createProfile.Lastname;
             AvatarDigitalAssetId = createProfile.AvatarDigitalAssetId;
+            Address = createProfile.Address;
             Type = ProfileType.Member;
         }
     }

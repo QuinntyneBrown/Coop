@@ -22,7 +22,7 @@ namespace Coop.Api.Features
             _configuration = configuration;
         }
 
-        public async Task Handle(Coop.Core.DomainEvents.CreateProfile notification, CancellationToken cancellationToken)
+        public async Task Handle(Coop.Core.DomainEvents.CreateProfile @event, CancellationToken cancellationToken)
         {
             var defaultAddress = Address.Create(
                 _configuration["DefaultAddress:Street"],
@@ -30,12 +30,14 @@ namespace Coop.Api.Features
                 _configuration["DefaultAddress:Province"],
                 _configuration["DefaultAddress:PostalCode"]).Value;
 
-            Profile profile = notification.ProfileType switch
+            @event.Address = defaultAddress;
+
+            Profile profile = @event.ProfileType switch
             {
-                Constants.ProfileTypes.Member => new Member(notification.Firstname, notification.Lastname, defaultAddress),
-                Constants.ProfileTypes.BoardMember => new BoardMember(notification.Firstname, notification.Lastname),
-                Constants.ProfileTypes.Staff => new StaffMember(notification.Firstname, notification.Lastname),
-                _ => new Member(notification.Firstname, notification.Lastname, defaultAddress)
+                Constants.ProfileTypes.Member => new Member(@event),
+                Constants.ProfileTypes.BoardMember => new BoardMember(@event.Firstname, @event.Lastname),
+                Constants.ProfileTypes.Staff => new StaffMember(@event.Firstname, @event.Lastname),
+                _ => new Member(@event)
             };
 
             _context.Profiles.Add(profile);
