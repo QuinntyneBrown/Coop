@@ -18,14 +18,23 @@ namespace Coop.Core
 
         private Subject<INotification> _messages = new Subject<INotification>();
 
-        public async Task Publish(INotification @event)
+        public async Task Publish(IEvent @event)
         {
             _messages.OnNext(@event);
 
             await _mediator.Publish(@event);
         }
 
-        public async Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory)
+        public async Task Publish(IEvent @event, IEvent previousEvent)
+        {
+            @event.WithCorrelationIdFrom(previousEvent);
+
+            _messages.OnNext(@event);
+
+            await _mediator.Publish(@event);
+        }
+
+        public async Task<T> Handle<T>(IEvent startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory)
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 

@@ -5,6 +5,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
 import { MaintenanceRequestService, MaintenanceRequest } from '@api';
+import { MaintenanceRequestReceivePopupComponent } from '@shared/popups/maintenance-request-receive-popup/maintenance-request-receive-popup.component';
+import { MaintenanceRequestStartPopupComponent } from '@shared/popups/maintenance-request-start-popup/maintenance-request-start-popup.component';
+import { MaintenanceRequestUpdatePopupComponent } from '@shared/popups/maintenance-request-update-popup/maintenance-request-update-popup.component';
+import { MaintenanceRequestCompletePopupComponent } from '@shared/popups/maintenance-request-complete-popup/maintenance-request-complete-popup.component';
 
 @Component({
   selector: 'app-maintenance-request-list',
@@ -55,16 +59,42 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   );
 
   constructor(
-    private readonly _maintenanceRequestService: MaintenanceRequestService
+    private readonly _maintenanceRequestService: MaintenanceRequestService,
+    private readonly _dialog: MatDialog
   ) { }
 
-  public edit(maintenanceRequest: MaintenanceRequest) {
-
+  public receive(maintenanceRequest: MaintenanceRequest) {
+    this._dialog.open(MaintenanceRequestReceivePopupComponent, {
+      data: maintenanceRequest
+    })
+    .afterClosed()
+    .subscribe();
   }
 
-  public create() {
-
+  public start(maintenanceRequest: MaintenanceRequest) {
+    this._dialog.open(MaintenanceRequestStartPopupComponent, {
+      data: maintenanceRequest
+    })
+    .afterClosed()
+    .subscribe();
   }
+
+  public update(maintenanceRequest: MaintenanceRequest) {
+    this._dialog.open(MaintenanceRequestUpdatePopupComponent, {
+      data: maintenanceRequest
+    })
+    .afterClosed()
+    .subscribe();
+  }
+
+  public complete(maintenanceRequest: MaintenanceRequest) {
+    this._dialog.open(MaintenanceRequestCompletePopupComponent, {
+      data: maintenanceRequest
+    })
+    .afterClosed()
+    .subscribe();
+  }
+
 
   public convertFromEnum(status: number) {
     let lookup = {

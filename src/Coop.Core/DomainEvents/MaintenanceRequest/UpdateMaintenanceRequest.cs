@@ -3,7 +3,7 @@ using System;
 
 namespace Coop.Core.DomainEvents
 {
-    public class UpdateMaintenanceRequest : EventBase
+    public class UpdateMaintenanceRequest : BaseDomainEvent
     {
         public Guid RequestedByProfileId { get; set; }
         public string RequestedByName { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreatedNotice : EventBase
+    public class CreatedNotice : BaseDomainEvent
     {
         public string Name { get; private set; }
         public string Body { get; private set; }

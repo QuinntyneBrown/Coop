@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreatedUser : EventBase
+    public class CreatedUser : BaseDomainEvent
     {
         public Guid UserId { get; private set; }
 

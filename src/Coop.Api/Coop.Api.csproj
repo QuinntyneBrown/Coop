@@ -54,6 +54,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Coop.Core\Coop.Core.csproj" />
+    <ProjectReference Include="..\Coop.Infrastructure\Coop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Coop.Api\Coop.Api.csproj" />
     <ProjectReference Include="..\..\src\Coop.Core\Coop.Core.csproj" />
-    <ProjectReference Include="..\..\src\Coop.Domain\Coop.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

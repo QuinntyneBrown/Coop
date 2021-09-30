@@ -92,7 +92,7 @@ namespace Coop.Api.Features
                                 throw new Exception();
                             invitationTokenType = validatedToken.InvitationTokenType;
                             var role = _resolveRoleByInvitationTokenType(invitationTokenType);
-                            await _orchestrationHandler.PublishCreateUserEvent(email, password, role);
+                            await _orchestrationHandler.PublishCreateUserEvent(email, password, role, validatedToken);
                             break;
 
                         case CreatedUser createdUser:

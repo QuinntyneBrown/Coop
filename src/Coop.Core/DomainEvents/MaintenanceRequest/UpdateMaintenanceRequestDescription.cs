@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class UpdateMaintenanceRequestDescription: EventBase
+    public class UpdateMaintenanceRequestDescription: BaseDomainEvent
     {
         public string Description { get; set; }
     }

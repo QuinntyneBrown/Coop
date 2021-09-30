@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class ValidateInvitationToken : EventBase
+    public class ValidateInvitationToken : BaseDomainEvent
     {
         public ValidateInvitationToken(string invitationToken)
         {

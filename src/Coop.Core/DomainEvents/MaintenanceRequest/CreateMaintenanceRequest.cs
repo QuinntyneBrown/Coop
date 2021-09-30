@@ -4,7 +4,7 @@ using System;
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreateMaintenanceRequest : EventBase
+    public class CreateMaintenanceRequest : BaseDomainEvent
     {
         public Guid MaintenanceRequestId { get; set; } = Guid.NewGuid();
         public Guid RequestedByProfileId { get; set; }

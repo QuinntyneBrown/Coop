@@ -2,12 +2,11 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreateUser : EventBase
+    public class CreateUser : BaseDomainEvent
     {
         public string Username { get; private set; }
         public string Password { get; private set; }
         public List<string> Roles { get; private set; } = new List<string>();
-
 
         public CreateUser(string username, string password, string role)
         {
@@ -16,6 +15,14 @@ namespace Coop.Core.DomainEvents
             Roles.Add(role);
         }
 
+
+        public CreateUser(BaseDomainEvent @event, string username, string password, string role)
+        {
+            CorrelationId = @event.CorrelationId;
+            Username = username;
+            Password = password;
+            Roles.Add(role);
+        }
         public CreateUser(string username, string password)
         {
             Username = username;

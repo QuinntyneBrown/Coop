@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class CreatedJsonContent : EventBase
+    public class CreatedJsonContent : BaseDomainEvent
     {
         public Guid JsonContentId { get; set; }
         public string Name { get; set; }

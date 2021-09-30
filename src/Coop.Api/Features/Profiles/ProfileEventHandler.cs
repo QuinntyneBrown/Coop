@@ -1,11 +1,10 @@
 ﻿using Coop.Core;
 using Coop.Core.Interfaces;
 using Coop.Core.Models;
-using Coop.Core;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 namespace Coop.Api.Features
 {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaintenanceRequestsRoutingModule } from './maintenance-requests-routing.module';
 import { HtmlEditorModule } from '@shared/html-editor/html-editor.module';
 import { MaintenanceRequestListComponent } from './maintenance-request-list/maintenance-request-list.component';
-import { COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
+import { COMMON_DIALOG_MODULES, COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
 import { MaintenanceRequestComponent } from './maintenance-request/maintenance-request.component';
 import { MaintenanceRequestEditorModule } from '@shared/maintenance-request-editor/maintenance-request-editor.module';
 import { RouterModule } from '@angular/router';
@@ -29,6 +29,7 @@ import { UpdateMaintenanceRequestDescriptionComponent } from './update-maintenan
     AddressEditorModule,
     COMMON_TABLE_MODULES,
     COMMON_FORMS_MODULES,
+    COMMON_DIALOG_MODULES,
     UnattendedUnitEntryAllowedModule
   ]
 })

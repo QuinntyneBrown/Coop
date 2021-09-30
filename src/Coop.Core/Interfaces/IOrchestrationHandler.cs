@@ -6,7 +6,7 @@ namespace Coop.Core.Interfaces
 {
     public interface IOrchestrationHandler
     {
-        public Task Publish(INotification message);
-        public Task<T> Handle<T>(INotification startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory);
+        public Task Publish(IEvent message);
+        public Task<T> Handle<T>(IEvent startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory);
     }
 }

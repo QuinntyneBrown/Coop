@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class AuthenticatedUser : EventBase
+    public class AuthenticatedUser : BaseDomainEvent
     {
         public AuthenticatedUser(string username)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class UpdatedNotice : EventBase
+    public class UpdatedNotice : BaseDomainEvent
     {
     }
 }

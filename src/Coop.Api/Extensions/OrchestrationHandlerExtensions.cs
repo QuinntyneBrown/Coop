@@ -7,8 +7,8 @@ namespace Coop.Core
 {
     public static class OrchestrationHandlerExtensions
     {
-        public static Task PublishCreateUserEvent(this IOrchestrationHandler orchestrationHandler, string username, string password, string role)
-            => orchestrationHandler.Publish(new CreateUser(username, password, role));
+        public static Task PublishCreateUserEvent(this IOrchestrationHandler orchestrationHandler, string username, string password, string role, BaseDomainEvent @event)
+            => orchestrationHandler.Publish(new CreateUser(@event, username, password, role));
 
         public static Task PublishAddProfileEvent(this IOrchestrationHandler orchestrationHandler, Guid userId, Guid profileId)
             => orchestrationHandler.Publish(new AddProfile(userId, profileId));
