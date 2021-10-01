@@ -108,7 +108,9 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   public convertFromEnum(status: number) {
     let lookup = {
       "0": "New",
-      "1": "Received"
+      "1": "Received",
+      "2": "Started",
+      "3": "Completed"
     };
     return lookup[status];
   }

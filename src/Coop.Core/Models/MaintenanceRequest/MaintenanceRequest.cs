@@ -61,6 +61,13 @@ namespace Coop.Core.Models
             Status = MaintenanceRequestStatus.Received;
         }
 
+        public void When(StartMaintenanceRequest @event)
+        {
+            UnitEntered = @event.UnitEntered;
+            WorkStarted = @event.WorkStarted;
+            Status = MaintenanceRequestStatus.Started;
+        }
+
         private MaintenanceRequest()
         {
 
