@@ -15,6 +15,7 @@ namespace Coop.Api.Features
         public string Phone { get; set; }
         public string Description { get; set; }
         public bool UnattendedUnitEntryAllowed { get; set; }
+        public string ReceivedByName { get; set; }
         public MaintenanceRequestStatus Status { get; set; } = MaintenanceRequestStatus.New;
         public List<MaintenanceRequestDigitalAssetDto> DigitalAssets { get; set; } = new();
         public List<MaintenanceRequestCommentDto> Comments { get; set; } = new();

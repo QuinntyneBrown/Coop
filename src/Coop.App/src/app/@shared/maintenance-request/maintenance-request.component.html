@@ -10,3 +10,11 @@
 <h3>Description</h3>
 
 <p [innerHTML]="maintenanceRequest.description"></p>
+
+<section *ngIf="maintenanceRequest.status != MaintenanceRequestStatus.New">
+
+  <h3>Received By</h3>
+
+  <p>{{ maintenanceRequest.receivedByName }}</p>
+
+</section>

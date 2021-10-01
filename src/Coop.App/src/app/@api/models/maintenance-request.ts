@@ -5,6 +5,7 @@ export type MaintenanceRequest = {
     maintenanceRequestId: string,
     date: string,
     requestedByName: string,
+    receivedByName: string,
     address: Address,
     phone: string,
     description: string,

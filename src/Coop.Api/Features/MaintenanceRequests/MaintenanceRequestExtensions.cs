@@ -17,6 +17,7 @@ namespace Coop.Api.Features
                 Phone = maintenanceRequest.Phone,
                 Description = maintenanceRequest.Description,
                 Status = maintenanceRequest.Status,
+                ReceivedByName = maintenanceRequest.ReceivedByName,
                 Date = TimeZoneInfo.ConvertTimeFromUtc(maintenanceRequest.Date, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"))
             };
         }

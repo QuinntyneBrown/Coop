@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MaintenanceRequest } from '@api';
+import { MaintenanceRequest, MaintenanceRequestStatus } from '@api';
 
 @Component({
   selector: 'app-maintenance-request',
@@ -7,6 +7,8 @@ import { MaintenanceRequest } from '@api';
   styleUrls: ['./maintenance-request.component.scss']
 })
 export class MaintenanceRequestComponent {
+
+  public MaintenanceRequestStatus : typeof MaintenanceRequestStatus = MaintenanceRequestStatus;
 
   @Input() public maintenanceRequest: MaintenanceRequest;
 
