@@ -15,15 +15,16 @@ export class MaintenanceRequestCompletePopupComponent extends MaintenanceRequest
 
   public vm$ = this._maintenanceRequest$
   .pipe(
-    map(x => {
+    map(maintenanceRequest => {
       const form = new FormGroup({
-        maintenanceRequestId: new FormControl(x.maintenanceRequestId, [Validators.required]),
+        maintenanceRequestId: new FormControl(maintenanceRequest.maintenanceRequestId, [Validators.required]),
         workCompletedByName: new FormControl(null,[Validators.required]),
         workCompletedDtate: new FormControl(null, [Validators.required])
       });
 
       return {
-        form
+        form,
+        maintenanceRequest
       };
     })
   );
