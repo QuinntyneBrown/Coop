@@ -1,1 +1,12 @@
-<p>maintenance-request works!</p>
+
+<h3>Member Name</h3>
+
+<p>{{ maintenanceRequest.requestedByName }}</p>
+
+<h3>Address</h3>
+
+<p>{{ address }}</p>
+
+<h3>Description</h3>
+
+<p [innerHTML]="maintenanceRequest.description"></p>

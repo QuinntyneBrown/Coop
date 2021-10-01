@@ -1,5 +1,6 @@
 export enum MaintenanceRequestStatus {
   New,
-  Viewed,
+  Received,
+  Started,
   Completed
 }

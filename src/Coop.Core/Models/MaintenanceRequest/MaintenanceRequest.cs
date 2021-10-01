@@ -46,12 +46,19 @@ namespace Coop.Core.Models
             Description = updateMaintenanceRequestDescription.Description;
         }
 
-        public void When(UpdateMaintenanceRequest updateMaintenanceRequest)
+        public void When(UpdateMaintenanceRequest @event)
         {
-            Address = updateMaintenanceRequest.Address;
-            Phone = updateMaintenanceRequest.Phone;
-            Description = updateMaintenanceRequest.Description;
-            UnattendedUnitEntryAllowed = updateMaintenanceRequest.UnattendedUnitEntryAllowed;
+            Address = @event.Address;
+            Phone = @event.Phone;
+            Description = @event.Description;
+            UnattendedUnitEntryAllowed = @event.UnattendedUnitEntryAllowed;
+        }
+
+        public void When(ReceiveMaintenanceRequest @event)
+        {
+            ReceivedByName = @event.ReceivedByName;
+            ReceivedByProfileId = @event.ReceivedByProfileId;
+            Status = MaintenanceRequestStatus.Received;
         }
 
         private MaintenanceRequest()

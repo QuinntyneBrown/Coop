@@ -1,3 +1,4 @@
+import { MaintenanceRequestStatus, UnitEntered } from "@api";
 import { Address } from "./address";
 
 export type MaintenanceRequest = {
@@ -8,7 +9,9 @@ export type MaintenanceRequest = {
     phone: string,
     description: string,
     unattendedUnitEntryAllowed: boolean,
-    workDetails: string
+    workDetails: string,
+    unitEntered: UnitEntered,
+    status: MaintenanceRequestStatus
 };
 
 

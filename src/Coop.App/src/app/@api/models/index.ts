@@ -15,7 +15,7 @@ export * from './json-content-name';
 export * from './json-content';
 export * from './maintenance-request-comment';
 export * from './maintenance-request-digital-asset';
-export * from './maintenance-request-statues';
+export * from './maintenance-request-status';
 export * from './maintenance-request';
 export * from './member';
 export * from './message';

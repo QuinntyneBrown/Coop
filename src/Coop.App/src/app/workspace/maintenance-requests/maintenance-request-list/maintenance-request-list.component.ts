@@ -9,6 +9,7 @@ import { MaintenanceRequestReceivePopupComponent } from '@shared/popups/maintena
 import { MaintenanceRequestStartPopupComponent } from '@shared/popups/maintenance-request-start-popup/maintenance-request-start-popup.component';
 import { MaintenanceRequestUpdatePopupComponent } from '@shared/popups/maintenance-request-update-popup/maintenance-request-update-popup.component';
 import { MaintenanceRequestCompletePopupComponent } from '@shared/popups/maintenance-request-complete-popup/maintenance-request-complete-popup.component';
+import { MaintenanceRequestStatus } from '@api/models/maintenance-request-status';
 
 @Component({
   selector: 'app-maintenance-request-list',
@@ -24,6 +25,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(10);
   private readonly _dataSource: EntityDataSource<MaintenanceRequest> = new EntityDataSource(this._maintenanceRequestService);
+
+  public MaintenanceRequestStatus: typeof MaintenanceRequestStatus = MaintenanceRequestStatus;
 
   public readonly vm$: Observable<{
     dataSource: EntityDataSource<MaintenanceRequest>,
@@ -46,6 +49,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
     ])
     .pipe(
       map(([columnsToDisplay, pageNumber, pageSize]) => {
+
+
         this._dataSource.getPage({ pageIndex, pageSize });
         return {
           dataSource: this._dataSource,
@@ -65,7 +70,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public receive(maintenanceRequest: MaintenanceRequest) {
     this._dialog.open(MaintenanceRequestReceivePopupComponent, {
-      data: maintenanceRequest
+      data: maintenanceRequest,
+      panelClass:"g-maintenance-request-popup-container",
     })
     .afterClosed()
     .subscribe();
@@ -73,7 +79,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public start(maintenanceRequest: MaintenanceRequest) {
     this._dialog.open(MaintenanceRequestStartPopupComponent, {
-      data: maintenanceRequest
+      data: maintenanceRequest,
+      panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
     .subscribe();
@@ -81,7 +88,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public update(maintenanceRequest: MaintenanceRequest) {
     this._dialog.open(MaintenanceRequestUpdatePopupComponent, {
-      data: maintenanceRequest
+      data: maintenanceRequest,
+      panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
     .subscribe();
@@ -89,7 +97,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public complete(maintenanceRequest: MaintenanceRequest) {
     this._dialog.open(MaintenanceRequestCompletePopupComponent, {
-      data: maintenanceRequest
+      data: maintenanceRequest,
+      panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
     .subscribe();
@@ -98,7 +107,8 @@ export class MaintenanceRequestListComponent implements OnDestroy {
 
   public convertFromEnum(status: number) {
     let lookup = {
-      "0": "New"
+      "0": "New",
+      "1": "Received"
     };
     return lookup[status];
   }

@@ -1,12 +1,20 @@
 <ng-container *ngIf="vm$ | async as vm" [formGroup]="vm.form">
 
-  <h2>Update Maintenance Request</h2>
+  <button mat-icon-button [mat-dialog-close] class="g-dialog-close-button" tabindex="-1">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+
+  <h2>Update Work Details</h2>
+
+  <h3>Work Details</h3>
 
   <app-html-editor formControlName="workDetails"></app-html-editor>
 
   <div class="g-actions">
-    <button mat-stroked-button>Cancel</button>
-    <button mat-stroked-button (click)="save(vm)">Save</button>
+    <button mat-stroked-button [mat-dialog-close]>Cancel</button>
+    <button mat-raised-button (click)="save(vm)">Save</button>
   </div>
 
 </ng-container>

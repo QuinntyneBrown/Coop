@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MaintenanceRequest, MaintenanceRequestService, ProfileService } from '@api';
-import { combineLatest, forkJoin } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.component';
 
@@ -13,16 +13,18 @@ import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.co
 })
 export class MaintenanceRequestReceivePopupComponent extends MaintenanceRequestPopupComponent {
 
-  public vm$ = forkJoin([this._maintenanceRequest$, this._profileService.getCurrent()])
+  public vm$ = combineLatest([this._maintenanceRequest$, this._profileService.getCurrent()])
   .pipe(
     map(([maintenanceRequest, profile]) => {
-      alert("?")
+      alert(maintenanceRequest.maintenanceRequestId);
+
       const form = new FormGroup({
         maintenanceRequestId: new FormControl(maintenanceRequest.maintenanceRequestId, [Validators.required]),
         receivedByName: new FormControl(`${profile.firstname} ${profile.lastname}`, [Validators.required])
       })
       return {
-        form
+        form,
+        maintenanceRequest
       };
     })
   );
@@ -32,7 +34,7 @@ export class MaintenanceRequestReceivePopupComponent extends MaintenanceRequestP
     .pipe(
       takeUntil(this._destroyed$),
       tap(_ => this._dialog.close(true))
-    )
+    ).subscribe();
   }
 
   constructor(

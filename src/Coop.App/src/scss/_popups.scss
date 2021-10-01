@@ -1,0 +1,15 @@
+@use './breakpoints';
+
+@media screen and (min-width: breakpoints.$screen-md) {
+
+  .cdk-overlay-container {
+    .cdk-global-overlay-wrapper {
+      .cdk-overlay-pane.g-maintenance-request-popup-container {
+        width: 600px;
+      }
+    }
+  }
+
+ }
+
+

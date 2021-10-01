@@ -10,4 +10,7 @@ export class MaintenanceRequestComponent {
 
   @Input() public maintenanceRequest: MaintenanceRequest;
 
+  public get address() {
+    return `${this.maintenanceRequest.address.unit}-${this.maintenanceRequest.address.street},${this.maintenanceRequest.address.city}, ${this.maintenanceRequest.address.province}, ${this.maintenanceRequest.address.postalCode}`;
+  }
 }

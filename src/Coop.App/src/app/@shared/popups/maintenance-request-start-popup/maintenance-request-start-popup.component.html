@@ -1,15 +1,22 @@
 
 <ng-container *ngIf="vm$ | async as vm" [formGroup]="vm.form">
+
+  <button mat-icon-button [mat-dialog-close] class="g-dialog-close-button" tabindex="-1">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+
   <h2>Start Maintenance Request</h2>
 
-  <mat-radio-group [formControl]="formControl">
+  <mat-radio-group formControlName="unitEntered">
     <mat-radio-button [value]="UnitEntered.MemberAtHome">Member At Home</mat-radio-button>
     <mat-radio-button [value]="UnitEntered.MemberNotAtHome">Member Not At Home</mat-radio-button>
     <mat-radio-button [value]="UnitEntered.EmergencyEntryRequired">Emergency Entery Required</mat-radio-button>
   </mat-radio-group>
 
 
-  <mat-form-field>
+  <mat-form-field class="g-form-field" appearance="outline">
     <mat-label>
       Work Started Date
     </mat-label>
@@ -19,8 +26,8 @@
   </mat-form-field>
 
   <div class="g-actions">
-    <button mat-stroked-button>Cancel</button>
-    <button mat-stroked-button (click)="save(vm)">Save</button>
+    <button mat-stroked-button [mat-dialog-close]>Cancel</button>
+    <button mat-raised-button (click)="save(vm)" [disabled]="!vm.form.valid">Save</button>
   </div>
 
 </ng-container>
