@@ -2,14 +2,14 @@
 <ng-container *ngIf="vm$ | async as vm" [formGroup]="vm.form">
   <h2>Complete Maintenance Request</h2>
 
-  <mat-form-field>
+  <mat-form-field class="g-form-field" appearance="outline">
     <mat-label>
       Work Completed By Name
     </mat-label>
     <input type="text" matInput placeholder="Work Completed By Name" formControlName="workCompletedByName">
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field  class="g-form-field" appearance="outline">
     <mat-label>
       Work Completed Date
     </mat-label>

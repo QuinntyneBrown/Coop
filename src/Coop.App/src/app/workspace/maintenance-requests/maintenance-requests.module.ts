@@ -11,6 +11,7 @@ import { CreateMaintenanceRequestComponent } from './create-maintenance-request/
 import { AddressEditorModule } from '@shared/address-editor';
 import { UnattendedUnitEntryAllowedModule } from '@shared/unattended-unit-entry-allowed/unattended-unit-entry-allowed.module';
 import { UpdateMaintenanceRequestDescriptionComponent } from './update-maintenance-request-description/update-maintenance-request-description.component';
+import { MaintenanceRequestCompletePopupModule, MaintenanceRequestReceivePopupModule, MaintenanceRequestStartPopupModule, MaintenanceRequestUpdatePopupModule } from '@shared/popups';
 
 
 @NgModule({
@@ -30,7 +31,11 @@ import { UpdateMaintenanceRequestDescriptionComponent } from './update-maintenan
     COMMON_TABLE_MODULES,
     COMMON_FORMS_MODULES,
     COMMON_DIALOG_MODULES,
-    UnattendedUnitEntryAllowedModule
+    UnattendedUnitEntryAllowedModule,
+    MaintenanceRequestCompletePopupModule,
+    MaintenanceRequestReceivePopupModule,
+    MaintenanceRequestStartPopupModule,
+    MaintenanceRequestUpdatePopupModule
   ]
 })
 export class MaintenanceRequestsModule { }
