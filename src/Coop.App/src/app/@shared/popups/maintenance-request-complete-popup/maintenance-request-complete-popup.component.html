@@ -4,9 +4,22 @@
 
   <mat-form-field>
     <mat-label>
-
+      Work Completed By Name
     </mat-label>
-    <input type="text" matInput placeholder="">
+    <input type="text" matInput placeholder="Work Completed By Name" formControlName="workCompletedByName">
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>
+      Work Completed Date
+    </mat-label>
+    <input type="text" [matDatepicker]="picker" matInput placeholder="Work Completed Date" formControlName="workCompletedDtate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="g-actions">
+    <button mat-stroked-button>Cancel</button>
+    <button mat-stroked-button (click)="save(vm)">Save</button>
+  </div>
 </ng-container>

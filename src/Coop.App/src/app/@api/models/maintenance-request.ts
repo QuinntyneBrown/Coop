@@ -7,7 +7,8 @@ export type MaintenanceRequest = {
     address: Address,
     phone: string,
     description: string,
-    unattendedUnitEntryAllowed: boolean
+    unattendedUnitEntryAllowed: boolean,
+    workDetails: string
 };
 
 

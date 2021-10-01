@@ -1,4 +1,5 @@
 export * from './access-right';
+export * from './address';
 export * from './aggregate-privilege';
 export * from './aggregate';
 export * from './board-member';
@@ -23,8 +24,10 @@ export * from './on-call';
 export * from './privilege';
 export * from './profile-type';
 export * from './profile';
+export * from './receive-maintenance-request';
 export * from './report';
 export * from './role';
 export * from './staff-member';
 export * from './theme';
+export * from './unit-entered';
 export * from './user';

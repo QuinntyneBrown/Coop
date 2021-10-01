@@ -2,5 +2,16 @@
 <ng-container *ngIf="vm$ | async as vm" [formGroup]="vm.form">
   <h2>Receive Maintenance Request</h2>
 
+  <mat-form-field>
+    <mat-label>
+      Received By Name
+    </mat-label>
+    <input type="text" matInput placeholder="Received By Name" formControlName="receivedByName">
+  </mat-form-field>
+
+  <div class="g-actions">
+    <button mat-stroked-button>Cancel</button>
+    <button mat-stroked-button (click)="save(vm)">Save</button>
+  </div>
 
 </ng-container>

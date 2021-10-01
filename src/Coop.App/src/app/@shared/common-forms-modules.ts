@@ -5,6 +5,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatRadioModule } from "@angular/material/radio";
 
 export const COMMON_FORMS_MODULES: any[] = [
   ReactiveFormsModule,
@@ -13,5 +14,6 @@ export const COMMON_FORMS_MODULES: any[] = [
   MatButtonModule,
   MatInputModule,
   MatSelectModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatRadioModule
 ];

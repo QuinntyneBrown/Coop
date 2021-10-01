@@ -1,14 +1,11 @@
+import { UnitEntered } from "./unit-entered";
+
+
 export class ReceiveMaintenanceRequest {
   maintenanceRequestId: string;
   receivedByName: string;
 }
 
-export enum UnitEntered
-{
-  MemberAtHome,
-  MemberNotAtHome,
-  EmergencyEntryRequired
-}
 
 export class StartMaintenanceRequest {
   maintenanceRequestId: string;
