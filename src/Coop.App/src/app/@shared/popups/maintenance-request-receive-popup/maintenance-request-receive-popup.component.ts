@@ -16,8 +16,6 @@ export class MaintenanceRequestReceivePopupComponent extends MaintenanceRequestP
   public vm$ = combineLatest([this._maintenanceRequest$, this._profileService.getCurrent()])
   .pipe(
     map(([maintenanceRequest, profile]) => {
-      alert(maintenanceRequest.maintenanceRequestId);
-
       const form = new FormGroup({
         maintenanceRequestId: new FormControl(maintenanceRequest.maintenanceRequestId, [Validators.required]),
         receivedByName: new FormControl(`${profile.firstname} ${profile.lastname}`, [Validators.required])
