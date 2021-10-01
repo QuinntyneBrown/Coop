@@ -4,6 +4,7 @@ import { CreateMaintenanceRequest, MaintenanceRequest } from '@api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { baseUrl, EntityPage, IPagableService } from '@core';
+import { CompleteMaintenanceRequest, ReceiveMaintenanceRequest, StartMaintenanceRequest, UpdateMaintenanceRequestWorkDetails } from '@api/models/receive-maintenance-request';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,22 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
   }
 
   public updateDescription(maintenanceRequest: Partial<MaintenanceRequest>): Observable<{ maintenanceRequest: MaintenanceRequest }> {
-    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest`, maintenanceRequest);
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/description`, maintenanceRequest);
+  }
+
+  public updateWorkDetails(updateMaintenanceRequestWorkDetails: UpdateMaintenanceRequestWorkDetails): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/work-details`, updateMaintenanceRequestWorkDetails);
+  }
+
+  public start(startMaintenanceRequest: StartMaintenanceRequest): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/start`, startMaintenanceRequest);
+  }
+
+  public receive(receiveMaintenanceRequest: ReceiveMaintenanceRequest): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/receive`, receiveMaintenanceRequest);
+  }
+
+  public complete(completeMaintenanceRequest: CompleteMaintenanceRequest): Observable<{ maintenanceRequest: MaintenanceRequest }> {
+    return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/complete`, completeMaintenanceRequest);
   }
 }
