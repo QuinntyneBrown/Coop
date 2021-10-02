@@ -14,6 +14,7 @@ namespace Coop.Api.Features
         public AddressDto Address { get; set; }
         public string Phone { get; set; }
         public string Description { get; set; }
+        public string WorkDetails { get; set; }
         public bool UnattendedUnitEntryAllowed { get; set; }
         public string ReceivedByName { get; set; }
         public MaintenanceRequestStatus Status { get; set; } = MaintenanceRequestStatus.New;

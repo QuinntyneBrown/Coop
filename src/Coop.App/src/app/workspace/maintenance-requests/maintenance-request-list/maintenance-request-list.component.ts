@@ -25,6 +25,7 @@ export class MaintenanceRequestListComponent implements OnDestroy {
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(10);
   private readonly _dataSource: EntityDataSource<MaintenanceRequest> = new EntityDataSource(this._maintenanceRequestService);
+  private readonly _refresh: BehaviorSubject<void> = new BehaviorSubject(null);
 
   public MaintenanceRequestStatus: typeof MaintenanceRequestStatus = MaintenanceRequestStatus;
 
@@ -34,7 +35,7 @@ export class MaintenanceRequestListComponent implements OnDestroy {
     length$: Observable<number>,
     pageNumber: number,
     pageSize: number
-  }> = combineLatest([this._pageIndex$, this._pageSize$ ])
+  }> = combineLatest([this._pageIndex$, this._pageSize$, this._refresh ])
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
@@ -74,6 +75,14 @@ export class MaintenanceRequestListComponent implements OnDestroy {
       panelClass:"g-maintenance-request-popup-container",
     })
     .afterClosed()
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(x => {
+        if(x) {
+          this._refresh.next();
+        }
+      })
+    )
     .subscribe();
   }
 
@@ -83,6 +92,14 @@ export class MaintenanceRequestListComponent implements OnDestroy {
       panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(x => {
+        if(x) {
+          this._refresh.next();
+        }
+      })
+    )
     .subscribe();
   }
 
@@ -92,6 +109,14 @@ export class MaintenanceRequestListComponent implements OnDestroy {
       panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(x => {
+        if(x) {
+          this._refresh.next();
+        }
+      })
+    )
     .subscribe();
   }
 
@@ -101,6 +126,14 @@ export class MaintenanceRequestListComponent implements OnDestroy {
       panelClass:"g-maintenance-request-popup-container"
     })
     .afterClosed()
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(x => {
+        if(x) {
+          this._refresh.next();
+        }
+      })
+    )
     .subscribe();
   }
 

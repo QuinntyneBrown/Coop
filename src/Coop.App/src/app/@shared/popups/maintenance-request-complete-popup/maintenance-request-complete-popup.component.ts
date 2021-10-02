@@ -42,6 +42,6 @@ export class MaintenanceRequestCompletePopupComponent extends MaintenanceRequest
     .pipe(
       takeUntil(this._destroyed$),
       tap(_ => this._dialog.close(true))
-    )
+    ).subscribe();
   }
 }

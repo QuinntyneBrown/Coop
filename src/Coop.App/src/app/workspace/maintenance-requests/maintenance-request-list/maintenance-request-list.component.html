@@ -35,7 +35,7 @@
           <td mat-cell *matCellDef="let maintenanceRequest" class="g-actions-cell">
             <a class="g-actiion-cell" *ngIf="maintenanceRequest.status == MaintenanceRequestStatus.New" (click)="receive(maintenanceRequest)">Receive</a>
             <a class="g-actiion-cell" *ngIf="maintenanceRequest.status == MaintenanceRequestStatus.Received" (click)="start(maintenanceRequest)">Start</a>
-            <a class="g-actiion-cell" *ngIf="maintenanceRequest.status == MaintenanceRequestStatus.Received || MaintenanceRequestStatus.Started" (click)="update(maintenanceRequest)">Update</a>
+            <a class="g-actiion-cell" *ngIf="maintenanceRequest.status == MaintenanceRequestStatus.Received || maintenanceRequest.status == MaintenanceRequestStatus.Started" (click)="update(maintenanceRequest)">Update</a>
             <a class="g-actiion-cell" *ngIf="maintenanceRequest.status == MaintenanceRequestStatus.Started" (click)="complete(maintenanceRequest)">Complete</a>
           </td>
       </ng-container>

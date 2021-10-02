@@ -68,6 +68,18 @@ namespace Coop.Core.Models
             Status = MaintenanceRequestStatus.Started;
         }
 
+        public void When(UpdateMaintenanceRequestWorkDetails @event)
+        {
+            WorkDetails = @event.WorkDetails;
+        }
+
+        public void When(CompleteMaintenanceRequest @event)
+        {
+            WorkCompleted = @event.WorkCompleted;
+            WorkCompletedByName = @event.WorkCompletedByName;
+            Status = MaintenanceRequestStatus.Completed;
+        }
+
         private MaintenanceRequest()
         {
 

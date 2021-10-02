@@ -12,7 +12,7 @@ namespace Coop.Api.Features
         
         public class Request : Coop.Core.DomainEvents.CompleteMaintenanceRequest, IRequest<Response>
         {
-            public Guid MaitenanceRequestId { get; set; }
+            public Guid MaintenanceRequestId { get; set; }
         }
 
         public class Response
@@ -32,7 +32,7 @@ namespace Coop.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
 
-                var maintenanceRequest = await _context.MaintenanceRequests.SingleAsync(x => x.MaintenanceRequestId == request.MaitenanceRequestId);
+                var maintenanceRequest = await _context.MaintenanceRequests.SingleAsync(x => x.MaintenanceRequestId == request.MaintenanceRequestId);
 
                 maintenanceRequest.Apply(request);
 
