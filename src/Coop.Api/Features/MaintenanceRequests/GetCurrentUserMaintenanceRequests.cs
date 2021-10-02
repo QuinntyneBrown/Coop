@@ -49,7 +49,7 @@ namespace Coop.Api.Features
                 {
                     MaintenanceRequests = _context.MaintenanceRequests
                     .Include(x => x.DigitalAssets)
-                    .Where(x =>x.RequestedByProfileId == profile.ProfileId)
+                    .Where(x => x.RequestedByProfileId == profile.ProfileId)
                     .Select(x => x.ToDto()).ToList()
                 };
             }

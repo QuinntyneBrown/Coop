@@ -8,7 +8,7 @@ namespace Coop.Api.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<MaintenanceRequest> builder)
         {
-            
+
         }
     }
 }

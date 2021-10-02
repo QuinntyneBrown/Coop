@@ -3,7 +3,7 @@ using System;
 
 namespace Coop.Core.Models
 {
-    public class Document: AggregateRoot
+    public class Document : AggregateRoot
     {
         public Guid DocumentId { get; set; }
         public Guid? DigitalAssetId { get; protected set; }

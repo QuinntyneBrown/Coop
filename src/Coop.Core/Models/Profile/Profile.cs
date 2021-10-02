@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Coop.Core.Models
 {
-    public class Profile: AggregateRoot
+    public class Profile : AggregateRoot
     {
         public Guid ProfileId { get; protected set; }
         public Guid? UserId { get; protected set; }

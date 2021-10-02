@@ -15,8 +15,8 @@ namespace Coop.Api.Features
 {
     using Messages = Coop.Core.DomainEvents;
 
-    public class UserEventHandler : 
-        INotificationHandler<Messages.AddProfile>, 
+    public class UserEventHandler :
+        INotificationHandler<Messages.AddProfile>,
         INotificationHandler<Messages.CreateUser>,
         INotificationHandler<BuildToken>
     {

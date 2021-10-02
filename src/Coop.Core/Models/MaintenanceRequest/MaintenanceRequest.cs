@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Coop.Core.Models
 {
-    public class MaintenanceRequest: AggregateRoot
+    public class MaintenanceRequest : AggregateRoot
     {
         public Guid MaintenanceRequestId { get; private set; }
         [ForeignKey("RequestedByProfile")]

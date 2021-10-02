@@ -1,6 +1,6 @@
 ﻿namespace Coop.Core.DomainEvents
 {
-    public class RemoveMaintenanceRequest: BaseDomainEvent
+    public class RemoveMaintenanceRequest : BaseDomainEvent
     {
     }
 }

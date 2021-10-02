@@ -3,7 +3,7 @@ using System;
 
 namespace Coop.Core
 {
-    public interface IEvent: INotification
+    public interface IEvent : INotification
     {
         DateTime Created { get; }
         Guid CorrelationId { get; }

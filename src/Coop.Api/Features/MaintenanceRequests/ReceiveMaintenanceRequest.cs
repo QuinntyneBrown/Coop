@@ -43,7 +43,7 @@ namespace Coop.Api.Features
                 var user = await _context.Users.FindAsync(userId);
 
                 request.ReceivedByProfileId = user.CurrentProfileId;
-                
+
                 maintenanceRequest.Apply(request);
 
                 await _context.SaveChangesAsync(default);

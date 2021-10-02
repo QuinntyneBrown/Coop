@@ -2,7 +2,7 @@
 
 namespace Coop.Core.DomainEvents
 {
-    public class BuiltToken: BaseDomainEvent
+    public class BuiltToken : BaseDomainEvent
     {
         public BuiltToken(Guid userId, string accessToken)
         {
@@ -12,7 +12,7 @@ namespace Coop.Core.DomainEvents
         public Guid UserId { get; private set; }
         public string AccessToken { get; private set; }
 
-        public void Deconstruct (out Guid userId, out string accessToken)
+        public void Deconstruct(out Guid userId, out string accessToken)
         {
             userId = UserId;
             accessToken = AccessToken;

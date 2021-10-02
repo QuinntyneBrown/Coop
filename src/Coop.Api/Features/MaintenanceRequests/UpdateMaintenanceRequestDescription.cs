@@ -9,7 +9,8 @@ namespace Coop.Api.Features
 {
     public class UpdateMaintenanceRequestDescription
     {
-        public class Request : Coop.Core.DomainEvents.UpdateMaintenanceRequestDescription, IRequest<Response> {
+        public class Request : Coop.Core.DomainEvents.UpdateMaintenanceRequestDescription, IRequest<Response>
+        {
             public Guid MaintenanceRequestId { get; set; }
         }
 
@@ -22,11 +23,13 @@ namespace Coop.Api.Features
         {
             private readonly ICoopDbContext _context;
 
-            public Handler(ICoopDbContext context){
+            public Handler(ICoopDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var maintenanceRequest = await _context.MaintenanceRequests
                     .SingleAsync(x => x.MaintenanceRequestId == request.MaintenanceRequestId);

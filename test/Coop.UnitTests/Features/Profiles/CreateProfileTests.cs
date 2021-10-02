@@ -46,7 +46,7 @@ namespace Coop.UnitTests.Features
                 PasswordConfirmation = "Default",
                 Email = "default@default.com",
                 Firstname = "Firstname",
-                Lastname = "Lastname",                
+                Lastname = "Lastname",
                 InvitationToken = Constants.InvitationTypes.Member
             }, default);
 

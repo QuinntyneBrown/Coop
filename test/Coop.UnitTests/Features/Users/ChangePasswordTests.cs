@@ -38,8 +38,9 @@ namespace Coop.UnitTests
 
             var sut = container.GetRequiredService<Handler>();
 
-            var result = await sut.Handle(new ChangePassword.Request { 
-            
+            var result = await sut.Handle(new ChangePassword.Request
+            {
+
             }, default);
 
             Assert.Null(result);

@@ -9,7 +9,7 @@ namespace Coop.Api.Features
 {
     public class CompleteMaintenanceRequest
     {
-        
+
         public class Request : Coop.Core.DomainEvents.CompleteMaintenanceRequest, IRequest<Response>
         {
             public Guid MaintenanceRequestId { get; set; }

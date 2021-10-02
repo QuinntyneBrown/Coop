@@ -9,7 +9,7 @@ namespace Coop.Core.Models
     {
 
         public string Street { get; private set; }
-        
+
         public int? Unit { get; private set; }
 
         public string City { get; private set; }
@@ -29,7 +29,7 @@ namespace Coop.Core.Models
         }
 
         private Address(string street, int unit, string city, string province, string postalCode)
-            :this(street,city,province, postalCode)
+            : this(street, city, province, postalCode)
         {
             Unit = unit;
         }

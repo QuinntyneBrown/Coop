@@ -57,11 +57,11 @@ namespace Coop.Api.Features
 
                 return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
                  {
-                     switch(message)
+                     switch (message)
                      {
                          case BuiltToken builtToken:
                              await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
-                             tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));                             
+                             tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
                              break;
                      }
                  });

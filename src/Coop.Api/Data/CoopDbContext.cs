@@ -31,7 +31,8 @@ namespace Coop.Api.Data
         public DbSet<InvitationToken> InvitationTokens { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public CoopDbContext(DbContextOptions options)
-            : base(options) {
+            : base(options)
+        {
 
             SavingChanges += CoopDbContext_SavingChanges;
         }
@@ -54,10 +55,10 @@ namespace Coop.Api.Data
 
             foreach (var aggregate in entries)
             {
-                foreach(var storedEvent in aggregate.StoredEvents)
+                foreach (var storedEvent in aggregate.StoredEvents)
                 {
                     StoredEvents.Add(storedEvent);
-                }                
+                }
             }
         }
 
