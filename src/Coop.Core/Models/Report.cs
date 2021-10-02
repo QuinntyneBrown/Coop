@@ -1,3 +1,4 @@
+using Coop.Core.DomainEvents.Document;
 using System;
 
 namespace Coop.Core.Models
@@ -6,8 +7,8 @@ namespace Coop.Core.Models
     {
         public Guid ReportId { get; set; }
 
-        public Report(Guid pdfDigitalAssetId, string name)
-            : base(pdfDigitalAssetId, name)
+        public Report(CreateDocument @event)
+            : base(@event)
         {
         }
 

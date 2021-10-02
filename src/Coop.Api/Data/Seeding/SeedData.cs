@@ -372,9 +372,9 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new ByLaw(digitalAsset.DigitalAssetId, "CHFC Guide to Model Occupancy");
+                    var document = new ByLaw(default);
 
-                    document.Publish();
+                    // publish
 
                     context.ByLaws.Add(document);
 
@@ -405,9 +405,9 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new Notice(digitalAsset.DigitalAssetId, "New Position Opening");
+                    var document = new Notice(default);
 
-                    document.Publish();
+                    // publish
 
                     context.Notices.Add(document);
 
@@ -437,9 +437,9 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new Report(digitalAsset.DigitalAssetId, "Econmomic Impact of the Co-operative Sector in Canada");
+                    var document = new Report(default);
 
-                    document.Publish();
+                    // Publish
 
                     context.Reports.Add(document);
 

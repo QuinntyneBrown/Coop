@@ -4,7 +4,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
-import { ByLawService, ByLaw } from '@api';
+import { ByLawService, ByLaw, DocumentService } from '@api';
 
 @Component({
   selector: 'app-by-law-list',
@@ -20,6 +20,7 @@ export class ByLawListComponent implements OnDestroy {
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
   private readonly _dataSource: EntityDataSource<ByLaw> = new EntityDataSource(this._byLawService);
+  private readonly _refresh$: BehaviorSubject<void> = new BehaviorSubject(null);
 
   public readonly vm$: Observable<{
     dataSource: EntityDataSource<ByLaw>,
@@ -27,7 +28,7 @@ export class ByLawListComponent implements OnDestroy {
     length$: Observable<number>,
     pageNumber: number,
     pageSize: number
-  }> = combineLatest([this._pageIndex$, this._pageSize$ ])
+  }> = combineLatest([this._pageIndex$, this._pageSize$, this._refresh$ ])
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
@@ -54,6 +55,7 @@ export class ByLawListComponent implements OnDestroy {
 
   constructor(
     private readonly _byLawService: ByLawService,
+    private readonly _documentService: DocumentService,
     private readonly _dialog: MatDialog,
   ) { }
 
@@ -66,8 +68,11 @@ export class ByLawListComponent implements OnDestroy {
   }
 
   public delete(byLaw: ByLaw) {
-    this._byLawService.remove({ byLaw }).pipe(
-      takeUntil(this._destroyed$)
+    alert(byLaw.documentId);
+
+    this._documentService.remove({ document: byLaw }).pipe(
+      takeUntil(this._destroyed$),
+      tap(_ => this._refresh$.next())
     ).subscribe();
   }
 

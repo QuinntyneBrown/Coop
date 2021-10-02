@@ -1,5 +1,5 @@
+using Coop.Core.DomainEvents.Document;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Coop.Core.Models
 {
@@ -7,8 +7,8 @@ namespace Coop.Core.Models
     {
         public Guid ByLawId { get; private set; }
 
-        public ByLaw(Guid pdfDigitalAssetId, string name)
-            : base(pdfDigitalAssetId, name)
+        public ByLaw(CreateDocument @event)
+            : base(@event)
         {
         }
 

@@ -39,10 +39,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var notice = new Notice(
-                    request.Notice.Name,
-                    request.Notice.Body,
-                    request.Notice.CreatedById);
+                var notice = new Notice(default);
 
                 _context.Notices.Add(notice);
 

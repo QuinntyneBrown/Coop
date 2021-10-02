@@ -1,19 +1,20 @@
+using Coop.Core.DomainEvents.Document;
 using System;
 
 namespace Coop.Core.Models
 {
-    public class Document
+    public class Document: AggregateRoot
     {
         public Guid DocumentId { get; set; }
-        public Guid PdfDigitalAssetId { get; protected set; }
+        public Guid? DigitalAssetId { get; protected set; }
+        public string Body { get; protected set; }
         public string Name { get; protected set; }
         public DateTime? Published { get; protected set; }
         public Guid CreatedById { get; protected set; }
 
-        public Document(Guid pdfDigitialAssetId, string name)
+        public Document(CreateDocument @event)
         {
-            PdfDigitalAssetId = pdfDigitialAssetId;
-            Name = name;
+            Apply(@event);
         }
 
         protected Document()
@@ -21,12 +22,29 @@ namespace Coop.Core.Models
 
         }
 
-        public void Publish()
+        protected override void When(dynamic @event) => When(@event);
+        protected override void EnsureValidState()
         {
-            if (Published.HasValue)
-                throw new Exception();
 
-            Published = DateTime.UtcNow;
+        }
+
+        private void When(CreateDocument @event)
+        {
+            DocumentId = @event.DocumentId;
+            Name = @event.Name;
+            Body = @event.Body;
+            DigitalAssetId = @event.DigitalAssetId;
+            CreatedById = @event.CreatedById;
+        }
+
+        private void When(PublishDocument @event)
+        {
+            Published = @event.Published;
+        }
+
+        private void When(DeleteDocument @event)
+        {
+
         }
     }
 }

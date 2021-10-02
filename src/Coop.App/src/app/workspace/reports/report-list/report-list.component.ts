@@ -4,7 +4,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
-import { ReportService, Report } from '@api';
+import { ReportService, Report, DocumentService } from '@api';
 
 @Component({
   selector: 'app-report-list',
@@ -20,6 +20,7 @@ export class ReportListComponent implements OnDestroy {
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
   private readonly _dataSource: EntityDataSource<Report> = new EntityDataSource(this._reportService);
+  private readonly _refresh$: BehaviorSubject<void> = new BehaviorSubject(null);
 
   public readonly vm$: Observable<{
     dataSource: EntityDataSource<Report>,
@@ -27,7 +28,7 @@ export class ReportListComponent implements OnDestroy {
     length$: Observable<number>,
     pageNumber: number,
     pageSize: number
-  }> = combineLatest([this._pageIndex$, this._pageSize$ ])
+  }> = combineLatest([this._pageIndex$, this._pageSize$, this._refresh$ ])
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
       of([
@@ -54,6 +55,7 @@ export class ReportListComponent implements OnDestroy {
 
   constructor(
     private readonly _reportService: ReportService,
+    private readonly _documentService: DocumentService,
     private readonly _dialog: MatDialog,
   ) { }
 
@@ -66,8 +68,9 @@ export class ReportListComponent implements OnDestroy {
   }
 
   public delete(report: Report) {
-    this._reportService.remove({ report }).pipe(
-      takeUntil(this._destroyed$)
+    this._documentService.remove({ document: report }).pipe(
+      takeUntil(this._destroyed$),
+      tap(_ => this._refresh$.next())
     ).subscribe();
   }
 

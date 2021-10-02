@@ -38,7 +38,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var document = new Document(default, default);
+                var document = new Document(default);
 
                 _context.Documents.Add(document);
 

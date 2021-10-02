@@ -9,8 +9,9 @@ namespace Coop.Api.Features
             return new()
             {
                 NoticeId = notice.NoticeId,
+                DocumentId = notice.DocumentId,
                 Name = notice.Name,
-                PdfDigitalAssetId = notice.PdfDigitalAssetId,
+                DigitalAssetId = notice.DigitalAssetId,
                 Published = notice.Published,
                 CreatedById = notice.CreatedById
             };

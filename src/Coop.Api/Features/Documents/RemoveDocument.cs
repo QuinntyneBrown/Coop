@@ -1,12 +1,11 @@
-using FluentValidation;
+using Coop.Core;
+using Coop.Core.DomainEvents.Document;
+using Coop.Core.Interfaces;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Coop.Core.Models;
-using Coop.Core;
-using Coop.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
@@ -33,11 +32,13 @@ namespace Coop.Api.Features
             {
                 var document = await _context.Documents.SingleAsync(x => x.DocumentId == request.DocumentId);
 
+                document.Apply(new DeleteDocument());
+
                 _context.Documents.Remove(document);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     Document = document.ToDto()
                 };

@@ -39,7 +39,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var report = new Report(request.Report.PdfDigitalAssetId, request.Report.Name);
+                var report = new Report(default);
 
                 _context.Reports.Add(report);
 
