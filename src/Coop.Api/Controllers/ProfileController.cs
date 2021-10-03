@@ -67,6 +67,13 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<UpdateProfile.Response>> Update([FromBody] UpdateProfile.Request request)
             => await _mediator.Send(request);
 
+        [HttpPut("avatar", Name = "UpdateProfileAvatarRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateProfileAvatar.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateProfileAvatar.Response>> UpdateAvatar([FromBody] UpdateProfileAvatar.Request request)
+            => await _mediator.Send(request);
+
         [HttpDelete("{profileId}", Name = "RemoveProfileRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

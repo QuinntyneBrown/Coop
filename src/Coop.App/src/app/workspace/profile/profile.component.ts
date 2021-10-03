@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ByLawService, MaintenanceRequestService, NoticeService, ProfileService, ReportService, User } from '@api';
 import { AuthService } from '@core';
 import { CreateAMaintenaceRequestDialogComponent } from '@shared/create-a-maintenace-request-dialog/create-a-maintenace-request-dialog.component';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,11 +14,8 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnDestroy {
-
   private readonly _destroyed$: Subject<void> = new Subject();
-
   private readonly _refresh$: BehaviorSubject<void> = new BehaviorSubject(null);
-
   public currentUser$: Observable<User> = this._authService.currentUser$;
 
   public vm$ = this._refresh$
@@ -36,7 +33,19 @@ export class ProfileComponent implements OnDestroy {
 
       avatarFormControl
       .valueChanges
-      .pipe(takeUntil(this._destroyed$))
+      .pipe(
+        takeUntil(this._destroyed$),
+        switchMap(avatarDigitalAssetId => {
+          if(avatarDigitalAssetId) {
+            return this._profileService.updateAvatar({
+              profileId: profile.profileId,
+              digitalAssetId: avatarDigitalAssetId
+            })
+          } else {
+            return of(true);
+          }
+        })
+        )
       .subscribe();
 
       Object.assign(profile, { fullname: `${profile.firstname} ${profile.lastname}`});

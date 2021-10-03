@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MaintenanceRequest } from '@api';
+import { convertMaintenanceRequestStatusToString, MaintenanceRequest } from '@api';
 
 @Component({
   selector: 'app-maintenance-request-card',
@@ -7,6 +7,8 @@ import { MaintenanceRequest } from '@api';
   styleUrls: ['./maintenance-request-card.component.scss']
 })
 export class MaintenanceRequestCardComponent {
+
+  public convertMaintenanceRequestStatusToString: typeof convertMaintenanceRequestStatusToString = convertMaintenanceRequestStatusToString;
 
   @Input() maintenanceRequest!: MaintenanceRequest;
 }
