@@ -46,8 +46,8 @@ export class NoticeService implements IPagableService<Notice> {
     return this._client.delete<void>(`${this._baseUrl}api/notice/${options.notice.noticeId}`);
   }
 
-  public create(options: { notice: Notice }): Observable<{ notice: Notice }> {
-    return this._client.post<{ notice: Notice }>(`${this._baseUrl}api/notice`, { notice: options.notice });
+  public create(options): Observable<{ notice: Notice }> {
+    return this._client.post<{ notice: Notice }>(`${this._baseUrl}api/notice`, options);
   }
 
   public update(options: { notice: Notice }): Observable<{ notice: Notice }> {

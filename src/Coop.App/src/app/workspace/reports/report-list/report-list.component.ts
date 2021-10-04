@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
 import { ReportService, Report, DocumentService } from '@api';
+import { CreateDocumentPopupComponent } from '@shared/popups/create-document-popup/create-document-popup.component';
 
 @Component({
   selector: 'app-report-list',
@@ -64,7 +65,22 @@ export class ReportListComponent implements OnDestroy {
   }
 
   public create() {
+    this._dialog.open(CreateDocumentPopupComponent)
+    .afterClosed()
+    .pipe(
+      switchMap(document => {
+        if(document) {
+          return this._reportService.create(document)
+          .pipe(
+            takeUntil(this._destroyed$),
+            tap(_ => this._refresh$.next())
+          )
+        }
 
+        return of(null);
+      })
+    )
+    .subscribe();
   }
 
   public delete(report: Report) {

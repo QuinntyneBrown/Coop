@@ -46,8 +46,8 @@ export class ReportService implements IPagableService<Report> {
     return this._client.delete<void>(`${this._baseUrl}api/report/${options.report.reportId}`);
   }
 
-  public create(options: { report: Report }): Observable<{ report: Report }> {
-    return this._client.post<{ report: Report }>(`${this._baseUrl}api/report`, { report: options.report });
+  public create(options): Observable<{ report: Report }> {
+    return this._client.post<{ report: Report }>(`${this._baseUrl}api/report`, options);
   }
 
   public update(options: { report: Report }): Observable<{ report: Report }> {
