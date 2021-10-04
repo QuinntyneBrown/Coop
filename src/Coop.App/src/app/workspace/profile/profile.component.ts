@@ -36,14 +36,10 @@ export class ProfileComponent implements OnDestroy {
       .pipe(
         takeUntil(this._destroyed$),
         switchMap(avatarDigitalAssetId => {
-          if(avatarDigitalAssetId) {
-            return this._profileService.updateAvatar({
-              profileId: profile.profileId,
-              digitalAssetId: avatarDigitalAssetId
-            })
-          } else {
-            return of(true);
-          }
+          return this._profileService.updateAvatar({
+            profileId: profile.profileId,
+            digitalAssetId: avatarDigitalAssetId
+          })
         })
         )
       .subscribe();

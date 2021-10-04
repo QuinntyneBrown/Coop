@@ -46,8 +46,8 @@ export class ByLawService implements IPagableService<ByLaw> {
     return this._client.delete<void>(`${this._baseUrl}api/byLaw/${options.byLaw.byLawId}`);
   }
 
-  public create(options: { byLaw: ByLaw }): Observable<{ byLaw: ByLaw }> {
-    return this._client.post<{ byLaw: ByLaw }>(`${this._baseUrl}api/byLaw`, { byLaw: options.byLaw });
+  public create(options: any): Observable<{ byLaw: ByLaw }> {
+    return this._client.post<{ byLaw: ByLaw }>(`${this._baseUrl}api/byLaw`, options);
   }
 
   public update(options: { byLaw: ByLaw }): Observable<{ byLaw: ByLaw }> {

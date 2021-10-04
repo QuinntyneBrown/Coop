@@ -1,3 +1,4 @@
+using Coop.Core.DomainEvents;
 using Coop.Core.DomainEvents.Document;
 using System;
 
@@ -35,6 +36,7 @@ namespace Coop.Core.Models
             Body = @event.Body;
             DigitalAssetId = @event.DigitalAssetId;
             CreatedById = @event.CreatedById;
+            Published = @event.Published;
         }
 
         private void When(PublishDocument @event)

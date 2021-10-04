@@ -1,6 +1,6 @@
 export type Document = {
     documentId: string,
-    pdfDigitalAssetId: string,
+    digitalAssetId: string,
     name: string,
     published: string,
     createdById: string

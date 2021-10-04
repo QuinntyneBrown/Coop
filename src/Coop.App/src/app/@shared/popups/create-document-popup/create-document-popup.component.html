@@ -1,0 +1,29 @@
+<button mat-icon-button class="g-dialog-close-button" [mat-dialog-close] tabindex="-1">
+  <mat-icon>
+    close
+  </mat-icon>
+</button>
+
+<h2>Create Document</h2>
+
+<form [formGroup]="form">
+
+  <mat-form-field appearance="outline" class="g-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" formControlName='name' required  autocomplete="off">
+  </mat-form-field>
+
+  <app-digital-asset-upload *ngIf="!form.value.digitalAssetId" formControlName="digitalAsset" [idOnly]="false">
+
+  </app-digital-asset-upload>
+
+  <div *ngIf="form.value.digitalAsset">
+    <p>{{ form.value.digitalAsset.name }} has been uploaded!</p>
+  </div>
+
+</form>
+
+<div class="g-actions">
+  <button mat-stroked-button [mat-dialog-close] class="g-button">Cancel</button>
+  <button mat-raised-button (click)="handleSaveClick()" [disabled]="!form.valid" class="g-button">Save</button>
+</div>

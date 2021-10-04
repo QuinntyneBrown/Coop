@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Inject, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -20,8 +20,11 @@ import { BaseControlValueAccessor } from '@core/base-control';
 })
 export class DigitalAssetUploadComponent extends BaseControlValueAccessor implements AfterViewInit {
 
+  public digitalAssetIdBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject(null);
+
   public digitalAsset$: Subject<DigitalAsset> = new  Subject();
-  public digitalAssetId$: BehaviorSubject<string| DigitalAsset> = new BehaviorSubject(null);
+  public digitalAssetId$: Subject<string| DigitalAsset> = new Subject();
+
   @Input() public icon:string = "file_upload";
   @Input() public idOnly: boolean = true;
 
@@ -36,7 +39,7 @@ export class DigitalAssetUploadComponent extends BaseControlValueAccessor implem
   }
 
   public writeValue(obj: any): void {
-    this.digitalAssetId$.next(obj)
+    this.digitalAssetIdBehaviorSubject.next(obj);
   }
 
   public registerOnChange(fn: any): void {

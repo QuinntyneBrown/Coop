@@ -1,4 +1,4 @@
-<ng-container *ngIf="idOnly && digitalAssetId$ | async as digitalAssetId; else upload;">
+<ng-container *ngIf="idOnly && digitalAssetIdBehaviorSubject | async as digitalAssetId; else upload;">
     <app-logo  [digitalAssetId]="digitalAssetId"></app-logo>
 </ng-container>
 

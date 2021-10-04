@@ -84,11 +84,18 @@ namespace Coop.Api.Features
                                 digitalAsset.ContentType = section.ContentType;
                             }
 
-                            using (var image = Image.FromStream(new MemoryStream(digitalAsset.Bytes)))
+                            try
                             {
-                                digitalAsset.Height = image.PhysicalDimension.Height;
-                                digitalAsset.Width = image.PhysicalDimension.Width;
+                                using (var image = Image.FromStream(new MemoryStream(digitalAsset.Bytes)))
+                                {
+                                    digitalAsset.Height = image.PhysicalDimension.Height;
+                                    digitalAsset.Width = image.PhysicalDimension.Width;
+                                }
+                            } catch(Exception e)
+                            {
+
                             }
+
                         }
                     }
 

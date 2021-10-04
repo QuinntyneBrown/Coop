@@ -4,6 +4,7 @@ import { ByLawsRoutingModule } from './by-laws-routing.module';
 import { ByLawListComponent } from './by-law-list/by-law-list.component';
 import { COMMON_FORMS_MODULES, COMMON_TABLE_MODULES } from '@shared';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CreateDocumentPopupModule } from '@shared/popups/create-document-popup/create-document-popup.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   imports: [
     CommonModule,
+    CreateDocumentPopupModule,
     ByLawsRoutingModule,
     COMMON_FORMS_MODULES,
     COMMON_TABLE_MODULES,

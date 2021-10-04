@@ -1,4 +1,4 @@
-using Coop.Core.DomainEvents.Document;
+using Coop.Core.DomainEvents;
 using System;
 
 namespace Coop.Core.Models
