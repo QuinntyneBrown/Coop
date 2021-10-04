@@ -62,7 +62,6 @@ namespace Coop.Api.Features
                     ByLaw = byLaw.ToDto()
                 };
             }
-
         }
     }
 }
