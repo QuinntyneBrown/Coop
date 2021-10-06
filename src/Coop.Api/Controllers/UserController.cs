@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Coop.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController
@@ -41,6 +42,16 @@ namespace Coop.Api.Controllers
         public async Task<ActionResult<GetUsers.Response>> Get()
             => await _mediator.Send(new GetUsers.Request());
 
+        [AllowAnonymous]
+        [HttpGet("exists/{username}", Name = "UsernameExistsRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UsernameExists.Response>> UsernameExists([FromRoute] UsernameExists.Request request)
+            => await _mediator.Send(request);
+
+
+        [AllowAnonymous]
         [HttpGet("current", Name = "GetCurrentUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

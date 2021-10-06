@@ -35,6 +35,13 @@ export class UserService implements IPagableService<User> {
       );
   }
 
+  public exists(options: { username: string }): Observable<boolean> {
+    return this._client.get<{ exists: boolean }>(`${this._baseUrl}api/user/exists/${options.username}`)
+      .pipe(
+        map(x => x.exists)
+      );
+  }
+
   public getById(options: { userId: string }): Observable<User> {
     return this._client.get<{ user: User }>(`${this._baseUrl}api/user/${options.userId}`)
       .pipe(

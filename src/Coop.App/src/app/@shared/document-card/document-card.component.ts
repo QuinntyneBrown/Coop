@@ -13,7 +13,5 @@ export class DocumentCardComponent {
 
   constructor(
     @Inject(baseUrl) public readonly baseUrl: string
-  ) {
-
-  }
+  ) {}
 }
