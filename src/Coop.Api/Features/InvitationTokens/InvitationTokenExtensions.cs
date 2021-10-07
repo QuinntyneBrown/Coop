@@ -9,7 +9,9 @@ namespace Coop.Api.Features
         {
             return new()
             {
-                InvitationTokenId = invitationToken.InvitationTokenId
+                InvitationTokenId = invitationToken.InvitationTokenId,
+                Value = invitationToken.Value,
+                Expiry = invitationToken.Expiry
             };
         }
 
