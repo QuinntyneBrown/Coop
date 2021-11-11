@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddressEditorComponent } from './address-editor.component';
-import { COMMON_FORMS_MODULES } from '@shared';
+import { COMMON_FORMS_MODULES } from '@shared/common-forms-modules';
 
 @NgModule({
   declarations: [

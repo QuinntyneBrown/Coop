@@ -9,11 +9,11 @@ import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-shell',
-  templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  selector: 'app-layout',
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.scss']
 })
-export class ShellComponent implements OnDestroy {
+export class LayoutComponent implements OnDestroy {
 
   private readonly _destroyed$ = new Subject();
 

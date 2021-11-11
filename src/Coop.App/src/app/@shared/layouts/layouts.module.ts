@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShellComponent } from './shell.component';
+import { LayoutComponent } from './layout.component';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from '@shared/header/header.module';
 import { FooterModule } from '@shared/footer';
@@ -13,10 +13,10 @@ import { HeroModule } from '@shared/hero/hero.module';
 
 @NgModule({
   declarations: [
-    ShellComponent
+    LayoutComponent
   ],
   exports: [
-    ShellComponent
+    LayoutComponent
   ],
   imports: [
     CommonModule,
@@ -29,4 +29,4 @@ import { HeroModule } from '@shared/hero/hero.module';
     HeroModule
   ]
 })
-export class ShellModule { }
+export class LayoutModule { }

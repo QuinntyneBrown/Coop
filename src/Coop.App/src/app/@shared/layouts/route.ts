@@ -1,11 +1,11 @@
 import { Route as NgRoute, Routes } from '@angular/router';
-import { ShellComponent } from './shell.component';
+import { LayoutComponent } from './layout.component';
 
 export class Route {
-  static withShell(routes: Routes): NgRoute {
+  static withLayout(routes: Routes): NgRoute {
     return {
       path: '',
-      component: ShellComponent,
+      component: LayoutComponent,
       children: routes
     };
   }

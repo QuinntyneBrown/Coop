@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShellComponent } from './shell.component';
+import { WorkspacePanelComponent } from './workspace-panel.component';
 
-describe('ShellComponent', () => {
-  let component: ShellComponent;
-  let fixture: ComponentFixture<ShellComponent>;
+describe('WorkspacePanelComponent', () => {
+  let component: WorkspacePanelComponent;
+  let fixture: ComponentFixture<WorkspacePanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShellComponent ]
+      declarations: [ WorkspacePanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShellComponent);
+    fixture = TestBed.createComponent(WorkspacePanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

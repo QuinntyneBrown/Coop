@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { baseUrl, HeadersInterceptor, JwtInterceptor } from '@core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ShellModule } from '@shared';
+import { LayoutModule } from '@shared';
 import { environment } from 'src/environments/environment';
 
 
@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ShellModule
+    LayoutModule
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },

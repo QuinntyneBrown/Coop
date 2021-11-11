@@ -4,7 +4,7 @@ import { AuthGuard } from '@core';
 import { Route } from '@shared';
 
 const routes: Routes = [
-  Route.withShell([
+  Route.withLayout([
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
     { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
     { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },

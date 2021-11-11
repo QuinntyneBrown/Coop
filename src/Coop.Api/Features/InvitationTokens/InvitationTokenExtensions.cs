@@ -1,4 +1,3 @@
-using System;
 using Coop.Core.Models;
 
 namespace Coop.Api.Features
@@ -14,6 +13,5 @@ namespace Coop.Api.Features
                 Expiry = invitationToken.Expiry
             };
         }
-
     }
 }
