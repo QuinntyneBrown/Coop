@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
 import { ByLawService, ByLaw, DocumentService } from '@api';
 import { CreateDocumentPopupComponent } from '@shared/popups/create-document-popup/create-document-popup.component';
+import { Destroyable } from '@core';
+import { DocumentStore } from '@core/stores';
 
 @Component({
   selector: 'app-by-law-list',
@@ -13,9 +15,8 @@ import { CreateDocumentPopupComponent } from '@shared/popups/create-document-pop
   styleUrls: ['./by-law-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ByLawListComponent implements OnDestroy {
+export class ByLawListComponent extends Destroyable {
 
-  private readonly _destroyed$: Subject<void> = new Subject();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -58,7 +59,10 @@ export class ByLawListComponent implements OnDestroy {
     private readonly _byLawService: ByLawService,
     private readonly _documentService: DocumentService,
     private readonly _dialog: MatDialog,
-  ) { }
+    private readonly _documentStore: DocumentStore
+  ) {
+    super();
+  }
 
   public edit(byLaw: ByLaw) {
 
@@ -88,10 +92,5 @@ export class ByLawListComponent implements OnDestroy {
       takeUntil(this._destroyed$),
       tap(_ => this._refresh$.next())
     ).subscribe();
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

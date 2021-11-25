@@ -28,6 +28,7 @@ export * from './receive-maintenance-request';
 export * from './report';
 export * from './role';
 export * from './staff-member';
+export * from './stored-event';
 export * from './theme';
 export * from './unit-entered';
 export * from './user';

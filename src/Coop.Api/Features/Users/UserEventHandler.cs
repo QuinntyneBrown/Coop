@@ -1,12 +1,10 @@
-﻿using Coop.Core;
-using Coop.Api.Features.Users;
-using Coop.Core.Interfaces;
-using Coop.Core.Models;
+﻿using Coop.Api.Features.Users;
 using Coop.Core;
 using Coop.Core.DomainEvents;
+using Coop.Core.Interfaces;
+using Coop.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -20,5 +20,6 @@ export * from './profile.service';
 export * from './report.service';
 export * from './role.service';
 export * from './staff-member.service';
+export * from './stored-event.service';
 export * from './theme.service';
 export * from './user.service';
