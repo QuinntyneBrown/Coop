@@ -19,7 +19,8 @@ export class ImageHeadingSubheadingPopupComponent {
       form: new FormGroup({
         digitalAssetId: new FormControl(model.digitalAssetId, []),
         heading: new FormControl(model.heading, []),
-        subheading: new FormControl(model.subheading, [])
+        subheading: new FormControl(model.subheading, []),
+        subheading2: new FormControl(model.subheading2)
       })
     }))
   );
