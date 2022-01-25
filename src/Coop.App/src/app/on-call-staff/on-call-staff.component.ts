@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class OnCallStaffComponent {
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.OnCall })
+  readonly vm$ = this._jsonContentService.getByName({ name: JsonContentName.OnCall })
   .pipe(
     map(jsonContent => ({
       boardMembers: jsonContent.json.onCallStaff,
@@ -21,7 +21,7 @@ export class OnCallStaffComponent {
 
   constructor(
     private readonly _jsonContentService: JsonContentService,
-    @Inject(baseUrl) public readonly baseUrl: string
+    @Inject(baseUrl) readonly baseUrl: string
   ) { }
 
 }

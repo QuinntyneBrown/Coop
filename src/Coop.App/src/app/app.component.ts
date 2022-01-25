@@ -15,7 +15,7 @@ import { AppContextService } from './app-context.service';
   ]
 })
 export class AppComponent {
-  public vm$ = combineLatest([
+  readonly vm$ = combineLatest([
     this._authService.tryToInitializeCurrentUser(),
     this._themeService.getDefault()
   ])
@@ -32,7 +32,7 @@ export class AppComponent {
     return this._document.querySelector("html").style;
   }
 
-  public currentUser$: Observable<User> = this._authService.currentUser$;
+  readonly currentUser$: Observable<User> = this._authService.currentUser$;
 
   constructor(
     private readonly _authService: AuthService,
