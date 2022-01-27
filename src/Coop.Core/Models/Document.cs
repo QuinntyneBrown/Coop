@@ -29,7 +29,7 @@ namespace Coop.Core.Models
 
         }
 
-        private void When(CreateDocument @event)
+        private void When(Coop.Core.DomainEvents.CreateDocument @event)
         {
             DocumentId = @event.DocumentId;
             Name = @event.Name;
@@ -39,12 +39,12 @@ namespace Coop.Core.Models
             Published = @event.Published;
         }
 
-        private void When(PublishDocument @event)
+        private void When(Coop.Core.DomainEvents.Document.PublishDocument @event)
         {
             Published = @event.Published;
         }
 
-        private void When(DeleteDocument @event)
+        private void When(Coop.Core.DomainEvents.Document.DeleteDocument @event)
         {
 
         }

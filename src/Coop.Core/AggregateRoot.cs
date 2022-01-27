@@ -18,6 +18,11 @@ namespace Coop.Core
             foreach (var @event in events) { When(@event); }
         }
 
+        public void Clear()
+        {
+            _storedEvents.Clear();
+        }
+
         protected AggregateRoot()
         {
 

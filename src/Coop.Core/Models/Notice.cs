@@ -6,7 +6,7 @@ namespace Coop.Core.Models
     public class Notice : Document
     {
         public Guid NoticeId { get; private set; }
-        public Notice(CreateDocument @event)
+        public Notice(Coop.Core.DomainEvents.CreateDocument @event)
             : base(@event)
         {
         }

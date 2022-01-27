@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ManagementComponent {
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.ManagementStaff })
+  readonly vm$ = this._jsonContentService.getByName({ name: JsonContentName.ManagementStaff })
   .pipe(
     map(jsonContent => ({
       boardMembers: jsonContent.json.managementStaff,

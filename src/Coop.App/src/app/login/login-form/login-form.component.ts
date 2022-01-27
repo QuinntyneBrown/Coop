@@ -8,32 +8,27 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginFormComponent implements AfterContentInit {
   @Input()
-  public username: string = null;
+  username: string = null;
 
   @Input()
-  public password: string = null;
+  password: string = null;
 
   @Input()
-  public rememberMe: boolean = null;
+  rememberMe: boolean = null;
 
-  public form = new FormGroup({
+  readonly form = new FormGroup({
     username: new FormControl(this.username, [Validators.required]),
     password: new FormControl(this.password, [Validators.required]),
     rememberMe: new FormControl(this.rememberMe,[])
   });
 
-  @Output() public tryToLogin: EventEmitter<{ username: string, password: string }> = new EventEmitter();
-
-  constructor(private readonly _renderer: Renderer2) { }
+  @Output() readonly tryToLogin: EventEmitter<{ username: string, password: string }> = new EventEmitter();
 
   ngAfterContentInit(): void {
-
     this.form.patchValue({
       username: this.username,
       password: this.password,
       rememberMe: this.rememberMe
     });
-
   }
-
 }

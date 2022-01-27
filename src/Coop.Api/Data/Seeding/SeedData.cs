@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using static Coop.Core.Constants;
+using System;
 
 namespace Coop.Api.Data
 {
@@ -372,7 +373,7 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new ByLaw(default);
+                    var document = new ByLaw(new Core.DomainEvents.CreateDocument(Guid.NewGuid(),digitalAsset.Name,digitalAsset.DigitalAssetId,new Guid()));
 
                     // publish
 
@@ -405,7 +406,8 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new Notice(default);
+                    var document = new Notice(new Core.DomainEvents.CreateDocument(Guid.NewGuid(), digitalAsset.Name, digitalAsset.DigitalAssetId, new Guid()));
+
 
                     // publish
 
@@ -437,7 +439,8 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new Report(default);
+                    var document = new Report(new Core.DomainEvents.CreateDocument(Guid.NewGuid(), digitalAsset.Name, digitalAsset.DigitalAssetId, new Guid()));
+
 
                     // Publish
 

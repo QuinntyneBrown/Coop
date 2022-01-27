@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class RentalInterestAndInformationComponent  {
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.RentalInterestAndInformation })
+  readonly vm$ = this._jsonContentService.getByName({ name: JsonContentName.RentalInterestAndInformation })
   .pipe(
     map(jsonContent => {
       return  {

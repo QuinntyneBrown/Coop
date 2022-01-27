@@ -7,7 +7,7 @@ namespace Coop.Core.Models
     {
         public Guid ReportId { get; set; }
 
-        public Report(CreateDocument @event)
+        public Report(Coop.Core.DomainEvents.CreateDocument @event)
             : base(@event)
         {
         }

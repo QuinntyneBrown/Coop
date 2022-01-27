@@ -7,7 +7,7 @@ namespace Coop.Core.Models
     {
         public Guid ByLawId { get; private set; }
 
-        public ByLaw(CreateDocument @event)
+        public ByLaw(Coop.Core.DomainEvents.CreateDocument @event)
             : base(@event)
         {
         }

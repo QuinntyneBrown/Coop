@@ -59,6 +59,8 @@ namespace Coop.Api.Data
                 {
                     StoredEvents.Add(storedEvent);
                 }
+
+                aggregate.Clear();
             }
         }
 

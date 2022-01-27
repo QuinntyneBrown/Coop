@@ -22,7 +22,7 @@ export class BoardMemberListComponent implements OnDestroy {
   private readonly _dataSource: EntityDataSource<BoardMember> = new EntityDataSource(this._boardMemberService);
   private readonly _refresh: Subject<void> = new Subject();
 
-  public readonly vm$: Observable<{
+  readonly vm$: Observable<{
     dataSource: EntityDataSource<BoardMember>,
     columnsToDisplay: string[],
     length$: Observable<number>,
