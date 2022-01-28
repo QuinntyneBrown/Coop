@@ -17,12 +17,12 @@ namespace Coop.Cli
             {
                 _commandService = commandService;
             }
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+            public Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
                 _commandService.Start(@"code .", @"C:\projects\Coop\src\Coop.App");
                 _commandService.Start(@"start Coop.Api.csproj", @"C:\projects\Coop\src\Coop.Api");
 
-                return new();
+                return Task.FromResult(new());
             }
         }
     }

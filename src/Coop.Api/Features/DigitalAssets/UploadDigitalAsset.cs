@@ -91,7 +91,8 @@ namespace Coop.Api.Features
                                     digitalAsset.Height = image.PhysicalDimension.Height;
                                     digitalAsset.Width = image.PhysicalDimension.Width;
                                 }
-                            } catch(Exception e)
+                            }
+                            catch (Exception)
                             {
 
                             }

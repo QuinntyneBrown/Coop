@@ -49,20 +49,20 @@ namespace Coop.Api.Features
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    return new();
+                    return Task.FromResult(new());
                 }
 
                 var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
 
 
-                return new Response()
+                return Task.FromResult(new Response()
                 {
 
-                };
+                });
             }
         }
     }

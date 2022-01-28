@@ -372,7 +372,7 @@ namespace Coop.Api.Data
 
                     context.DigitalAssets.Add(digitalAsset);
 
-                    var document = new ByLaw(new Core.DomainEvents.CreateDocument(Guid.NewGuid(),digitalAsset.Name,digitalAsset.DigitalAssetId,new Guid()));
+                    var document = new ByLaw(new Core.DomainEvents.CreateDocument(Guid.NewGuid(), digitalAsset.Name, digitalAsset.DigitalAssetId, new Guid()));
 
                     context.ByLaws.Add(document);
 

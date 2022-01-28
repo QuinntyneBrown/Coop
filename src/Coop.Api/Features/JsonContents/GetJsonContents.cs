@@ -26,14 +26,14 @@ namespace Coop.Api.Features
             public Handler(ICoopDbContext context)
                 => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var json = _context.JsonContents.ToList();
 
-                return new()
+                return Task.FromResult(new()
                 {
                     JsonContents = json.Select(x => x.ToDto()).ToList()
-                };
+                });
             }
 
         }

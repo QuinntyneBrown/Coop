@@ -45,7 +45,7 @@ namespace Coop.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                using(Operation.Time("Users.Authenticate"))
+                using (Operation.Time("Users.Authenticate"))
                 {
                     var user = await _context.Users
                         .Include(x => x.Roles)

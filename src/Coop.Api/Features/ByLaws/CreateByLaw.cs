@@ -57,7 +57,7 @@ namespace Coop.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new ()
+                return new()
                 {
                     ByLaw = byLaw.ToDto()
                 };

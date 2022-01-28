@@ -97,7 +97,7 @@ namespace Coop.Api.Features
                                     digitalAsset.Width = image.PhysicalDimension.Width;
                                 }
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
 
                             }
@@ -114,7 +114,7 @@ namespace Coop.Api.Features
 
                 var uploaded = digitalAssets.First();
 
-                return new ()
+                return new()
                 {
                     File = uploaded.Name,
                     Uploaded = 1,
