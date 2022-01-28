@@ -11,9 +11,9 @@ import { map } from 'rxjs/operators';
 })
 export class ImageHeadingSubheadingPopupComponent {
 
-  private _model$: BehaviorSubject<any> = new BehaviorSubject({ });
+  private readonly _model$: BehaviorSubject<any> = new BehaviorSubject({ });
 
-  public vm$ = this._model$
+  readonly vm$ = this._model$
   .pipe(
     map(model => ({
       form: new FormGroup({
@@ -32,7 +32,7 @@ export class ImageHeadingSubheadingPopupComponent {
     this._model$.next(model ? model : {});
   }
 
-  public save(model:any) {
+  save(model:any) {
     this._dialogRef.close(model);
   }
 }

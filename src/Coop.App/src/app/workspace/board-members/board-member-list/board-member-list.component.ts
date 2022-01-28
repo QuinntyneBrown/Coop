@@ -61,15 +61,15 @@ export class BoardMemberListComponent implements OnDestroy {
     private readonly _router: Router
   ) { }
 
-  public edit(boardMember: BoardMember) {
+  edit(boardMember: BoardMember) {
     this._router.navigate(['/','workspace','board-members','edit', boardMember.profileId]);
   }
 
-  public create() {
+  create() {
     this._router.navigate(['/','workspace','board-members','create']);
   }
 
-  public delete(boardMember: BoardMember) {
+  delete(boardMember: BoardMember) {
     this._profileService.remove({ profile: boardMember }).pipe(
       takeUntil(this._destroyed$),
       tap(x => this._refresh.next())

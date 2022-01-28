@@ -7,7 +7,7 @@ import { baseUrl } from '@core';
   styleUrls: ['./logo.component.scss']
 })
 export class LogoComponent {
-  @Input() public set digitalAssetId(value:string) {
+  @Input() set digitalAssetId(value:string) {
     (this._elementRef.nativeElement as HTMLElement).style.backgroundImage = `url('${this.baseUrl}api/digitalasset/serve/${value}')`
   }
   constructor(

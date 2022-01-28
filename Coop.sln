@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{953BEEE9-E657-4E0D-A987-3543ECC32CD3}"
 EndProject
@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Api", "src\Coop.Api\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B37459A9-4614-4591-BAA4-DEC331AB3A8A}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		clisettings.json = clisettings.json
 	EndProjectSection
 EndProject
@@ -24,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Testing", "test\Coop.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Infrastructure", "src\Coop.Infrastructure\Coop.Infrastructure.csproj", "{8FBC6AC5-DA8F-467A-86D2-F15C27ED2E70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop.Cli", "src\Coop.Cli\Coop.Cli.csproj", "{BAEDA9A8-E2A6-4EEA-87E1-3E63D18FC5E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.Cli", "src\Coop.Cli\Coop.Cli.csproj", "{BAEDA9A8-E2A6-4EEA-87E1-3E63D18FC5E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

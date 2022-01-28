@@ -8,11 +8,11 @@ import { MaintenanceRequest, MaintenanceRequestStatus } from '@api';
 })
 export class MaintenanceRequestComponent {
 
-  public MaintenanceRequestStatus : typeof MaintenanceRequestStatus = MaintenanceRequestStatus;
+  readonly MaintenanceRequestStatus : typeof MaintenanceRequestStatus = MaintenanceRequestStatus;
 
-  @Input() public maintenanceRequest: MaintenanceRequest;
+  @Input() maintenanceRequest: MaintenanceRequest;
 
-  public get address() {
+  get address() {
     return `${this.maintenanceRequest.address.unit}-${this.maintenanceRequest.address.street},${this.maintenanceRequest.address.city}, ${this.maintenanceRequest.address.province}, ${this.maintenanceRequest.address.postalCode}`;
   }
 }

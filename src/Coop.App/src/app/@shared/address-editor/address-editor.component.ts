@@ -3,6 +3,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALID
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { AddressEditorIntl } from './address-editor-intl';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-address-editor',
@@ -21,16 +22,16 @@ import { AddressEditorIntl } from './address-editor-intl';
     }
   ]
 })
-export class AddressEditorComponent implements ControlValueAccessor,  Validator, OnDestroy  {
-  private readonly _destroyed$: Subject<void> = new Subject();
+export class AddressEditorComponent extends BaseControl implements ControlValueAccessor,  Validator  {
 
-  @Input("addressStreetIntl$") public _street$: Observable<string> | null = null;
 
-  public get street$() {
+  @Input("addressStreetIntl$") _street$: Observable<string> | null = null;
+
+  get street$() {
     return this._street$ ? this._street$ : this.addressEditorIntl.street$;
   }
 
-  public form = new FormGroup({
+  readonly form = new FormGroup({
     street: new FormControl(null,[Validators.required]),
     unit: new FormControl(null, []),
     postalCode: new FormControl(null,[Validators.required]),
@@ -41,13 +42,15 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   constructor(
     private readonly _elementRef: ElementRef,
     public readonly addressEditorIntl: AddressEditorIntl,
-  ) { }
+  ) { 
+    super();
+  }
 
-  public displayWith(value:any) {
+  displayWith(value:any) {
     return typeof value == "string" ? value : null;
   }
 
-  public validate(control: AbstractControl): ValidationErrors | null {
+  validate(control: AbstractControl): ValidationErrors | null {
       return this.form.valid ? null
       : Object.keys(this.form.controls).reduce(
           (accumulatedErrors, formControlName) => {
@@ -92,10 +95,5 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

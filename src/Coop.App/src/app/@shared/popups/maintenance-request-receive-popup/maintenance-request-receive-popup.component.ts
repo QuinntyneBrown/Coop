@@ -13,7 +13,7 @@ import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.co
 })
 export class MaintenanceRequestReceivePopupComponent extends MaintenanceRequestPopupComponent {
 
-  public vm$ = combineLatest([this._maintenanceRequest$, this._profileService.getCurrent()])
+  readonly vm$ = combineLatest([this._maintenanceRequest$, this._profileService.getCurrent()])
   .pipe(
     map(([maintenanceRequest, profile]) => {
       const form = new FormGroup({
@@ -27,7 +27,7 @@ export class MaintenanceRequestReceivePopupComponent extends MaintenanceRequestP
     })
   );
 
-  public save(vm) {
+  save(vm) {
     this._maintenanceRequestService.receive(vm.form.value)
     .pipe(
       takeUntil(this._destroyed$),

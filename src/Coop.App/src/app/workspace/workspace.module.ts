@@ -6,7 +6,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { WorkspacePanelModule } from '@shared/workspace-panel/workspace-panel.module';
 
 
 @NgModule({
@@ -19,8 +18,7 @@ import { WorkspacePanelModule } from '@shared/workspace-panel/workspace-panel.mo
     MatSidenavModule,
     RouterModule,
     MatIconModule,
-    MatButtonModule,
-    WorkspacePanelModule
+    MatButtonModule
   ]
 })
 export class WorkspaceModule { }

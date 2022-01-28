@@ -12,7 +12,7 @@ import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.co
 })
 export class MaintenanceRequestUpdatePopupComponent extends MaintenanceRequestPopupComponent {
 
-  public vm$ = this._maintenanceRequest$
+  readonly vm$ = this._maintenanceRequest$
   .pipe(
     map(maintenanceRequest => {
       const form = new FormGroup({
@@ -25,6 +25,7 @@ export class MaintenanceRequestUpdatePopupComponent extends MaintenanceRequestPo
       };
     })
   );
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) _maintenanceRequest: MaintenanceRequest,
     _maintenanceRequestService: MaintenanceRequestService,
@@ -33,7 +34,7 @@ export class MaintenanceRequestUpdatePopupComponent extends MaintenanceRequestPo
     super(_maintenanceRequest, _maintenanceRequestService, dialog);
   }
 
-  public save(vm) {
+  save(vm) {
     this._maintenanceRequestService.updateWorkDetails(vm.form.value)
     .pipe(
       takeUntil(this._destroyed$),

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-text-and-images',
@@ -7,11 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TextAndImagesComponent {
 
-  @Input() public imageSrcs: string[] = [];
+  @Input() imageSrcs: string[] = [];
 
   @Input("text") private _text: string;
 
-  public get text() {
+  get text() {
     return this._text;
   }
 }

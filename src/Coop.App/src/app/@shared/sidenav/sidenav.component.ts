@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class SidenavComponent {
 
-  @Output() public logoutClicked: EventEmitter<any> = new EventEmitter();
+  @Output() readonly logoutClicked: EventEmitter<any> = new EventEmitter();
 
-  public logout() {
+  logout() {
     this.logoutClicked.emit();
   }
 }

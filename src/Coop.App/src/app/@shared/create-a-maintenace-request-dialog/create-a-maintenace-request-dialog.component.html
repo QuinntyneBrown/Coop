@@ -1,15 +1,19 @@
-<button mat-icon-button class="g-dialog-close-button" [mat-dialog-close]>
-  <mat-icon>
-    close
-  </mat-icon>
-</button>
+<ng-container *ngIf="vm$ | async as vm">
 
-<h2>Create a Maintenance Request</h2>
-
-<app-maintenance-request-editor cdkFocusInitial [formControl]="formControl">
-
-</app-maintenance-request-editor>
-
-<div class="g-actions">
-  <button mat-stroked-button (click)="handleSaveClick()" [disabled]="!formControl.valid">Save</button>
-</div>
+  <button mat-icon-button class="g-dialog-close-button" [mat-dialog-close]>
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  
+  <h2>Create a Maintenance Request</h2>
+  
+  <app-maintenance-request-editor cdkFocusInitial [formControl]="formControl">
+  
+  </app-maintenance-request-editor>
+  
+  <div class="g-actions">
+    <button mat-stroked-button (click)="handleSaveClick(formControl.value)" [disabled]="formControl.pristine || !formControl.valid">Save</button>
+  </div>
+  
+</ng-container>

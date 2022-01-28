@@ -11,7 +11,7 @@ import { map, takeUntil } from 'rxjs/operators';
 })
 export class CreateDocumentPopupComponent extends Destroyable implements OnInit {
 
-  public form: FormGroup = new FormGroup({
+  readonly form: FormGroup = new FormGroup({
     name: new FormControl(null,[Validators.required]),
     digitalAsset: new FormControl(null,[]),
     digitalAssetId: new FormControl(null,[Validators.required])
@@ -24,8 +24,8 @@ export class CreateDocumentPopupComponent extends Destroyable implements OnInit 
   }
 
   ngOnInit() {
-    var digitalAssetControl = this.form.get("digitalAsset");
-    var digitalAssetIdControl = this.form.get("digitalAssetId");
+    const digitalAssetControl = this.form.get("digitalAsset");
+    const digitalAssetIdControl = this.form.get("digitalAssetId");
 
     digitalAssetControl
     .valueChanges
@@ -35,8 +35,7 @@ export class CreateDocumentPopupComponent extends Destroyable implements OnInit 
     ).subscribe();
   }
 
-  public handleSaveClick() {
+  handleSaveClick() {
     this._dialogRef.close(this.form.value);
   }
-
 }

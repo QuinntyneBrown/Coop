@@ -23,13 +23,7 @@ namespace Coop.Api.Features
 
         public async Task Handle(Coop.Core.DomainEvents.CreateProfile @event, CancellationToken cancellationToken)
         {
-            var defaultAddress = Address.Create(
-                _configuration["DefaultAddress:Street"],
-                _configuration["DefaultAddress:City"],
-                _configuration["DefaultAddress:Province"],
-                _configuration["DefaultAddress:PostalCode"]).Value;
-
-            @event.Address = defaultAddress;
+            @event.Address = Address.Default(_configuration);
 
             Profile profile = @event.ProfileType switch
             {

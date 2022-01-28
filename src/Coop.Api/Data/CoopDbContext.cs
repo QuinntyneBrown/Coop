@@ -3,11 +3,15 @@ using Coop.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
+using Coop.Core;
+using Newtonsoft.Json;
+using System;
 
 namespace Coop.Api.Data
 {
     public class CoopDbContext : DbContext, ICoopDbContext
     {
+        private readonly INotificationService _notificationService;
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; private set; }
         public DbSet<Notice> Notices { get; private set; }
         public DbSet<ByLaw> ByLaws { get; private set; }
@@ -30,11 +34,13 @@ namespace Coop.Api.Data
         public DbSet<Theme> Themes { get; private set; }
         public DbSet<InvitationToken> InvitationTokens { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
-        public CoopDbContext(DbContextOptions options)
+        public CoopDbContext(DbContextOptions options, INotificationService notificationService)
             : base(options)
         {
 
             SavingChanges += CoopDbContext_SavingChanges;
+            SavedChanges += DbContext_SavedChanges;
+            _notificationService = notificationService;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,7 +52,7 @@ namespace Coop.Api.Data
 
         private void CoopDbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {
-            var entries = ChangeTracker.Entries<Coop.Core.AggregateRoot>()
+            var entries = ChangeTracker.Entries<AggregateRoot>()
                 .Where(
                     e => e.State == EntityState.Added ||
                     e.State == EntityState.Modified)
@@ -58,6 +64,23 @@ namespace Coop.Api.Data
                 foreach (var storedEvent in aggregate.StoredEvents)
                 {
                     StoredEvents.Add(storedEvent);
+                }
+            }
+        }
+
+        private void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
+        {
+            var entries = ChangeTracker.Entries<AggregateRoot>()
+                .Select(e => e.Entity)
+                .ToList();
+
+            foreach (var aggregate in entries)
+            {
+                foreach (var storedEvent in aggregate.StoredEvents)
+                {
+                    var @event = JsonConvert.DeserializeObject(storedEvent.Data, Type.GetType(storedEvent.DotNetType));
+
+                    _notificationService.OnNext(@event);
                 }
 
                 aggregate.Clear();

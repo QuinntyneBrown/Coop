@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs";
 @Injectable()
 export class MaintenanceRequestPopupComponent extends Destroyable {
 
-  protected _maintenanceRequest$: BehaviorSubject<MaintenanceRequest> = new BehaviorSubject(null);
+  protected readonly _maintenanceRequest$: BehaviorSubject<MaintenanceRequest> = new BehaviorSubject(null);
 
   constructor(
     maintenanceRequest: MaintenanceRequest,

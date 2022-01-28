@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\MaintenceRequests\**" />
+    <EmbeddedResource Remove="Features\MaintenceRequests\**" />
+    <None Remove="Features\MaintenceRequests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -23,10 +29,6 @@
     <ProjectReference Include="..\..\src\Coop.Api\Coop.Api.csproj" />
     <ProjectReference Include="..\..\src\Coop.Core\Coop.Core.csproj" />
     <ProjectReference Include="..\Coop.Testing\Coop.Testing.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\MaintenceRequests\" />
   </ItemGroup>
 
 </Project>

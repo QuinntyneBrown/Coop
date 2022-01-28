@@ -12,32 +12,29 @@ import { environment } from 'src/environments/environment';
 })
 export class HeroComponent {
 
-  @Output() public menuClick: EventEmitter<any> = new EventEmitter();
-
-
+  @Output() readonly menuClick: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private readonly _router: Router,
     private readonly _jsonContentService: JsonContentService
   ) { }
 
-
-  private _navigatedToLandingPage$ = this._router.events
+  private readonly _navigatedToLandingPage$ = this._router.events
   .pipe(
     filter(e => e instanceof NavigationEnd),
     map((e:any) => e.url),
     map(url => url == '/'),
   );
 
-  private _onLandingPage$ = merge(this._navigatedToLandingPage$, of(location.href.indexOf('landing') >= 0));
+  private readonly _onLandingPage$ = merge(this._navigatedToLandingPage$, of(location.href.indexOf('landing') >= 0));
 
-  public handleLogoClick() {
+  handleLogoClick() {
     this._router.navigate(["/"]);
   }
 
-  public baseUrl = environment.baseUrl;
+  readonly baseUrl = environment.baseUrl;
 
-  public vm$ = combineLatest([this._jsonContentService.getByName({ name: JsonContentName.Hero }), this._onLandingPage$])
+  readonly vm$ = combineLatest([this._jsonContentService.getByName({ name: JsonContentName.Hero }), this._onLandingPage$])
   .pipe(
     map(([jsonContent, onLandingPage]) => (Object.assign(jsonContent.json, { onLandingPage })))
   );

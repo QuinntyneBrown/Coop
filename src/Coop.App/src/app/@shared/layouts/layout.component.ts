@@ -2,7 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { NavigationService } from '@core';
+import { Destroyable, NavigationService } from '@core';
 import { Observable, of, Subject } from 'rxjs';
 import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 
@@ -13,13 +13,11 @@ import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnDestroy {
-
-  private readonly _destroyed$ = new Subject();
+export class LayoutComponent extends Destroyable {
 
   @ViewChild('drawer', { static: false }) drawer: MatSidenav;
 
-  public opened = false;
+  opened = false;
 
   isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -27,7 +25,7 @@ export class LayoutComponent implements OnDestroy {
     );
 
 
-  public vm$ = of({ });
+  vm$ = of({ });
 
   constructor(
     private readonly _navigationService: NavigationService,
@@ -35,22 +33,19 @@ export class LayoutComponent implements OnDestroy {
     private readonly _breakpointObserver: BreakpointObserver
 
   ) {
+    super();
+    
     _router.events.pipe(
       filter(a =>a instanceof NavigationEnd),
       takeUntil(this._destroyed$)
     ).subscribe(_ => this.opened = false);
   }
 
-  public handleTitleClick() {
+  handleTitleClick() {
     this._navigationService.redirectToPublicDefault();
   }
 
-  public handleMenuClick() {
+  handleMenuClick() {
     this.opened = !this.opened;
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

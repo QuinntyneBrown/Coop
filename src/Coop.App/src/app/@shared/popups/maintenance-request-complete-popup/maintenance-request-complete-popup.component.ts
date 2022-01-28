@@ -1,4 +1,3 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,7 +12,7 @@ import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.co
 })
 export class MaintenanceRequestCompletePopupComponent extends MaintenanceRequestPopupComponent {
 
-  public vm$ = this._maintenanceRequest$
+  readonly vm$ = this._maintenanceRequest$
   .pipe(
     map(maintenanceRequest => {
       const form = new FormGroup({
@@ -37,7 +36,7 @@ export class MaintenanceRequestCompletePopupComponent extends MaintenanceRequest
     super(_maintenanceRequest, _maintenanceRequestService, dialog);
   }
 
-  public save(vm) {
+  save(vm) {
     this._maintenanceRequestService.complete(vm.form.value)
     .pipe(
       takeUntil(this._destroyed$),

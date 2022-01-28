@@ -4,8 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Linq;
+
+
 
 namespace Coop.Api
 {
@@ -13,11 +17,33 @@ namespace Coop.Api
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
-            ProcessDbCommands(args, host);
+            try
+            {
 
-            host.Run();
+                Log.Information("Starting web host");
+
+                var host = CreateHostBuilder(args).Build();
+
+                ProcessDbCommands(args, host);
+
+                host.Run();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         private static void ProcessDbCommands(string[] args, IHost host)
@@ -54,6 +80,10 @@ namespace Coop.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .UseSerilog((context, services, configuration) => configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

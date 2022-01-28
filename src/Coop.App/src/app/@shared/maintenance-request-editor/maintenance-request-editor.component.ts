@@ -3,6 +3,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALID
 import { fromEvent, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { MaintenanceRequest } from '@api';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-maintenance-request-editor',
@@ -21,12 +22,12 @@ import { MaintenanceRequest } from '@api';
     }
   ]
 })
-export class MaintenanceRequestEditorComponent implements ControlValueAccessor, OnInit, OnDestroy,  Validator  {
-  private readonly _destroyed$: Subject<void> = new Subject();
+export class MaintenanceRequestEditorComponent extends BaseControl implements OnInit, Validator  {
 
-  public readonly digitalAssetControl : FormControl = new FormControl(null,[]);
 
-  public form = new FormGroup({
+  readonly digitalAssetControl : FormControl = new FormControl(null,[]);
+
+  readonly form = new FormGroup({
     maintenanceRequestId: new FormControl(),
     title: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
@@ -34,8 +35,10 @@ export class MaintenanceRequestEditorComponent implements ControlValueAccessor, 
   });
 
   constructor(
-    private readonly _elementRef: ElementRef
-  ) { }
+    private readonly _elementRef: ElementRef<HTMLElement>
+  ) { 
+    super();
+  }
 
 
   ngOnInit() {
@@ -112,10 +115,5 @@ export class MaintenanceRequestEditorComponent implements ControlValueAccessor, 
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

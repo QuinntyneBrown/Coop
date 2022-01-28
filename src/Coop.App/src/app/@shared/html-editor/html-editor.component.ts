@@ -3,6 +3,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { BaseControl } from '@core/abstractions/base-control';
 
 
 @Component({
@@ -16,17 +17,11 @@ import { Subject } from 'rxjs';
     }
   ]
 })
-export class HtmlEditorComponent implements ControlValueAccessor  {
+export class HtmlEditorComponent extends BaseControl  {
 
-  private readonly _destroyed$: Subject<void> = new Subject();
+  readonly formControl = new FormControl();
 
-  public formControl = new FormControl();
-
-  @Input() public config: any = { height: 250 };
-
-  constructor(
-    private readonly _domSanitizer: DomSanitizer
-  ) {  }
+  @Input() config: any = { height: 250 };
 
   writeValue(obj: any): void {
     if(obj == null) {
@@ -43,10 +38,6 @@ export class HtmlEditorComponent implements ControlValueAccessor  {
       takeUntil(this._destroyed$)
     )
     .subscribe(fn);
-  }
-
-  registerOnTouched(fn: any): void {
-
   }
 
   setDisabledState?(isDisabled: boolean): void {

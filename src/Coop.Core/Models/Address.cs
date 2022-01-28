@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace Coop.Core.Models
 {
@@ -44,6 +45,13 @@ namespace Coop.Core.Models
         {
             return Result.Success(new Address(street, unit, city, province, postalCode));
         }
+
+        public static Address Default(IConfiguration configuration)
+            => Create(
+                configuration["DefaultAddress:Street"],
+                configuration["DefaultAddress:City"],
+                configuration["DefaultAddress:Province"],
+                configuration["DefaultAddress:PostalCode"]).Value;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

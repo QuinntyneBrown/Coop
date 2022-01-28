@@ -2,6 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-id',
@@ -20,18 +21,19 @@ import { fromEvent, Subject } from 'rxjs';
     }
   ]
 })
-export class IdComponent implements ControlValueAccessor,  Validator, OnDestroy  {
-  private readonly _destroyed$: Subject<void> = new Subject();
+export class IdComponent extends BaseControl implements Validator  {
 
-  public formControl = new FormControl(null,[]);
+  readonly formControl = new FormControl(null,[]);
 
-  @Input() public heading1: string;
+  @Input() heading1: string;
 
-  @Input() public heading2: string;
+  @Input() heading2: string;
 
   constructor(
     private readonly _elementRef: ElementRef
-  ) { }
+  ) { 
+    super();
+  }
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.formControl.errors;
@@ -67,10 +69,5 @@ export class IdComponent implements ControlValueAccessor,  Validator, OnDestroy 
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-
-  public ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

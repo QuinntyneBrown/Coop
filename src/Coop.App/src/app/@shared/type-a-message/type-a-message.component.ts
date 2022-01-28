@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, forwardRef, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, forwardRef, Output, ViewEncapsulation } from '@angular/core';
+import { AbstractControl, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent } from 'rxjs';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-type-a-message',
@@ -20,16 +21,18 @@ import { fromEvent, Subject } from 'rxjs';
     }
   ]
 })
-export class TypeAMessageComponent implements ControlValueAccessor,  Validator, OnDestroy  {
-  private readonly _destroyed$: Subject<void> = new Subject();
+export class TypeAMessageComponent extends BaseControl implements Validator  {
 
-  public formControl = new FormControl(null,[]);
 
-  @Output() public send: EventEmitter<string> = new EventEmitter();
+  readonly formControl = new FormControl(null,[]);
+
+  @Output() send: EventEmitter<string> = new EventEmitter();
 
   constructor(
-    private readonly _elementRef: ElementRef
-  ) { }
+    private readonly _elementRef: ElementRef<HTMLElement>
+  ) { 
+    super();
+  }
 
   handleSendClick() {
     this.send.emit(this.formControl.value);
@@ -70,10 +73,5 @@ export class TypeAMessageComponent implements ControlValueAccessor,  Validator, 
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-
-  public ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

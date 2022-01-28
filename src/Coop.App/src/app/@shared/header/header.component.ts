@@ -10,9 +10,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Output() public menuClick: EventEmitter<void> = new EventEmitter();
+  @Output() readonly menuClick: EventEmitter<void> = new EventEmitter();
 
-  public vm$ = this._jsonContentService.getByName({ name: JsonContentName.Hero })
+  readonly vm$ = this._jsonContentService.getByName({ name: JsonContentName.Hero })
   .pipe(
     map(jsonContent => jsonContent.json)
   );
@@ -22,9 +22,9 @@ export class HeaderComponent {
     private readonly _jsonContentService: JsonContentService
   ) { }
 
-  public headerClick() {
+  headerClick() {
     this._router.navigate(["/"]);
   }
 
-  public baseUrl = environment.baseUrl;
+  readonly baseUrl = environment.baseUrl;
 }

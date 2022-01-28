@@ -1,14 +1,15 @@
 using Coop.Core;
+using Coop.Core.DomainEvents;
 using Coop.Core.Interfaces;
 using Coop.Core.Models;
-using Coop.Core.DomainEvents;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using SerilogTimings;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Coop.Api.Features
 {
@@ -31,40 +32,44 @@ namespace Coop.Api.Features
         {
             private readonly ICoopDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
-            private readonly ITokenBuilder _tokenBuilder;
+            private readonly IDiagnosticContext _diagnosticContext;
             private readonly IOrchestrationHandler _orchestrationHandler;
 
-            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, IOrchestrationHandler orchestrationHandler)
+            public Handler(ICoopDbContext context, IPasswordHasher passwordHasher, IOrchestrationHandler orchestrationHandler, IDiagnosticContext diagnosticContext)
             {
                 _context = context;
                 _passwordHasher = passwordHasher;
-                _tokenBuilder = tokenBuilder;
+                _diagnosticContext = diagnosticContext;
                 _orchestrationHandler = orchestrationHandler;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
-                    .Include(x => x.Roles)
-                    .ThenInclude(x => x.Privileges)
-                    .SingleOrDefaultAsync(x => x.Username == request.Username);
+                using(Operation.Time("Users.Authenticate"))
+                {
+                    var user = await _context.Users
+                        .Include(x => x.Roles)
+                        .ThenInclude(x => x.Privileges)
+                        .SingleOrDefaultAsync(x => x.Username == request.Username);
 
-                if (user == null)
-                    throw new Exception();
+                    if (user == null)
+                        throw new Exception();
 
-                if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-                    throw new Exception();
+                    if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
+                        throw new Exception();
 
-                return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
-                 {
-                     switch (message)
-                     {
-                         case BuiltToken builtToken:
-                             await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
-                             tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
-                             break;
-                     }
-                 });
+                    return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
+                    {
+                        switch (message)
+                        {
+                            case BuiltToken builtToken:
+                                await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
+                                _diagnosticContext.Set("Username", request.Username);
+                                tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
+                                break;
+                        }
+                    });
+                }
             }
 
             public bool ValidateUser(User user, string transformedPassword)

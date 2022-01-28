@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntityDataSource } from '@shared';
 import { NoticeService, Notice, DocumentService } from '@api';
 import { CreateDocumentPopupComponent } from '@shared/popups/create-document-popup/create-document-popup.component';
+import { Destroyable } from '@core';
 
 @Component({
   selector: 'app-notice-list',
@@ -13,17 +14,19 @@ import { CreateDocumentPopupComponent } from '@shared/popups/create-document-pop
   styleUrls: ['./notice-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NoticeListComponent implements OnDestroy {
+export class NoticeListComponent extends Destroyable {
 
-  private readonly _destroyed$: Subject<void> = new Subject();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly _pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
+  
   private readonly _pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
+  
   private readonly _dataSource: EntityDataSource<Notice> = new EntityDataSource(this._noticeService);
+  
   private readonly _refresh$: BehaviorSubject<void> = new BehaviorSubject(null);
 
-  public readonly vm$: Observable<{
+  readonly vm$: Observable<{
     dataSource: EntityDataSource<Notice>,
     columnsToDisplay: string[],
     length$: Observable<number>,
@@ -58,13 +61,15 @@ export class NoticeListComponent implements OnDestroy {
     private readonly _noticeService: NoticeService,
     private readonly _documentService: DocumentService,
     private readonly _dialog: MatDialog,
-  ) { }
+  ) { 
+    super();
+  }
 
-  public edit(notice: Notice) {
+  edit(notice: Notice) {
 
   }
 
-  public create() {
+  create() {
     this._dialog.open(CreateDocumentPopupComponent)
     .afterClosed()
     .pipe(
@@ -83,15 +88,11 @@ export class NoticeListComponent implements OnDestroy {
     .subscribe();
   }
 
-  public delete(notice: Notice) {
+  delete(notice: Notice) {
     this._documentService.remove({ document: notice }).pipe(
       takeUntil(this._destroyed$),
       tap(_ => this._refresh$.next())
     ).subscribe();
   }
-
-  ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
-  }
+  
 }

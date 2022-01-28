@@ -8,7 +8,7 @@ import { convertMaintenanceRequestStatusToString, MaintenanceRequest } from '@ap
 })
 export class MaintenanceRequestCardComponent {
 
-  public convertMaintenanceRequestStatusToString: typeof convertMaintenanceRequestStatusToString = convertMaintenanceRequestStatusToString;
+  readonly convertMaintenanceRequestStatusToString: typeof convertMaintenanceRequestStatusToString = convertMaintenanceRequestStatusToString;
 
   @Input() maintenanceRequest!: MaintenanceRequest;
 }

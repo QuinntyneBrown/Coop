@@ -1,7 +1,8 @@
-import { Component, ElementRef, forwardRef, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component, ElementRef, forwardRef } from '@angular/core';
+import { AbstractControl, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent } from 'rxjs';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-to',
@@ -20,14 +21,15 @@ import { fromEvent, Subject } from 'rxjs';
     }
   ]
 })
-export class ToComponent implements ControlValueAccessor,  Validator, OnDestroy  {
-  private readonly _destroyed$: Subject<void> = new Subject();
-
-  public formControl = new FormControl(null,[Validators.required]);
+export class ToComponent extends BaseControl implements Validator  {
+  
+  readonly formControl = new FormControl(null,[Validators.required]);
 
   constructor(
-    private readonly _elementRef: ElementRef
-  ) { }
+    private readonly _elementRef: ElementRef<HTMLElement>
+  ) { 
+    super();
+  }
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.formControl.errors;
@@ -63,10 +65,5 @@ export class ToComponent implements ControlValueAccessor,  Validator, OnDestroy 
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-
-  public ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

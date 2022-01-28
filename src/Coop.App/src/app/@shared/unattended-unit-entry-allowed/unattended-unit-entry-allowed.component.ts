@@ -2,6 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
+import { BaseControl } from '@core/abstractions/base-control';
 
 @Component({
   selector: 'app-unattended-unit-entry-allowed',
@@ -20,17 +21,18 @@ import { fromEvent, Subject } from 'rxjs';
     }
   ]
 })
-export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor,  Validator, OnDestroy  {
-  private readonly _destroyed$: Subject<void> = new Subject();
-
-  public form = new FormGroup({
+export class UnattendedUnitEntryAllowedComponent extends BaseControl implements  Validator   {
+ 
+  readonly form = new FormGroup({
     unattendedUnitEntryAllowed: new FormControl(null, [Validators.required]),
     unattendedUnitEntryNotAllowed: new FormControl(null, [Validators.required])
   });
 
   constructor(
-    private readonly _elementRef: ElementRef
-  ) { }
+    private readonly _elementRef: ElementRef<HTMLElement>
+  ) { 
+    super();
+  }
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.valid ? null
@@ -93,7 +95,7 @@ export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor
   registerOnTouched(fn: any): void {
     this._elementRef.nativeElement
       .querySelectorAll("*")
-      .forEach((element: HTMLElement) => {
+      .forEach((element) => {
         fromEvent(element, "focus")
           .pipe(
             takeUntil(this._destroyed$),
@@ -105,10 +107,5 @@ export class UnattendedUnitEntryAllowedComponent implements ControlValueAccessor
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
-  }
-
-  public ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
   }
 }

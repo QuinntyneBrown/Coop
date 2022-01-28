@@ -4,9 +4,7 @@ using Coop.Core.Interfaces;
 using Coop.Core.Models;
 using Coop.Testing;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using static Coop.Api.Features.CreateProfile;
@@ -33,6 +31,7 @@ namespace Coop.UnitTests.Features
                 .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
                 .AddSingleton<ITokenBuilder, TokenBuilder>()
                 .AddSingleton<ITokenProvider, TokenProvider>()
+                .AddSingleton<INotificationService, NotificationService>()
                 .BuildServiceProvider();
 
             await context.SaveChangesAsync(default);

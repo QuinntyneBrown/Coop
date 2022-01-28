@@ -16,6 +16,13 @@
     <None Remove="Data\Seeding\Images\Building.jpg" />
     <None Remove="Data\Seeding\Images\Doors.jpg" />
     <None Remove="Data\Seeding\Images\Logo.jpg" />
+    <None Remove="Logs\keep.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Logs\keep.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

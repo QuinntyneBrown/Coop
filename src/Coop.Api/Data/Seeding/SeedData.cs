@@ -1,14 +1,13 @@
 using Coop.Core;
 using Coop.Core.Models;
-using Coop.Core;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Coop.Core.Constants;
-using System;
 
 namespace Coop.Api.Data
 {
@@ -375,8 +374,6 @@ namespace Coop.Api.Data
 
                     var document = new ByLaw(new Core.DomainEvents.CreateDocument(Guid.NewGuid(),digitalAsset.Name,digitalAsset.DigitalAssetId,new Guid()));
 
-                    // publish
-
                     context.ByLaws.Add(document);
 
                     context.SaveChanges();
@@ -408,9 +405,6 @@ namespace Coop.Api.Data
 
                     var document = new Notice(new Core.DomainEvents.CreateDocument(Guid.NewGuid(), digitalAsset.Name, digitalAsset.DigitalAssetId, new Guid()));
 
-
-                    // publish
-
                     context.Notices.Add(document);
 
                     context.SaveChanges();
@@ -440,9 +434,6 @@ namespace Coop.Api.Data
                     context.DigitalAssets.Add(digitalAsset);
 
                     var document = new Report(new Core.DomainEvents.CreateDocument(Guid.NewGuid(), digitalAsset.Name, digitalAsset.DigitalAssetId, new Guid()));
-
-
-                    // Publish
 
                     context.Reports.Add(document);
 

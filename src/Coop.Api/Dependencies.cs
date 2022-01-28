@@ -18,6 +18,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Coop.Api
 {
@@ -61,6 +67,8 @@ namespace Coop.Api
             services.AddHttpContextAccessor();
 
             services.AddMediatR(typeof(Startup), typeof(ICoopDbContext));
+
+            services.AddSingleton<INotificationService, NotificationService>();
 
             services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
 

@@ -12,9 +12,9 @@ import { MaintenanceRequestPopupComponent } from '../maintenace-request-popup.co
 })
 export class MaintenanceRequestStartPopupComponent extends MaintenanceRequestPopupComponent {
 
-  public UnitEntered: typeof UnitEntered = UnitEntered;
+  readonly UnitEntered: typeof UnitEntered = UnitEntered;
 
-  public vm$ = this._maintenanceRequest$
+  readonly vm$ = this._maintenanceRequest$
   .pipe(
     map(maintenanceRequest => {
       const form = new FormGroup({
@@ -37,7 +37,7 @@ export class MaintenanceRequestStartPopupComponent extends MaintenanceRequestPop
     super(_maintenanceRequest, _maintenanceRequestService, dialog);
   }
 
-  public save(vm) {
+  save(vm) {
     this._maintenanceRequestService.start(vm.form.value)
     .pipe(
       takeUntil(this._destroyed$),

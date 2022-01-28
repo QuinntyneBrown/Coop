@@ -9,9 +9,9 @@ import { baseUrl } from '@core';
 })
 export class DocumentCardComponent {
 
-  @Input() public document!: Document;
+  @Input() document!: Document;
 
   constructor(
-    @Inject(baseUrl) public readonly baseUrl: string
+    @Inject(baseUrl) readonly baseUrl: string
   ) {}
 }

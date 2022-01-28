@@ -20,36 +20,38 @@ import { BaseControlValueAccessor } from '@core/base-control';
 })
 export class DigitalAssetUploadComponent extends BaseControlValueAccessor implements AfterViewInit {
 
-  public digitalAssetIdBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject(null);
+  readonly digitalAssetIdBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject(null);
 
-  public digitalAsset$: Subject<DigitalAsset> = new  Subject();
-  public digitalAssetId$: Subject<string| DigitalAsset> = new Subject();
+  readonly digitalAsset$: Subject<DigitalAsset> = new Subject();
 
-  @Input() public icon:string = "file_upload";
-  @Input() public idOnly: boolean = true;
+  readonly digitalAssetId$: Subject<string| DigitalAsset> = new Subject();
+
+  @Input() icon:string = "file_upload";
+  
+  @Input() idOnly: boolean = true;
 
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
     private readonly _elementRef: ElementRef,
-    @Inject(baseUrl) public readonly baseUrl: string
+    @Inject(baseUrl) readonly baseUrl: string
   ) {
     super();
     this.onDragOver = this.onDragOver.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
-  public writeValue(obj: any): void {
+  writeValue(obj: any): void {
     this.digitalAssetIdBehaviorSubject.next(obj);
   }
 
-  public registerOnChange(fn: any): void {
+  registerOnChange(fn: any): void {
     this.digitalAssetId$
     .pipe(
       takeUntil(this._destroyed$)
     ).subscribe(fn);
   }
 
-  public ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     fromEvent(this._elementRef.nativeElement,"dragover")
     .pipe(
       tap((x: DragEvent) => this.onDragOver(x)),
@@ -63,12 +65,12 @@ export class DigitalAssetUploadComponent extends BaseControlValueAccessor implem
     ).subscribe();
   }
 
-  public onDragOver(e: DragEvent): void {
+  onDragOver(e: DragEvent): void {
     e.stopPropagation();
     e.preventDefault();
   }
 
-  public async onDrop(e: DragEvent): Promise<any> {
+  async onDrop(e: DragEvent): Promise<any> {
     e.stopPropagation();
     e.preventDefault();
 
