@@ -1,4 +1,3 @@
-using Coop.Core.Models;
 using System;
 
 namespace Coop.Core.Models

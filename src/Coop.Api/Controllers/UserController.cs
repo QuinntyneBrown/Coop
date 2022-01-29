@@ -2,6 +2,7 @@ using Coop.Api.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,9 +15,13 @@ namespace Coop.Api.Controllers
     public class UserController
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IMediator mediator)
-            => _mediator = mediator;
+        public UserController(IMediator mediator, ILogger<UserController> logger)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
         [HttpGet("{userId}", Name = "GetUserByIdRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
@@ -58,14 +63,7 @@ namespace Coop.Api.Controllers
         [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CurrentUser.Response>> GetCurrent()
         {
-            try
-            {
-                return await _mediator.Send(new CurrentUser.Request());
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return await _mediator.Send(new CurrentUser.Request());
         }
 
         [HttpPost(Name = "CreateUserRoute")]

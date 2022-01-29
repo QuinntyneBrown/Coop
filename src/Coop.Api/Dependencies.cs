@@ -1,11 +1,12 @@
-using Coop.Core;
 using Coop.Api.Data;
 using Coop.Api.Extensions;
+using Coop.Core;
 using Coop.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,12 +19,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Coop.Api
 {
@@ -31,6 +26,11 @@ namespace Coop.Api
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -123,7 +123,10 @@ namespace Coop.Api
                         {
                             context.Request.Query.TryGetValue("access_token", out StringValues token);
 
-                            if (!string.IsNullOrEmpty(token)) context.Token = token;
+                            if (!string.IsNullOrEmpty(token))
+                            {
+                                context.Token = token;
+                            };
 
                             return Task.CompletedTask;
                         }

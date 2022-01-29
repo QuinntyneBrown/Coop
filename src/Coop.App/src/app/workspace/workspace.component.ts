@@ -1,11 +1,12 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { User } from '@api';
 import { Aggregate } from '@api/models/aggregate';
-import { AuthService, NavigationService } from '@core';
-import { merge, Observable, of, Subject } from 'rxjs';
+import { EventService } from '@api/services/event.service';
+import { AuthService, Destroyable, NavigationService } from '@core';
+import { merge, Observable } from 'rxjs';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 
 const md = "(max-width: 992px)";
@@ -15,19 +16,17 @@ const md = "(max-width: 992px)";
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
-export class WorkspaceComponent implements OnInit, OnDestroy {
+export class WorkspaceComponent extends Destroyable implements OnInit {
+  
+  opened = false;
 
-  private readonly _destroyed$ = new Subject();
+  readonly Aggregate = Aggregate;
 
-  public opened = false;
-
-  public Aggregate = Aggregate;
-
-  private _isGreaterThanMedium$ = this._breakpointObserver
+  private readonly _isGreaterThanMedium$ = this._breakpointObserver
   .observe("(min-width: 992px)")
   .pipe(map(breakpointState => breakpointState.matches));
 
-  private _isLessThanMedium$: Observable<boolean> = this._breakpointObserver
+  private readonly _isLessThanMedium$: Observable<boolean> = this._breakpointObserver
     .observe("(max-width: 992px)")
     .pipe(map(breakpointState => breakpointState.matches));
 
@@ -43,18 +42,24 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     map(_ => "over")
   );
 
-  public mode$ = merge(this._side$, this._over$);
+  readonly mode$ = merge(this._side$, this._over$);
 
-  @ViewChild(MatDrawer, { static: true }) public drawer: MatDrawer | undefined;
+  @ViewChild(MatDrawer, { static: true }) drawer: MatDrawer | undefined;
 
   constructor(
     private readonly _authService: AuthService,
     private readonly _navigationService: NavigationService,
     private readonly _breakpointObserver: BreakpointObserver,
-    private readonly _router: Router
-  ) { }
+    private readonly _router: Router,
+    private readonly _eventService: EventService
+  ) { 
+    super();
+  }
 
-  public ngOnInit() {
+  ngOnInit() {
+
+    this._eventService.events$.subscribe();
+    
     this._router.events
       .pipe(
         takeUntil(this._destroyed$),
@@ -62,29 +67,23 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
           if (x instanceof NavigationEnd && this.drawer?.mode == "over") {
             this.drawer?.close();
           }
-          //this._matDrawerContentElement.scrollTop = 0;
         })
       )
       .subscribe();
   }
 
-  public currentUser$: Observable<User> = this._authService.currentUser$;
+  readonly currentUser$: Observable<User> = this._authService.currentUser$;
 
-  public logout() {
+  logout() {
     this._authService.logout();
     this.redirectToPublicDefault();
   }
 
-  public hasReadWritePrivileges$(aggregate:string) {
+  hasReadWritePrivileges$(aggregate:string) {
     return this._authService.hasReadWritePrivileges$(aggregate);
   }
 
-  public redirectToPublicDefault() {
+  redirectToPublicDefault() {
     this._navigationService.redirectToPublicDefault();
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.complete();
-    this._destroyed$.next();
   }
 }

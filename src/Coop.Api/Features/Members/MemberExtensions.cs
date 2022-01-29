@@ -1,4 +1,5 @@
 using System;
+using Coop.Api.Extensions;
 using Coop.Core.Models;
 
 namespace Coop.Api.Features

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Coop.Api.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Coop.Api.Controllers
 {
@@ -11,9 +12,13 @@ namespace Coop.Api.Controllers
     public class BoardMemberController
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<BoardMemberController> _logger;
 
-        public BoardMemberController(IMediator mediator)
-            => _mediator = mediator;
+        public BoardMemberController(IMediator mediator, ILogger<BoardMemberController> logger)
+        {
+            _mediator = mediator;
+            _logger = logger;
+        }
 
         [HttpGet("{boardMemberId}", Name = "GetBoardMemberByIdRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

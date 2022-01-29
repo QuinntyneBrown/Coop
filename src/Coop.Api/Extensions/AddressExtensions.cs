@@ -1,7 +1,7 @@
 ﻿using Coop.Core.Dtos;
 using Coop.Core.Models;
 
-namespace Coop.Api.Features
+namespace Coop.Api.Extensions
 {
     public static class AddressExtensions
     {

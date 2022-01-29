@@ -1,3 +1,4 @@
+using Coop.Api.Extensions;
 using Coop.Core.Models;
 using System;
 
