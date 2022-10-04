@@ -1,1 +1,0 @@
-﻿code ..\Coop.App

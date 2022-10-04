@@ -1,4 +1,4 @@
-using Coop.Api.Data;
+using Coop.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,8 +8,6 @@ using Serilog;
 using Serilog.Events;
 using System;
 using System.Linq;
-
-
 
 namespace Coop.Api
 {

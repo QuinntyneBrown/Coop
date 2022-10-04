@@ -1,9 +1,9 @@
-using System.Net;
-using System.Threading.Tasks;
-using Coop.Api.Features;
+using Coop.Application.BoardMembers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Coop.Api.Controllers
 {

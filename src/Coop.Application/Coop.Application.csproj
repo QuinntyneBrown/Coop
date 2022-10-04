@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DigitalAssets\Commands\" />
+    <Folder Include="DigitalAssets\Queries\" />
+    <Folder Include="Documents\Commands\" />
+    <Folder Include="Documents\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coop.Infrastructure\Coop.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

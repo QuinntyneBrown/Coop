@@ -1,6 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
-using Coop.Api.Features;
+using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

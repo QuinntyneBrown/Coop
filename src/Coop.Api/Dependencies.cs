@@ -1,7 +1,7 @@
-using Coop.Api.Data;
-using Coop.Api.Extensions;
-using Coop.Core;
-using Coop.Core.Interfaces;
+using Coop.Infrastructure.Data;
+using Coop.Application.Common.Extensions;
+using Coop.Domain;
+using Coop.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -56,7 +56,7 @@ namespace Coop.Api
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder => builder
-                .WithOrigins("https://localhost:4200", "https://white-bay-0cf53f60f.azurestaticapps.net/")
+                .WithOrigins(configuration["withOrigins"].Split(','))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(isOriginAllowed: _ => true)
@@ -96,8 +96,6 @@ namespace Coop.Api
 
             services.AddSingleton<ITokenProvider, TokenProvider>();
 
-            services.AddTransient<ITokenBuilder, TokenBuilder>();
-
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
             {
                 InboundClaimTypeMap = new Dictionary<string, string>()
@@ -116,7 +114,18 @@ namespace Coop.Api
                     options.SaveToken = true;
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
-                    options.TokenValidationParameters = GetTokenValidationParameters(configuration);
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtKey)}"])),
+                        ValidateIssuer = true,
+                        ValidIssuer = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtIssuer)}"],
+                        ValidateAudience = true,
+                        ValidAudience = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtAudience)}"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        NameClaimType = JwtRegisteredClaimNames.UniqueName
+                    };
                     options.Events = new JwtBearerEvents
                     {
                         OnMessageReceived = context =>
@@ -131,28 +140,33 @@ namespace Coop.Api
                             return Task.CompletedTask;
                         }
                     };
-                });
+                })                
+                .AddPolicyScheme("", "", optons =>
+                 {
+                     optons.ForwardDefaultSelector = context =>
+                     {
+                         string authorization = context.Request.Headers["Authorization"].ToString();
+                         var jwtHandler = new JwtSecurityTokenHandler();
+
+                         if(!string.IsNullOrEmpty(authorization))
+                         {
+                             var token = authorization.StartsWith("Bearer ") ? authorization["Bearer ".Length..].Trim() : authorization;
+
+                             if (jwtHandler.CanReadToken(token))
+                             {
+                                 if(jwtHandler.ReadJwtToken(token).Issuer == "https://www.coop.com/api/user/token")
+                                 {
+                                     return JwtBearerDefaults.AuthenticationScheme;
+                                 }
+                             }
+                         }
+
+                         return null;
+                     };
+                 });
             }
         }
 
-
-        public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
-        {
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtKey)}"])),
-                ValidateIssuer = true,
-                ValidIssuer = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtIssuer)}"],
-                ValidateAudience = true,
-                ValidAudience = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtAudience)}"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                NameClaimType = JwtRegisteredClaimNames.UniqueName
-            };
-
-            return tokenValidationParameters;
-        }
     }
 }
 

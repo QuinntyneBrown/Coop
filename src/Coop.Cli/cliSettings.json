@@ -1,1 +1,1 @@
-{"RootNamespace":"Coop","Namespace":"Coop.Cli","Domain":"Coop.Domain","Api":"Coop.Api","Core":"Coop.Core","EntityIdDataType":"Guid"}
+{"RootNamespace":"Coop","Namespace":"Coop.Cli","Domain":"Coop.Domain","Api":"Coop.Api","Core":"Coop.Domain","EntityIdDataType":"Guid"}

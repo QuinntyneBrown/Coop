@@ -1,4 +1,4 @@
-﻿using Coop.Api.Features;
+﻿using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
