@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateThemeValidator : AbstractValidator<CreateThemeRequest>
 {
-    public Validator()
+    public CreateThemeValidator()
     {
         RuleFor(request => request.Theme).NotNull();
         RuleFor(request => request.Theme).SetValidator(new ThemeValidator());

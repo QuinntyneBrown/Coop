@@ -16,16 +16,16 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class AuthenticateValidator : AbstractValidator<AuthenticateRequest>
 {
-    public Validator()
+    public AuthenticateValidator()
     {
         RuleFor(x => x.Username).NotNull();
         RuleFor(x => x.Password).NotNull();
     }
 }
-public record Request(string Username, string Password) : IRequest<AuthenticateResponse>;
-public record Response(string AccessToken, Guid UserId);
+public record AuthenticateRequest(string Username, string Password) : IRequest<AuthenticateResponse>;
+public record AuthenticateResponse(string AccessToken, Guid UserId);
 public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, AuthenticateResponse>
 {
     private readonly ICoopDbContext _context;
@@ -51,7 +51,7 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, Authenti
                 throw new Exception();
             if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                 throw new Exception();
-            return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
+            return await _orchestrationHandler.Handle<AuthenticateResponse>(new BuildToken(user.Username), (tcs) => async message =>
             {
                 switch (message)
                 {

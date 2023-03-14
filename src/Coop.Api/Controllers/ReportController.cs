@@ -20,8 +20,8 @@ public class ReportController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetReportById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetReportById.Response>> GetById([FromRoute] GetReportById.Request request)
+    [ProducesResponseType(typeof(GetReportByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetReportByIdResponse>> GetById([FromRoute] GetReportByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Report == null)
@@ -33,38 +33,38 @@ public class ReportController
     [HttpGet(Name = "GetReportsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetReports.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetReports.Response>> Get()
-        => await _mediator.Send(new GetReports.Request());
+    [ProducesResponseType(typeof(GetReportsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetReportsResponse>> Get()
+        => await _mediator.Send(new GetReportsRequest());
     [HttpGet("published", Name = "GetPublishedReportsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPublishedReports.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPublishedReports.Response>> GetPublished()
-        => await _mediator.Send(new GetPublishedReports.Request());
+    [ProducesResponseType(typeof(GetPublishedReportsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPublishedReportsResponse>> GetPublished()
+        => await _mediator.Send(new GetPublishedReportsRequest());
     [HttpPost(Name = "CreateReportRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateReport.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateReport.Response>> Create([FromBody] CreateReport.Request request)
+    [ProducesResponseType(typeof(CreateReportResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateReportResponse>> Create([FromBody] CreateReportRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetReportsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetReportsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetReportsPage.Response>> Page([FromRoute] GetReportsPage.Request request)
+    [ProducesResponseType(typeof(GetReportsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetReportsPageResponse>> Page([FromRoute] GetReportsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateReportRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateReport.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateReport.Response>> Update([FromBody] UpdateReport.Request request)
+    [ProducesResponseType(typeof(UpdateReportResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateReportResponse>> Update([FromBody] UpdateReportRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{reportId}", Name = "RemoveReportRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveReport.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveReport.Response>> Remove([FromRoute] RemoveReport.Request request)
+    [ProducesResponseType(typeof(RemoveReportResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveReportResponse>> Remove([FromRoute] RemoveReportRequest request)
         => await _mediator.Send(request);
 }
 

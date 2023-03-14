@@ -16,9 +16,9 @@ using Coop.Domain.Enums;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateSupportMessageValidator : AbstractValidator<CreateSupportMessageRequest>
 {
-    public Validator()
+    public CreateSupportMessageValidator()
     {
         RuleFor(request => request.Message).NotNull();
         RuleFor(request => request.Message).SetValidator(new MessageValidator());

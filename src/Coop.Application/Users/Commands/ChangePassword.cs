@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
 {
-    public Validator()
+    public ChangePasswordValidator()
     {
         RuleFor(x => x.OldPassword).NotEmpty();
         RuleFor(x => x.NewPassword)

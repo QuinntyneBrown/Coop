@@ -28,8 +28,8 @@ public class MaintenanceRequestController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestById.Response>> GetById([FromRoute] GetMaintenanceRequestById.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestByIdResponse>> GetById([FromRoute] GetMaintenanceRequestByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.MaintenanceRequest == null)
@@ -41,88 +41,88 @@ public class MaintenanceRequestController
     [HttpGet("my", Name = "GetCurrentUserMaintenanceRequestsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCurrentUserMaintenanceRequests.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetCurrentUserMaintenanceRequests.Response>> GetByCurrentProfile()
+    [ProducesResponseType(typeof(GetCurrentUserMaintenanceRequestsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetCurrentUserMaintenanceRequestsResponse>> GetByCurrentProfile()
     {
-        return await _mediator.Send(new GetCurrentUserMaintenanceRequests.Request());
+        return await _mediator.Send(new GetCurrentUserMaintenanceRequestsRequest());
     }
     [HttpGet(Name = "GetMaintenanceRequestsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequests.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequests.Response>> Get()
+    [ProducesResponseType(typeof(GetMaintenanceRequestsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestsResponse>> Get()
     {
-        return await _mediator.Send(new GetMaintenanceRequests.Request());
+        return await _mediator.Send(new GetMaintenanceRequestsRequest());
     }
     [HttpGet("page/{pageSize}/{index}", Name = "GetMaintenanceRequestsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestsPage.Response>> Page([FromRoute] GetMaintenanceRequestsPage.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestsPageResponse>> Page([FromRoute] GetMaintenanceRequestsPageRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpDelete("{maintenanceRequestId}", Name = "RemoveMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveMaintenanceRequest.Response>> Remove([FromRoute] RemoveMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(RemoveMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveMaintenanceRequestResponse>> Remove([FromRoute] RemoveMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPost(Name = "CreateMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateMaintenanceRequest.Response>> Create([FromBody] CreateMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(CreateMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateMaintenanceRequestResponse>> Create([FromBody] CreateMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut(Name = "UpdateMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMaintenanceRequest.Response>> Update([FromBody] UpdateMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(UpdateMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMaintenanceRequestResponse>> Update([FromBody] UpdateMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut("description", Name = "UpdateMaintenanceRequestDescriptionRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMaintenanceRequestDescription.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMaintenanceRequestDescription.Response>> Update([FromBody] UpdateMaintenanceRequestDescription.Request request)
+    [ProducesResponseType(typeof(UpdateMaintenanceRequestDescriptionResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMaintenanceRequestDescriptionResponse>> Update([FromBody] UpdateMaintenanceRequestDescriptionRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut("work-details", Name = "UpdateMaintenanceRequestWorkDetailsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMaintenanceRequestWorkDetails.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMaintenanceRequestWorkDetails.Response>> UpdateWorkDetails([FromBody] UpdateMaintenanceRequestWorkDetails.Request request)
+    [ProducesResponseType(typeof(UpdateMaintenanceRequestWorkDetailsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMaintenanceRequestWorkDetailsResponse>> UpdateWorkDetails([FromBody] UpdateMaintenanceRequestWorkDetailsRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut("start", Name = "StartMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(StartMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<StartMaintenanceRequest.Response>> Start([FromBody] StartMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(StartMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<StartMaintenanceRequestResponse>> Start([FromBody] StartMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut("receive", Name = "ReceiveMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(ReceiveMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<ReceiveMaintenanceRequest.Response>> Receive([FromBody] ReceiveMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(ReceiveMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<ReceiveMaintenanceRequestResponse>> Receive([FromBody] ReceiveMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }
     [HttpPut("complete", Name = "CompleteMaintenanceRequestRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CompleteMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CompleteMaintenanceRequest.Response>> Complete([FromBody] CompleteMaintenanceRequest.Request request)
+    [ProducesResponseType(typeof(CompleteMaintenanceRequestResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CompleteMaintenanceRequestResponse>> Complete([FromBody] CompleteMaintenanceRequestRequest request)
     {
         return await _mediator.Send(request);
     }

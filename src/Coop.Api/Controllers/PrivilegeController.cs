@@ -20,8 +20,8 @@ public class PrivilegeController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPrivilegeById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPrivilegeById.Response>> GetById([FromRoute] GetPrivilegeById.Request request)
+    [ProducesResponseType(typeof(GetPrivilegeByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPrivilegeByIdResponse>> GetById([FromRoute] GetPrivilegeByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Privilege == null)
@@ -33,32 +33,32 @@ public class PrivilegeController
     [HttpGet(Name = "GetPrivilegesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPrivileges.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPrivileges.Response>> Get()
-        => await _mediator.Send(new GetPrivileges.Request());
+    [ProducesResponseType(typeof(GetPrivilegesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPrivilegesResponse>> Get()
+        => await _mediator.Send(new GetPrivilegesRequest());
     [HttpPost(Name = "CreatePrivilegeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreatePrivilege.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreatePrivilege.Response>> Create([FromBody] CreatePrivilege.Request request)
+    [ProducesResponseType(typeof(CreatePrivilegeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreatePrivilegeResponse>> Create([FromBody] CreatePrivilegeRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetPrivilegesPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPrivilegesPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPrivilegesPage.Response>> Page([FromRoute] GetPrivilegesPage.Request request)
+    [ProducesResponseType(typeof(GetPrivilegesPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPrivilegesPageResponse>> Page([FromRoute] GetPrivilegesPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdatePrivilegeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdatePrivilege.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdatePrivilege.Response>> Update([FromBody] UpdatePrivilege.Request request)
+    [ProducesResponseType(typeof(UpdatePrivilegeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdatePrivilegeResponse>> Update([FromBody] UpdatePrivilegeRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{privilegeId}", Name = "RemovePrivilegeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemovePrivilege.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemovePrivilege.Response>> Remove([FromRoute] RemovePrivilege.Request request)
+    [ProducesResponseType(typeof(RemovePrivilegeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemovePrivilegeResponse>> Remove([FromRoute] RemovePrivilegeRequest request)
         => await _mediator.Send(request);
 }
 

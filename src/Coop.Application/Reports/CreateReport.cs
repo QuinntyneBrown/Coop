@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateReportValidator : AbstractValidator<CreateReportRequest>
 {
-    public Validator()
+    public CreateReportValidator()
     {
     }
 }

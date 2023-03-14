@@ -20,8 +20,8 @@ public class DocumentController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDocumentById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetDocumentById.Response>> GetById([FromRoute] GetDocumentById.Request request)
+    [ProducesResponseType(typeof(GetDocumentByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetDocumentByIdResponse>> GetById([FromRoute] GetDocumentByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Document == null)
@@ -33,32 +33,32 @@ public class DocumentController
     [HttpGet(Name = "GetDocumentsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDocuments.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetDocuments.Response>> Get()
-        => await _mediator.Send(new GetDocuments.Request());
+    [ProducesResponseType(typeof(GetDocumentsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetDocumentsResponse>> Get()
+        => await _mediator.Send(new GetDocumentsRequest());
     [HttpPost(Name = "CreateDocumentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateDocument.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateDocument.Response>> Create([FromBody] CreateDocument.Request request)
+    [ProducesResponseType(typeof(CreateDocumentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateDocumentResponse>> Create([FromBody] CreateDocumentRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetDocumentsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDocumentsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetDocumentsPage.Response>> Page([FromRoute] GetDocumentsPage.Request request)
+    [ProducesResponseType(typeof(GetDocumentsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetDocumentsPageResponse>> Page([FromRoute] GetDocumentsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateDocumentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateDocument.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateDocument.Response>> Update([FromBody] UpdateDocument.Request request)
+    [ProducesResponseType(typeof(UpdateDocumentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateDocumentResponse>> Update([FromBody] UpdateDocumentRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{documentId}", Name = "RemoveDocumentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveDocument.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveDocument.Response>> Remove([FromRoute] RemoveDocument.Request request)
+    [ProducesResponseType(typeof(RemoveDocumentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveDocumentResponse>> Remove([FromRoute] RemoveDocumentRequest request)
         => await _mediator.Send(request);
 }
 

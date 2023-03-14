@@ -12,9 +12,9 @@ using System;
 
 namespace Coop.Application.Features.Users;
 
-public class Validator : AbstractValidator<Request>
+public class UpdatePasswordValidator : AbstractValidator<UpdatePasswordRequest>
 {
-    public Validator()
+    public UpdatePasswordValidator()
     {
         RuleFor(x => x.Password)
             .NotNull()

@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.JsonContents;
 
-public class Validator : AbstractValidator<Request>
+public class CreateJsonContentValidator : AbstractValidator<CreateJsonContentRequest>
 {
-    public Validator()
+    public CreateJsonContentValidator()
     {
         RuleFor(request => request.JsonContent).NotNull();
         RuleFor(request => request.JsonContent).SetValidator(new JsonContentValidator());

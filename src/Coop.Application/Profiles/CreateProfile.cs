@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateProfileValidator : AbstractValidator<CreateProfileRequest>
 {
-    public Validator()
+    public CreateProfileValidator()
     {
         RuleFor(x => x.Firstname).NotEmpty();
         RuleFor(x => x.Lastname).NotEmpty();
@@ -47,7 +47,7 @@ public class CreateProfileRequest : IRequest<CreateProfileResponse>
 }
 public class CreateProfileResponse : ResponseBase
 {
-    public Response(Profile profile)
+    public CreateProfileResponse(Profile profile)
     {
         Profile = new()
         {
@@ -76,7 +76,7 @@ public class CreateProfileHandler : IRequestHandler<CreateProfileRequest, Create
         Guid userId = default;
         string invitationTokenType = default;
         var startWith = new ValidateInvitationToken(request.InvitationToken);
-        return await _orchestrationHandler.Handle<Response>(startWith, (ctx) => async message =>
+        return await _orchestrationHandler.Handle<CreateProfileResponse>(startWith, (ctx) => async message =>
         {
             switch (message)
             {

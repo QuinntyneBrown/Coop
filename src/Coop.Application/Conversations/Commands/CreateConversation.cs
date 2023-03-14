@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateConversationValidator : AbstractValidator<CreateConversationRequest>
 {
-    public Validator()
+    public CreateConversationValidator()
     {
         RuleFor(request => request.Conversation).NotNull();
         RuleFor(request => request.Conversation).SetValidator(new ConversationValidator());

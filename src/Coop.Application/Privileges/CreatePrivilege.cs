@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreatePrivilegeValidator : AbstractValidator<CreatePrivilegeRequest>
 {
-    public Validator()
+    public CreatePrivilegeValidator()
     {
         RuleFor(request => request.Privilege).NotNull();
         RuleFor(request => request.Privilege).SetValidator(new PrivilegeValidator());

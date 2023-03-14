@@ -14,9 +14,9 @@ using Coop.Domain;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateMaintenanceRequestCommentValidator : AbstractValidator<CreateMaintenanceRequestCommentRequest>
 {
-    public Validator()
+    public CreateMaintenanceRequestCommentValidator()
     {
         RuleFor(request => request.MaintenanceRequestComment).NotNull();
         RuleFor(request => request.MaintenanceRequestComment).SetValidator(new MaintenanceRequestCommentValidator());

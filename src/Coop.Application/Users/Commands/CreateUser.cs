@@ -13,9 +13,9 @@ using static Coop.Domain.Constants;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {
-    public Validator()
+    public CreateUserValidator()
     {
         RuleFor(request => request.User).NotNull();
         RuleFor(request => request.User).SetValidator(new UserValidator());

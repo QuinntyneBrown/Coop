@@ -20,8 +20,8 @@ public class NoticeController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNoticeById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetNoticeById.Response>> GetById([FromRoute] GetNoticeById.Request request)
+    [ProducesResponseType(typeof(GetNoticeByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetNoticeByIdResponse>> GetById([FromRoute] GetNoticeByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Notice == null)
@@ -33,38 +33,38 @@ public class NoticeController
     [HttpGet(Name = "GetNoticesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNotices.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetNotices.Response>> Get()
-        => await _mediator.Send(new GetNotices.Request());
+    [ProducesResponseType(typeof(GetNoticesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetNoticesResponse>> Get()
+        => await _mediator.Send(new GetNoticesRequest());
     [HttpGet("published", Name = "GetPublishedNoticesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPublishedNotices.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPublishedNotices.Response>> GetPublished()
-        => await _mediator.Send(new GetPublishedNotices.Request());
+    [ProducesResponseType(typeof(GetPublishedNoticesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPublishedNoticesResponse>> GetPublished()
+        => await _mediator.Send(new GetPublishedNoticesRequest());
     [HttpPost(Name = "CreateNoticeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateNotice.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateNotice.Response>> Create([FromBody] CreateNotice.Request request)
+    [ProducesResponseType(typeof(CreateNoticeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateNoticeResponse>> Create([FromBody] CreateNoticeRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetNoticesPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNoticesPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetNoticesPage.Response>> Page([FromRoute] GetNoticesPage.Request request)
+    [ProducesResponseType(typeof(GetNoticesPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetNoticesPageResponse>> Page([FromRoute] GetNoticesPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateNoticeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateNotice.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateNotice.Response>> Update([FromBody] UpdateNotice.Request request)
+    [ProducesResponseType(typeof(UpdateNoticeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateNoticeResponse>> Update([FromBody] UpdateNoticeRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{noticeId}", Name = "RemoveNoticeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveNotice.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveNotice.Response>> Remove([FromRoute] RemoveNotice.Request request)
+    [ProducesResponseType(typeof(RemoveNoticeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveNoticeResponse>> Remove([FromRoute] RemoveNoticeRequest request)
         => await _mediator.Send(request);
 }
 

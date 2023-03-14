@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateMaintenanceRequestValidator : AbstractValidator<CreateMaintenanceRequestRequest>
 {
-    public Validator()
+    public CreateMaintenanceRequestValidator()
     {
     }
 }

@@ -20,8 +20,8 @@ public class ConversationController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetConversationById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetConversationById.Response>> GetById([FromRoute] GetConversationById.Request request)
+    [ProducesResponseType(typeof(GetConversationByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetConversationByIdResponse>> GetById([FromRoute] GetConversationByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Conversation == null)
@@ -33,32 +33,32 @@ public class ConversationController
     [HttpGet(Name = "GetConversationsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetConversations.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetConversations.Response>> Get()
-        => await _mediator.Send(new GetConversations.Request());
+    [ProducesResponseType(typeof(GetConversationsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetConversationsResponse>> Get()
+        => await _mediator.Send(new GetConversationsRequest());
     [HttpPost(Name = "CreateConversationRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateConversation.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateConversation.Response>> Create([FromBody] CreateConversation.Request request)
+    [ProducesResponseType(typeof(CreateConversationResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateConversationResponse>> Create([FromBody] CreateConversationRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetConversationsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetConversationsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetConversationsPage.Response>> Page([FromRoute] GetConversationsPage.Request request)
+    [ProducesResponseType(typeof(GetConversationsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetConversationsPageResponse>> Page([FromRoute] GetConversationsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateConversationRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateConversation.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateConversation.Response>> Update([FromBody] UpdateConversation.Request request)
+    [ProducesResponseType(typeof(UpdateConversationResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateConversationResponse>> Update([FromBody] UpdateConversationRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{conversationId}", Name = "RemoveConversationRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveConversation.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveConversation.Response>> Remove([FromRoute] RemoveConversation.Request request)
+    [ProducesResponseType(typeof(RemoveConversationResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveConversationResponse>> Remove([FromRoute] RemoveConversationRequest request)
         => await _mediator.Send(request);
 }
 

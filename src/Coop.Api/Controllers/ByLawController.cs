@@ -20,8 +20,8 @@ public class ByLawController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetByLawById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetByLawById.Response>> GetById([FromRoute] GetByLawById.Request request)
+    [ProducesResponseType(typeof(GetByLawByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetByLawByIdResponse>> GetById([FromRoute] GetByLawByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.ByLaw == null)
@@ -33,38 +33,38 @@ public class ByLawController
     [HttpGet(Name = "GetByLawsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetByLaws.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetByLaws.Response>> Get()
-        => await _mediator.Send(new GetByLaws.Request());
+    [ProducesResponseType(typeof(GetByLawsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetByLawsResponse>> Get()
+        => await _mediator.Send(new GetByLawsRequest());
     [HttpGet("published", Name = "GetPublishedByLawsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPublishedByLaws.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetPublishedByLaws.Response>> GetPublished()
-        => await _mediator.Send(new GetPublishedByLaws.Request());
+    [ProducesResponseType(typeof(GetPublishedByLawsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetPublishedByLawsResponse>> GetPublished()
+        => await _mediator.Send(new GetPublishedByLawsRequest());
     [HttpPost(Name = "CreateByLawRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateByLaw.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateByLaw.Response>> Create([FromBody] CreateByLaw.Request request)
+    [ProducesResponseType(typeof(CreateByLawResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateByLawResponse>> Create([FromBody] CreateByLawRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetByLawsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetByLawsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetByLawsPage.Response>> Page([FromRoute] GetByLawsPage.Request request)
+    [ProducesResponseType(typeof(GetByLawsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetByLawsPageResponse>> Page([FromRoute] GetByLawsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateByLawRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateByLaw.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateByLaw.Response>> Update([FromBody] UpdateByLaw.Request request)
+    [ProducesResponseType(typeof(UpdateByLawResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateByLawResponse>> Update([FromBody] UpdateByLawRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{byLawId}", Name = "RemoveByLawRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveByLaw.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveByLaw.Response>> Remove([FromRoute] RemoveByLaw.Request request)
+    [ProducesResponseType(typeof(RemoveByLawResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveByLawResponse>> Remove([FromRoute] RemoveByLawRequest request)
         => await _mediator.Send(request);
 }
 

@@ -12,9 +12,9 @@ using Coop.Domain.Entities;
 
 namespace Coop.Application.BoardMembers;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateBoardMemberValidator : AbstractValidator<UpdateBoardMemberRequest>
 {
-    public Validator()
+    public UpdateBoardMemberValidator()
     {
         RuleFor(request => request.BoardMember).NotNull();
         RuleFor(request => request.BoardMember).SetValidator(new BoardMemberValidator());

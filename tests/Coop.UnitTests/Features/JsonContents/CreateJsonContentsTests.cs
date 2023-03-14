@@ -10,11 +10,14 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
-using static Coop.Application.JsonContents.CreateJsonContent;
+
 
 namespace Coop.UnitTests.Features.JsonContents;
 
-using Request = Coop.Application.JsonContents.CreateJsonContent.Request;
+using Request = Coop.Application.JsonContents.CreateJsonContentRequest;
+
+using Handler = Coop.Application.JsonContents.CreateJsonContentHandler;
+
 public class CreateJsonContentsTests : TestBase
 {
     [Fact]

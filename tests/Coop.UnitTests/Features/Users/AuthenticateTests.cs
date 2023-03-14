@@ -10,7 +10,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
-using static Coop.Application.Features.Authenticate;
 
 namespace Coop.UnitTests;
 
@@ -30,10 +29,10 @@ public class AuthenticateTests : TestBase
             .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
             .AddMediatR(typeof(Startup))
             .AddHttpContextAccessor()
-            .AddSingleton<Handler>()
+            .AddSingleton<AuthenticateHandler>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<Handler>();
-        var result = await sut.Handle(new Authenticate.Request("", ""), default);
+        var sut = container.GetRequiredService<AuthenticateHandler>();
+        var result = await sut.Handle(new AuthenticateRequest("", ""), default);
         Assert.Null(result.AccessToken);
     }
 }

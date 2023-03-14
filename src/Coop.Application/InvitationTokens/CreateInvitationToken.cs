@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateInvitationTokenValidator : AbstractValidator<CreateInvitationTokenRequest>
 {
-    public Validator()
+    public CreateInvitationTokenValidator()
     {
         RuleFor(request => request.InvitationToken).NotNull();
         RuleFor(request => request.InvitationToken).SetValidator(new InvitationTokenValidator());

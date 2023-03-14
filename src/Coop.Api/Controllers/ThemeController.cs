@@ -20,8 +20,8 @@ public class ThemeController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetThemeById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetThemeById.Response>> GetById([FromRoute] GetThemeById.Request request)
+    [ProducesResponseType(typeof(GetThemeByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetThemeByIdResponse>> GetById([FromRoute] GetThemeByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Theme == null)
@@ -34,8 +34,8 @@ public class ThemeController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDefaultTheme.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetDefaultTheme.Response>> GetDefault([FromRoute] GetDefaultTheme.Request request)
+    [ProducesResponseType(typeof(GetDefaultThemeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetDefaultThemeResponse>> GetDefault([FromRoute] GetDefaultThemeRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Theme == null)
@@ -48,8 +48,8 @@ public class ThemeController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetThemeByProfileId.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetThemeByProfileId.Response>> GetByProfileId([FromRoute] GetThemeByProfileId.Request request)
+    [ProducesResponseType(typeof(GetThemeByProfileIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetThemeByProfileIdResponse>> GetByProfileId([FromRoute] GetThemeByProfileIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Theme == null)
@@ -61,32 +61,32 @@ public class ThemeController
     [HttpGet(Name = "GetThemesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetThemes.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetThemes.Response>> Get()
-        => await _mediator.Send(new GetThemes.Request());
+    [ProducesResponseType(typeof(GetThemesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetThemesResponse>> Get()
+        => await _mediator.Send(new GetThemesRequest());
     [HttpPost(Name = "CreateThemeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateTheme.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateTheme.Response>> Create([FromBody] CreateTheme.Request request)
+    [ProducesResponseType(typeof(CreateThemeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateThemeResponse>> Create([FromBody] CreateThemeRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetThemesPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetThemesPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetThemesPage.Response>> Page([FromRoute] GetThemesPage.Request request)
+    [ProducesResponseType(typeof(GetThemesPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetThemesPageResponse>> Page([FromRoute] GetThemesPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateThemeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateTheme.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateTheme.Response>> Update([FromBody] UpdateTheme.Request request)
+    [ProducesResponseType(typeof(UpdateThemeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateThemeResponse>> Update([FromBody] UpdateThemeRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{themeId}", Name = "RemoveThemeRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveTheme.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveTheme.Response>> Remove([FromRoute] RemoveTheme.Request request)
+    [ProducesResponseType(typeof(RemoveThemeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveThemeResponse>> Remove([FromRoute] RemoveThemeRequest request)
         => await _mediator.Send(request);
 }
 

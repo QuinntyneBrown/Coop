@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateDigitalAssetValidator : AbstractValidator<UpdateDigitalAssetRequest>
 {
-    public Validator()
+    public UpdateDigitalAssetValidator()
     {
         RuleFor(request => request.DigitalAsset).NotNull();
         RuleFor(request => request.DigitalAsset).SetValidator(new DigitalAssetValidator());

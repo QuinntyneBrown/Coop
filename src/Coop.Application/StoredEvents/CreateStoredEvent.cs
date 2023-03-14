@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateStoredEventValidator : AbstractValidator<CreateStoredEventRequest>
 {
-    public Validator()
+    public CreateStoredEventValidator()
     {
         RuleFor(request => request.StoredEvent).NotNull();
         RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());

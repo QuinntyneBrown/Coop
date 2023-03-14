@@ -20,8 +20,8 @@ public class JsonContentController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetJsonContentById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetJsonContentById.Response>> GetById([FromRoute] GetJsonContentById.Request request)
+    [ProducesResponseType(typeof(GetJsonContentByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetJsonContentByIdResponse>> GetById([FromRoute] GetJsonContentByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.JsonContent == null)
@@ -34,8 +34,8 @@ public class JsonContentController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetJsonContentByName.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetJsonContentByName.Response>> GetByName([FromRoute] GetJsonContentByName.Request request)
+    [ProducesResponseType(typeof(GetJsonContentByNameResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetJsonContentByNameResponse>> GetByName([FromRoute] GetJsonContentByNameRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.JsonContent == null)
@@ -47,32 +47,32 @@ public class JsonContentController
     [HttpGet(Name = "GetJsonContentsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetJsonContents.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetJsonContents.Response>> Get()
-        => await _mediator.Send(new GetJsonContents.Request());
+    [ProducesResponseType(typeof(GetJsonContentsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetJsonContentsResponse>> Get()
+        => await _mediator.Send(new GetJsonContentsRequest());
     [HttpPost(Name = "CreateJsonContentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateJsonContent.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateJsonContent.Response>> Create([FromBody] CreateJsonContent.Request request)
+    [ProducesResponseType(typeof(CreateJsonContentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateJsonContentResponse>> Create([FromBody] CreateJsonContentRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetJsonContentsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetJsonContentsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetJsonContentsPage.Response>> Page([FromRoute] GetJsonContentsPage.Request request)
+    [ProducesResponseType(typeof(GetJsonContentsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetJsonContentsPageResponse>> Page([FromRoute] GetJsonContentsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateJsonContentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateJsonContent.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateJsonContent.Response>> Update([FromBody] UpdateJsonContent.Request request)
+    [ProducesResponseType(typeof(UpdateJsonContentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateJsonContentResponse>> Update([FromBody] UpdateJsonContentRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{jsonContentId}", Name = "RemoveJsonContentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveJsonContent.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveJsonContent.Response>> Remove([FromRoute] RemoveJsonContent.Request request)
+    [ProducesResponseType(typeof(RemoveJsonContentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveJsonContentResponse>> Remove([FromRoute] RemoveJsonContentRequest request)
         => await _mediator.Send(request);
 }
 

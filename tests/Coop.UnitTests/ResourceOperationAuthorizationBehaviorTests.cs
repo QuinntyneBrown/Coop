@@ -2,9 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Coop.Domain;
+using Coop.Domain.Entities;
 using Coop.Domain.Enums;
-using Coop.Domain.Entities;
-using Coop.Domain.Entities;
 using Coop.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,28 +22,38 @@ public class ResourceOperationAuthorizationBehaviorTests : TestBase
     {
         async Task<ResponseBase> Noop()
         {
-            return await Task.FromResult(new ResourceOperationAuthorizationBehaviorTestsResponseBase());
+            return await Task.FromResult(new ResponseBase());
         }
+        
         var expectedUserName = "Quinntyne";
+        
         var context = await CoopDbContextFactory.Create();
+        
         var user = new User(expectedUserName, "password", new PasswordHasher());
+        
         context.Users.Add(user);
+        
         await context.SaveChangesAsync(default);
+        
         var container = _serviceCollection
             .AddAuthorizationService()
             .AddHttpContextAccessor(user)
-            .AddSingleton<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>()
+            .AddSingleton<ResourceOperationAuthorizationBehavior<ResourceOperationAuthorizationBehaviorTestsRequest, ResponseBase>>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>();
-        var result = await sut.Handle(new Request(), default(CancellationToken), Noop);
+        
+        var sut = container.GetRequiredService<ResourceOperationAuthorizationBehavior<ResourceOperationAuthorizationBehaviorTestsRequest, ResponseBase>>();
+        
+        var result = await sut.Handle(new ResourceOperationAuthorizationBehaviorTestsRequest(), default(CancellationToken), Noop);
+        
         Assert.Single(result.Errors);
     }
+
     [Fact]
     public async Task ShouldExcuteNoop()
     {
         static async Task<ResponseBase> Noop()
         {
-            return await Task.FromResult(new ResourceOperationAuthorizationBehaviorTestsResponseBase());
+            return await Task.FromResult(new ResponseBase());
         }
         var expectedUserName = "Quinntyne";
         var context = await CoopDbContextFactory.Create();
@@ -58,10 +67,10 @@ public class ResourceOperationAuthorizationBehaviorTests : TestBase
         var container = _serviceCollection
             .AddAuthorizationService()
             .AddHttpContextAccessor(user)
-            .AddSingleton<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>()
+            .AddSingleton<ResourceOperationAuthorizationBehavior<ResourceOperationAuthorizationBehaviorTestsRequest, ResponseBase>>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<ResourceOperationAuthorizationBehavior<Request, ResponseBase>>();
-        var result = await sut.Handle(new Request(), default(CancellationToken), Noop);
+        var sut = container.GetRequiredService<ResourceOperationAuthorizationBehavior<ResourceOperationAuthorizationBehaviorTestsRequest, ResponseBase>>();
+        var result = await sut.Handle(new ResourceOperationAuthorizationBehaviorTestsRequest(), default(CancellationToken), Noop);
         Assert.Empty(result.Errors);
     }
 }

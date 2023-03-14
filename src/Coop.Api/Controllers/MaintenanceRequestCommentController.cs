@@ -20,8 +20,8 @@ public class MaintenanceRequestCommentController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestCommentById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestCommentById.Response>> GetById([FromRoute] GetMaintenanceRequestCommentById.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestCommentByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestCommentByIdResponse>> GetById([FromRoute] GetMaintenanceRequestCommentByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.MaintenanceRequestComment == null)
@@ -33,32 +33,32 @@ public class MaintenanceRequestCommentController
     [HttpGet(Name = "GetMaintenanceRequestCommentsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestComments.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestComments.Response>> Get()
-        => await _mediator.Send(new GetMaintenanceRequestComments.Request());
+    [ProducesResponseType(typeof(GetMaintenanceRequestCommentsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestCommentsResponse>> Get()
+        => await _mediator.Send(new GetMaintenanceRequestCommentsRequest());
     [HttpPost(Name = "CreateMaintenanceRequestCommentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateMaintenanceRequestComment.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateMaintenanceRequestComment.Response>> Create([FromBody] CreateMaintenanceRequestComment.Request request)
+    [ProducesResponseType(typeof(CreateMaintenanceRequestCommentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateMaintenanceRequestCommentResponse>> Create([FromBody] CreateMaintenanceRequestCommentRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetMaintenanceRequestCommentsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestCommentsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestCommentsPage.Response>> Page([FromRoute] GetMaintenanceRequestCommentsPage.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestCommentsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestCommentsPageResponse>> Page([FromRoute] GetMaintenanceRequestCommentsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateMaintenanceRequestCommentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMaintenanceRequestComment.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMaintenanceRequestComment.Response>> Update([FromBody] UpdateMaintenanceRequestComment.Request request)
+    [ProducesResponseType(typeof(UpdateMaintenanceRequestCommentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMaintenanceRequestCommentResponse>> Update([FromBody] UpdateMaintenanceRequestCommentRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{maintenanceRequestCommentId}", Name = "RemoveMaintenanceRequestCommentRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveMaintenanceRequestComment.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveMaintenanceRequestComment.Response>> Remove([FromRoute] RemoveMaintenanceRequestComment.Request request)
+    [ProducesResponseType(typeof(RemoveMaintenanceRequestCommentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveMaintenanceRequestCommentResponse>> Remove([FromRoute] RemoveMaintenanceRequestCommentRequest request)
         => await _mediator.Send(request);
 }
 

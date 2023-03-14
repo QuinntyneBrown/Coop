@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateDocumentValidator : AbstractValidator<CreateDocumentRequest>
 {
-    public Validator()
+    public CreateDocumentValidator()
     {
         RuleFor(request => request.Document).NotNull();
         RuleFor(request => request.Document).SetValidator(new DocumentValidator());

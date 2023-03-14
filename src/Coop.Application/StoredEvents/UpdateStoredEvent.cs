@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateStoredEventValidator : AbstractValidator<UpdateStoredEventRequest>
 {
-    public Validator()
+    public UpdateStoredEventValidator()
     {
         RuleFor(request => request.StoredEvent).NotNull();
         RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());

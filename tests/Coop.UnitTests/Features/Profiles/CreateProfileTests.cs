@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Coop.Api;
+using Coop.Application.Features;
 using Coop.Domain;
 using Coop.Domain.Enums;
 using Coop.Domain.Interfaces;
@@ -10,11 +11,10 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
-using static Coop.Application.Features.CreateProfile;
 
 namespace Coop.UnitTests.Features;
 
-using Request = Coop.Application.Features.CreateProfile.Request;
+using Request = Coop.Application.Features.CreateProfileRequest;
 public class CreateProfileTests : TestBase
 {
     [Fact]
@@ -25,7 +25,7 @@ public class CreateProfileTests : TestBase
         var container = _serviceCollection
             .AddSingleton(context)
             .AddSingleton(configuration)
-            .AddSingleton<Handler>()
+            .AddSingleton<CreateProfileHandler>()
             .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddMediatR(typeof(Startup))
             .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
@@ -34,7 +34,7 @@ public class CreateProfileTests : TestBase
             .AddSingleton<INotificationService, NotificationService>()
             .BuildServiceProvider();
         await context.SaveChangesAsync(default);
-        var sut = container.GetRequiredService<Handler>();
+        var sut = container.GetRequiredService<CreateProfileHandler>();
         var result = await sut.Handle(new Request
         {
             Password = "Default",

@@ -22,8 +22,8 @@ public class InvitationTokenController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetInvitationTokenById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetInvitationTokenById.Response>> GetById([FromRoute] GetInvitationTokenById.Request request)
+    [ProducesResponseType(typeof(GetInvitationTokenByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetInvitationTokenByIdResponse>> GetById([FromRoute] GetInvitationTokenByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.InvitationToken == null)
@@ -35,32 +35,32 @@ public class InvitationTokenController
     [HttpGet(Name = "GetInvitationTokensRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetInvitationTokens.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetInvitationTokens.Response>> Get()
-        => await _mediator.Send(new GetInvitationTokens.Request());
+    [ProducesResponseType(typeof(GetInvitationTokensResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetInvitationTokensResponse>> Get()
+        => await _mediator.Send(new GetInvitationTokensRequest());
     [HttpPost(Name = "CreateInvitationTokenRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateInvitationToken.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateInvitationToken.Response>> Create([FromBody] CreateInvitationToken.Request request)
+    [ProducesResponseType(typeof(CreateInvitationTokenResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateInvitationTokenResponse>> Create([FromBody] CreateInvitationTokenRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetInvitationTokensPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetInvitationTokensPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetInvitationTokensPage.Response>> Page([FromRoute] GetInvitationTokensPage.Request request)
+    [ProducesResponseType(typeof(GetInvitationTokensPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetInvitationTokensPageResponse>> Page([FromRoute] GetInvitationTokensPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateInvitationTokenRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateInvitationTokenExpiry.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateInvitationTokenExpiry.Response>> Update([FromBody] UpdateInvitationTokenExpiry.Request request)
+    [ProducesResponseType(typeof(UpdateInvitationTokenExpiryResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateInvitationTokenExpiryResponse>> Update([FromBody] UpdateInvitationTokenExpiryRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{invitationTokenId}", Name = "RemoveInvitationTokenRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveInvitationToken.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveInvitationToken.Response>> Remove([FromRoute] RemoveInvitationToken.Request request)
+    [ProducesResponseType(typeof(RemoveInvitationTokenResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveInvitationTokenResponse>> Remove([FromRoute] RemoveInvitationTokenRequest request)
         => await _mediator.Send(request);
 }
 

@@ -12,9 +12,9 @@ using Coop.Domain.Entities;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateThemeValidator : AbstractValidator<UpdateThemeRequest>
 {
-    public Validator()
+    public UpdateThemeValidator()
     {
         RuleFor(request => request.Theme).NotNull();
         RuleFor(request => request.Theme).SetValidator(new ThemeValidator());

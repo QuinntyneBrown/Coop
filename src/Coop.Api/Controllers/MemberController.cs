@@ -20,8 +20,8 @@ public class MemberController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMemberById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMemberById.Response>> GetById([FromRoute] GetMemberById.Request request)
+    [ProducesResponseType(typeof(GetMemberByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMemberByIdResponse>> GetById([FromRoute] GetMemberByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Member == null)
@@ -33,26 +33,26 @@ public class MemberController
     [HttpGet(Name = "GetMembersRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMembers.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMembers.Response>> Get()
-        => await _mediator.Send(new GetMembers.Request());
+    [ProducesResponseType(typeof(GetMembersResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMembersResponse>> Get()
+        => await _mediator.Send(new GetMembersRequest());
     [HttpGet("page/{pageSize}/{index}", Name = "GetMembersPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMembersPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMembersPage.Response>> Page([FromRoute] GetMembersPage.Request request)
+    [ProducesResponseType(typeof(GetMembersPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMembersPageResponse>> Page([FromRoute] GetMembersPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateMemberRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMember.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMember.Response>> Update([FromBody] UpdateMember.Request request)
+    [ProducesResponseType(typeof(UpdateMemberResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMemberResponse>> Update([FromBody] UpdateMemberRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{memberId}", Name = "RemoveMemberRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveMember.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveMember.Response>> Remove([FromRoute] RemoveMember.Request request)
+    [ProducesResponseType(typeof(RemoveMemberResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveMemberResponse>> Remove([FromRoute] RemoveMemberRequest request)
         => await _mediator.Send(request);
 }
 

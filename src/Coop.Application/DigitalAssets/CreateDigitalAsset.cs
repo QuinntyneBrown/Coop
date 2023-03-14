@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateDigitalAssetValidator : AbstractValidator<CreateDigitalAssetRequest>
 {
-    public Validator()
+    public CreateDigitalAssetValidator()
     {
         RuleFor(request => request.DigitalAsset).NotNull();
         RuleFor(request => request.DigitalAsset).SetValidator(new DigitalAssetValidator());

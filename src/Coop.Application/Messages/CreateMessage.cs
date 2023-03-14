@@ -11,9 +11,9 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateMessageValidator : AbstractValidator<CreateMessageRequest>
 {
-    public Validator()
+    public CreateMessageValidator()
     {
         RuleFor(request => request.Message).NotNull();
         RuleFor(request => request.Message).SetValidator(new MessageValidator());

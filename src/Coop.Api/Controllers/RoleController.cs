@@ -20,8 +20,8 @@ public class RoleController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetRoleById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetRoleById.Response>> GetById([FromRoute] GetRoleById.Request request)
+    [ProducesResponseType(typeof(GetRoleByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetRoleByIdResponse>> GetById([FromRoute] GetRoleByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.Role == null)
@@ -33,32 +33,32 @@ public class RoleController
     [HttpGet(Name = "GetRolesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetRoles.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetRoles.Response>> Get()
-        => await _mediator.Send(new GetRoles.Request());
+    [ProducesResponseType(typeof(GetRolesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetRolesResponse>> Get()
+        => await _mediator.Send(new GetRolesRequest());
     [HttpPost(Name = "CreateRoleRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateRole.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateRole.Response>> Create([FromBody] CreateRole.Request request)
+    [ProducesResponseType(typeof(CreateRoleResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateRoleResponse>> Create([FromBody] CreateRoleRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetRolesPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetRolesPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetRolesPage.Response>> Page([FromRoute] GetRolesPage.Request request)
+    [ProducesResponseType(typeof(GetRolesPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetRolesPageResponse>> Page([FromRoute] GetRolesPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateRoleRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateRole.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateRole.Response>> Update([FromBody] UpdateRole.Request request)
+    [ProducesResponseType(typeof(UpdateRoleResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateRoleResponse>> Update([FromBody] UpdateRoleRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{roleId}", Name = "RemoveRoleRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveRole.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveRole.Response>> Remove([FromRoute] RemoveRole.Request request)
+    [ProducesResponseType(typeof(RemoveRoleResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveRoleResponse>> Remove([FromRoute] RemoveRoleRequest request)
         => await _mediator.Send(request);
 }
 

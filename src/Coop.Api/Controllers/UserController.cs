@@ -28,8 +28,8 @@ public class UserController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUserById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetUserById.Response>> GetById([FromRoute] GetUserById.Request request)
+    [ProducesResponseType(typeof(GetUserByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetUserByIdResponse>> GetById([FromRoute] GetUserByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.User == null)
@@ -41,56 +41,56 @@ public class UserController
     [HttpGet(Name = "GetUsersRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUsers.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetUsers.Response>> Get()
-        => await _mediator.Send(new GetUsers.Request());
+    [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetUsersResponse>> Get()
+        => await _mediator.Send(new GetUsersRequest());
     [AllowAnonymous]
     [HttpGet("exists/{username}", Name = "UsernameExistsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UsernameExists.Response>> UsernameExists([FromRoute] UsernameExists.Request request)
+    [ProducesResponseType(typeof(CurrentUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UsernameExistsResponse>> UsernameExists([FromRoute] UsernameExistsRequest request)
         => await _mediator.Send(request);
     [AllowAnonymous]
     [HttpGet("current", Name = "GetCurrentUserRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CurrentUser.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CurrentUser.Response>> GetCurrent()
+    [ProducesResponseType(typeof(CurrentUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CurrentUserResponse>> GetCurrent()
     {
-        return await _mediator.Send(new CurrentUser.Request());
+        return await _mediator.Send(new CurrentUserRequest());
     }
     [HttpPost(Name = "CreateUserRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateUser.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateUser.Response>> Create([FromBody] CreateUser.Request request)
+    [ProducesResponseType(typeof(CreateUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateUserResponse>> Create([FromBody] CreateUserRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetUsersPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUsersPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetUsersPage.Response>> Page([FromRoute] GetUsersPage.Request request)
+    [ProducesResponseType(typeof(GetUsersPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetUsersPageResponse>> Page([FromRoute] GetUsersPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateUserRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateUser.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateUser.Response>> Update([FromBody] UpdateUser.Request request)
+    [ProducesResponseType(typeof(UpdateUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateUserResponse>> Update([FromBody] UpdateUserRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{userId}", Name = "RemoveUserRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveUser.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveUser.Response>> Remove([FromRoute] RemoveUser.Request request)
+    [ProducesResponseType(typeof(RemoveUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveUserResponse>> Remove([FromRoute] RemoveUserRequest request)
         => await _mediator.Send(request);
     [AllowAnonymous]
     [HttpPost("token", Name = "AuthenticateRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(Authenticate.Response), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(AuthenticateResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    public async Task<ActionResult<Authenticate.Response>> Authenticate([FromBody] Authenticate.Request request)
+    public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request)
         => await _mediator.Send(request);
 }
 

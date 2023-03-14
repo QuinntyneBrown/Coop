@@ -20,8 +20,8 @@ public class MaintenanceRequestDigitalAssetController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssetById.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestDigitalAssetById.Response>> GetById([FromRoute] GetMaintenanceRequestDigitalAssetById.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssetByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestDigitalAssetByIdResponse>> GetById([FromRoute] GetMaintenanceRequestDigitalAssetByIdRequest request)
     {
         var response = await _mediator.Send(request);
         if (response.MaintenanceRequestDigitalAsset == null)
@@ -33,32 +33,32 @@ public class MaintenanceRequestDigitalAssetController
     [HttpGet(Name = "GetMaintenanceRequestDigitalAssetsRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssets.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestDigitalAssets.Response>> Get()
-        => await _mediator.Send(new GetMaintenanceRequestDigitalAssets.Request());
+    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssetsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestDigitalAssetsResponse>> Get()
+        => await _mediator.Send(new GetMaintenanceRequestDigitalAssetsRequest());
     [HttpPost(Name = "CreateMaintenanceRequestDigitalAssetRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateMaintenanceRequestDigitalAsset.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateMaintenanceRequestDigitalAsset.Response>> Create([FromBody] CreateMaintenanceRequestDigitalAsset.Request request)
+    [ProducesResponseType(typeof(CreateMaintenanceRequestDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateMaintenanceRequestDigitalAssetResponse>> Create([FromBody] CreateMaintenanceRequestDigitalAssetRequest request)
         => await _mediator.Send(request);
     [HttpGet("page/{pageSize}/{index}", Name = "GetMaintenanceRequestDigitalAssetsPageRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssetsPage.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetMaintenanceRequestDigitalAssetsPage.Response>> Page([FromRoute] GetMaintenanceRequestDigitalAssetsPage.Request request)
+    [ProducesResponseType(typeof(GetMaintenanceRequestDigitalAssetsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetMaintenanceRequestDigitalAssetsPageResponse>> Page([FromRoute] GetMaintenanceRequestDigitalAssetsPageRequest request)
         => await _mediator.Send(request);
     [HttpPut(Name = "UpdateMaintenanceRequestDigitalAssetRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateMaintenanceRequestDigitalAsset.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateMaintenanceRequestDigitalAsset.Response>> Update([FromBody] UpdateMaintenanceRequestDigitalAsset.Request request)
+    [ProducesResponseType(typeof(UpdateMaintenanceRequestDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateMaintenanceRequestDigitalAssetResponse>> Update([FromBody] UpdateMaintenanceRequestDigitalAssetRequest request)
         => await _mediator.Send(request);
     [HttpDelete("{maintenanceRequestDigitalAssetId}", Name = "RemoveMaintenanceRequestDigitalAssetRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(RemoveMaintenanceRequestDigitalAsset.Response), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveMaintenanceRequestDigitalAsset.Response>> Remove([FromRoute] RemoveMaintenanceRequestDigitalAsset.Request request)
+    [ProducesResponseType(typeof(RemoveMaintenanceRequestDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveMaintenanceRequestDigitalAssetResponse>> Remove([FromRoute] RemoveMaintenanceRequestDigitalAssetRequest request)
         => await _mediator.Send(request);
 }
 

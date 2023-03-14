@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Coop.Application.Features;
 using Coop.Domain.Interfaces;
 using Coop.Infrastructure.Data;
 using Coop.Testing;
@@ -8,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
-using static Coop.Application.Features.CurrentUser;
 
 namespace Coop.UnitTests;
 
@@ -21,12 +21,13 @@ public class CurrentUserTests : TestBase
         var container = _serviceCollection
             .AddSingleton(context)
             .AddHttpContextAccessor()
-            .AddSingleton<Handler>()
+            .AddSingleton<CurrentUserHandler>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<Handler>();
+        var sut = container.GetRequiredService<CurrentUserHandler>();
         var result = await sut.Handle(new(), default);
         Assert.Null(result.User);
     }
+
     [Fact]
     public async Task ShouldGetUser()
     {
@@ -41,9 +42,9 @@ public class CurrentUserTests : TestBase
         var container = _serviceCollection
             .AddSingleton<ICoopDbContext>(context)
             .AddHttpContextAccessor(user)
-            .AddSingleton<Handler>()
+            .AddSingleton<CurrentUserHandler>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<Handler>();
+        var sut = container.GetRequiredService<CurrentUserHandler>();
         var result = await sut.Handle(new(), default);
         Assert.Equal(expectedUserName, result.User.Username);
     }

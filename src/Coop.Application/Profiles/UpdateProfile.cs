@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateProfileValidator : AbstractValidator<UpdateProfileRequest>
 {
-    public Validator()
+    public UpdateProfileValidator()
     {
         RuleFor(request => request.Profile).NotNull();
         RuleFor(request => request.Profile).SetValidator(new ProfileValidator());

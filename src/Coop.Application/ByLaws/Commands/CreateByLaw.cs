@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class CreateByLawValidator : AbstractValidator<CreateByLawRequest>
 {
-    public Validator()
+    public CreateByLawValidator()
     {
     }
 }

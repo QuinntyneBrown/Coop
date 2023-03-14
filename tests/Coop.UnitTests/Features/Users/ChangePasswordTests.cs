@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
-using static Coop.Application.Features.ChangePassword;
+
 
 namespace Coop.UnitTests;
 
@@ -34,10 +34,10 @@ public class ChangePasswordTests : TestBase
             .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
             .AddMediatR(typeof(Startup))
             .AddHttpContextAccessor()
-            .AddSingleton<Handler>()
+            .AddSingleton<ChangePasswordHandler>()
             .BuildServiceProvider();
-        var sut = container.GetRequiredService<Handler>();
-        var result = await sut.Handle(new ChangePassword.Request
+        var sut = container.GetRequiredService<ChangePasswordHandler>();
+        var result = await sut.Handle(new ChangePasswordRequest
         {
         }, default);
         Assert.Null(result);

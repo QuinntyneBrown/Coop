@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
-public class Validator : AbstractValidator<Request>
+public class UpdateOnCallValidator : AbstractValidator<UpdateOnCallRequest>
 {
-    public Validator()
+    public UpdateOnCallValidator()
     {
         RuleFor(request => request.OnCall).NotNull();
         RuleFor(request => request.OnCall).SetValidator(new OnCallValidator());
