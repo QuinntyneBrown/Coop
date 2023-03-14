@@ -8,27 +8,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetThemeByProfileId
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid ProfileId { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public ThemeDto Theme { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 Theme = (await _context.Themes.SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId)).ToDto()
-             };
-         }
-     }
- }
+public class GetThemeByProfileIdRequest : IRequest<GetThemeByProfileIdResponse>
+{
+    public Guid ProfileId { get; set; }
+}
+public class GetThemeByProfileIdResponse : ResponseBase
+{
+    public ThemeDto Theme { get; set; }
+}
+public class GetThemeByProfileIdHandler : IRequestHandler<GetThemeByProfileIdRequest, GetThemeByProfileIdResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetThemeByProfileIdHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetThemeByProfileIdResponse> Handle(GetThemeByProfileIdRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            Theme = (await _context.Themes.SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId)).ToDto()
+        };
+    }
+}

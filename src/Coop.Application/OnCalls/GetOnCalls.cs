@@ -10,24 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetOnCalls
- {
-     public class Request : IRequest<Response> { }
-     public class Response : ResponseBase
-     {
-         public List<OnCallDto> OnCalls { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 OnCalls = await _context.OnCalls.Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetOnCallsRequest : IRequest<GetOnCallsResponse> { }
+public class GetOnCallsResponse : ResponseBase
+{
+    public List<OnCallDto> OnCalls { get; set; }
+}
+public class GetOnCallsHandler : IRequestHandler<GetOnCallsRequest, GetOnCallsResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetOnCallsHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetOnCallsResponse> Handle(GetOnCallsRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            OnCalls = await _context.OnCalls.Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

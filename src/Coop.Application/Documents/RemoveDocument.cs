@@ -9,31 +9,28 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
- public class RemoveDocument
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid DocumentId { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public DocumentDto Document { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var document = await _context.Documents.SingleAsync(x => x.DocumentId == request.DocumentId);
-             document.Apply(new DeleteDocument());
-             _context.Documents.Remove(document);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new()
-             {
-                 Document = document.ToDto()
-             };
-         }
-     }
- }
+public class RemoveDocumentRequest : IRequest<RemoveDocumentResponse>
+{
+    public Guid DocumentId { get; set; }
+}
+public class RemoveDocumentResponse : ResponseBase
+{
+    public DocumentDto Document { get; set; }
+}
+public class RemoveDocumentHandler : IRequestHandler<RemoveDocumentRequest, RemoveDocumentResponse>
+{
+    private readonly ICoopDbContext _context;
+    public RemoveDocumentHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<RemoveDocumentResponse> Handle(RemoveDocumentRequest request, CancellationToken cancellationToken)
+    {
+        var document = await _context.Documents.SingleAsync(x => x.DocumentId == request.DocumentId);
+        document.Apply(new DeleteDocument());
+        _context.Documents.Remove(document);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new()
+        {
+            Document = document.ToDto()
+        };
+    }
+}

@@ -5,6 +5,6 @@ using System.Threading.Tasks;
 
 namespace Coop.Domain.Interfaces;
 
- public interface IAggregate
- {
- }
+public interface IAggregate
+{
+}

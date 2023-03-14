@@ -10,24 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetDigitalAssets
- {
-     public class Request : IRequest<Response> { }
-     public class Response : ResponseBase
-     {
-         public List<DigitalAssetDto> DigitalAssets { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 DigitalAssets = await _context.DigitalAssets.Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetDigitalAssetsRequest : IRequest<GetDigitalAssetsResponse> { }
+public class GetDigitalAssetsResponse : ResponseBase
+{
+    public List<DigitalAssetDto> DigitalAssets { get; set; }
+}
+public class GetDigitalAssetsHandler : IRequestHandler<GetDigitalAssetsRequest, GetDigitalAssetsResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetDigitalAssetsHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetDigitalAssetsResponse> Handle(GetDigitalAssetsRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            DigitalAssets = await _context.DigitalAssets.Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

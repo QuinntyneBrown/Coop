@@ -2,4 +2,4 @@ using FluentValidation;
 
 namespace Coop.Application.Features;
 
- public class InvitationTokenValidator : AbstractValidator<InvitationTokenDto> { }
+public class InvitationTokenValidator : AbstractValidator<InvitationTokenDto> { }

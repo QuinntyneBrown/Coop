@@ -8,27 +8,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetInvitationTokenById
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid InvitationTokenId { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public InvitationTokenDto InvitationToken { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 InvitationToken = (await _context.InvitationTokens.SingleOrDefaultAsync(x => x.InvitationTokenId == request.InvitationTokenId)).ToDto()
-             };
-         }
-     }
- }
+public class GetInvitationTokenByIdRequest : IRequest<GetInvitationTokenByIdResponse>
+{
+    public Guid InvitationTokenId { get; set; }
+}
+public class GetInvitationTokenByIdResponse : ResponseBase
+{
+    public InvitationTokenDto InvitationToken { get; set; }
+}
+public class GetInvitationTokenByIdHandler : IRequestHandler<GetInvitationTokenByIdRequest, GetInvitationTokenByIdResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetInvitationTokenByIdHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetInvitationTokenByIdResponse> Handle(GetInvitationTokenByIdRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            InvitationToken = (await _context.InvitationTokens.SingleOrDefaultAsync(x => x.InvitationTokenId == request.InvitationTokenId)).ToDto()
+        };
+    }
+}

@@ -12,35 +12,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetStaffMembersPage
- {
-     public class Request : IRequest<Response>
-     {
-         public int PageSize { get; set; }
-         public int Index { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public int Length { get; set; }
-         public List<StaffMemberDto> Entities { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var query = from staffMember in _context.StaffMembers
-                         select staffMember;
-             var length = await _context.StaffMembers.CountAsync();
-             var staffMembers = await query.Page(request.Index, request.PageSize)
-                 .Select(x => x.ToDto()).ToListAsync();
-             return new()
-             {
-                 Length = length,
-                 Entities = staffMembers
-             };
-         }
-     }
- }
+public class GetStaffMembersPageRequest : IRequest<GetStaffMembersPageResponse>
+{
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
+public class GetStaffMembersPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<StaffMemberDto> Entities { get; set; }
+}
+public class GetStaffMembersPageHandler : IRequestHandler<GetStaffMembersPageRequest, GetStaffMembersPageResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetStaffMembersPageHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetStaffMembersPageResponse> Handle(GetStaffMembersPageRequest request, CancellationToken cancellationToken)
+    {
+        var query = from staffMember in _context.StaffMembers
+                    select staffMember;
+        var length = await _context.StaffMembers.CountAsync();
+        var staffMembers = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
+        return new()
+        {
+            Length = length,
+            Entities = staffMembers
+        };
+    }
+}

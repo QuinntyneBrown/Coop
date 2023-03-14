@@ -10,44 +10,41 @@ using Microsoft.AspNetCore.Http;
 
 namespace Coop.Application.Features;
 
- public class CreateByLaw
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public Guid DigitalAssetId { get; set; }
-         public string Name { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public ByLawDto ByLaw { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         private readonly IHttpContextAccessor _httpContextAccessor;
-         public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
-         {
-             _context = context;
-             _httpContextAccessor = httpContextAccessor;
-         }
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
-             var user = await _context.Users.FindAsync(userId);
-             var @event = new Domain.DomainEvents.CreateDocument(Guid.NewGuid(), request.Name, request.DigitalAssetId, user.CurrentProfileId);
-             var byLaw = new ByLaw(@event);
-             _context.ByLaws.Add(byLaw);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new()
-             {
-                 ByLaw = byLaw.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+    }
+}
+public class CreateByLawRequest : IRequest<CreateByLawResponse>
+{
+    public Guid DigitalAssetId { get; set; }
+    public string Name { get; set; }
+}
+public class CreateByLawResponse : ResponseBase
+{
+    public ByLawDto ByLaw { get; set; }
+}
+public class CreateByLawHandler : IRequestHandler<CreateByLawRequest, CreateByLawResponse>
+{
+    private readonly ICoopDbContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public CreateByLawHandler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
+    {
+        _context = context;
+        _httpContextAccessor = httpContextAccessor;
+    }
+    public async Task<CreateByLawResponse> Handle(CreateByLawRequest request, CancellationToken cancellationToken)
+    {
+        var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
+        var user = await _context.Users.FindAsync(userId);
+        var @event = new Domain.DomainEvents.CreateDocument(Guid.NewGuid(), request.Name, request.DigitalAssetId, user.CurrentProfileId);
+        var byLaw = new ByLaw(@event);
+        _context.ByLaws.Add(byLaw);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new()
+        {
+            ByLaw = byLaw.ToDto()
+        };
+    }
+}

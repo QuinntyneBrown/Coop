@@ -12,38 +12,35 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
- public class CurrentUser
- {
-     public class Request : IRequest<Response> { }
-     public class Response
-     {
-         public UserDto User { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         private readonly IHttpContextAccessor _httpContextAccessor;
-         public Handler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
-         {
-             _context = context;
-             _httpContextAccessor = httpContextAccessor;
-         }
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-             {
-                 return new ();
-             }
-             var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
-             User user = _context.Users
-                 .Include(x => x.Profiles)
-                 .Include(x => x.Roles)
-                 .ThenInclude(x => x.Privileges)
-                 .Single(x => x.UserId == userId);
-             return new()
-             {
-                 User = user.ToDto()
-             };
-         }
-     }
- }
+public class CurrentUserRequest : IRequest<CurrentUserResponse> { }
+public class CurrentUserResponse
+{
+    public UserDto User { get; set; }
+}
+public class CurrentUserHandler : IRequestHandler<CurrentUserRequest, CurrentUserResponse>
+{
+    private readonly ICoopDbContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public CurrentUserHandler(ICoopDbContext context, IHttpContextAccessor httpContextAccessor)
+    {
+        _context = context;
+        _httpContextAccessor = httpContextAccessor;
+    }
+    public async Task<CurrentUserResponse> Handle(CurrentUserRequest request, CancellationToken cancellationToken)
+    {
+        if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+        {
+            return new();
+        }
+        var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
+        User user = _context.Users
+            .Include(x => x.Profiles)
+            .Include(x => x.Roles)
+            .ThenInclude(x => x.Privileges)
+            .Single(x => x.UserId == userId);
+        return new()
+        {
+            User = user.ToDto()
+        };
+    }
+}

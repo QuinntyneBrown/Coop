@@ -1,6 +1,6 @@
 
 namespace Coop.Testing;
 
- public static class TestingConstants
- {
- }
+public static class TestingConstants
+{
+}

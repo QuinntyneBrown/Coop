@@ -1,6 +1,6 @@
 
 namespace Coop.Domain.DomainEvents;
 
- public class CreatedMaintenanceRequest : BaseDomainEvent
- {
- }
+public class CreatedMaintenanceRequest : BaseDomainEvent
+{
+}

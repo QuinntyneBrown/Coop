@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Coop.IntegrationTests;
 
- class BoardMemberControllerTests
- {
- }
+class BoardMemberControllerTests
+{
+}

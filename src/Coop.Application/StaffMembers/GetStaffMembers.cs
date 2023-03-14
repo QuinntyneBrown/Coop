@@ -10,24 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetStaffMembers
- {
-     public class Request : IRequest<Response> { }
-     public class Response : ResponseBase
-     {
-         public List<StaffMemberDto> StaffMembers { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 StaffMembers = await _context.StaffMembers.Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetStaffMembersRequest : IRequest<GetStaffMembersResponse> { }
+public class GetStaffMembersResponse : ResponseBase
+{
+    public List<StaffMemberDto> StaffMembers { get; set; }
+}
+public class GetStaffMembersHandler : IRequestHandler<GetStaffMembersRequest, GetStaffMembersResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetStaffMembersHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetStaffMembersResponse> Handle(GetStaffMembersRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            StaffMembers = await _context.StaffMembers.Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

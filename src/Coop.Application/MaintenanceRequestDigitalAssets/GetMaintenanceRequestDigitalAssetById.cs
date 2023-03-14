@@ -8,27 +8,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetMaintenanceRequestDigitalAssetById
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid MaintenanceRequestDigitalAssetId { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public MaintenanceRequestDigitalAssetDto MaintenanceRequestDigitalAsset { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 MaintenanceRequestDigitalAsset = (await _context.MaintenanceRequestDigitalAssets.SingleOrDefaultAsync(x => x.MaintenanceRequestDigitalAssetId == request.MaintenanceRequestDigitalAssetId)).ToDto()
-             };
-         }
-     }
- }
+public class GetMaintenanceRequestDigitalAssetByIdRequest : IRequest<GetMaintenanceRequestDigitalAssetByIdResponse>
+{
+    public Guid MaintenanceRequestDigitalAssetId { get; set; }
+}
+public class GetMaintenanceRequestDigitalAssetByIdResponse : ResponseBase
+{
+    public MaintenanceRequestDigitalAssetDto MaintenanceRequestDigitalAsset { get; set; }
+}
+public class GetMaintenanceRequestDigitalAssetByIdHandler : IRequestHandler<GetMaintenanceRequestDigitalAssetByIdRequest, GetMaintenanceRequestDigitalAssetByIdResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetMaintenanceRequestDigitalAssetByIdHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetMaintenanceRequestDigitalAssetByIdResponse> Handle(GetMaintenanceRequestDigitalAssetByIdRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            MaintenanceRequestDigitalAsset = (await _context.MaintenanceRequestDigitalAssets.SingleOrDefaultAsync(x => x.MaintenanceRequestDigitalAssetId == request.MaintenanceRequestDigitalAssetId)).ToDto()
+        };
+    }
+}

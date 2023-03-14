@@ -8,28 +8,25 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
- public class GetPublishedNotices
- {
-     public class Request : IRequest<Response> { }
-     public class Response
-     {
-         public List<NoticeDto> Notices { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-         {
-             _context = context;
-         }
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 Notices = await _context.Notices
-                 .Where(x => x.Published.HasValue)
-                 .Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetPublishedNoticesRequest : IRequest<GetPublishedNoticesResponse> { }
+public class GetPublishedNoticesResponse
+{
+    public List<NoticeDto> Notices { get; set; }
+}
+public class GetPublishedNoticesHandler : IRequestHandler<GetPublishedNoticesRequest, GetPublishedNoticesResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetPublishedNoticesHandler(ICoopDbContext context)
+    {
+        _context = context;
+    }
+    public async Task<GetPublishedNoticesResponse> Handle(GetPublishedNoticesRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            Notices = await _context.Notices
+            .Where(x => x.Published.HasValue)
+            .Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

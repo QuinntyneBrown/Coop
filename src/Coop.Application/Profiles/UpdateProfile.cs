@@ -8,37 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class UpdateProfile
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.Profile).NotNull();
-             RuleFor(request => request.Profile).SetValidator(new ProfileValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public ProfileDto Profile { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public ProfileDto Profile { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.Profile.ProfileId);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new Response()
-             {
-                 Profile = profile.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.Profile).NotNull();
+        RuleFor(request => request.Profile).SetValidator(new ProfileValidator());
+    }
+}
+public class UpdateProfileRequest : IRequest<UpdateProfileResponse>
+{
+    public ProfileDto Profile { get; set; }
+}
+public class UpdateProfileResponse : ResponseBase
+{
+    public ProfileDto Profile { get; set; }
+}
+public class UpdateProfileHandler : IRequestHandler<UpdateProfileRequest, UpdateProfileResponse>
+{
+    private readonly ICoopDbContext _context;
+    public UpdateProfileHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<UpdateProfileResponse> Handle(UpdateProfileRequest request, CancellationToken cancellationToken)
+    {
+        var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.Profile.ProfileId);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new UpdateProfileResponse()
+        {
+            Profile = profile.ToDto()
+        };
+    }
+}

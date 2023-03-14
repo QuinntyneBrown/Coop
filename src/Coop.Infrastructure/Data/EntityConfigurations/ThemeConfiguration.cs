@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coop.Infrastructure.Data;
 
- public class ThemeConfiguration : IEntityTypeConfiguration<Theme>
- {
-     public void Configure(EntityTypeBuilder<Theme> builder)
-     {
-         builder.Property(e => e.CssCustomProperties).HasJsonValueConversion();
-     }
- }
+public class ThemeConfiguration : IEntityTypeConfiguration<Theme>
+{
+    public void Configure(EntityTypeBuilder<Theme> builder)
+    {
+        builder.Property(e => e.CssCustomProperties).HasJsonValueConversion();
+    }
+}

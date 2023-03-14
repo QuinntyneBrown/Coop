@@ -2,4 +2,4 @@ using FluentValidation;
 
 namespace Coop.Application.Features;
 
- public class MemberValidator : AbstractValidator<MemberDto> { }
+public class MemberValidator : AbstractValidator<MemberDto> { }

@@ -8,27 +8,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetConversationById
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid ConversationId { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public ConversationDto Conversation { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 Conversation = (await _context.Conversations.SingleOrDefaultAsync(x => x.ConversationId == request.ConversationId)).ToDto()
-             };
-         }
-     }
- }
+public class GetConversationByIdRequest : IRequest<GetConversationByIdResponse>
+{
+    public Guid ConversationId { get; set; }
+}
+public class GetConversationByIdResponse : ResponseBase
+{
+    public ConversationDto Conversation { get; set; }
+}
+public class GetConversationByIdHandler : IRequestHandler<GetConversationByIdRequest, GetConversationByIdResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetConversationByIdHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetConversationByIdResponse> Handle(GetConversationByIdRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            Conversation = (await _context.Conversations.SingleOrDefaultAsync(x => x.ConversationId == request.ConversationId)).ToDto()
+        };
+    }
+}

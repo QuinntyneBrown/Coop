@@ -8,37 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class UpdateMaintenanceRequestComment
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.MaintenanceRequestComment).NotNull();
-             RuleFor(request => request.MaintenanceRequestComment).SetValidator(new MaintenanceRequestCommentValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public MaintenanceRequestCommentDto MaintenanceRequestComment { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public MaintenanceRequestCommentDto MaintenanceRequestComment { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var maintenanceRequestComment = await _context.MaintenanceRequestComments.SingleAsync(x => x.MaintenanceRequestCommentId == request.MaintenanceRequestComment.MaintenanceRequestCommentId);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new Response()
-             {
-                 MaintenanceRequestComment = maintenanceRequestComment.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.MaintenanceRequestComment).NotNull();
+        RuleFor(request => request.MaintenanceRequestComment).SetValidator(new MaintenanceRequestCommentValidator());
+    }
+}
+public class UpdateMaintenanceRequestCommentRequest : IRequest<UpdateMaintenanceRequestCommentResponse>
+{
+    public MaintenanceRequestCommentDto MaintenanceRequestComment { get; set; }
+}
+public class UpdateMaintenanceRequestCommentResponse : ResponseBase
+{
+    public MaintenanceRequestCommentDto MaintenanceRequestComment { get; set; }
+}
+public class UpdateMaintenanceRequestCommentHandler : IRequestHandler<UpdateMaintenanceRequestCommentRequest, UpdateMaintenanceRequestCommentResponse>
+{
+    private readonly ICoopDbContext _context;
+    public UpdateMaintenanceRequestCommentHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<UpdateMaintenanceRequestCommentResponse> Handle(UpdateMaintenanceRequestCommentRequest request, CancellationToken cancellationToken)
+    {
+        var maintenanceRequestComment = await _context.MaintenanceRequestComments.SingleAsync(x => x.MaintenanceRequestCommentId == request.MaintenanceRequestComment.MaintenanceRequestCommentId);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new UpdateMaintenanceRequestCommentResponse()
+        {
+            MaintenanceRequestComment = maintenanceRequestComment.ToDto()
+        };
+    }
+}

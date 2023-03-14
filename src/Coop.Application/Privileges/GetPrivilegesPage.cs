@@ -12,35 +12,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetPrivilegesPage
- {
-     public class Request : IRequest<Response>
-     {
-         public int PageSize { get; set; }
-         public int Index { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public int Length { get; set; }
-         public List<PrivilegeDto> Entities { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var query = from privilege in _context.Privileges
-                         select privilege;
-             var length = await _context.Privileges.CountAsync();
-             var privileges = await query.Page(request.Index, request.PageSize)
-                 .Select(x => x.ToDto()).ToListAsync();
-             return new()
-             {
-                 Length = length,
-                 Entities = privileges
-             };
-         }
-     }
- }
+public class GetPrivilegesPageRequest : IRequest<GetPrivilegesPageResponse>
+{
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
+public class GetPrivilegesPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<PrivilegeDto> Entities { get; set; }
+}
+public class GetPrivilegesPageHandler : IRequestHandler<GetPrivilegesPageRequest, GetPrivilegesPageResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetPrivilegesPageHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetPrivilegesPageResponse> Handle(GetPrivilegesPageRequest request, CancellationToken cancellationToken)
+    {
+        var query = from privilege in _context.Privileges
+                    select privilege;
+        var length = await _context.Privileges.CountAsync();
+        var privileges = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
+        return new()
+        {
+            Length = length,
+            Entities = privileges
+        };
+    }
+}

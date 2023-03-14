@@ -10,24 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetProfiles
- {
-     public class Request : IRequest<Response> { }
-     public class Response : ResponseBase
-     {
-         public List<ProfileDto> Profiles { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 Profiles = await _context.Profiles.Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetProfilesRequest : IRequest<GetProfilesResponse> { }
+public class GetProfilesResponse : ResponseBase
+{
+    public List<ProfileDto> Profiles { get; set; }
+}
+public class GetProfilesHandler : IRequestHandler<GetProfilesRequest, GetProfilesResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetProfilesHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetProfilesResponse> Handle(GetProfilesRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            Profiles = await _context.Profiles.Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

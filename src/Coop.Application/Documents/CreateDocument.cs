@@ -8,38 +8,35 @@ using System.Threading.Tasks;
 
 namespace Coop.Application.Features;
 
- public class CreateDocument
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.Document).NotNull();
-             RuleFor(request => request.Document).SetValidator(new DocumentValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public DocumentDto Document { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public DocumentDto Document { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var document = new Document(default);
-             _context.Documents.Add(document);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new Response()
-             {
-                 Document = document.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.Document).NotNull();
+        RuleFor(request => request.Document).SetValidator(new DocumentValidator());
+    }
+}
+public class CreateDocumentRequest : IRequest<CreateDocumentResponse>
+{
+    public DocumentDto Document { get; set; }
+}
+public class CreateDocumentResponse : ResponseBase
+{
+    public DocumentDto Document { get; set; }
+}
+public class CreateDocumentHandler : IRequestHandler<CreateDocumentRequest, CreateDocumentResponse>
+{
+    private readonly ICoopDbContext _context;
+    public CreateDocumentHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<CreateDocumentResponse> Handle(CreateDocumentRequest request, CancellationToken cancellationToken)
+    {
+        var document = new Document(default);
+        _context.Documents.Add(document);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new CreateDocumentResponse()
+        {
+            Document = document.ToDto()
+        };
+    }
+}

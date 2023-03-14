@@ -8,37 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class UpdateByLaw
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.ByLaw).NotNull();
-             RuleFor(request => request.ByLaw).SetValidator(new ByLawValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public ByLawDto ByLaw { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public ByLawDto ByLaw { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var byLaw = await _context.ByLaws.SingleAsync(x => x.ByLawId == request.ByLaw.ByLawId);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new Response()
-             {
-                 ByLaw = byLaw.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.ByLaw).NotNull();
+        RuleFor(request => request.ByLaw).SetValidator(new ByLawValidator());
+    }
+}
+public class UpdateByLawRequest : IRequest<UpdateByLawResponse>
+{
+    public ByLawDto ByLaw { get; set; }
+}
+public class UpdateByLawResponse : ResponseBase
+{
+    public ByLawDto ByLaw { get; set; }
+}
+public class UpdateByLawHandler : IRequestHandler<UpdateByLawRequest, UpdateByLawResponse>
+{
+    private readonly ICoopDbContext _context;
+    public UpdateByLawHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<UpdateByLawResponse> Handle(UpdateByLawRequest request, CancellationToken cancellationToken)
+    {
+        var byLaw = await _context.ByLaws.SingleAsync(x => x.ByLawId == request.ByLaw.ByLawId);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new UpdateByLawResponse()
+        {
+            ByLaw = byLaw.ToDto()
+        };
+    }
+}

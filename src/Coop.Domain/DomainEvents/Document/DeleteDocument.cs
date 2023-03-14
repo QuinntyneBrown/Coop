@@ -1,6 +1,6 @@
 
 namespace Coop.Domain.DomainEvents.Document;
 
- public class DeleteDocument : BaseDomainEvent
- {
- }
+public class DeleteDocument : BaseDomainEvent
+{
+}

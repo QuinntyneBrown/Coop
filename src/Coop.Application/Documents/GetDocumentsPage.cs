@@ -12,35 +12,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetDocumentsPage
- {
-     public class Request : IRequest<Response>
-     {
-         public int PageSize { get; set; }
-         public int Index { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public int Length { get; set; }
-         public List<DocumentDto> Entities { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var query = from document in _context.Documents
-                         select document;
-             var length = await _context.Documents.CountAsync();
-             var documents = await query.Page(request.Index, request.PageSize)
-                 .Select(x => x.ToDto()).ToListAsync();
-             return new()
-             {
-                 Length = length,
-                 Entities = documents
-             };
-         }
-     }
- }
+public class GetDocumentsPageRequest : IRequest<GetDocumentsPageResponse>
+{
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
+public class GetDocumentsPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<DocumentDto> Entities { get; set; }
+}
+public class GetDocumentsPageHandler : IRequestHandler<GetDocumentsPageRequest, GetDocumentsPageResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetDocumentsPageHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetDocumentsPageResponse> Handle(GetDocumentsPageRequest request, CancellationToken cancellationToken)
+    {
+        var query = from document in _context.Documents
+                    select document;
+        var length = await _context.Documents.CountAsync();
+        var documents = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
+        return new()
+        {
+            Length = length,
+            Entities = documents
+        };
+    }
+}

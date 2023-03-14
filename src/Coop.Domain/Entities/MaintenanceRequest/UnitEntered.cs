@@ -1,9 +1,9 @@
 
 namespace Coop.Domain.Entities;
 
- public enum UnitEntered
- {
-     MemberAtHome,
-     MemberNotAtHome,
-     EmergencyEntryRequired
- }
+public enum UnitEntered
+{
+    MemberAtHome,
+    MemberNotAtHome,
+    EmergencyEntryRequired
+}

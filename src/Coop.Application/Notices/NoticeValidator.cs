@@ -2,4 +2,4 @@ using FluentValidation;
 
 namespace Coop.Application.Features;
 
- public class NoticeValidator : AbstractValidator<NoticeDto> { }
+public class NoticeValidator : AbstractValidator<NoticeDto> { }

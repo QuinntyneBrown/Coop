@@ -12,35 +12,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetMembersPage
- {
-     public class Request : IRequest<Response>
-     {
-         public int PageSize { get; set; }
-         public int Index { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public int Length { get; set; }
-         public List<MemberDto> Entities { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var query = from member in _context.Members
-                         select member;
-             var length = await _context.Members.CountAsync();
-             var members = await query.Page(request.Index, request.PageSize)
-                 .Select(x => x.ToDto()).ToListAsync();
-             return new()
-             {
-                 Length = length,
-                 Entities = members
-             };
-         }
-     }
- }
+public class GetMembersPageRequest : IRequest<GetMembersPageResponse>
+{
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
+public class GetMembersPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<MemberDto> Entities { get; set; }
+}
+public class GetMembersPageHandler : IRequestHandler<GetMembersPageRequest, GetMembersPageResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetMembersPageHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetMembersPageResponse> Handle(GetMembersPageRequest request, CancellationToken cancellationToken)
+    {
+        var query = from member in _context.Members
+                    select member;
+        var length = await _context.Members.CountAsync();
+        var members = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
+        return new()
+        {
+            Length = length,
+            Entities = members
+        };
+    }
+}

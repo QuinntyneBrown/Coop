@@ -10,24 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class GetByLaws
- {
-     public class Request : IRequest<Response> { }
-     public class Response : ResponseBase
-     {
-         public List<ByLawDto> ByLaws { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 ByLaws = await _context.ByLaws.Select(x => x.ToDto()).ToListAsync()
-             };
-         }
-     }
- }
+public class GetByLawsRequest : IRequest<GetByLawsResponse> { }
+public class GetByLawsResponse : ResponseBase
+{
+    public List<ByLawDto> ByLaws { get; set; }
+}
+public class GetByLawsHandler : IRequestHandler<GetByLawsRequest, GetByLawsResponse>
+{
+    private readonly ICoopDbContext _context;
+    public GetByLawsHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<GetByLawsResponse> Handle(GetByLawsRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            ByLaws = await _context.ByLaws.Select(x => x.ToDto()).ToListAsync()
+        };
+    }
+}

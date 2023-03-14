@@ -8,37 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Features;
 
- public class UpdatePrivilege
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.Privilege).NotNull();
-             RuleFor(request => request.Privilege).SetValidator(new PrivilegeValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public PrivilegeDto Privilege { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public PrivilegeDto Privilege { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var privilege = await _context.Privileges.SingleAsync(x => x.PrivilegeId == request.Privilege.PrivilegeId);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new()
-             {
-                 Privilege = privilege.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.Privilege).NotNull();
+        RuleFor(request => request.Privilege).SetValidator(new PrivilegeValidator());
+    }
+}
+public class UpdatePrivilegeRequest : IRequest<UpdatePrivilegeResponse>
+{
+    public PrivilegeDto Privilege { get; set; }
+}
+public class UpdatePrivilegeResponse : ResponseBase
+{
+    public PrivilegeDto Privilege { get; set; }
+}
+public class UpdatePrivilegeHandler : IRequestHandler<UpdatePrivilegeRequest, UpdatePrivilegeResponse>
+{
+    private readonly ICoopDbContext _context;
+    public UpdatePrivilegeHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<UpdatePrivilegeResponse> Handle(UpdatePrivilegeRequest request, CancellationToken cancellationToken)
+    {
+        var privilege = await _context.Privileges.SingleAsync(x => x.PrivilegeId == request.Privilege.PrivilegeId);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new()
+        {
+            Privilege = privilege.ToDto()
+        };
+    }
+}

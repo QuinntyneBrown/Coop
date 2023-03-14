@@ -8,38 +8,35 @@ using Coop.Domain.Interfaces;
 
 namespace Coop.Application.Features;
 
- public class CreateInvitationToken
- {
-     public class Validator : AbstractValidator<Request>
-     {
-         public Validator()
-         {
-             RuleFor(request => request.InvitationToken).NotNull();
-             RuleFor(request => request.InvitationToken).SetValidator(new InvitationTokenValidator());
-         }
-     }
-     public class Request : IRequest<Response>
-     {
-         public InvitationTokenDto InvitationToken { get; set; }
-     }
-     public class Response : ResponseBase
-     {
-         public InvitationTokenDto InvitationToken { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly ICoopDbContext _context;
-         public Handler(ICoopDbContext context)
-             => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var invitationToken = new InvitationToken(request.InvitationToken.Value, request.InvitationToken.Expiry);
-             _context.InvitationTokens.Add(invitationToken);
-             await _context.SaveChangesAsync(cancellationToken);
-             return new()
-             {
-                 InvitationToken = invitationToken.ToDto()
-             };
-         }
-     }
- }
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(request => request.InvitationToken).NotNull();
+        RuleFor(request => request.InvitationToken).SetValidator(new InvitationTokenValidator());
+    }
+}
+public class CreateInvitationTokenRequest : IRequest<CreateInvitationTokenResponse>
+{
+    public InvitationTokenDto InvitationToken { get; set; }
+}
+public class CreateInvitationTokenResponse : ResponseBase
+{
+    public InvitationTokenDto InvitationToken { get; set; }
+}
+public class CreateInvitationTokenHandler : IRequestHandler<CreateInvitationTokenRequest, CreateInvitationTokenResponse>
+{
+    private readonly ICoopDbContext _context;
+    public CreateInvitationTokenHandler(ICoopDbContext context)
+        => _context = context;
+    public async Task<CreateInvitationTokenResponse> Handle(CreateInvitationTokenRequest request, CancellationToken cancellationToken)
+    {
+        var invitationToken = new InvitationToken(request.InvitationToken.Value, request.InvitationToken.Expiry);
+        _context.InvitationTokens.Add(invitationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+        return new()
+        {
+            InvitationToken = invitationToken.ToDto()
+        };
+    }
+}
