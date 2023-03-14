@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -89,3 +92,4 @@ export class ProfileComponent implements OnDestroy {
     this._destroyed$.complete();
   }
 }
+

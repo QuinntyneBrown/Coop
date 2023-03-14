@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
@@ -29,3 +32,4 @@ public class ResourceOperationAuthorizationHandler : AuthorizationHandler<Operat
         await Task.CompletedTask;
     }
 }
+

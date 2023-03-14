@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using System.Net;
 using System.Threading.Tasks;
 using Coop.Application.Features;
@@ -58,3 +61,4 @@ public class PrivilegeController
     public async Task<ActionResult<RemovePrivilege.Response>> Remove([FromRoute] RemovePrivilege.Request request)
         => await _mediator.Send(request);
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@api';
@@ -57,3 +60,4 @@ export class MessageService implements IPagableService<Message> {
     return this._client.put<{ message: Message }>(`${this._baseUrl}api/message`, { message: options.message });
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -124,3 +127,4 @@ public class MaintenanceRequestController
         return await _mediator.Send(request);
     }
 }
+

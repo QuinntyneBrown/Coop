@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -44,3 +47,4 @@ export class HtmlEditorComponent extends BaseControl  {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 }
+

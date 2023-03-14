@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -60,3 +63,4 @@ public class InvitationTokenController
     public async Task<ActionResult<RemoveInvitationToken.Response>> Remove([FromRoute] RemoveInvitationToken.Request request)
         => await _mediator.Send(request);
 }
+

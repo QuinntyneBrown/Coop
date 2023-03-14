@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AggregatePrivilege } from '@api';
 
@@ -31,3 +34,4 @@ export class AggregatePrivilegeComponent  {
     : this.add.emit({accessRight, aggregate: this.aggregatePrivilege.aggregate});
   }
 }
+

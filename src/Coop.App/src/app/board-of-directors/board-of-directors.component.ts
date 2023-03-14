@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Inject } from '@angular/core';
 import { JsonContentName, JsonContentService } from '@api';
 import { baseUrl } from '@core';
@@ -25,3 +28,4 @@ export class BoardOfDirectorsComponent {
   ) { }
 
 }
+

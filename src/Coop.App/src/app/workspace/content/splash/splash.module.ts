@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SplashRoutingModule } from './splash-routing.module';
@@ -20,3 +23,4 @@ import { DigitalAssetUploadModule } from '@shared/digital-asset-upload/digital-a
   ]
 })
 export class SplashModule { }
+

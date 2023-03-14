@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Coop.Domain.DomainEvents;
 using Coop.Domain.Interfaces;
@@ -68,3 +71,4 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, Authenti
         return user.Password == transformedPassword;
     }
 }
+

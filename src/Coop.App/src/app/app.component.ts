@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { ThemeService, User } from '@api';
@@ -42,3 +45,4 @@ export class AppComponent {
 
     }
 }
+

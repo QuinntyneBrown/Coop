@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Member } from '@api';
@@ -47,3 +50,4 @@ export class MemberService implements IPagableService<Member> {
     return this._client.put<{ member: Member }>(`${this._baseUrl}api/member`, { member: options.member });
   }
 }
+

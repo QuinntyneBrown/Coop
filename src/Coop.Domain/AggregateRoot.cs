@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -51,3 +54,4 @@ public abstract class AggregateRoot : IAggregateRoot
     protected abstract void When(dynamic @event);
     protected abstract void EnsureValidState();
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.Dtos;
 using Coop.Domain.Entities;
 using System;
@@ -21,3 +24,4 @@ public class MaintenanceRequestDto
     public List<MaintenanceRequestDigitalAssetDto> DigitalAssets { get; set; } = new();
     public List<MaintenanceRequestCommentDto> Comments { get; set; } = new();
 }
+

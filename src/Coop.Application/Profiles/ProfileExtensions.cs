@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.Common.Extensions;
 using Coop.Domain.Enums;
 using Coop.Domain.Entities;
@@ -24,3 +27,4 @@ public static class ProfileExtensions
             }
         };
 }
+

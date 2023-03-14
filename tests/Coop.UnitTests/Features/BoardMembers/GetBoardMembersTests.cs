@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
@@ -24,3 +27,4 @@ public class GetBoardMembersTests : TestBase
         Assert.Equal(expectedResult, result.BoardMembers.Count);
     }
 }
+

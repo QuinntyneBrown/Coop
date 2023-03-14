@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, forwardRef } from '@angular/core';
 import { AbstractControl, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -67,3 +70,4 @@ export class ToComponent extends BaseControl implements Validator  {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 }
+

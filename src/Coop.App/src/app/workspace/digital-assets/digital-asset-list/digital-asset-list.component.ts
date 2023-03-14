@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -75,3 +78,4 @@ export class DigitalAssetListComponent implements OnDestroy {
     this._destroyed$.complete();
   }
 }
+

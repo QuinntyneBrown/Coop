@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -113,3 +116,4 @@ export class BoardComponent implements OnDestroy {
     this._destroyed$.complete();
   }
 }
+

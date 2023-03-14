@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
@@ -22,3 +25,4 @@ import { MatIconModule } from '@angular/material/icon';
   ]
 })
 export class HeaderModule { }
+

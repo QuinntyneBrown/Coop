@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.Interfaces;
 using Coop.Domain.DomainEvents;
 using System;
@@ -14,3 +17,4 @@ public static class OrchestrationHandlerExtensions
     public static Task PublishCreateProfileEvent(this IOrchestrationHandler orchestrationHandler, string profileType, string firstname, string lastname, Guid? avatarDigitalAssetId)
         => orchestrationHandler.Publish(new CreateProfile(profileType, firstname, lastname, avatarDigitalAssetId));
 }
+

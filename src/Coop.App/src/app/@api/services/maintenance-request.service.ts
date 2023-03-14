@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateMaintenanceRequest, MaintenanceRequest } from '@api';
@@ -75,3 +78,4 @@ export class MaintenanceRequestService implements IPagableService<MaintenanceReq
     return this._client.put<{ maintenanceRequest: MaintenanceRequest }>(`${this._baseUrl}api/maintenanceRequest/complete`, completeMaintenanceRequest);
   }
 }
+

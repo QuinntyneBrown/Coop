@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from './login-form.component';
@@ -23,3 +26,4 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class LoginFormModule { }
+

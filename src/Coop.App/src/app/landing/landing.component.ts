@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnInit } from '@angular/core';
 import { BoardMemberService, JsonContentName, JsonContentService } from '@api';
 import { map } from 'rxjs/operators';
@@ -20,3 +23,4 @@ export class LandingComponent {
 
 
 }
+

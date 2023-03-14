@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -71,3 +74,4 @@ public class DigitalAssetController
     public async Task<ActionResult<RemoveDigitalAsset.Response>> Remove([FromRoute] RemoveDigitalAsset.Request request)
         => await _mediator.Send(request);
 }
+

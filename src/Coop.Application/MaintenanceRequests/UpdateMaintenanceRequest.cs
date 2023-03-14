@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Coop.Domain.Dtos;
 using Coop.Domain.Interfaces;
@@ -58,3 +61,4 @@ public class UpdateMaintenanceRequestHandler : IRequestHandler<UpdateMaintenance
         };
     }
 }
+

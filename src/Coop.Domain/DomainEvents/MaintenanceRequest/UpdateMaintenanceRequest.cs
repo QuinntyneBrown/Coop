@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.Entities;
 using System;
 
@@ -12,3 +15,4 @@ public class UpdateMaintenanceRequest : BaseDomainEvent
     public string Description { get; set; }
     public bool UnattendedUnitEntryAllowed { get; set; }
 }
+

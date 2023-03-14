@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Output, EventEmitter, Renderer2, AfterContentInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -32,3 +35,4 @@ export class LoginFormComponent implements AfterContentInit {
     });
   }
 }
+

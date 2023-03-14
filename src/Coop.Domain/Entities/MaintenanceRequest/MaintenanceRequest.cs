@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.DomainEvents;
 using System;
 using System.Collections.Generic;
@@ -80,3 +83,4 @@ public class MaintenanceRequest : AggregateRoot
     }
     protected override void When(dynamic @event) => this.When(@event);
 }
+

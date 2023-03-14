@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Api;
 using Coop.Application.Features;
 using Coop.Domain;
@@ -34,3 +37,4 @@ public class AuthenticateTests : TestBase
         Assert.Null(result.AccessToken);
     }
 }
+

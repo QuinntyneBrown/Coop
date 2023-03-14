@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 export * from './board-member.service';
 export * from './by-law.service';
 export * from './conversation.service';
@@ -23,3 +26,4 @@ export * from './staff-member.service';
 export * from './stored-event.service';
 export * from './theme.service';
 export * from './user.service';
+

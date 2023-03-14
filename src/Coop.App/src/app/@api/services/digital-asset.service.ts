@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { baseUrl } from '@core/constants';
 import { HttpClient } from '@angular/common/http';
@@ -63,3 +66,4 @@ export class DigitalAssetService implements IPagableService<DigitalAsset> {
     return this._client.put<{ digitalAsset: DigitalAsset }>(`${this._baseUrl}api/digitalAsset`, { digitalAsset: options.digitalAsset });
   }
 }
+

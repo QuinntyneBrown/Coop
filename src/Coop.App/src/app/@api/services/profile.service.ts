@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateProfileRequest, Profile } from '@api';
@@ -58,3 +61,4 @@ export class ProfileService implements IPagableService<Profile> {
     return this._client.put<{ profile: Profile }>(`${this._baseUrl}api/profile/avatar`, options);
   }
 }
+

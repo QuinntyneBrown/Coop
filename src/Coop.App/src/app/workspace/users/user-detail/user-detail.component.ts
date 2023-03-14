@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -63,3 +66,4 @@ export class UserDetailComponent implements OnDestroy {
     this._destroyed.next();
   }
 }
+

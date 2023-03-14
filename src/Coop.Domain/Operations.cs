@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace Coop.Domain;
@@ -9,3 +12,4 @@ public static class Operations
     public static OperationAuthorizationRequirement Write = new OperationAuthorizationRequirement { Name = nameof(Write) };
     public static OperationAuthorizationRequirement Delete = new OperationAuthorizationRequirement { Name = nameof(Delete) };
 }
+

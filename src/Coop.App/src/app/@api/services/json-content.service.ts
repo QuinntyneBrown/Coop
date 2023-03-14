@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JsonContent } from '@api';
@@ -54,3 +57,4 @@ export class JsonContentService implements IPagableService<JsonContent> {
     return this._client.put<{ jsonContent: JsonContent }>(`${this._baseUrl}api/jsonContent`, { jsonContent: options.jsonContent });
   }
 }
+

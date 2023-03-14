@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Privilege } from '@api';
@@ -47,3 +50,4 @@ export class PrivilegeService implements IPagableService<Privilege> {
     return this._client.put<{ privilege: Privilege }>(`${this._baseUrl}api/privilege`, { privilege: options.privilege });
   }
 }
+

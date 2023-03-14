@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { CollectionViewer } from "@angular/cdk/collections";
 import { DataSource } from "@angular/cdk/table";
 import { IPagableService } from "@core/ipagable-service";
@@ -39,5 +42,6 @@ export class EntityDataSource<T> implements DataSource<T> {
         ).subscribe();
     }
 }
+
 
 

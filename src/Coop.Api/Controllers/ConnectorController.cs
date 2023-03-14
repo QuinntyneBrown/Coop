@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,3 +21,4 @@ public class ConnectorController
     public async Task<ActionResult<ConnectorUploadDigitalAsset.Response>> Post()
         => await _mediator.Send(new ConnectorUploadDigitalAsset.Request());
 }
+

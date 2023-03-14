@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Coop.Infrastructure.Data;
 using Coop.Testing;
@@ -34,3 +37,4 @@ public class UpdatePasswordTests : TestBase
         Assert.Equal(user.Password, passwordHasher.HashPassword(user.Salt, expectedNewPassword));
     }
 }
+

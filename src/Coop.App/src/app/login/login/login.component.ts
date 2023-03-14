@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnInit } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -54,3 +57,4 @@ export class LoginComponent extends Destroyable implements OnInit {
     .subscribe();
   }
 }
+

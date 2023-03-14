@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from '@angular/core';
 import { JsonContentService } from '@api';
 import { ContentContextService } from './content-context.service';
@@ -14,3 +17,4 @@ export class ContentComponent {
     private readonly _jsonContentService: JsonContentService
   ) { }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Notice } from '@api';
@@ -54,3 +57,4 @@ export class NoticeService implements IPagableService<Notice> {
     return this._client.put<{ notice: Notice }>(`${this._baseUrl}api/notice`, { notice: options.notice });
   }
 }
+

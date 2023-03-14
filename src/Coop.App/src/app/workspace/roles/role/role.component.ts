@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Aggregate, Privilege, PrivilegeService, Role, RoleService } from '@api';
@@ -72,3 +75,4 @@ export class RoleComponent {
     map(role => ({ role }))
     );
 }
+

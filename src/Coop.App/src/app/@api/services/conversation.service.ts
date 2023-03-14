@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Conversation } from '@api';
@@ -47,3 +50,4 @@ export class ConversationService implements IPagableService<Conversation> {
     return this._client.put<{ conversation: Conversation }>(`${this._baseUrl}api/conversation`, { conversation: options.conversation });
   }
 }
+

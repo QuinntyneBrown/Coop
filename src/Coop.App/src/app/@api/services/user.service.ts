@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '@api';
@@ -61,3 +64,4 @@ export class UserService implements IPagableService<User> {
     return this._client.put<{ user: User }>(`${this._baseUrl}api/user`, { user: options.user });
   }
 }
+

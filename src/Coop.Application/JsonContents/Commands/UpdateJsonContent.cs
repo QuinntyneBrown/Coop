@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Coop.Domain.Interfaces;
 using FluentValidation;
@@ -40,3 +43,4 @@ public class UpdateJsonContentHandler : IRequestHandler<UpdateJsonContentRequest
         };
     }
 }
+

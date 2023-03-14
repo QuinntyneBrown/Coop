@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { InvitationToken } from '@api';
@@ -47,3 +50,4 @@ export class InvitationTokenService implements IPagableService<InvitationToken> 
     return this._client.put<{ invitationToken: InvitationToken }>(`${this._baseUrl}api/invitationToken`, { invitationToken: options.invitationToken });
   }
 }
+

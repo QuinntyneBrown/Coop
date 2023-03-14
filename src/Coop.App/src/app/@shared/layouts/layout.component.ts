@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -49,3 +52,4 @@ export class LayoutComponent extends Destroyable {
     this.opened = !this.opened;
   }
 }
+

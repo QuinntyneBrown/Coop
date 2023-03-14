@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MaintenanceRequestDigitalAsset } from '@api';
@@ -47,3 +50,4 @@ export class MaintenanceRequestDigitalAssetService implements IPagableService<Ma
     return this._client.put<{ maintenanceRequestDigitalAsset: MaintenanceRequestDigitalAsset }>(`${this._baseUrl}api/maintenanceRequestDigitalAsset`, { maintenanceRequestDigitalAsset: options.maintenanceRequestDigitalAsset });
   }
 }
+

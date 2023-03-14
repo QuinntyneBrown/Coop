@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using CommandLine;
 using MediatR;
 using System.Threading;
@@ -21,3 +24,4 @@ public class DefaultHandler : IRequestHandler<DefaultRequest, Unit>
         return new();
     }
 }
+

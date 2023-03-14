@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -33,3 +36,4 @@ public class ResourceOperationAuthorizationBehavior<TRequest, TResponse> : IPipe
         return await next();
     }
 }
+

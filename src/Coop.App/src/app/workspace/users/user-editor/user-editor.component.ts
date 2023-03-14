@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, forwardRef, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
@@ -91,3 +94,4 @@ export class UserEditorComponent implements ControlValueAccessor, OnDestroy,  Va
     this._destroyed$.complete();
   }
 }
+

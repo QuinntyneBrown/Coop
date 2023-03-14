@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonContentName, JsonContentService } from '@api';
@@ -28,3 +31,4 @@ export class HeaderComponent {
 
   readonly baseUrl = environment.baseUrl;
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Coop.Domain;
@@ -42,3 +45,4 @@ public class GetUsersPageHandler : IRequestHandler<GetUsersPageRequest, GetUsers
         };
     }
 }
+

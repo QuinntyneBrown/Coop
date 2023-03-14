@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.JsonContents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -72,3 +75,4 @@ public class JsonContentController
     public async Task<ActionResult<RemoveJsonContent.Response>> Remove([FromRoute] RemoveJsonContent.Request request)
         => await _mediator.Send(request);
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ByLawsRoutingModule } from './by-laws-routing.module';
@@ -21,3 +24,4 @@ import { CreateDocumentPopupModule } from '@shared/popups/create-document-popup/
   ]
 })
 export class ByLawsModule { }
+

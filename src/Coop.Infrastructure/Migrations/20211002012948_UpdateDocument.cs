@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -29,3 +32,4 @@ public partial class UpdateDocument : Migration
             defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
     }
 }
+

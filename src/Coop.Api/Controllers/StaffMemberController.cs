@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using System.Net;
 using System.Threading.Tasks;
 using Coop.Application.Features;
@@ -52,3 +55,4 @@ public class StaffMemberController
     public async Task<ActionResult<RemoveStaffMember.Response>> Remove([FromRoute] RemoveStaffMember.Request request)
         => await _mediator.Send(request);
 }
+

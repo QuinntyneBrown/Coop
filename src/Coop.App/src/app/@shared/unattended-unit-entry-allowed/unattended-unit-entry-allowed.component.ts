@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { map, takeUntil, tap } from 'rxjs/operators';
@@ -109,3 +112,4 @@ export class UnattendedUnitEntryAllowedComponent extends BaseControl implements 
     isDisabled ? this.form.disable() : this.form.enable();
   }
 }
+

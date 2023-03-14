@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { EMPTY, Observable, OperatorFunction } from "rxjs";
 import { groupBy, ignoreElements, map, mergeAll, switchMap, timeoutWith } from "rxjs/operators";
 
@@ -20,3 +23,4 @@ export function switchMapByKey<T, V>(
       mergeAll()
     );
 }
+

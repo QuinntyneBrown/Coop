@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Report } from '@api';
@@ -54,3 +57,4 @@ export class ReportService implements IPagableService<Report> {
     return this._client.put<{ report: Report }>(`${this._baseUrl}api/report`, { report: options.report });
   }
 }
+

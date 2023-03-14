@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, startWith, takeUntil} from 'rxjs/operators';
@@ -60,3 +63,4 @@ export class DigitalAssetListComponent extends BaseControl {
 
   }
 }
+

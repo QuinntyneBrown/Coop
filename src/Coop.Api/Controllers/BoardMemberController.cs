@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Application.BoardMembers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -57,3 +60,4 @@ public class BoardMemberController
     public async Task<ActionResult<RemoveBoardMember.Response>> Remove([FromRoute] RemoveBoardMember.Request request)
         => await _mediator.Send(request);
 }
+

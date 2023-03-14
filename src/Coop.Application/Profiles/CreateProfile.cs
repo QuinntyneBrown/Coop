@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain;
 using Coop.Domain.Interfaces;
 using Coop.Domain.Entities;
@@ -114,3 +117,4 @@ public class CreateProfileHandler : IRequestHandler<CreateProfileRequest, Create
         _ => throw new NotImplementedException()
     };
 }
+

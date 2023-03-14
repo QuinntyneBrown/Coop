@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { AfterViewInit, Component, ElementRef, forwardRef, Inject, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
@@ -101,3 +104,4 @@ export class DigitalAssetUploadComponent extends BaseControlValueAccessor implem
     }
   }
 }
+

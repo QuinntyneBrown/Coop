@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { AccessRight } from "./access-right";
 
 export type Privilege = {
@@ -6,3 +9,4 @@ export type Privilege = {
     aggregate: string,
     accessRight: AccessRight
 };
+

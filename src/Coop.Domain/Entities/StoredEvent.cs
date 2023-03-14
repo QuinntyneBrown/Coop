@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -18,3 +21,4 @@ public class StoredEvent
     public int Version { get; set; }
     public Guid CorrelationId { get; set; }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 export * from './access-right';
 export * from './address';
 export * from './aggregate-privilege';
@@ -32,3 +35,4 @@ export * from './stored-event';
 export * from './theme';
 export * from './unit-entered';
 export * from './user';
+

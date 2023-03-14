@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Coop.Domain.Enums;
 using Coop.Domain.Entities;
 using System;
@@ -11,3 +14,4 @@ public class PrivilegeDto
     public AccessRight AccessRight { get; set; }
     public string Aggregate { get; set; }
 }
+
