@@ -10,46 +10,37 @@ using Coop.Domain.Interfaces;
 using Coop.Application.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coop.Application.Features
-{
-    public class GetMaintenanceRequestDigitalAssetsPage
-    {
-        public class Request : IRequest<Response>
-        {
-            public int PageSize { get; set; }
-            public int Index { get; set; }
-        }
+namespace Coop.Application.Features;
 
-        public class Response : ResponseBase
-        {
-            public int Length { get; set; }
-            public List<MaintenanceRequestDigitalAssetDto> Entities { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ICoopDbContext _context;
-
-            public Handler(ICoopDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var query = from maintenanceRequestDigitalAsset in _context.MaintenanceRequestDigitalAssets
-                            select maintenanceRequestDigitalAsset;
-
-                var length = await _context.MaintenanceRequestDigitalAssets.CountAsync();
-
-                var maintenanceRequestDigitalAssets = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
-
-                return new()
-                {
-                    Length = length,
-                    Entities = maintenanceRequestDigitalAssets
-                };
-            }
-
-        }
-    }
-}
+ public class GetMaintenanceRequestDigitalAssetsPage
+ {
+     public class Request : IRequest<Response>
+     {
+         public int PageSize { get; set; }
+         public int Index { get; set; }
+     }
+     public class Response : ResponseBase
+     {
+         public int Length { get; set; }
+         public List<MaintenanceRequestDigitalAssetDto> Entities { get; set; }
+     }
+     public class Handler : IRequestHandler<Request, Response>
+     {
+         private readonly ICoopDbContext _context;
+         public Handler(ICoopDbContext context)
+             => _context = context;
+         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+         {
+             var query = from maintenanceRequestDigitalAsset in _context.MaintenanceRequestDigitalAssets
+                         select maintenanceRequestDigitalAsset;
+             var length = await _context.MaintenanceRequestDigitalAssets.CountAsync();
+             var maintenanceRequestDigitalAssets = await query.Page(request.Index, request.PageSize)
+                 .Select(x => x.ToDto()).ToListAsync();
+             return new()
+             {
+                 Length = length,
+                 Entities = maintenanceRequestDigitalAssets
+             };
+         }
+     }
+ }

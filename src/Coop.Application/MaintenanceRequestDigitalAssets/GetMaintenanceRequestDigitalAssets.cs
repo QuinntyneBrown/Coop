@@ -8,32 +8,26 @@ using Coop.Domain;
 using Coop.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coop.Application.Features
-{
-    public class GetMaintenanceRequestDigitalAssets
-    {
-        public class Request : IRequest<Response> { }
+namespace Coop.Application.Features;
 
-        public class Response : ResponseBase
-        {
-            public List<MaintenanceRequestDigitalAssetDto> MaintenanceRequestDigitalAssets { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ICoopDbContext _context;
-
-            public Handler(ICoopDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return new()
-                {
-                    MaintenanceRequestDigitalAssets = await _context.MaintenanceRequestDigitalAssets.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
-        }
-    }
-}
+ public class GetMaintenanceRequestDigitalAssets
+ {
+     public class Request : IRequest<Response> { }
+     public class Response : ResponseBase
+     {
+         public List<MaintenanceRequestDigitalAssetDto> MaintenanceRequestDigitalAssets { get; set; }
+     }
+     public class Handler : IRequestHandler<Request, Response>
+     {
+         private readonly ICoopDbContext _context;
+         public Handler(ICoopDbContext context)
+             => _context = context;
+         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+         {
+             return new()
+             {
+                 MaintenanceRequestDigitalAssets = await _context.MaintenanceRequestDigitalAssets.Select(x => x.ToDto()).ToListAsync()
+             };
+         }
+     }
+ }

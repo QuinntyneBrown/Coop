@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Coop.Application.Features
-{
-    public class DocumentValidator : AbstractValidator<DocumentDto> { }
-}
+namespace Coop.Application.Features;
+
+ public class DocumentValidator : AbstractValidator<DocumentDto> { }

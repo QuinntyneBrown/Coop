@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace Coop.Application.Features
-{
-    public class AggregatePrivilegeDto
-    {
-        public string Aggregate { get; set; }
-        public List<PrivilegeDto> Privileges { get; set; } = new();
-    }
-}
+namespace Coop.Application.Features;
+
+ public class AggregatePrivilegeDto
+ {
+     public string Aggregate { get; set; }
+     public List<PrivilegeDto> Privileges { get; set; } = new();
+ }

@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Coop.Application.Features
-{
-    public class DigitalAssetValidator : AbstractValidator<DigitalAssetDto> { }
-}
+namespace Coop.Application.Features;
+
+ public class DigitalAssetValidator : AbstractValidator<DigitalAssetDto> { }

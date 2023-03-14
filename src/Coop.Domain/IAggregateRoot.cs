@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace Coop.Domain
-{
-    public interface IAggregateRoot
-    {
-        AggregateRoot Apply(IEvent @event);
-    }
-}
+namespace Coop.Domain;
+
+ public interface IAggregateRoot
+ {
+     AggregateRoot Apply(IEvent @event);
+ }

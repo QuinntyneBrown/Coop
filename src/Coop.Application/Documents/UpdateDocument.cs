@@ -6,49 +6,39 @@ using Coop.Domain;
 using Coop.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coop.Application.Features
-{
-    public class UpdateDocument
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Document).NotNull();
-                RuleFor(request => request.Document).SetValidator(new DocumentValidator());
-            }
+namespace Coop.Application.Features;
 
-        }
-
-        public class Request : IRequest<Response>
-        {
-            public DocumentDto Document { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public DocumentDto Document { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ICoopDbContext _context;
-
-            public Handler(ICoopDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var document = await _context.Documents.SingleAsync(x => x.DocumentId == request.Document.DocumentId);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Document = document.ToDto()
-                };
-            }
-
-        }
-    }
-}
+ public class UpdateDocument
+ {
+     public class Validator : AbstractValidator<Request>
+     {
+         public Validator()
+         {
+             RuleFor(request => request.Document).NotNull();
+             RuleFor(request => request.Document).SetValidator(new DocumentValidator());
+         }
+     }
+     public class Request : IRequest<Response>
+     {
+         public DocumentDto Document { get; set; }
+     }
+     public class Response : ResponseBase
+     {
+         public DocumentDto Document { get; set; }
+     }
+     public class Handler : IRequestHandler<Request, Response>
+     {
+         private readonly ICoopDbContext _context;
+         public Handler(ICoopDbContext context)
+             => _context = context;
+         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+         {
+             var document = await _context.Documents.SingleAsync(x => x.DocumentId == request.Document.DocumentId);
+             await _context.SaveChangesAsync(cancellationToken);
+             return new Response()
+             {
+                 Document = document.ToDto()
+             };
+         }
+     }
+ }

@@ -1,23 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Coop.Infrastructure.Migrations
-{
-    public partial class AddNameToJsonContent : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "JsonContents",
-                type: "nvarchar(max)",
-                nullable: true);
-        }
+namespace Coop.Infrastructure.Migrations;
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "JsonContents");
-        }
-    }
-}
+ public partial class AddNameToJsonContent : Migration
+ {
+     protected override void Up(MigrationBuilder migrationBuilder)
+     {
+         migrationBuilder.AddColumn<string>(
+             name: "Name",
+             table: "JsonContents",
+             type: "nvarchar(max)",
+             nullable: true);
+     }
+     protected override void Down(MigrationBuilder migrationBuilder)
+     {
+         migrationBuilder.DropColumn(
+             name: "Name",
+             table: "JsonContents");
+     }
+ }

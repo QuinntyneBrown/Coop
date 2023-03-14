@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 
-namespace Coop.Application.JsonContents.Exceptions
-{
-    public class DuplicateJsonContent: Exception
-    {
-        public DuplicateJsonContent()
-            :base("Duplicate") { }
-    }
-}
+namespace Coop.Application.JsonContents.Exceptions;
+
+ public class DuplicateJsonContent: Exception
+ {
+     public DuplicateJsonContent()
+         :base("Duplicate") { }
+ }
