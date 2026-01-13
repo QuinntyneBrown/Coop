@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Asset.Infrastructure</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Seeding\Avatars\earl.webp" />
+    <None Remove="Seeding\Avatars\marie.PNG" />
+    <None Remove="Seeding\Avatars\natasha.webp" />
+    <None Remove="Seeding\Documents\ByLaw.pdf" />
+    <None Remove="Seeding\Documents\Notice.pdf" />
+    <None Remove="Seeding\Documents\Report.pdf" />
+    <None Remove="Seeding\Images\Building.jpg" />
+    <None Remove="Seeding\Images\Doors.jpg" />
+    <None Remove="Seeding\Images\Logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Seeding\Avatars\earl.webp" />
+    <EmbeddedResource Include="Seeding\Avatars\marie.PNG" />
+    <EmbeddedResource Include="Seeding\Avatars\natasha.webp" />
+    <EmbeddedResource Include="Seeding\Documents\ByLaw.pdf" />
+    <EmbeddedResource Include="Seeding\Documents\Notice.pdf" />
+    <EmbeddedResource Include="Seeding\Documents\Report.pdf" />
+    <EmbeddedResource Include="Seeding\Images\Building.jpg" />
+    <EmbeddedResource Include="Seeding\Images\Doors.jpg" />
+    <EmbeddedResource Include="Seeding\Images\Logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Innofactor.EfCoreJsonValueConverter" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Asset.Domain\Asset.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
