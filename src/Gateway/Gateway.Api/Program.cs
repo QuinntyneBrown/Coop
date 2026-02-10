@@ -8,6 +8,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -65,5 +67,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapReverseProxy();
+app.MapDefaultEndpoints();
 
 app.Run();

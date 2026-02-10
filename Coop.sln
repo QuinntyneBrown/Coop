@@ -68,6 +68,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asset.Api", "src\Services\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "src\Gateway\Gateway.Api\Gateway.Api.csproj", "{B0C1D2E3-F4A5-6789-3456-890123456789}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.AppHost", "src\Coop.AppHost\Coop.AppHost.csproj", "{11111111-1111-1111-1111-111111111111}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coop.ServiceDefaults", "src\Coop.ServiceDefaults\Coop.ServiceDefaults.csproj", "{22222222-2222-2222-2222-222222222222}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -186,6 +190,14 @@ Global
 		{B0C1D2E3-F4A5-6789-3456-890123456789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0C1D2E3-F4A5-6789-3456-890123456789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0C1D2E3-F4A5-6789-3456-890123456789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11111111-1111-1111-1111-111111111111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11111111-1111-1111-1111-111111111111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11111111-1111-1111-1111-111111111111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11111111-1111-1111-1111-111111111111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22222222-2222-2222-2222-222222222222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22222222-2222-2222-2222-222222222222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22222222-2222-2222-2222-222222222222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22222222-2222-2222-2222-222222222222}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,6 +231,8 @@ Global
 		{F8A9B0C1-D2E3-4567-1234-678901234567} = {953BEEE9-E657-4E0D-A987-3543ECC32CD3}
 		{A9B0C1D2-E3F4-5678-2345-789012345678} = {953BEEE9-E657-4E0D-A987-3543ECC32CD3}
 		{B0C1D2E3-F4A5-6789-3456-890123456789} = {953BEEE9-E657-4E0D-A987-3543ECC32CD3}
+		{11111111-1111-1111-1111-111111111111} = {953BEEE9-E657-4E0D-A987-3543ECC32CD3}
+		{22222222-2222-2222-2222-222222222222} = {953BEEE9-E657-4E0D-A987-3543ECC32CD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {725F303B-3EF8-4AA2-904D-D352DD14B6FB}

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>b4c3d2e1-f0a9-8765-4321-fedcba987654</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gateway\Gateway.Api\Gateway.Api.csproj" />
+    <ProjectReference Include="..\Services\Identity\Identity.Api\Identity.Api.csproj" />
+    <ProjectReference Include="..\Services\Profile\Profile.Api\Profile.Api.csproj" />
+    <ProjectReference Include="..\Services\Document\Document.Api\Document.Api.csproj" />
+    <ProjectReference Include="..\Services\Maintenance\Maintenance.Api\Maintenance.Api.csproj" />
+    <ProjectReference Include="..\Services\Messaging\Messaging.Api\Messaging.Api.csproj" />
+    <ProjectReference Include="..\Services\Asset\Asset.Api\Asset.Api.csproj" />
+  </ItemGroup>
+
+</Project>

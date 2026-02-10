@@ -12,6 +12,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
@@ -98,6 +100,8 @@ if (args.Length > 0)
         }
     }
 }
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
