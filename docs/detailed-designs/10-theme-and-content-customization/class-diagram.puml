@@ -13,50 +13,30 @@ skinparam pageBorderColor gray
 
 title Theme and Content Customization - Class Diagram
 
-package "Monolith Domain Layer" {
+package "Customization Domain Layer" {
 
     class Theme {
         + ThemeId : Guid
         + ProfileId : Guid?
         + CssCustomProperties : JObject
+        + CreatedAt : DateTime
+        + UpdatedAt : DateTime?
         --
         + Theme(profileId, cssCustomProperties)
         + Theme(cssCustomProperties)
         + SetCssCustomProperties(JObject) : void
+        + UpdateCssCustomProperties(JObject) : void
     }
 
     class JsonContent {
         + JsonContentId : Guid
         + Name : string
         + Json : JObject
+        + CreatedAt : DateTime
+        + UpdatedAt : DateTime?
         --
-        + JsonContent(json : JObject)
         + JsonContent(name, json)
         + SetJson(JObject) : void
-    }
-}
-
-package "Microservice Domain Layer" {
-
-    class "Asset.Theme" as MsTheme {
-        + ThemeId : Guid
-        + ProfileId : Guid?
-        + CssCustomProperties : JObject
-        + CreatedAt : DateTime
-        + UpdatedAt : DateTime?
-        --
-        + Theme(cssCustomProperties, profileId?)
-        + UpdateCssCustomProperties(JObject) : void
-    }
-
-    class "Document.JsonContent" as MsJsonContent {
-        + JsonContentId : Guid
-        + Name : string
-        + Json : JObject
-        + CreatedAt : DateTime
-        + UpdatedAt : DateTime?
-        --
-        + JsonContent(name, json)
         + UpdateJson(JObject) : void
         + SetName(string) : void
     }
@@ -89,7 +69,7 @@ package "Domain Events" {
         + Name : string
     }
 
-    class ThemeUpdatedEvent {
+    class ThemeUpdated {
         + ThemeId : Guid
         + ProfileId : Guid?
     }
@@ -105,10 +85,8 @@ package "Infrastructure" {
 
 Theme .right.> ThemeDto : maps to
 JsonContent .right.> JsonContentDto : maps to
-Theme .down.> MsTheme : evolves into
-JsonContent .down.> MsJsonContent : evolves into
-MsJsonContent .right. JsonContentName : uses
+JsonContent .right. JsonContentName : uses
 JsonContent ..> CreatedJsonContent : raises
-MsTheme ..> ThemeUpdatedEvent : raises
+Theme ..> ThemeUpdated : raises
 
 @enduml

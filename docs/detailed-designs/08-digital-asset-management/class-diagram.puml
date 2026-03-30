@@ -7,7 +7,7 @@ skinparam defaultFontSize 10
 skinparam wrapWidth 200
 left to right direction
 
-package "Monolith" {
+package "Asset Module" {
   class DigitalAsset {
     +DigitalAssetId : Guid
     +Name : string
@@ -15,16 +15,7 @@ package "Monolith" {
     +ContentType : string
     +Height : float
     +Width : float
-  }
-}
-
-package "Microservice" {
-  class "DigitalAsset" as MsDigitalAsset {
-    +DigitalAssetId : Guid
-    +Name : string
-    +Bytes : byte[]
-    +ContentType : string
-    +Size : long <<computed>>
+    +Size : long
     +CreatedAt : DateTime
   }
 }

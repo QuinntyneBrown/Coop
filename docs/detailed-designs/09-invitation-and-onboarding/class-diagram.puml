@@ -11,31 +11,9 @@ skinparam pageMargin 10
 
 title Invitation and Onboarding - Class Diagram
 
-package "Coop.Domain (Monolith)" {
+package "Invitation Domain" {
 
     class InvitationToken <<Entity>> {
-        + InvitationTokenId : Guid
-        + Value : string
-        + Expiry : DateTime?
-        + Type : InvitationTokenType
-        --
-        + InvitationToken(value, expiry)
-        + InvitationToken(value, type)
-        + InvitationToken(value)
-        + UpdateExpiry(expiry : DateTime?) : void
-    }
-
-    enum InvitationTokenType {
-        Member
-        BoardMember
-        OnCall
-        Staff
-    }
-}
-
-package "Profile.Domain (Microservice)" {
-
-    class "InvitationToken" as MSToken <<Entity>> {
         + InvitationTokenId : Guid
         + Value : string
         + Type : InvitationTokenType
@@ -44,8 +22,16 @@ package "Profile.Domain (Microservice)" {
         + CreatedAt : DateTime
         --
         + InvitationToken(value, type, expiryDate?)
+        + UpdateExpiry(expiryDate : DateTime?) : void
         + MarkAsUsed() : void
         + IsValid() : bool
+    }
+
+    enum InvitationTokenType {
+        Member
+        BoardMember
+        OnCall
+        Staff
     }
 }
 
@@ -69,18 +55,17 @@ package "Application Layer" {
         + Expiry : DateTime?
     }
 
-    class InvitationTokenMessageHandler {
+    class InvitationProvisioningHandler {
         - _context : ICoopDbContext
-        - _messageHandlerContext : IOrchestrationHandler
+        - _provisioningService : OnboardingProvisioningService
         --
         + Handle(ValidateInvitationToken, ct) : Task
     }
 }
 
 InvitationToken --> InvitationTokenType : uses
-MSToken --> InvitationTokenType : uses
-InvitationTokenMessageHandler ..> ValidateInvitationToken : handles
-InvitationTokenMessageHandler ..> ValidatedInvitationToken : publishes
-InvitationTokenMessageHandler ..> InvitationToken : queries
+InvitationProvisioningHandler ..> ValidateInvitationToken : handles
+InvitationProvisioningHandler ..> ValidatedInvitationToken : returns
+InvitationProvisioningHandler ..> InvitationToken : queries
 
 @enduml

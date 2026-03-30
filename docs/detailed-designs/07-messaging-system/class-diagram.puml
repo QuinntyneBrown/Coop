@@ -5,33 +5,7 @@ skinparam classAttributeIconSize 0
 skinparam defaultFontSize 11
 title Messaging System - Class Diagram
 
-package "Coop.Domain (Monolith)" #LightYellow {
-  class "Conversation" as MC {
-    +ConversationId : Guid
-    +Profiles : List<Profile>
-    +Messages : List<Message>
-    +Created : DateTime
-  }
-
-  class "Message" as MM {
-    +MessageId : Guid
-    +ConversationId : Guid?
-    +ToProfileId : Guid
-    +FromProfileId : Guid
-    +Body : string
-    +Read : bool
-    +Created : DateTime
-  }
-
-  class "Profile" as MP {
-    +ProfileId : Guid
-  }
-
-  MP "0..*" -- "0..*" MC : participates in
-  MC "1" *-- "0..*" MM : contains
-}
-
-package "Messaging.Domain (Microservice)" #LightBlue {
+package "Messaging Domain" #LightBlue {
   class Conversation {
     +ConversationId : Guid
     +ParticipantProfileIds : List<Guid>

@@ -6,29 +6,29 @@ LAYOUT_WITH_LEGEND()
 
 title Theme and Content Customization - C4 Component Diagram
 
-Container_Boundary(api, "Coop.Api / Microservices") {
+Container_Boundary(api, "Coop API") {
 
-    Component(themeCtrl, "ThemeController", "ASP.NET Controller", "Routes theme CRUD requests;\nGET by id, profile, default;\nPOST, PUT, DELETE")
+    Component(themeCtrl, "ThemeController", "ASP.NET Controller", "Routes theme CRUD requests; get by id, profile, default; create, update, delete")
 
-    Component(jsonCtrl, "JsonContentController", "ASP.NET Controller", "Routes JSON content requests;\nGET by id, by name;\nPOST, PUT, DELETE")
+    Component(jsonCtrl, "JsonContentController", "ASP.NET Controller", "Routes JSON content requests; get by id, by name; create, update, delete")
 
-    Component(createThemeH, "CreateThemeHandler", "MediatR Handler", "Creates new Theme entity;\npersists to database")
+    Component(createThemeH, "CreateThemeHandler", "MediatR Handler", "Creates new Theme entity and persists it")
 
-    Component(updateThemeH, "UpdateThemeHandler", "MediatR Handler", "Loads theme, calls\nSetCssCustomProperties;\nsaves changes")
+    Component(updateThemeH, "UpdateThemeHandler", "MediatR Handler", "Loads theme, updates CSS custom properties, and saves changes")
 
-    Component(getThemeH, "GetThemeByIdHandler\nGetDefaultThemeHandler\nGetThemeByProfileIdHandler", "MediatR Handlers", "Query handlers for\ntheme retrieval")
+    Component(getThemeH, "GetThemeByIdHandler\nGetDefaultThemeHandler\nGetThemeByProfileIdHandler", "MediatR Handlers", "Query handlers for theme retrieval")
 
     Component(removeThemeH, "RemoveThemeHandler", "MediatR Handler", "Deletes theme entity")
 
-    Component(createJsonH, "CreateJsonContentHandler", "MediatR Handler", "Creates JsonContent;\nraises CreatedJsonContent\ndomain event")
+    Component(createJsonH, "CreateJsonContentHandler", "MediatR Handler", "Creates JsonContent and raises CreatedJsonContent")
 
-    Component(updateJsonH, "UpdateJsonContentHandler", "MediatR Handler", "Loads content, calls\nSetJson; saves changes")
+    Component(updateJsonH, "UpdateJsonContentHandler", "MediatR Handler", "Loads content, updates JSON payload, and saves changes")
 
-    Component(getJsonH, "GetJsonContentByIdHandler\nGetJsonContentByNameHandler", "MediatR Handlers", "Query handlers for\ncontent retrieval")
+    Component(getJsonH, "GetJsonContentByIdHandler\nGetJsonContentByNameHandler", "MediatR Handlers", "Query handlers for content retrieval")
 
     Component(removeJsonH, "RemoveJsonContentHandler", "MediatR Handler", "Deletes content entity")
 
-    Component(validator, "ThemeValidator\nJsonContentValidator", "FluentValidation", "Validates request DTOs\nbefore handler execution")
+    Component(validator, "ThemeValidator\nJsonContentValidator", "FluentValidation", "Validates request DTOs before handler execution")
 }
 
 ComponentDb(db, "Database", "SQL Server", "Themes, JsonContents")

@@ -31,9 +31,8 @@ note right of Active
 end note
 
 note right of Used
-  Microservice enforces
-  single-use via IsUsed flag.
-  Monolith does not track usage.
+  Single-use is enforced
+  through the IsUsed flag.
 end note
 
 @enduml
