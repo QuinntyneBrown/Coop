@@ -8,19 +8,18 @@ title Messaging System - C4 Container Diagram
 
 Person(member, "Coop Member", "Sends and receives messages")
 
-System_Boundary(messaging, "Messaging Microservice") {
-  Container(api, "Messaging.Api", ".NET 7, ASP.NET Core", "REST API controllers for conversations and messages")
-  Container(domain, "Messaging.Domain", ".NET Class Library", "Conversation and Message entities, domain logic")
-  Container(infra, "Messaging.Infrastructure", ".NET Class Library", "MessagingDbContext, EF Core configurations")
-  ContainerDb(db, "Messaging Database", "SQL Server / PostgreSQL", "Stores conversations and messages")
+System_Boundary(messaging, "Coop Backend - Messaging Module") {
+  Container(api, "Messaging API", ".NET / ASP.NET Core", "REST endpoints for conversations and messages")
+  Container(app, "Messaging Application", ".NET Class Library", "Commands, queries, and in-process notifications")
+  Container(domain, "Messaging Domain", ".NET Class Library", "Conversation and Message entities, domain logic")
+  Container(infra, "Messaging Persistence", ".NET Class Library", "MessagingDbContext, EF Core configurations")
+  ContainerDb(db, "Coop Database", "SQL Server", "Stores conversations and messages")
 }
 
-Container(bus, "Message Bus", "IMessageBus", "Publishes domain events to other services")
-
 Rel(member, api, "Uses", "HTTPS/JSON")
-Rel(api, domain, "Uses")
-Rel(api, infra, "Uses")
+Rel(api, app, "Uses")
+Rel(app, domain, "Uses")
+Rel(app, infra, "Uses")
 Rel(infra, db, "Reads/Writes", "EF Core")
-Rel(api, bus, "Publishes events", "ConversationCreated,\nMessageSent, MessageRead")
 
 @enduml

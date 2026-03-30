@@ -19,8 +19,8 @@ Created --> Updated : SetCssCustomProperties /\nUpdateCssCustomProperties\n(new 
 
 state Updated {
     Updated : CssCustomProperties replaced
-    Updated : UpdatedAt stamped (microservice)
-    Updated : ThemeUpdatedEvent published
+    Updated : UpdatedAt stamped
+    Updated : ThemeUpdated notification dispatched
 }
 
 Updated --> Updated : UpdateCssCustomProperties\n(subsequent edits)

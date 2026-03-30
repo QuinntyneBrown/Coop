@@ -6,7 +6,7 @@ title Create Conversation Between Two Profiles
 actor Client
 participant "ConversationsController" as Ctrl
 participant "MessagingDbContext" as Db
-participant "IMessageBus" as Bus
+participant "InternalNotificationDispatcher" as Dispatcher
 
 Client -> Ctrl : POST /api/conversations\n{ProfileId1, ProfileId2}
 activate Ctrl
@@ -26,10 +26,10 @@ else No existing conversation
   Db --> Ctrl : saved
   deactivate Db
 
-  Ctrl -> Bus : PublishAsync(ConversationCreatedEvent)
-  activate Bus
-  Bus --> Ctrl : published
-  deactivate Bus
+  Ctrl -> Dispatcher : Dispatch(ConversationCreated)
+  activate Dispatcher
+  Dispatcher --> Ctrl : complete
+  deactivate Dispatcher
 
   Ctrl --> Client : 201 Created\nConversationDto
 end

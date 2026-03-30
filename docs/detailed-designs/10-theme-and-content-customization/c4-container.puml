@@ -6,33 +6,18 @@ LAYOUT_WITH_LEGEND()
 
 title Theme and Content Customization - C4 Container Diagram
 
-Person(admin, "Administrator", "Manages themes and content")
+Person(admin, "Administrator", "Manages themes and CMS content")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(spa, "Angular SPA", "TypeScript, Angular", "Renders themed UI;\napplies CSS custom properties;\nfetches JSON content by name")
-
-    Container(api, "Coop.Api", ".NET, ASP.NET Core", "Monolith API gateway;\nThemeController,\nJsonContentController")
-
-    Container(assetSvc, "Asset Service", ".NET Microservice", "Manages themes;\npublishes ThemeUpdatedEvent")
-
-    Container(docSvc, "Document Service", ".NET Microservice", "Manages JSON content;\nwell-known content names")
-
-    ContainerDb(db, "Coop Database", "SQL Server", "Themes, JsonContents tables")
-
-    ContainerDb(assetDb, "Asset DB", "SQL Server", "Themes table\n(with audit columns)")
-
-    ContainerDb(docDb, "Document DB", "SQL Server", "JsonContents table\n(with audit columns)")
-
-    Container(bus, "Message Bus", "RabbitMQ / In-Memory", "Domain event transport")
+    Container(publicApp, "Public Web App", "Web application", "Renders themed public pages and CMS-managed content")
+    Container(adminApp, "Admin Backend", "Web application", "Authors themes and content")
+    Container(api, "Coop API", ".NET / ASP.NET Core", "Shared modular monolith API with Theme and JsonContent endpoints")
+    ContainerDb(db, "Coop Database", "SQL Server", "Themes and JsonContents tables")
 }
 
-Rel(admin, spa, "Configures themes\nand content", "HTTPS")
-Rel(spa, api, "REST calls", "HTTPS/JSON")
-Rel(spa, assetSvc, "REST calls", "HTTPS/JSON")
-Rel(spa, docSvc, "REST calls", "HTTPS/JSON")
-Rel(api, db, "Reads/writes", "EF Core")
-Rel(assetSvc, assetDb, "Reads/writes", "EF Core")
-Rel(docSvc, docDb, "Reads/writes", "EF Core")
-Rel(assetSvc, bus, "Publishes\nThemeUpdatedEvent")
+Rel(admin, adminApp, "Configures themes and content", "HTTPS")
+Rel(adminApp, api, "REST calls", "HTTPS/JSON")
+Rel(publicApp, api, "Reads themes and content", "HTTPS/JSON")
+Rel(api, db, "Reads/Writes", "EF Core")
 
 @enduml

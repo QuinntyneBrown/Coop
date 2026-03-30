@@ -7,35 +7,35 @@ LAYOUT_TOP_DOWN()
 
 title Invitation and Onboarding - C4 Component Diagram
 
-Person(client, "Client", "Admin or Invitee")
+Person(client, "Client", "Administrator or invitee")
 
-Container_Boundary(api, "Coop API / Profile Service") {
-    Component(ctrl, "InvitationTokenController", "ASP.NET Controller", "REST endpoints: CRUD,\nvalidate, and use token")
-    Component(mediator, "IMediator", "MediatR", "Routes commands\nand queries")
-    Component(createH, "CreateInvitationToken\nHandler", "RequestHandler", "Creates new token\nand persists it")
-    Component(getH, "GetInvitationToken\nHandler", "RequestHandler", "Retrieves tokens\nby ID or page")
-    Component(updateH, "UpdateInvitationToken\nExpiryHandler", "RequestHandler", "Updates token\nexpiry date")
-    Component(removeH, "RemoveInvitationToken\nHandler", "RequestHandler", "Deletes a token")
-    Component(msgH, "InvitationToken\nMessageHandler", "NotificationHandler", "Validates token via\norchestration events")
-    Component(orch, "IOrchestrationHandler", "Orchestration", "Publishes domain\nevents for sagas")
+Container_Boundary(api, "Coop API") {
+    Component(ctrl, "InvitationTokenController", "ASP.NET Controller", "CRUD, validate, and consume-token endpoints")
+    Component(mediator, "IMediator", "MediatR", "Routes commands and queries")
+    Component(createH, "CreateInvitationTokenHandler", "RequestHandler", "Creates and persists new tokens")
+    Component(getH, "GetInvitationTokenHandler", "RequestHandler", "Retrieves tokens by ID or page")
+    Component(updateH, "UpdateInvitationTokenExpiryHandler", "RequestHandler", "Updates token expiry")
+    Component(removeH, "RemoveInvitationTokenHandler", "RequestHandler", "Deletes a token")
+    Component(validateH, "ValidateAndConsumeInvitationHandler", "RequestHandler", "Validates token state and coordinates onboarding")
+    Component(provisioning, "OnboardingProvisioningService", "Application Service", "Creates user and profile records in-process")
 }
 
-ContainerDb(db, "Database", "SQL Server", "InvitationTokens table")
+ContainerDb(db, "Database", "SQL Server", "InvitationTokens, Users, Profiles")
 
 client -down-> ctrl : HTTP requests
-ctrl -down-> mediator : Send / Publish
+ctrl -down-> mediator : Send
 mediator -down-> createH
 mediator -down-> getH
 mediator -down-> updateH
 mediator -down-> removeH
-mediator -down-> msgH
+mediator -down-> validateH
 
-msgH -right-> orch : Publish\nValidatedInvitationToken
+validateH -right-> provisioning : Provision account\nand profile
 
 createH -down-> db : Insert
 getH -down-> db : Select
 updateH -down-> db : Update
 removeH -down-> db : Delete
-msgH -down-> db : Query
+validateH -down-> db : Query / Update
 
 @enduml

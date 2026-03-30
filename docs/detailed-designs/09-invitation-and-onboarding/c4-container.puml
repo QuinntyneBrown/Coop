@@ -11,19 +11,17 @@ Person(admin, "Administrator", "Manages invitations")
 Person(invitee, "Invitee", "Redeems invitation token")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(spa, "SPA Frontend", "Angular", "Onboarding UI and\nadmin invitation management")
-    Container(api, "Coop API", ".NET / ASP.NET Core", "Monolith REST API with\nMediatR CQRS handlers")
-    Container(profileSvc, "Profile Service", ".NET / ASP.NET Core", "Microservice managing\nprofiles and invitation tokens")
-    ContainerDb(db, "SQL Database", "SQL Server / EF Core", "Stores invitation tokens,\nusers, and profiles")
+    Container(publicApp, "Public Web App", "Web application", "Onboarding and invitation redemption")
+    Container(adminApp, "Admin Backend", "Web application", "Invitation management and operational administration")
+    Container(api, "Coop API", ".NET / ASP.NET Core", "Shared modular monolith API")
+    ContainerDb(db, "SQL Database", "SQL Server / EF Core", "Stores invitation tokens, users, and profiles")
 }
 
-admin -down-> spa : Manages tokens
-invitee -down-> spa : Enters invitation token
+admin -down-> adminApp : Manages tokens
+invitee -down-> publicApp : Enters invitation token
 
-spa -down-> api : REST calls\n(monolith path)
-spa -down-> profileSvc : REST calls\n(microservice path)
-
+adminApp -down-> api : REST calls
+publicApp -down-> api : REST calls
 api -down-> db : Reads / writes tokens
-profileSvc -down-> db : Reads / writes tokens
 
 @enduml

@@ -3,20 +3,22 @@
 
 title Coop Platform -- C4 Container Diagram
 
-Person(user, "User", "Co-op member, staff,\nor administrator")
+Person(user, "User", "Co-op member, staff, board member, or administrator")
 
 System_Boundary(coop, "Coop Platform") {
-  Container(api, "Coop.Api", "ASP.NET Core", "REST API host.\nControllers, middleware,\nSwagger, JWT auth")
-  Container(app, "Coop.Application", ".NET Class Library", "MediatR handlers,\nFluentValidation validators,\nCQRS commands/queries")
-  Container(domain, "Coop.Domain", ".NET Class Library", "Domain entities,\naggregates, interfaces,\ndomain events")
-  Container(infra, "Coop.Infrastructure", ".NET Class Library", "EF Core DbContext,\nrepositories,\ntoken provider,\npassword hasher")
-  ContainerDb(db, "SQL Server", "Database", "Stores users, profiles,\nmaintenance requests,\ndocuments, events")
+  Container(publicApp, "Public Web App", "Web application", "CMS-driven public experience")
+  Container(adminApp, "Admin Backend", "Web application", "Operations and content administration")
+  Container(api, "Coop API", "ASP.NET Core", "REST API host, middleware, Swagger, JWT auth")
+  Container(app, "Application Layer", ".NET Class Library", "MediatR handlers, validators, commands, queries")
+  Container(domain, "Domain Layer", ".NET Class Library", "Domain entities, aggregates, interfaces, domain events")
+  Container(infra, "Infrastructure Layer", ".NET Class Library", "EF Core DbContext, persistence, auth helpers")
+  ContainerDb(db, "SQL Server", "Database", "Stores users, profiles, requests, documents, content, events")
 }
 
-System_Ext(spa, "SPA Client", "Front-end application")
-
-Rel(user, spa, "Uses", "HTTPS")
-Rel(spa, api, "Calls", "HTTPS/JSON")
+Rel(user, publicApp, "Uses when interacting with member/public features", "HTTPS")
+Rel(user, adminApp, "Uses when performing operational or editorial work", "HTTPS")
+Rel(publicApp, api, "Calls", "HTTPS/JSON")
+Rel(adminApp, api, "Calls", "HTTPS/JSON")
 Rel(api, app, "Dispatches via", "IMediator")
 Rel(app, domain, "References", "Entities/Interfaces")
 Rel(app, infra, "Uses", "ICoopDbContext")

@@ -7,7 +7,7 @@ actor Client
 participant "ConversationsController" as Ctrl
 participant "Conversation" as Conv
 participant "MessagingDbContext" as Db
-participant "IMessageBus" as Bus
+participant "InternalNotificationDispatcher" as Dispatcher
 
 Client -> Ctrl : POST /api/conversations/{id}/messages\n{FromProfileId, ToProfileId, Body}
 activate Ctrl
@@ -38,10 +38,10 @@ else Conversation found
     Db --> Ctrl : saved
     deactivate Db
 
-    Ctrl -> Bus : PublishAsync(MessageSentEvent)
-    activate Bus
-    Bus --> Ctrl : published
-    deactivate Bus
+    Ctrl -> Dispatcher : Dispatch(MessageSent)
+    activate Dispatcher
+    Dispatcher --> Ctrl : complete
+    deactivate Dispatcher
 
     Ctrl --> Client : 200 OK\nMessageDto
   end

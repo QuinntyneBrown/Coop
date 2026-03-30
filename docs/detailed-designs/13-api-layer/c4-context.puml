@@ -3,19 +3,21 @@
 
 title Coop Platform -- C4 System Context Diagram
 
-Person(member, "Co-op Member", "Submits maintenance requests,\nviews documents and notices")
-Person(staff, "Staff / Board Member", "Manages requests, publishes\ncontent, administers users")
-Person(admin, "System Administrator", "Configures roles, privileges,\nand themes")
+Person(member, "Co-op Member", "Uses member-facing cooperative features")
+Person(staff, "Staff / Board Member", "Operates the cooperative and publishes content")
+Person(admin, "System Administrator", "Configures users, privileges, themes, and CMS content")
 
-System(coop, "Coop Platform", "ASP.NET Core REST API\nfor cooperative management")
+System(publicApp, "Public Web App", "CMS-driven public-facing application")
+System(adminApp, "Admin Backend", "Operational and editorial back-office application")
+System(coop, "Coop Backend API", "ASP.NET Core modular monolith API")
 
-System_Ext(email, "Email Service", "Sends invitation and\nnotification emails")
-System_Ext(spa, "SPA Client", "Angular/React front-end\napplication")
+System_Ext(email, "Email Service", "Sends invitation and notification emails")
 
-Rel(member, coop, "Uses", "HTTPS/JSON")
-Rel(staff, coop, "Manages", "HTTPS/JSON")
-Rel(admin, coop, "Administers", "HTTPS/JSON")
-Rel(spa, coop, "Calls API", "HTTPS/JSON")
+Rel(member, publicApp, "Uses", "HTTPS")
+Rel(staff, adminApp, "Uses", "HTTPS")
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(publicApp, coop, "Calls API", "HTTPS/JSON")
+Rel(adminApp, coop, "Calls API", "HTTPS/JSON")
 Rel(coop, email, "Sends emails", "SMTP")
 
 @enduml
