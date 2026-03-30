@@ -1,0 +1,59 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Theme and Content Customization - C4 Component Diagram
+
+Container_Boundary(api, "Coop.Api / Microservices") {
+
+    Component(themeCtrl, "ThemeController", "ASP.NET Controller", "Routes theme CRUD requests;\nGET by id, profile, default;\nPOST, PUT, DELETE")
+
+    Component(jsonCtrl, "JsonContentController", "ASP.NET Controller", "Routes JSON content requests;\nGET by id, by name;\nPOST, PUT, DELETE")
+
+    Component(createThemeH, "CreateThemeHandler", "MediatR Handler", "Creates new Theme entity;\npersists to database")
+
+    Component(updateThemeH, "UpdateThemeHandler", "MediatR Handler", "Loads theme, calls\nSetCssCustomProperties;\nsaves changes")
+
+    Component(getThemeH, "GetThemeByIdHandler\nGetDefaultThemeHandler\nGetThemeByProfileIdHandler", "MediatR Handlers", "Query handlers for\ntheme retrieval")
+
+    Component(removeThemeH, "RemoveThemeHandler", "MediatR Handler", "Deletes theme entity")
+
+    Component(createJsonH, "CreateJsonContentHandler", "MediatR Handler", "Creates JsonContent;\nraises CreatedJsonContent\ndomain event")
+
+    Component(updateJsonH, "UpdateJsonContentHandler", "MediatR Handler", "Loads content, calls\nSetJson; saves changes")
+
+    Component(getJsonH, "GetJsonContentByIdHandler\nGetJsonContentByNameHandler", "MediatR Handlers", "Query handlers for\ncontent retrieval")
+
+    Component(removeJsonH, "RemoveJsonContentHandler", "MediatR Handler", "Deletes content entity")
+
+    Component(validator, "ThemeValidator\nJsonContentValidator", "FluentValidation", "Validates request DTOs\nbefore handler execution")
+}
+
+ComponentDb(db, "Database", "SQL Server", "Themes, JsonContents")
+
+Rel(themeCtrl, createThemeH, "Send via IMediator")
+Rel(themeCtrl, updateThemeH, "Send via IMediator")
+Rel(themeCtrl, getThemeH, "Send via IMediator")
+Rel(themeCtrl, removeThemeH, "Send via IMediator")
+
+Rel(jsonCtrl, createJsonH, "Send via IMediator")
+Rel(jsonCtrl, updateJsonH, "Send via IMediator")
+Rel(jsonCtrl, getJsonH, "Send via IMediator")
+Rel(jsonCtrl, removeJsonH, "Send via IMediator")
+
+Rel(createThemeH, db, "Writes", "EF Core")
+Rel(updateThemeH, db, "Reads/Writes", "EF Core")
+Rel(getThemeH, db, "Reads", "EF Core")
+Rel(removeThemeH, db, "Deletes", "EF Core")
+
+Rel(createJsonH, db, "Writes", "EF Core")
+Rel(updateJsonH, db, "Reads/Writes", "EF Core")
+Rel(getJsonH, db, "Reads", "EF Core")
+Rel(removeJsonH, db, "Deletes", "EF Core")
+
+Rel(createThemeH, validator, "Validated by")
+Rel(createJsonH, validator, "Validated by")
+
+@enduml

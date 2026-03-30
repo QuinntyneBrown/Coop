@@ -1,0 +1,35 @@
+@startuml state-event-lifecycle
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam pageMargin 10
+
+title Integration Event Lifecycle
+
+[*] --> Created : Domain operation\ncompletes
+
+Created : EventId = NewGuid()
+Created : CreatedAt = UtcNow
+
+Created --> Serialized : IMessageSerializer\n.Serialize<TEvent>()
+
+Serialized : Wrapped in\nMessageEnvelope
+
+Serialized --> Published : RedisMessageBus\n.PublishAsync()
+
+Published : Sent to Redis\nPub/Sub channel
+
+Published --> Delivered : Redis delivers\nto subscribers
+
+Delivered : Subscriber receives\nbyte[] message
+
+Delivered --> Handled : IIntegrationEventHandler\n.HandleAsync()
+
+Handled : Domain side-effects\napplied
+
+Handled --> [*]
+
+Published --> Failed : Redis unavailable\nor serialization error
+Failed --> [*]
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml c4-context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Theme and Content Customization - C4 Context Diagram
+
+Person(admin, "Administrator", "Manages platform themes\nand content sections")
+Person(member, "Member / Visitor", "Views themed UI and\ndynamic content")
+
+System(coop, "Coop Platform", "Cooperative management platform\nwith theming and CMS capabilities")
+
+System_Ext(browser, "SPA Front End", "Angular application that\napplies themes and renders\nJSON-driven content")
+
+Rel(admin, coop, "Creates/updates themes\nand JSON content", "HTTPS/JSON")
+Rel(member, browser, "Views themed pages\nand content sections")
+Rel(browser, coop, "Fetches themes and\nJSON content", "HTTPS/JSON")
+
+@enduml

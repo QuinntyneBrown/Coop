@@ -1,0 +1,44 @@
+@startuml c4-context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam pageMargin 10
+
+title Microservices Architecture - C4 Context Diagram
+
+Person(member, "Cooperative Member", "Resident who uses the\nplatform for maintenance\nrequests and documents")
+Person(staff, "Staff Member", "Staff who manage\noperations and requests")
+Person(admin, "Admin", "Administrator who manages\nusers, roles, and content")
+
+System(gateway, "API Gateway", "Routes external HTTP requests\nto downstream microservices")
+
+System(identity, "Identity Service", "Manages users, roles,\nand authentication")
+System(profile, "Profile Service", "Manages member and\nstaff profiles")
+System(maintenance, "Maintenance Service", "Handles maintenance\nrequest workflow")
+System(document, "Document Service", "Manages by-laws,\nnotices, and reports")
+System(asset, "Asset Service", "Manages digital assets\nand themes")
+System(messaging, "Messaging Service", "Provides in-app\nconversations")
+
+System_Ext(redis, "Redis", "Pub/Sub message bus for\nasynchronous integration events")
+
+Rel(member, gateway, "Uses", "HTTPS")
+Rel(staff, gateway, "Uses", "HTTPS")
+Rel(admin, gateway, "Uses", "HTTPS")
+
+Rel(gateway, identity, "Routes to", "HTTP")
+Rel(gateway, profile, "Routes to", "HTTP")
+Rel(gateway, maintenance, "Routes to", "HTTP")
+Rel(gateway, document, "Routes to", "HTTP")
+Rel(gateway, asset, "Routes to", "HTTP")
+Rel(gateway, messaging, "Routes to", "HTTP")
+
+Rel(identity, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(profile, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(maintenance, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(document, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(asset, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(messaging, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+
+@enduml

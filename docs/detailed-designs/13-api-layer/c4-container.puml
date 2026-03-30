@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Coop Platform -- C4 Container Diagram
+
+Person(user, "User", "Co-op member, staff,\nor administrator")
+
+System_Boundary(coop, "Coop Platform") {
+  Container(api, "Coop.Api", "ASP.NET Core", "REST API host.\nControllers, middleware,\nSwagger, JWT auth")
+  Container(app, "Coop.Application", ".NET Class Library", "MediatR handlers,\nFluentValidation validators,\nCQRS commands/queries")
+  Container(domain, "Coop.Domain", ".NET Class Library", "Domain entities,\naggregates, interfaces,\ndomain events")
+  Container(infra, "Coop.Infrastructure", ".NET Class Library", "EF Core DbContext,\nrepositories,\ntoken provider,\npassword hasher")
+  ContainerDb(db, "SQL Server", "Database", "Stores users, profiles,\nmaintenance requests,\ndocuments, events")
+}
+
+System_Ext(spa, "SPA Client", "Front-end application")
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "HTTPS/JSON")
+Rel(api, app, "Dispatches via", "IMediator")
+Rel(app, domain, "References", "Entities/Interfaces")
+Rel(app, infra, "Uses", "ICoopDbContext")
+Rel(infra, db, "Reads/Writes", "EF Core / SQL")
+
+@enduml

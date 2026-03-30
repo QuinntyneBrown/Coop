@@ -1,0 +1,36 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam defaultFontSize 10
+skinparam shadowing false
+
+title Event Sourcing and Audit Trail - C4 Component Diagram
+
+Container_Boundary(api, "API Layer") {
+    Component(eventsCtrl, "EventsController", "ASP.NET Controller", "SSE endpoint at\n/api/events for\nreal-time streaming")
+    Component(storedCtrl, "StoredEventController", "ASP.NET Controller", "CRUD endpoints for\nquerying and managing\nStoredEvent records")
+}
+
+Container_Boundary(domain, "Domain Layer") {
+    Component(aggRoot, "AggregateRoot", "Abstract Class", "Base class for all aggregates.\nApply/When/StoreEvent pattern.\nHolds List<StoredEvent>.")
+    Component(storedEvent, "StoredEvent", "Entity", "Immutable event record with\nStreamId, Type, Data,\nDotNetType, CreatedOn")
+    Component(iEvent, "IEvent / BaseDomainEvent", "Interface / Abstract", "Domain event contract\nwith Created, CorrelationId")
+    Component(notifSvc, "NotificationService", "INotificationService", "Rx Subject<dynamic> wrapper.\nSubscribe/OnNext for\nevent distribution.")
+}
+
+Container_Boundary(infra, "Infrastructure") {
+    Component(dbCtx, "CoopDbContext", "DbContext", "SavingChanges extracts events.\nSavedChanges publishes events.\nManages StoredEvents DbSet.")
+}
+
+Rel(storedCtrl, dbCtx, "IMediator -> ICoopDbContext")
+Rel(eventsCtrl, notifSvc, "Subscribe(onNext)")
+
+Rel(aggRoot, storedEvent, "StoreEvent() creates")
+Rel(aggRoot, iEvent, "Apply() / When()")
+
+Rel(dbCtx, aggRoot, "ChangeTracker\n.Entries<AggregateRoot>()")
+Rel(dbCtx, storedEvent, "StoredEvents.Add()")
+Rel(dbCtx, notifSvc, "OnNext(event)\nafter SavedChanges")
+
+@enduml

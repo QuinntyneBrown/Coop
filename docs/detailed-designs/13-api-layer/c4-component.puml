@@ -1,0 +1,53 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Coop API -- C4 Component Diagram
+
+Container_Boundary(api, "Coop.Api") {
+
+  Component(userCtrl, "UserController", "[Authorize]", "Auth, user CRUD,\nusername check")
+  Component(profileCtrl, "ProfileController", "Controller", "Profile CRUD,\navatar, current user")
+  Component(mrCtrl, "MaintenanceRequestController", "[Authorize]", "CRUD + workflow:\nStart, Receive, Complete")
+  Component(peopleCtrl, "People Controllers", "Controller", "BoardMember, StaffMember,\nMember, OnCall")
+  Component(contentCtrl, "Content Controllers", "Controller", "Document, Notice,\nByLaw, Report")
+  Component(msgCtrl, "Messaging Controllers", "Controller", "Conversation, Message")
+  Component(assetCtrl, "DigitalAssetController", "Controller", "Upload, Serve,\nbatch retrieval")
+  Component(custCtrl, "Customization Controllers", "Controller", "Theme, JsonContent")
+  Component(secCtrl, "Security Controllers", "Controller", "Role, Privilege")
+  Component(invCtrl, "InvitationTokenController", "Controller", "Token CRUD + Validate")
+  Component(evtCtrl, "Event Controllers", "Controller", "Events, StoredEvent")
+
+  Component(authMw, "JWT Auth Middleware", "Middleware", "Validates Bearer tokens,\nsets ClaimsPrincipal")
+  Component(swagger, "Swagger / OpenAPI", "Middleware", "API documentation\nat root URL")
+  Component(cors, "CORS Policy", "Middleware", "Configurable origin\nwhitelist")
+}
+
+Container_Boundary(appLayer, "Coop.Application") {
+  Component(mediator, "MediatR", "Dispatcher", "Routes requests to\nmatching handlers")
+  Component(valBeh, "ValidationBehavior", "Pipeline Behavior", "FluentValidation\nrequest validation")
+  Component(authBeh, "AuthorizationBehavior", "Pipeline Behavior", "Resource-level\nprivilege checks")
+  Component(handlers, "Request Handlers", "IRequestHandler", "Business logic for\ncommands and queries")
+}
+
+Container_Boundary(infraLayer, "Coop.Infrastructure") {
+  Component(dbctx, "CoopDbContext", "EF Core", "SQL Server persistence")
+}
+
+Rel(userCtrl, mediator, "Send()")
+Rel(profileCtrl, mediator, "Send()")
+Rel(mrCtrl, mediator, "Send()")
+Rel(peopleCtrl, mediator, "Send()")
+Rel(contentCtrl, mediator, "Send()")
+Rel(msgCtrl, mediator, "Send()")
+Rel(assetCtrl, mediator, "Send()")
+Rel(custCtrl, mediator, "Send()")
+Rel(secCtrl, mediator, "Send()")
+Rel(invCtrl, mediator, "Send()")
+Rel(evtCtrl, mediator, "Send()")
+
+Rel(mediator, valBeh, "Pipeline")
+Rel(valBeh, authBeh, "Pipeline")
+Rel(authBeh, handlers, "Pipeline")
+Rel(handlers, dbctx, "ICoopDbContext")
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml state-theme-lifecycle
+
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam stateFontSize 14
+skinparam pageMargin 10
+
+title Theme Lifecycle - State Diagram
+
+[*] --> Created : CreateTheme\n(cssCustomProperties, profileId?)
+
+state Created {
+    Created : ThemeId assigned
+    Created : CssCustomProperties set
+    Created : ProfileId = null (default)\n  or specific profile
+}
+
+Created --> Updated : SetCssCustomProperties /\nUpdateCssCustomProperties\n(new JObject)
+
+state Updated {
+    Updated : CssCustomProperties replaced
+    Updated : UpdatedAt stamped (microservice)
+    Updated : ThemeUpdatedEvent published
+}
+
+Updated --> Updated : UpdateCssCustomProperties\n(subsequent edits)
+
+Created --> Deleted : RemoveTheme / Delete\n(not allowed for default)
+Updated --> Deleted : RemoveTheme / Delete\n(not allowed for default)
+
+Deleted --> [*]
+
+@enduml

@@ -1,0 +1,57 @@
+@startuml sequence-event-persist
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+
+title Event Persistence During SaveChanges
+
+participant "Client Code" as Client
+participant "AggregateRoot" as Agg
+participant "CoopDbContext" as Ctx
+database "StoredEvents\nTable" as DB
+participant "INotificationService" as Notify
+
+Client -> Agg : Apply(event)
+activate Agg
+Agg -> Agg : When(event)
+Agg -> Agg : EnsureValidState()
+Agg -> Agg : StoreEvent(event)
+note right
+  Serializes event to JSON.
+  Creates StoredEvent with
+  StreamId, Type, Aggregate,
+  Data, DotNetType, CreatedOn.
+end note
+Agg --> Client : AggregateRoot
+deactivate Agg
+
+Client -> Ctx : SaveChangesAsync()
+activate Ctx
+
+Ctx -> Ctx : SavingChanges event fires
+activate Ctx #LightBlue
+Ctx -> Agg : read StoredEvents
+Agg --> Ctx : List<StoredEvent>
+loop each StoredEvent
+    Ctx -> DB : StoredEvents.Add(storedEvent)
+end
+deactivate Ctx
+
+Ctx -> DB : Commit transaction
+DB --> Ctx : success
+
+Ctx -> Ctx : SavedChanges event fires
+activate Ctx #LightGreen
+loop each AggregateRoot
+    loop each StoredEvent
+        Ctx -> Ctx : Deserialize(Data, DotNetType)
+        Ctx -> Notify : OnNext(event)
+    end
+    Ctx -> Agg : Clear()
+end
+deactivate Ctx
+
+deactivate Ctx
+
+@enduml

@@ -1,0 +1,62 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam defaultFontSize 10
+skinparam shadowing false
+skinparam pageMargin 10
+
+title Microservices Architecture - C4 Component Diagram (Messaging Infrastructure)
+
+System_Ext(redis, "Redis", "Pub/Sub message bus")
+
+Container_Boundary(sharedKernel, "Coop.SharedKernel") {
+  Component(messageBusInterface, "IMessageBus", "Interface", "PublishAsync, SubscribeAsync,\nUnsubscribeAsync")
+  Component(redisMessageBus, "RedisMessageBus", "Class", "Redis Pub/Sub implementation\nof IMessageBus. Manages\nconnections and subscriptions.")
+  Component(serializer, "IMessageSerializer", "Interface", "Serialize<T>, Deserialize<T>")
+  Component(msgPackSerializer, "MessagePackMessageSerializer", "Class", "MessagePack binary\nserialization implementation")
+  Component(envelope, "MessageEnvelope", "DTO", "EventType, Payload,\nTimestamp, CorrelationId")
+  Component(publisher, "IntegrationEventPublisher", "Class", "Convenience wrapper for\npublishing integration events\nwith logging")
+  Component(redisOptions, "RedisOptions", "Config", "ConnectionString,\nChannelPrefix, RetryCount")
+}
+
+Container_Boundary(identitySvc, "Identity Service") {
+  Component(identityHandlers, "Identity Event Handlers", "IIntegrationEventHandler", "Handles ProfileCreatedEvent,\nProfileDeletedEvent")
+}
+
+Container_Boundary(profileSvc, "Profile Service") {
+  Component(profileHandlers, "Profile Event Handlers", "IIntegrationEventHandler", "Handles UserCreatedEvent,\nUserDeletedEvent,\nThemeUpdatedEvent")
+}
+
+Container_Boundary(maintenanceSvc, "Maintenance Service") {
+  Component(maintenanceHandlers, "Maintenance Event Handlers", "IIntegrationEventHandler", "Handles ProfileCreatedEvent,\nDigitalAssetCreatedEvent")
+}
+
+Container_Boundary(documentSvc, "Document Service") {
+  Component(documentHandlers, "Document Event Handlers", "IIntegrationEventHandler", "Handles DigitalAssetCreatedEvent,\nDigitalAssetDeletedEvent")
+}
+
+Container_Boundary(assetSvc, "Asset Service") {
+  Component(assetHandlers, "Asset Event Handlers", "IIntegrationEventHandler", "Handles DocumentCreatedEvent,\nMaintenanceRequestCreatedEvent")
+}
+
+Container_Boundary(messagingSvc, "Messaging Service") {
+  Component(messagingHandlers, "Messaging Event Handlers", "IIntegrationEventHandler", "Handles ProfileCreatedEvent,\nMaintenanceRequestStatusChangedEvent")
+}
+
+Rel(publisher, messageBusInterface, "Delegates to")
+Rel(redisMessageBus, messageBusInterface, "Implements")
+Rel(redisMessageBus, serializer, "Uses")
+Rel(msgPackSerializer, serializer, "Implements")
+Rel(redisMessageBus, envelope, "Creates/Reads")
+Rel(redisMessageBus, redisOptions, "Reads config")
+Rel(redisMessageBus, redis, "Pub/Sub", "StackExchange.Redis")
+
+Rel(identityHandlers, messageBusInterface, "Subscribes via")
+Rel(profileHandlers, messageBusInterface, "Subscribes via")
+Rel(maintenanceHandlers, messageBusInterface, "Subscribes via")
+Rel(documentHandlers, messageBusInterface, "Subscribes via")
+Rel(assetHandlers, messageBusInterface, "Subscribes via")
+Rel(messagingHandlers, messageBusInterface, "Subscribes via")
+
+@enduml

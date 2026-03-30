@@ -1,0 +1,51 @@
+@startuml sequence-publish-event
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam pageMargin 10
+
+title Publish Integration Event via Redis
+
+participant "Service\n(e.g. Profile)" as Service
+participant "IntegrationEvent\nPublisher" as Publisher
+participant "IMessageBus\n(RedisMessageBus)" as Bus
+participant "IMessageSerializer\n(MessagePack)" as Serializer
+participant "MessageEnvelope" as Envelope
+participant "Redis\nPub/Sub" as Redis
+
+Service -> Publisher : PublishAsync<TEvent>(event)
+activate Publisher
+
+Publisher -> Bus : PublishAsync<TEvent>(event)
+activate Bus
+
+Bus -> Bus : GetChannelName<TEvent>()\n=> event type lowercase
+
+Bus -> Serializer : Serialize<TEvent>(event)
+activate Serializer
+return byte[] payload
+
+Bus -> Envelope ** : new MessageEnvelope
+note right
+  EventType = AssemblyQualifiedName
+  Payload = serialized event bytes
+  Timestamp = UtcNow
+  CorrelationId = event.CorrelationId
+end note
+
+Bus -> Serializer : Serialize<MessageEnvelope>(envelope)
+activate Serializer
+return byte[] data
+
+Bus -> Redis : PublishAsync(\n  "{prefix}:{channel}", data)
+activate Redis
+return message delivered
+
+Bus --> Publisher : complete
+deactivate Bus
+
+Publisher --> Service : complete
+deactivate Publisher
+
+@enduml

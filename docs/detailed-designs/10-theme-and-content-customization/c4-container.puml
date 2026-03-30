@@ -1,0 +1,38 @@
+@startuml c4-container
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Theme and Content Customization - C4 Container Diagram
+
+Person(admin, "Administrator", "Manages themes and content")
+
+System_Boundary(coop, "Coop Platform") {
+    Container(spa, "Angular SPA", "TypeScript, Angular", "Renders themed UI;\napplies CSS custom properties;\nfetches JSON content by name")
+
+    Container(api, "Coop.Api", ".NET, ASP.NET Core", "Monolith API gateway;\nThemeController,\nJsonContentController")
+
+    Container(assetSvc, "Asset Service", ".NET Microservice", "Manages themes;\npublishes ThemeUpdatedEvent")
+
+    Container(docSvc, "Document Service", ".NET Microservice", "Manages JSON content;\nwell-known content names")
+
+    ContainerDb(db, "Coop Database", "SQL Server", "Themes, JsonContents tables")
+
+    ContainerDb(assetDb, "Asset DB", "SQL Server", "Themes table\n(with audit columns)")
+
+    ContainerDb(docDb, "Document DB", "SQL Server", "JsonContents table\n(with audit columns)")
+
+    Container(bus, "Message Bus", "RabbitMQ / In-Memory", "Domain event transport")
+}
+
+Rel(admin, spa, "Configures themes\nand content", "HTTPS")
+Rel(spa, api, "REST calls", "HTTPS/JSON")
+Rel(spa, assetSvc, "REST calls", "HTTPS/JSON")
+Rel(spa, docSvc, "REST calls", "HTTPS/JSON")
+Rel(api, db, "Reads/writes", "EF Core")
+Rel(assetSvc, assetDb, "Reads/writes", "EF Core")
+Rel(docSvc, docDb, "Reads/writes", "EF Core")
+Rel(assetSvc, bus, "Publishes\nThemeUpdatedEvent")
+
+@enduml

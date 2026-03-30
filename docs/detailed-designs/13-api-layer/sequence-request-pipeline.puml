@@ -1,0 +1,85 @@
+@startuml
+skinparam defaultFontSize 10
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Coop API -- Full Request Pipeline
+
+actor Client
+participant "API\n(Kestrel)" as API
+participant "Auth\nMiddleware" as Auth
+participant "[Authorize]\nFilter" as AuthZ
+participant "Controller" as Ctrl
+participant "IMediator" as Med
+participant "Validation\nBehavior" as Val
+participant "Authorization\nBehavior" as ResAuth
+participant "Handler" as Handler
+database "DbContext" as DB
+
+Client -> API : HTTP Request
+activate API
+
+API -> Auth : Authenticate
+activate Auth
+Auth -> Auth : Validate JWT\n(signature, issuer, expiry)
+alt JWT valid
+  Auth --> API : ClaimsPrincipal set
+else JWT invalid or missing
+  Auth --> Client : 401 Unauthorized
+  deactivate Auth
+  deactivate API
+end
+deactivate Auth
+
+API -> AuthZ : Check [Authorize]
+activate AuthZ
+alt Authorized or [AllowAnonymous]
+  AuthZ --> API : Pass
+else Forbidden
+  AuthZ --> Client : 403 Forbidden
+  deactivate AuthZ
+  deactivate API
+end
+deactivate AuthZ
+
+API -> Ctrl : Route to action
+activate Ctrl
+Ctrl -> Med : Send(request)
+activate Med
+
+Med -> Val : ValidationBehavior
+activate Val
+alt Validation passes
+  Val --> Med : continue
+else Validation fails
+  Val --> Client : 400 Bad Request\n(ProblemDetails)
+  deactivate Val
+  deactivate Med
+  deactivate Ctrl
+  deactivate API
+end
+deactivate Val
+
+Med -> ResAuth : ResourceOperationAuthorizationBehavior
+activate ResAuth
+ResAuth --> Med : Privilege check pass
+deactivate ResAuth
+
+Med -> Handler : Handle(request)
+activate Handler
+Handler -> DB : Query / Command
+activate DB
+DB --> Handler : Result
+deactivate DB
+Handler --> Med : Response DTO
+deactivate Handler
+
+Med --> Ctrl : Response
+deactivate Med
+Ctrl --> API : ActionResult<T>
+deactivate Ctrl
+API --> Client : HTTP 200 OK\n(JSON body)
+deactivate API
+
+@enduml

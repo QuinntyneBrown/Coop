@@ -1,0 +1,36 @@
+@startuml sequence-event-replay
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+
+title Aggregate Reconstruction from Event Stream
+
+participant "Caller" as Caller
+participant "CoopDbContext" as Ctx
+database "StoredEvents\nTable" as DB
+participant "AggregateRoot" as Agg
+
+Caller -> Ctx : Query StoredEvents\nby StreamId
+activate Ctx
+Ctx -> DB : SELECT * FROM StoredEvents\nWHERE StreamId = @id\nORDER BY Sequence
+DB --> Ctx : List<StoredEvent>
+deactivate Ctx
+
+Caller -> Caller : Deserialize each\nStoredEvent.Data\nusing DotNetType
+note right
+  JsonConvert.DeserializeObject(
+    storedEvent.Data,
+    Type.GetType(storedEvent.DotNetType))
+end note
+
+Caller -> Agg : new AggregateRoot(events)
+activate Agg
+loop each IEvent in events
+    Agg -> Agg : When(event)
+    note right : Applies state mutation
+end
+Agg --> Caller : Reconstructed aggregate
+deactivate Agg
+
+@enduml

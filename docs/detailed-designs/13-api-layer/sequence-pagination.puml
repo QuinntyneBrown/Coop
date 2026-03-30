@@ -1,0 +1,48 @@
+@startuml
+skinparam defaultFontSize 10
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Coop API -- Paginated Query Flow
+
+actor Client
+participant "Controller" as Ctrl
+participant "IMediator" as Med
+participant "PageHandler" as PH
+database "DbContext" as DB
+
+Client -> Ctrl : GET /api/{resource}/page/{pageSize}/{index}
+activate Ctrl
+note right of Ctrl
+  Route params bound to
+  request object:
+  { PageSize, Index }
+end note
+
+Ctrl -> Med : Send(GetResourcePageRequest)
+activate Med
+
+Med -> PH : Handle(request)
+activate PH
+
+PH -> DB : query.Count()
+activate DB
+DB --> PH : totalCount
+deactivate DB
+
+PH -> DB : query\n  .Skip(index * pageSize)\n  .Take(pageSize)\n  .ToListAsync()
+activate DB
+DB --> PH : List<Entity>
+deactivate DB
+
+PH -> PH : Map entities to DTOs
+PH --> Med : PageResponse\n{ Length, Entities[] }
+deactivate PH
+
+Med --> Ctrl : PageResponse
+deactivate Med
+
+Ctrl --> Client : 200 OK\n{ length, entities[] }
+deactivate Ctrl
+
+@enduml

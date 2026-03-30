@@ -1,0 +1,22 @@
+@startuml c4-context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+title Event Sourcing and Audit Trail - C4 Context Diagram
+
+Person(user, "Cooperative User", "Member, staff, or admin\nwho triggers domain events\nvia platform actions")
+
+Person(auditor, "Auditor / Admin", "Reviews historical events\nand audit trail via\nStoredEvent API")
+
+System(coop, "Coop Platform", "Cooperative housing management\nplatform with event sourcing\nand real-time event streaming")
+
+System_Ext(browser, "Browser / SPA Client", "Subscribes to Server-Sent\nEvents for real-time\nUI updates")
+
+Rel(user, coop, "Performs actions that\ngenerate domain events")
+Rel(auditor, coop, "Queries stored events\nfor audit trail")
+Rel(coop, browser, "Streams events via\nSSE (text/event-stream)")
+
+@enduml

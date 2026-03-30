@@ -1,0 +1,35 @@
+@startuml c4-container
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+title Event Sourcing and Audit Trail - C4 Container Diagram
+
+Person(user, "User", "Triggers domain events\nvia platform actions")
+
+System_Boundary(coop, "Coop Platform") {
+    Container(api, "API Layer", "ASP.NET Core", "EventsController (SSE)\nStoredEventController (CRUD)")
+
+    Container(app, "Application Layer", "MediatR Handlers", "GetStoredEventById,\nGetStoredEvents,\nGetStoredEventsPage,\nCreateStoredEvent")
+
+    Container(domain, "Domain Layer", "C# Classes", "AggregateRoot, IEvent,\nBaseDomainEvent, StoredEvent,\nNotificationService")
+
+    Container(infra, "Infrastructure Layer", "EF Core", "CoopDbContext with\nSavingChanges/SavedChanges\nevent hooks")
+
+    ContainerDb(db, "SQL Database", "SQL Server", "StoredEvents table\nindexed on (StreamId, Aggregate)")
+}
+
+Container(sse, "SSE Client", "Browser", "Subscribes to\n/api/events stream")
+
+Rel(user, api, "HTTPS / REST")
+Rel(sse, api, "GET /api/events\n(SSE stream)")
+Rel(api, app, "IMediator.Send()")
+Rel(app, domain, "Domain entities\nand events")
+Rel(app, infra, "ICoopDbContext")
+Rel(infra, domain, "Extracts StoredEvents\nfrom AggregateRoot")
+Rel(infra, db, "EF Core / SQL")
+Rel(domain, sse, "INotificationService\n.OnNext()")
+
+@enduml

@@ -1,0 +1,188 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 10
+skinparam defaultFontSize 9
+skinparam packageFontSize 10
+skinparam linetype ortho
+skinparam nodesep 20
+skinparam ranksep 20
+skinparam pageMargin 10
+skinparam shadowing false
+
+title Coop API -- Controller Class Diagram
+
+interface IMediator {
+  +Send<T>(request): Task<T>
+}
+
+package "Identity & Auth" <<Rectangle>> {
+  class UserController <<Authorize>> {
+    -_mediator: IMediator
+    -_logger: ILogger
+    +GetById(request): GetUserByIdResponse
+    +Get(): GetUsersResponse
+    +UsernameExists(request): UsernameExistsResponse <<AllowAnonymous>>
+    +GetCurrent(): CurrentUserResponse <<AllowAnonymous>>
+    +Create(request): CreateUserResponse
+    +Page(request): GetUsersPageResponse
+    +Update(request): UpdateUserResponse
+    +Remove(request): RemoveUserResponse
+    +Authenticate(request): AuthenticateResponse <<AllowAnonymous>>
+  }
+
+  class RoleController {
+    -_mediator: IMediator
+    +GetById / Get / Create / Page / Update / Remove
+  }
+
+  class PrivilegeController {
+    -_mediator: IMediator
+    +GetById / Get / Create / Page / Update / Remove
+  }
+
+  class InvitationTokenController {
+    -_mediator: IMediator
+    +GetById / Get / Create / Page / Update / Remove
+    +Validate(request) <<AllowAnonymous>>
+  }
+}
+
+package "Profile & People" <<Rectangle>> {
+  class ProfileController {
+    -_mediator: IMediator
+    +GetById(request): GetProfileByIdResponse
+    +Get(): GetProfilesResponse
+    +GetCurrent(): CurrentProfileResponse
+    +Create(request): CreateProfileResponse
+    +Page(request): GetProfilesPageResponse
+    +Update(request): UpdateProfileResponse
+    +UpdateAvatar(request): UpdateProfileAvatarResponse
+    +Remove(request): RemoveProfileResponse
+  }
+
+  class BoardMemberController {
+    -_mediator: IMediator
+    +GetById / Get / Page / Update / Remove
+  }
+
+  class StaffMemberController {
+    -_mediator: IMediator
+    +GetById / Get / Page / Update / Remove
+  }
+
+  class MemberController {
+    -_mediator: IMediator
+    +GetById / Get / Page / Update / Remove
+  }
+
+  class OnCallController {
+    -_mediator: IMediator
+    +GetById / Get / Page / Update / Remove
+  }
+}
+
+package "Maintenance" <<Rectangle>> {
+  class MaintenanceRequestController <<Authorize>> {
+    -_mediator: IMediator
+    -_logger: ILogger
+    +GetById(request): GetMaintenanceRequestByIdResponse
+    +GetByCurrentProfile(): GetCurrentUserMaintenanceRequestsResponse
+    +Get(): GetMaintenanceRequestsResponse
+    +Page(request): GetMaintenanceRequestsPageResponse
+    +Remove(request): RemoveMaintenanceRequestResponse
+    +Create(request): CreateMaintenanceRequestResponse
+    +Update(request): UpdateMaintenanceRequestResponse
+    +UpdateDescription(request): UpdateMaintenanceRequestDescriptionResponse
+    +UpdateWorkDetails(request): UpdateMaintenanceRequestWorkDetailsResponse
+    +Start(request): StartMaintenanceRequestResponse
+    +Receive(request): ReceiveMaintenanceRequestResponse
+    +Complete(request): CompleteMaintenanceRequestResponse
+  }
+}
+
+package "Content" <<Rectangle>> {
+  class DocumentController {
+    -_mediator: IMediator
+    +GetById / Get / Create / Page / Update / Remove
+  }
+
+  class NoticeController {
+    -_mediator: IMediator
+    +GetById / Get / GetPublished / Create / Page / Update / Remove
+  }
+
+  class ByLawController {
+    -_mediator: IMediator
+    +GetById / Get / GetPublished / Create / Page / Update / Remove
+  }
+
+  class ReportController {
+    -_mediator: IMediator
+    +GetById / Get / GetPublished / Create / Page / Update / Remove
+  }
+}
+
+package "Messaging" <<Rectangle>> {
+  class ConversationController {
+    -_mediator: IMediator
+    +GetById / Get / Create / Page / Update / Remove
+  }
+
+  class MessageController {
+    -_mediator: IMediator
+    +GetById / Get / GetMy / Create / CreateSupport / Page / Update / Remove
+  }
+}
+
+package "Assets & Customization" <<Rectangle>> {
+  class DigitalAssetController {
+    -_mediator: IMediator
+    +GetById / GetByIds / Page / Upload / Serve <<AllowAnonymous>> / Remove
+  }
+
+  class ThemeController {
+    -_mediator: IMediator
+    +GetById / GetDefault / GetByProfileId / Get / Create / Page / Update / Remove
+  }
+
+  class JsonContentController {
+    -_mediator: IMediator
+    +GetById / GetByName / Get / Create / Page / Update / Remove
+  }
+}
+
+package "Events" <<Rectangle>> {
+  class EventsController {
+    -_mediator: IMediator
+    +GetById / Get
+  }
+
+  class StoredEventController {
+    -_mediator: IMediator
+    +GetById / Get / Page
+  }
+}
+
+UserController --> IMediator
+ProfileController --> IMediator
+MaintenanceRequestController --> IMediator
+BoardMemberController --> IMediator
+StaffMemberController --> IMediator
+MemberController --> IMediator
+OnCallController --> IMediator
+DocumentController --> IMediator
+NoticeController --> IMediator
+ByLawController --> IMediator
+ReportController --> IMediator
+ConversationController --> IMediator
+MessageController --> IMediator
+DigitalAssetController --> IMediator
+ThemeController --> IMediator
+JsonContentController --> IMediator
+RoleController --> IMediator
+PrivilegeController --> IMediator
+InvitationTokenController --> IMediator
+EventsController --> IMediator
+StoredEventController --> IMediator
+
+@enduml

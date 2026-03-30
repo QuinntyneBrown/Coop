@@ -1,0 +1,94 @@
+@startuml service-decomposition
+
+skinparam defaultFontSize 10
+skinparam shadowing false
+skinparam packageFontSize 12
+skinparam packageStyle rectangle
+skinparam pageMargin 10
+skinparam nodesep 20
+skinparam ranksep 20
+
+title Microservices Architecture - Service Decomposition
+
+package "Gateway" as gw #LightGray {
+  [Coop.Api] as api
+  note right of api
+    Reverse proxy routing
+    to downstream services
+  end note
+}
+
+package "Identity Service" as identity #LightBlue {
+  [User] as user
+  [Role] as role
+  [Privilege] as privilege
+  user --> role
+  role --> privilege
+}
+
+package "Profile Service" as profile #LightGreen {
+  [ProfileBase] as profileBase
+  [Member] as member
+  [BoardMember] as boardMember
+  [StaffMember] as staffMember
+  [InvitationToken] as invite
+  member -u-|> profileBase
+  boardMember -u-|> profileBase
+  staffMember -u-|> profileBase
+  profileBase ..> invite
+}
+
+package "Maintenance Service" as maintenance #LightYellow {
+  [MaintenanceRequest] as mRequest
+  [Comment] as comment
+  [DigitalAsset\n(reference)] as mAsset
+  mRequest --> comment
+  mRequest --> mAsset
+}
+
+package "Document Service" as document #LightCoral {
+  [DocumentBase] as docBase
+  [ByLaw] as bylaw
+  [Notice] as notice
+  [Report] as report
+  [JsonContent] as jsonContent
+  bylaw -u-|> docBase
+  notice -u-|> docBase
+  report -u-|> docBase
+}
+
+package "Asset Service" as asset #Wheat {
+  [DigitalAsset] as digitalAsset
+  [Theme] as theme
+  [OnCall] as onCall
+}
+
+package "Messaging Service" as messaging #Thistle {
+  [Conversation] as conversation
+  [Message] as message
+  conversation --> message
+}
+
+package "SharedKernel" as kernel #WhiteSmoke {
+  [IntegrationEvents] as events
+  [Messaging\n(RedisMessageBus)] as bus
+  [Serialization\n(MessagePack)] as serial
+  bus --> serial
+  bus ..> events : publishes
+}
+
+identity ..> kernel : references
+profile ..> kernel : references
+maintenance ..> kernel : references
+document ..> kernel : references
+asset ..> kernel : references
+messaging ..> kernel : references
+
+api ..> identity : routes to
+api ..> profile : routes to
+api ..> maintenance : routes to
+api ..> document : routes to
+api ..> asset : routes to
+api ..> messaging : routes to
+
+@enduml

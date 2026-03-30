@@ -1,0 +1,93 @@
+@startuml class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 11
+skinparam classFontSize 13
+skinparam classAttributeFontSize 10
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+title Event Sourcing and Audit Trail - Class Diagram
+
+package "Domain Layer" {
+
+    interface IAggregateRoot {
+        + Apply(event : IEvent) : AggregateRoot
+    }
+
+    interface IEvent <<INotification>> {
+        + Created : DateTime
+        + CorrelationId : Guid
+        + WithCorrelationIdFrom(event : IEvent) : void
+    }
+
+    abstract class AggregateRoot <<IAggregateRoot>> {
+        - _storedEvents : List<StoredEvent>
+        + StoredEvents : IReadOnlyList<StoredEvent>
+        --
+        + AggregateRoot(events : IEnumerable<IEvent>)
+        + Apply(event : IEvent) : AggregateRoot
+        + StoreEvent(event : IEvent) : void
+        + Clear() : void
+        # {abstract} When(event : dynamic) : void
+        # {abstract} EnsureValidState() : void
+    }
+
+    abstract class BaseDomainEvent <<IEvent, INotification>> {
+        + Created : DateTime
+        + CorrelationId : Guid
+        --
+        + BaseDomainEvent()
+        + BaseDomainEvent(event : BaseDomainEvent)
+        + WithCorrelationIdFrom(event : IEvent) : void
+    }
+
+    class StoredEvent {
+        + StoredEventId : Guid
+        + StreamId : Guid
+        + Type : string
+        + Aggregate : string
+        + AggregateDotNetType : string
+        + Data : string
+        + DotNetType : string
+        + CreatedOn : DateTime
+        + Version : int
+        + Sequence : int
+        + CorrelationId : Guid
+    }
+
+    interface INotificationService {
+        + Subscribe(onNext : Action, ct : CancellationToken) : void
+        + OnNext(value : dynamic) : void
+    }
+
+    class NotificationService {
+        - _events : Subject<dynamic>
+        --
+        + Subscribe(onNext : Action, ct : CancellationToken) : void
+        + OnNext(value : dynamic) : void
+    }
+}
+
+package "Infrastructure" {
+    class CoopDbContext <<DbContext>> {
+        + StoredEvents : DbSet<StoredEvent>
+        --
+        - CoopDbContext_SavingChanges() : void
+        - DbContext_SavedChanges() : void
+        + Dispose() : void
+    }
+}
+
+IAggregateRoot <|.. AggregateRoot
+IEvent <|.. BaseDomainEvent
+INotificationService <|.. NotificationService
+
+AggregateRoot "1" *-- "0..*" StoredEvent : _storedEvents
+AggregateRoot ..> IEvent : applies
+CoopDbContext --> AggregateRoot : extracts events from
+CoopDbContext --> StoredEvent : persists
+CoopDbContext --> INotificationService : publishes via
+
+@enduml

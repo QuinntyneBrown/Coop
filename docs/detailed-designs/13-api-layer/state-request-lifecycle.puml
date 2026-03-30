@@ -1,0 +1,39 @@
+@startuml
+skinparam defaultFontSize 10
+skinparam shadowing false
+skinparam stateAttributeFontSize 9
+
+title Coop API -- Request Lifecycle State Machine
+
+[*] --> Received : HTTP Request
+
+Received --> Authenticated : JWT valid
+Received --> Rejected401 : JWT invalid/missing
+
+Authenticated --> Authorized : Privilege check pass
+Authenticated --> Rejected403 : Privilege check fail
+
+Authorized --> Validated : FluentValidation pass
+Authorized --> Rejected400 : Validation fail
+
+Validated --> Processed : Handler executes
+
+Processed --> Response200 : Success
+Processed --> Response404 : Not found
+Processed --> Response500 : Error
+
+Rejected401 --> [*]
+Rejected403 --> [*]
+Rejected400 --> [*]
+Response200 --> [*]
+Response404 --> [*]
+Response500 --> [*]
+
+Rejected401 : 401 Unauthorized
+Rejected403 : 403 Forbidden
+Rejected400 : 400 Bad Request\n(ProblemDetails)
+Response200 : 200 OK\n(JSON payload)
+Response404 : 404 Not Found
+Response500 : 500 Internal Server Error
+
+@enduml

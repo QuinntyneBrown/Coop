@@ -1,0 +1,29 @@
+@startuml state-event-flow
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+title Event Lifecycle - State Machine
+
+[*] --> EventCreated : AggregateRoot.Apply()
+
+EventCreated : Event serialized to JSON
+EventCreated : StoredEvent record created
+EventCreated : Added to _storedEvents list
+
+EventCreated --> EventStored : CoopDbContext.SavingChanges
+
+EventStored : StoredEvent added to DbSet
+EventStored : Persisted in same transaction
+EventStored : Committed to StoredEvents table
+
+EventStored --> EventPublished : CoopDbContext.SavedChanges
+
+EventPublished : Deserialized back to domain type
+EventPublished : Pushed via INotificationService.OnNext
+EventPublished : Streamed to SSE clients
+EventPublished : Aggregate._storedEvents cleared
+
+EventPublished --> [*]
+
+@enduml
