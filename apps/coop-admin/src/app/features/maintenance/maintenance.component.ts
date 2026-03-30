@@ -35,11 +35,11 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             [class.selected]="selectedRequest?.maintenanceRequestId === req.maintenanceRequestId"
             (click)="selectRequest(req)">
             <div class="request-card-header">
-              <span class="request-title">{{ req.title }}</span>
-              <span class="badge" [ngClass]="getStatusClass(req.status)" data-testid="request-status-badge">{{ req.status || 'New' }}</span>
+              <span class="request-title" data-testid="request-title">{{ req.title }}</span>
+              <span class="badge" [ngClass]="getStatusClass(req.status)" data-testid="request-status-badge">{{ getStatusLabel(req.status) }}</span>
             </div>
             <p class="request-desc">{{ req.description | slice:0:80 }}{{ req.description?.length > 80 ? '...' : '' }}</p>
-            <span class="request-date">{{ req.createdOn | date:'short' }}</span>
+            <span class="request-date">{{ req.date || req.createdOn | date:'short' }}</span>
           </div>
         </div>
 
@@ -57,23 +57,23 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
           <div class="detail-header">
             <h2 data-testid="maintenance-detail-title">{{ selectedRequest.title }}</h2>
-            <span class="badge" [ngClass]="getStatusClass(selectedRequest.status)" data-testid="maintenance-detail-status">{{ selectedRequest.status || 'New' }}</span>
+            <span class="badge" [ngClass]="getStatusClass(selectedRequest.status)" data-testid="maintenance-detail-status">{{ getStatusLabel(selectedRequest.status) }}</span>
           </div>
 
           <div *ngIf="activeTab === 'details'">
             <div class="detail-meta">
-              <span data-testid="maintenance-detail-submitted-by">Submitted by: {{ selectedRequest.createdBy || 'Unknown' }}</span>
-              <span data-testid="maintenance-detail-date">{{ selectedRequest.createdOn | date:'medium' }}</span>
+              <span data-testid="maintenance-detail-submitted-by">Submitted by: {{ selectedRequest.requestedByName || selectedRequest.createdBy || 'Unknown' }}</span>
+              <span data-testid="maintenance-detail-date">{{ selectedRequest.date || selectedRequest.createdOn | date:'medium' }}</span>
               <span *ngIf="selectedRequest.priority" data-testid="maintenance-detail-priority">Priority: {{ selectedRequest.priority }}</span>
             </div>
             <p class="detail-description" data-testid="maintenance-detail-description">{{ selectedRequest.description }}</p>
 
             <div class="detail-info-grid">
               <div data-testid="maintenance-detail-address">
-                <strong>Address:</strong> {{ selectedRequest.address || 'N/A' }}
+                <strong>Address:</strong> {{ selectedRequest.unitNumber || selectedRequest.address || 'N/A' }}
               </div>
               <div data-testid="maintenance-detail-phone">
-                <strong>Phone:</strong> {{ selectedRequest.phoneNumber || selectedRequest.phone || 'N/A' }}
+                <strong>Phone:</strong> {{ selectedRequest.phone || selectedRequest.phoneNumber || 'N/A' }}
               </div>
               <div data-testid="maintenance-detail-unattended">
                 <strong>Unattended Entry:</strong> {{ selectedRequest.unattendedEntry ? 'Yes' : 'No' }}
@@ -301,11 +301,11 @@ export class MaintenanceComponent implements OnInit {
     if (this.activeFilter === 'all') {
       this.filteredRequests = [...this.requests];
     } else {
-      const map: Record<string, string[]> = {
-        'new': ['New', 'Created'],
-        'received': ['Received'],
-        'started': ['Started', 'InProgress'],
-        'done': ['Completed', 'Done']
+      const map: Record<string, (string | number)[]> = {
+        'new': ['New', 'Created', 0],
+        'received': ['Received', 1],
+        'started': ['Started', 'InProgress', 2],
+        'done': ['Completed', 'Complete', 'Done', 3]
       };
       const statuses = map[this.activeFilter] || [];
       this.filteredRequests = this.requests.filter(r => statuses.includes(r.status));
@@ -358,11 +358,18 @@ export class MaintenanceComponent implements OnInit {
     });
   }
 
-  getStatusClass(status: string): string {
-    switch ((status || '').toLowerCase()) {
+  getStatusLabel(status: any): string {
+    const numMap: Record<number, string> = { 0: 'New', 1: 'Received', 2: 'InProgress', 3: 'Complete' };
+    if (typeof status === 'number') return numMap[status] || 'New';
+    return status || 'New';
+  }
+
+  getStatusClass(status: any): string {
+    const label = this.getStatusLabel(status).toLowerCase();
+    switch (label) {
       case 'new': case 'created': return 'badge-warning';
       case 'received': case 'started': case 'inprogress': return 'badge-info';
-      case 'completed': case 'done': return 'badge-success';
+      case 'completed': case 'complete': case 'done': return 'badge-success';
       default: return 'badge-gray';
     }
   }

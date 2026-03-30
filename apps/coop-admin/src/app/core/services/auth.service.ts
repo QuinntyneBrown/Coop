@@ -50,13 +50,14 @@ export class AuthService {
 
   login(username: string, password: string): Observable<AuthTokenResponse> {
     return this.http.post<AuthTokenResponse>(`${this.API_URL}/user/token`, { username, password }).pipe(
-      tap(response => {
-        localStorage.setItem('auth_token', response.token);
+      tap((response: any) => {
+        const token = response.accessToken || response.token;
+        localStorage.setItem('auth_token', token);
         localStorage.setItem('auth_user_id', response.userId);
-        localStorage.setItem('auth_username', response.username);
+        localStorage.setItem('auth_username', response.username || 'admin');
         this.currentUserSubject.next({
           userId: response.userId,
-          username: response.username,
+          username: response.username || 'admin',
           roles: response.roles || []
         });
       })

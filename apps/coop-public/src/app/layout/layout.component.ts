@@ -286,7 +286,7 @@ import { UserService, UserProfile } from '../core/services/user.service';
       }
 
       .top-bar {
-        display: none;
+        display: block;
       }
 
       .sidebar {
@@ -300,7 +300,7 @@ import { UserService, UserProfile } from '../core/services/user.service';
       }
 
       .bottom-tab-bar {
-        display: none;
+        display: flex;
       }
     }
 

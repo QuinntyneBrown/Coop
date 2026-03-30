@@ -40,11 +40,16 @@ import { catchError, of } from 'rxjs';
         </div>
       </div>
 
+      <!-- Success message (shown after edit) -->
+      <div class="success-message" *ngIf="successMessage && !editMode" data-testid="profile-success-message">
+        {{ successMessage }}
+      </div>
+
       <!-- View Mode -->
       <div class="profile-info" *ngIf="!editMode">
         <div class="info-card card">
           <div class="info-header">
-            <h2 data-testid="profile-display-name">{{ profile?.firstName }} {{ profile?.lastName }}</h2>
+            <h2 data-testid="profile-display-name">{{ profile?.firstName || profile?.username }} {{ profile?.lastName }}</h2>
             <button class="btn btn-outline btn-sm" data-testid="profile-edit-btn" (click)="enterEditMode()">Edit</button>
           </div>
           <div class="info-row">
@@ -73,7 +78,7 @@ import { catchError, of } from 'rxjs';
       <!-- Edit Mode -->
       <div class="edit-form" *ngIf="editMode">
         <div class="card">
-          <div class="success-message" *ngIf="successMessage" data-testid="profile-success-message">
+          <div class="success-message" *ngIf="successMessage">
             {{ successMessage }}
           </div>
 
@@ -251,6 +256,17 @@ import { catchError, of } from 'rxjs';
 
     .btn-sm {
       padding: 6px 16px;
+      font-size: 14px;
+    }
+
+    .success-message {
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      text-align: center;
       font-size: 14px;
     }
 

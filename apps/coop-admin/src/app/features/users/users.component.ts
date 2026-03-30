@@ -154,7 +154,7 @@ export class UsersComponent implements OnInit {
   Math = Math;
   users: any[] = [];
   page = 1;
-  pageSize = 10;
+  pageSize = 3;
   totalCount = 0;
   totalPages = 1;
   pages: number[] = [1];
@@ -175,33 +175,25 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
+  private allUsers: any[] = [];
+
   private loadUsers(): void {
-    this.userService.getUsersPage(this.page, this.pageSize).subscribe({
+    this.userService.getUsers().subscribe({
       next: (data: any) => {
-        this.users = data?.entities || data?.users || [];
-        this.totalCount = data?.length || data?.totalCount || this.users.length;
+        this.allUsers = Array.isArray(data) ? data : (data?.users || []);
+        this.totalCount = this.allUsers.length;
         this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
         this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+        this.users = this.allUsers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
       },
-      error: () => {
-        this.userService.getUsers().subscribe({
-          next: (data: any) => {
-            const all = Array.isArray(data) ? data : (data?.users || []);
-            this.totalCount = all.length;
-            this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
-            this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-            this.users = all.slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
-          },
-          error: () => {}
-        });
-      }
+      error: () => {}
     });
   }
 
   goToPage(p: number): void {
     if (p < 1 || p > this.totalPages) return;
     this.page = p;
-    this.loadUsers();
+    this.users = this.allUsers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
   }
 
   addUser(): void {
@@ -217,20 +209,17 @@ export class UsersComponent implements OnInit {
   }
 
   onSearch(event: any): void {
-    // Search functionality - filter locally
     const query = (event.target.value || '').toLowerCase();
     if (!query) {
-      this.loadUsers();
+      this.page = 1;
+      this.totalCount = this.allUsers.length;
+      this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
+      this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      this.users = this.allUsers.slice(0, this.pageSize);
       return;
     }
-    this.userService.getUsers().subscribe({
-      next: (data: any) => {
-        const all = Array.isArray(data) ? data : (data?.users || []);
-        this.users = all.filter((u: any) => (u.username || '').toLowerCase().includes(query));
-        this.totalCount = this.users.length;
-      },
-      error: () => {}
-    });
+    this.users = this.allUsers.filter((u: any) => (u.username || '').toLowerCase().includes(query));
+    this.totalCount = this.users.length;
   }
 
   openAddDialog(): void {

@@ -7,7 +7,7 @@ export class InvitationService {
   constructor(private api: ApiService) {}
 
   getInvitations(): Observable<any> {
-    return this.api.get('/invitation-token');
+    return this.api.get('/invitationtoken');
   }
 
   getInvitationsPage(pageIndex: number, pageSize: number): Observable<any> {
@@ -19,11 +19,11 @@ export class InvitationService {
   }
 
   createInvitation(data: any): Observable<any> {
-    return this.api.post('/invitation-token', data);
+    return this.api.post('/invitationtoken', data);
   }
 
   updateInvitation(data: any): Observable<any> {
-    return this.api.put('/invitation-token', data);
+    return this.api.put('/invitationtoken', data);
   }
 
   deleteInvitation(id: string): Observable<any> {

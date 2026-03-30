@@ -36,12 +36,12 @@ async function loginViaApi(
 
   expect(response.ok(), `Login API should return 200 for user "${username}"`).toBeTruthy();
 
-  const body: AuthTokenResponse = await response.json();
+  const body = await response.json();
 
   return {
-    token: body.token,
+    token: body.token || body.accessToken,
     userId: body.userId,
-    username: body.username,
+    username: body.username || username,
   };
 }
 

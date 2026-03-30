@@ -25,12 +25,16 @@ import { TopbarComponent } from '../../layout/topbar.component';
 
       <div class="assets-grid" data-testid="assets-grid">
         <div *ngFor="let asset of filteredAssets" class="asset-card card" data-testid="asset-card" (click)="openAssetDetail(asset)">
-          <div class="asset-thumb">
+          <div class="asset-thumb" data-testid="asset-preview">
             <span class="material-icons">insert_drive_file</span>
           </div>
           <div class="asset-info">
             <span class="asset-name" data-testid="asset-name">{{ asset.name }}</span>
-            <span class="asset-meta">{{ asset.contentType }} &middot; {{ asset.createdOn | date:'shortDate' }}</span>
+            <span class="asset-meta">
+              <span data-testid="asset-size">{{ asset.contentLength || asset.size || 'N/A' }}</span>
+              &middot;
+              <span data-testid="asset-date">{{ asset.createdOn | date:'shortDate' }}</span>
+            </span>
           </div>
         </div>
       </div>

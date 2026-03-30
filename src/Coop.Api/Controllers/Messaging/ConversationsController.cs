@@ -31,11 +31,11 @@ public class ConversationsController : ControllerBase
     public async Task<ActionResult<GetConversationBetweenResponse>> GetBetween([FromRoute] Guid id1, [FromRoute] Guid id2)
         => Ok(await _mediator.Send(new GetConversationBetweenRequest { ProfileIdA = id1, ProfileIdB = id2 }));
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<ActionResult<CreateConversationResponse>> Create([FromBody] CreateConversationRequest request)
         => Ok(await _mediator.Send(request));
 
-    [HttpPost("{id}/messages")]
+    [HttpPost("{id}/send")]
     public async Task<ActionResult<SendMessageResponse>> SendMessage([FromRoute] Guid id, [FromBody] SendMessageRequest request)
     {
         request.ConversationId = id;

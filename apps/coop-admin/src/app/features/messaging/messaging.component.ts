@@ -38,14 +38,22 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <span class="conv-preview" data-testid="conversation-preview">{{ conv.lastMessage?.body || conv.preview || '' }}</span>
             </div>
             <div class="conv-meta">
-              <span class="conv-time">{{ conv.lastMessage?.createdOn || conv.updatedOn | date:'shortTime' }}</span>
+              <span class="conv-time" data-testid="conversation-time">{{ conv.lastMessage?.createdOn || conv.updatedOn | date:'shortTime' }}</span>
               <span *ngIf="conv.unreadCount > 0" class="unread-badge" data-testid="unread-indicator">{{ conv.unreadCount }}</span>
             </div>
           </div>
 
-          <div *ngIf="!loading && filteredConversations.length === 0" data-testid="chat-empty-state" class="empty-state">
+          <div *ngIf="!loading && filteredConversations.length === 0" class="empty-state">
             <span class="material-icons">chat_bubble_outline</span>
             <p>No conversations yet</p>
+          </div>
+        </div>
+
+        <!-- Empty State when no conversation selected -->
+        <div *ngIf="!selectedConversation" class="chat-panel empty-chat" data-testid="chat-empty-state">
+          <div class="empty-state">
+            <span class="material-icons">chat_bubble_outline</span>
+            <p>Select a conversation to start chatting</p>
           </div>
         </div>
 

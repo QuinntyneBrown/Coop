@@ -30,35 +30,37 @@ export const routes: Routes = [
     loadComponent: () => import('./features/change-password/change-password.component').then(m => m.ChangePasswordComponent)
   },
   {
-    path: 'dashboard',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
-  },
-  {
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () => import('./features/profiles/profiles.component').then(m => m.ProfilesComponent)
   },
-  {
-    path: 'maintenance',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/maintenance/maintenance.component').then(m => m.MaintenanceComponent)
-  },
-  {
-    path: 'documents',
-    loadComponent: () => import('./features/documents/documents.component').then(m => m.DocumentsComponent)
-  },
-  {
-    path: 'messaging',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/messaging/messaging.component').then(m => m.MessagingComponent)
-  },
-  // Admin routes with sidebar layout
+  // Routes with sidebar layout
   {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'maintenance',
+        loadComponent: () => import('./features/maintenance/maintenance.component').then(m => m.MaintenanceComponent)
+      },
+      {
+        path: 'documents',
+        loadComponent: () => import('./features/documents/documents.component').then(m => m.DocumentsComponent)
+      },
+      {
+        path: 'messages',
+        loadComponent: () => import('./features/messaging/messaging.component').then(m => m.MessagingComponent)
+      },
+      {
+        path: 'messaging',
+        redirectTo: 'messages',
+        pathMatch: 'full'
+      },
       {
         path: 'users',
         loadComponent: () => import('./features/users/users.component').then(m => m.UsersComponent)

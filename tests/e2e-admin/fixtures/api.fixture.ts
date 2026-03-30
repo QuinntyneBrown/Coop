@@ -89,24 +89,85 @@ export const test = authTest.extend<ApiHelpers>({
       },
 
       createInvitation: async (type = 'Member') => {
-        const result = await apiCall('POST', '/api/invitation', { type });
-        createdResources.push({ type: 'invitation', id: result.id ?? result.invitationId });
-        return { token: result.token, id: result.id ?? result.invitationId };
+        const typeMap: Record<string, number> = { 'Member': 0, 'BoardMember': 1, 'StaffMember': 2 };
+        const typeInt = typeMap[type] ?? 0;
+        const value = 'inv-' + Math.random().toString(36).substring(2, 10);
+        const result = await apiCall('POST', '/api/invitationtoken', { type: typeInt, value });
+        const inv = result.invitationToken ?? result;
+        createdResources.push({ type: 'invitation', id: inv.invitationTokenId ?? inv.id });
+        return { token: inv.value ?? inv.token ?? value, id: inv.invitationTokenId ?? inv.id };
       },
 
       createMaintenanceRequest: async (data) => {
-        const result = await apiCall('POST', '/api/maintenance-request', data);
+        // Get a valid profile ID for the request
+        let profileId = '00000000-0000-0000-0000-000000000000';
+        try {
+          const profiles = await apiCall('GET', '/api/profiles');
+          const profileList = profiles?.profiles || (Array.isArray(profiles) ? profiles : []);
+          if (profileList.length > 0) {
+            profileId = profileList[0].profileId;
+          }
+        } catch {
+          // Use default
+        }
+
+        // Ensure a member profile exists for the request
+        if (profileId === '00000000-0000-0000-0000-000000000000') {
+          try {
+            const memberResult = await apiCall('POST', '/api/members', {
+              firstname: 'E2E',
+              lastname: 'TestUser',
+              phoneNumber: '555-0000',
+            });
+            const member = memberResult?.member ?? memberResult;
+            profileId = member?.profileId ?? profileId;
+          } catch {
+            // Profile may already exist
+          }
+        }
+
+        const body: any = {
+          title: data.title,
+          description: data.description,
+          phone: data.phone || '555-0000',
+          unitNumber: data.address,
+          requestedByName: 'E2E Test User',
+          requestedByProfileId: profileId,
+        };
+        const result = await apiCall('POST', '/api/maintenancerequest', body);
+        const mr = result?.maintenanceRequest ?? result;
         createdResources.push({
           type: 'maintenance',
-          id: result.id ?? result.maintenanceRequestId,
+          id: mr.maintenanceRequestId ?? mr.id,
         });
-        return result;
+        return mr;
       },
 
       createDocument: async (data) => {
-        const result = await apiCall('POST', '/api/document', data);
-        createdResources.push({ type: 'document', id: result.id ?? result.documentId });
-        return result;
+        // Use type-specific endpoint for proper document creation
+        const typeMap: Record<string, string> = {
+          'Notice': 'notice',
+          'By-Law': 'bylaw',
+          'ByLaw': 'bylaw',
+          'Report': 'report',
+        };
+        const endpoint = typeMap[data.type] || 'notice';
+        const body: any = { name: data.title, body: data.content };
+        const result = await apiCall('POST', `/api/${endpoint}`, body);
+        // Response is wrapped: { notice: {...} } or { byLaw: {...} } etc.
+        const doc = result?.notice ?? result?.byLaw ?? result?.report ?? result?.document ?? result;
+        const docId = doc?.documentId ?? doc?.id ?? result?.documentId ?? result?.id;
+        createdResources.push({ type: 'document', id: docId });
+
+        // Publish if requested
+        if (data.status === 'Published' && docId) {
+          try {
+            await apiCall('PUT', '/api/document/publish', { documentId: docId });
+          } catch {
+            // Ignore publish errors
+          }
+        }
+        return doc;
       },
 
       createProfile: async (data) => {
@@ -120,7 +181,7 @@ export const test = authTest.extend<ApiHelpers>({
         const blob = new Blob([content]);
         formData.append('file', blob, fileName);
 
-        const response = await fetch(`${API_BASE_URL}/api/digital-asset`, {
+        const response = await fetch(`${API_BASE_URL}/api/digitalasset/upload`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${adminToken}` },
           body: formData,
@@ -130,8 +191,9 @@ export const test = authTest.extend<ApiHelpers>({
           throw new Error(`Upload failed: ${response.status}`);
         }
         const result = await response.json();
-        createdResources.push({ type: 'asset', id: result.id ?? result.assetId });
-        return result;
+        const asset = result.digitalAsset ?? result;
+        createdResources.push({ type: 'asset', id: asset.digitalAssetId ?? asset.id });
+        return asset;
       },
 
       cleanup: async () => {
@@ -140,11 +202,11 @@ export const test = authTest.extend<ApiHelpers>({
           try {
             const pathMap: Record<string, string> = {
               user: `/api/user/${resource.id}`,
-              invitation: `/api/invitation/${resource.id}`,
-              maintenance: `/api/maintenance-request/${resource.id}`,
+              invitation: `/api/invitationtoken/${resource.id}`,
+              maintenance: `/api/maintenancerequest/${resource.id}`,
               document: `/api/document/${resource.id}`,
               profile: `/api/profile/${resource.id}`,
-              asset: `/api/digital-asset/${resource.id}`,
+              asset: `/api/digitalasset/${resource.id}`,
             };
             const path = pathMap[resource.type];
             if (path) {

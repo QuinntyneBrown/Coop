@@ -41,32 +41,29 @@ export class AuthService {
     return localStorage.getItem('auth_token');
   }
 
-  login(username: string, password: string): Observable<AuthTokenResponse> {
-    return this.http.post<AuthTokenResponse>(`${this.API_URL}/user/token`, { username, password }).pipe(
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/user/token`, { username, password }).pipe(
       tap(response => {
-        localStorage.setItem('auth_token', response.token);
-        localStorage.setItem('auth_user_id', response.userId);
-        localStorage.setItem('auth_username', response.username);
-        this.currentUser$.next({
-          token: response.token,
-          userId: response.userId,
-          username: response.username,
-        });
+        const token = response.token || response.accessToken;
+        const userId = response.userId;
+        localStorage.setItem('auth_token', token);
+        localStorage.setItem('auth_user_id', userId);
+        localStorage.setItem('auth_username', username);
+        this.currentUser$.next({ token, userId, username });
       }),
     );
   }
 
-  register(data: { invitationToken: string; username: string; password: string }): Observable<AuthTokenResponse> {
-    return this.http.post<AuthTokenResponse>(`${this.API_URL}/user/register`, data).pipe(
+  register(data: { invitationToken: string; username: string; password: string }): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/user/register`, data).pipe(
       tap(response => {
-        localStorage.setItem('auth_token', response.token);
-        localStorage.setItem('auth_user_id', response.userId);
-        localStorage.setItem('auth_username', response.username);
-        this.currentUser$.next({
-          token: response.token,
-          userId: response.userId,
-          username: response.username,
-        });
+        const token = response.token || response.accessToken;
+        const userId = response.userId;
+        const uname = response.username || data.username;
+        localStorage.setItem('auth_token', token);
+        localStorage.setItem('auth_user_id', userId);
+        localStorage.setItem('auth_username', uname);
+        this.currentUser$.next({ token, userId, username: uname });
       }),
     );
   }

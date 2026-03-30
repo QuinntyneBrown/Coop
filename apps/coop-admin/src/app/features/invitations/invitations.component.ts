@@ -30,9 +30,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
           </thead>
           <tbody>
             <tr *ngFor="let inv of invitations" data-testid="invitation-row">
-              <td class="token-cell">{{ inv.value || inv.token }}</td>
-              <td>{{ inv.type || 'Standard' }}</td>
-              <td>{{ inv.expiresOn | date:'mediumDate' }}</td>
+              <td class="token-cell" data-testid="invitation-token">{{ inv.value || inv.token }}</td>
+              <td data-testid="invitation-type">{{ getTypeName(inv.type) }}</td>
+              <td data-testid="invitation-expires">{{ (inv.expirationDate || inv.expiresOn) | date:'mediumDate' }}</td>
               <td>
                 <span class="badge" [ngClass]="getStatusClass(inv)" data-testid="invitation-status-badge">{{ getStatus(inv) }}</span>
               </td>
@@ -51,7 +51,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
               <select formControlName="type" data-testid="invitation-dialog-type">
                 <option value="Member">Member</option>
                 <option value="BoardMember">Board Member</option>
-                <option value="Staff">Staff</option>
+                <option value="StaffMember">Staff</option>
               </select>
             </div>
             <div class="form-group">
@@ -125,11 +125,19 @@ export class InvitationsComponent implements OnInit {
     });
   }
 
+  private typeMap: Record<string, number> = { 'Member': 0, 'BoardMember': 1, 'StaffMember': 2 };
+
   createInvitation(): void {
-    this.invService.createInvitation(this.invForm.value).subscribe({
+    const formVal = this.invForm.value;
+    const typeInt = this.typeMap[formVal.type] ?? 0;
+    const value = 'inv-' + Math.random().toString(36).substring(2, 10);
+    const body: any = { type: typeInt, value };
+    if (formVal.expires) { body.expirationDate = formVal.expires; }
+    this.invService.createInvitation(body).subscribe({
       next: (data: any) => {
         this.showModal = false;
-        this.createdToken = data?.value || data?.token || 'TOKEN-GENERATED';
+        const inv = data?.invitationToken ?? data;
+        this.createdToken = inv?.value || value;
         this.showTokenDialog = true;
         this.loadInvitations();
       },
@@ -141,9 +149,16 @@ export class InvitationsComponent implements OnInit {
     navigator.clipboard?.writeText(this.createdToken);
   }
 
+  getTypeName(type: any): string {
+    const names: Record<number, string> = { 0: 'Member', 1: 'Board Member', 2: 'Staff' };
+    if (typeof type === 'number') return names[type] || 'Member';
+    return type || 'Member';
+  }
+
   getStatus(inv: any): string {
-    if (inv.hasBeenRedeemed || inv.status === 'Used') return 'Used';
-    if (inv.expiresOn && new Date(inv.expiresOn) < new Date()) return 'Expired';
+    if (inv.redeemed || inv.hasBeenRedeemed || inv.status === 'Used') return 'Used';
+    const expires = inv.expiresOn || inv.expirationDate;
+    if (expires && new Date(expires) < new Date()) return 'Expired';
     return 'Active';
   }
 

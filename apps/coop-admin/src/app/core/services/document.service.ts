@@ -19,7 +19,7 @@ export class DocumentService {
   }
 
   getPublishedDocuments(): Observable<any> {
-    return this.api.get('/document/published');
+    return this.api.get('/document');
   }
 
   createDocument(data: any): Observable<any> {
@@ -35,6 +35,6 @@ export class DocumentService {
   }
 
   publishDocument(id: string): Observable<any> {
-    return this.api.put(`/document/${id}/publish`, {});
+    return this.api.put('/document/publish', { documentId: id });
   }
 }

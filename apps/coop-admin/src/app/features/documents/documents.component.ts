@@ -15,10 +15,10 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       </div>
 
       <div class="filter-tabs">
-        <button class="filter-btn" [class.active]="activeFilter === 'all'" data-testid="documents-tab-all" (click)="filterBy('all')">All Documents</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'notices'" data-testid="documents-tab-notices" (click)="filterBy('notices')">Notices</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'bylaws'" data-testid="documents-tab-bylaws" (click)="filterBy('bylaws')">By-Laws</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'reports'" data-testid="documents-tab-reports" (click)="filterBy('reports')">Reports</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'all'" data-testid="documents-tab-all" [attr.data-active]="activeFilter === 'all' ? 'true' : null" (click)="filterBy('all')">All Documents</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'notices'" data-testid="documents-tab-notices" [attr.data-active]="activeFilter === 'notices' ? 'true' : null" (click)="filterBy('notices')">Notices</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'bylaws'" data-testid="documents-tab-bylaws" [attr.data-active]="activeFilter === 'bylaws' ? 'true' : null" (click)="filterBy('bylaws')">By-Laws</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'reports'" data-testid="documents-tab-reports" [attr.data-active]="activeFilter === 'reports' ? 'true' : null" (click)="filterBy('reports')">Reports</button>
       </div>
 
       <div class="documents-toolbar">
@@ -36,12 +36,12 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             <span class="material-icons">{{ getDocIcon(doc) }}</span>
           </div>
           <div class="doc-info">
-            <h3 data-testid="document-title">{{ doc.title || doc.name }}</h3>
-            <span class="doc-type">{{ doc.documentType || doc.type || 'Document' }}</span>
-            <span class="doc-date">{{ doc.publishedOn || doc.createdOn | date:'mediumDate' }}</span>
+            <h3 data-testid="document-title">{{ doc.name || doc.title }}</h3>
+            <span class="doc-type" data-testid="document-type">{{ doc.documentType || doc.type || 'Document' }}</span>
+            <span class="doc-date" data-testid="document-date">{{ doc.createdOn | date:'mediumDate' }}</span>
           </div>
-          <span class="badge" [ngClass]="doc.status === 'Published' ? 'badge-success' : 'badge-warning'" data-testid="document-status-badge">
-            {{ doc.status || 'Draft' }}
+          <span class="badge" [ngClass]="getStatusBadgeClass(doc)" data-testid="document-status-badge">
+            {{ getStatusLabel(doc) }}
           </span>
           <button class="icon-btn delete-doc-btn" data-testid="document-delete-button" (click)="confirmDeleteDocument(doc, $event)">
             <span class="material-icons">delete</span>
@@ -104,7 +104,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div *ngIf="selectedDocument" class="modal-overlay" data-testid="document-viewer">
         <div class="modal-content card">
           <div class="viewer-header">
-            <h2 data-testid="document-viewer-title">{{ selectedDocument.title || selectedDocument.name }}</h2>
+            <h2 data-testid="document-viewer-title">{{ selectedDocument.name || selectedDocument.title }}</h2>
             <button class="icon-btn" data-testid="document-viewer-close" (click)="closeDocument()">
               <span class="material-icons">close</span>
             </button>
@@ -260,8 +260,19 @@ export class DocumentsComponent implements OnInit {
       return;
     }
     this.filteredDocuments = this.documents.filter(d =>
-      (d.title || d.name || '').toLowerCase().includes(query)
+      (d.name || d.title || '').toLowerCase().includes(query)
     );
+  }
+
+  getStatusLabel(doc: any): string {
+    if (doc.status) return doc.status;
+    if (doc.published === true) return 'Published';
+    return 'Draft';
+  }
+
+  getStatusBadgeClass(doc: any): string {
+    const status = this.getStatusLabel(doc);
+    return status === 'Published' ? 'badge-success' : 'badge-warning';
   }
 
   openCreateDialog(): void {
@@ -271,8 +282,23 @@ export class DocumentsComponent implements OnInit {
   }
 
   saveDocument(): void {
-    this.showDocumentDialog = false;
-    this.loadDocuments();
+    if (!this.dialogDoc.title || this.dialogDoc.title.trim() === '') {
+      return;
+    }
+    const payload = {
+      name: this.dialogDoc.title,
+      body: this.dialogDoc.content
+    };
+    this.documentService.createDocument(payload).subscribe({
+      next: () => {
+        this.showDocumentDialog = false;
+        this.loadDocuments();
+      },
+      error: () => {
+        this.showDocumentDialog = false;
+        this.loadDocuments();
+      }
+    });
   }
 
   confirmDeleteDocument(doc: any, event: Event): void {
@@ -282,8 +308,21 @@ export class DocumentsComponent implements OnInit {
   }
 
   deleteDocument(): void {
-    this.showDeleteDocDialog = false;
-    this.loadDocuments();
+    if (this.deletingDocument?.documentId) {
+      this.documentService.deleteDocument(this.deletingDocument.documentId).subscribe({
+        next: () => {
+          this.showDeleteDocDialog = false;
+          this.loadDocuments();
+        },
+        error: () => {
+          this.showDeleteDocDialog = false;
+          this.loadDocuments();
+        }
+      });
+    } else {
+      this.showDeleteDocDialog = false;
+      this.loadDocuments();
+    }
   }
 
   getDocIcon(doc: any): string {

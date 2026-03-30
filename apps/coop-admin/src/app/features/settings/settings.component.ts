@@ -15,9 +15,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
       <div *ngIf="errorMsg" class="alert alert-danger" data-testid="settings-error-message">{{ errorMsg }}</div>
 
       <div class="tabs">
-        <button class="tab" [class.active]="activeTab === 'theme'" data-testid="settings-tab-theme" (click)="activeTab = 'theme'">Theme</button>
-        <button class="tab" [class.active]="activeTab === 'content'" data-testid="settings-tab-content" (click)="activeTab = 'content'">Content</button>
-        <button class="tab" [class.active]="activeTab === 'account'" data-testid="settings-tab-account" (click)="activeTab = 'account'">Account</button>
+        <button class="tab" [class.active]="activeTab === 'theme'" data-testid="settings-tab-theme" [attr.data-active]="activeTab === 'theme' ? 'true' : 'false'" (click)="activeTab = 'theme'">Theme</button>
+        <button class="tab" [class.active]="activeTab === 'content'" data-testid="settings-tab-content" [attr.data-active]="activeTab === 'content' ? 'true' : 'false'" (click)="activeTab = 'content'">Content</button>
+        <button class="tab" [class.active]="activeTab === 'account'" data-testid="settings-tab-account" [attr.data-active]="activeTab === 'account' ? 'true' : 'false'" (click)="activeTab = 'account'">Account</button>
       </div>
 
       <!-- Theme Tab -->
@@ -30,8 +30,8 @@ import { TopbarComponent } from '../../layout/topbar.component';
             <div class="scope-group">
               <label>Scope</label>
               <select data-testid="theme-scope-select" [formControl]="scopeControl">
-                <option value="global">Global</option>
-                <option value="personal">Personal</option>
+                <option value="Global">Global</option>
+                <option value="Default">Default</option>
               </select>
             </div>
 
@@ -149,7 +149,7 @@ export class SettingsComponent implements OnInit {
   activeTab = 'theme';
   successMsg = '';
   errorMsg = '';
-  scopeControl = new FormControl('global');
+  scopeControl = new FormControl('Global');
   themeForm: FormGroup = this.fb.group({
     primaryColor: ['#3D8A5A'],
     backgroundColor: ['#F5F4F1'],
@@ -157,15 +157,20 @@ export class SettingsComponent implements OnInit {
     textColor: ['#1A1918']
   });
 
+  private themeId: string | null = null;
+
   ngOnInit(): void {
     this.themeService.getDefaultTheme().subscribe({
-      next: (data: any) => {
+      next: (response: any) => {
+        const data = response?.theme ?? response;
         if (data) {
+          if (data.themeId) { this.themeId = data.themeId; }
+          const colors = this.parseCssProperties(data.cssCustomProperties || '');
           this.themeForm.patchValue({
-            primaryColor: data.primaryColor || '#3D8A5A',
-            backgroundColor: data.backgroundColor || '#F5F4F1',
-            accentColor: data.accentColor || '#3D8A5A',
-            textColor: data.textColor || '#1A1918'
+            primaryColor: colors['--primary-color'] || '#3D8A5A',
+            backgroundColor: colors['--background-color'] || '#F5F4F1',
+            accentColor: colors['--accent-color'] || '#3D8A5A',
+            textColor: colors['--text-color'] || '#1A1918'
           });
         }
       },
@@ -173,12 +178,46 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  private parseCssProperties(css: string): Record<string, string> {
+    const result: Record<string, string> = {};
+    if (!css) return result;
+    css.split(';').forEach(prop => {
+      const [key, val] = prop.split(':').map(s => s.trim());
+      if (key && val) result[key] = val;
+    });
+    return result;
+  }
+
+  private buildCssProperties(): string {
+    const v = this.themeForm.value;
+    return `--primary-color: ${v.primaryColor}; --background-color: ${v.backgroundColor}; --accent-color: ${v.accentColor}; --text-color: ${v.textColor}`;
+  }
+
   saveTheme(): void {
     this.successMsg = '';
     this.errorMsg = '';
-    this.themeService.updateTheme(this.themeForm.value).subscribe({
-      next: () => { this.successMsg = 'Theme saved successfully'; },
-      error: () => { this.errorMsg = 'Failed to save theme'; }
+    const cssCustomProperties = this.buildCssProperties();
+    const themeData = { themeId: this.themeId, cssCustomProperties, isDefault: true };
+    const save$ = this.themeId
+      ? this.themeService.updateTheme(themeData)
+      : this.themeService.createTheme({ cssCustomProperties, isDefault: true });
+    save$.subscribe({
+      next: (response: any) => {
+        this.successMsg = 'Theme saved successfully';
+        const theme = response?.theme ?? response;
+        if (theme?.themeId) { this.themeId = theme.themeId; }
+      },
+      error: () => {
+        // If update failed, try create
+        this.themeService.createTheme({ cssCustomProperties, isDefault: true }).subscribe({
+          next: (response: any) => {
+            this.successMsg = 'Theme saved successfully';
+            const theme = response?.theme ?? response;
+            if (theme?.themeId) { this.themeId = theme.themeId; }
+          },
+          error: () => { this.errorMsg = 'Failed to save theme'; }
+        });
+      }
     });
   }
 

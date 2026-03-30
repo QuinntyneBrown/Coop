@@ -248,16 +248,11 @@ export class DashboardComponent implements OnInit {
     });
 
     // Load members count
-    this.api.get<any[]>('members').pipe(
-      catchError(() => this.api.get<any>('user/members').pipe(catchError(() => of([])))),
-    ).subscribe(members => {
-      if (Array.isArray(members)) {
-        this.membersCount = String(members.length);
-      } else if (members && typeof members === 'object' && 'count' in members) {
-        this.membersCount = String(members.count);
-      } else {
-        this.membersCount = '0';
-      }
+    this.api.get<any>('user/members').pipe(
+      catchError(() => this.api.get<any>('members').pipe(catchError(() => of([])))),
+    ).subscribe(resp => {
+      const members = Array.isArray(resp) ? resp : resp?.members ?? [];
+      this.membersCount = String(members.length || '0');
     });
   }
 

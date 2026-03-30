@@ -15,12 +15,14 @@ import { TopbarComponent } from '../../layout/topbar.component';
         <!-- Role List -->
         <div class="role-list card" data-testid="roles-panel">
           <h3 data-testid="roles-panel-title">Roles</h3>
-          <div *ngFor="let role of roles" data-testid="role-card">
-            <div class="role-item" [class.selected]="selectedRole?.roleId === role.roleId"
+          <div *ngFor="let role of roles" data-testid="role-card"
+            [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null">
+            <div class="role-item"
+              [class.selected]="selectedRole?.roleId === role.roleId"
               (click)="selectRole(role)"
               [attr.data-testid]="'role-card-' + (role.name || '').toLowerCase()"
               [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null">
-              <span class="material-icons role-icon">shield</span>
+              <span class="material-icons role-icon" data-testid="role-icon">shield</span>
               <span>{{ role.name }}</span>
             </div>
           </div>
@@ -44,9 +46,10 @@ import { TopbarComponent } from '../../layout/topbar.component';
                 <th data-testid="privilege-header-delete">Delete</th>
               </tr>
             </thead>
-            <tbody *ngFor="let priv of rolePrivileges" data-testid="privilege-row">
+            <tbody *ngFor="let priv of rolePrivileges" data-testid="privilege-row"
+              [attr.data-testid-specific]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
               <tr [attr.data-testid]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
-                <td>{{ priv.aggregate }}</td>
+                <td data-testid="privilege-aggregate">{{ priv.aggregate }}</td>
                 <td><input type="checkbox" [checked]="priv.canRead" class="privilege-toggle" data-testid="privilege-read" (change)="togglePrivilege(priv, 'canRead')" /></td>
                 <td><input type="checkbox" [checked]="priv.canUpdate" class="privilege-toggle" data-testid="privilege-write" (change)="togglePrivilege(priv, 'canUpdate')" /></td>
                 <td><input type="checkbox" [checked]="priv.canCreate" class="privilege-toggle" data-testid="privilege-create" (change)="togglePrivilege(priv, 'canCreate')" /></td>
@@ -105,19 +108,69 @@ export class RolesComponent implements OnInit {
 
   selectRole(role: any): void {
     this.selectedRole = role;
-    this.rolePrivileges = role.privileges || [];
-    if (this.rolePrivileges.length === 0 && role.roleId) {
+    const rawPrivileges = role.privileges || [];
+    this.buildPrivilegeMatrix(rawPrivileges);
+    if (rawPrivileges.length === 0 && role.roleId) {
       this.roleService.getRoleById(role.roleId).subscribe({
         next: (data: any) => {
-          this.rolePrivileges = data?.privileges || [];
+          const role2 = data?.role || data;
+          const privs = role2?.privileges || data?.privileges || [];
+          this.selectedRole.privileges = privs;
+          this.buildPrivilegeMatrix(privs);
         },
         error: () => {}
       });
     }
   }
 
+  private buildPrivilegeMatrix(privileges: any[]): void {
+    // AccessRight enum: None=0, Read=1, Write=2, Create=3, Delete=4
+    const accessRightMap: Record<number, string> = { 1: 'canRead', 2: 'canUpdate', 3: 'canCreate', 4: 'canDelete' };
+    const aggregateMap: Record<string, any> = {};
+
+    for (const priv of privileges) {
+      const aggregate = priv.aggregate || 'Unknown';
+      if (!aggregateMap[aggregate]) {
+        aggregateMap[aggregate] = { aggregate, canRead: false, canUpdate: false, canCreate: false, canDelete: false, privilegeIds: {} };
+      }
+      const field = accessRightMap[priv.accessRight];
+      if (field) {
+        aggregateMap[aggregate][field] = true;
+        aggregateMap[aggregate].privilegeIds[field] = priv.privilegeId;
+      }
+    }
+
+    this.rolePrivileges = Object.values(aggregateMap);
+  }
+
   togglePrivilege(priv: any, field: string): void {
-    (priv as any)[field] = !(priv as any)[field];
-    this.privilegeService.updatePrivilege(priv).subscribe({ error: () => {} });
+    const wasChecked = (priv as any)[field];
+    (priv as any)[field] = !wasChecked;
+
+    if (wasChecked) {
+      // Remove privilege
+      const privId = priv.privilegeIds?.[field];
+      if (privId) {
+        this.privilegeService.deletePrivilege(privId).subscribe({ error: () => {} });
+      }
+    } else {
+      // Create privilege
+      const accessRightReverseMap: Record<string, number> = { canRead: 1, canUpdate: 2, canCreate: 3, canDelete: 4 };
+      const payload = {
+        roleId: this.selectedRole.roleId,
+        aggregate: priv.aggregate,
+        accessRight: accessRightReverseMap[field]
+      };
+      this.privilegeService.createPrivilege(payload).subscribe({
+        next: (result: any) => {
+          const newPriv = result?.privilege || result;
+          if (newPriv?.privilegeId) {
+            priv.privilegeIds = priv.privilegeIds || {};
+            priv.privilegeIds[field] = newPriv.privilegeId;
+          }
+        },
+        error: () => {}
+      });
+    }
   }
 }

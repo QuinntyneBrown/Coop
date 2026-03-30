@@ -29,7 +29,7 @@ import { AuthService } from '../core/services/auth.service';
           <span class="material-icons">description</span>
           <span>Documents</span>
         </a>
-        <a routerLink="/messaging" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-messages" [attr.data-active]="isActive('/messaging')">
+        <a routerLink="/messages" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-messages" [attr.data-active]="isActive('/messages')">
           <span class="material-icons">chat</span>
           <span>Messages</span>
         </a>

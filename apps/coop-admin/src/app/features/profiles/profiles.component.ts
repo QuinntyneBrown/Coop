@@ -24,7 +24,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             [class.selected]="currentProfile === p" (click)="switchProfile(i)">
             <div class="profile-card-info">
               <span class="profile-card-name">{{ p.firstname || p.firstName }} {{ p.lastname || p.lastName }}</span>
-              <span class="profile-card-type">{{ p.profileType || 'Member' }}</span>
+              <span class="profile-card-type">{{ getProfileTypeLabel(p) }}</span>
             </div>
             <span *ngIf="i === 0" class="active-badge" data-testid="profile-active-badge">Active</span>
           </div>
@@ -32,7 +32,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
         <!-- Right Panel - Edit Profile -->
         <div class="profile-edit-panel" data-testid="profile-edit-panel" *ngIf="editMode">
-          <h2 data-testid="profile-edit-title">Edit {{ currentProfile?.profileType || 'Profile' }}</h2>
+          <h2 data-testid="profile-edit-title">Edit {{ getProfileTypeLabel(currentProfile) }} Profile</h2>
 
           <div class="avatar-section" data-testid="profile-avatar">
             <div class="avatar-circle">
@@ -182,8 +182,8 @@ export class ProfilesComponent implements OnInit {
   successMessage = '';
 
   profileForm: FormGroup = this.fb.group({
-    firstName: [''],
-    lastName: [''],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
     email: [''],
     phone: [''],
     boardTitle: ['']
@@ -227,9 +227,15 @@ export class ProfilesComponent implements OnInit {
   }
 
   saveProfile(): void {
+    this.profileForm.markAllAsTouched();
+    if (this.profileForm.invalid) {
+      return;
+    }
     const data = {
       ...this.currentProfile,
       firstname: this.profileForm.value.firstName,
+      firstName: this.profileForm.value.firstName,
+      lastname: this.profileForm.value.lastName,
       lastName: this.profileForm.value.lastName,
       email: this.profileForm.value.email,
       phoneNumber: this.profileForm.value.phone
@@ -246,6 +252,7 @@ export class ProfilesComponent implements OnInit {
   switchProfile(index: number): void {
     this.currentProfile = this.profiles[index];
     this.showProfileOptions = false;
+    this.enterEditMode();
   }
 
   updatePassword(): void {
@@ -259,6 +266,13 @@ export class ProfilesComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  getProfileTypeLabel(profile: any): string {
+    if (profile?.profileType && typeof profile.profileType === 'string') return profile.profileType;
+    const typeMap: Record<number, string> = { 0: 'Member', 1: 'BoardMember', 2: 'StaffMember', 3: 'OnCall' };
+    if (typeof profile?.type === 'number') return typeMap[profile.type] || 'Member';
+    return profile?.type || 'Member';
   }
 
   getInitials(): string {

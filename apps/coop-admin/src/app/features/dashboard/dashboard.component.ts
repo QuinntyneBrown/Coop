@@ -115,7 +115,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <span class="material-icons">description</span>
               <span>Create Document</span>
             </a>
-            <a routerLink="/messaging" class="quick-action-btn" data-testid="quick-action-message">
+            <a routerLink="/messages" class="quick-action-btn" data-testid="quick-action-message">
               <span class="material-icons">chat</span>
               <span>New Message</span>
             </a>
@@ -170,7 +170,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
       p { color: #1A1918CC; font-size: 14px; }
     }
-    .metric-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .metric-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
     .metric-card {
       background: #fff; border-radius: 14px; padding: 20px;
       border: 1px solid #E5E4E1; box-shadow: 0 2px 8px rgba(26,25,24,0.03);
@@ -181,6 +181,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       align-items: center; justify-content: center;
       &.requests { background: rgba(245,158,11,0.1); color: #D97706; }
       &.messages { background: rgba(59,130,246,0.1); color: #3B82F6; }
+      &.documents { background: rgba(139,92,246,0.1); color: #8B5CF6; }
       &.members { background: rgba(16,185,129,0.1); color: #059669; }
       .material-icons { font-size: 22px; }
     }
@@ -273,7 +274,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadMetrics(): void {
-    this.maintenanceService.getCurrentUserMaintenanceRequests().subscribe({
+    this.maintenanceService.getMaintenanceRequests().subscribe({
       next: (data: any) => {
         const list = Array.isArray(data) ? data : (data?.maintenanceRequests || []);
         this.requestsCount = list.filter((r: any) => r.status !== 'Completed' && r.status !== 'Done').length || list.length;
@@ -307,7 +308,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadRecentRequests(): void {
-    this.maintenanceService.getCurrentUserMaintenanceRequests().subscribe({
+    this.maintenanceService.getMaintenanceRequests().subscribe({
       next: (data: any) => {
         const list = Array.isArray(data) ? data : (data?.maintenanceRequests || []);
         this.recentRequests = list.slice(0, 5);

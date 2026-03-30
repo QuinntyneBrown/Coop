@@ -23,7 +23,7 @@ async function getAuthToken(username: string, password: string): Promise<string>
   }
 
   const data = await response.json();
-  return data.token ?? data.access_token ?? data;
+  return data.accessToken ?? data.token ?? data.access_token ?? data;
 }
 
 export const test = base.extend<AuthFixtures>({
@@ -51,6 +51,8 @@ export const test = base.extend<AuthFixtures>({
       await page.evaluate((t) => {
         localStorage.setItem('auth_token', t);
         localStorage.setItem('token', t);
+        localStorage.setItem('auth_username', 'admin');
+        localStorage.setItem('auth_user_id', 'admin');
       }, token);
 
       // Save storage state for reuse

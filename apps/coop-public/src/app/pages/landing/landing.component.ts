@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { ApiService } from '../../core/services/api.service';
-import { catchError, of, forkJoin } from 'rxjs';
+import { catchError, of, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -273,18 +273,23 @@ export class LandingComponent implements OnInit {
     });
 
     // Load public notices
-    this.api.get<any[]>('notice/published').pipe(
-      catchError(() => of([])),
-    ).subscribe(notices => {
-      this.notices = notices || [];
+    this.api.get<any>('notice/published').pipe(
+      catchError(() => of({ notices: [] })),
+    ).subscribe(resp => {
+      const notices = Array.isArray(resp) ? resp : resp?.notices ?? [];
+      this.notices = notices;
     });
 
     // If board is empty from CMS, try fetching from dedicated endpoint
-    this.api.get<any[]>('board-members').pipe(
-      catchError(() => of([])),
+    this.api.get<any>('board-members').pipe(
+      catchError(() => this.api.get<any>('boardmembers').pipe(
+        map((resp: any) => resp?.boardMembers ?? []),
+        catchError(() => of([])),
+      )),
     ).subscribe(members => {
-      if (this.boardMembers.length === 0 && members && members.length > 0) {
-        this.boardMembers = members;
+      const m = Array.isArray(members) ? members : members?.boardMembers ?? [];
+      if (this.boardMembers.length === 0 && m.length > 0) {
+        this.boardMembers = m;
       }
     });
   }

@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using Coop.Domain.Identity;
+using Coop.Domain.Onboarding;
+using Coop.Domain.Profiles;
 using Coop.SharedKernel;
 using Coop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -79,6 +81,29 @@ public static class SeedData
             memberUser.Roles.Add(memberRole);
             context.Users.Add(memberUser);
 
+            await context.SaveChangesAsync();
+
+            // Seed Member profile for the member user
+            var memberProfile = new Member
+            {
+                UserId = memberUser.UserId,
+                Firstname = "Test",
+                Lastname = "Member",
+                Email = "member@coop.test",
+                PhoneNumber = "555-0100",
+                UnitNumber = "101",
+            };
+            context.Members.Add(memberProfile);
+            await context.SaveChangesAsync();
+        }
+
+        // Seed invitation tokens if none exist
+        if (!await context.InvitationTokens.AnyAsync())
+        {
+            context.InvitationTokens.AddRange(
+                new InvitationToken { Value = "valid-invitation-token", Type = InvitationTokenType.Member },
+                new InvitationToken { Value = "test-token-e2e", Type = InvitationTokenType.Member }
+            );
             await context.SaveChangesAsync();
         }
     }

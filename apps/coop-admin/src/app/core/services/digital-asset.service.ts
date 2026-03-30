@@ -7,7 +7,7 @@ export class DigitalAssetService {
   constructor(private api: ApiService) {}
 
   getDigitalAssets(): Observable<any> {
-    return this.api.get('/digital-asset');
+    return this.api.get('/digitalasset/page/100/0');
   }
 
   getDigitalAssetsPage(pageIndex: number, pageSize: number): Observable<any> {
@@ -19,7 +19,7 @@ export class DigitalAssetService {
   }
 
   upload(formData: FormData): Observable<any> {
-    return this.api.upload('/digital-asset', formData);
+    return this.api.upload('/digitalasset/upload', formData);
   }
 
   deleteDigitalAsset(id: string): Observable<any> {
