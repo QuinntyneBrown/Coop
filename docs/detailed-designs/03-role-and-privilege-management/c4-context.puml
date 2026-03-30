@@ -7,14 +7,16 @@ skinparam defaultFontSize 10
 title C4 Context -- Role & Privilege Management
 
 Person(admin, "System Administrator", "Manages roles, privileges, and user assignments")
-Person(user, "Coop User", "Member, Staff, or Board Member using the platform")
+Person(user, "Coop User", "Member, staff, or board member using the platform")
 
 System(coop, "Coop Platform", "Co-operative management system with RBAC authorization")
-System_Ext(browser, "Web Browser", "SPA front-end for the Coop platform")
+System_Ext(adminApp, "Admin Backend", "Administrative interface for RBAC management")
+System_Ext(publicApp, "Public Web App", "Consumes privilege-aware member-facing features")
 
-Rel(admin, browser, "Manages roles & privileges via")
-Rel(user, browser, "Accesses platform features via")
-Rel(browser, coop, "REST API calls", "HTTPS/JSON")
+Rel(admin, adminApp, "Manages roles & privileges via")
+Rel(user, publicApp, "Accesses platform features via")
+Rel(adminApp, coop, "REST API calls", "HTTPS/JSON")
+Rel(publicApp, coop, "REST API calls", "HTTPS/JSON")
 Rel(coop, coop, "Enforces access via privilege claims in JWT")
 
 @enduml

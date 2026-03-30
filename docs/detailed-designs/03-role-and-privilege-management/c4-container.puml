@@ -9,18 +9,18 @@ title C4 Container -- Role & Privilege Management
 Person(admin, "Administrator", "Manages roles and privileges")
 
 System_Boundary(coop, "Coop Platform") {
-  Container(spa, "SPA Front-End", "Angular", "Role & privilege management UI")
-  Container(api, "Coop.Api", "ASP.NET Core", "REST controllers: RoleController, PrivilegeController, UserController")
-  Container(app, "Coop.Application", "MediatR Handlers", "CQRS command/query handlers for roles and privileges")
-  Container(domain, "Coop.Domain", "C# Domain Model", "Role, Privilege, User entities; AccessRight enum; Constants; ResourceOperationAuthorizationHandler")
+  Container(adminApp, "Admin Backend", "Web application", "Role and privilege management UI")
+  Container(api, "Coop API", "ASP.NET Core", "REST controllers: RoleController, PrivilegeController, UserController")
+  Container(app, "Application Layer", "MediatR Handlers", "CQRS command/query handlers for roles and privileges")
+  Container(domain, "Domain Layer", "C# Domain Model", "Role, Privilege, User entities; AccessRight enum; authorization rules")
   ContainerDb(db, "SQL Database", "EF Core", "Roles, Privileges, Users tables with join table")
 }
 
-Rel(admin, spa, "Uses", "HTTPS")
-Rel(spa, api, "REST API", "JSON/HTTPS")
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(adminApp, api, "REST API", "JSON/HTTPS")
 Rel(api, app, "MediatR.Send()")
 Rel(app, domain, "Domain entities & logic")
 Rel(app, db, "EF Core read/write")
-Rel(api, domain, "Authorization check", "ResourceOperationAuthorizationHandler")
+Rel(api, domain, "Authorization check", "Privilege evaluation")
 
 @enduml

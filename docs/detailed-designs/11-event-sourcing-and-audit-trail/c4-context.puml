@@ -7,16 +7,17 @@ skinparam shadowing false
 
 title Event Sourcing and Audit Trail - C4 Context Diagram
 
-Person(user, "Cooperative User", "Member, staff, or admin\nwho triggers domain events\nvia platform actions")
+Person(user, "Cooperative User", "Member, staff, or admin who triggers domain events via platform actions")
+Person(auditor, "Auditor / Admin", "Reviews historical events and audit trail via StoredEvent API")
 
-Person(auditor, "Auditor / Admin", "Reviews historical events\nand audit trail via\nStoredEvent API")
+System(coop, "Coop Platform", "Cooperative housing management platform with event sourcing and real-time event streaming")
 
-System(coop, "Coop Platform", "Cooperative housing management\nplatform with event sourcing\nand real-time event streaming")
+System_Ext(publicApp, "Public Web App", "Can subscribe to member-facing event streams when needed")
+System_Ext(adminApp, "Admin Backend", "Subscribes to operational and audit-related updates")
 
-System_Ext(browser, "Browser / SPA Client", "Subscribes to Server-Sent\nEvents for real-time\nUI updates")
-
-Rel(user, coop, "Performs actions that\ngenerate domain events")
-Rel(auditor, coop, "Queries stored events\nfor audit trail")
-Rel(coop, browser, "Streams events via\nSSE (text/event-stream)")
+Rel(user, coop, "Performs actions that generate domain events")
+Rel(auditor, adminApp, "Uses")
+Rel(publicApp, coop, "Subscribes to event streams", "SSE / HTTPS")
+Rel(adminApp, coop, "Queries stored events and subscribes to event streams", "HTTPS / SSE")
 
 @enduml

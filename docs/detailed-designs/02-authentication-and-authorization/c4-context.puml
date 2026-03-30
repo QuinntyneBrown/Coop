@@ -9,11 +9,12 @@ Person(member, "Co-op Member", "Resident, board member, or staff who accesses th
 Person(admin, "System Administrator", "Manages users, roles, and privileges")
 
 System(coop, "Coop Platform", "Co-op management system providing authentication, authorization, and resource management via REST API")
+System_Ext(publicApp, "Public Web App", "Public-facing and member-facing application")
+System_Ext(adminApp, "Admin Backend", "Administrative and operational application")
 
-System_Ext(browser, "Web Browser / SPA", "Angular single-page application")
-
-Rel(member, browser, "Uses")
-Rel(admin, browser, "Uses")
-Rel(browser, coop, "HTTPS / REST API calls with JWT Bearer token")
+Rel(member, publicApp, "Uses")
+Rel(admin, adminApp, "Uses")
+Rel(publicApp, coop, "HTTPS / REST API calls with JWT Bearer token where required")
+Rel(adminApp, coop, "HTTPS / REST API calls with JWT Bearer token")
 
 @enduml
