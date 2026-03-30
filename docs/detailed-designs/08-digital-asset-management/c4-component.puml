@@ -4,28 +4,21 @@
 skinparam dpi 150
 skinparam pageMargin 10
 
-title C4 Component -- Digital Asset Management (API Layer)
+title C4 Component -- Digital Asset Management
 
-Container_Boundary(api, "Coop API / Asset Microservice") {
-  Component(ctrl, "DigitalAssetController", "ASP.NET Controller", "Routes: upload, get by ID,\nbatch get, serve, delete")
-
-  Component(uploadHandler, "UploadDigitalAssetHandler", "MediatR Handler", "Parses multipart body,\nextracts image dimensions,\npersists assets")
-
-  Component(getByIdHandler, "GetDigitalAssetByIdHandler", "MediatR Handler", "Retrieves single asset\nby DigitalAssetId")
-
-  Component(batchHandler, "GetDigitalAssetsByIdsHandler", "MediatR Handler", "Retrieves assets matching\nan array of IDs")
-
+Container_Boundary(api, "Coop API - Asset Module") {
+  Component(ctrl, "DigitalAssetController", "ASP.NET Controller", "Routes: upload, get by ID, batch get, serve, delete")
+  Component(uploadHandler, "UploadDigitalAssetHandler", "MediatR Handler", "Parses multipart body, extracts image dimensions, persists assets")
+  Component(getByIdHandler, "GetDigitalAssetByIdHandler", "MediatR Handler", "Retrieves a single asset by identifier")
+  Component(batchHandler, "GetDigitalAssetsByIdsHandler", "MediatR Handler", "Retrieves assets matching an array of IDs")
   Component(pageHandler, "GetDigitalAssetsPageHandler", "MediatR Handler", "Paginated asset listing")
-
   Component(removeHandler, "RemoveDigitalAssetHandler", "MediatR Handler", "Deletes asset record")
-
-  Component(dto, "DigitalAssetDto", "DTO", "Projection of DigitalAsset\nfor API responses")
-
+  Component(dispatcher, "InternalNotificationDispatcher", "Application Service", "Dispatches asset lifecycle notifications")
+  Component(dto, "DigitalAssetDto", "DTO", "Projection of DigitalAsset for API responses")
   Component(ext, "DigitalAssetExtensions", "Extension Methods", "ToDto() mapping")
 }
 
 ContainerDb(db, "SQL Database", "EF Core", "DigitalAssets table")
-Container(bus, "Message Bus", "RabbitMQ", "Integration events")
 
 Rel(ctrl, uploadHandler, "Sends command")
 Rel(ctrl, getByIdHandler, "Sends query")
@@ -38,7 +31,8 @@ Rel(getByIdHandler, db, "Select by ID")
 Rel(batchHandler, db, "Select by IDs")
 Rel(pageHandler, db, "Select page")
 Rel(removeHandler, db, "Delete")
-Rel(removeHandler, bus, "Publish\nDigitalAssetDeletedEvent")
+Rel(uploadHandler, dispatcher, "Dispatches asset-created notification")
+Rel(removeHandler, dispatcher, "Dispatches asset-deleted notification")
 
 Rel(uploadHandler, ext, "Uses ToDto()")
 Rel(getByIdHandler, ext, "Uses ToDto()")

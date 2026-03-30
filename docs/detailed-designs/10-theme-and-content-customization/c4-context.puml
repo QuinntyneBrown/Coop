@@ -6,15 +6,17 @@ LAYOUT_WITH_LEGEND()
 
 title Theme and Content Customization - C4 Context Diagram
 
-Person(admin, "Administrator", "Manages platform themes\nand content sections")
-Person(member, "Member / Visitor", "Views themed UI and\ndynamic content")
+Person(admin, "Administrator", "Manages platform themes and CMS content")
+Person(member, "Member / Visitor", "Views themed public pages and dynamic content")
 
-System(coop, "Coop Platform", "Cooperative management platform\nwith theming and CMS capabilities")
+System(coop, "Theme and CMS Modules", "Customization capabilities within the Coop modular monolith")
 
-System_Ext(browser, "SPA Front End", "Angular application that\napplies themes and renders\nJSON-driven content")
+System_Ext(publicApp, "Public Web App", "Applies themes and renders CMS-driven content")
+System_Ext(adminApp, "Admin Backend", "Authors themes and content")
 
-Rel(admin, coop, "Creates/updates themes\nand JSON content", "HTTPS/JSON")
-Rel(member, browser, "Views themed pages\nand content sections")
-Rel(browser, coop, "Fetches themes and\nJSON content", "HTTPS/JSON")
+Rel(admin, adminApp, "Uses")
+Rel(member, publicApp, "Uses")
+Rel(adminApp, coop, "Creates and updates themes and JSON content", "HTTPS/JSON")
+Rel(publicApp, coop, "Fetches themes and JSON content", "HTTPS/JSON")
 
 @enduml

@@ -6,15 +6,17 @@ skinparam pageMargin 10
 
 title C4 Context -- Digital Asset Management
 
-Person(user, "Coop User", "Member, staff, or board member\nwho uploads or views assets")
-Person(anon, "Anonymous Viewer", "Unauthenticated user viewing\nserved assets via direct URL")
+Person(user, "Coop User", "Member, staff, or board member who uploads or views assets")
+Person(anon, "Anonymous Viewer", "Unauthenticated user viewing served assets via direct URL")
 
-System(coop, "Coop Platform", "Cooperative management platform\nwith digital asset storage")
+System(coop, "Asset Module", "Digital asset storage and serving inside the Coop modular monolith")
 
-System_Ext(browser, "Web Browser", "SPA front-end that uploads\nand displays assets")
+System_Ext(publicApp, "Public Web App", "Displays public images, downloads, and other published media")
+System_Ext(adminApp, "Admin Backend", "Uploads and manages assets")
 
-Rel(user, browser, "Uses")
-Rel(anon, browser, "Views served assets")
-Rel(browser, coop, "Upload, retrieve, serve,\ndelete assets", "HTTPS / REST")
+Rel(user, adminApp, "Uses")
+Rel(anon, publicApp, "Views served assets")
+Rel(adminApp, coop, "Upload, retrieve, and delete assets", "HTTPS / REST")
+Rel(publicApp, coop, "Retrieve and serve published assets", "HTTPS / REST")
 
 @enduml

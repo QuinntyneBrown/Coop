@@ -6,24 +6,26 @@ skinparam pageMargin 10
 
 title Document Management - C4 Container Diagram
 
-Person(user, "Coop User", "Board member, staff, or member")
+Person(user, "Coop User", "Board member, staff, member, or visitor")
 
-System_Boundary(docBoundary, "Document Management Service") {
-  Container(api, "Document API", ".NET / ASP.NET Core", "REST API exposing document CRUD and query endpoints")
+System_Boundary(docBoundary, "Coop Backend - Document Management") {
+  Container(api, "Document API", ".NET / ASP.NET Core", "REST endpoints for document CRUD, publication, and public reads")
+  Container(app, "Document Application", ".NET Class Library", "Commands, queries, and in-process notifications")
   Container(domain, "Document Domain", ".NET Class Library", "Aggregate roots, domain events, and business rules")
-  Container(infra, "Document Infrastructure", ".NET Class Library", "EF Core DbContext, repository implementations, data seeding")
-  ContainerDb(db, "Document Database", "SQL Server", "Stores documents, by-laws, notices, reports, and stored events")
+  Container(infra, "Document Persistence", ".NET Class Library", "EF Core DbContext and configurations")
+  ContainerDb(db, "Coop Database", "SQL Server", "Stores documents, by-laws, notices, reports, and stored events")
 }
 
-System_Ext(messageBus, "Message Bus", "Publishes integration events (MessagePack)")
-System_Ext(identitySvc, "Identity Service", "JWT authentication")
+System_Ext(publicApp, "Public Web App", "Reads published documents")
+System_Ext(adminApp, "Admin Backend", "Authors and publishes content")
 
-Rel(user, api, "HTTP/REST", "JSON")
-Rel(api, domain, "Uses")
-Rel(api, infra, "Uses")
-Rel(domain, infra, "Persisted by")
+Rel(user, publicApp, "Uses for published content")
+Rel(user, adminApp, "Uses for authoring and administration")
+Rel(publicApp, api, "Reads published documents", "HTTPS/JSON")
+Rel(adminApp, api, "Creates and manages documents", "HTTPS/JSON")
+Rel(api, app, "Uses")
+Rel(app, domain, "Uses")
+Rel(app, infra, "Uses")
 Rel(infra, db, "Reads/Writes", "EF Core")
-Rel(api, messageBus, "Publishes events", "MessagePack")
-Rel(api, identitySvc, "Validates tokens", "JWT")
 
 @enduml
