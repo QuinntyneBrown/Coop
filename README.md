@@ -34,8 +34,17 @@ The documented solution uses:
 
 - one deployable backend organized into explicit business modules
 - one shared database with module-owned tables or schemas
-- one shared REST API surface
-- two front-end applications: the public web app and the admin backend
+- one shared ASP.NET Core REST API surface on **.NET 10 LTS**
+- two **Angular 21** front-end applications: the public web app and the admin backend
+
+## Technology Baseline
+
+Unless a document explicitly describes a migration constraint or legacy compatibility concern, the Coop design pack assumes the following implementation baseline:
+
+- **Backend:** ASP.NET Core on **.NET 10 LTS**
+- **Client applications:** **Angular 21** for both the public web app and the admin backend
+- **API documentation:** OpenAPI / Swagger
+- **Authentication:** JWT bearer tokens
 
 ## Documentation
 

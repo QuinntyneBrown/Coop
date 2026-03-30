@@ -9,6 +9,12 @@ The Coop platform is implemented as a **modular monolith**: one deployable backe
 
 This architecture keeps deployment and operations simple while preserving clear module boundaries across Identity, Profile, Maintenance, Document, Asset, Messaging, and CMS-related capabilities.
 
+The implementation baseline for this architecture is:
+
+- **Backend:** ASP.NET Core on **.NET 10 LTS**
+- **Public Web App:** **Angular 21**
+- **Admin Backend:** **Angular 21**
+
 ## Architecture Principles
 
 - **Single deployable backend**: all modules run in one application process.

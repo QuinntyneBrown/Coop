@@ -7,6 +7,11 @@ The repository now focuses on **requirements, architecture, and detailed design 
 - a CMS-driven public-facing web app
 - an admin backend
 
+The documented implementation baseline assumes:
+
+- a shared ASP.NET Core backend on **.NET 10 LTS**
+- **Angular 21** for both client applications
+
 Implementation directories such as `src/` and `tests/` have been intentionally removed from this repository.
 
 ---
@@ -58,3 +63,4 @@ Coop/
 
 - `Coop.sln` is retained as a repository artifact, but this repository should be treated primarily as a design and requirements pack.
 - The architecture documented here assumes a single modular-monolith backend shared by the public web app and admin backend.
+- Unless a design note says otherwise, framework references in this repository should be read as **.NET 10 LTS** on the backend and **Angular 21** on the client side.

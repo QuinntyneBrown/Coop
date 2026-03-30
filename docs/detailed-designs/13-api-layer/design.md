@@ -7,7 +7,7 @@ The Coop API Layer is the shared backend surface for both application clients:
 - the **CMS-driven public-facing web app**
 - the **admin backend**
 
-It is implemented as an ASP.NET Core REST API within the modular monolith. Controllers delegate to `IMediator`, which routes commands and queries through validation, authorization, and application handlers before reaching persistence.
+It is implemented as an ASP.NET Core REST API on **.NET 10 LTS** within the modular monolith. Both client applications are assumed to be **Angular 21** applications. Controllers delegate to `IMediator`, which routes commands and queries through validation, authorization, and application handlers before reaching persistence.
 
 The API uses **JWT Bearer authentication** for protected operations, **FluentValidation** for request validation, and **Swagger/OpenAPI** for interactive documentation.
 

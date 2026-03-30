@@ -6,7 +6,7 @@ The User Account Management feature provides the core identity and authenticatio
 
 The feature follows a clean architecture pattern with four distinct layers:
 
-- **API Layer** - ASP.NET Core controllers exposing REST endpoints
+- **API Layer** - ASP.NET Core controllers on **.NET 10 LTS** exposing REST endpoints
 - **Application Layer** - MediatR command/query handlers implementing CQRS
 - **Domain Layer** - Core business entities and domain services
 - **Infrastructure Layer** - EF Core persistence via `CoopDbContext`

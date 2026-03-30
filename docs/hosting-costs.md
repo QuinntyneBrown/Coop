@@ -2,7 +2,9 @@
 
 ## 1. Overview
 
-The Coop platform is a microservices-based cooperative management system built on ASP.NET Core. The infrastructure must support the following components:
+The Coop platform's current design baseline is a modular monolith built on ASP.NET Core running on **.NET 10 LTS**, with **Angular 21** used for both the public web app and the admin backend.
+
+This document retains a higher-complexity distributed deployment model for comparison and future planning. For that distributed scenario, the infrastructure must support the following components:
 
 | Component | Description |
 |---|---|
@@ -16,9 +18,11 @@ The Coop platform is a microservices-based cooperative management system built o
 | Messaging Service | Internal messaging |
 | Databases | 8 isolated SQL Server/PostgreSQL instances (one per service) |
 | Redis | Inter-service messaging and caching |
-| Frontend | SPA served via CDN or static hosting |
+| Frontend | Angular 21 public web app and Angular 21 admin backend served via CDN or static hosting |
 
 All cost estimates below use publicly listed Azure and AWS pricing as of early 2026 and are quoted in USD per month. Actual costs will vary based on region, negotiated enterprise agreements, and consumption patterns.
+
+For the current documented target architecture, treat these figures as comparative planning data rather than the default deployment recommendation.
 
 ---
 

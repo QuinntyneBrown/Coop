@@ -4,6 +4,8 @@
 
 The Coop platform implements a JWT-based authentication and claims-based authorization system. Users authenticate by submitting credentials to the `/api/user/token` endpoint. Upon successful password validation, the system constructs a JWT containing the user's identity, roles, and fine-grained privilege claims. Subsequent API requests carry this token in the `Authorization` header. Protected endpoints are secured by the `[Authorize]` attribute, and individual operations are guarded by a resource-based authorization pipeline that checks the caller's privilege claims against the required operation and aggregate.
 
+The documented implementation baseline for this feature is ASP.NET Core on **.NET 10 LTS**, with **Angular 21** clients consuming the authenticated API surface.
+
 ### Key Design Decisions
 
 - **HMAC-SHA256 signed JWTs** for stateless authentication; token expiration is configurable via `Authentication:ExpirationMinutes`.
