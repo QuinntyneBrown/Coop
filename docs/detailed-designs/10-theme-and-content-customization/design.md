@@ -2,70 +2,52 @@
 
 ## 1. Overview
 
-The Theme and Content Customization feature enables the Coop platform to support dynamic visual theming and CMS-style content management without redeployment. It is composed of two independent but complementary sub-features:
+The Theme and Content Customization feature provides the CMS capabilities required by the Coop platform. It enables the **admin backend** to manage branding and public-facing content while enabling the **public web app** to render that content without redeployment.
 
-- **Theme** -- stores CSS custom properties (design tokens) as JSON, allowing per-profile or platform-wide visual customization. A Theme with a `null` ProfileId acts as the default (global) theme; a Theme linked to a specific ProfileId provides per-user overrides.
-- **JsonContent** -- stores named, structured JSON documents that drive front-end content sections (landing page hero, board-of-directors listing, etc.). Content is identified by a well-known name (e.g., `Hero`, `BoardOfDirectors`, `Landing`) so the SPA can fetch it without coupling to database identifiers.
+It is composed of two complementary sub-features:
 
-Both entities follow the standard CQRS / Mediator pattern used throughout the monolith and are also exposed through dedicated microservices (Asset Service for themes, Document Service for JSON content) in the distributed architecture.
+- **Theme**: stores CSS custom properties (design tokens) as JSON so branding can be updated globally or per profile.
+- **JsonContent**: stores named, structured JSON content blocks that power public pages such as the landing hero, board listing, announcements, and other CMS-driven sections.
+
+Both entities follow the platform's standard CQRS, MediatR, and Entity Framework patterns inside the modular monolith.
 
 ### Key design goals
 
-- Allow administrators to change visual branding (colours, fonts, spacing) at runtime through CSS custom properties stored as JSON.
-- Support a default (global) theme and optional per-profile theme overrides.
-- Provide a lightweight, schema-free content store for front-end sections identified by well-known names.
-- Maintain consistency with the Coop platform's existing CQRS, MediatR, and Entity Framework patterns.
-- Publish domain events (e.g., `ThemeUpdatedEvent`) so that other services can react to customization changes.
+- Allow administrators to change visual branding at runtime.
+- Support a default theme and optional profile-specific overrides.
+- Provide a lightweight CMS store for public web app sections identified by well-known names.
+- Let published content changes reach the public site without a redeploy.
+- Keep content and theme updates auditable and manageable through the admin backend.
 
 ---
 
 ## 2. Domain Model
 
-### 2.1 Theme Entity (Monolith)
+### 2.1 Theme Entity
 
 | Property | Type | Description |
 |---|---|---|
-| ThemeId | `Guid` | Primary key (database-generated). |
-| ProfileId | `Guid?` | Optional FK to owning profile. `null` = default theme. |
-| CssCustomProperties | `JObject` | JSON object containing CSS custom property key-value pairs. |
+| ThemeId | `Guid` | Primary key |
+| ProfileId | `Guid?` | Optional FK to owning profile; `null` means global default |
+| CssCustomProperties | `JObject` | JSON object containing CSS custom property key-value pairs |
+| CreatedAt | `DateTime` | Creation timestamp |
+| UpdatedAt | `DateTime?` | Last update timestamp |
 
-Methods: `SetCssCustomProperties(JObject)`.
+Methods include `SetCssCustomProperties(JObject)` and `UpdateCssCustomProperties(JObject)`.
 
-### 2.2 Theme Entity (Microservice -- Asset Service)
-
-Extends the monolith model with audit timestamps:
-
-| Property | Type | Description |
-|---|---|---|
-| CreatedAt | `DateTime` | UTC timestamp set on creation. |
-| UpdatedAt | `DateTime?` | UTC timestamp set on each update. |
-
-Methods: `UpdateCssCustomProperties(JObject)` -- sets properties and stamps `UpdatedAt`.
-
-### 2.3 JsonContent Entity (Monolith)
+### 2.2 JsonContent Entity
 
 | Property | Type | Description |
 |---|---|---|
-| JsonContentId | `Guid` | Primary key. |
-| Name | `string` | Well-known content name (e.g., `Hero`). |
-| Json | `JObject` | Arbitrary JSON payload consumed by the front end. |
+| JsonContentId | `Guid` | Primary key |
+| Name | `string` | Well-known content key such as `Hero` |
+| Json | `JObject` | Arbitrary JSON payload consumed by the public web app |
+| CreatedAt | `DateTime` | Creation timestamp |
+| UpdatedAt | `DateTime?` | Last update timestamp |
 
-Methods: `SetJson(JObject)`.
+Methods include `SetJson(JObject)`, `UpdateJson(JObject)`, and `SetName(string)`.
 
-### 2.4 JsonContent Entity (Microservice -- Document Service)
-
-Extends the monolith model with audit timestamps:
-
-| Property | Type | Description |
-|---|---|---|
-| CreatedAt | `DateTime` | UTC timestamp set on creation. |
-| UpdatedAt | `DateTime?` | UTC timestamp set on each update. |
-
-Methods: `UpdateJson(JObject)`, `SetName(string)`.
-
-### 2.5 Constants -- JsonContentName
-
-Well-known content names used as lookup keys:
+### 2.3 Well-Known Content Names
 
 | Constant | Value |
 |---|---|
@@ -117,97 +99,64 @@ Well-known content names used as lookup keys:
 
 ## 7. API Surface
 
-### ThemeController (`/api/Theme`) -- Monolith
-
-| Verb | Route | Handler | Description |
-|---|---|---|---|
-| GET | `/{themeId}` | `GetThemeByIdHandler` | Retrieve a single theme by ID. |
-| GET | `/default` | `GetDefaultThemeHandler` | Retrieve the global default theme (ProfileId = null). |
-| GET | `/profile/{profileId}` | `GetThemeByProfileIdHandler` | Retrieve the theme for a specific profile. |
-| GET | `/` | `GetThemesHandler` | List all themes. |
-| GET | `/page/{pageSize}/{index}` | `GetThemesPageHandler` | Paginated theme listing. |
-| POST | `/` | `CreateThemeHandler` | Create a new theme. |
-| PUT | `/` | `UpdateThemeHandler` | Update an existing theme's CSS properties. |
-| DELETE | `/{themeId}` | `RemoveThemeHandler` | Delete a theme. |
-
-### ThemesController (`/api/Themes`) -- Asset Microservice
+### ThemeController (`/api/theme`)
 
 | Verb | Route | Description |
 |---|---|---|
-| GET | `/` | List all themes. |
-| GET | `/default` | Get the default (ProfileId = null) theme. |
-| GET | `/{themeId}` | Get theme by ID. |
-| GET | `/by-profile/{profileId}` | Get theme by profile. |
-| POST | `/` | Create theme (validates no duplicate per profile). |
-| PUT | `/{themeId}` | Update theme; publishes `ThemeUpdatedEvent`. |
-| DELETE | `/{themeId}` | Delete theme (cannot delete default). |
+| GET | `/{themeId}` | Retrieve a single theme by ID |
+| GET | `/default` | Retrieve the global default theme |
+| GET | `/profile/{profileId}` | Retrieve the theme for a specific profile |
+| GET | `/` | List all themes |
+| GET | `/page/{pageSize}/{index}` | Paginated theme listing |
+| POST | `/` | Create a new theme |
+| PUT | `/` | Update an existing theme's CSS properties |
+| DELETE | `/{themeId}` | Delete a theme |
 
-### JsonContentController (`/api/JsonContent`) -- Monolith
-
-| Verb | Route | Handler | Description |
-|---|---|---|---|
-| GET | `/{jsonContentId}` | `GetJsonContentByIdHandler` | Retrieve content by ID. |
-| GET | `/name/{name}` | `GetJsonContentByNameHandler` | Retrieve content by well-known name. |
-| GET | `/` | `GetJsonContentsHandler` | List all JSON content entries. |
-| GET | `/page/{pageSize}/{index}` | `GetJsonContentsPageHandler` | Paginated content listing. |
-| POST | `/` | `CreateJsonContentHandler` | Create a new content entry (raises `CreatedJsonContent` domain event). |
-| PUT | `/` | `UpdateJsonContentHandler` | Update an existing content entry. |
-| DELETE | `/{jsonContentId}` | `RemoveJsonContentHandler` | Delete a content entry. |
-
-### JsonContentsController (`/api/JsonContents`) -- Document Microservice
+### JsonContentController (`/api/jsoncontent`)
 
 | Verb | Route | Description |
 |---|---|---|
-| GET | `/` | List all content entries. |
-| GET | `/{contentId}` | Get content by ID. |
-| GET | `/by-name/{name}` | Get content by well-known name. |
-| POST | `/` | Create content (validates unique name). |
-| PUT | `/{contentId}` | Update content JSON. |
-| DELETE | `/{contentId}` | Delete content entry. |
+| GET | `/{jsonContentId}` | Retrieve content by ID |
+| GET | `/name/{name}` | Retrieve content by well-known name |
+| GET | `/` | List all JSON content entries |
+| GET | `/page/{pageSize}/{index}` | Paginated content listing |
+| POST | `/` | Create a new content entry |
+| PUT | `/` | Update an existing content entry |
+| DELETE | `/{jsonContentId}` | Delete a content entry |
 
 ---
 
-## 8. Domain Events
+## 8. Domain Events and Notifications
 
-| Event | Trigger | Payload |
+| Event / Notification | Trigger | Purpose |
 |---|---|---|
-| `CreatedJsonContent` | New JsonContent saved | `JsonContentId`, `Name` |
-| `ThemeUpdatedEvent` | Theme CSS properties updated (microservice) | `ThemeId`, `ProfileId` |
+| `CreatedJsonContent` | New content saved | Audit trail and cache invalidation |
+| `ThemeUpdated` | Theme properties updated | Refresh public-site theming projections |
 
 ---
 
 ## 9. Data Storage
 
-- **Monolith**: Themes and JsonContents are persisted via Entity Framework Core through `ICoopDbContext.Themes` and `ICoopDbContext.JsonContents`. `CssCustomProperties` and `Json` columns are stored as `nvarchar(max)` with JSON serialization handled by Newtonsoft `JObject`.
-- **Microservice**: The Asset Service uses `AssetDbContext.Themes`; the Document Service uses `DocumentDbContext.JsonContents`. Each maintains its own database.
+Themes and JSON content are persisted in the shared Coop database through module-owned tables. `CssCustomProperties` and `Json` values are stored as JSON-capable text columns with serialization handled by the application layer.
 
 ---
 
 ## 10. Validation
 
-- **ThemeValidator** -- ensures `CssCustomProperties` is not null/empty.
-- **JsonContentValidator** -- ensures `Name` and `Json` are not null/empty.
-- **Duplicate prevention** (microservice): the Asset Service rejects a second theme for the same ProfileId; the Document Service rejects duplicate content names.
+- **ThemeValidator** ensures `CssCustomProperties` is present and well-formed.
+- **JsonContentValidator** ensures `Name` and `Json` are present.
+- Duplicate prevention ensures only one theme exists per profile and that content names remain unique where required by the CMS contract.
 
 ---
 
-## 11. Key Source Files
+## 11. CMS Responsibilities
 
-| Layer | Path |
-|---|---|
-| Domain Entity | `src/Coop.Domain/Entities/Theme.cs` |
-| Domain Entity | `src/Coop.Domain/Entities/JsonContent/JsonContent.cs` |
-| Domain Event | `src/Coop.Domain/DomainEvents/JsonContent/CreatedJsonContent.cs` |
-| API Controller | `src/Coop.Api/Controllers/ThemeController.cs` |
-| API Controller | `src/Coop.Api/Controllers/JsonContentController.cs` |
-| Application Handlers | `src/Coop.Application/Themes/*.cs` |
-| Application Handlers | `src/Coop.Application/JsonContents/**/*.cs` |
-| Microservice Entity | `src/Services/Asset/Asset.Domain/Entities/Theme.cs` |
-| Microservice Entity | `src/Services/Document/Document.Domain/Entities/JsonContent.cs` |
-| Microservice Controller | `src/Services/Asset/Asset.Api/Features/Themes/ThemesController.cs` |
-| Microservice Controller | `src/Services/Document/Document.Api/Features/JsonContents/JsonContentsController.cs` |
-| EF Configuration | `src/Coop.Infrastructure/Data/EntityConfigurations/ThemeConfiguration.cs` |
-| EF Configuration | `src/Coop.Infrastructure/Data/EntityConfigurations/JsonContentConfiguration.cs` |
-| Front-end Model | `src/Coop.App/src/app/@api/models/theme.ts` |
-| Front-end Service | `src/Coop.App/src/app/@api/services/theme.service.ts` |
-| Front-end Store | `src/Coop.App/src/app/@core/stores/theme.store.ts` |
+- The **admin backend** authors and publishes themes and content blocks.
+- The **public web app** resolves content by well-known names and applies the current theme at runtime.
+- The CMS contract is intentionally simple so public pages can be rendered from stable JSON shapes without coupling to internal database identifiers.
+
+---
+
+## 12. Documentation Note
+
+Implementation source paths have been intentionally omitted from this design because this repository now stores requirements and design artifacts only.
