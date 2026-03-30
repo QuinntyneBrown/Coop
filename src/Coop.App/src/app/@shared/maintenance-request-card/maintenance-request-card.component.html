@@ -1,4 +1,0 @@
-<p [innerHTML]="maintenanceRequest.description"></p>
-<p>Date: {{ maintenanceRequest.date | date:'short'}}</p>
-<p>Status: {{ convertMaintenanceRequestStatusToString(maintenanceRequest.status) }} </p>
-<a [routerLink]="['/','workspace','maintenance-requests','edit', maintenanceRequest.maintenanceRequestId]">Edit</a>
