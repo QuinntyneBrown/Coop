@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   register(data: { username: string; password: string; invitationToken: string }): Observable<any> {
-    return this.http.post(`${this.API_URL}/user`, data);
+    return this.http.post(`${this.API_URL}/user/register`, data);
   }
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {

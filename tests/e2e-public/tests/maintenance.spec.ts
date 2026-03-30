@@ -61,9 +61,13 @@ test.describe('Maintenance Requests', () => {
     test('should display empty state when there are no requests', async () => {
       // This test assumes a clean state with no requests
       await maintenance.goto();
+      await maintenance.expectLoaded();
       const count = await maintenance.getRequestCount();
       if (count === 0) {
         await expect(maintenance.emptyState).toBeVisible();
+      } else {
+        // Requests exist from other tests; verify the list is shown instead
+        await expect(maintenance.requestList).toBeVisible();
       }
     });
   });
@@ -128,7 +132,7 @@ test.describe('Maintenance Requests', () => {
       await api.addMaintenanceComment(requestId, 'First comment from API.');
 
       await maintenance.goto();
-      await maintenance.openRequestDetail(0);
+      await maintenance.openRequestByTitle('E2E: Request with comments');
       await expect(maintenance.detailComments.first()).toBeVisible();
     });
 
@@ -139,10 +143,10 @@ test.describe('Maintenance Requests', () => {
       });
 
       await maintenance.goto();
-      await maintenance.openRequestDetail(0);
+      await maintenance.openRequestByTitle('E2E: Request for commenting');
       await maintenance.addComment('This is a new E2E comment.');
       await expect(
-        maintenance.page.locator('[data-testid="maintenance-detail-comment"]:has-text("This is a new E2E comment.")'),
+        maintenance.page.locator('[data-testid="maintenance-detail-comment"]:has-text("This is a new E2E comment.")').first(),
       ).toBeVisible();
     });
   });

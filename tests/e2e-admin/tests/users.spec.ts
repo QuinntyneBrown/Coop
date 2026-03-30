@@ -190,9 +190,13 @@ test.describe('Users Management', () => {
       await api.createUser('e2e_delete_me', 'DeleteMe123!');
       await usersPage.goto(); // refresh
 
-      const initialCount = await usersPage.getRowCount();
-      // Delete the last row (the seeded user)
-      await usersPage.clickDeleteUser(initialCount - 1);
+      // Search for the seeded user to find it regardless of pagination
+      await usersPage.searchUsers('e2e_delete_me');
+      const count = await usersPage.getRowCount();
+      expect(count).toBeGreaterThan(0);
+
+      // Delete the first matching row
+      await usersPage.clickDeleteUser(0);
       await usersPage.confirmDelete();
       await expect(usersPage.deleteDialog).toBeHidden();
     });

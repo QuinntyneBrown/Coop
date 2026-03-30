@@ -191,7 +191,7 @@ test.describe('Documents', () => {
   });
 
   test.describe('Document Status Badges', () => {
-    test('should display Published badge in green', async ({ api }) => {
+    test('should display Published badge in green', async ({ api, authenticatedPage }) => {
       await api.createDocument({
         title: 'Published Doc',
         type: 'Notice',
@@ -200,7 +200,8 @@ test.describe('Documents', () => {
       });
       await documentsPage.goto();
 
-      const card = documentsPage.documentCards.first();
+      // Find the specific card with the published document
+      const card = authenticatedPage.locator('[data-testid="document-card"]:has-text("Published Doc")').first();
       const badge = card.getByTestId('document-status-badge');
       await expect(badge).toContainText('Published');
     });

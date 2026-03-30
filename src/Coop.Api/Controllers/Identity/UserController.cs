@@ -66,6 +66,7 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
+
     [HttpPost("token")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request)

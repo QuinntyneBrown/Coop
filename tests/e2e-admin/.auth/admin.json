@@ -1,0 +1,26 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:4200",
+      "localStorage": [
+        {
+          "name": "auth_token",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiJjZGJlZTMwZS1jNzcyLTRlYzUtYTk2MC01NzE0M2IyMDQ3ZjgiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTeXN0ZW1BZG1pbmlzdHJhdG9yIiwiUHJpdmlsZWdlIjpbIkRlbGV0ZTpCb2FyZE1lbWJlciIsIkRlbGV0ZTpJbnZpdGF0aW9uVG9rZW4iLCJEZWxldGU6RGlnaXRhbEFzc2V0IiwiRGVsZXRlOk5vdGljZSIsIkRlbGV0ZTpUaGVtZSIsIkRlbGV0ZTpNYWludGVuYW5jZVJlcXVlc3QiLCJEZWxldGU6Um9sZSIsIkRlbGV0ZTpKc29uQ29udGVudCIsIkRlbGV0ZTpTdGFmZk1lbWJlciIsIkRlbGV0ZTpDc3NDdXN0b21Qcm9wZXJ0eSIsIkRlbGV0ZTpNZXNzYWdlIiwiRGVsZXRlOk1lbWJlciIsIkRlbGV0ZTpCeUxhdyIsIkRlbGV0ZTpVc2VyIiwiRGVsZXRlOlJlcG9ydCIsIkRlbGV0ZTpQcml2aWxlZ2UiLCJEZWxldGU6SHRtbENvbnRlbnQiXSwic3ViIjoiYWRtaW4iLCJqdGkiOiI2M2Q2NmYyNS0wMDRjLTQ3YWMtYjJlNS1mYWJiOWMyY2JmNTQiLCJ1bmlxdWVfbmFtZSI6ImFkbWluIiwiZXhwIjoxNzc1NDgzOTc4LCJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJhbGwifQ.F0lNE5xKuC1j5S2d0fKCYumPnK3oJG8Qq_1C1MCEJ54"
+        },
+        {
+          "name": "token",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiJjZGJlZTMwZS1jNzcyLTRlYzUtYTk2MC01NzE0M2IyMDQ3ZjgiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTeXN0ZW1BZG1pbmlzdHJhdG9yIiwiUHJpdmlsZWdlIjpbIkRlbGV0ZTpCb2FyZE1lbWJlciIsIkRlbGV0ZTpJbnZpdGF0aW9uVG9rZW4iLCJEZWxldGU6RGlnaXRhbEFzc2V0IiwiRGVsZXRlOk5vdGljZSIsIkRlbGV0ZTpUaGVtZSIsIkRlbGV0ZTpNYWludGVuYW5jZVJlcXVlc3QiLCJEZWxldGU6Um9sZSIsIkRlbGV0ZTpKc29uQ29udGVudCIsIkRlbGV0ZTpTdGFmZk1lbWJlciIsIkRlbGV0ZTpDc3NDdXN0b21Qcm9wZXJ0eSIsIkRlbGV0ZTpNZXNzYWdlIiwiRGVsZXRlOk1lbWJlciIsIkRlbGV0ZTpCeUxhdyIsIkRlbGV0ZTpVc2VyIiwiRGVsZXRlOlJlcG9ydCIsIkRlbGV0ZTpQcml2aWxlZ2UiLCJEZWxldGU6SHRtbENvbnRlbnQiXSwic3ViIjoiYWRtaW4iLCJqdGkiOiI2M2Q2NmYyNS0wMDRjLTQ3YWMtYjJlNS1mYWJiOWMyY2JmNTQiLCJ1bmlxdWVfbmFtZSI6ImFkbWluIiwiZXhwIjoxNzc1NDgzOTc4LCJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJhbGwifQ.F0lNE5xKuC1j5S2d0fKCYumPnK3oJG8Qq_1C1MCEJ54"
+        },
+        {
+          "name": "auth_username",
+          "value": "admin"
+        },
+        {
+          "name": "auth_user_id",
+          "value": "admin"
+        }
+      ]
+    }
+  ]
+}

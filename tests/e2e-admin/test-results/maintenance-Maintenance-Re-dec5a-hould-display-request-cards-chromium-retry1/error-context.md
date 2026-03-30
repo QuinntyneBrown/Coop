@@ -1,0 +1,160 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: apartment
+      - generic [ref=e9]: Coop Manager
+    - navigation [ref=e10]:
+      - link "dashboard Dashboard" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [ref=e12]: dashboard
+        - generic [ref=e13]: Dashboard
+      - link "build Maintenance" [ref=e14] [cursor=pointer]:
+        - /url: /maintenance
+        - generic [ref=e15]: build
+        - generic [ref=e16]: Maintenance
+      - link "description Documents" [ref=e17] [cursor=pointer]:
+        - /url: /documents
+        - generic [ref=e18]: description
+        - generic [ref=e19]: Documents
+      - link "chat Messages" [ref=e20] [cursor=pointer]:
+        - /url: /messages
+        - generic [ref=e21]: chat
+        - generic [ref=e22]: Messages
+      - link "people Users" [ref=e23] [cursor=pointer]:
+        - /url: /users
+        - generic [ref=e24]: people
+        - generic [ref=e25]: Users
+      - link "admin_panel_settings Roles & Privileges" [ref=e26] [cursor=pointer]:
+        - /url: /roles
+        - generic [ref=e27]: admin_panel_settings
+        - generic [ref=e28]: Roles & Privileges
+      - link "badge Profiles" [ref=e29] [cursor=pointer]:
+        - /url: /profiles
+        - generic [ref=e30]: badge
+        - generic [ref=e31]: Profiles
+      - link "perm_media Assets" [ref=e32] [cursor=pointer]:
+        - /url: /assets
+        - generic [ref=e33]: perm_media
+        - generic [ref=e34]: Assets
+      - link "mail Invitations" [ref=e35] [cursor=pointer]:
+        - /url: /invitations
+        - generic [ref=e36]: mail
+        - generic [ref=e37]: Invitations
+      - link "settings Settings" [ref=e38] [cursor=pointer]:
+        - /url: /settings
+        - generic [ref=e39]: settings
+        - generic [ref=e40]: Settings
+    - generic [ref=e42]:
+      - generic [ref=e43]: A
+      - generic [ref=e44]:
+        - generic [ref=e45]: admin
+        - generic [ref=e46]: Member
+  - main [ref=e47]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - heading "Maintenance Requests" [level=1] [ref=e51]
+        - button "add New Request" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]: add
+          - text: New Request
+      - generic [ref=e54]:
+        - button "All" [ref=e55] [cursor=pointer]
+        - button "New" [ref=e56] [cursor=pointer]
+        - button "Received" [ref=e57] [cursor=pointer]
+        - button "Started" [ref=e58] [cursor=pointer]
+        - button "Completed" [ref=e59] [cursor=pointer]
+      - generic [ref=e61]:
+        - heading "All Requests" [level=3] [ref=e62]
+        - generic [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: "E2E: New test request"
+            - generic [ref=e66]: New
+          - paragraph [ref=e67]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:18 PM
+        - generic [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]:
+            - generic [ref=e70]: "E2E: New test request"
+            - generic [ref=e71]: New
+          - paragraph [ref=e72]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 3:51 PM
+        - generic [ref=e73] [cursor=pointer]:
+          - generic [ref=e74]:
+            - generic [ref=e75]: "E2E: New test request"
+            - generic [ref=e76]: New
+          - paragraph [ref=e77]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:24 PM
+        - generic [ref=e78] [cursor=pointer]:
+          - generic [ref=e79]:
+            - generic [ref=e80]: "E2E: New test request"
+            - generic [ref=e81]: New
+          - paragraph [ref=e82]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:55 PM
+        - generic [ref=e83] [cursor=pointer]:
+          - generic [ref=e84]:
+            - generic [ref=e85]: "E2E: New test request"
+            - generic [ref=e86]: New
+          - paragraph [ref=e87]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:02 PM
+        - generic [ref=e88] [cursor=pointer]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: "E2E: New test request"
+            - generic [ref=e91]: New
+          - paragraph [ref=e92]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 3:41 PM
+        - generic [ref=e93] [cursor=pointer]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: "E2E: New test request"
+            - generic [ref=e96]: New
+          - paragraph [ref=e97]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 5:24 PM
+        - generic [ref=e98] [cursor=pointer]:
+          - generic [ref=e99]:
+            - generic [ref=e100]: "E2E: New test request"
+            - generic [ref=e101]: New
+          - paragraph [ref=e102]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 5:14 PM
+        - generic [ref=e103] [cursor=pointer]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: "E2E: New test request"
+            - generic [ref=e106]: New
+          - paragraph [ref=e107]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 3:44 PM
+        - generic [ref=e108] [cursor=pointer]:
+          - generic [ref=e109]:
+            - generic [ref=e110]: "E2E: New test request"
+            - generic [ref=e111]: New
+          - paragraph [ref=e112]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:41 PM
+        - generic [ref=e113] [cursor=pointer]:
+          - generic [ref=e114]:
+            - generic [ref=e115]: E2E Test Request
+            - generic [ref=e116]: New
+          - paragraph [ref=e117]: Test maintenance request for E2E testing
+          - text: 3/30/26, 5:33 PM
+        - generic [ref=e118] [cursor=pointer]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: "E2E: New test request"
+            - generic [ref=e121]: New
+          - paragraph [ref=e122]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 5:12 PM
+        - generic [ref=e123] [cursor=pointer]:
+          - generic [ref=e124]:
+            - generic [ref=e125]: "E2E: New test request"
+            - generic [ref=e126]: New
+          - paragraph [ref=e127]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:13 PM
+        - generic [ref=e128] [cursor=pointer]:
+          - generic [ref=e129]:
+            - generic [ref=e130]: "E2E: New test request"
+            - generic [ref=e131]: New
+          - paragraph [ref=e132]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 4:20 PM
+        - generic [ref=e133] [cursor=pointer]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: "E2E: New test request"
+            - generic [ref=e136]: New
+          - paragraph [ref=e137]: This is a test maintenance request created by E2E tests.
+          - text: 3/30/26, 5:21 PM
+```

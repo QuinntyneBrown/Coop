@@ -1,0 +1,134 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: apartment
+      - generic [ref=e9]: Coop Manager
+    - navigation [ref=e10]:
+      - link "dashboard Dashboard" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [ref=e12]: dashboard
+        - generic [ref=e13]: Dashboard
+      - link "build Maintenance" [ref=e14] [cursor=pointer]:
+        - /url: /maintenance
+        - generic [ref=e15]: build
+        - generic [ref=e16]: Maintenance
+      - link "description Documents" [ref=e17] [cursor=pointer]:
+        - /url: /documents
+        - generic [ref=e18]: description
+        - generic [ref=e19]: Documents
+      - link "chat Messages" [ref=e20] [cursor=pointer]:
+        - /url: /messages
+        - generic [ref=e21]: chat
+        - generic [ref=e22]: Messages
+      - link "people Users" [ref=e23] [cursor=pointer]:
+        - /url: /users
+        - generic [ref=e24]: people
+        - generic [ref=e25]: Users
+      - link "admin_panel_settings Roles & Privileges" [ref=e26] [cursor=pointer]:
+        - /url: /roles
+        - generic [ref=e27]: admin_panel_settings
+        - generic [ref=e28]: Roles & Privileges
+      - link "badge Profiles" [ref=e29] [cursor=pointer]:
+        - /url: /profiles
+        - generic [ref=e30]: badge
+        - generic [ref=e31]: Profiles
+      - link "perm_media Assets" [ref=e32] [cursor=pointer]:
+        - /url: /assets
+        - generic [ref=e33]: perm_media
+        - generic [ref=e34]: Assets
+      - link "mail Invitations" [ref=e35] [cursor=pointer]:
+        - /url: /invitations
+        - generic [ref=e36]: mail
+        - generic [ref=e37]: Invitations
+      - link "settings Settings" [ref=e38] [cursor=pointer]:
+        - /url: /settings
+        - generic [ref=e39]: settings
+        - generic [ref=e40]: Settings
+    - generic [ref=e42]:
+      - generic [ref=e43]: A
+      - generic [ref=e44]:
+        - generic [ref=e45]: admin
+        - generic [ref=e46]: Member
+  - main [ref=e47]:
+    - generic [ref=e48]:
+      - generic "Users" [ref=e49]:
+        - generic [ref=e50]:
+          - heading "Users" [level=1] [ref=e52]
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - generic [ref=e55]: search
+              - textbox "Search..." [ref=e56]
+            - button "notifications" [ref=e57] [cursor=pointer]:
+              - generic [ref=e58]: notifications
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - heading "Users" [level=2] [ref=e61]
+          - generic [ref=e62]:
+            - textbox "Search users..." [ref=e63]
+            - button "add Add User" [ref=e64] [cursor=pointer]:
+              - generic [ref=e65]: add
+              - text: Add User
+        - generic [ref=e66]:
+          - table [ref=e67]:
+            - rowgroup [ref=e68]:
+              - row "Username Role Status Actions" [ref=e69]:
+                - columnheader "Username" [ref=e70]
+                - columnheader "Role" [ref=e71]
+                - columnheader "Status" [ref=e72]
+                - columnheader "Actions" [ref=e73]
+            - rowgroup [ref=e74]:
+              - row "E e2e_testuser Member Active edit delete" [ref=e75]:
+                - cell "E e2e_testuser" [ref=e76]:
+                  - generic [ref=e77]:
+                    - generic [ref=e78]: E
+                    - generic [ref=e79]: e2e_testuser
+                - cell "Member" [ref=e80]
+                - cell "Active" [ref=e81]:
+                  - generic [ref=e82]: Active
+                - cell "edit delete" [ref=e83]:
+                  - button "edit" [ref=e84] [cursor=pointer]:
+                    - generic [ref=e85]: edit
+                  - button "delete" [ref=e86] [cursor=pointer]:
+                    - generic [ref=e87]: delete
+              - row "E e2e_testuser Member Active edit delete" [ref=e88]:
+                - cell "E e2e_testuser" [ref=e89]:
+                  - generic [ref=e90]:
+                    - generic [ref=e91]: E
+                    - generic [ref=e92]: e2e_testuser
+                - cell "Member" [ref=e93]
+                - cell "Active" [ref=e94]:
+                  - generic [ref=e95]: Active
+                - cell "edit delete" [ref=e96]:
+                  - button "edit" [ref=e97] [cursor=pointer]:
+                    - generic [ref=e98]: edit
+                  - button "delete" [ref=e99] [cursor=pointer]:
+                    - generic [ref=e100]: delete
+          - generic [ref=e101]:
+            - generic [ref=e102]: Showing 1-2 of 40 users
+            - generic [ref=e103]:
+              - button "«" [disabled] [ref=e104]
+              - button "1" [ref=e105] [cursor=pointer]
+              - button "2" [ref=e106] [cursor=pointer]
+              - button "3" [ref=e107] [cursor=pointer]
+              - button "4" [ref=e108] [cursor=pointer]
+              - button "5" [ref=e109] [cursor=pointer]
+              - button "6" [ref=e110] [cursor=pointer]
+              - button "7" [ref=e111] [cursor=pointer]
+              - button "8" [ref=e112] [cursor=pointer]
+              - button "9" [ref=e113] [cursor=pointer]
+              - button "10" [ref=e114] [cursor=pointer]
+              - button "11" [ref=e115] [cursor=pointer]
+              - button "12" [ref=e116] [cursor=pointer]
+              - button "13" [ref=e117] [cursor=pointer]
+              - button "14" [ref=e118] [cursor=pointer]
+              - button "15" [ref=e119] [cursor=pointer]
+              - button "16" [ref=e120] [cursor=pointer]
+              - button "17" [ref=e121] [cursor=pointer]
+              - button "18" [ref=e122] [cursor=pointer]
+              - button "19" [ref=e123] [cursor=pointer]
+              - button "20" [ref=e124] [cursor=pointer]
+              - button "»" [ref=e125] [cursor=pointer]
+```

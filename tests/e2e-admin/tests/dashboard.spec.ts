@@ -76,8 +76,16 @@ test.describe('Dashboard', () => {
       await dashboard.expectRecentMaintenanceVisible();
     });
 
-    test('should show status badges on maintenance items', async ({ authenticatedPage }) => {
+    test('should show status badges on maintenance items', async ({ authenticatedPage, api }) => {
+      // Seed data to ensure items exist
+      await api.createMaintenanceRequest({
+        title: 'E2E: Badge Test',
+        description: 'Testing status badges on dashboard',
+      });
+      await dashboard.goto();
+
       const items = authenticatedPage.getByTestId('dashboard-maintenance-item');
+      await expect(items.first()).toBeVisible({ timeout: 10000 });
       const count = await items.count();
       expect(count).toBeGreaterThan(0);
 
@@ -87,8 +95,15 @@ test.describe('Dashboard', () => {
       await expect(badge).toBeVisible();
     });
 
-    test('should show maintenance items with valid status values', async ({ authenticatedPage }) => {
+    test('should show maintenance items with valid status values', async ({ authenticatedPage, api }) => {
+      await api.createMaintenanceRequest({
+        title: 'E2E: Status Values Test',
+        description: 'Testing valid status values on dashboard',
+      });
+      await dashboard.goto();
+
       const items = authenticatedPage.getByTestId('dashboard-maintenance-item');
+      await expect(items.first()).toBeVisible({ timeout: 10000 });
       const count = await items.count();
       const validStatuses = ['New', 'Received', 'Started', 'Completed'];
 

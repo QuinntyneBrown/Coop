@@ -78,6 +78,15 @@ export class MessagingPage {
     await expect(this.chatPanel).toBeVisible();
   }
 
+  async openConversationBySubject(subject: string) {
+    // Wait for conversation list to be populated
+    await expect(this.conversationItems.first()).toBeVisible({ timeout: 10000 });
+    const item = this.page.locator(`[data-testid="messaging-conversation-item"]:has-text("${subject}")`).first();
+    await expect(item).toBeVisible({ timeout: 10000 });
+    await item.click();
+    await expect(this.chatPanel).toBeVisible();
+  }
+
   async sendMessage(text: string) {
     await this.messageInput.fill(text);
     await this.sendButton.click();
@@ -85,7 +94,7 @@ export class MessagingPage {
 
   async expectMessageInChat(text: string) {
     await expect(
-      this.page.locator(`[data-testid="messaging-message-content"]:has-text("${text}")`),
+      this.page.locator(`[data-testid="messaging-message-content"]:has-text("${text}")`).first(),
     ).toBeVisible();
   }
 

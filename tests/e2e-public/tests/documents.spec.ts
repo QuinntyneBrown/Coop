@@ -53,9 +53,13 @@ test.describe('Documents', () => {
 
     test('should show empty state when no documents exist', async () => {
       await documents.goto();
+      await documents.expectLoaded();
       const count = await documents.getDocumentCount();
       if (count === 0) {
         await expect(documents.emptyState).toBeVisible();
+      } else {
+        // Documents exist from other tests or seed data; verify the list is shown instead
+        await expect(documents.documentList).toBeVisible();
       }
     });
   });

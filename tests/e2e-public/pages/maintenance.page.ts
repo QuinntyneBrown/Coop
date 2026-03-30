@@ -132,6 +132,12 @@ export class MaintenancePage {
     await expect(this.detailPanel).toBeVisible();
   }
 
+  async openRequestByTitle(title: string) {
+    const card = this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`).first();
+    await card.click();
+    await expect(this.detailPanel).toBeVisible();
+  }
+
   async addComment(text: string) {
     await this.commentInput.fill(text);
     await this.addCommentButton.click();

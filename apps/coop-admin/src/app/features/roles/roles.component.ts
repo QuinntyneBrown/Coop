@@ -147,12 +147,17 @@ export class RolesComponent implements OnInit {
       const rawAggregate = priv.aggregate || 'Unknown';
       const aggregate = this.groupAggregateMap[rawAggregate] || rawAggregate;
       if (!aggregateMap[aggregate]) {
-        aggregateMap[aggregate] = { aggregate, canRead: false, canUpdate: false, canCreate: false, canDelete: false, privilegeIds: {} };
+        aggregateMap[aggregate] = { aggregate, canRead: false, canUpdate: false, canCreate: false, canDelete: false, privilegeIds: {}, allPrivilegeIds: {} };
       }
       const field = accessRightMap[priv.accessRight];
       if (field) {
         aggregateMap[aggregate][field] = true;
         aggregateMap[aggregate].privilegeIds[field] = priv.privilegeId;
+        // Track ALL privilege IDs for grouped aggregates (e.g., Document groups Notice, ByLaw, Report)
+        if (!aggregateMap[aggregate].allPrivilegeIds[field]) {
+          aggregateMap[aggregate].allPrivilegeIds[field] = [];
+        }
+        aggregateMap[aggregate].allPrivilegeIds[field].push(priv.privilegeId);
       }
     }
 
@@ -182,12 +187,13 @@ export class RolesComponent implements OnInit {
     const aggregate = aggregates[0]; // Use first one for create
 
     if (wasChecked) {
-      // Remove privilege
-      const privId = priv.privilegeIds?.[field];
-      if (privId) {
+      // Remove ALL privileges for grouped aggregates (e.g., Document groups Notice, ByLaw, Report)
+      const allIds: string[] = priv.allPrivilegeIds?.[field] || [];
+      const singleId = priv.privilegeIds?.[field];
+      const idsToDelete = allIds.length > 0 ? allIds : (singleId ? [singleId] : []);
+      for (const privId of idsToDelete) {
         this.privilegeService.deletePrivilege(privId).subscribe({
           next: () => {
-            // Update cached role privileges
             if (this.selectedRole?.privileges) {
               this.selectedRole.privileges = this.selectedRole.privileges.filter(
                 (p: any) => p.privilegeId !== privId
@@ -197,27 +203,35 @@ export class RolesComponent implements OnInit {
           error: () => {}
         });
       }
+      // Clear tracked IDs
+      if (priv.allPrivilegeIds) { priv.allPrivilegeIds[field] = []; }
+      if (priv.privilegeIds) { delete priv.privilegeIds[field]; }
     } else {
-      // Create privilege
-      const payload = {
-        roleId: this.selectedRole.roleId,
-        aggregate: aggregate,
-        accessRight: accessRightReverseMap[field]
-      };
-      this.privilegeService.createPrivilege(payload).subscribe({
-        next: (result: any) => {
-          const newPriv = result?.privilege || result;
-          if (newPriv?.privilegeId) {
-            priv.privilegeIds = priv.privilegeIds || {};
-            priv.privilegeIds[field] = newPriv.privilegeId;
-            // Update cached role privileges
-            if (this.selectedRole?.privileges) {
-              this.selectedRole.privileges.push(newPriv);
+      // Create privileges for ALL sub-aggregates in the group
+      for (const agg of aggregates) {
+        const payload = {
+          roleId: this.selectedRole.roleId,
+          aggregate: agg,
+          accessRight: accessRightReverseMap[field]
+        };
+        this.privilegeService.createPrivilege(payload).subscribe({
+          next: (result: any) => {
+            const newPriv = result?.privilege || result;
+            if (newPriv?.privilegeId) {
+              priv.privilegeIds = priv.privilegeIds || {};
+              priv.privilegeIds[field] = newPriv.privilegeId;
+              priv.allPrivilegeIds = priv.allPrivilegeIds || {};
+              if (!priv.allPrivilegeIds[field]) { priv.allPrivilegeIds[field] = []; }
+              priv.allPrivilegeIds[field].push(newPriv.privilegeId);
+              if (this.selectedRole?.privileges) {
+                this.selectedRole.privileges.push(newPriv);
+              }
             }
-          }
-        },
-        error: () => {}
-      });
+          },
+          error: () => {}
+        });
+      }
     }
   }
 }
+

@@ -1,7 +1,9 @@
-import { test as base, expect } from '../fixtures/auth.fixture';
+import { test as authTest, expect } from '../fixtures/auth.fixture';
+import { test as apiTest } from '../fixtures/api.fixture';
+import { mergeTests } from '@playwright/test';
 import { DashboardPage } from '../pages/dashboard.page';
 
-const test = base;
+const test = mergeTests(authTest, apiTest);
 
 test.describe('Dashboard', () => {
   let dashboard: DashboardPage;
@@ -68,13 +70,25 @@ test.describe('Dashboard', () => {
   });
 
   test.describe('Recent Requests', () => {
-    test('should display recent requests card', async () => {
+    test('should display recent requests card', async ({ api }) => {
+      // Seed a maintenance request to ensure data exists
+      await api.createMaintenanceRequest({
+        title: 'E2E: Dashboard recent request',
+        description: 'Seeded for dashboard test.',
+      });
       await dashboard.goto();
       await dashboard.expectRecentRequests();
     });
 
-    test('should show request items with status indicators', async () => {
+    test('should show request items with status indicators', async ({ api }) => {
+      // Seed a maintenance request to ensure data exists
+      await api.createMaintenanceRequest({
+        title: 'E2E: Dashboard status test',
+        description: 'Seeded for status indicators test.',
+      });
       await dashboard.goto();
+      // Wait for the recent requests to load
+      await expect(dashboard.recentRequestItems.first()).toBeVisible({ timeout: 10000 });
       const items = dashboard.recentRequestItems;
       const count = await items.count();
       expect(count).toBeGreaterThan(0);

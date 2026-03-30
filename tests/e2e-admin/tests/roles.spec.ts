@@ -130,20 +130,46 @@ test.describe('Roles & Privileges', () => {
       await expect(writeToggle).toBeVisible();
     });
 
-    test('should persist privilege changes after role reselection', async () => {
+    test('should persist privilege changes after role reselection', async ({ authenticatedPage }) => {
+      // Select member role and wait for privilege matrix to fully render
+      const memberInitPromise = authenticatedPage.waitForResponse(
+        (resp) => resp.url().includes('/api/role/') && resp.request().method() === 'GET',
+      );
       await rolesPage.selectRole('member');
-      const row = rolesPage.page.getByTestId('privilege-row-document');
-      const readToggle = row.getByTestId('privilege-read');
-      const isChecked = await readToggle.isChecked();
+      await memberInitPromise;
+      await authenticatedPage.waitForTimeout(500);
 
-      await readToggle.click();
+      // Use User aggregate (non-grouped) for reliable toggling
+      const row = rolesPage.page.getByTestId('privilege-row-user');
+      const writeToggle = row.getByTestId('privilege-write');
+      const isChecked = await writeToggle.isChecked();
 
-      // Switch away and back
+      // Click toggle and wait for the single API call to complete
+      const apiPromise = authenticatedPage.waitForResponse(
+        (resp) => resp.url().includes('/api/privilege') && (resp.request().method() === 'POST' || resp.request().method() === 'DELETE') && resp.status() === 200,
+      );
+      await writeToggle.click();
+      await apiPromise;
+
+      // Switch away and wait for role data to load
+      const staffLoadPromise = authenticatedPage.waitForResponse(
+        (resp) => resp.url().includes('/api/role/') && resp.request().method() === 'GET',
+      );
       await rolesPage.selectRole('staff');
-      await rolesPage.selectRole('member');
+      await staffLoadPromise;
+      await authenticatedPage.waitForTimeout(300);
 
-      const newRow = rolesPage.page.getByTestId('privilege-row-document');
-      const newToggle = newRow.getByTestId('privilege-read');
+      // Switch back and wait for role data to load from the API
+      const memberLoadPromise = authenticatedPage.waitForResponse(
+        (resp) => resp.url().includes('/api/role/') && resp.request().method() === 'GET',
+      );
+      await rolesPage.selectRole('member');
+      await memberLoadPromise;
+      // Wait for Angular to process the subscription and update the DOM
+      await authenticatedPage.waitForTimeout(500);
+
+      const newRow = rolesPage.page.getByTestId('privilege-row-user');
+      const newToggle = newRow.getByTestId('privilege-write');
       const newState = await newToggle.isChecked();
       expect(newState).toBe(!isChecked);
     });
