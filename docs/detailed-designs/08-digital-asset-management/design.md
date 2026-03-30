@@ -2,63 +2,56 @@
 
 ## 1. Overview
 
-The Digital Asset Management feature provides centralized binary storage and retrieval for all file-based content in the Coop platform. A **DigitalAsset** stores raw bytes alongside metadata (name, MIME type, dimensions) and is referenced by other domain entities through foreign-key relationships:
+The Digital Asset Management feature provides centralized binary storage and retrieval for file-based content across the Coop platform. A **DigitalAsset** stores raw bytes alongside metadata such as file name, MIME type, dimensions, size, and creation time. It is referenced by other modules through foreign-key relationships:
 
-- **Profile.AvatarDigitalAssetId** -- links a user profile to an avatar image.
-- **MaintenanceRequestDigitalAsset** -- join entity attaching one or more assets to a maintenance request (photos, evidence).
-- **Document.DigitalAssetId** -- associates a published document with its backing file (PDF, image).
+- **Profile.AvatarDigitalAssetId** for profile avatars
+- **MaintenanceRequestDigitalAsset** for maintenance photos and evidence
+- **Document.DigitalAssetId** for published files and attachments
+- **CMS content references** for public-facing imagery and downloadable assets
 
-The monolith implementation stores assets in the `DigitalAssets` DbSet via Entity Framework Core, with upload handled through multipart form parsing. The microservice variant (`Asset.Api`) adds computed `Size`, `CreatedAt` tracking, and publishes integration events (`DigitalAssetCreatedEvent`, `DigitalAssetDeletedEvent`) over the message bus.
+The Asset module serves both applications: the admin backend uploads and manages assets, while the public web app consumes published images and files through anonymous serving endpoints where appropriate.
 
 ### Key design goals
 
-- Single source of truth for all binary content, avoiding duplication across aggregates.
-- Multipart upload supporting multiple files per request (monolith) and single-file upload with validation (microservice).
-- Anonymous serving endpoint (`/api/DigitalAsset/serve/{id}`) so images can be embedded directly in the UI.
-- Batch retrieval by ID array to efficiently hydrate views that reference multiple assets.
-- Image-specific metadata extraction (Height, Width) performed at upload time.
-- Integration events enabling cross-service consistency in the microservices architecture.
+- Keep one source of truth for binary content.
+- Support multipart upload and avatar-specific validation.
+- Provide anonymous file serving for public content and embedded images.
+- Support batch retrieval by ID for efficient view hydration.
+- Extract image metadata at upload time.
 
 ---
 
 ## 2. Domain Model
 
-### 2.1 DigitalAsset Entity (Monolith)
+### 2.1 DigitalAsset Entity
 
 | Property | Type | Description |
 |---|---|---|
-| DigitalAssetId | `Guid` | Primary key. |
-| Name | `string` | Original file name (ampersands normalized to "and"). |
-| Bytes | `byte[]` | Raw binary content. |
-| ContentType | `string` | MIME type (e.g., `image/png`, `application/pdf`). |
-| Height | `float` | Image height in pixels (0 for non-image assets). |
-| Width | `float` | Image width in pixels (0 for non-image assets). |
+| DigitalAssetId | `Guid` | Primary key |
+| Name | `string` | Original file name |
+| Bytes | `byte[]` | Raw binary content |
+| ContentType | `string` | MIME type |
+| Height | `float` | Image height in pixels, `0` for non-images |
+| Width | `float` | Image width in pixels, `0` for non-images |
+| Size | `long` | File size in bytes |
+| CreatedAt | `DateTime` | UTC creation timestamp |
 
-### 2.2 DigitalAsset Entity (Microservice)
-
-Extends the monolith model with:
-
-| Property | Type | Description |
-|---|---|---|
-| Size | `long` (computed) | `Bytes.Length` -- file size in bytes. |
-| CreatedAt | `DateTime` | UTC timestamp of creation. |
-
-### 2.3 MaintenanceRequestDigitalAsset (Join Entity)
+### 2.2 MaintenanceRequestDigitalAsset
 
 | Property | Type | Description |
 |---|---|---|
-| MaintenanceRequestDigitalAssetId | `Guid` | Primary key. |
-| MaintenanceRequestId | `Guid` | FK to the owning MaintenanceRequest. |
-| DigitalAssetId | `Guid` | FK to the referenced DigitalAsset. |
+| MaintenanceRequestDigitalAssetId | `Guid` | Primary key |
+| MaintenanceRequestId | `Guid` | FK to the owning maintenance request |
+| DigitalAssetId | `Guid` | FK to the referenced digital asset |
 
-Marked `[Owned]` -- lifecycle managed by the parent MaintenanceRequest aggregate.
+Marked `[Owned]` so lifecycle is managed by the parent MaintenanceRequest aggregate.
 
-### 2.4 Integration Events
+### 2.3 Internal Notifications
 
-| Event | Fields | Trigger |
-|---|---|---|
-| `DigitalAssetCreatedEvent` | DigitalAssetId, Name, ContentType | After upload and persistence. |
-| `DigitalAssetDeletedEvent` | DigitalAssetId | After deletion. |
+| Notification | Trigger |
+|---|---|
+| `DigitalAssetCreated` | After upload and persistence |
+| `DigitalAssetDeleted` | After deletion |
 
 ---
 
@@ -104,45 +97,35 @@ Marked `[Owned]` -- lifecycle managed by the parent MaintenanceRequest aggregate
 
 ## 7. API Surface
 
-### DigitalAssetController -- Monolith (`/api/DigitalAsset`)
-
-| Verb | Route | Handler | Description |
-|---|---|---|---|
-| POST | `/upload` | `UploadDigitalAssetHandler` | Multipart upload of one or more files. |
-| GET | `/{digitalAssetId}` | `GetDigitalAssetByIdHandler` | Retrieve asset metadata and bytes by ID. |
-| GET | `/range?digitalAssetIds=` | `GetDigitalAssetsByIdsHandler` | Batch retrieve assets by an array of IDs. |
-| GET | `/page/{pageSize}/{index}` | `GetDigitalAssetsPageHandler` | Paginated asset listing. |
-| GET | `/serve/{digitalAssetId}` | `GetDigitalAssetByIdHandler` | Anonymous -- returns raw file with content type. |
-| DELETE | `/{digitalAssetId}` | `RemoveDigitalAssetHandler` | Delete an asset. |
-
-### DigitalAssetsController -- Microservice (`/api/DigitalAssets`)
+### DigitalAssetController (`/api/digitalasset`)
 
 | Verb | Route | Description |
 |---|---|---|
-| POST | `/` | Upload a single file (IFormFile). Publishes `DigitalAssetCreatedEvent`. |
-| POST | `/avatar` | Upload avatar image with type validation (jpeg, png, gif, webp). |
-| GET | `/` | List all assets (metadata only, no bytes). |
-| GET | `/{assetId}` | Get asset metadata by ID. |
-| GET | `/serve/{assetId}` | Anonymous -- serve raw file bytes. |
-| GET | `/by-name/{name}` | Anonymous -- serve file by name. |
-| DELETE | `/{assetId}` | Delete asset. Publishes `DigitalAssetDeletedEvent`. |
+| POST | `/upload` | Multipart upload of one or more files |
+| POST | `/avatar` | Upload avatar image with image-type validation |
+| GET | `/{digitalAssetId}` | Retrieve asset metadata and bytes by ID |
+| GET | `/range?digitalAssetIds=` | Batch retrieve assets by ID array |
+| GET | `/page/{pageSize}/{index}` | Paginated asset listing |
+| GET | `/serve/{digitalAssetId}` | Anonymous file serving |
+| GET | `/by-name/{name}` | Anonymous file serving by stable name |
+| DELETE | `/{digitalAssetId}` | Delete an asset |
 
 ---
 
 ## 8. Upload Flow
 
-1. Client sends a multipart HTTP POST to `/api/DigitalAsset/upload`.
-2. `UploadDigitalAssetHandler` parses multipart boundaries, extracting each file section.
-3. For each file: bytes are read into memory, a `DigitalAsset` entity is created (or updated if the name already exists).
-4. If the file is an image, `System.Drawing.Image.FromStream` extracts Height and Width.
-5. All assets are persisted in a single `SaveChangesAsync` call.
-6. The response returns the list of generated `DigitalAssetId` values.
+1. Client sends a multipart HTTP POST to `/api/digitalasset/upload`.
+2. The upload handler parses each file section and loads bytes into memory or a staging stream.
+3. A `DigitalAsset` entity is created with metadata and timestamps.
+4. If the file is an image, dimensions are extracted before persistence.
+5. The asset is saved in the shared Coop database.
+6. The response returns the generated `DigitalAssetId` values.
 
 ---
 
 ## 9. Serving Flow
 
-The `/serve/{digitalAssetId}` endpoint is marked `[AllowAnonymous]` so that asset URLs can be used directly in `<img>` tags and document downloads without requiring a bearer token. The handler returns a `FileContentResult` with the stored `ContentType`.
+The `/serve/{digitalAssetId}` endpoint is marked `[AllowAnonymous]` so that public pages, avatars, and document downloads can reference assets directly. The handler returns the stored bytes with the saved `ContentType`.
 
 ---
 
@@ -150,29 +133,19 @@ The `/serve/{digitalAssetId}` endpoint is marked `[AllowAnonymous]` so that asse
 
 | Entity | Property | Relationship |
 |---|---|---|
-| Profile | `AvatarDigitalAssetId` | Optional FK -- the profile's avatar image. |
-| MaintenanceRequestDigitalAsset | `DigitalAssetId` | Required FK -- photo/evidence attached to a request. |
-| Document | `DigitalAssetId` | Optional FK -- the document's backing file. |
+| Profile | `AvatarDigitalAssetId` | Optional FK to avatar image |
+| MaintenanceRequestDigitalAsset | `DigitalAssetId` | Required FK to evidence attachment |
+| Document | `DigitalAssetId` | Optional FK to document file |
+| CMS content | Asset identifiers or URLs | References media used by the public web app |
 
 ---
 
 ## 11. Data Storage
 
-Assets are persisted via Entity Framework Core through `ICoopDbContext.DigitalAssets`. In the microservice architecture, the `AssetDbContext` in `Asset.Infrastructure` owns the table. Binary content is stored directly in the database as a `varbinary(max)` column.
+Assets are stored in the shared Coop database using module-owned tables. Binary content is stored directly in a `varbinary(max)` column or equivalent backing representation, with metadata columns available for filtering and serving.
 
 ---
 
-## 12. Key Source Files
+## 12. Documentation Note
 
-| Layer | Path |
-|---|---|
-| Domain Entity (Monolith) | `src/Coop.Domain/Entities/DigitalAsset.cs` |
-| Domain Entity (Microservice) | `src/Services/Asset/Asset.Domain/Entities/DigitalAsset.cs` |
-| Join Entity | `src/Coop.Domain/Entities/MaintenanceRequest/MaintenanceRequestDigitalAsset.cs` |
-| Integration Events | `src/Coop.SharedKernel/Events/Asset/DigitalAssetEvents.cs` |
-| API Controller (Monolith) | `src/Coop.Api/Controllers/DigitalAssetController.cs` |
-| API Controller (Microservice) | `src/Services/Asset/Asset.Api/Features/DigitalAssets/DigitalAssetsController.cs` |
-| Upload Handler | `src/Coop.Application/DigitalAssets/UploadDigitalAsset.cs` |
-| Batch Get Handler | `src/Coop.Application/DigitalAssets/GetDigitalAssetsByIds.cs` |
-| DTO | `src/Coop.Application/DigitalAssets/DigitalAssetDto.cs` |
-| Extensions | `src/Coop.Application/DigitalAssets/DigitalAssetExtensions.cs` |
+Implementation source paths have been intentionally omitted from this design because this repository now stores requirements and design artifacts only.
