@@ -1,28 +1,29 @@
+using Coop.Domain.Profiles.ValueObjects;
+
 namespace Coop.Domain.Profiles;
 
 public abstract class ProfileBase
 {
-    public Guid ProfileBaseId { get; set; } = Guid.NewGuid();
-    public Guid UserId { get; set; }
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
+    public Guid ProfileId { get; set; } = Guid.NewGuid();
+    public Guid? UserId { get; set; }
+    public string Firstname { get; set; } = string.Empty;
+    public string Lastname { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; }
+    public string? Email { get; set; }
     public Guid? AvatarDigitalAssetId { get; set; }
-    public ProfileType ProfileType { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public Address? Address { get; set; }
+    public ProfileType Type { get; set; }
+    public bool IsDeleted { get; set; }
+
+    public string Fullname => $"{Firstname} {Lastname}";
 
     public void SetAvatar(Guid digitalAssetId)
     {
         AvatarDigitalAssetId = digitalAssetId;
-        UpdatedAt = DateTime.UtcNow;
     }
 
-    public void UpdateBase(string firstName, string lastName, string? phoneNumber)
+    public void Delete()
     {
-        FirstName = firstName;
-        LastName = lastName;
-        PhoneNumber = phoneNumber;
-        UpdatedAt = DateTime.UtcNow;
+        IsDeleted = true;
     }
 }

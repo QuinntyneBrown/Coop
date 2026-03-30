@@ -1,13 +1,11 @@
-using Coop.Domain.Profiles.ValueObjects;
-
 namespace Coop.Domain.Profiles;
 
 public class Member : ProfileBase
 {
-    public Address Address { get; set; } = new();
+    public string? UnitNumber { get; set; }
 
     public Member()
     {
-        ProfileType = ProfileType.Member;
+        Type = ProfileType.Member;
     }
 }

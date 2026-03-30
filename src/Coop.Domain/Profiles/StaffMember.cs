@@ -2,10 +2,10 @@ namespace Coop.Domain.Profiles;
 
 public class StaffMember : ProfileBase
 {
-    public string JobTitle { get; set; } = string.Empty;
+    public string? JobTitle { get; set; }
 
     public StaffMember()
     {
-        ProfileType = ProfileType.StaffMember;
+        Type = ProfileType.StaffMember;
     }
 }
