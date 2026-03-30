@@ -4,6 +4,6 @@ public enum MaintenanceRequestStatus
 {
     New = 0,
     Received = 1,
-    Started = 2,
-    Completed = 3
+    InProgress = 2,
+    Complete = 3
 }

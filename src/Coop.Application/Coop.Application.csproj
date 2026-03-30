@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.*" />
+    <PackageReference Include="FluentValidation" Version="11.*" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coop.Domain\Coop.Domain.csproj" />
+    <ProjectReference Include="..\Coop.SharedKernel\Coop.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

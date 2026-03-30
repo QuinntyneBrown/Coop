@@ -4,6 +4,6 @@ public class OnCall : ProfileBase
 {
     public OnCall()
     {
-        ProfileType = ProfileType.OnCall;
+        Type = ProfileType.OnCall;
     }
 }
