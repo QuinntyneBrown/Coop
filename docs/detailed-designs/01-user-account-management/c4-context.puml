@@ -1,0 +1,23 @@
+@startuml c4-context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+title User Account Management - C4 Context Diagram
+
+Person(member, "Cooperative Member", "Resident who manages their\naccount and profiles")
+Person(staff, "Staff Member", "Staff who manages operations\nand member accounts")
+Person(admin, "Admin", "Administrator who manages\nall users, roles, and privileges")
+
+System(coop, "Coop Platform", "Cooperative housing management\nplatform with user account\nmanagement capabilities")
+
+System_Ext(jwt, "JWT Token Provider", "Issues and validates\nJWT access tokens for\nauthentication")
+
+Rel(member, coop, "Authenticates, changes password,\nmanages profile")
+Rel(staff, coop, "Manages members,\nviews reports")
+Rel(admin, coop, "Creates users, assigns roles,\nmanages privileges")
+Rel(coop, jwt, "Requests token generation\nand validation")
+
+@enduml

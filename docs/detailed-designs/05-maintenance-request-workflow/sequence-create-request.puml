@@ -1,0 +1,35 @@
+@startuml sequence-create-request
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+
+title Member Creates Maintenance Request
+
+actor Member
+participant "MaintenanceRequest\nController" as Ctrl
+participant "MediatR" as Med
+participant "CreateMaintenance\nRequestHandler" as Handler
+participant "MaintenanceRequest\n(Aggregate)" as Agg
+database "CoopDbContext" as DB
+
+Member -> Ctrl : POST /api/MaintenanceRequest\n{RequestedByProfileId, Name,\nAddress, Phone, Description,\nUnattendedUnitEntryAllowed}
+activate Ctrl
+Ctrl -> Med : Send(CreateMaintenanceRequestRequest)
+activate Med
+Med -> Handler : Handle(request, ct)
+activate Handler
+Handler -> Handler : request.ToEvent()\n-> CreateMaintenanceRequest
+Handler -> Agg ** : new MaintenanceRequest(event)
+note right : Status = New\nDate = Created timestamp
+Handler -> DB : MaintenanceRequests.Add(entity)
+Handler -> DB : SaveChangesAsync()
+DB --> Handler : saved
+Handler -> Handler : entity.ToDto()
+Handler --> Med : CreateMaintenanceRequestResponse
+deactivate Handler
+Med --> Ctrl : response
+deactivate Med
+Ctrl --> Member : 200 OK {MaintenanceRequestDto}
+deactivate Ctrl
+@enduml

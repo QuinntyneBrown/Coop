@@ -1,0 +1,18 @@
+@startuml state-message-lifecycle
+skinparam dpi 150
+skinparam defaultFontSize 11
+title Message Lifecycle State Diagram
+
+[*] --> Sent : Message created via\nConversation.AddMessage()
+
+state Sent : IsRead = false\nReadAt = null
+
+Sent --> Read : MarkAsRead()
+
+state Read : IsRead = true\nReadAt = DateTime.UtcNow
+
+Read --> Read : MarkAsRead()\n(idempotent, no change)
+
+Read --> [*]
+
+@enduml

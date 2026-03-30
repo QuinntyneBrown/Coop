@@ -1,0 +1,38 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontSize 10
+skinparam sequenceMessageAlign center
+
+title Create Role with Privileges
+
+actor Admin
+participant "RoleController" as RC
+participant "MediatR" as M
+participant "CreateRoleHandler" as CRH
+participant "ICoopDbContext" as DB
+participant "PrivilegeController" as PC
+participant "CreatePrivilegeHandler" as CPH
+
+Admin -> RC : POST /api/Role\n{ name: "Staff" }
+RC -> M : Send(CreateRoleRequest)
+M -> CRH : Handle(request)
+CRH -> CRH : new Role(name)
+CRH -> DB : Roles.Add(role)
+CRH -> DB : SaveChangesAsync()
+CRH --> M : CreateRoleResponse { Role }
+M --> RC : response
+RC --> Admin : 200 OK { roleId, name }
+
+loop for each privilege
+  Admin -> PC : POST /api/Privilege\n{ roleId, accessRight, aggregate }
+  PC -> M : Send(CreatePrivilegeRequest)
+  M -> CPH : Handle(request)
+  CPH -> CPH : new Privilege(roleId, accessRight, aggregate)
+  CPH -> DB : Privileges.Add(privilege)
+  CPH -> DB : SaveChangesAsync()
+  CPH --> M : CreatePrivilegeResponse
+  M --> PC : response
+  PC --> Admin : 200 OK { privilegeId }
+end
+
+@enduml

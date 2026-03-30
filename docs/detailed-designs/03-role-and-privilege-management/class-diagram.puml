@@ -1,0 +1,81 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam defaultFontSize 10
+skinparam wrapWidth 200
+left to right direction
+
+enum AccessRight {
+  None
+  Read
+  Write
+  Create
+  Delete
+}
+
+class Role {
+  +RoleId : Guid
+  +Name : string
+  +Users : List<User>
+  +Privileges : List<Privilege>
+  --
+  +Role(name : string)
+  +Deconstruct(out roleId, out name)
+  +AddPrivilege(privilege : Privilege)
+  +RemovePrivilege(privilege : Privilege)
+}
+
+class Privilege {
+  +PrivilegeId : Guid
+  +RoleId : Guid
+  +AccessRight : AccessRight
+  +Aggregate : string
+  --
+  +Privilege(roleId, accessRight, aggregate)
+  +Privilege(accessRight, aggregate)
+}
+
+class User {
+  +UserId : Guid
+  +Username : string
+  +Roles : List<Role>
+  +Profiles : List<Profile>
+}
+
+class "Constants.Roles" as ConstRoles <<static>> {
+  +Member : string
+  +Staff : string
+  +BoardMember : string
+  +SystemAdministrator : string
+  +Support : string
+}
+
+class "Constants.Aggregates" as ConstAggregates <<static>> {
+  +BoardMember : string
+  +ByLaw : string
+  +DigitalAsset : string
+  +MaintenanceRequest : string
+  +Member : string
+  +Notice : string
+  +Privilege : string
+  +Role : string
+  +StaffMember : string
+  +User : string
+  +Report : string
+  +Message : string
+  +HtmlContent : string
+  +CssCustomProperty : string
+  +JsonContent : string
+  +Theme : string
+  +InvitationToken : string
+}
+
+User "0..*" -- "0..*" Role : assigned >
+Role "1" *-- "0..*" Privilege : owns >
+Privilege --> AccessRight : uses >
+Role ..> ConstRoles : named by >
+Privilege ..> ConstAggregates : targets >
+
+@enduml

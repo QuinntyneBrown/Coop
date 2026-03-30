@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Container - Authentication & Authorization
+
+Person(user, "User", "Co-op member, staff, or administrator")
+
+System_Boundary(coop, "Coop Platform") {
+  Container(api, "Coop.Api", "ASP.NET Core", "REST API gateway.\nJWT Bearer middleware validates tokens.\n[Authorize] attribute secures endpoints.")
+  Container(app, "Coop.Application", "MediatR Handlers", "AuthenticateHandler processes login.\nResourceOperationAuthorizationBehavior\nenforces per-request privilege checks.")
+  Container(domain, "Coop.Domain", "Domain Layer", "TokenBuilder, TokenProvider,\nPasswordHasher, Operations,\nResourceOperationAuthorizationHandler")
+  ContainerDb(db, "SQL Server", "Database", "Users, Roles, Privileges,\nProfiles, Salt + PasswordHash")
+}
+
+Rel(user, api, "POST /api/user/token\n+ Bearer token on subsequent calls", "HTTPS")
+Rel(api, app, "IMediator.Send()", "in-process")
+Rel(app, domain, "TokenBuilder, PasswordHasher", "in-process")
+Rel(app, db, "EF Core queries", "SQL")
+Rel(domain, db, "Reads JWT config", "IConfiguration")
+
+@enduml

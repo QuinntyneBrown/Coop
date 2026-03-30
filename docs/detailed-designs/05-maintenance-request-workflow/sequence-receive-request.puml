@@ -1,0 +1,40 @@
+@startuml sequence-receive-request
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+
+title Staff Receives Maintenance Request (New -> Received)
+
+actor Staff
+participant "MaintenanceRequest\nController" as Ctrl
+participant "MediatR" as Med
+participant "ReceiveMaintenance\nRequestHandler" as Handler
+participant "HttpContext\nAccessor" as Http
+participant "MaintenanceRequest\n(Aggregate)" as Agg
+database "CoopDbContext" as DB
+
+Staff -> Ctrl : PUT /api/MaintenanceRequest/receive\n{MaintenanceRequestId, ReceivedByName}
+activate Ctrl
+Ctrl -> Med : Send(ReceiveMaintenanceRequestRequest)
+activate Med
+Med -> Handler : Handle(request, ct)
+activate Handler
+Handler -> DB : MaintenanceRequests\n.SingleAsync(id)
+DB --> Handler : maintenanceRequest
+Handler -> Http : User.FindFirst(UserId)
+Http --> Handler : userId
+Handler -> DB : Users.FindAsync(userId)
+DB --> Handler : user
+Handler -> Handler : request.ReceivedByProfileId\n= user.CurrentProfileId
+Handler -> Agg : Apply(ReceiveMaintenanceRequest)
+note right : Status = Received\nReceivedByProfileId set\nReceivedByName set
+Handler -> DB : SaveChangesAsync()
+DB --> Handler : saved
+Handler --> Med : ReceiveMaintenanceRequestResponse
+deactivate Handler
+Med --> Ctrl : response
+deactivate Med
+Ctrl --> Staff : 200 OK {MaintenanceRequestDto}
+deactivate Ctrl
+@enduml

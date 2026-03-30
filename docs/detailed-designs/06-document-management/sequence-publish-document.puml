@@ -1,0 +1,55 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam shadowing false
+skinparam defaultFontSize 10
+skinparam sequenceMessageAlign center
+
+title Publish Document Sequence
+
+actor Client
+participant "Controller" as Ctrl
+participant "MediatR" as Med
+participant "PublishHandler" as Handler
+participant "Document\n(AggregateRoot)" as Doc
+database "CoopDbContext" as DB
+
+Client -> Ctrl : PUT /api/{type}\n(with publish data)
+activate Ctrl
+
+Ctrl -> Med : Send(UpdateRequest)
+activate Med
+
+Med -> Handler : Handle(request)
+activate Handler
+
+Handler -> DB : FindAsync(documentId)
+activate DB
+DB --> Handler : document
+deactivate DB
+
+Handler -> Doc : Apply(PublishDocument)
+activate Doc
+Doc -> Doc : When(PublishDocument)
+note right
+  Sets Published = DateTime.UtcNow
+end note
+Doc -> Doc : StoreEvent(PublishDocument)
+Doc --> Handler
+deactivate Doc
+
+Handler -> DB : SaveChangesAsync()
+activate DB
+DB --> Handler : saved
+deactivate DB
+
+Handler --> Med : UpdateResponse
+deactivate Handler
+
+Med --> Ctrl : response
+deactivate Med
+
+Ctrl --> Client : 200 OK
+deactivate Ctrl
+
+@enduml

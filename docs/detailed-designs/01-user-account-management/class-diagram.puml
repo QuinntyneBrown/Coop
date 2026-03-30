@@ -1,0 +1,79 @@
+@startuml class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 11
+skinparam classFontSize 13
+skinparam classAttributeFontSize 10
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+title User Account Management - Class Diagram
+
+package "Domain Layer" {
+
+    class User {
+        + UserId : Guid
+        + Username : string
+        + Password : string
+        + Salt : byte[]
+        + Roles : List<Role>
+        + Profiles : List<Profile>
+        + CurrentProfileId : Guid
+        + DefaultProfileId : Guid
+        + IsDeleted : bool
+        --
+        + User(username, password, IPasswordHasher)
+        + SetDefaultProfileId(profileId : Guid) : void
+        + SetCurrentProfileId(profileId : Guid) : void
+        + AddProfile(profile : Profile) : void
+        + ChangePassword(oldPassword, newPassword, IPasswordHasher) : User
+        + SetPassword(password, IPasswordHasher) : User
+        + SetUsername(username : string) : User
+        + Delete() : User
+    }
+
+    class Role {
+        + RoleId : Guid
+        + Name : string
+        + Users : List<User>
+        + Privileges : List<Privilege>
+    }
+
+    class Privilege {
+        + PrivilegeId : Guid
+        + RoleId : Guid
+        + AccessRight : AccessRight
+        + Aggregate : string
+    }
+
+    class Profile <<abstract>> {
+        + ProfileId : Guid
+    }
+
+    interface IPasswordHasher {
+        + HashPassword(salt : byte[], password : string) : string
+    }
+
+    class PasswordHasher {
+        + HashPassword(salt : byte[], password : string) : string
+    }
+}
+
+package "Infrastructure" {
+    interface ICoopDbContext {
+        + Users : DbSet<User>
+        + Roles : DbSet<Role>
+        + Privileges : DbSet<Privilege>
+        + Profiles : DbSet<Profile>
+        + SaveChangesAsync(ct) : Task<int>
+    }
+}
+
+User "1" *-- "0..*" Role : has
+User "1" *-- "0..*" Profile : has
+Role "1" *-- "0..*" Privilege : has
+IPasswordHasher <|.. PasswordHasher
+User ..> IPasswordHasher : uses
+
+@enduml

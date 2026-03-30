@@ -1,0 +1,19 @@
+@startuml c4-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title C4 Context - Maintenance Request Workflow
+
+Person(member, "Co-op Member", "Submits maintenance requests for their unit and tracks status.")
+Person(staff, "Co-op Staff", "Receives, starts, and completes maintenance requests.")
+
+System(coop, "Coop Platform", "Manages cooperative housing operations including maintenance request workflows, member profiles, and digital assets.")
+
+System_Ext(email, "Email / Notification Service", "Sends notifications about request status changes.")
+
+Rel(member, coop, "Creates requests, adds comments and photos", "HTTPS/JSON")
+Rel(staff, coop, "Receives, starts, completes requests", "HTTPS/JSON")
+Rel(coop, email, "Sends status notifications", "SMTP")
+@enduml

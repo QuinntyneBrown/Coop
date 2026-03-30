@@ -1,0 +1,104 @@
+@startuml class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 11
+skinparam classFontSize 13
+skinparam classAttributeFontSize 10
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam pageMargin 10
+
+title Profile Management - Class Diagram
+
+package "Domain Layer" {
+
+    enum ProfileType {
+        Member
+        BoardMember
+        StaffMember
+        Support
+        OnCall
+    }
+
+    abstract class Profile <<AggregateRoot>> {
+        + ProfileId : Guid
+        + UserId : Guid?
+        + Firstname : string
+        + Lastname : string
+        + AvatarDigitalAssetId : Guid?
+        + PhoneNumber : string
+        + Address : Address
+        + Type : ProfileType
+        + CreatedAt : DateTime
+        + UpdatedAt : DateTime?
+        --
+        + SetAvatar(digitalAssetId : Guid?) : Profile
+        + SetPhoneNumber(phoneNumber : string) : void
+        + UpdateName(firstName, lastName) : void
+        # {abstract} When(event) : void
+        # {abstract} EnsureValidState() : void
+    }
+
+    class Member {
+        + MemberId : Guid
+        + Address : Address
+        --
+        + SetAddress(address : Address) : void
+        + When(CreateProfile) : void
+    }
+
+    class BoardMember {
+        + BoardMemberId : Guid
+        + BoardTitle : string
+        --
+        + SetBoardTitle(title : string) : void
+        + Update(title, firstname, lastname, avatarId) : void
+    }
+
+    class StaffMember {
+        + StaffMemberId : Guid
+        + JobTitle : string
+        --
+        + SetJobTitle(jobTitle : string) : void
+    }
+
+    class OnCall {
+        + OnCallId : Guid
+    }
+
+    class Address <<ValueObject>> {
+        + Street : string
+        + Unit : int?
+        + City : string
+        + Province : string
+        + PostalCode : string
+        --
+        + {static} Create(street, city, province, postalCode) : Result<Address>
+        + {static} Create(street, unit, city, province, postalCode) : Result<Address>
+        + {static} Default(IConfiguration) : Address
+    }
+}
+
+package "Identity Context" {
+    class User {
+        + UserId : Guid
+        + Profiles : List<Profile>
+        + CurrentProfileId : Guid
+        + DefaultProfileId : Guid
+        --
+        + AddProfile(profile) : void
+        + SetCurrentProfileId(id) : void
+        + SetDefaultProfileId(id) : void
+    }
+}
+
+Profile <|-- Member
+Profile <|-- BoardMember
+Profile <|-- StaffMember
+Profile <|-- OnCall
+Profile --> ProfileType : type
+Member *-- "0..1" Address : has
+Profile "0..*" --o "1" User : belongs to
+
+@enduml

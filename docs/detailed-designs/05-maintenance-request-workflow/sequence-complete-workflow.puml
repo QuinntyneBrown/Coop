@@ -1,0 +1,50 @@
+@startuml sequence-complete-workflow
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+
+title Full Lifecycle: New -> Received -> Started -> Completed
+
+actor Member
+actor Staff
+participant "MaintenanceRequest\nController" as Ctrl
+participant "Handlers" as H
+participant "MaintenanceRequest\n(Aggregate)" as Agg
+database "CoopDbContext" as DB
+
+== 1. Create (Member) ==
+Member -> Ctrl : POST /api/MaintenanceRequest
+Ctrl -> H : CreateMaintenanceRequestHandler
+H -> Agg ** : new MaintenanceRequest(event)
+note right : **Status = New**
+H -> DB : Add + SaveChanges
+Ctrl --> Member : 200 OK
+
+== 2. Receive (Staff) ==
+Staff -> Ctrl : PUT /api/MaintenanceRequest/receive
+Ctrl -> H : ReceiveMaintenanceRequestHandler
+H -> DB : Load aggregate
+H -> Agg : Apply(ReceiveMaintenanceRequest)
+note right : **Status = Received**\nReceivedByProfileId\nReceivedByName
+H -> DB : SaveChanges
+Ctrl --> Staff : 200 OK
+
+== 3. Start (Staff) ==
+Staff -> Ctrl : PUT /api/MaintenanceRequest/start
+Ctrl -> H : StartMaintenanceRequestHandler
+H -> DB : Load aggregate
+H -> Agg : Apply(StartMaintenanceRequest)
+note right : **Status = Started**\nWorkStarted timestamp\nUnitEntered value
+H -> DB : SaveChanges
+Ctrl --> Staff : 200 OK
+
+== 4. Complete (Staff) ==
+Staff -> Ctrl : PUT /api/MaintenanceRequest/complete
+Ctrl -> H : CompleteMaintenanceRequestHandler
+H -> DB : Load aggregate
+H -> Agg : Apply(CompleteMaintenanceRequest)
+note right : **Status = Completed**\nWorkCompleted timestamp\nWorkCompletedByName
+H -> DB : SaveChanges
+Ctrl --> Staff : 200 OK
+@enduml

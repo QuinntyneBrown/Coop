@@ -1,0 +1,60 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam dpi 150
+skinparam defaultFontSize 10
+
+title C4 Component -- Role & Privilege Management
+
+Container_Boundary(api, "Coop.Api") {
+  Component(rc, "RoleController", "ApiController", "CRUD endpoints for roles")
+  Component(pc, "PrivilegeController", "ApiController", "CRUD endpoints for privileges")
+}
+
+Container_Boundary(app, "Coop.Application") {
+  Component(crh, "CreateRoleHandler", "IRequestHandler", "Creates a new role")
+  Component(grh, "GetRoleByIdHandler", "IRequestHandler", "Retrieves role by ID")
+  Component(glh, "GetRolesHandler", "IRequestHandler", "Lists all roles")
+  Component(urh, "UpdateRoleHandler", "IRequestHandler", "Updates role name and privileges")
+  Component(rrh, "RemoveRoleHandler", "IRequestHandler", "Deletes a role")
+
+  Component(cph, "CreatePrivilegeHandler", "IRequestHandler", "Creates a privilege for a role")
+  Component(gph, "GetPrivilegeByIdHandler", "IRequestHandler", "Retrieves privilege by ID")
+  Component(gplh, "GetPrivilegesHandler", "IRequestHandler", "Lists all privileges")
+  Component(uph, "UpdatePrivilegeHandler", "IRequestHandler", "Updates a privilege")
+  Component(rph, "RemovePrivilegeHandler", "IRequestHandler", "Deletes a privilege")
+}
+
+Container_Boundary(domain, "Coop.Domain") {
+  Component(role, "Role", "Entity", "RoleId, Name, Users, Privileges")
+  Component(priv, "Privilege", "Entity", "PrivilegeId, RoleId, AccessRight, Aggregate")
+  Component(auth, "ResourceOperationAuthorizationHandler", "AuthorizationHandler", "Evaluates privilege claims against requested operation")
+}
+
+ComponentDb(db, "ICoopDbContext", "EF Core", "Roles & Privileges DbSets")
+
+Rel(rc, crh, "MediatR")
+Rel(rc, grh, "MediatR")
+Rel(rc, glh, "MediatR")
+Rel(rc, urh, "MediatR")
+Rel(rc, rrh, "MediatR")
+
+Rel(pc, cph, "MediatR")
+Rel(pc, gph, "MediatR")
+Rel(pc, gplh, "MediatR")
+Rel(pc, uph, "MediatR")
+Rel(pc, rph, "MediatR")
+
+Rel(crh, role, "new Role()")
+Rel(cph, priv, "new Privilege()")
+Rel(crh, db, "Add & Save")
+Rel(cph, db, "Add & Save")
+Rel(urh, db, "Update & Save")
+Rel(uph, db, "Update & Save")
+Rel(rrh, db, "Remove & Save")
+Rel(rph, db, "Remove & Save")
+
+Rel(rc, auth, "Authorization check")
+Rel(pc, auth, "Authorization check")
+
+@enduml

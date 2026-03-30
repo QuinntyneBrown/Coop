@@ -1,0 +1,64 @@
+@startuml class-diagram
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 11
+title Messaging System - Class Diagram
+
+package "Coop.Domain (Monolith)" #LightYellow {
+  class "Conversation" as MC {
+    +ConversationId : Guid
+    +Profiles : List<Profile>
+    +Messages : List<Message>
+    +Created : DateTime
+  }
+
+  class "Message" as MM {
+    +MessageId : Guid
+    +ConversationId : Guid?
+    +ToProfileId : Guid
+    +FromProfileId : Guid
+    +Body : string
+    +Read : bool
+    +Created : DateTime
+  }
+
+  class "Profile" as MP {
+    +ProfileId : Guid
+  }
+
+  MP "0..*" -- "0..*" MC : participates in
+  MC "1" *-- "0..*" MM : contains
+}
+
+package "Messaging.Domain (Microservice)" #LightBlue {
+  class Conversation {
+    +ConversationId : Guid
+    +ParticipantProfileIds : List<Guid>
+    +Messages : List<Message>
+    +CreatedAt : DateTime
+    +LastMessageAt : DateTime?
+    --
+    +Conversation(profileId1, profileId2)
+    +AddMessage(from, to, body) : Message
+    +HasParticipant(profileId) : bool
+  }
+
+  class Message {
+    +MessageId : Guid
+    +ConversationId : Guid
+    +FromProfileId : Guid
+    +ToProfileId : Guid
+    +Body : string
+    +IsRead : bool
+    +ReadAt : DateTime?
+    +CreatedAt : DateTime
+    --
+    +Message(conversationId, from, to, body)
+    +MarkAsRead() : void
+  }
+
+  Conversation "1" *-- "0..*" Message : contains
+}
+
+@enduml

@@ -1,0 +1,57 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam defaultFontSize 10
+skinparam shadowing false
+
+title User Account Management - C4 Component Diagram
+
+Container_Boundary(api, "API Layer") {
+    Component(ctrl, "UserController", "ASP.NET Controller", "REST endpoints for\nuser operations")
+}
+
+Container_Boundary(app, "Application Layer") {
+    Component(create, "CreateUserHandler", "IRequestHandler", "Creates user with\nhashed password")
+    Component(auth, "AuthenticateHandler", "IRequestHandler", "Validates credentials,\nissues JWT token")
+    Component(changePw, "ChangePasswordHandler", "IRequestHandler", "Changes user password\nwith validation")
+    Component(update, "UpdateUserHandler", "IRequestHandler", "Updates user properties")
+    Component(remove, "RemoveUserHandler", "IRequestHandler", "Soft-deletes a user")
+}
+
+Container_Boundary(domain, "Domain Layer") {
+    Component(userEntity, "User", "Entity", "Core domain entity\nwith business logic")
+    Component(hasher, "PasswordHasher", "IPasswordHasher", "PBKDF2 password\nhashing")
+    Component(tokenBuilder, "TokenBuilder", "ITokenBuilder", "Builds JWT tokens\nwith claims")
+    Component(tokenProvider, "TokenProvider", "ITokenProvider", "Signs and issues\nJWT tokens")
+}
+
+Container_Boundary(infra, "Infrastructure") {
+    Component(dbCtx, "CoopDbContext", "ICoopDbContext", "EF Core DbContext\nfor persistence")
+}
+
+Rel(ctrl, create, "IMediator")
+Rel(ctrl, auth, "IMediator")
+Rel(ctrl, changePw, "IMediator")
+Rel(ctrl, update, "IMediator")
+Rel(ctrl, remove, "IMediator")
+
+Rel(create, hasher, "Hash password")
+Rel(create, userEntity, "new User()")
+Rel(create, dbCtx, "Users.Add()")
+
+Rel(auth, dbCtx, "Query user")
+Rel(auth, hasher, "Validate password")
+Rel(auth, tokenBuilder, "Build JWT")
+Rel(tokenBuilder, tokenProvider, "Sign token")
+
+Rel(changePw, userEntity, "ChangePassword()")
+Rel(changePw, dbCtx, "SaveChanges")
+
+Rel(update, userEntity, "SetUsername()")
+Rel(update, dbCtx, "SaveChanges")
+
+Rel(remove, userEntity, "Delete()")
+Rel(remove, dbCtx, "SaveChanges")
+
+@enduml

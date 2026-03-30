@@ -1,0 +1,49 @@
+@startuml sequence-create-profile
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+skinparam pageMargin 10
+
+title Create Profile - Sequence Diagram
+
+actor Client
+participant "BoardMembersController\n(or Members/StaffMembers)" as Ctrl
+participant "ProfileDbContext" as DB
+participant "IMessageBus" as Bus
+participant "Identity Service" as Identity
+
+Client -> Ctrl : POST /api/boardmembers\n{UserId, FirstName, LastName, BoardTitle}
+activate Ctrl
+
+Ctrl -> Ctrl : new BoardMember(userId,\nboardTitle, firstName, lastName)
+
+Ctrl -> DB : BoardMembers.Add(boardMember)
+activate DB
+Ctrl -> DB : SaveChangesAsync()
+DB --> Ctrl : saved
+deactivate DB
+
+Ctrl -> Bus : PublishAsync(ProfileCreatedEvent)
+activate Bus
+Bus --> Ctrl : published
+deactivate Bus
+
+Ctrl --> Client : 201 Created { BoardMemberDto }
+deactivate Ctrl
+
+note right of Bus
+  ProfileCreatedEvent contains:
+  ProfileId, UserId, ProfileType,
+  FirstName, LastName
+end note
+
+Bus -> Identity : ProfileCreatedEvent
+activate Identity
+Identity -> Identity : user.AddProfile(profile)
+Identity -> Identity : if Profiles.Count == 1:\n  SetCurrentProfileId\n  SetDefaultProfileId
+Identity -> Identity : SaveChangesAsync()
+deactivate Identity
+
+@enduml

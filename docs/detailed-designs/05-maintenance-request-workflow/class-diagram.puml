@@ -1,0 +1,72 @@
+@startuml class-diagram
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam classAttributeFontSize 10
+skinparam defaultFontSize 10
+skinparam wrapWidth 250
+left to right direction
+
+enum MaintenanceRequestStatus {
+  New
+  Received
+  Started
+  Completed
+}
+
+enum UnitEntered {
+  MemberAtHome
+  MemberNotAtHome
+  EmergencyEntryRequired
+}
+
+class MaintenanceRequest <<AggregateRoot>> {
+  + MaintenanceRequestId : Guid
+  + RequestedByProfileId : Guid
+  + RequestedByName : string
+  + Date : DateTime
+  + Address : Address
+  + Phone : string
+  + Description : string
+  + UnattendedUnitEntryAllowed : bool
+  + ReceivedByProfileId : Guid
+  + ReceivedByName : string
+  + ReceivedDate : DateTime?
+  + WorkDetails : string
+  + WorkStarted : DateTime
+  + WorkCompleted : DateTime
+  + WorkCompletedByName : string
+  + UnitEntered : UnitEntered
+  + Status : MaintenanceRequestStatus
+  + Comments : List<MaintenanceRequestComment>
+  + DigitalAssets : List<MaintenanceRequestDigitalAsset>
+  --
+  + When(UpdateMaintenanceRequestDescription)
+  + When(UpdateMaintenanceRequest)
+  + When(ReceiveMaintenanceRequest)
+  + When(StartMaintenanceRequest)
+  + When(CompleteMaintenanceRequest)
+  + When(UpdateMaintenanceRequestWorkDetails)
+  # EnsureValidState()
+}
+
+class MaintenanceRequestComment <<Owned>> {
+  + MaintenanceRequestCommentId : Guid
+  + MaintenanceRequestId : Guid
+  + Body : string
+  + Created : DateTime
+  + CreatedById : Guid
+}
+
+class MaintenanceRequestDigitalAsset <<Owned>> {
+  + MaintenanceRequestDigitalAssetId : Guid
+  + MaintenanceRequestId : Guid
+  + DigitalAssetId : Guid
+}
+
+MaintenanceRequest "1" *-- "0..*" MaintenanceRequestComment : Comments
+MaintenanceRequest "1" *-- "0..*" MaintenanceRequestDigitalAsset : DigitalAssets
+MaintenanceRequest --> MaintenanceRequestStatus : Status
+MaintenanceRequest --> UnitEntered : UnitEntered
+@enduml

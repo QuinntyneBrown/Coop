@@ -1,0 +1,30 @@
+@startuml c4-container
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+title User Account Management - C4 Container Diagram
+
+Person(user, "User", "Cooperative member,\nstaff, or admin")
+
+System_Boundary(coop, "Coop Platform") {
+    Container(api, "API Layer", "ASP.NET Core", "Exposes REST endpoints via\nUserController. Handles\nHTTP requests and routing.")
+
+    Container(app, "Application Layer", "MediatR Handlers", "CreateUserHandler,\nAuthenticateHandler,\nChangePasswordHandler,\nUpdateUserHandler,\nRemoveUserHandler")
+
+    Container(domain, "Domain Layer", "C# Classes", "User entity,\nPasswordHasher,\nTokenBuilder,\nTokenProvider")
+
+    Container(infra, "Infrastructure Layer", "EF Core", "CoopDbContext implements\nICoopDbContext. Manages\npersistence and queries.")
+
+    ContainerDb(db, "SQL Database", "SQL Server", "Stores Users, Roles,\nPrivileges, Profiles")
+}
+
+Rel(user, api, "HTTPS / REST")
+Rel(api, app, "IMediator.Send()")
+Rel(app, domain, "Domain entities\nand services")
+Rel(app, infra, "ICoopDbContext")
+Rel(infra, db, "EF Core / SQL")
+
+@enduml

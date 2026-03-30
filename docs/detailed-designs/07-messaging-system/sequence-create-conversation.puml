@@ -1,0 +1,38 @@
+@startuml sequence-create-conversation
+skinparam dpi 150
+skinparam defaultFontSize 11
+title Create Conversation Between Two Profiles
+
+actor Client
+participant "ConversationsController" as Ctrl
+participant "MessagingDbContext" as Db
+participant "IMessageBus" as Bus
+
+Client -> Ctrl : POST /api/conversations\n{ProfileId1, ProfileId2}
+activate Ctrl
+
+Ctrl -> Db : FirstOrDefaultAsync(\nParticipantProfileIds contains both)
+activate Db
+Db --> Ctrl : existing or null
+deactivate Db
+
+alt Conversation already exists
+  Ctrl --> Client : 400 BadRequest\n"Conversation already exists"
+else No existing conversation
+  Ctrl -> Ctrl : new Conversation(profileId1, profileId2)
+  Ctrl -> Db : Conversations.Add(conversation)
+  Ctrl -> Db : SaveChangesAsync()
+  activate Db
+  Db --> Ctrl : saved
+  deactivate Db
+
+  Ctrl -> Bus : PublishAsync(ConversationCreatedEvent)
+  activate Bus
+  Bus --> Ctrl : published
+  deactivate Bus
+
+  Ctrl --> Client : 201 Created\nConversationDto
+end
+
+deactivate Ctrl
+@enduml

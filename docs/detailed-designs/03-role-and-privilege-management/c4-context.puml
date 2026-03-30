@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam dpi 150
+skinparam defaultFontSize 10
+
+title C4 Context -- Role & Privilege Management
+
+Person(admin, "System Administrator", "Manages roles, privileges, and user assignments")
+Person(user, "Coop User", "Member, Staff, or Board Member using the platform")
+
+System(coop, "Coop Platform", "Co-operative management system with RBAC authorization")
+System_Ext(browser, "Web Browser", "SPA front-end for the Coop platform")
+
+Rel(admin, browser, "Manages roles & privileges via")
+Rel(user, browser, "Accesses platform features via")
+Rel(browser, coop, "REST API calls", "HTTPS/JSON")
+Rel(coop, coop, "Enforces access via privilege claims in JWT")
+
+@enduml

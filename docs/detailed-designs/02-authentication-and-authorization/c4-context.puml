@@ -1,0 +1,19 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Context - Authentication & Authorization
+
+Person(member, "Co-op Member", "Resident, board member, or staff who accesses the platform")
+Person(admin, "System Administrator", "Manages users, roles, and privileges")
+
+System(coop, "Coop Platform", "Co-op management system providing authentication, authorization, and resource management via REST API")
+
+System_Ext(browser, "Web Browser / SPA", "Angular single-page application")
+
+Rel(member, browser, "Uses")
+Rel(admin, browser, "Uses")
+Rel(browser, coop, "HTTPS / REST API calls with JWT Bearer token")
+
+@enduml

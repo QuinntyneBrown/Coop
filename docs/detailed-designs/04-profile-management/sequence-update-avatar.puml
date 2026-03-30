@@ -1,0 +1,50 @@
+@startuml sequence-update-avatar
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+skinparam pageMargin 10
+
+title Update Profile Avatar - Sequence Diagram
+
+actor Client
+participant "ProfilesController" as PC
+participant "ProfileDbContext" as DB
+participant "Asset Service" as Asset
+
+note over Client, Asset
+  Precondition: DigitalAsset already uploaded
+  via the Asset Service and its ID is known.
+end note
+
+Client -> Asset : POST /api/digitalassets\n(upload image)
+activate Asset
+Asset --> Client : 200 OK { DigitalAssetId }
+deactivate Asset
+
+Client -> PC : PUT /api/profiles/{profileId}/avatar\n{ DigitalAssetId }
+activate PC
+
+PC -> DB : Profiles.FindAsync(profileId)
+activate DB
+DB --> PC : profile
+deactivate DB
+
+alt profile not found
+    PC --> Client : 404 Not Found
+else profile found
+    PC -> PC : profile.SetAvatar(digitalAssetId)
+    note right : Sets AvatarDigitalAssetId\nand updates UpdatedAt timestamp
+
+    PC -> DB : SaveChangesAsync()
+    activate DB
+    DB --> PC : saved
+    deactivate DB
+
+    PC --> Client : 204 No Content
+end
+
+deactivate PC
+
+@enduml

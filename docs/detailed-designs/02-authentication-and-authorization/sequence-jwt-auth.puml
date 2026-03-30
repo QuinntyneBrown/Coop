@@ -1,0 +1,57 @@
+@startuml
+skinparam dpi 150
+skinparam sequenceMessageAlign center
+skinparam defaultFontSize 11
+skinparam wrapWidth 250
+
+actor Client
+participant "UserController\n[AllowAnonymous]" as UC
+participant "IMediator" as M
+participant "AuthenticateHandler" as AH
+participant "IPasswordHasher" as PH
+database "CoopDbContext" as DB
+participant "OrchestrationHandler" as OH
+participant "UserEventHandler" as UEH
+participant "TokenBuilder" as TB
+participant "TokenProvider" as TP
+
+Client -> UC : POST /api/user/token\n{username, password}
+UC -> M : Send(AuthenticateRequest)
+M -> AH : Handle(request)
+AH -> DB : Users.Include(Roles.Privileges)\n.Single(username)
+DB --> AH : User entity
+AH -> PH : HashPassword(user.Salt, password)
+PH --> AH : hashedPassword
+AH -> AH : ValidateUser(user, hashedPassword)
+
+alt Password invalid
+  AH --> Client : 400 Bad Request
+end
+
+AH -> OH : Handle<AuthenticateResponse>\n(BuildToken(username))
+OH -> UEH : Handle(BuildToken)
+UEH -> DB : Users.Include(Roles.Privileges)\n.Single(username)
+DB --> UEH : User with Roles & Privileges
+UEH -> TB : AddUsername(username)
+UEH -> TB : AddClaim(UserId)
+UEH -> TB : AddClaim(Username)
+
+loop each Role
+  UEH -> TB : AddClaim(Role, role.Name)
+  loop each Privilege
+    UEH -> TB : AddClaim(Privilege,\n"{AccessRight}{Aggregate}")
+  end
+end
+
+UEH -> TB : Build()
+TB -> TP : Get(username, claims)
+TP --> TB : JWT string
+TB --> UEH : JWT string
+UEH -> OH : Publish(BuiltToken(userId, jwt))
+OH -> AH : BuiltToken callback
+AH -> OH : Publish(AuthenticatedUser)
+AH --> M : AuthenticateResponse(jwt, userId)
+M --> UC : response
+UC --> Client : 200 OK\n{accessToken, userId}
+
+@enduml

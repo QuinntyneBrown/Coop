@@ -1,0 +1,39 @@
+@startuml state-maintenance-request
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 11
+skinparam stateFontSize 12
+skinparam stateAttributeFontSize 10
+
+title Maintenance Request State Machine
+
+[*] --> New : CreateMaintenanceRequest
+
+state New : Request submitted by member.\nRequestedByProfileId, Address,\nPhone, Description recorded.
+
+state Received : Staff acknowledges request.\nReceivedByProfileId, ReceivedByName,\nReceivedDate recorded.
+
+state Started : Work in progress.\nWorkStarted timestamp recorded.\nUnitEntered mode recorded.
+
+state Completed : Work finished.\nWorkCompleted timestamp recorded.\nWorkCompletedByName recorded.
+
+New --> Received : ReceiveMaintenanceRequest\n(staff acknowledges, records\nReceivedByProfileId, ReceivedDate)
+
+Received --> Started : StartMaintenanceRequest\n(records WorkStarted,\nUnitEntered)
+
+Started --> Completed : CompleteMaintenanceRequest\n(records WorkCompleted,\nWorkCompletedByName)
+
+Completed --> [*]
+
+note right of New
+  Forward-only transitions enforced.
+  No backward state changes permitted.
+end note
+
+note bottom of Started
+  UnitEntered values:
+  - MemberAtHome
+  - MemberNotAtHome
+  - EmergencyEntryRequired
+end note
+@enduml

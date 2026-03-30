@@ -1,0 +1,54 @@
+@startuml
+skinparam dpi 150
+skinparam sequenceMessageAlign center
+skinparam defaultFontSize 11
+
+actor Client
+participant "Controller\n[Authorize]" as CTRL
+participant "JWT Middleware" as JWT
+participant "IMediator" as M
+participant "ResourceOperation\nAuthorizationBehavior" as ROAB
+participant "IAuthorizationService" as AS
+participant "ResourceOperation\nAuthorizationHandler" as ROAH
+participant "RequestHandler" as RH
+
+Client -> CTRL : HTTP Request\nAuthorization: Bearer <token>
+CTRL -> JWT : Validate JWT
+JWT --> CTRL : ClaimsPrincipal set\non HttpContext.User
+
+CTRL -> M : Send(request)
+M -> ROAB : Handle(request, next)
+ROAB -> ROAB : GetCustomAttribute\n(AuthorizeResourceOperationAttribute)
+
+alt Attribute found
+  ROAB -> AS : AuthorizeAsync(user,\nresource, requirement)
+  AS -> ROAH : HandleRequirementAsync\n(context, requirement, resource)
+  ROAH -> ROAH : Filter claims where\nType == "Privilege"
+  ROAH -> ROAH : Find claim ending with\nresource name
+  ROAH -> ROAH : Find claim starting with\noperation name
+
+  alt Matching privilege claim exists
+    ROAH -> ROAH : context.Succeed(requirement)
+    ROAH --> AS : success
+    AS --> ROAB : Succeeded = true
+    ROAB -> RH : next()
+    RH --> ROAB : response
+    ROAB --> M : response
+    M --> CTRL : response
+    CTRL --> Client : 200 OK
+  else No matching privilege
+    ROAH --> AS : no success
+    AS --> ROAB : Succeeded = false
+    ROAB --> M : Response with\n"Unauthorized" error
+    M --> CTRL : error response
+    CTRL --> Client : 403 Forbidden
+  end
+else No attribute
+  ROAB -> RH : next()
+  RH --> ROAB : response
+  ROAB --> M : response
+  M --> CTRL : response
+  CTRL --> Client : 200 OK
+end
+
+@enduml

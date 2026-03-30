@@ -1,0 +1,58 @@
+@startuml sequence-authenticate
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Authenticate User - Sequence Diagram
+
+actor Client
+participant "UserController" as UC
+participant "IMediator" as M
+participant "AuthenticateHandler" as H
+participant "ICoopDbContext" as DB
+participant "IPasswordHasher" as PH
+participant "IOrchestrationHandler" as OH
+participant "TokenBuilder" as TB
+
+Client -> UC : POST /api/user/token\n{username, password}
+activate UC
+
+UC -> M : Send(AuthenticateRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> DB : Users.Include(Roles.Privileges)\n.SingleOrDefault(username)
+activate DB
+DB --> H : User entity
+deactivate DB
+
+H -> PH : HashPassword(user.Salt, password)
+activate PH
+PH --> H : hashed password
+deactivate PH
+
+H -> H : ValidateUser(user, hashedPassword)
+
+H -> OH : Handle(BuildToken(username))
+activate OH
+OH -> TB : AddUsername + AddClaims + Build()
+activate TB
+TB --> OH : JWT access token
+deactivate TB
+OH --> H : AuthenticateResponse\n{accessToken, userId}
+deactivate OH
+
+H --> M : AuthenticateResponse
+deactivate H
+
+M --> UC : response
+deactivate M
+
+UC --> Client : 200 OK\n{accessToken, userId}
+deactivate UC
+
+@enduml

@@ -1,0 +1,101 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam defaultFontSize 10
+skinparam wrapWidth 200
+left to right direction
+
+interface ITokenProvider {
+  +Get(username, customClaims): string
+  +GetPrincipalFromExpiredToken(token): ClaimsPrincipal
+  +GenerateRefreshToken(): string
+}
+
+interface ITokenBuilder {
+  +AddUsername(username): TokenBuilder
+  +FromClaimsPrincipal(cp): TokenBuilder
+  +AddClaim(claim): TokenBuilder
+  +RemoveClaim(claim): TokenBuilder
+  +AddOrUpdateClaim(claim): TokenBuilder
+  +Build(): string
+}
+
+interface IPasswordHasher {
+  +HashPassword(salt, password): string
+}
+
+class TokenProvider {
+  -_configuration: IConfiguration
+  +Get(uniqueName, customClaims): string
+  +GetPrincipalFromExpiredToken(token): ClaimsPrincipal
+  +GenerateRefreshToken(): string
+}
+
+class TokenBuilder {
+  -_tokenProvider: ITokenProvider
+  -_username: string
+  -_claims: List<Claim>
+  +AddUsername(username): TokenBuilder
+  +FromClaimsPrincipal(cp): TokenBuilder
+  +RemoveClaim(claim): TokenBuilder
+  +AddClaim(claim): TokenBuilder
+  +AddOrUpdateClaim(claim): TokenBuilder
+  +Build(): string
+}
+
+class PasswordHasher {
+  +HashPassword(salt, password): string
+}
+
+class ResourceOperationAuthorizationHandler {
+  #HandleRequirementAsync(context, requirement, resource): Task
+}
+
+class "AuthorizeResourceOperationAttribute" as AROA {
+  +Operation: string
+  +Resource: string
+  +Requirement: IAuthorizationRequirement
+}
+
+class "ResourceOperationAuthorizationBehavior<TReq,TRes>" as ROAB {
+  -_authorizationService: IAuthorizationService
+  -_httpContextAccessor: IHttpContextAccessor
+  +Handle(request, ct, next): Task<TRes>
+}
+
+class Operations <<static>> {
+  +{static} Create: OperationAuthorizationRequirement
+  +{static} Read: OperationAuthorizationRequirement
+  +{static} Write: OperationAuthorizationRequirement
+  +{static} Delete: OperationAuthorizationRequirement
+}
+
+class "Constants.ClaimTypes" as CT <<static>> {
+  +{static} UserId: string
+  +{static} Username: string
+  +{static} Privilege: string
+  +{static} Role: string
+}
+
+class Authentication {
+  +TokenPath: string
+  +ExpirationMinutes: int
+  +JwtKey: string
+  +JwtIssuer: string
+  +JwtAudience: string
+  +AuthType: string
+}
+
+TokenProvider ..|> ITokenProvider
+TokenBuilder ..|> ITokenBuilder
+PasswordHasher ..|> IPasswordHasher
+TokenBuilder --> ITokenProvider : uses
+ROAB --> ResourceOperationAuthorizationHandler : delegates to
+ROAB ..> AROA : reads attribute
+AROA ..> Operations : maps to
+ResourceOperationAuthorizationHandler ..> CT : reads Privilege claims
+TokenProvider ..> Authentication : reads config
+
+@enduml

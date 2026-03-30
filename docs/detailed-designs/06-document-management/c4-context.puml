@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title Document Management - C4 Context Diagram
+
+Person(boardMember, "Board Member", "Creates and publishes by-laws, notices, and reports")
+Person(staffMember, "Staff Member", "Manages documents on behalf of the co-op")
+Person(member, "Member", "Views published documents")
+
+System(docSystem, "Document Management", "Manages creation, publishing, and retrieval of co-op documents (Notices, By-Laws, Reports)")
+
+System_Ext(identitySystem, "Identity & Access", "Authenticates users and manages roles")
+System_Ext(digitalAssetSystem, "Digital Asset Service", "Stores and serves document files (PDFs, images)")
+System_Ext(notificationSystem, "Notification Service", "Sends alerts when documents are published")
+
+Rel(boardMember, docSystem, "Creates, publishes, deletes documents")
+Rel(staffMember, docSystem, "Manages documents")
+Rel(member, docSystem, "Views published documents")
+
+Rel(docSystem, identitySystem, "Validates JWT tokens, resolves user identity")
+Rel(docSystem, digitalAssetSystem, "Stores/retrieves document files via DigitalAssetId")
+Rel(docSystem, notificationSystem, "Publishes integration events", "MessageBus")
+
+@enduml

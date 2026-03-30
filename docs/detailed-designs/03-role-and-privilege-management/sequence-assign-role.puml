@@ -1,0 +1,52 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontSize 10
+skinparam sequenceMessageAlign center
+
+title Assign Role to User -- Privilege Grant
+
+actor Admin
+participant "UserController" as UC
+participant "MediatR" as M
+participant "UpdateUserHandler" as UH
+participant "ICoopDbContext" as DB
+participant "TokenBuilder" as TB
+
+Admin -> UC : PUT /api/User\n{ userId, roles: [roleId] }
+UC -> M : Send(UpdateUserRequest)
+M -> UH : Handle(request)
+UH -> DB : Users.FindAsync(userId)
+DB --> UH : user
+UH -> DB : Roles.FindAsync(roleId)
+DB --> UH : role (with Privileges loaded)
+UH -> UH : user.Roles.Add(role)
+UH -> DB : SaveChangesAsync()
+UH --> M : UpdateUserResponse
+M --> UC : response
+UC --> Admin : 200 OK
+
+== Next authentication ==
+
+actor User as U
+participant "AuthController" as AC
+participant "AuthenticateHandler" as AH
+
+U -> AC : POST /api/User/authenticate
+AC -> M : Send(AuthenticateRequest)
+M -> AH : Handle(request)
+AH -> DB : Users.Include(Roles)\n  .ThenInclude(Privileges)
+DB --> AH : user with roles & privileges
+AH -> TB : AddUsername(user.Username)
+loop each role
+  AH -> TB : AddClaim(Role, role.Name)
+  loop each privilege in role
+    AH -> TB : AddClaim(Privilege,\n  "{accessRight}{aggregate}")
+  end
+end
+AH -> TB : Build()
+TB --> AH : JWT token
+AH --> M : AuthenticateResponse { token }
+M --> AC : response
+AC --> U : 200 OK { token }
+
+@enduml

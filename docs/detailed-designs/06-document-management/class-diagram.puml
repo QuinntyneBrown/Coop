@@ -1,0 +1,85 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam defaultFontSize 10
+skinparam wrapWidth 200
+skinparam shadowing false
+skinparam linetype ortho
+
+title Document Management - Class Diagram
+
+package "Coop.Domain" {
+
+  abstract class AggregateRoot {
+    +StoredEvents : IReadOnlyList<StoredEvent>
+    +Apply(event : IEvent) : AggregateRoot
+    +StoreEvent(event : IEvent) : void
+    +Clear() : void
+    #When(event : dynamic) : void {abstract}
+    #EnsureValidState() : void {abstract}
+  }
+
+  class Document {
+    +DocumentId : Guid
+    +DigitalAssetId : Guid?
+    +Body : string
+    +Name : string
+    +Published : DateTime?
+    +CreatedById : Guid
+    --
+    +Document(event : CreateDocument)
+    #When(event : CreateDocument) : void
+    #When(event : PublishDocument) : void
+    #When(event : DeleteDocument) : void
+  }
+
+  class ByLaw {
+    +ByLawId : Guid
+    --
+    +ByLaw(event : CreateDocument)
+  }
+
+  class Notice {
+    +NoticeId : Guid
+    --
+    +Notice(event : CreateDocument)
+  }
+
+  class Report {
+    +ReportId : Guid
+    --
+    +Report(event : CreateDocument)
+  }
+
+  AggregateRoot <|-- Document
+  Document <|-- ByLaw
+  Document <|-- Notice
+  Document <|-- Report
+}
+
+package "Coop.Domain.DomainEvents" {
+
+  class CreateDocument <<BaseDomainEvent>> {
+    +DocumentId : Guid
+    +Name : string
+    +Body : string
+    +DigitalAssetId : Guid
+    +CreatedById : Guid
+    +Published : DateTime
+  }
+
+  class PublishDocument <<BaseDomainEvent>> {
+    +Published : DateTime?
+  }
+
+  class DeleteDocument <<BaseDomainEvent>> {
+  }
+}
+
+Document ..> CreateDocument : <<applies>>
+Document ..> PublishDocument : <<applies>>
+Document ..> DeleteDocument : <<applies>>
+
+@enduml

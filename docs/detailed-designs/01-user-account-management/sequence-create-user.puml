@@ -1,0 +1,48 @@
+@startuml sequence-create-user
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Create User - Sequence Diagram
+
+actor Client
+participant "UserController" as UC
+participant "IMediator" as M
+participant "CreateUserHandler" as H
+participant "IPasswordHasher" as PH
+participant "ICoopDbContext" as DB
+
+Client -> UC : POST /api/user\n{username, password}
+activate UC
+
+UC -> M : Send(CreateUserRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> H : Generate 128-bit\ncryptographic salt
+H -> PH : HashPassword(salt, password)
+activate PH
+PH --> H : hashed password (PBKDF2)
+deactivate PH
+
+H -> H : new User(username, password, hasher)
+H -> DB : Users.Add(user)
+activate DB
+H -> DB : SaveChangesAsync(ct)
+DB --> H : saved
+deactivate DB
+
+H --> M : CreateUserResponse { UserDto }
+deactivate H
+
+M --> UC : response
+deactivate M
+
+UC --> Client : 200 OK { User }
+deactivate UC
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title Document Management - C4 Container Diagram
+
+Person(user, "Coop User", "Board member, staff, or member")
+
+System_Boundary(docBoundary, "Document Management Service") {
+  Container(api, "Document API", ".NET / ASP.NET Core", "REST API exposing document CRUD and query endpoints")
+  Container(domain, "Document Domain", ".NET Class Library", "Aggregate roots, domain events, and business rules")
+  Container(infra, "Document Infrastructure", ".NET Class Library", "EF Core DbContext, repository implementations, data seeding")
+  ContainerDb(db, "Document Database", "SQL Server", "Stores documents, by-laws, notices, reports, and stored events")
+}
+
+System_Ext(messageBus, "Message Bus", "Publishes integration events (MessagePack)")
+System_Ext(identitySvc, "Identity Service", "JWT authentication")
+
+Rel(user, api, "HTTP/REST", "JSON")
+Rel(api, domain, "Uses")
+Rel(api, infra, "Uses")
+Rel(domain, infra, "Persisted by")
+Rel(infra, db, "Reads/Writes", "EF Core")
+Rel(api, messageBus, "Publishes events", "MessagePack")
+Rel(api, identitySvc, "Validates tokens", "JWT")
+
+@enduml

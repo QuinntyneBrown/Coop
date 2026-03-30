@@ -1,0 +1,29 @@
+@startuml state-user-lifecycle
+
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam stateFontSize 14
+
+title User Lifecycle - State Diagram
+
+[*] --> Active : CreateUser\n(username, password hashed with salt)
+
+state Active {
+    Active : Username is set
+    Active : Password is hashed
+    Active : Roles assigned
+    Active : Profiles attached
+}
+
+Active --> Active : ChangePassword
+Active --> Active : SetUsername
+Active --> Active : SetPassword
+Active --> Active : AddProfile
+Active --> Active : SetCurrentProfileId
+Active --> Active : SetDefaultProfileId
+
+Active --> Deleted : Delete()\n(soft delete: IsDeleted = true)
+
+Deleted --> [*]
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontSize 11
+skinparam stateFontSize 12
+
+[*] --> Unauthenticated
+
+state Unauthenticated : No valid JWT.\nAccess limited to\n[AllowAnonymous] endpoints.
+
+state Authenticated : Valid JWT present.\nUser identity and claims\nestablished.
+
+state Authorized : Privilege claim matches\nrequired operation + aggregate.\nRequest proceeds.
+
+state Forbidden : Privilege check failed.\nResponse contains\n"Unauthorized" error.
+
+Unauthenticated --> Authenticated : Valid credentials submitted\nJWT issued via /api/user/token
+Unauthenticated --> Unauthenticated : Invalid credentials\n(exception thrown)
+
+Authenticated --> Authorized : Privilege check passes\n(claim found for operation + aggregate)
+Authenticated --> Forbidden : Privilege check fails\n(no matching claim)
+Authenticated --> Unauthenticated : Token expires\n(JWT lifetime exceeded)
+
+Authorized --> Authenticated : Next request\n(token still valid)
+Forbidden --> Authenticated : Next request\n(different endpoint)
+
+@enduml

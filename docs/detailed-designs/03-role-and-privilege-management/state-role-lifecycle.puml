@@ -1,0 +1,22 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontSize 10
+skinparam stateFontSize 11
+
+title Role Lifecycle
+
+[*] --> Created : CreateRoleHandler\nnew Role(name)
+
+Created --> Active : SaveChangesAsync()\npersisted to DB
+
+Active --> Active : AddPrivilege(privilege)
+Active --> Active : RemovePrivilege(privilege)
+Active --> Active : UpdateRole (rename)
+Active --> Active : Assign to User
+Active --> Active : Unassign from User
+
+Active --> Deleted : RemoveRoleHandler\nDelete role
+
+Deleted --> [*]
+
+@enduml

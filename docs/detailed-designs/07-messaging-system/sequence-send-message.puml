@@ -1,0 +1,51 @@
+@startuml sequence-send-message
+skinparam dpi 150
+skinparam defaultFontSize 11
+title Send Message Within Conversation
+
+actor Client
+participant "ConversationsController" as Ctrl
+participant "Conversation" as Conv
+participant "MessagingDbContext" as Db
+participant "IMessageBus" as Bus
+
+Client -> Ctrl : POST /api/conversations/{id}/messages\n{FromProfileId, ToProfileId, Body}
+activate Ctrl
+
+Ctrl -> Db : SingleOrDefaultAsync(conversationId)\nInclude(Messages)
+activate Db
+Db --> Ctrl : conversation or null
+deactivate Db
+
+alt Conversation not found
+  Ctrl --> Client : 404 NotFound
+else Conversation found
+  Ctrl -> Conv : AddMessage(from, to, body)
+  activate Conv
+
+  Conv -> Conv : Validate both IDs\nare participants
+
+  alt Invalid participant
+    Conv --> Ctrl : throw InvalidOperationException
+    Ctrl --> Client : 400 BadRequest
+  else Valid participants
+    Conv -> Conv : Create Message\nUpdate LastMessageAt
+    Conv --> Ctrl : message
+    deactivate Conv
+
+    Ctrl -> Db : SaveChangesAsync()
+    activate Db
+    Db --> Ctrl : saved
+    deactivate Db
+
+    Ctrl -> Bus : PublishAsync(MessageSentEvent)
+    activate Bus
+    Bus --> Ctrl : published
+    deactivate Bus
+
+    Ctrl --> Client : 200 OK\nMessageDto
+  end
+end
+
+deactivate Ctrl
+@enduml

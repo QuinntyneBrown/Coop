@@ -1,0 +1,27 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam shadowing false
+skinparam defaultFontSize 11
+skinparam stateFontSize 12
+
+title Document Lifecycle State Machine
+
+[*] --> Draft : CreateDocument
+
+state Draft {
+}
+
+state Published {
+}
+
+state Deleted {
+}
+
+Draft --> Published : PublishDocument\n(sets Published timestamp)
+Draft --> Deleted : DeleteDocument
+Published --> Deleted : DeleteDocument
+
+Deleted --> [*]
+
+@enduml
