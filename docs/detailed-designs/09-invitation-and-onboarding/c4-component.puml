@@ -10,7 +10,7 @@ title Invitation and Onboarding - C4 Component Diagram
 Person(client, "Client", "Administrator or invitee")
 
 Container_Boundary(api, "Coop API") {
-    Component(ctrl, "InvitationTokenController", "ASP.NET Controller", "CRUD, validate, and consume-token endpoints")
+    Component(ctrl, "InvitationTokenController", "ASP.NET Core Controller (.NET 10)", "CRUD, validate, and consume-token endpoints")
     Component(mediator, "IMediator", "MediatR", "Routes commands and queries")
     Component(createH, "CreateInvitationTokenHandler", "RequestHandler", "Creates and persists new tokens")
     Component(getH, "GetInvitationTokenHandler", "RequestHandler", "Retrieves tokens by ID or page")

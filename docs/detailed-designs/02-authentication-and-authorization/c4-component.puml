@@ -6,7 +6,7 @@ LAYOUT_WITH_LEGEND()
 title C4 Component - Authentication & Authorization
 
 Container_Boundary(api, "Coop.Api") {
-  Component(uc, "UserController", "ASP.NET Controller", "POST /api/user/token\n[AllowAnonymous] for auth,\n[Authorize] for user CRUD")
+  Component(uc, "UserController", "ASP.NET Core Controller (.NET 10)", "POST /api/user/token\n[AllowAnonymous] for auth,\n[Authorize] for user CRUD")
   Component(jwtmw, "JWT Bearer Middleware", "ASP.NET Middleware", "Validates token signature,\nissuer, audience, lifetime")
 }
 

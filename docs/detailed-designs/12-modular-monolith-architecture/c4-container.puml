@@ -11,11 +11,11 @@ title Modular Monolith Architecture - C4 Container Diagram
 Person(user, "User", "Member, staff, board member, or admin")
 
 System_Boundary(platform, "Coop Platform") {
-  Container(publicApp, "Public Web App", "Web application", "CMS-driven public site and member-facing journeys")
-  Container(adminApp, "Admin Backend", "Web application", "Operations, content management, and administration")
-  Container(api, "Coop API", "ASP.NET Core", "Shared REST API surface")
-  Container(modules, "Application Modules", ".NET Class Libraries", "Identity, Profile, Maintenance, Document, Asset, Messaging, CMS")
-  Container(dispatcher, "Domain Event Dispatcher", ".NET Service", "Dispatches in-process notifications")
+  Container(publicApp, "Public Web App", "Angular 21 application", "CMS-driven public site and member-facing journeys")
+  Container(adminApp, "Admin Backend", "Angular 21 application", "Operations, content management, and administration")
+  Container(api, "Coop API", ".NET 10 / ASP.NET Core", "Shared REST API surface")
+  Container(modules, "Application Modules", ".NET 10 Class Libraries", "Identity, Profile, Maintenance, Document, Asset, Messaging, CMS")
+  Container(dispatcher, "Domain Event Dispatcher", ".NET 10 Service", "Dispatches in-process notifications")
   ContainerDb(db, "Coop Database", "SQL Server", "Shared database with module-owned tables or schemas")
 }
 
@@ -28,3 +28,4 @@ Rel(modules, dispatcher, "Raises domain events")
 Rel(modules, db, "Reads/Writes", "EF Core")
 
 @enduml
+

@@ -9,9 +9,9 @@ title C4 Container -- Digital Asset Management
 Person(user, "Coop User", "Uploads and manages assets")
 
 System_Boundary(coop, "Coop Platform") {
-  Container(publicApp, "Public Web App", "Web application", "Displays published media and served assets")
-  Container(adminApp, "Admin Backend", "Web application", "File upload UI, avatar management, document media selection")
-  Container(api, "Coop API", ".NET / ASP.NET Core", "DigitalAssetController and application handlers")
+  Container(publicApp, "Public Web App", "Angular 21 application", "Displays published media and served assets")
+  Container(adminApp, "Admin Backend", "Angular 21 application", "File upload UI, avatar management, document media selection")
+  Container(api, "Coop API", ".NET 10 / ASP.NET Core", "DigitalAssetController and application handlers")
   ContainerDb(db, "SQL Database", "SQL Server / EF Core", "DigitalAssets table with binary content and metadata")
 }
 

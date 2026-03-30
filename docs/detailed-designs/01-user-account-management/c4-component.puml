@@ -8,7 +8,7 @@ skinparam shadowing false
 title User Account Management - C4 Component Diagram
 
 Container_Boundary(api, "API Layer") {
-    Component(ctrl, "UserController", "ASP.NET Controller", "REST endpoints for\nuser operations")
+    Component(ctrl, "UserController", "ASP.NET Core Controller (.NET 10)", "REST endpoints for\nuser operations")
 }
 
 Container_Boundary(app, "Application Layer") {

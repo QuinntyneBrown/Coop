@@ -9,10 +9,10 @@ title Document Management - C4 Container Diagram
 Person(user, "Coop User", "Board member, staff, member, or visitor")
 
 System_Boundary(docBoundary, "Coop Backend - Document Management") {
-  Container(api, "Document API", ".NET / ASP.NET Core", "REST endpoints for document CRUD, publication, and public reads")
-  Container(app, "Document Application", ".NET Class Library", "Commands, queries, and in-process notifications")
-  Container(domain, "Document Domain", ".NET Class Library", "Aggregate roots, domain events, and business rules")
-  Container(infra, "Document Persistence", ".NET Class Library", "EF Core DbContext and configurations")
+  Container(api, "Document API", ".NET 10 / ASP.NET Core", "REST endpoints for document CRUD, publication, and public reads")
+  Container(app, "Document Application", ".NET 10 Class Library", "Commands, queries, and in-process notifications")
+  Container(domain, "Document Domain", ".NET 10 Class Library", "Aggregate roots, domain events, and business rules")
+  Container(infra, "Document Persistence", ".NET 10 Class Library", "EF Core DbContext and configurations")
   ContainerDb(db, "Coop Database", "SQL Server", "Stores documents, by-laws, notices, reports, and stored events")
 }
 

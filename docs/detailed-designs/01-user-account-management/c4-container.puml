@@ -10,7 +10,7 @@ title User Account Management - C4 Container Diagram
 Person(user, "User", "Cooperative member,\nstaff, or admin")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(api, "API Layer", "ASP.NET Core", "Exposes REST endpoints via\nUserController. Handles\nHTTP requests and routing.")
+    Container(api, "API Layer", ".NET 10 / ASP.NET Core", "Exposes REST endpoints via\nUserController. Handles\nHTTP requests and routing.")
 
     Container(app, "Application Layer", "MediatR Handlers", "CreateUserHandler,\nAuthenticateHandler,\nChangePasswordHandler,\nUpdateUserHandler,\nRemoveUserHandler")
 

@@ -9,7 +9,7 @@ Person(admin, "System Administrator", "Configures users, privileges, themes, and
 
 System(publicApp, "Public Web App", "CMS-driven public-facing application")
 System(adminApp, "Admin Backend", "Operational and editorial back-office application")
-System(coop, "Coop Backend API", "ASP.NET Core modular monolith API")
+System(coop, "Coop Backend API", ".NET 10 / ASP.NET Core modular monolith API")
 
 System_Ext(email, "Email Service", "Sends invitation and notification emails")
 

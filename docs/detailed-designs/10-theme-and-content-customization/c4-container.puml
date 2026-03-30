@@ -9,9 +9,9 @@ title Theme and Content Customization - C4 Container Diagram
 Person(admin, "Administrator", "Manages themes and CMS content")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(publicApp, "Public Web App", "Web application", "Renders themed public pages and CMS-managed content")
-    Container(adminApp, "Admin Backend", "Web application", "Authors themes and content")
-    Container(api, "Coop API", ".NET / ASP.NET Core", "Shared modular monolith API with Theme and JsonContent endpoints")
+    Container(publicApp, "Public Web App", "Angular 21 application", "Renders themed public pages and CMS-managed content")
+    Container(adminApp, "Admin Backend", "Angular 21 application", "Authors themes and content")
+    Container(api, "Coop API", ".NET 10 / ASP.NET Core", "Shared modular monolith API with Theme and JsonContent endpoints")
     ContainerDb(db, "Coop Database", "SQL Server", "Themes and JsonContents tables")
 }
 

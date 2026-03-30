@@ -11,9 +11,9 @@ Person(admin, "Administrator", "Manages invitations")
 Person(invitee, "Invitee", "Redeems invitation token")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(publicApp, "Public Web App", "Web application", "Onboarding and invitation redemption")
-    Container(adminApp, "Admin Backend", "Web application", "Invitation management and operational administration")
-    Container(api, "Coop API", ".NET / ASP.NET Core", "Shared modular monolith API")
+    Container(publicApp, "Public Web App", "Angular 21 application", "Onboarding and invitation redemption")
+    Container(adminApp, "Admin Backend", "Angular 21 application", "Invitation management and operational administration")
+    Container(api, "Coop API", ".NET 10 / ASP.NET Core", "Shared modular monolith API")
     ContainerDb(db, "SQL Database", "SQL Server / EF Core", "Stores invitation tokens, users, and profiles")
 }
 

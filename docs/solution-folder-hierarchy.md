@@ -13,6 +13,11 @@
 
 This document describes the target .NET solution folder hierarchy for the Coop modular monolith. The solution follows **Clean Architecture** principles with a single deployable backend organized into explicit business modules, serving two application surfaces: a CMS-driven public-facing web app and an admin backend.
 
+The documented technology baseline assumes:
+
+- ASP.NET Core on **.NET 10 LTS** for the shared backend
+- **Angular 21** for both client applications
+
 ---
 
 ## Solution File
@@ -34,6 +39,9 @@ Coop/
 │   ├── Coop.Domain/
 │   ├── Coop.Infrastructure/
 │   └── Coop.SharedKernel/
+├── apps/
+│   ├── coop-public/                 # Angular 21 — CMS-driven public web app
+│   └── coop-admin/                  # Angular 21 — Admin backend
 ├── tests/
 │   ├── Coop.Api.Tests/
 │   ├── Coop.Application.Tests/
@@ -52,7 +60,7 @@ Coop/
 
 ### src/Coop.Api
 
-ASP.NET Core Web API host. Single deployable entry point for both the public web app and admin backend.
+ASP.NET Core Web API host on **.NET 10 LTS**. Single deployable entry point for both the public web app and admin backend.
 
 ```text
 Coop.Api/
@@ -340,6 +348,136 @@ Constants include:
 | `Constants.ClaimTypes` | UserId, Username, Privilege, Role |
 | `Constants.Aggregates` | All target aggregates for privilege assignment |
 | `Constants.AccessRights` | Read, Write, Create, Delete |
+
+---
+
+## Angular Applications
+
+Both client applications are **Angular 21** SPAs that consume the shared Coop API. They live under the `apps/` directory, outside the .NET solution, and are built and deployed independently.
+
+### apps/coop-public
+
+CMS-driven public-facing web app for residents, members, and visitors.
+
+```text
+coop-public/
+├── angular.json
+├── package.json
+├── tsconfig.json
+├── src/
+│   ├── main.ts
+│   ├── index.html
+│   ├── styles.scss
+│   ├── app/
+│   │   ├── app.component.ts
+│   │   ├── app.routes.ts
+│   │   ├── core/
+│   │   │   ├── auth/
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── auth.guard.ts
+│   │   │   │   └── auth.interceptor.ts
+│   │   │   ├── api/
+│   │   │   │   └── api.service.ts
+│   │   │   └── theme/
+│   │   │       └── theme.service.ts
+│   │   ├── features/
+│   │   │   ├── landing/
+│   │   │   ├── onboarding/
+│   │   │   ├── documents/
+│   │   │   │   ├── notices/
+│   │   │   │   ├── bylaws/
+│   │   │   │   └── reports/
+│   │   │   ├── maintenance/
+│   │   │   ├── messaging/
+│   │   │   └── profile/
+│   │   └── shared/
+│   │       ├── components/
+│   │       ├── models/
+│   │       └── pipes/
+│   ├── assets/
+│   └── environments/
+│       ├── environment.ts
+│       └── environment.development.ts
+└── e2e/
+    └── ...
+```
+
+**Key responsibilities:**
+- Render CMS-managed pages via JsonContent (landing hero, board listing, announcements)
+- Display published documents (notices, bylaws, reports)
+- Serve public digital assets
+- Invitation-token validation and onboarding flow
+- Authenticated member workflows (maintenance requests, messaging)
+- Apply themes from the Theme API at runtime
+
+---
+
+### apps/coop-admin
+
+Admin backend SPA for staff, board members, and system administrators.
+
+```text
+coop-admin/
+├── angular.json
+├── package.json
+├── tsconfig.json
+├── src/
+│   ├── main.ts
+│   ├── index.html
+│   ├── styles.scss
+│   ├── app/
+│   │   ├── app.component.ts
+│   │   ├── app.routes.ts
+│   │   ├── core/
+│   │   │   ├── auth/
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── auth.guard.ts
+│   │   │   │   └── auth.interceptor.ts
+│   │   │   └── api/
+│   │   │       └── api.service.ts
+│   │   ├── features/
+│   │   │   ├── dashboard/
+│   │   │   ├── identity/
+│   │   │   │   ├── users/
+│   │   │   │   ├── roles/
+│   │   │   │   └── privileges/
+│   │   │   ├── profiles/
+│   │   │   │   ├── members/
+│   │   │   │   ├── board-members/
+│   │   │   │   └── staff-members/
+│   │   │   ├── maintenance/
+│   │   │   ├── documents/
+│   │   │   │   ├── notices/
+│   │   │   │   ├── bylaws/
+│   │   │   │   └── reports/
+│   │   │   ├── messaging/
+│   │   │   ├── assets/
+│   │   │   ├── cms/
+│   │   │   │   ├── themes/
+│   │   │   │   └── content/
+│   │   │   ├── invitations/
+│   │   │   └── events/
+│   │   └── shared/
+│   │       ├── components/
+│   │       ├── models/
+│   │       └── pipes/
+│   ├── assets/
+│   └── environments/
+│       ├── environment.ts
+│       └── environment.development.ts
+└── e2e/
+    └── ...
+```
+
+**Key responsibilities:**
+- User, role, and privilege administration
+- Profile management (members, board members, staff)
+- Maintenance workflow operations
+- Document authoring and publication
+- Digital asset and theme management
+- CMS content authoring (JsonContent)
+- Invitation-token creation and lifecycle
+- Event store / audit trail viewing
 
 ---
 

@@ -8,11 +8,11 @@ LAYOUT_TOP_DOWN()
 title Profile Management - C4 Component Diagram
 
 Container_Boundary(profileApi, "Profile API") {
-    Component(profilesCtrl, "ProfilesController", "ASP.NET Controller", "Get profiles, set avatar, delete profile")
-    Component(boardCtrl, "BoardMembersController", "ASP.NET Controller", "CRUD for board member profiles")
-    Component(membersCtrl, "MembersController", "ASP.NET Controller", "CRUD for member profiles")
-    Component(staffCtrl, "StaffMembersController", "ASP.NET Controller", "CRUD for staff member profiles")
-    Component(onCallCtrl, "OnCallController", "ASP.NET Controller", "CRUD for on-call profiles")
+    Component(profilesCtrl, "ProfilesController", "ASP.NET Core Controller (.NET 10)", "Get profiles, set avatar, delete profile")
+    Component(boardCtrl, "BoardMembersController", "ASP.NET Core Controller (.NET 10)", "CRUD for board member profiles")
+    Component(membersCtrl, "MembersController", "ASP.NET Core Controller (.NET 10)", "CRUD for member profiles")
+    Component(staffCtrl, "StaffMembersController", "ASP.NET Core Controller (.NET 10)", "CRUD for staff member profiles")
+    Component(onCallCtrl, "OnCallController", "ASP.NET Core Controller (.NET 10)", "CRUD for on-call profiles")
     Component(profileAppSvc, "ProfileApplicationService", "Application Service", "Coordinates profile creation, updates, and user-profile defaults")
     Component(dbContext, "ProfileDbContext", "EF Core DbContext", "Persists profiles and invitations")
 }

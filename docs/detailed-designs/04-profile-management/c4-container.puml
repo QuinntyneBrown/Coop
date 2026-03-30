@@ -10,10 +10,10 @@ title Profile Management - C4 Container Diagram
 Person(user, "User", "Cooperative member, board member, staff, or admin")
 
 System_Boundary(profileBoundary, "Coop Backend - Profile Management") {
-    Container(profileApi, "Profile API", ".NET / ASP.NET Core", "REST endpoints for profile CRUD, avatar management, and type-specific operations")
-    Container(profileApp, "Profile Application", ".NET Class Library", "Commands, queries, and internal coordination with Identity and Asset modules")
-    Container(profileDomain, "Profile Domain", ".NET Class Library", "ProfileBase, Member, BoardMember, StaffMember, OnCall, Address")
-    Container(profileInfra, "Profile Persistence", ".NET Class Library", "EF Core DbContext and entity configurations")
+    Container(profileApi, "Profile API", ".NET 10 / ASP.NET Core", "REST endpoints for profile CRUD, avatar management, and type-specific operations")
+    Container(profileApp, "Profile Application", ".NET 10 Class Library", "Commands, queries, and internal coordination with Identity and Asset modules")
+    Container(profileDomain, "Profile Domain", ".NET 10 Class Library", "ProfileBase, Member, BoardMember, StaffMember, OnCall, Address")
+    Container(profileInfra, "Profile Persistence", ".NET 10 Class Library", "EF Core DbContext and entity configurations")
     ContainerDb(profileDb, "Coop Database", "SQL Server", "Profiles, invitations, and related module-owned tables")
 }
 

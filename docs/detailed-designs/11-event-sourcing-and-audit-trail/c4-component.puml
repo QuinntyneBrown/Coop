@@ -8,8 +8,8 @@ skinparam shadowing false
 title Event Sourcing and Audit Trail - C4 Component Diagram
 
 Container_Boundary(api, "API Layer") {
-    Component(eventsCtrl, "EventsController", "ASP.NET Controller", "SSE endpoint at\n/api/events for\nreal-time streaming")
-    Component(storedCtrl, "StoredEventController", "ASP.NET Controller", "CRUD endpoints for\nquerying and managing\nStoredEvent records")
+    Component(eventsCtrl, "EventsController", "ASP.NET Core Controller (.NET 10)", "SSE endpoint at\n/api/events for\nreal-time streaming")
+    Component(storedCtrl, "StoredEventController", "ASP.NET Core Controller (.NET 10)", "CRUD endpoints for\nquerying and managing\nStoredEvent records")
 }
 
 Container_Boundary(domain, "Domain Layer") {

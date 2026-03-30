@@ -10,7 +10,7 @@ title Event Sourcing and Audit Trail - C4 Container Diagram
 Person(user, "User", "Triggers domain events\nvia platform actions")
 
 System_Boundary(coop, "Coop Platform") {
-    Container(api, "API Layer", "ASP.NET Core", "EventsController (SSE)\nStoredEventController (CRUD)")
+    Container(api, "API Layer", ".NET 10 / ASP.NET Core", "EventsController (SSE)\nStoredEventController (CRUD)")
 
     Container(app, "Application Layer", "MediatR Handlers", "GetStoredEventById,\nGetStoredEvents,\nGetStoredEventsPage,\nCreateStoredEvent")
 

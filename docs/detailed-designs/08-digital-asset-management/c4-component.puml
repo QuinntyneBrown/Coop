@@ -7,7 +7,7 @@ skinparam pageMargin 10
 title C4 Component -- Digital Asset Management
 
 Container_Boundary(api, "Coop API - Asset Module") {
-  Component(ctrl, "DigitalAssetController", "ASP.NET Controller", "Routes: upload, get by ID, batch get, serve, delete")
+  Component(ctrl, "DigitalAssetController", "ASP.NET Core Controller (.NET 10)", "Routes: upload, get by ID, batch get, serve, delete")
   Component(uploadHandler, "UploadDigitalAssetHandler", "MediatR Handler", "Parses multipart body, extracts image dimensions, persists assets")
   Component(getByIdHandler, "GetDigitalAssetByIdHandler", "MediatR Handler", "Retrieves a single asset by identifier")
   Component(batchHandler, "GetDigitalAssetsByIdsHandler", "MediatR Handler", "Retrieves assets matching an array of IDs")

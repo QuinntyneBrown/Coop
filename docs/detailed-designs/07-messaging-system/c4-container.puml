@@ -9,10 +9,10 @@ title Messaging System - C4 Container Diagram
 Person(member, "Coop Member", "Sends and receives messages")
 
 System_Boundary(messaging, "Coop Backend - Messaging Module") {
-  Container(api, "Messaging API", ".NET / ASP.NET Core", "REST endpoints for conversations and messages")
-  Container(app, "Messaging Application", ".NET Class Library", "Commands, queries, and in-process notifications")
-  Container(domain, "Messaging Domain", ".NET Class Library", "Conversation and Message entities, domain logic")
-  Container(infra, "Messaging Persistence", ".NET Class Library", "MessagingDbContext, EF Core configurations")
+  Container(api, "Messaging API", ".NET 10 / ASP.NET Core", "REST endpoints for conversations and messages")
+  Container(app, "Messaging Application", ".NET 10 Class Library", "Commands, queries, and in-process notifications")
+  Container(domain, "Messaging Domain", ".NET 10 Class Library", "Conversation and Message entities, domain logic")
+  Container(infra, "Messaging Persistence", ".NET 10 Class Library", "MessagingDbContext, EF Core configurations")
   ContainerDb(db, "Coop Database", "SQL Server", "Stores conversations and messages")
 }
 

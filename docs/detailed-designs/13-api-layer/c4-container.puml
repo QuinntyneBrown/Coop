@@ -6,12 +6,12 @@ title Coop Platform -- C4 Container Diagram
 Person(user, "User", "Co-op member, staff, board member, or administrator")
 
 System_Boundary(coop, "Coop Platform") {
-  Container(publicApp, "Public Web App", "Web application", "CMS-driven public experience")
-  Container(adminApp, "Admin Backend", "Web application", "Operations and content administration")
-  Container(api, "Coop API", "ASP.NET Core", "REST API host, middleware, Swagger, JWT auth")
-  Container(app, "Application Layer", ".NET Class Library", "MediatR handlers, validators, commands, queries")
-  Container(domain, "Domain Layer", ".NET Class Library", "Domain entities, aggregates, interfaces, domain events")
-  Container(infra, "Infrastructure Layer", ".NET Class Library", "EF Core DbContext, persistence, auth helpers")
+  Container(publicApp, "Public Web App", "Angular 21 application", "CMS-driven public experience")
+  Container(adminApp, "Admin Backend", "Angular 21 application", "Operations and content administration")
+  Container(api, "Coop API", ".NET 10 / ASP.NET Core", "REST API host, middleware, Swagger, JWT auth")
+  Container(app, "Application Layer", ".NET 10 Class Library", "MediatR handlers, validators, commands, queries")
+  Container(domain, "Domain Layer", ".NET 10 Class Library", "Domain entities, aggregates, interfaces, domain events")
+  Container(infra, "Infrastructure Layer", ".NET 10 Class Library", "EF Core DbContext, persistence, auth helpers")
   ContainerDb(db, "SQL Server", "Database", "Stores users, profiles, requests, documents, content, events")
 }
 

@@ -7,8 +7,8 @@ skinparam defaultFontSize 11
 title Messaging System - C4 Component Diagram
 
 Container_Boundary(api, "Messaging API") {
-  Component(convCtrl, "ConversationsController", "ASP.NET Controller", "Handles conversation CRUD and message sending within conversations")
-  Component(msgCtrl, "MessagesController", "ASP.NET Controller", "Handles message retrieval, unread queries, and read-status updates")
+  Component(convCtrl, "ConversationsController", "ASP.NET Core Controller (.NET 10)", "Handles conversation CRUD and message sending within conversations")
+  Component(msgCtrl, "MessagesController", "ASP.NET Core Controller (.NET 10)", "Handles message retrieval, unread queries, and read-status updates")
   Component(appSvc, "MessagingApplicationService", "Application Service", "Coordinates conversation creation, message send, and read operations")
   Component(dispatcher, "InternalNotificationDispatcher", "Application Service", "Dispatches in-process notifications")
 }
