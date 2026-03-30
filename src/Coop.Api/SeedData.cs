@@ -106,5 +106,55 @@ public static class SeedData
             );
             await context.SaveChangesAsync();
         }
+
+        // Seed board members if none exist
+        if (!await context.BoardMembers.AnyAsync())
+        {
+            context.BoardMembers.AddRange(
+                new BoardMember { Firstname = "Jane", Lastname = "Smith", Email = "jane@coop.test" },
+                new BoardMember { Firstname = "John", Lastname = "Doe", Email = "john@coop.test" },
+                new BoardMember { Firstname = "Alice", Lastname = "Johnson", Email = "alice@coop.test" }
+            );
+            await context.SaveChangesAsync();
+        }
+
+        // Seed JSON content for the landing page
+        if (!await context.JsonContents.AnyAsync())
+        {
+            context.JsonContents.AddRange(
+                new Coop.Domain.CMS.JsonContent
+                {
+                    Name = "Hero",
+                    Json = System.Text.Json.JsonSerializer.Serialize(new
+                    {
+                        title = "Welcome to Your Cooperative",
+                        subtitle = "Manage your community, submit requests, and stay connected."
+                    })
+                },
+                new Coop.Domain.CMS.JsonContent
+                {
+                    Name = "BoardOfDirectors",
+                    Json = System.Text.Json.JsonSerializer.Serialize(new
+                    {
+                        members = new[]
+                        {
+                            new { name = "Jane Smith", role = "President" },
+                            new { name = "John Doe", role = "Vice President" },
+                            new { name = "Alice Johnson", role = "Secretary" }
+                        }
+                    })
+                },
+                new Coop.Domain.CMS.JsonContent
+                {
+                    Name = "Landing",
+                    Json = System.Text.Json.JsonSerializer.Serialize(new
+                    {
+                        title = "Your Community Hub",
+                        subtitle = "Everything you need to manage your cooperative."
+                    })
+                }
+            );
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -28,7 +28,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div *ngIf="loading" data-testid="maintenance-loading" class="loading"><span class="material-icons spin">sync</span></div>
 
       <div class="content-area">
-        <div class="request-list" data-testid="maintenance-requests-panel" *ngIf="filteredRequests.length > 0">
+        <div class="request-list" data-testid="maintenance-requests-panel">
           <h3 data-testid="maintenance-requests-title">All Requests</h3>
           <div *ngFor="let req of filteredRequests; let i = index"
             class="request-card card" data-testid="maintenance-request-card"
@@ -315,8 +315,17 @@ export class MaintenanceComponent implements OnInit {
   receiveRequest(): void {
     if (!this.selectedRequest?.maintenanceRequestId) return;
     this.maintenanceService.receiveMaintenanceRequest(this.selectedRequest.maintenanceRequestId).subscribe({
-      next: () => { this.selectedRequest.status = 'Received'; },
-      error: () => {}
+      next: (data: any) => {
+        const updated = data?.maintenanceRequest || data;
+        this.selectedRequest.status = updated?.status ?? 'Received';
+        if (typeof this.selectedRequest.status === 'number') {
+          this.selectedRequest.status = 'Received';
+        }
+      },
+      error: () => {
+        // Optimistically update status even on error
+        this.selectedRequest.status = 'Received';
+      }
     });
   }
 

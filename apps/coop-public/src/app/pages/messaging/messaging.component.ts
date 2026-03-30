@@ -19,7 +19,7 @@ import { catchError, of } from 'rxjs';
       <h1 data-testid="messaging-page-title">Messages</h1>
 
       <!-- Conversation List -->
-      <div class="conversation-list" data-testid="messaging-conversation-list" *ngIf="!selectedConversation">
+      <div class="conversation-list" data-testid="messaging-conversation-list" *ngIf="!selectedConversation && conversations.length > 0">
         <div
           class="conversation-item card"
           *ngFor="let conv of conversations"
@@ -33,14 +33,14 @@ import { catchError, of } from 'rxjs';
           <p class="conv-preview" data-testid="messaging-conversation-preview">{{ conv.lastMessage }}</p>
           <span class="unread-badge" *ngIf="conv.unreadCount > 0" data-testid="messaging-unread-badge">{{ conv.unreadCount }}</span>
         </div>
+      </div>
 
-        <!-- Empty State -->
-        <div class="empty-state" *ngIf="!loading && conversations.length === 0" data-testid="messaging-empty-state">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.5">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          <p>No conversations yet</p>
-        </div>
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!selectedConversation && !loading && conversations.length === 0" data-testid="messaging-empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.5">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>No conversations yet</p>
       </div>
 
       <!-- Chat Panel -->

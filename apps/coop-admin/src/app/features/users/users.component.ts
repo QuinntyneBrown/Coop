@@ -154,7 +154,7 @@ export class UsersComponent implements OnInit {
   Math = Math;
   users: any[] = [];
   page = 1;
-  pageSize = 3;
+  pageSize = 2;
   totalCount = 0;
   totalPages = 1;
   pages: number[] = [1];

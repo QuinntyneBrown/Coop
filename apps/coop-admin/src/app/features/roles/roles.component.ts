@@ -109,19 +109,31 @@ export class RolesComponent implements OnInit {
   selectRole(role: any): void {
     this.selectedRole = role;
     const rawPrivileges = role.privileges || [];
-    this.buildPrivilegeMatrix(rawPrivileges);
-    if (rawPrivileges.length === 0 && role.roleId) {
+    if (rawPrivileges.length > 0) {
+      this.buildPrivilegeMatrix(rawPrivileges);
+    }
+    // Load from server when no cached data, or refresh in background
+    if (role.roleId) {
       this.roleService.getRoleById(role.roleId).subscribe({
         next: (data: any) => {
           const role2 = data?.role || data;
           const privs = role2?.privileges || data?.privileges || [];
-          this.selectedRole.privileges = privs;
+          role.privileges = privs;
           this.buildPrivilegeMatrix(privs);
         },
-        error: () => {}
+        error: () => {
+          if (rawPrivileges.length === 0) {
+            this.buildPrivilegeMatrix([]);
+          }
+        }
       });
     }
   }
+
+  private groupAggregateMap: Record<string, string> = {
+    'Notice': 'Document', 'ByLaw': 'Document', 'Report': 'Document',
+    'Member': 'Profile', 'BoardMember': 'Profile', 'StaffMember': 'Profile',
+  };
 
   private buildPrivilegeMatrix(privileges: any[]): void {
     // AccessRight enum: None=0, Read=1, Write=2, Create=3, Delete=4
@@ -129,7 +141,8 @@ export class RolesComponent implements OnInit {
     const aggregateMap: Record<string, any> = {};
 
     for (const priv of privileges) {
-      const aggregate = priv.aggregate || 'Unknown';
+      const rawAggregate = priv.aggregate || 'Unknown';
+      const aggregate = this.groupAggregateMap[rawAggregate] || rawAggregate;
       if (!aggregateMap[aggregate]) {
         aggregateMap[aggregate] = { aggregate, canRead: false, canUpdate: false, canCreate: false, canDelete: false, privilegeIds: {} };
       }
@@ -140,25 +153,52 @@ export class RolesComponent implements OnInit {
       }
     }
 
-    this.rolePrivileges = Object.values(aggregateMap);
+    // Sort: User, MaintenanceRequest, Document, Profile first
+    const order = ['User', 'MaintenanceRequest', 'Document', 'Profile'];
+    this.rolePrivileges = Object.values(aggregateMap).sort((a: any, b: any) => {
+      const ai = order.indexOf(a.aggregate);
+      const bi = order.indexOf(b.aggregate);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return a.aggregate.localeCompare(b.aggregate);
+    });
   }
 
   togglePrivilege(priv: any, field: string): void {
     const wasChecked = (priv as any)[field];
     (priv as any)[field] = !wasChecked;
 
+    const accessRightReverseMap: Record<string, number> = { canRead: 1, canUpdate: 2, canCreate: 3, canDelete: 4 };
+    // Map grouped aggregates back to original names for API calls
+    const reverseGroupMap: Record<string, string[]> = {
+      'Document': ['Notice', 'ByLaw', 'Report'],
+      'Profile': ['Member', 'BoardMember', 'StaffMember'],
+    };
+    const aggregates = reverseGroupMap[priv.aggregate] || [priv.aggregate];
+    const aggregate = aggregates[0]; // Use first one for create
+
     if (wasChecked) {
       // Remove privilege
       const privId = priv.privilegeIds?.[field];
       if (privId) {
-        this.privilegeService.deletePrivilege(privId).subscribe({ error: () => {} });
+        this.privilegeService.deletePrivilege(privId).subscribe({
+          next: () => {
+            // Update cached role privileges
+            if (this.selectedRole?.privileges) {
+              this.selectedRole.privileges = this.selectedRole.privileges.filter(
+                (p: any) => p.privilegeId !== privId
+              );
+            }
+          },
+          error: () => {}
+        });
       }
     } else {
       // Create privilege
-      const accessRightReverseMap: Record<string, number> = { canRead: 1, canUpdate: 2, canCreate: 3, canDelete: 4 };
       const payload = {
         roleId: this.selectedRole.roleId,
-        aggregate: priv.aggregate,
+        aggregate: aggregate,
         accessRight: accessRightReverseMap[field]
       };
       this.privilegeService.createPrivilege(payload).subscribe({
@@ -167,6 +207,10 @@ export class RolesComponent implements OnInit {
           if (newPriv?.privilegeId) {
             priv.privilegeIds = priv.privilegeIds || {};
             priv.privilegeIds[field] = newPriv.privilegeId;
+            // Update cached role privileges
+            if (this.selectedRole?.privileges) {
+              this.selectedRole.privileges.push(newPriv);
+            }
           }
         },
         error: () => {}

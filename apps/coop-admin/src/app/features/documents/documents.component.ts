@@ -205,22 +205,19 @@ export class DocumentsComponent implements OnInit {
 
   private loadDocuments(): void {
     this.loading = true;
-    this.documentService.getPublishedDocuments().subscribe({
+    this.documentService.getDocuments().subscribe({
       next: (data: any) => {
         this.documents = Array.isArray(data) ? data : (data?.documents || []);
+        // Sort newest first
+        this.documents.sort((a: any, b: any) => {
+          const dateA = new Date(a.createdOn || 0).getTime();
+          const dateB = new Date(b.createdOn || 0).getTime();
+          return dateB - dateA;
+        });
         this.applyFilter();
         this.loading = false;
       },
-      error: () => {
-        this.documentService.getDocuments().subscribe({
-          next: (data: any) => {
-            this.documents = Array.isArray(data) ? data : (data?.documents || []);
-            this.applyFilter();
-            this.loading = false;
-          },
-          error: () => { this.documents = []; this.filteredDocuments = []; this.loading = false; }
-        });
-      }
+      error: () => { this.documents = []; this.filteredDocuments = []; this.loading = false; }
     });
   }
 

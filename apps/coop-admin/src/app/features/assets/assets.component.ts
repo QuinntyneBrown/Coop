@@ -98,7 +98,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
       h2 { font-size: 20px; font-weight: 600; }
       .stats { font-size: 13px; color: #1A1918CC; }
     }
-    .assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; min-height: 24px; padding: 4px 0; }
     .asset-card { padding: 16px; display: flex; align-items: center; gap: 12px; }
     .asset-thumb {
       width: 48px; height: 48px; border-radius: 10px; background: #F5F4F1;

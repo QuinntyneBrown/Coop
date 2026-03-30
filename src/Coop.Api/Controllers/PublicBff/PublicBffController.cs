@@ -566,7 +566,25 @@ public class PublicBffController : ControllerBase
     public async Task<IActionResult> GetJsonContentByName(string name)
     {
         var result = await _mediator.Send(new Application.CMS.Content.Queries.GetJsonContentByName.GetJsonContentByNameRequest { Name = name });
-        return Ok(result.JsonContent);
+        if (result.JsonContent == null)
+            return Ok(new { id = (string?)null, name = name, content = (object?)null });
+
+        object? parsedContent = null;
+        try
+        {
+            parsedContent = System.Text.Json.JsonSerializer.Deserialize<object>(result.JsonContent.Json);
+        }
+        catch
+        {
+            parsedContent = result.JsonContent.Json;
+        }
+
+        return Ok(new
+        {
+            id = result.JsonContent.JsonContentId.ToString(),
+            name = result.JsonContent.Name,
+            content = parsedContent,
+        });
     }
 
     // ---- Members ----

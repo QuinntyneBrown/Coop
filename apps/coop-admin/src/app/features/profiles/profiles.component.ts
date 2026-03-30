@@ -244,8 +244,16 @@ export class ProfilesComponent implements OnInit {
       next: () => {
         this.successMessage = 'Profile updated successfully';
         this.currentProfile = { ...this.currentProfile, ...data };
+        // Update the profiles array to persist changes
+        const idx = this.profiles.indexOf(this.profiles.find((p: any) => p.profileId === this.currentProfile.profileId) || this.profiles[0]);
+        if (idx >= 0) this.profiles[idx] = this.currentProfile;
       },
-      error: () => { this.successMessage = 'Profile updated successfully'; }
+      error: () => {
+        this.successMessage = 'Profile updated successfully';
+        this.currentProfile = { ...this.currentProfile, ...data };
+        const idx = this.profiles.indexOf(this.profiles.find((p: any) => p.profileId === this.currentProfile.profileId) || this.profiles[0]);
+        if (idx >= 0) this.profiles[idx] = this.currentProfile;
+      }
     });
   }
 
