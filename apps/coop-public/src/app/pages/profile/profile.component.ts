@@ -19,7 +19,7 @@ import { catchError, of } from 'rxjs';
         <div class="avatar-wrapper">
           <img
             *ngIf="profile?.avatarUrl"
-            [src]="profile.avatarUrl"
+            [src]="profile!.avatarUrl"
             alt="Avatar"
             class="avatar-img"
             data-testid="profile-avatar-image"

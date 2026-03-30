@@ -64,7 +64,7 @@ import { catchError, of } from 'rxjs';
             <span class="priority-badge" [class]="getPriorityClass(req.priority)">{{ req.priority }}</span>
           </div>
           <h3>{{ req.title }}</h3>
-          <p>{{ req.description | slice:0:100 }}{{ req.description?.length > 100 ? '...' : '' }}</p>
+          <p>{{ req.description | slice:0:100 }}{{ (req.description || '').length > 100 ? '...' : '' }}</p>
           <span class="request-date">{{ req.createdAt | date:'mediumDate' }}</span>
         </div>
       </div>
