@@ -84,6 +84,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201
+          },
           "configurations": {
             "production": {
               "buildTarget": "coop-admin:build:production"
