@@ -10,20 +10,20 @@ import { AuthService } from '../../core/services/auth.service';
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   template: `
     <div class="register-page">
-      <div class="register-header" data-testid="register-header">
+      <div class="register-header" data-testid="register-hero-panel">
         <div class="header-content">
           <span class="material-icons header-icon">apartment</span>
-          <h1 data-testid="register-header-title">Coop</h1>
-          <p data-testid="register-header-subtitle">Join your cooperative</p>
+          <h1 data-testid="register-hero-title">Join Your Cooperative</h1>
+          <p>Join your cooperative</p>
         </div>
       </div>
 
       <div class="register-form-panel">
         <div class="form-container">
           <h2 data-testid="register-heading">Create account</h2>
-          <p class="form-subtitle">Fill in the details to create your account</p>
+          <p class="form-subtitle" data-testid="register-subtitle">Enter your invitation token and details to create your account</p>
 
-          <div *ngIf="registrationError" class="alert alert-danger" data-testid="register-error">
+          <div *ngIf="registrationError" class="alert alert-danger" data-testid="register-form-error">
             {{ registrationError }}
           </div>
 
@@ -73,7 +73,7 @@ import { AuthService } from '../../core/services/auth.service';
 
             <div class="form-group terms-group">
               <label class="checkbox-label" data-testid="register-terms-label">
-                <input type="checkbox" formControlName="termsAccepted" data-testid="register-terms-checkbox" />
+                <input type="checkbox" formControlName="termsAccepted" data-testid="register-terms" />
                 <span>I agree to the Terms and Conditions</span>
               </label>
               <div *ngIf="submitted && f['termsAccepted'].errors" class="error-message" data-testid="register-terms-error">
@@ -81,14 +81,14 @@ import { AuthService } from '../../core/services/auth.service';
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block" data-testid="register-create-account-btn" [disabled]="loading">
+            <button type="submit" class="btn btn-primary btn-block" data-testid="register-submit" [disabled]="loading">
               {{ loading ? 'Creating...' : 'Create Account' }}
             </button>
           </form>
 
           <p class="sign-in-text">
             Already have an account?
-            <a routerLink="/login" data-testid="register-sign-in-link">Sign in</a>
+            <a routerLink="/login" data-testid="register-signin-link">Sign in</a>
           </p>
         </div>
       </div>

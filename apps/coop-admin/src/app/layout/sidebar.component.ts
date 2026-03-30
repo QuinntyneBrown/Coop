@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -11,49 +11,49 @@ import { AuthService } from '../core/services/auth.service';
     <aside class="sidebar" data-testid="sidebar">
       <div class="sidebar-header">
         <div class="logo">
-          <span class="material-icons logo-icon">apartment</span>
-          <span class="logo-text">Coop Manager</span>
+          <span class="material-icons logo-icon" data-testid="sidebar-logo">apartment</span>
+          <span class="logo-text" data-testid="sidebar-app-title">Coop Manager</span>
         </div>
       </div>
 
       <nav class="sidebar-nav">
-        <a routerLink="/dashboard" routerLinkActive="active" class="nav-item" data-testid="nav-dashboard">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-dashboard" [attr.data-active]="isActive('/dashboard')">
           <span class="material-icons">dashboard</span>
           <span>Dashboard</span>
         </a>
-        <a routerLink="/maintenance" routerLinkActive="active" class="nav-item" data-testid="nav-maintenance">
+        <a routerLink="/maintenance" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-maintenance" [attr.data-active]="isActive('/maintenance')">
           <span class="material-icons">build</span>
           <span>Maintenance</span>
         </a>
-        <a routerLink="/documents" routerLinkActive="active" class="nav-item" data-testid="nav-documents">
+        <a routerLink="/documents" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-documents" [attr.data-active]="isActive('/documents')">
           <span class="material-icons">description</span>
           <span>Documents</span>
         </a>
-        <a routerLink="/messaging" routerLinkActive="active" class="nav-item" data-testid="nav-messages">
+        <a routerLink="/messaging" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-messages" [attr.data-active]="isActive('/messaging')">
           <span class="material-icons">chat</span>
           <span>Messages</span>
         </a>
-        <a routerLink="/users" routerLinkActive="active" class="nav-item" data-testid="nav-users">
+        <a routerLink="/users" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-users" [attr.data-active]="isActive('/users')">
           <span class="material-icons">people</span>
           <span>Users</span>
         </a>
-        <a routerLink="/roles" routerLinkActive="active" class="nav-item" data-testid="nav-roles">
+        <a routerLink="/roles" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-roles" [attr.data-active]="isActive('/roles')">
           <span class="material-icons">admin_panel_settings</span>
           <span>Roles & Privileges</span>
         </a>
-        <a routerLink="/profiles" routerLinkActive="active" class="nav-item" data-testid="nav-profiles">
+        <a routerLink="/profiles" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-profiles" [attr.data-active]="isActive('/profiles')">
           <span class="material-icons">badge</span>
           <span>Profiles</span>
         </a>
-        <a routerLink="/assets" routerLinkActive="active" class="nav-item" data-testid="nav-assets">
+        <a routerLink="/assets" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-assets" [attr.data-active]="isActive('/assets')">
           <span class="material-icons">perm_media</span>
           <span>Assets</span>
         </a>
-        <a routerLink="/invitations" routerLinkActive="active" class="nav-item" data-testid="nav-invitations">
+        <a routerLink="/invitations" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-invitations" [attr.data-active]="isActive('/invitations')">
           <span class="material-icons">mail</span>
           <span>Invitations</span>
         </a>
-        <a routerLink="/settings" routerLinkActive="active" class="nav-item" data-testid="nav-settings">
+        <a routerLink="/settings" routerLinkActive="active" class="nav-item" data-testid="sidebar-nav-settings" [attr.data-active]="isActive('/settings')">
           <span class="material-icons">settings</span>
           <span>Settings</span>
         </a>
@@ -61,10 +61,10 @@ import { AuthService } from '../core/services/auth.service';
 
       <div class="sidebar-footer">
         <div class="user-info" data-testid="sidebar-user-info">
-          <div class="user-avatar">{{ userInitial }}</div>
+          <div class="user-avatar" data-testid="sidebar-user-avatar">{{ userInitial }}</div>
           <div class="user-details">
-            <span class="user-name">{{ username }}</span>
-            <span class="user-role">Member</span>
+            <span class="user-name" data-testid="sidebar-user-name">{{ username }}</span>
+            <span class="user-role" data-testid="sidebar-user-role">Member</span>
           </div>
         </div>
       </div>
@@ -167,6 +167,7 @@ import { AuthService } from '../core/services/auth.service';
 })
 export class SidebarComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   get username(): string {
     return this.authService.currentUser?.username || 'User';
@@ -174,5 +175,9 @@ export class SidebarComponent {
 
   get userInitial(): string {
     return this.username.charAt(0).toUpperCase();
+  }
+
+  isActive(path: string): string {
+    return this.router.url.startsWith(path) ? 'true' : 'false';
   }
 }

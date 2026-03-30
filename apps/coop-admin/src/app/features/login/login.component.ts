@@ -11,20 +11,20 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
   imports: [CommonModule, ReactiveFormsModule, RouterLink, BottomTabBarComponent],
   template: `
     <div class="login-page">
-      <div class="login-header" data-testid="login-header">
+      <div class="login-header" data-testid="login-hero-panel">
         <div class="header-content">
-          <span class="material-icons header-icon">apartment</span>
-          <h1 data-testid="login-header-title">Coop</h1>
-          <p data-testid="login-header-subtitle">Cooperative management</p>
+          <span class="material-icons header-icon" data-testid="login-hero-icon">apartment</span>
+          <h1 data-testid="login-hero-title">Coop Management</h1>
+          <p data-testid="login-hero-description">Cooperative management</p>
         </div>
       </div>
 
-      <div class="login-form-panel">
+      <div class="login-form-panel" data-testid="login-form-panel">
         <div class="form-container">
-          <h2 data-testid="login-welcome-heading">Welcome back</h2>
-          <p class="form-subtitle">Sign in to your account</p>
+          <h2 data-testid="login-heading">Welcome back</h2>
+          <p class="form-subtitle" data-testid="login-subtitle">Sign in to your account</p>
 
-          <div *ngIf="loginError" class="alert alert-danger" data-testid="login-error">
+          <div *ngIf="loginError" class="alert alert-danger" data-testid="login-form-error">
             {{ loginError }}
           </div>
 
@@ -67,14 +67,14 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <a routerLink="/forgot-password" class="forgot-link" data-testid="login-forgot-password">Forgot password?</a>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block sign-in-btn" data-testid="login-sign-in-btn" [disabled]="loading">
+            <button type="submit" class="btn btn-primary btn-block sign-in-btn" data-testid="login-submit" [disabled]="loading">
               {{ loading ? 'Signing in...' : 'Sign In' }}
             </button>
           </form>
 
           <p class="sign-up-text">
             Don't have an account?
-            <a routerLink="/register" data-testid="login-sign-up-link">Sign up</a>
+            <a routerLink="/register" data-testid="login-signup-link">Sign up</a>
           </p>
         </div>
       </div>

@@ -10,29 +10,34 @@ import { AuthService } from '../../core/services/auth.service';
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   template: `
     <div class="change-password-page">
-      <div class="change-password-card card">
-        <span class="material-icons lock-icon">lock</span>
-        <h2>Change Password</h2>
-        <p class="subtitle">Update your account password</p>
+      <div class="change-password-card card" data-testid="change-password-card">
+        <span class="material-icons lock-icon" data-testid="change-password-icon">lock</span>
+        <h2 data-testid="change-password-heading">Change Password</h2>
+        <p class="subtitle" data-testid="change-password-subtitle">Enter your current password and choose a new one</p>
 
-        <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
-        <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+        <div *ngIf="successMsg" class="alert alert-success" data-testid="change-password-success">{{ successMsg }}</div>
+        <div *ngIf="errorMsg" class="alert alert-danger" data-testid="change-password-form-error">{{ errorMsg }}</div>
+
+        <p class="password-hint" data-testid="change-password-hint">Password must be at least 8 characters long</p>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>Current Password</label>
-            <input type="password" formControlName="currentPassword" data-testid="change-current-password" />
+            <input type="password" formControlName="currentPassword" data-testid="change-password-current" />
+            <div *ngIf="submitted && form.controls['currentPassword'].errors" class="error-message" data-testid="change-password-current-error">Current password is required</div>
           </div>
           <div class="form-group">
             <label>New Password</label>
-            <input type="password" formControlName="newPassword" data-testid="change-new-password" />
+            <input type="password" formControlName="newPassword" data-testid="change-password-new" />
+            <div *ngIf="submitted && form.controls['newPassword'].errors" class="error-message" data-testid="change-password-new-error">New password is required</div>
           </div>
           <div class="form-group">
             <label>Confirm New Password</label>
-            <input type="password" formControlName="confirmNewPassword" data-testid="change-confirm-password" />
+            <input type="password" formControlName="confirmNewPassword" data-testid="change-password-confirm" />
+            <div *ngIf="submitted && form.controls['confirmNewPassword'].errors" class="error-message" data-testid="change-password-confirm-error">Please confirm your new password</div>
           </div>
           <div class="btn-row">
-            <a routerLink="/dashboard" class="btn btn-secondary">Cancel</a>
+            <a routerLink="/dashboard" class="btn btn-secondary" data-testid="change-password-cancel">Cancel</a>
             <button type="submit" class="btn btn-primary" [disabled]="loading" data-testid="change-password-submit">
               Update Password
             </button>
@@ -76,10 +81,12 @@ export class ChangePasswordComponent {
   });
 
   loading = false;
+  submitted = false;
   successMsg = '';
   errorMsg = '';
 
   onSubmit(): void {
+    this.submitted = true;
     if (this.form.invalid) return;
     const { currentPassword, newPassword, confirmNewPassword } = this.form.value;
     if (newPassword !== confirmNewPassword) {
