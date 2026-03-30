@@ -12,20 +12,20 @@ import { TopbarComponent } from '../../layout/topbar.component';
     <app-topbar title="Invitations"></app-topbar>
     <div class="invitations-page">
       <div class="page-header">
-        <h2>Invitation Tokens</h2>
-        <button class="btn btn-primary" data-testid="invitations-create-btn" (click)="showModal = true">
+        <h2 data-testid="invitations-page-title">Invitations</h2>
+        <button class="btn btn-primary" data-testid="invitations-create-button" (click)="showModal = true">
           <span class="material-icons">add</span> Create Invitation
         </button>
       </div>
 
-      <div class="invitations-table card">
+      <div class="invitations-table card" data-testid="invitations-table">
         <table>
           <thead>
             <tr>
-              <th>Token</th>
-              <th>Type</th>
-              <th>Expires</th>
-              <th>Status</th>
+              <th data-testid="invitations-header-token">Token</th>
+              <th data-testid="invitations-header-type">Type</th>
+              <th data-testid="invitations-header-expires">Expires</th>
+              <th data-testid="invitations-header-status">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -34,31 +34,47 @@ import { TopbarComponent } from '../../layout/topbar.component';
               <td>{{ inv.type || 'Standard' }}</td>
               <td>{{ inv.expiresOn | date:'mediumDate' }}</td>
               <td>
-                <span class="badge" [ngClass]="getStatusClass(inv)">{{ getStatus(inv) }}</span>
+                <span class="badge" [ngClass]="getStatusClass(inv)" data-testid="invitation-status-badge">{{ getStatus(inv) }}</span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Create Modal -->
-      <div *ngIf="showModal" class="modal-overlay">
+      <!-- Create Invitation Dialog -->
+      <div *ngIf="showModal" class="modal-overlay" data-testid="invitation-create-dialog">
         <div class="modal-content card">
           <h3>Create Invitation</h3>
           <form [formGroup]="invForm" (ngSubmit)="createInvitation()">
             <div class="form-group">
               <label>Type</label>
-              <select formControlName="type">
+              <select formControlName="type" data-testid="invitation-dialog-type">
                 <option value="Member">Member</option>
                 <option value="BoardMember">Board Member</option>
                 <option value="Staff">Staff</option>
               </select>
             </div>
+            <div class="form-group">
+              <label>Expires</label>
+              <input type="date" formControlName="expires" data-testid="invitation-dialog-expires" />
+            </div>
             <div class="modal-actions">
-              <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancel</button>
-              <button type="submit" class="btn btn-primary">Create</button>
+              <button type="button" class="btn btn-secondary" data-testid="invitation-dialog-cancel" (click)="showModal = false">Cancel</button>
+              <button type="submit" class="btn btn-primary" data-testid="invitation-dialog-create">Create</button>
             </div>
           </form>
+        </div>
+      </div>
+
+      <!-- Token Display Dialog -->
+      <div *ngIf="showTokenDialog" class="modal-overlay" data-testid="invitation-token-dialog">
+        <div class="modal-content card">
+          <h3>Invitation Created</h3>
+          <p class="token-display" data-testid="invitation-token-value">{{ createdToken }}</p>
+          <div class="modal-actions">
+            <button class="btn btn-secondary" data-testid="invitation-token-copy" (click)="copyToken()">Copy</button>
+            <button class="btn btn-primary" data-testid="invitation-token-close" (click)="showTokenDialog = false">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -77,8 +93,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
     .modal-content { width: 100%; max-width: 400px; padding: 32px; h3 { margin-bottom: 20px; } }
     .form-group { margin-bottom: 16px;
       label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
-      select { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; }
+      select, input { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; }
     }
+    .token-display { font-family: monospace; font-size: 16px; background: #F5F4F1; padding: 12px; border-radius: 8px; word-break: break-all; margin: 12px 0; }
     .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
     .badge-success { background: rgba(16,185,129,0.1); color: #059669; }
     .badge-danger { background: rgba(220,53,69,0.1); color: #DC3545; }
@@ -91,7 +108,9 @@ export class InvitationsComponent implements OnInit {
 
   invitations: any[] = [];
   showModal = false;
-  invForm: FormGroup = this.fb.group({ type: ['Member'] });
+  showTokenDialog = false;
+  createdToken = '';
+  invForm: FormGroup = this.fb.group({ type: ['Member'], expires: [''] });
 
   ngOnInit(): void {
     this.loadInvitations();
@@ -108,9 +127,18 @@ export class InvitationsComponent implements OnInit {
 
   createInvitation(): void {
     this.invService.createInvitation(this.invForm.value).subscribe({
-      next: () => { this.showModal = false; this.loadInvitations(); },
-      error: () => {}
+      next: (data: any) => {
+        this.showModal = false;
+        this.createdToken = data?.value || data?.token || 'TOKEN-GENERATED';
+        this.showTokenDialog = true;
+        this.loadInvitations();
+      },
+      error: () => { this.showModal = false; }
     });
+  }
+
+  copyToken(): void {
+    navigator.clipboard?.writeText(this.createdToken);
   }
 
   getStatus(inv: any): string {

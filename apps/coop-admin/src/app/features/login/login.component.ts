@@ -22,7 +22,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div class="login-form-panel" data-testid="login-form-panel">
         <div class="form-container">
           <h2 data-testid="login-heading">Welcome back</h2>
-          <p class="form-subtitle" data-testid="login-subtitle">Sign in to your account</p>
+          <p class="form-subtitle" data-testid="login-subtitle">Sign in to your account to continue</p>
 
           <div *ngIf="loginError" class="alert alert-danger" data-testid="login-form-error">
             {{ loginError }}
@@ -139,7 +139,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
     .mobile-only { display: none; }
     @media (max-width: 768px) {
       .login-page { flex-direction: column; }
-      .login-header { flex: none; padding: 40px 20px; }
+      .login-header { display: none; }
       .login-form-panel { padding: 24px; padding-bottom: 80px; }
       .mobile-only { display: block; }
     }

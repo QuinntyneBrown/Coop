@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
@@ -8,7 +8,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 @Component({
   selector: 'app-messaging',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BottomTabBarComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, BottomTabBarComponent],
   template: `
     <div class="messaging-page">
       <div class="page-header">
@@ -19,56 +19,79 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
       <div class="messaging-layout">
         <!-- Conversation List -->
-        <div class="conversation-list-panel" [class.hidden-mobile]="selectedConversation" data-testid="messaging-conversation-list">
-          <div *ngFor="let conv of conversations; let i = index"
-            class="conversation-item" data-testid="messaging-conversation-item"
+        <div class="conversation-list-panel" [class.hidden-mobile]="selectedConversation" data-testid="conversation-list">
+          <h2 data-testid="conversation-list-title">Messages</h2>
+          <div class="conv-toolbar">
+            <input type="text" class="conv-search-input" placeholder="Search conversations..." data-testid="conversation-search" (input)="onSearchConversations($event)" />
+            <button class="btn btn-primary btn-sm" data-testid="new-conversation-button" (click)="showNewConversationDialog = true">
+              <span class="material-icons">add</span>
+            </button>
+          </div>
+
+          <div *ngFor="let conv of filteredConversations; let i = index"
+            class="conversation-item" data-testid="conversation-item"
             [class.selected]="selectedConversation?.conversationId === conv.conversationId"
             (click)="openConversation(conv)">
             <div class="conv-avatar">{{ getInitial(conv) }}</div>
             <div class="conv-info">
-              <span class="conv-subject" data-testid="messaging-conversation-subject">{{ conv.subject || conv.title || 'Conversation' }}</span>
-              <span class="conv-preview" data-testid="messaging-conversation-preview">{{ conv.lastMessage?.body || conv.preview || '' }}</span>
+              <span class="conv-subject" data-testid="conversation-name">{{ conv.subject || conv.title || 'Conversation' }}</span>
+              <span class="conv-preview" data-testid="conversation-preview">{{ conv.lastMessage?.body || conv.preview || '' }}</span>
             </div>
             <div class="conv-meta">
-              <span class="conv-time" data-testid="messaging-conversation-timestamp">{{ conv.lastMessage?.createdOn || conv.updatedOn | date:'shortTime' }}</span>
-              <span *ngIf="conv.unreadCount > 0" class="unread-badge" data-testid="messaging-unread-badge">{{ conv.unreadCount }}</span>
+              <span class="conv-time">{{ conv.lastMessage?.createdOn || conv.updatedOn | date:'shortTime' }}</span>
+              <span *ngIf="conv.unreadCount > 0" class="unread-badge" data-testid="unread-indicator">{{ conv.unreadCount }}</span>
             </div>
           </div>
 
-          <div *ngIf="!loading && conversations.length === 0" data-testid="messaging-empty-state" class="empty-state">
+          <div *ngIf="!loading && filteredConversations.length === 0" data-testid="chat-empty-state" class="empty-state">
             <span class="material-icons">chat_bubble_outline</span>
             <p>No conversations yet</p>
           </div>
         </div>
 
         <!-- Chat Panel -->
-        <div *ngIf="selectedConversation" class="chat-panel" data-testid="messaging-chat-panel">
-          <div class="chat-header">
-            <button class="back-btn" data-testid="messaging-back-to-list" (click)="backToList()">
+        <div *ngIf="selectedConversation" class="chat-panel" data-testid="chat-panel">
+          <div class="chat-header" data-testid="chat-header">
+            <button class="back-btn" (click)="backToList()">
               <span class="material-icons">arrow_back</span>
             </button>
-            <div class="chat-avatar">{{ getInitial(selectedConversation) }}</div>
+            <div class="chat-avatar" data-testid="chat-header-avatar">{{ getInitial(selectedConversation) }}</div>
             <div class="chat-info">
-              <span class="chat-subject" data-testid="messaging-chat-subject">{{ selectedConversation.subject || 'Conversation' }}</span>
-              <span class="chat-participants" data-testid="messaging-chat-participants">{{ getParticipants(selectedConversation) }}</span>
+              <span class="chat-subject" data-testid="chat-header-name">{{ selectedConversation.subject || 'Conversation' }}</span>
+              <span class="chat-participants">{{ getParticipants(selectedConversation) }}</span>
             </div>
           </div>
 
-          <div class="message-list" data-testid="messaging-message-list">
-            <div *ngFor="let msg of messages" class="message-bubble" data-testid="messaging-message-bubble"
+          <div class="message-list">
+            <div *ngFor="let msg of messages" class="message-bubble" data-testid="message-bubble"
               [class.own]="isOwnMessage(msg)" [class.other]="!isOwnMessage(msg)">
-              <span class="msg-sender" data-testid="messaging-message-sender">{{ msg.createdBy || msg.sender || 'User' }}</span>
-              <p data-testid="messaging-message-content">{{ msg.body || msg.content }}</p>
-              <span class="msg-time" data-testid="messaging-message-timestamp">{{ msg.createdOn | date:'shortTime' }}</span>
+              <span class="msg-sender">{{ msg.createdBy || msg.sender || 'User' }}</span>
+              <p>{{ msg.body || msg.content }}</p>
+              <span class="msg-time">{{ msg.createdOn | date:'shortTime' }}</span>
             </div>
           </div>
 
           <div class="message-input-bar">
             <input type="text" [formControl]="messageInput" placeholder="Type a message..."
-              data-testid="messaging-message-input" (keyup.enter)="sendMessage()" />
-            <button class="btn btn-primary send-btn" data-testid="messaging-send-btn" (click)="sendMessage()">
+              data-testid="message-input" (keyup.enter)="sendMessage()" />
+            <button class="btn btn-primary send-btn" data-testid="message-send-button" (click)="sendMessage()">
               <span class="material-icons">send</span>
             </button>
+          </div>
+        </div>
+
+        <!-- New Conversation Dialog -->
+        <div *ngIf="showNewConversationDialog" class="modal-overlay" data-testid="new-conversation-dialog">
+          <div class="modal-content card">
+            <h3>New Conversation</h3>
+            <div class="form-group">
+              <label>Recipient</label>
+              <input type="text" data-testid="new-conversation-recipient" [(ngModel)]="newConversationRecipient" />
+            </div>
+            <div class="modal-actions">
+              <button class="btn btn-secondary" data-testid="new-conversation-cancel" (click)="showNewConversationDialog = false">Cancel</button>
+              <button class="btn btn-primary" data-testid="new-conversation-start" (click)="startNewConversation()">Start</button>
+            </div>
           </div>
         </div>
       </div>
@@ -86,6 +109,13 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       width: 360px; background: #fff; border-right: 1px solid #E5E4E1;
       overflow-y: auto; flex-shrink: 0;
     }
+    .conversation-list-panel h2 { padding: 16px 20px 0; font-size: 18px; font-weight: 600; }
+    .conv-toolbar { display: flex; gap: 8px; padding: 12px 20px; }
+    .conv-search-input { flex: 1; padding: 8px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } }
+    .form-group { margin-bottom: 16px; label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; } input { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } } }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { width: 100%; max-width: 400px; padding: 32px; h3 { margin-bottom: 20px; } }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
     .conversation-item {
       display: flex; align-items: center; gap: 12px; padding: 14px 20px;
       cursor: pointer; border-bottom: 1px solid #F5F4F1; transition: background 0.2s;
@@ -154,10 +184,13 @@ export class MessagingComponent implements OnInit {
   private authService = inject(AuthService);
 
   conversations: any[] = [];
+  filteredConversations: any[] = [];
   messages: any[] = [];
   selectedConversation: any = null;
   loading = true;
   messageInput = new FormControl('');
+  showNewConversationDialog = false;
+  newConversationRecipient = '';
 
   ngOnInit(): void {
     this.loadConversations();
@@ -168,9 +201,10 @@ export class MessagingComponent implements OnInit {
     this.messagingService.getConversations().subscribe({
       next: (data: any) => {
         this.conversations = Array.isArray(data) ? data : (data?.conversations || []);
+        this.filteredConversations = [...this.conversations];
         this.loading = false;
       },
-      error: () => { this.conversations = []; this.loading = false; }
+      error: () => { this.conversations = []; this.filteredConversations = []; this.loading = false; }
     });
   }
 
@@ -209,6 +243,22 @@ export class MessagingComponent implements OnInit {
   isOwnMessage(msg: any): boolean {
     return msg.createdBy === this.authService.currentUser?.username ||
       msg.sender === this.authService.currentUser?.username;
+  }
+
+  onSearchConversations(event: any): void {
+    const query = (event.target.value || '').toLowerCase();
+    if (!query) {
+      this.filteredConversations = [...this.conversations];
+      return;
+    }
+    this.filteredConversations = this.conversations.filter(c =>
+      (c.subject || c.title || '').toLowerCase().includes(query)
+    );
+  }
+
+  startNewConversation(): void {
+    this.showNewConversationDialog = false;
+    this.newConversationRecipient = '';
   }
 
   getInitial(conv: any): string {

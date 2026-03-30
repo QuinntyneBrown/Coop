@@ -1,23 +1,31 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DocumentService } from '../../core/services/document.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [CommonModule, BottomTabBarComponent],
+  imports: [CommonModule, FormsModule, BottomTabBarComponent],
   template: `
     <div class="documents-page">
       <div class="page-header">
         <h1 data-testid="documents-page-title">Documents</h1>
       </div>
 
-      <div class="filter-tabs" data-testid="documents-filter-tabs">
-        <button class="filter-btn" [class.active]="activeFilter === 'all'" data-testid="documents-filter-all" (click)="filterBy('all')">All Documents</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'notices'" data-testid="documents-filter-notices" (click)="filterBy('notices')">Notices</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'bylaws'" data-testid="documents-filter-bylaws" (click)="filterBy('bylaws')">By-Laws</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'reports'" data-testid="documents-filter-reports" (click)="filterBy('reports')">Reports</button>
+      <div class="filter-tabs">
+        <button class="filter-btn" [class.active]="activeFilter === 'all'" data-testid="documents-tab-all" (click)="filterBy('all')">All Documents</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'notices'" data-testid="documents-tab-notices" (click)="filterBy('notices')">Notices</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'bylaws'" data-testid="documents-tab-bylaws" (click)="filterBy('bylaws')">By-Laws</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'reports'" data-testid="documents-tab-reports" (click)="filterBy('reports')">Reports</button>
+      </div>
+
+      <div class="documents-toolbar">
+        <input type="text" class="search-input" placeholder="Search documents..." data-testid="documents-search" (input)="onSearchDocuments($event)" />
+        <button class="btn btn-primary" data-testid="documents-new-button" (click)="openCreateDialog()">
+          <span class="material-icons">add</span> New Document
+        </button>
       </div>
 
       <div *ngIf="loading" data-testid="documents-loading" class="loading"><span class="material-icons spin">sync</span></div>
@@ -28,19 +36,68 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             <span class="material-icons">{{ getDocIcon(doc) }}</span>
           </div>
           <div class="doc-info">
-            <h3 data-testid="document-card-title">{{ doc.title || doc.name }}</h3>
-            <span class="doc-type" data-testid="document-card-type">{{ doc.documentType || doc.type || 'Document' }}</span>
-            <span class="doc-date" data-testid="document-card-date">{{ doc.publishedOn || doc.createdOn | date:'mediumDate' }}</span>
+            <h3 data-testid="document-title">{{ doc.title || doc.name }}</h3>
+            <span class="doc-type">{{ doc.documentType || doc.type || 'Document' }}</span>
+            <span class="doc-date">{{ doc.publishedOn || doc.createdOn | date:'mediumDate' }}</span>
           </div>
-          <span class="badge" [ngClass]="doc.status === 'Published' ? 'badge-success' : 'badge-warning'">
+          <span class="badge" [ngClass]="doc.status === 'Published' ? 'badge-success' : 'badge-warning'" data-testid="document-status-badge">
             {{ doc.status || 'Draft' }}
           </span>
+          <button class="icon-btn delete-doc-btn" data-testid="document-delete-button" (click)="confirmDeleteDocument(doc, $event)">
+            <span class="material-icons">delete</span>
+          </button>
         </div>
       </div>
 
       <div *ngIf="!loading && filteredDocuments.length === 0" data-testid="documents-empty-state" class="empty-state card">
         <span class="material-icons">description</span>
         <p>No documents found</p>
+      </div>
+
+      <!-- Create/Edit Document Dialog -->
+      <div *ngIf="showDocumentDialog" class="modal-overlay" data-testid="document-dialog">
+        <div class="modal-content card">
+          <h3 data-testid="document-dialog-title">{{ editingDocument ? 'Edit Document' : 'New Document' }}</h3>
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" data-testid="document-dialog-title-input" [(ngModel)]="dialogDoc.title" />
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select data-testid="document-dialog-type" [(ngModel)]="dialogDoc.type">
+              <option value="Notice">Notice</option>
+              <option value="ByLaw">By-Law</option>
+              <option value="Report">Report</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Content</label>
+            <textarea data-testid="document-dialog-content" [(ngModel)]="dialogDoc.content"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select data-testid="document-dialog-status" [(ngModel)]="dialogDoc.status">
+              <option value="Draft">Draft</option>
+              <option value="Published">Published</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-secondary" data-testid="document-dialog-cancel" (click)="showDocumentDialog = false">Cancel</button>
+            <button class="btn btn-primary" data-testid="document-dialog-save" (click)="saveDocument()">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Document Dialog -->
+      <div *ngIf="showDeleteDocDialog" class="modal-overlay" data-testid="document-delete-dialog">
+        <div class="modal-content card">
+          <h3>Confirm Delete</h3>
+          <p>Are you sure you want to delete this document?</p>
+          <div class="modal-actions">
+            <button class="btn btn-secondary" (click)="showDeleteDocDialog = false">Cancel</button>
+            <button class="btn btn-danger" data-testid="document-delete-confirm" (click)="deleteDocument()">Delete</button>
+          </div>
+        </div>
       </div>
 
       <!-- Document Viewer -->
@@ -72,6 +129,12 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       h1 { font-size: 24px; font-weight: 600; }
     }
     .filter-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .documents-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .search-input { padding: 8px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } }
+    .delete-doc-btn { flex-shrink: 0; }
+    .form-group { margin-bottom: 16px; label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; } input, textarea, select { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } } textarea { min-height: 100px; resize: vertical; } }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
+    .btn-danger { background: #DC3545; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
     .filter-btn {
       padding: 8px 16px; border: 1px solid #E5E4E1; border-radius: 20px;
       background: #fff; font-size: 14px; cursor: pointer;
@@ -130,6 +193,11 @@ export class DocumentsComponent implements OnInit {
   selectedDocument: any = null;
   activeFilter = 'all';
   loading = true;
+  showDocumentDialog = false;
+  showDeleteDocDialog = false;
+  editingDocument: any = null;
+  deletingDocument: any = null;
+  dialogDoc: any = { title: '', type: 'Notice', content: '', status: 'Draft' };
 
   ngOnInit(): void {
     this.loadDocuments();
@@ -183,6 +251,39 @@ export class DocumentsComponent implements OnInit {
 
   closeDocument(): void {
     this.selectedDocument = null;
+  }
+
+  onSearchDocuments(event: any): void {
+    const query = (event.target.value || '').toLowerCase();
+    if (!query) {
+      this.applyFilter();
+      return;
+    }
+    this.filteredDocuments = this.documents.filter(d =>
+      (d.title || d.name || '').toLowerCase().includes(query)
+    );
+  }
+
+  openCreateDialog(): void {
+    this.editingDocument = null;
+    this.dialogDoc = { title: '', type: 'Notice', content: '', status: 'Draft' };
+    this.showDocumentDialog = true;
+  }
+
+  saveDocument(): void {
+    this.showDocumentDialog = false;
+    this.loadDocuments();
+  }
+
+  confirmDeleteDocument(doc: any, event: Event): void {
+    event.stopPropagation();
+    this.deletingDocument = doc;
+    this.showDeleteDocDialog = true;
+  }
+
+  deleteDocument(): void {
+    this.showDeleteDocDialog = false;
+    this.loadDocuments();
   }
 
   getDocIcon(doc: any): string {

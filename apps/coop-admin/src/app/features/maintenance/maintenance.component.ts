@@ -20,21 +20,23 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div class="filters">
         <button class="filter-btn" [class.active]="activeFilter === 'all'" data-testid="maintenance-filter-all" (click)="filterBy('all')">All</button>
         <button class="filter-btn" [class.active]="activeFilter === 'new'" data-testid="maintenance-filter-new" (click)="filterBy('new')">New</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'received'" data-testid="maintenance-filter-received" (click)="filterBy('received')">Received</button>
         <button class="filter-btn" [class.active]="activeFilter === 'started'" data-testid="maintenance-filter-started" (click)="filterBy('started')">Started</button>
-        <button class="filter-btn" [class.active]="activeFilter === 'done'" data-testid="maintenance-filter-done" (click)="filterBy('done')">Completed</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'done'" data-testid="maintenance-filter-completed" (click)="filterBy('done')">Completed</button>
       </div>
 
       <div *ngIf="loading" data-testid="maintenance-loading" class="loading"><span class="material-icons spin">sync</span></div>
 
       <div class="content-area">
-        <div class="request-list" data-testid="maintenance-request-list" *ngIf="filteredRequests.length > 0">
+        <div class="request-list" data-testid="maintenance-requests-panel" *ngIf="filteredRequests.length > 0">
+          <h3 data-testid="maintenance-requests-title">All Requests</h3>
           <div *ngFor="let req of filteredRequests; let i = index"
             class="request-card card" data-testid="maintenance-request-card"
             [class.selected]="selectedRequest?.maintenanceRequestId === req.maintenanceRequestId"
             (click)="selectRequest(req)">
             <div class="request-card-header">
               <span class="request-title">{{ req.title }}</span>
-              <span class="badge" [ngClass]="getStatusClass(req.status)">{{ req.status || 'New' }}</span>
+              <span class="badge" [ngClass]="getStatusClass(req.status)" data-testid="request-status-badge">{{ req.status || 'New' }}</span>
             </div>
             <p class="request-desc">{{ req.description | slice:0:80 }}{{ req.description?.length > 80 ? '...' : '' }}</p>
             <span class="request-date">{{ req.createdOn | date:'short' }}</span>
@@ -48,29 +50,56 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
         <!-- Detail Panel -->
         <div *ngIf="selectedRequest" class="detail-panel card" data-testid="maintenance-detail-panel">
+          <div class="detail-tabs">
+            <button class="tab-btn" [class.active]="activeTab === 'details'" data-testid="maintenance-tab-details" (click)="activeTab = 'details'">Details</button>
+            <button class="tab-btn" [class.active]="activeTab === 'comments'" data-testid="maintenance-tab-comments" (click)="activeTab = 'comments'">Comments</button>
+          </div>
+
           <div class="detail-header">
             <h2 data-testid="maintenance-detail-title">{{ selectedRequest.title }}</h2>
             <span class="badge" [ngClass]="getStatusClass(selectedRequest.status)" data-testid="maintenance-detail-status">{{ selectedRequest.status || 'New' }}</span>
           </div>
-          <div class="detail-meta">
-            <span *ngIf="selectedRequest.priority" data-testid="maintenance-detail-priority">Priority: {{ selectedRequest.priority }}</span>
-          </div>
-          <p class="detail-description" data-testid="maintenance-detail-description">{{ selectedRequest.description }}</p>
 
-          <div *ngIf="selectedRequest.digitalAssets?.length" class="attachments" data-testid="maintenance-attachment-list">
-            <h4>Attachments</h4>
-            <div class="attachment-grid">
-              <div *ngFor="let asset of selectedRequest.digitalAssets" class="attachment-item">
-                <span class="material-icons">image</span>
-                <span>{{ asset.name }}</span>
+          <div *ngIf="activeTab === 'details'">
+            <div class="detail-meta">
+              <span data-testid="maintenance-detail-submitted-by">Submitted by: {{ selectedRequest.createdBy || 'Unknown' }}</span>
+              <span data-testid="maintenance-detail-date">{{ selectedRequest.createdOn | date:'medium' }}</span>
+              <span *ngIf="selectedRequest.priority" data-testid="maintenance-detail-priority">Priority: {{ selectedRequest.priority }}</span>
+            </div>
+            <p class="detail-description" data-testid="maintenance-detail-description">{{ selectedRequest.description }}</p>
+
+            <div class="detail-info-grid">
+              <div data-testid="maintenance-detail-address">
+                <strong>Address:</strong> {{ selectedRequest.address || 'N/A' }}
               </div>
+              <div data-testid="maintenance-detail-phone">
+                <strong>Phone:</strong> {{ selectedRequest.phoneNumber || selectedRequest.phone || 'N/A' }}
+              </div>
+              <div data-testid="maintenance-detail-unattended">
+                <strong>Unattended Entry:</strong> {{ selectedRequest.unattendedEntry ? 'Yes' : 'No' }}
+              </div>
+            </div>
+
+            <div class="attachments" data-testid="maintenance-detail-photos">
+              <h4>Photos</h4>
+              <div *ngIf="selectedRequest.digitalAssets?.length" class="attachment-grid">
+                <div *ngFor="let asset of selectedRequest.digitalAssets" class="attachment-item">
+                  <span class="material-icons">image</span>
+                  <span>{{ asset.name }}</span>
+                </div>
+              </div>
+              <div *ngIf="!selectedRequest.digitalAssets?.length" class="no-photos">No photos attached</div>
+            </div>
+
+            <div class="detail-actions">
+              <button class="btn btn-primary" data-testid="maintenance-receive-button" (click)="receiveRequest()">Receive Request</button>
+              <button class="btn btn-secondary" data-testid="maintenance-edit-description">Edit Description</button>
             </div>
           </div>
 
-          <!-- Comments -->
-          <div class="comments-section">
-            <h4>Comments</h4>
-            <div *ngFor="let comment of comments" class="comment" data-testid="maintenance-detail-comment">
+          <!-- Comments Tab -->
+          <div *ngIf="activeTab === 'comments'" class="comments-section" data-testid="maintenance-comments-section">
+            <div *ngFor="let comment of comments" class="comment" data-testid="maintenance-comment">
               <div class="comment-header">
                 <span class="comment-author">{{ comment.createdBy || 'User' }}</span>
                 <span class="comment-date">{{ comment.createdOn | date:'short' }}</span>
@@ -79,7 +108,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             </div>
             <div class="add-comment">
               <input type="text" [formControl]="commentControl" placeholder="Add a comment..." data-testid="maintenance-comment-input" />
-              <button class="btn btn-primary" data-testid="maintenance-add-comment-btn" (click)="addComment()">Send</button>
+              <button class="btn btn-primary" data-testid="maintenance-comment-send" (click)="addComment()">Send</button>
             </div>
           </div>
         </div>
@@ -159,7 +188,12 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
     .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
       h2 { font-size: 20px; }
     }
-    .detail-meta { margin-bottom: 16px; font-size: 14px; color: #1A1918CC; }
+    .detail-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid #E5E4E1; padding-bottom: 8px; }
+    .tab-btn { padding: 6px 16px; border: none; background: none; cursor: pointer; font-size: 14px; border-radius: 8px; &.active { background: #3D8A5A; color: #fff; } }
+    .detail-meta { margin-bottom: 16px; font-size: 14px; color: #1A1918CC; display: flex; flex-direction: column; gap: 4px; }
+    .detail-info-grid { margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+    .detail-actions { display: flex; gap: 12px; margin-top: 16px; }
+    .no-photos { font-size: 13px; color: #1A1918CC; }
     .detail-description { font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
     .comments-section { margin-top: 20px;
       h4 { margin-bottom: 12px; }
@@ -220,6 +254,7 @@ export class MaintenanceComponent implements OnInit {
   selectedRequest: any = null;
   comments: any[] = [];
   activeFilter = 'all';
+  activeTab = 'details';
   loading = true;
   showCreateModal = false;
 
@@ -268,7 +303,8 @@ export class MaintenanceComponent implements OnInit {
     } else {
       const map: Record<string, string[]> = {
         'new': ['New', 'Created'],
-        'started': ['Started', 'Received', 'InProgress'],
+        'received': ['Received'],
+        'started': ['Started', 'InProgress'],
         'done': ['Completed', 'Done']
       };
       const statuses = map[this.activeFilter] || [];
@@ -276,8 +312,17 @@ export class MaintenanceComponent implements OnInit {
     }
   }
 
+  receiveRequest(): void {
+    if (!this.selectedRequest?.maintenanceRequestId) return;
+    this.maintenanceService.receiveMaintenanceRequest(this.selectedRequest.maintenanceRequestId).subscribe({
+      next: () => { this.selectedRequest.status = 'Received'; },
+      error: () => {}
+    });
+  }
+
   selectRequest(req: any): void {
     this.selectedRequest = req;
+    this.activeTab = 'details';
     this.comments = [];
     if (req.maintenanceRequestId) {
       this.maintenanceService.getComments(req.maintenanceRequestId).subscribe({

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
@@ -9,100 +9,108 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 @Component({
   selector: 'app-profiles',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, BottomTabBarComponent],
+  imports: [CommonModule, ReactiveFormsModule, BottomTabBarComponent],
   template: `
     <div class="profiles-page">
-      <div class="page-header">
-        <h1 data-testid="profile-page-title">Profile</h1>
-      </div>
-
-      <div class="profile-content">
-        <!-- Avatar Section -->
-        <div class="avatar-section" data-testid="profile-avatar">
-          <div class="avatar-circle" data-testid="profile-avatar-image">
-            {{ getInitials() }}
+      <div class="profiles-layout">
+        <!-- Left Panel - Profile List -->
+        <div class="profiles-list-panel" data-testid="profiles-panel">
+          <div class="panel-header">
+            <h2 data-testid="profiles-panel-title">My Profiles</h2>
+            <a class="edit-link" data-testid="profiles-edit-link" (click)="enterEditMode()">Edit</a>
           </div>
-          <button *ngIf="editMode" class="btn btn-secondary btn-sm" data-testid="profile-avatar-upload-btn">Change Avatar</button>
-        </div>
 
-        <!-- View Mode -->
-        <div *ngIf="!editMode" class="profile-info">
-          <h2 data-testid="profile-display-name">{{ currentProfile?.firstname || currentProfile?.firstName || '' }} {{ currentProfile?.lastname || currentProfile?.lastName || '' }}</h2>
-          <p data-testid="profile-username">{{ authService.currentUser?.username }}</p>
-          <p data-testid="profile-email">{{ currentProfile?.email || '' }}</p>
-          <p data-testid="profile-phone">{{ currentProfile?.phoneNumber || currentProfile?.phone || '' }}</p>
-          <p data-testid="profile-unit">{{ currentProfile?.address || '' }}</p>
-          <p data-testid="profile-member-since">Member since {{ currentProfile?.createdOn | date:'mediumDate' }}</p>
-
-          <div class="profile-actions">
-            <button class="btn btn-primary" data-testid="profile-edit-btn" (click)="enterEditMode()">Edit Profile</button>
-            <button class="btn btn-secondary" data-testid="profile-change-password-btn" (click)="showPasswordForm = !showPasswordForm">Change Password</button>
-            <button class="btn btn-danger" data-testid="profile-logout-btn" (click)="logout()">Logout</button>
+          <div *ngFor="let p of profiles; let i = index" class="profile-card" data-testid="profile-card"
+            [class.selected]="currentProfile === p" (click)="switchProfile(i)">
+            <div class="profile-card-info">
+              <span class="profile-card-name">{{ p.firstname || p.firstName }} {{ p.lastname || p.lastName }}</span>
+              <span class="profile-card-type">{{ p.profileType || 'Member' }}</span>
+            </div>
+            <span *ngIf="i === 0" class="active-badge" data-testid="profile-active-badge">Active</span>
           </div>
         </div>
 
-        <!-- Edit Mode -->
-        <div *ngIf="editMode" class="profile-edit">
+        <!-- Right Panel - Edit Profile -->
+        <div class="profile-edit-panel" data-testid="profile-edit-panel" *ngIf="editMode">
+          <h2 data-testid="profile-edit-title">Edit {{ currentProfile?.profileType || 'Profile' }}</h2>
+
+          <div class="avatar-section" data-testid="profile-avatar">
+            <div class="avatar-circle">
+              {{ getInitials() }}
+            </div>
+            <button class="btn btn-secondary btn-sm" data-testid="profile-change-avatar">Change Avatar</button>
+          </div>
+
           <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
             <div class="form-row">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" formControlName="firstName" data-testid="profile-first-name-input" />
+                <input type="text" formControlName="firstName" data-testid="profile-first-name" />
+                <div *ngIf="profileForm.controls['firstName'].errors && profileForm.controls['firstName'].touched" class="error-message" data-testid="profile-first-name-error">First name is required</div>
               </div>
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" formControlName="lastName" data-testid="profile-last-name-input" />
+                <input type="text" formControlName="lastName" data-testid="profile-last-name" />
+                <div *ngIf="profileForm.controls['lastName'].errors && profileForm.controls['lastName'].touched" class="error-message" data-testid="profile-last-name-error">Last name is required</div>
               </div>
             </div>
             <div class="form-group">
-              <label>Email</label>
-              <input type="email" formControlName="email" data-testid="profile-email-input" />
+              <label>Phone</label>
+              <input type="text" formControlName="phone" data-testid="profile-phone" />
             </div>
             <div class="form-group">
-              <label>Phone</label>
-              <input type="text" formControlName="phone" data-testid="profile-phone-input" />
+              <label>Board Title</label>
+              <input type="text" formControlName="boardTitle" data-testid="profile-board-title" />
             </div>
             <div class="btn-row">
-              <button type="button" class="btn btn-secondary" data-testid="profile-cancel-btn" (click)="cancelEdit()">Cancel</button>
-              <button type="submit" class="btn btn-primary" data-testid="profile-save-btn">Save Changes</button>
+              <button type="button" class="btn btn-secondary" data-testid="profile-cancel" (click)="cancelEdit()">Cancel</button>
+              <button type="submit" class="btn btn-primary" data-testid="profile-save">Save Changes</button>
             </div>
           </form>
 
           <div *ngIf="successMessage" class="alert alert-success" data-testid="profile-success-message">{{ successMessage }}</div>
         </div>
 
-        <!-- Profile Switcher -->
-        <div class="profile-switcher-section" *ngIf="profiles.length > 1">
-          <h3>My Profiles</h3>
-          <div class="profile-switcher" data-testid="profile-switcher" (click)="showProfileOptions = !showProfileOptions">
-            <span>{{ currentProfile?.profileType || 'Select Profile' }}</span>
-            <span class="material-icons">expand_more</span>
+        <!-- View Mode (when not editing) -->
+        <div *ngIf="!editMode" class="profile-view-panel">
+          <div class="avatar-section" data-testid="profile-avatar">
+            <div class="avatar-circle">
+              {{ getInitials() }}
+            </div>
           </div>
-          <div *ngIf="showProfileOptions" class="profile-options">
-            <div *ngFor="let p of profiles; let i = index" class="profile-option" data-testid="profile-switcher-option"
-              (click)="switchProfile(i)">
-              {{ p.firstname || p.firstName }} {{ p.lastname || p.lastName }} - {{ p.profileType || 'Member' }}
+
+          <div class="profile-info">
+            <h2 data-testid="profile-display-name">{{ currentProfile?.firstname || currentProfile?.firstName || '' }} {{ currentProfile?.lastname || currentProfile?.lastName || '' }}</h2>
+            <p data-testid="profile-username">{{ authService.currentUser?.username }}</p>
+            <p data-testid="profile-email">{{ currentProfile?.email || '' }}</p>
+            <p data-testid="profile-phone-display">{{ currentProfile?.phoneNumber || currentProfile?.phone || '' }}</p>
+            <p data-testid="profile-unit">{{ currentProfile?.address || '' }}</p>
+
+            <div class="profile-actions">
+              <button class="btn btn-primary" data-testid="profile-edit-btn" (click)="enterEditMode()">Edit Profile</button>
+              <button class="btn btn-secondary" data-testid="profile-change-password-btn" (click)="showPasswordForm = !showPasswordForm">Change Password</button>
+              <button class="btn btn-danger" data-testid="profile-logout-btn" (click)="logout()">Logout</button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Password Change -->
-        <div *ngIf="showPasswordForm" class="password-section card">
-          <h3>Change Password</h3>
-          <div class="form-group">
-            <label>Current Password</label>
-            <input type="password" [formControl]="currentPasswordCtrl" data-testid="profile-current-password" />
-          </div>
-          <div class="form-group">
-            <label>New Password</label>
-            <input type="password" [formControl]="newPasswordCtrl" data-testid="profile-new-password" />
-          </div>
-          <div class="form-group">
-            <label>Confirm New Password</label>
-            <input type="password" [formControl]="confirmPasswordCtrl" data-testid="profile-confirm-new-password" />
-          </div>
-          <button class="btn btn-primary" data-testid="profile-update-password-btn" (click)="updatePassword()">Update Password</button>
+      <!-- Password Change -->
+      <div *ngIf="showPasswordForm" class="password-section card">
+        <h3>Change Password</h3>
+        <div class="form-group">
+          <label>Current Password</label>
+          <input type="password" [formControl]="currentPasswordCtrl" data-testid="profile-current-password" />
         </div>
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" [formControl]="newPasswordCtrl" data-testid="profile-new-password" />
+        </div>
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" [formControl]="confirmPasswordCtrl" data-testid="profile-confirm-new-password" />
+        </div>
+        <button class="btn btn-primary" data-testid="profile-update-password-btn" (click)="updatePassword()">Update Password</button>
       </div>
 
       <app-bottom-tab-bar></app-bottom-tab-bar>
@@ -110,6 +118,17 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
   `,
   styles: [`
     .profiles-page { min-height: 100vh; background: #F5F4F1; padding: 24px; padding-bottom: 80px; }
+    .profiles-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+    .profiles-list-panel { background: #fff; border-radius: 14px; border: 1px solid #E5E4E1; padding: 20px; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; h2 { font-size: 18px; font-weight: 600; } }
+    .edit-link { color: #3D8A5A; cursor: pointer; font-size: 14px; }
+    .profile-card { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 10px; cursor: pointer; margin-bottom: 4px; &:hover { background: #F5F4F1; } &.selected { background: rgba(61,138,90,0.05); border-left: 3px solid #3D8A5A; } }
+    .profile-card-info { display: flex; flex-direction: column; }
+    .profile-card-name { font-weight: 600; font-size: 14px; }
+    .profile-card-type { font-size: 12px; color: #1A1918CC; }
+    .active-badge { font-size: 11px; background: rgba(16,185,129,0.1); color: #059669; padding: 2px 8px; border-radius: 10px; }
+    .profile-edit-panel { background: #fff; border-radius: 14px; border: 1px solid #E5E4E1; padding: 24px; }
+    .profile-view-panel { background: #fff; border-radius: 14px; border: 1px solid #E5E4E1; padding: 24px; }
     .page-header { margin-bottom: 24px; h1 { font-size: 24px; font-weight: 600; } }
     .profile-content { max-width: 600px; margin: 0 auto; }
     .avatar-section { text-align: center; margin-bottom: 24px; }
@@ -166,7 +185,8 @@ export class ProfilesComponent implements OnInit {
     firstName: [''],
     lastName: [''],
     email: [''],
-    phone: ['']
+    phone: [''],
+    boardTitle: ['']
   });
 
   currentPasswordCtrl = new FormControl('');

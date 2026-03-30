@@ -29,12 +29,16 @@ import { AuthService } from '../../core/services/auth.service';
           <div class="form-group">
             <label>New Password</label>
             <input type="password" formControlName="newPassword" data-testid="change-password-new" />
-            <div *ngIf="submitted && form.controls['newPassword'].errors" class="error-message" data-testid="change-password-new-error">New password is required</div>
+            <div *ngIf="submitted && form.controls['newPassword'].errors" class="error-message" data-testid="change-password-new-error">
+              {{ form.controls['newPassword'].errors?.['required'] ? 'New password is required' : 'Password must be at least 8 characters' }}
+            </div>
           </div>
           <div class="form-group">
             <label>Confirm New Password</label>
             <input type="password" formControlName="confirmNewPassword" data-testid="change-password-confirm" />
-            <div *ngIf="submitted && form.controls['confirmNewPassword'].errors" class="error-message" data-testid="change-password-confirm-error">Please confirm your new password</div>
+            <div *ngIf="(submitted && form.controls['confirmNewPassword'].errors) || passwordMismatch" class="error-message" data-testid="change-password-confirm-error">
+              {{ passwordMismatch ? 'Passwords do not match' : 'Please confirm your new password' }}
+            </div>
           </div>
           <div class="btn-row">
             <a routerLink="/dashboard" class="btn btn-secondary" data-testid="change-password-cancel">Cancel</a>
@@ -76,7 +80,7 @@ export class ChangePasswordComponent {
 
   form: FormGroup = this.fb.group({
     currentPassword: ['', Validators.required],
-    newPassword: ['', Validators.required],
+    newPassword: ['', [Validators.required, Validators.minLength(8)]],
     confirmNewPassword: ['', Validators.required]
   });
 
@@ -84,12 +88,15 @@ export class ChangePasswordComponent {
   submitted = false;
   successMsg = '';
   errorMsg = '';
+  passwordMismatch = false;
 
   onSubmit(): void {
     this.submitted = true;
+    this.passwordMismatch = false;
     if (this.form.invalid) return;
     const { currentPassword, newPassword, confirmNewPassword } = this.form.value;
     if (newPassword !== confirmNewPassword) {
+      this.passwordMismatch = true;
       this.errorMsg = 'Passwords do not match';
       return;
     }

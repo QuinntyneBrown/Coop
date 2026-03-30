@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ThemeService } from '../../core/services/theme.service';
 import { TopbarComponent } from '../../layout/topbar.component';
 
@@ -11,54 +11,67 @@ import { TopbarComponent } from '../../layout/topbar.component';
   template: `
     <app-topbar title="Settings"></app-topbar>
     <div class="settings-page">
+      <div *ngIf="successMsg" class="alert alert-success" data-testid="settings-success-message">{{ successMsg }}</div>
+      <div *ngIf="errorMsg" class="alert alert-danger" data-testid="settings-error-message">{{ errorMsg }}</div>
+
       <div class="tabs">
-        <button class="tab" [class.active]="activeTab === 'theme'" (click)="activeTab = 'theme'">Theme</button>
-        <button class="tab" [class.active]="activeTab === 'content'" (click)="activeTab = 'content'">Content</button>
-        <button class="tab" [class.active]="activeTab === 'account'" (click)="activeTab = 'account'">Account</button>
+        <button class="tab" [class.active]="activeTab === 'theme'" data-testid="settings-tab-theme" (click)="activeTab = 'theme'">Theme</button>
+        <button class="tab" [class.active]="activeTab === 'content'" data-testid="settings-tab-content" (click)="activeTab = 'content'">Content</button>
+        <button class="tab" [class.active]="activeTab === 'account'" data-testid="settings-tab-account" (click)="activeTab = 'account'">Account</button>
       </div>
 
       <!-- Theme Tab -->
       <div *ngIf="activeTab === 'theme'" class="tab-content">
         <div class="theme-layout">
           <div class="theme-form card">
-            <h3>Theme Customization</h3>
+            <h3 data-testid="theme-heading">Theme Customization</h3>
+            <p class="theme-subtitle" data-testid="theme-subtitle">Customize your app appearance using CSS custom properties</p>
+
+            <div class="scope-group">
+              <label>Scope</label>
+              <select data-testid="theme-scope-select" [formControl]="scopeControl">
+                <option value="global">Global</option>
+                <option value="personal">Personal</option>
+              </select>
+            </div>
+
             <form [formGroup]="themeForm">
               <div class="color-group">
                 <label>Primary Color</label>
                 <div class="color-input">
-                  <input type="color" formControlName="primaryColor" />
-                  <input type="text" formControlName="primaryColor" />
+                  <div class="color-swatch" data-testid="theme-primary-swatch" [style.background]="themeForm.value.primaryColor"></div>
+                  <input type="text" formControlName="primaryColor" data-testid="theme-primary-color" />
                 </div>
               </div>
               <div class="color-group">
                 <label>Background Color</label>
                 <div class="color-input">
-                  <input type="color" formControlName="backgroundColor" />
-                  <input type="text" formControlName="backgroundColor" />
+                  <div class="color-swatch" data-testid="theme-background-swatch" [style.background]="themeForm.value.backgroundColor"></div>
+                  <input type="text" formControlName="backgroundColor" data-testid="theme-background-color" />
                 </div>
               </div>
               <div class="color-group">
                 <label>Accent Color</label>
                 <div class="color-input">
-                  <input type="color" formControlName="accentColor" />
-                  <input type="text" formControlName="accentColor" />
+                  <div class="color-swatch" data-testid="theme-accent-swatch" [style.background]="themeForm.value.accentColor"></div>
+                  <input type="text" formControlName="accentColor" data-testid="theme-accent-color" />
                 </div>
               </div>
               <div class="color-group">
                 <label>Text Color</label>
                 <div class="color-input">
-                  <input type="color" formControlName="textColor" />
-                  <input type="text" formControlName="textColor" />
+                  <div class="color-swatch" data-testid="theme-text-swatch" [style.background]="themeForm.value.textColor"></div>
+                  <input type="text" formControlName="textColor" data-testid="theme-text-color" />
                 </div>
               </div>
             </form>
             <div class="theme-actions">
-              <a class="reset-link" (click)="resetTheme()">Reset to Default</a>
-              <button class="btn btn-primary" (click)="saveTheme()">Save Theme</button>
+              <a class="reset-link" data-testid="theme-reset-default" (click)="resetTheme()">Reset to Default</a>
+              <button class="btn btn-primary" data-testid="theme-save-button" (click)="saveTheme()">Save Theme</button>
             </div>
           </div>
 
-          <div class="theme-preview card">
+          <div class="theme-preview card" data-testid="theme-preview">
             <h3>Preview</h3>
             <div class="preview-content" [style.background]="themeForm.value.backgroundColor">
               <div class="preview-header" [style.background]="themeForm.value.primaryColor">
@@ -103,7 +116,15 @@ import { TopbarComponent } from '../../layout/topbar.component';
     }
     .tab-content { }
     .theme-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .theme-form { padding: 24px; h3 { margin-bottom: 20px; font-size: 16px; } }
+    .theme-form { padding: 24px; h3 { margin-bottom: 8px; font-size: 16px; } }
+    .theme-subtitle { font-size: 14px; color: #1A1918CC; margin-bottom: 20px; }
+    .scope-group { margin-bottom: 16px;
+      label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
+      select { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; }
+    }
+    .color-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1px solid #E5E4E1; flex-shrink: 0; }
+    .alert-success { background: rgba(16,185,129,0.1); color: #059669; padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+    .alert-danger { background: rgba(220,53,69,0.1); color: #DC3545; padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
     .color-group { margin-bottom: 16px;
       label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
     }
@@ -126,6 +147,9 @@ export class SettingsComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   activeTab = 'theme';
+  successMsg = '';
+  errorMsg = '';
+  scopeControl = new FormControl('global');
   themeForm: FormGroup = this.fb.group({
     primaryColor: ['#3D8A5A'],
     backgroundColor: ['#F5F4F1'],
@@ -150,7 +174,12 @@ export class SettingsComponent implements OnInit {
   }
 
   saveTheme(): void {
-    this.themeService.updateTheme(this.themeForm.value).subscribe({ error: () => {} });
+    this.successMsg = '';
+    this.errorMsg = '';
+    this.themeService.updateTheme(this.themeForm.value).subscribe({
+      next: () => { this.successMsg = 'Theme saved successfully'; },
+      error: () => { this.errorMsg = 'Failed to save theme'; }
+    });
   }
 
   resetTheme(): void {
