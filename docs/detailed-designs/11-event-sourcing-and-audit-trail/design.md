@@ -17,8 +17,6 @@ This design provides a complete audit trail of all domain mutations, supports ag
 
 ### AggregateRoot (abstract base class)
 
-Located in `src/Coop.Domain/AggregateRoot.cs`.
-
 Maintains an internal `List<StoredEvent>` that accumulates events produced by the `Apply` method. Each call to `Apply`:
 
 - Invokes `When(dynamic)` to mutate state.
@@ -29,19 +27,15 @@ The `Clear()` method is called by `CoopDbContext` after publication to reset the
 
 ### IAggregateRoot / IEvent / BaseDomainEvent
 
-- **IAggregateRoot** (`src/Coop.Domain/IAggregateRoot.cs`) -- exposes `Apply(IEvent)`.
-- **IEvent** (`src/Coop.Domain/IEvent.cs`) -- extends `INotification` (MediatR); carries `Created`, `CorrelationId`, and `WithCorrelationIdFrom`.
-- **BaseDomainEvent** (`src/Coop.Domain/BaseDomainEvent.cs`) -- abstract base implementing `IEvent` with auto-generated timestamps and correlation IDs.
+- **IAggregateRoot** -- exposes `Apply(IEvent)`.
+- **IEvent** -- extends `INotification` (MediatR); carries `Created`, `CorrelationId`, and `WithCorrelationIdFrom`.
+- **BaseDomainEvent** -- abstract base implementing `IEvent` with auto-generated timestamps and correlation IDs.
 
 ### StoredEvent
-
-Located in `src/Coop.Domain/Entities/StoredEvent.cs`.
 
 Persisted to the `StoredEvents` table with a composite index on `(StreamId, Aggregate)`. Fields include the serialized event `Data`, the .NET type information for deserialization, `CreatedOn`, `Version`, `Sequence`, and `CorrelationId`.
 
 ### CoopDbContext
-
-Located in `src/Coop.Infrastructure/Data/CoopDbContext.cs`.
 
 Subscribes to two EF Core lifecycle events:
 
@@ -50,19 +44,13 @@ Subscribes to two EF Core lifecycle events:
 
 ### NotificationService
 
-Located in `src/Coop.Domain/NotificationService.cs`.
-
 Wraps `System.Reactive.Subjects.Subject<dynamic>`. Provides `Subscribe(Action<dynamic>, CancellationToken)` and `OnNext(dynamic)`.
 
 ### EventsController
 
-Located in `src/Coop.Api/Controllers/EventsController.cs`.
-
 Exposes `GET /api/events` as an SSE endpoint. Sets `Content-Type: text/event-stream`, subscribes to `INotificationService`, and writes each event as a JSON-serialized `data:` frame.
 
 ### StoredEventController
-
-Located in `src/Coop.Api/Controllers/StoredEventController.cs`.
 
 Standard CRUD REST controller providing paginated read access to the `StoredEvents` table via MediatR handlers (`GetStoredEventById`, `GetStoredEvents`, `GetStoredEventsPage`, `CreateStoredEvent`, `UpdateStoredEvent`, `RemoveStoredEvent`).
 
@@ -95,3 +83,7 @@ Standard CRUD REST controller providing paginated read access to the `StoredEven
 ### C4 Component
 
 ![C4 Component](c4-component.png)
+
+## Documentation Note
+
+Implementation source paths have been intentionally omitted from this design because this repository now stores requirements and design artifacts only.

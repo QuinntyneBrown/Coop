@@ -60,8 +60,6 @@ The component diagram details the individual classes and their relationships wit
 
 #### 3.1.1 User Entity
 
-**File:** `src/Coop.Domain/Entities/User.cs`
-
 The `User` class is the core aggregate for account management. It encapsulates all identity-related state and behavior.
 
 | Property | Type | Description |
@@ -88,8 +86,6 @@ The `User` class is the core aggregate for account management. It encapsulates a
 
 #### 3.1.2 Role Entity
 
-**File:** `src/Coop.Domain/Entities/Role.cs`
-
 Represents an authorization role with a many-to-many relationship to `User` and a one-to-many relationship to `Privilege`.
 
 | Property | Type | Description |
@@ -100,8 +96,6 @@ Represents an authorization role with a many-to-many relationship to `User` and 
 | `Privileges` | `List<Privilege>` | Privileges granted by this role |
 
 #### 3.1.3 Privilege Entity
-
-**File:** `src/Coop.Domain/Entities/Privilege.cs`
 
 Defines a specific access right on a specific aggregate, tied to a role.
 
@@ -114,8 +108,6 @@ Defines a specific access right on a specific aggregate, tied to a role.
 
 #### 3.1.4 IPasswordHasher Interface and PasswordHasher
 
-**File:** `src/Coop.Domain/PasswordHasher.cs`
-
 The `IPasswordHasher` interface abstracts password hashing for testability. The `PasswordHasher` implementation uses PBKDF2 with HMAC-SHA1, 10,000 iterations, producing a 256-bit hash.
 
 ```csharp
@@ -127,21 +119,15 @@ public interface IPasswordHasher
 
 #### 3.1.5 ITokenBuilder and TokenBuilder
 
-**File:** `src/Coop.Domain/TokenBuilder.cs`
-
 A fluent builder for constructing JWT tokens. Accumulates claims and delegates to `ITokenProvider` for final token signing.
 
 Key methods: `AddUsername()`, `AddClaim()`, `AddOrUpdateClaim()`, `RemoveClaim()`, `FromClaimsPrincipal()`, `Build()`.
 
 #### 3.1.6 ITokenProvider
 
-**File:** `src/Coop.Domain/ITokenProvider.cs`
-
 Interface for JWT token operations: `Get()` (generate token), `GetPrincipalFromExpiredToken()`, and `GenerateRefreshToken()`.
 
 #### 3.1.7 ICoopDbContext
-
-**File:** `src/Coop.Domain/Interfaces/ICoopDbContext.cs`
 
 The persistence abstraction exposing `DbSet<User>`, `DbSet<Role>`, `DbSet<Privilege>`, `DbSet<Profile>`, and `SaveChangesAsync()`.
 
@@ -151,8 +137,6 @@ All handlers follow the CQRS pattern via MediatR's `IRequestHandler<TRequest, TR
 
 #### 3.2.1 CreateUserHandler
 
-**File:** `src/Coop.Application/Users/Commands/CreateUser.cs`
-
 Creates a new `User` with a cryptographically generated salt and PBKDF2-hashed password. Persists via `ICoopDbContext`.
 
 - **Request:** `CreateUserRequest { UserDto User }`
@@ -160,8 +144,6 @@ Creates a new `User` with a cryptographically generated salt and PBKDF2-hashed p
 - **Authorization:** Requires `Create` operation on `User` aggregate
 
 #### 3.2.2 AuthenticateHandler
-
-**File:** `src/Coop.Application/Users/Commands/Authenticate.cs`
 
 Validates credentials and issues a JWT token. Loads the user with roles and privileges, verifies the password hash, then delegates to the orchestration handler to build a token via `TokenBuilder`.
 
@@ -171,8 +153,6 @@ Validates credentials and issues a JWT token. Loads the user with roles and priv
 
 #### 3.2.3 ChangePasswordHandler
 
-**File:** `src/Coop.Application/Users/Commands/ChangePassword.cs`
-
 Changes the authenticated user's password. Extracts the user ID from the HTTP context claims, validates old password, and applies the new password.
 
 - **Request:** `ChangePasswordRequest { OldPassword, NewPassword, ConfirmationPassword }`
@@ -181,16 +161,12 @@ Changes the authenticated user's password. Extracts the user ID from the HTTP co
 
 #### 3.2.4 UpdateUserHandler
 
-**File:** `src/Coop.Application/Users/Commands/UpdateUser.cs`
-
 Updates user properties (currently username). Loads the user by ID and calls `SetUsername()`.
 
 - **Request:** `UpdateUserRequest { UserDto User }`
 - **Response:** `UpdateUserResponse { UserDto User }`
 
 #### 3.2.5 RemoveUserHandler
-
-**File:** `src/Coop.Application/Users/Commands/RemoveUser.cs`
 
 Performs a soft delete by calling `User.Delete()` which sets `IsDeleted = true`.
 
@@ -200,8 +176,6 @@ Performs a soft delete by calling `User.Delete()` which sets `IsDeleted = true`.
 ### 3.3 API Layer
 
 #### 3.3.1 UserController
-
-**File:** `src/Coop.Api/Controllers/UserController.cs`
 
 REST controller with `[Authorize]` attribute (most endpoints require authentication). Routes:
 
@@ -265,3 +239,7 @@ A user is created in the **Active** state. While active, the user can change the
 - **Authentication:** JWT bearer tokens are used for stateless authentication. Tokens are issued only after successful credential validation.
 - **Authorization:** Role-based access control with fine-grained privileges per aggregate. The `AuthorizeResourceOperation` attribute on handlers enforces access rights via MediatR pipeline behaviors.
 - **Soft Delete:** Users are never physically removed from the database; `IsDeleted` is set to `true`.
+
+## 8. Documentation Note
+
+Implementation source paths have been intentionally omitted from this design because this repository now stores requirements and design artifacts only.

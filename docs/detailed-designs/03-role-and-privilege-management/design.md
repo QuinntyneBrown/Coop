@@ -130,16 +130,6 @@ Roles and Privileges are persisted via Entity Framework Core through `ICoopDbCon
 
 ---
 
-## 10. Key Source Files
+## 10. Documentation Note
 
-| Layer | Path |
-|---|---|
-| Domain Entity | `src/Coop.Domain/Entities/Role.cs` |
-| Domain Entity | `src/Coop.Domain/Entities/Privilege.cs` |
-| Enum | `src/Coop.Domain/Enums/AccessRight.cs` |
-| Constants | `src/Coop.Domain/Constants.cs` |
-| Auth Handler | `src/Coop.Domain/ResourceOperationAuthorizationHandler.cs` |
-| API Controller | `src/Coop.Api/Controllers/RoleController.cs` |
-| API Controller | `src/Coop.Api/Controllers/PrivilegeController.cs` |
-| Application Handlers | `src/Coop.Application/Roles/*.cs` |
-| Application Handlers | `src/Coop.Application/Privileges/*.cs` |
+Implementation source paths have been intentionally omitted from this design because this repository now stores requirements and design artifacts only.
