@@ -6,65 +6,25 @@ skinparam defaultFontSize 10
 skinparam shadowing false
 skinparam pageMargin 10
 
-title Microservices Architecture - C4 Container Diagram
+title Modular Monolith Architecture - C4 Container Diagram
 
-Person(user, "User", "Member, Staff, or Admin")
+Person(user, "User", "Member, staff, board member, or admin")
 
 System_Boundary(platform, "Coop Platform") {
-
-  Container(gateway, "API Gateway", "ASP.NET Core", "Routes HTTP requests\nto downstream services")
-
-  Container(identityApi, "Identity Service", "ASP.NET Core API", "Auth, Users, Roles,\nPrivileges")
-  ContainerDb(identityDb, "Identity DB", "SQL Server", "Users, Roles,\nPrivileges")
-
-  Container(profileApi, "Profile Service", "ASP.NET Core API", "Profiles, Members,\nBoardMembers, Staff,\nInvitationTokens")
-  ContainerDb(profileDb, "Profile DB", "SQL Server", "Profiles,\nInvitationTokens")
-
-  Container(maintenanceApi, "Maintenance Service", "ASP.NET Core API", "MaintenanceRequests,\nComments, Attachments")
-  ContainerDb(maintenanceDb, "Maintenance DB", "SQL Server", "Requests, Comments,\nDigitalAssets")
-
-  Container(documentApi, "Document Service", "ASP.NET Core API", "ByLaws, Notices,\nReports, JsonContent")
-  ContainerDb(documentDb, "Document DB", "SQL Server", "Documents")
-
-  Container(assetApi, "Asset Service", "ASP.NET Core API", "DigitalAssets,\nThemes, OnCall")
-  ContainerDb(assetDb, "Asset DB", "SQL Server", "Assets, Themes,\nOnCall")
-
-  Container(messagingApi, "Messaging Service", "ASP.NET Core API", "Conversations,\nMessages")
-  ContainerDb(messagingDb, "Messaging DB", "SQL Server", "Conversations,\nMessages")
-
-  Container(sharedKernel, "SharedKernel", "NuGet Package", "IntegrationEvents,\nRedisMessageBus,\nMessagePackSerializer")
+  Container(publicApp, "Public Web App", "Web application", "CMS-driven public site and member-facing journeys")
+  Container(adminApp, "Admin Backend", "Web application", "Operations, content management, and administration")
+  Container(api, "Coop API", "ASP.NET Core", "Shared REST API surface")
+  Container(modules, "Application Modules", ".NET Class Libraries", "Identity, Profile, Maintenance, Document, Asset, Messaging, CMS")
+  Container(dispatcher, "Domain Event Dispatcher", ".NET Service", "Dispatches in-process notifications")
+  ContainerDb(db, "Coop Database", "SQL Server", "Shared database with module-owned tables or schemas")
 }
 
-System_Ext(redis, "Redis", "Pub/Sub message bus")
-
-Rel(user, gateway, "Uses", "HTTPS")
-
-Rel(gateway, identityApi, "Routes", "HTTP")
-Rel(gateway, profileApi, "Routes", "HTTP")
-Rel(gateway, maintenanceApi, "Routes", "HTTP")
-Rel(gateway, documentApi, "Routes", "HTTP")
-Rel(gateway, assetApi, "Routes", "HTTP")
-Rel(gateway, messagingApi, "Routes", "HTTP")
-
-Rel(identityApi, identityDb, "Reads/Writes", "EF Core")
-Rel(profileApi, profileDb, "Reads/Writes", "EF Core")
-Rel(maintenanceApi, maintenanceDb, "Reads/Writes", "EF Core")
-Rel(documentApi, documentDb, "Reads/Writes", "EF Core")
-Rel(assetApi, assetDb, "Reads/Writes", "EF Core")
-Rel(messagingApi, messagingDb, "Reads/Writes", "EF Core")
-
-Rel(identityApi, redis, "Pub/Sub", "StackExchange.Redis")
-Rel(profileApi, redis, "Pub/Sub", "StackExchange.Redis")
-Rel(maintenanceApi, redis, "Pub/Sub", "StackExchange.Redis")
-Rel(documentApi, redis, "Pub/Sub", "StackExchange.Redis")
-Rel(assetApi, redis, "Pub/Sub", "StackExchange.Redis")
-Rel(messagingApi, redis, "Pub/Sub", "StackExchange.Redis")
-
-Rel(identityApi, sharedKernel, "References")
-Rel(profileApi, sharedKernel, "References")
-Rel(maintenanceApi, sharedKernel, "References")
-Rel(documentApi, sharedKernel, "References")
-Rel(assetApi, sharedKernel, "References")
-Rel(messagingApi, sharedKernel, "References")
+Rel(user, publicApp, "Uses", "HTTPS")
+Rel(user, adminApp, "Uses", "HTTPS")
+Rel(publicApp, api, "Calls", "HTTPS/JSON")
+Rel(adminApp, api, "Calls", "HTTPS/JSON")
+Rel(api, modules, "Dispatches to", "MediatR / application services")
+Rel(modules, dispatcher, "Raises domain events")
+Rel(modules, db, "Reads/Writes", "EF Core")
 
 @enduml

@@ -6,39 +6,21 @@ skinparam defaultFontSize 11
 skinparam shadowing false
 skinparam pageMargin 10
 
-title Microservices Architecture - C4 Context Diagram
+title Modular Monolith Architecture - C4 Context Diagram
 
-Person(member, "Cooperative Member", "Resident who uses the\nplatform for maintenance\nrequests and documents")
-Person(staff, "Staff Member", "Staff who manage\noperations and requests")
-Person(admin, "Admin", "Administrator who manages\nusers, roles, and content")
+Person(member, "Cooperative Member", "Uses public and member-facing features")
+Person(staff, "Staff Member", "Operates workflows and publishes content")
+Person(admin, "Admin", "Manages users, roles, content, and settings")
 
-System(gateway, "API Gateway", "Routes external HTTP requests\nto downstream microservices")
+System(publicApp, "Public Web App", "CMS-driven public-facing application")
+System(adminApp, "Admin Backend", "Operational and editorial back-office application")
+System(coopBackend, "Coop Backend", "Modular monolith API and application runtime")
 
-System(identity, "Identity Service", "Manages users, roles,\nand authentication")
-System(profile, "Profile Service", "Manages member and\nstaff profiles")
-System(maintenance, "Maintenance Service", "Handles maintenance\nrequest workflow")
-System(document, "Document Service", "Manages by-laws,\nnotices, and reports")
-System(asset, "Asset Service", "Manages digital assets\nand themes")
-System(messaging, "Messaging Service", "Provides in-app\nconversations")
+Rel(member, publicApp, "Uses", "HTTPS")
+Rel(staff, adminApp, "Uses", "HTTPS")
+Rel(admin, adminApp, "Uses", "HTTPS")
 
-System_Ext(redis, "Redis", "Pub/Sub message bus for\nasynchronous integration events")
-
-Rel(member, gateway, "Uses", "HTTPS")
-Rel(staff, gateway, "Uses", "HTTPS")
-Rel(admin, gateway, "Uses", "HTTPS")
-
-Rel(gateway, identity, "Routes to", "HTTP")
-Rel(gateway, profile, "Routes to", "HTTP")
-Rel(gateway, maintenance, "Routes to", "HTTP")
-Rel(gateway, document, "Routes to", "HTTP")
-Rel(gateway, asset, "Routes to", "HTTP")
-Rel(gateway, messaging, "Routes to", "HTTP")
-
-Rel(identity, redis, "Publishes/Subscribes", "Redis Pub/Sub")
-Rel(profile, redis, "Publishes/Subscribes", "Redis Pub/Sub")
-Rel(maintenance, redis, "Publishes/Subscribes", "Redis Pub/Sub")
-Rel(document, redis, "Publishes/Subscribes", "Redis Pub/Sub")
-Rel(asset, redis, "Publishes/Subscribes", "Redis Pub/Sub")
-Rel(messaging, redis, "Publishes/Subscribes", "Redis Pub/Sub")
+Rel(publicApp, coopBackend, "Calls API", "HTTPS/JSON")
+Rel(adminApp, coopBackend, "Calls API", "HTTPS/JSON")
 
 @enduml

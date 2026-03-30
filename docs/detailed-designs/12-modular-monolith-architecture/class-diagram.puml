@@ -11,152 +11,62 @@ skinparam ranksep 30
 skinparam pageMargin 10
 skinparam wrapWidth 200
 
-title Microservices Architecture - Class Diagram
+title Modular Monolith Architecture - Class Diagram
 
-package "Coop.SharedKernel.Events" {
-  abstract class IntegrationEvent <<MessagePackObject>> {
+package "Core Runtime" {
+  abstract class DomainEvent {
     +EventId : Guid
     +CreatedAt : DateTime
     +CorrelationId : string?
-    +EventType : string <<get>>
   }
 
-  interface "IIntegrationEventHandler<TEvent>" as IHandler {
+  interface "IDomainEventHandler<TEvent>" as IHandler {
     +HandleAsync(event: TEvent, ct: CancellationToken) : Task
   }
-}
 
-package "Coop.SharedKernel.Messaging" {
-  interface IMessageBus {
-    +PublishAsync<TEvent>(event, ct) : Task
-    +PublishAsync<TEvent>(channel, event, ct) : Task
-    +SubscribeAsync<TEvent>(channel, handler, ct) : Task
-    +SubscribeAsync<TEvent>(handler, ct) : Task
-    +UnsubscribeAsync(channel, ct) : Task
+  class DomainEventDispatcher {
+    +DispatchAsync(event, ct) : Task
   }
 
-  class RedisMessageBus implements IMessageBus {
-    -_connection : IConnectionMultiplexer
-    -_subscriber : ISubscriber
-    -_serializer : IMessageSerializer
-    -_logger : ILogger
-    -_options : RedisOptions
-    -_subscriptions : Dictionary<string, ChannelMessageQueue>
-    -_disposed : bool
-    +Dispose() : void
-  }
-
-  class MessageEnvelope <<MessagePackObject>> {
-    +EventType : string
-    +Payload : byte[]
-    +Timestamp : DateTime
-    +CorrelationId : string?
-  }
-
-  class RedisOptions {
-    +ConnectionString : string
-    +ChannelPrefix : string
-    +RetryCount : int
-    +RetryDelayMilliseconds : int
-  }
-
-  class IntegrationEventPublisher {
-    -_messageBus : IMessageBus
-    -_logger : ILogger
-    +PublishAsync<TEvent>(event, ct) : Task
+  class CoopDbContext {
   }
 }
 
-package "Coop.SharedKernel.Serialization" {
-  interface IMessageSerializer {
-    +Serialize<T>(value) : byte[]
-    +Deserialize<T>(bytes) : T
-    +Deserialize(type, bytes) : object
-  }
-
-  class MessagePackMessageSerializer implements IMessageSerializer {
-  }
+package "Application Surfaces" {
+  class PublicWebApp
+  class AdminBackend
 }
 
-package "Profile Events" <<Rectangle>> {
-  class ProfileCreatedEvent extends IntegrationEvent {
-    +ProfileId : Guid
-    +UserId : Guid
-    +ProfileType : string
-    +FirstName : string
-    +LastName : string
-  }
-  class ProfileUpdatedEvent extends IntegrationEvent {
-    +ProfileId : Guid
-    +UserId : Guid
-    +FirstName : string
-    +LastName : string
-  }
-  class ProfileDeletedEvent extends IntegrationEvent {
-    +ProfileId : Guid
-    +UserId : Guid
-  }
+package "Application Modules" {
+  class IdentityModule
+  class ProfileModule
+  class MaintenanceModule
+  class DocumentModule
+  class AssetModule
+  class MessagingModule
+  class CmsModule
 }
 
-package "Maintenance Events" <<Rectangle>> {
-  class MaintenanceRequestCreatedEvent extends IntegrationEvent {
-    +MaintenanceRequestId : Guid
-    +RequestedByProfileId : Guid
-    +Description : string
-    +Status : string
-  }
-  class MaintenanceRequestStatusChangedEvent extends IntegrationEvent {
-    +MaintenanceRequestId : Guid
-    +OldStatus : string
-    +NewStatus : string
-    +AssignedToProfileId : Guid?
-  }
-  class MaintenanceRequestCommentAddedEvent extends IntegrationEvent {
-    +MaintenanceRequestId : Guid
-    +CommentId : Guid
-    +CreatedByProfileId : Guid
-    +Body : string
-  }
+package "Query Services" {
+  class PublicContentQueryService
+  class AdminOperationsQueryService
 }
 
-package "Document Events" <<Rectangle>> {
-  class DocumentCreatedEvent extends IntegrationEvent {
-    +DocumentId : Guid
-    +Name : string
-    +DocumentType : string
-    +DigitalAssetId : Guid
-    +CreatedById : Guid
-  }
-  class DocumentUpdatedEvent extends IntegrationEvent {
-    +DocumentId : Guid
-    +Name : string
-    +DocumentType : string
-  }
-  class DocumentDeletedEvent extends IntegrationEvent {
-    +DocumentId : Guid
-    +DocumentType : string
-  }
-}
+DomainEventDispatcher ..> DomainEvent : dispatches
+IHandler ..> DomainEvent : handles
+DomainEventDispatcher --> IHandler : invokes
 
-package "Asset Events" <<Rectangle>> {
-  class DigitalAssetCreatedEvent extends IntegrationEvent {
-    +DigitalAssetId : Guid
-    +Name : string
-    +ContentType : string
-  }
-  class DigitalAssetDeletedEvent extends IntegrationEvent {
-    +DigitalAssetId : Guid
-  }
-  class ThemeUpdatedEvent extends IntegrationEvent {
-    +ThemeId : Guid
-    +ProfileId : Guid?
-  }
-}
+IdentityModule --> CoopDbContext
+ProfileModule --> CoopDbContext
+MaintenanceModule --> CoopDbContext
+DocumentModule --> CoopDbContext
+AssetModule --> CoopDbContext
+MessagingModule --> CoopDbContext
+CmsModule --> CoopDbContext
 
-RedisMessageBus --> IMessageSerializer : uses
-RedisMessageBus --> RedisOptions : reads
-RedisMessageBus ..> MessageEnvelope : creates
-IntegrationEventPublisher --> IMessageBus : delegates to
-IHandler ..> IntegrationEvent : handles
+PublicWebApp --> PublicContentQueryService
+AdminBackend --> AdminOperationsQueryService
+PublicContentQueryService --> CoopDbContext
+AdminOperationsQueryService --> CoopDbContext
 
 @enduml
