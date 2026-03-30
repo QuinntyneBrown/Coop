@@ -565,18 +565,20 @@ Coop.IntegrationTests/
 ## Dependency Graph
 
 ```text
-Coop.Api
-  └── Coop.Application
-  │     └── Coop.Domain
-  │     │     └── Coop.SharedKernel
-  │     └── Coop.SharedKernel
-  └── Coop.Infrastructure
-        └── Coop.Application
-        └── Coop.Domain
-        └── Coop.SharedKernel
+coop-public (Angular 21)  ──┐
+                             ├──▶  Coop.Api (ASP.NET Core / .NET 10)
+coop-admin  (Angular 21)  ──┘       ├── Coop.Infrastructure
+                                    │     ├── Coop.Application
+                                    │     ├── Coop.Domain
+                                    │     └── Coop.SharedKernel
+                                    └── Coop.Application
+                                          ├── Coop.Domain
+                                          │     └── Coop.SharedKernel
+                                          └── Coop.SharedKernel
 ```
 
-The dependency rule enforces that inner layers (Domain, SharedKernel) have no knowledge of outer layers (Application, Infrastructure, Api).
+- The two Angular apps communicate with the backend exclusively via HTTP/REST (JWT-authenticated).
+- The dependency rule enforces that inner layers (Domain, SharedKernel) have no knowledge of outer layers (Application, Infrastructure, Api).
 
 ---
 
