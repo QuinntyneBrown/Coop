@@ -82,7 +82,7 @@ import { catchError, of } from 'rxjs';
         <div class="modal card">
           <div class="modal-header">
             <h2>Create New Request</h2>
-            <button class="close-btn" data-testid="maintenance-cancel-btn" (click)="closeCreateModal()">&times;</button>
+            <button class="close-btn" (click)="closeCreateModal()">&times;</button>
           </div>
           <form (ngSubmit)="submitRequest()" novalidate>
             <div class="form-group">
@@ -389,6 +389,9 @@ import { catchError, of } from 'rxjs';
       display: flex;
       gap: 8px;
       margin-top: 12px;
+      padding-bottom: 16px;
+      position: relative;
+      z-index: 101;
 
       input { flex: 1; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; outline: none; }
       input:focus { border-color: var(--primary); }

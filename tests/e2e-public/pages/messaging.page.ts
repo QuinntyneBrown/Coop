@@ -104,7 +104,7 @@ export class MessagingPage {
 
   async expectConversationInList(subject: string) {
     await expect(
-      this.page.locator(`[data-testid="messaging-conversation-item"]:has-text("${subject}")`),
+      this.page.locator(`[data-testid="messaging-conversation-item"]:has-text("${subject}")`).first(),
     ).toBeVisible();
   }
 }

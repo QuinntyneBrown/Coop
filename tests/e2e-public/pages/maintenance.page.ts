@@ -152,6 +152,6 @@ export class MaintenancePage {
   }
 
   async expectRequestInList(title: string) {
-    await expect(this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`)).toBeVisible();
+    await expect(this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`).first()).toBeVisible();
   }
 }

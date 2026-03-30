@@ -171,7 +171,8 @@ export const test = base.extend<ApiFixtures>({
       data: { username: 'member', password: 'Member123!' },
     });
     expect(loginResponse.ok(), 'API login for fixture should succeed').toBeTruthy();
-    const { token } = await loginResponse.json();
+    const body = await loginResponse.json();
+    const token = body.token || body.accessToken;
 
     const helper = new ApiHelper(request, token);
     await use(helper);

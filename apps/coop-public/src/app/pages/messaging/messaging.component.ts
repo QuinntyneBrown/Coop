@@ -261,7 +261,10 @@ import { catchError, of } from 'rxjs';
       gap: 8px;
       margin-top: 16px;
       padding-top: 16px;
+      padding-bottom: 80px;
       border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 101;
 
       input {
         flex: 1;

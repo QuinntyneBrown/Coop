@@ -100,7 +100,10 @@ export class RolesComponent implements OnInit {
     this.roleService.getRoles().subscribe({
       next: (data: any) => {
         this.roles = Array.isArray(data) ? data : (data?.roles || []);
-        if (this.roles.length > 0) this.selectRole(this.roles[0]);
+        if (this.roles.length > 0) {
+          const sysAdmin = this.roles.find((r: any) => r.name === 'SystemAdministrator');
+          this.selectRole(sysAdmin || this.roles[0]);
+        }
       },
       error: () => {}
     });

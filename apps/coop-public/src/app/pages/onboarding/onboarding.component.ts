@@ -175,7 +175,9 @@ import { catchError, of } from 'rxjs';
 
     .welcome-step, .confirmation-step {
       text-align: center;
-      padding: 40px 0;
+      padding: 40px 0 80px;
+      position: relative;
+      z-index: 101;
 
       h1, h2 { font-size: 26px; margin: 16px 0 12px; }
       p { color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 32px; }
@@ -243,6 +245,9 @@ import { catchError, of } from 'rxjs';
       display: flex;
       gap: 12px;
       margin-top: 24px;
+      padding-bottom: 80px;
+      position: relative;
+      z-index: 101;
 
       .btn { flex: 1; }
       .skip-btn { flex: 0; white-space: nowrap; }

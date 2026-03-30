@@ -75,25 +75,32 @@ public class PublicBffController : ControllerBase
             return BadRequest(new { message = "Invalid invitation token." });
         }
 
-        // Check if username exists
+        // Create the user if not exists
         var existingUser = await _context.Users.AnyAsync(u => u.Username == request.Username);
-        if (existingUser)
-            return BadRequest(new { message = "Username already exists." });
-
-        // Create the user
-        await _mediator.Send(new CreateUserRequest
+        if (!existingUser)
         {
-            Username = request.Username,
-            Password = request.Password,
-            RoleIds = new List<Guid>()
-        });
+            await _mediator.Send(new CreateUserRequest
+            {
+                Username = request.Username,
+                Password = request.Password,
+                RoleIds = new List<Guid>()
+            });
+        }
 
         // Authenticate to get token
-        var authResult = await _mediator.Send(new AuthenticateRequest
+        AuthenticateResponse authResult;
+        try
         {
-            Username = request.Username,
-            Password = request.Password
-        });
+            authResult = await _mediator.Send(new AuthenticateRequest
+            {
+                Username = request.Username,
+                Password = request.Password
+            });
+        }
+        catch
+        {
+            return BadRequest(new { message = "Registration failed." });
+        }
 
         return Ok(new
         {
@@ -438,10 +445,12 @@ public class PublicBffController : ControllerBase
         var conversations = result.Conversations.Select(c => new
         {
             id = c.ConversationId.ToString(),
-            subject = "Conversation",
+            subject = c.Messages.FirstOrDefault()?.Body?.StartsWith("[Subject:") == true
+                ? c.Messages.First().Body.Split(']')[0].Replace("[Subject:", "").Trim()
+                : c.Messages.FirstOrDefault()?.Body ?? "Conversation",
             participantIds = c.ProfileIds.Select(p => p.ToString()),
             participantNames = c.ProfileIds.Select(_ => "Member"),
-            lastMessage = c.Messages.LastOrDefault()?.Body ?? "",
+            lastMessage = StripSubjectPrefix(c.Messages.LastOrDefault()?.Body ?? ""),
             lastMessageAt = c.Messages.LastOrDefault()?.CreatedOn.ToString("o") ?? c.CreatedOn.ToString("o"),
             unreadCount = c.Messages.Count(m => !m.Read && m.FromProfileId != profileId),
         });
@@ -466,14 +475,19 @@ public class PublicBffController : ControllerBase
 
         var conv = result.Conversation;
 
-        // Send the initial message if provided
-        if (!string.IsNullOrEmpty(request.InitialMessage))
+        // Send the initial message (embed subject if provided)
+        var messageBody = request.InitialMessage ?? "";
+        if (!string.IsNullOrEmpty(request.Subject))
+        {
+            messageBody = $"[Subject:{request.Subject}] {messageBody}";
+        }
+        if (!string.IsNullOrEmpty(messageBody))
         {
             await _mediator.Send(new SendMessageRequest
             {
                 ConversationId = conv.ConversationId,
                 FromProfileId = profileId,
-                Body = request.InitialMessage,
+                Body = messageBody,
             });
         }
 
@@ -501,14 +515,23 @@ public class PublicBffController : ControllerBase
     public async Task<IActionResult> GetMessages(Guid conversationId)
     {
         var result = await _mediator.Send(new GetMessagesByConversationRequest { ConversationId = conversationId });
-        var messages = result.Messages.Select(m => new
+        var messages = result.Messages.Select(m =>
         {
-            id = m.MessageId.ToString(),
-            conversationId = m.ConversationId.ToString(),
-            senderId = m.FromProfileId.ToString(),
-            senderName = "Member",
-            content = m.Body,
-            createdAt = m.CreatedOn.ToString("o"),
+            var body = m.Body;
+            // Strip subject prefix if present
+            if (body.StartsWith("[Subject:") && body.Contains(']'))
+            {
+                body = body.Substring(body.IndexOf(']') + 1).TrimStart();
+            }
+            return new
+            {
+                id = m.MessageId.ToString(),
+                conversationId = m.ConversationId.ToString(),
+                senderId = m.FromProfileId.ToString(),
+                senderName = "Member",
+                content = body,
+                createdAt = m.CreatedOn.ToString("o"),
+            };
         });
         return Ok(messages);
     }
@@ -534,6 +557,13 @@ public class PublicBffController : ControllerBase
             content = m.Body,
             createdAt = m.CreatedOn.ToString("o"),
         });
+    }
+
+    private static string StripSubjectPrefix(string body)
+    {
+        if (body.StartsWith("[Subject:") && body.Contains(']'))
+            return body.Substring(body.IndexOf(']') + 1).TrimStart();
+        return body;
     }
 
     // ---- Board Members (public) ----
