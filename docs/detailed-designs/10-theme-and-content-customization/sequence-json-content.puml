@@ -1,0 +1,80 @@
+@startuml sequence-json-content
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+skinparam pageMargin 10
+
+title Create / Retrieve JSON Content - Sequence Diagram
+
+actor Client
+participant "JsonContentController" as JC
+participant "IMediator" as M
+participant "Handler" as H
+participant "ICoopDbContext" as DB
+
+== Create JSON Content ==
+
+Client -> JC : POST /api/jsoncontent\n{ name, json }
+activate JC
+
+JC -> M : Send(CreateJsonContentRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> H : new JsonContent(name, json)
+H -> DB : JsonContents.Add(content)
+activate DB
+H -> DB : SaveChangesAsync(ct)
+DB --> H : saved
+deactivate DB
+
+note right of H
+  Raises CreatedJsonContent
+  domain event with
+  JsonContentId and Name
+end note
+
+H --> M : CreateJsonContentResponse\n{ JsonContentDto }
+deactivate H
+
+M --> JC : response
+deactivate M
+
+JC --> Client : 200 OK { JsonContent }
+deactivate JC
+
+== Retrieve by Name ==
+
+Client -> JC : GET /api/jsoncontent/name/{name}\ne.g. name = "Hero"
+activate JC
+
+JC -> M : Send(GetJsonContentByNameRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> DB : JsonContents.SingleOrDefaultAsync\n(x => x.Name == name)
+activate DB
+DB --> H : jsonContent (or null)
+deactivate DB
+
+H --> M : GetJsonContentByNameResponse\n{ JsonContentDto }
+deactivate H
+
+M --> JC : response
+deactivate M
+
+alt content found
+    JC --> Client : 200 OK { JsonContent }
+else not found
+    JC --> Client : 404 Not Found
+end
+
+deactivate JC
+
+@enduml

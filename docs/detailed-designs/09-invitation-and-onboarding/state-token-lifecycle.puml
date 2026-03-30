@@ -1,0 +1,39 @@
+@startuml state-token-lifecycle
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam stateAttributeFontSize 10
+
+title Invitation Token - Lifecycle State Diagram
+
+[*] --> Active : Create\n(admin generates token)
+
+Active : Value = unique string
+Active : IsUsed = false
+Active : ExpiryDate = optional
+
+Active --> Used : Validate & consume\n(single-use: MarkAsUsed)
+
+Active --> Expired : ExpiryDate reached\n(IsValid() returns false)
+
+Used : IsUsed = true
+Used : Token cannot be\n  redeemed again
+
+Expired : ExpiryDate < UtcNow
+Expired : IsValid() returns false
+
+Used --> [*]
+Expired --> [*]
+
+note right of Active
+  Token is distributable
+  and can be validated.
+end note
+
+note right of Used
+  Microservice enforces
+  single-use via IsUsed flag.
+  Monolith does not track usage.
+end note
+
+@enduml

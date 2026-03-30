@@ -1,0 +1,80 @@
+@startuml sequence-validate-token
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Validate Token and Create Account - Sequence Diagram
+
+actor Invitee
+participant "InvitationTokens\nController" as TC
+participant "ProfileDbContext" as PDB
+participant "UserController" as UC
+participant "IMediator" as M
+participant "CreateUser\nHandler" as UH
+
+== Step 1: Validate Token ==
+
+Invitee -> TC : GET /api/invitationtokens/validate/{value}
+activate TC
+note right : [AllowAnonymous]
+
+TC -> PDB : SingleOrDefaultAsync(\n  t => t.Value == value)
+activate PDB
+PDB --> TC : InvitationToken?
+deactivate PDB
+
+TC -> TC : token.IsValid()\n  - check IsUsed\n  - check ExpiryDate
+
+TC --> Invitee : 200 OK { IsValid, Type }
+deactivate TC
+
+== Step 2: Create Account (if valid) ==
+
+Invitee -> UC : POST /api/user\n{username, password, invitationToken}
+activate UC
+
+UC -> M : Send(CreateUserRequest)
+activate M
+
+M -> M : Publish(\n  ValidateInvitationToken)
+
+note right of M
+  InvitationTokenMessageHandler
+  validates token and publishes
+  ValidatedInvitationToken
+end note
+
+M -> UH : Handle(request, ct)
+activate UH
+
+UH -> UH : Create User with\nrole from TokenType
+UH -> UH : Create Profile\n(Member / BoardMember / Staff)
+
+UH --> M : CreateUserResponse
+deactivate UH
+
+M --> UC : response
+deactivate M
+
+UC --> Invitee : 200 OK { User }
+deactivate UC
+
+== Step 3: Mark Token Used ==
+
+Invitee -> TC : POST /api/invitationtokens/{tokenId}/use
+activate TC
+
+TC -> PDB : FindAsync(tokenId)
+activate PDB
+PDB --> TC : token
+deactivate PDB
+
+TC -> TC : token.MarkAsUsed()
+TC -> PDB : SaveChangesAsync()
+
+TC --> Invitee : 200 OK
+deactivate TC
+
+@enduml

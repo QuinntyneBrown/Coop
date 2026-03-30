@@ -1,0 +1,75 @@
+@startuml sequence-create-theme
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+skinparam pageMargin 10
+
+title Create / Update Theme - Sequence Diagram
+
+actor Client
+participant "ThemeController" as TC
+participant "IMediator" as M
+participant "CreateThemeHandler\n/ UpdateThemeHandler" as H
+participant "ICoopDbContext" as DB
+
+== Create Theme ==
+
+Client -> TC : POST /api/theme\n{ profileId?, cssCustomProperties }
+activate TC
+
+TC -> M : Send(CreateThemeRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> H : new Theme(profileId,\ncssCustomProperties)
+H -> DB : Themes.Add(theme)
+activate DB
+H -> DB : SaveChangesAsync(ct)
+DB --> H : saved
+deactivate DB
+
+H --> M : CreateThemeResponse { ThemeDto }
+deactivate H
+
+M --> TC : response
+deactivate M
+
+TC --> Client : 200 OK { Theme }
+deactivate TC
+
+== Update Theme ==
+
+Client -> TC : PUT /api/theme\n{ themeId, cssCustomProperties }
+activate TC
+
+TC -> M : Send(UpdateThemeRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> DB : Themes.SingleAsync(themeId)
+activate DB
+DB --> H : theme
+deactivate DB
+
+H -> H : theme.SetCssCustomProperties\n(cssCustomProperties)
+H -> DB : SaveChangesAsync(ct)
+activate DB
+DB --> H : saved
+deactivate DB
+
+H --> M : UpdateThemeResponse { ThemeDto }
+deactivate H
+
+M --> TC : response
+deactivate M
+
+TC --> Client : 200 OK { Theme }
+deactivate TC
+
+@enduml

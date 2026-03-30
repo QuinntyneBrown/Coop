@@ -1,0 +1,20 @@
+@startuml c4-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam dpi 150
+skinparam defaultFontSize 11
+
+title Messaging System - C4 System Context
+
+Person(member, "Coop Member", "A member of the cooperative who sends and receives messages")
+
+System(messaging, "Messaging System", "Provides direct messaging between member profiles within conversations")
+System(profile, "Profile Service", "Manages member profiles and identities")
+System(auth, "Auth Service", "Handles authentication and authorization")
+
+Rel(member, messaging, "Sends messages, views conversations", "HTTPS/JSON")
+Rel(messaging, profile, "Resolves participant profile IDs", "Internal API")
+Rel(member, auth, "Authenticates", "HTTPS/JWT")
+Rel(auth, messaging, "Provides JWT tokens for authorization")
+
+@enduml

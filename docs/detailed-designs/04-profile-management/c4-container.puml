@@ -1,0 +1,31 @@
+@startuml c4-container
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title Profile Management - C4 Container Diagram
+
+Person(user, "User", "Cooperative member, board member, staff, or admin")
+
+System_Boundary(profileBoundary, "Profile Management Service") {
+    Container(profileApi, "Profile API", ".NET 7 / ASP.NET Core", "REST controllers for profile CRUD, avatar management, and type-specific endpoints")
+    Container(profileDomain, "Profile Domain", ".NET Class Library", "ProfileBase, Member, BoardMember, StaffMember entities, ProfileType enum, Address value object")
+    Container(profileInfra, "Profile Infrastructure", ".NET Class Library", "ProfileDbContext, EF Core entity configurations, data seeding")
+    ContainerDb(profileDb, "Profile Database", "SQL Server / SQLite", "Stores profiles table (TPH), invitation tokens")
+}
+
+System_Ext(identityService, "Identity Service", "User accounts and authentication")
+System_Ext(messageBus, "Message Bus", "Publishes and consumes integration events")
+System_Ext(assetService, "Asset Service", "Digital asset storage")
+
+Rel(user, profileApi, "HTTPS/JSON", "REST API calls")
+Rel(profileApi, profileDomain, "Uses", "Domain entities and logic")
+Rel(profileApi, profileInfra, "Uses", "Data persistence")
+Rel(profileInfra, profileDb, "Reads/Writes", "EF Core")
+Rel(profileApi, messageBus, "Publishes", "ProfileCreated/Updated/Deleted events")
+Rel(messageBus, identityService, "Delivers", "Profile lifecycle events")
+Rel(profileApi, assetService, "References", "Avatar DigitalAssetId")
+
+@enduml

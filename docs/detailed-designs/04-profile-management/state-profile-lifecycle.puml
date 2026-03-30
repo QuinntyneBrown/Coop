@@ -1,0 +1,45 @@
+@startuml state-profile-lifecycle
+
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam pageMargin 10
+
+title Profile Lifecycle - State Diagram
+
+[*] --> Created : POST /api/{type}
+
+Created --> Active : Profile persisted\nProfileCreatedEvent published
+
+state Active {
+    [*] --> Idle
+
+    Idle --> UpdatingName : UpdateName()
+    UpdatingName --> Idle : Name saved
+
+    Idle --> UpdatingAvatar : SetAvatar()
+    UpdatingAvatar --> Idle : Avatar saved
+
+    Idle --> UpdatingPhone : SetPhoneNumber()
+    UpdatingPhone --> Idle : Phone saved
+
+    Idle --> UpdatingTypeFields : SetBoardTitle() /\nSetJobTitle() /\nSetAddress()
+    UpdatingTypeFields --> Idle : Field saved
+}
+
+Active --> Deleted : DELETE /api/profiles/{id}\nProfileDeletedEvent published
+
+Deleted --> [*]
+
+note right of Active
+  All mutations trigger
+  UpdatedAt = DateTime.UtcNow
+  and may publish ProfileUpdatedEvent
+end note
+
+note right of Deleted
+  Profile removed from database.
+  Identity Service clears
+  current/default if affected.
+end note
+
+@enduml

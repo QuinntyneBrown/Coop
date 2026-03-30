@@ -1,0 +1,38 @@
+@startuml c4-component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam dpi 150
+skinparam defaultFontSize 11
+
+title Messaging System - C4 Component Diagram (Messaging.Api)
+
+Container_Boundary(api, "Messaging.Api") {
+  Component(convCtrl, "ConversationsController", "ASP.NET Controller", "Handles conversation CRUD and message sending within conversations")
+  Component(msgCtrl, "MessagesController", "ASP.NET Controller", "Handles message retrieval, unread queries, and read-status updates")
+}
+
+Container_Boundary(domain, "Messaging.Domain") {
+  Component(convEntity, "Conversation", "Entity", "Aggregate root: manages participants and messages")
+  Component(msgEntity, "Message", "Entity", "Tracks message content, sender, recipient, and read state")
+  Component(dbInterface, "IMessagingDbContext", "Interface", "Abstraction for data access")
+}
+
+Container_Boundary(infra, "Messaging.Infrastructure") {
+  Component(dbCtx, "MessagingDbContext", "EF Core DbContext", "Implements IMessagingDbContext, provides DbSets")
+  Component(config, "MessagingConfigurations", "EF Configuration", "Entity type configurations")
+}
+
+ComponentDb(db, "Database", "SQL Server", "Persists conversations and messages")
+Component(bus, "IMessageBus", "Interface", "Publishes domain events")
+
+Rel(convCtrl, dbCtx, "Queries/Saves")
+Rel(convCtrl, convEntity, "Creates, calls AddMessage()")
+Rel(convCtrl, bus, "Publishes ConversationCreated,\nMessageSent events")
+Rel(msgCtrl, dbCtx, "Queries/Saves")
+Rel(msgCtrl, msgEntity, "Calls MarkAsRead()")
+Rel(msgCtrl, bus, "Publishes MessageRead events")
+Rel(dbCtx, db, "Reads/Writes", "EF Core")
+Rel(dbCtx, config, "Applies configurations")
+Rel(convEntity, msgEntity, "Contains (one-to-many)")
+
+@enduml

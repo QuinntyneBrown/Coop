@@ -1,0 +1,21 @@
+@startuml c4-context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title Invitation and Onboarding - C4 Context Diagram
+
+Person(admin, "Administrator", "Board member or staff who\nmanages the co-op platform")
+Person(invitee, "Invitee", "Person invited to join\nthe co-op platform")
+
+System(coop, "Coop Platform", "Manages co-op member profiles,\nmaintenance requests, documents,\nand onboarding")
+
+System_Ext(email, "Email System", "Delivers invitation links\nto invitees")
+
+admin -down-> coop : Creates invitation tokens
+invitee -down-> coop : Validates token and\ncreates account
+coop -right-> email : Sends invitation\nnotifications
+
+@enduml

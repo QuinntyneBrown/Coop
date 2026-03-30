@@ -1,0 +1,39 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam sequenceMessageAlign center
+skinparam defaultFontSize 10
+
+title Batch Retrieve Digital Assets by IDs
+
+actor Client
+participant "DigitalAssetController" as Ctrl
+participant "MediatR" as Med
+participant "GetDigitalAssetsByIdsHandler" as Handler
+database "ICoopDbContext" as DB
+
+Client -> Ctrl : GET /api/DigitalAsset/range\n?digitalAssetIds=id1&digitalAssetIds=id2
+activate Ctrl
+
+Ctrl -> Med : Send(GetDigitalAssetsByIdsRequest\n{DigitalAssetIds[]})
+activate Med
+
+Med -> Handler : Handle(request)
+activate Handler
+
+Handler -> DB : DigitalAssets\n.Where(id in request.DigitalAssetIds)\n.Select(x => x.ToDto())
+activate DB
+
+DB --> Handler : List<DigitalAssetDto>
+deactivate DB
+
+Handler --> Med : GetDigitalAssetsByIdsResponse\n{DigitalAssets}
+deactivate Handler
+
+Med --> Ctrl : response
+deactivate Med
+
+Ctrl --> Client : 200 OK {DigitalAssets[]}
+deactivate Ctrl
+
+@enduml

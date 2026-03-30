@@ -1,0 +1,40 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Component - Authentication & Authorization
+
+Container_Boundary(api, "Coop.Api") {
+  Component(uc, "UserController", "ASP.NET Controller", "POST /api/user/token\n[AllowAnonymous] for auth,\n[Authorize] for user CRUD")
+  Component(jwtmw, "JWT Bearer Middleware", "ASP.NET Middleware", "Validates token signature,\nissuer, audience, lifetime")
+}
+
+Container_Boundary(app, "Coop.Application") {
+  Component(ah, "AuthenticateHandler", "MediatR Handler", "Validates password,\norchestrates token build")
+  Component(roab, "ResourceOperationAuthorizationBehavior", "IPipelineBehavior", "Reads [AuthorizeResourceOperation],\ncalls IAuthorizationService")
+  Component(ueh, "UserEventHandler", "INotificationHandler", "Handles BuildToken event,\nassembles claims via TokenBuilder")
+}
+
+Container_Boundary(domain, "Coop.Domain") {
+  Component(tb, "TokenBuilder", "Domain Service", "Fluent claim accumulation,\ndelegates to ITokenProvider")
+  Component(tp, "TokenProvider", "Domain Service", "JWT creation (HMAC-SHA256),\nexpired token validation,\nrefresh token generation")
+  Component(ph, "PasswordHasher", "Domain Service", "PBKDF2 HMAC-SHA1\n10k iterations, 256-bit")
+  Component(roah, "ResourceOperationAuthorizationHandler", "AuthorizationHandler", "Matches user privilege claims\nagainst required operation + aggregate")
+  Component(ops, "Operations", "Static Constants", "Create, Read, Write, Delete\nOperationAuthorizationRequirement")
+}
+
+ContainerDb(db, "SQL Server", "Database", "Users, Roles, Privileges")
+
+Rel(uc, jwtmw, "Token validation")
+Rel(uc, ah, "IMediator.Send")
+Rel(ah, ph, "HashPassword")
+Rel(ah, ueh, "BuildToken event")
+Rel(ueh, tb, "AddUsername, AddClaim")
+Rel(tb, tp, "Get(username, claims)")
+Rel(roab, roah, "AuthorizeAsync")
+Rel(roah, ops, "Reads requirement name")
+Rel(ah, db, "Query User with Roles", "EF Core")
+Rel(ueh, db, "Query User with Roles", "EF Core")
+
+@enduml

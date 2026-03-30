@@ -1,0 +1,49 @@
+@startuml sequence-create-invitation
+
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Create Invitation Token - Sequence Diagram
+
+actor Admin
+participant "InvitationToken\nController" as C
+participant "IMediator" as M
+participant "CreateInvitation\nTokenHandler" as H
+participant "ICoopDbContext" as DB
+
+Admin -> C : POST /api/invitationtoken\n{value, type, expiry?}
+activate C
+
+C -> M : Send(CreateInvitationTokenRequest)
+activate M
+
+M -> H : Handle(request, ct)
+activate H
+
+H -> H : new InvitationToken(\n  value, type)
+H -> H : token.UpdateExpiry(expiry)
+
+H -> DB : InvitationTokens.Add(token)
+activate DB
+H -> DB : SaveChangesAsync(ct)
+DB --> H : saved
+deactivate DB
+
+H --> M : CreateInvitationTokenResponse\n{ InvitationTokenDto }
+deactivate H
+
+M --> C : response
+deactivate M
+
+C --> Admin : 200 OK { InvitationToken }
+deactivate C
+
+note right of Admin
+  Admin distributes the
+  token value to the invitee
+  (e.g. via email or link).
+end note
+
+@enduml

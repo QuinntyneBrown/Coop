@@ -1,0 +1,86 @@
+@startuml class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 11
+skinparam classFontSize 13
+skinparam classAttributeFontSize 10
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam pageMargin 10
+
+title Invitation and Onboarding - Class Diagram
+
+package "Coop.Domain (Monolith)" {
+
+    class InvitationToken <<Entity>> {
+        + InvitationTokenId : Guid
+        + Value : string
+        + Expiry : DateTime?
+        + Type : InvitationTokenType
+        --
+        + InvitationToken(value, expiry)
+        + InvitationToken(value, type)
+        + InvitationToken(value)
+        + UpdateExpiry(expiry : DateTime?) : void
+    }
+
+    enum InvitationTokenType {
+        Member
+        BoardMember
+        OnCall
+        Staff
+    }
+}
+
+package "Profile.Domain (Microservice)" {
+
+    class "InvitationToken" as MSToken <<Entity>> {
+        + InvitationTokenId : Guid
+        + Value : string
+        + Type : InvitationTokenType
+        + ExpiryDate : DateTime?
+        + IsUsed : bool
+        + CreatedAt : DateTime
+        --
+        + InvitationToken(value, type, expiryDate?)
+        + MarkAsUsed() : void
+        + IsValid() : bool
+    }
+}
+
+package "Domain Events" {
+
+    class ValidateInvitationToken <<DomainEvent>> {
+        + InvitationToken : string
+    }
+
+    class ValidatedInvitationToken <<DomainEvent>> {
+        + IsValid : bool
+        + InvitationTokenType : string
+    }
+}
+
+package "Application Layer" {
+
+    class InvitationTokenDto {
+        + InvitationTokenId : Guid
+        + Value : string
+        + Expiry : DateTime?
+    }
+
+    class InvitationTokenMessageHandler {
+        - _context : ICoopDbContext
+        - _messageHandlerContext : IOrchestrationHandler
+        --
+        + Handle(ValidateInvitationToken, ct) : Task
+    }
+}
+
+InvitationToken --> InvitationTokenType : uses
+MSToken --> InvitationTokenType : uses
+InvitationTokenMessageHandler ..> ValidateInvitationToken : handles
+InvitationTokenMessageHandler ..> ValidatedInvitationToken : publishes
+InvitationTokenMessageHandler ..> InvitationToken : queries
+
+@enduml

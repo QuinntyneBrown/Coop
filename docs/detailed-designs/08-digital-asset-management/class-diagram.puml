@@ -1,0 +1,76 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam defaultFontSize 10
+skinparam wrapWidth 200
+left to right direction
+
+package "Monolith" {
+  class DigitalAsset {
+    +DigitalAssetId : Guid
+    +Name : string
+    +Bytes : byte[]
+    +ContentType : string
+    +Height : float
+    +Width : float
+  }
+}
+
+package "Microservice" {
+  class "DigitalAsset" as MsDigitalAsset {
+    +DigitalAssetId : Guid
+    +Name : string
+    +Bytes : byte[]
+    +ContentType : string
+    +Size : long <<computed>>
+    +CreatedAt : DateTime
+  }
+}
+
+class Profile {
+  +ProfileId : Guid
+  +Firstname : string
+  +Lastname : string
+  +AvatarDigitalAssetId : Guid?
+  --
+  +SetAvatar(digitalAssetId : Guid?) : Profile
+}
+
+class MaintenanceRequestDigitalAsset <<Owned>> {
+  +MaintenanceRequestDigitalAssetId : Guid
+  +MaintenanceRequestId : Guid
+  +DigitalAssetId : Guid
+}
+
+class Document {
+  +DocumentId : Guid
+  +DigitalAssetId : Guid?
+  +Name : string
+  +Body : string
+  +Published : DateTime?
+  +CreatedById : Guid
+}
+
+class MaintenanceRequest {
+  +MaintenanceRequestId : Guid
+  +DigitalAssets : List<MaintenanceRequestDigitalAsset>
+}
+
+class DigitalAssetDto {
+  +DigitalAssetId : Guid
+  +Name : string
+  +Bytes : byte[]
+  +ContentType : string
+  +Height : float
+  +Width : float
+}
+
+Profile "0..*" --> "0..1" DigitalAsset : avatar >
+MaintenanceRequestDigitalAsset "0..*" --> "1" DigitalAsset : references >
+Document "0..*" --> "0..1" DigitalAsset : backing file >
+MaintenanceRequest "1" *-- "0..*" MaintenanceRequestDigitalAsset : owns >
+DigitalAsset ..> DigitalAssetDto : maps to >
+
+@enduml

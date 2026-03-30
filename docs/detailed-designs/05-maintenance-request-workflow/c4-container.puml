@@ -1,0 +1,26 @@
+@startuml c4-container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title C4 Container - Maintenance Request Workflow
+
+Person(member, "Co-op Member", "Submits and tracks maintenance requests.")
+Person(staff, "Co-op Staff", "Manages maintenance request lifecycle.")
+
+System_Boundary(coop, "Coop Platform") {
+    Container(api, "Coop.Api", "ASP.NET Core, C#", "REST API layer. Routes HTTP requests to MediatR handlers. Enforces authorization.")
+    Container(app, "Coop.Application", "C#, MediatR, FluentValidation", "Application layer. Contains request/response handlers, DTOs, and validation for each maintenance request operation.")
+    Container(domain, "Coop.Domain", "C#", "Domain layer. MaintenanceRequest aggregate root, domain events, state machine logic, owned entities.")
+    ContainerDb(db, "SQL Server", "EF Core", "Stores MaintenanceRequests, Comments, DigitalAssets, Profiles, and Users.")
+    Container(infra, "Coop.Infrastructure", "C#, EF Core", "Data access layer. DbContext, entity configurations, migrations.")
+}
+
+Rel(member, api, "HTTPS/JSON")
+Rel(staff, api, "HTTPS/JSON")
+Rel(api, app, "MediatR Send/Publish")
+Rel(app, domain, "Creates/applies domain events")
+Rel(app, infra, "ICoopDbContext")
+Rel(infra, db, "EF Core / SQL")
+@enduml

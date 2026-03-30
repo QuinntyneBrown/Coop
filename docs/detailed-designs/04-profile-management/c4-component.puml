@@ -1,0 +1,39 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title Profile Management - C4 Component Diagram
+
+Container_Boundary(profileApi, "Profile API") {
+    Component(profilesCtrl, "ProfilesController", "ASP.NET Controller", "GET all/by-id/by-user, PUT avatar, DELETE profile")
+    Component(boardCtrl, "BoardMembersController", "ASP.NET Controller", "CRUD for board member profiles with BoardTitle")
+    Component(membersCtrl, "MembersController", "ASP.NET Controller", "CRUD for member profiles with Address")
+    Component(staffCtrl, "StaffMembersController", "ASP.NET Controller", "CRUD for staff member profiles with JobTitle")
+    Component(onCallCtrl, "OnCallController", "ASP.NET Controller", "CRUD for on-call support profiles")
+    Component(dbContext, "ProfileDbContext", "EF Core DbContext", "DbSet<ProfileBase>, DbSet<Member>, DbSet<StaffMember>, DbSet<BoardMember>")
+    Component(messageBus, "IMessageBus", "Messaging", "Publishes ProfileCreated, ProfileUpdated, ProfileDeleted events")
+}
+
+ContainerDb(db, "Profile Database", "SQL Server", "Profiles table (TPH), InvitationTokens")
+System_Ext(identitySvc, "Identity Service", "Consumes profile events")
+System_Ext(assetSvc, "Asset Service", "Avatar digital assets")
+
+Rel(profilesCtrl, dbContext, "Queries/Updates profiles")
+Rel(boardCtrl, dbContext, "Queries/Updates board members")
+Rel(membersCtrl, dbContext, "Queries/Updates members")
+Rel(staffCtrl, dbContext, "Queries/Updates staff members")
+Rel(onCallCtrl, dbContext, "Queries/Updates on-call profiles")
+
+Rel(profilesCtrl, messageBus, "Publishes ProfileDeletedEvent")
+Rel(boardCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
+Rel(membersCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
+Rel(staffCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
+
+Rel(dbContext, db, "EF Core", "SQL")
+Rel(messageBus, identitySvc, "Events", "Message Bus")
+Rel(profilesCtrl, assetSvc, "References avatar", "DigitalAssetId")
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml c4-container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam dpi 150
+skinparam defaultFontSize 11
+
+title Messaging System - C4 Container Diagram
+
+Person(member, "Coop Member", "Sends and receives messages")
+
+System_Boundary(messaging, "Messaging Microservice") {
+  Container(api, "Messaging.Api", ".NET 7, ASP.NET Core", "REST API controllers for conversations and messages")
+  Container(domain, "Messaging.Domain", ".NET Class Library", "Conversation and Message entities, domain logic")
+  Container(infra, "Messaging.Infrastructure", ".NET Class Library", "MessagingDbContext, EF Core configurations")
+  ContainerDb(db, "Messaging Database", "SQL Server / PostgreSQL", "Stores conversations and messages")
+}
+
+Container(bus, "Message Bus", "IMessageBus", "Publishes domain events to other services")
+
+Rel(member, api, "Uses", "HTTPS/JSON")
+Rel(api, domain, "Uses")
+Rel(api, infra, "Uses")
+Rel(infra, db, "Reads/Writes", "EF Core")
+Rel(api, bus, "Publishes events", "ConversationCreated,\nMessageSent, MessageRead")
+
+@enduml

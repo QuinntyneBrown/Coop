@@ -1,0 +1,66 @@
+@startuml c4-component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 10
+
+title C4 Component - Maintenance Request Workflow
+
+Person(member, "Co-op Member")
+Person(staff, "Co-op Staff")
+
+Container_Boundary(api_layer, "Coop.Api") {
+    Component(mr_ctrl, "MaintenanceRequestController", "ApiController", "CRUD + workflow endpoints:\nPOST, GET, PUT /receive,\nPUT /start, PUT /complete")
+    Component(mrc_ctrl, "MaintenanceRequestCommentController", "ApiController", "CRUD for comments on\nmaintenance requests")
+    Component(mrd_ctrl, "MaintenanceRequestDigitalAssetController", "ApiController", "CRUD for digital asset\nlinks on requests")
+}
+
+Container_Boundary(app_layer, "Coop.Application") {
+    Component(create_h, "CreateMaintenanceRequestHandler", "IRequestHandler", "Creates new aggregate,\nStatus = New")
+    Component(receive_h, "ReceiveMaintenanceRequestHandler", "IRequestHandler", "Resolves staff from JWT,\nStatus -> Received")
+    Component(start_h, "StartMaintenanceRequestHandler", "IRequestHandler", "Records WorkStarted,\nStatus -> Started")
+    Component(complete_h, "CompleteMaintenanceRequestHandler", "IRequestHandler", "Records WorkCompleted,\nStatus -> Completed")
+    Component(update_h, "UpdateMaintenanceRequestHandler", "IRequestHandler", "Updates address, phone,\ndescription fields")
+    Component(query_h, "Query Handlers", "IRequestHandler", "GetById, GetAll, GetPage,\nGetCurrentUser requests")
+    Component(comment_h, "Comment Handlers", "IRequestHandler", "Create, Update, Remove,\nGetById, GetAll, GetPage")
+    Component(asset_h, "DigitalAsset Handlers", "IRequestHandler", "Create, Update, Remove,\nGetById, GetAll, GetPage")
+}
+
+Container_Boundary(domain_layer, "Coop.Domain") {
+    Component(agg, "MaintenanceRequest", "AggregateRoot", "State machine, domain\nevents, invariant checks")
+    Component(comment_e, "MaintenanceRequestComment", "Owned Entity", "Comment body, timestamp,\ncreator reference")
+    Component(asset_e, "MaintenanceRequestDigitalAsset", "Owned Entity", "Links request to\ndigital asset store")
+}
+
+ContainerDb(db, "SQL Server", "EF Core")
+
+Rel(member, mr_ctrl, "POST, GET", "HTTPS")
+Rel(member, mrc_ctrl, "POST, GET", "HTTPS")
+Rel(member, mrd_ctrl, "POST, GET", "HTTPS")
+Rel(staff, mr_ctrl, "PUT /receive, /start,\n/complete", "HTTPS")
+
+Rel(mr_ctrl, create_h, "MediatR")
+Rel(mr_ctrl, receive_h, "MediatR")
+Rel(mr_ctrl, start_h, "MediatR")
+Rel(mr_ctrl, complete_h, "MediatR")
+Rel(mr_ctrl, update_h, "MediatR")
+Rel(mr_ctrl, query_h, "MediatR")
+Rel(mrc_ctrl, comment_h, "MediatR")
+Rel(mrd_ctrl, asset_h, "MediatR")
+
+Rel(create_h, agg, "new MaintenanceRequest()")
+Rel(receive_h, agg, "Apply(ReceiveEvent)")
+Rel(start_h, agg, "Apply(StartEvent)")
+Rel(complete_h, agg, "Apply(CompleteEvent)")
+Rel(comment_h, comment_e, "Create/Update")
+Rel(asset_h, asset_e, "Create/Update")
+
+Rel(create_h, db, "ICoopDbContext")
+Rel(receive_h, db, "ICoopDbContext")
+Rel(start_h, db, "ICoopDbContext")
+Rel(complete_h, db, "ICoopDbContext")
+Rel(query_h, db, "ICoopDbContext")
+Rel(comment_h, db, "ICoopDbContext")
+Rel(asset_h, db, "ICoopDbContext")
+@enduml

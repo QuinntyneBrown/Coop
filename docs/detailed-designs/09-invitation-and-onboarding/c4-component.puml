@@ -1,0 +1,41 @@
+@startuml c4-component
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title Invitation and Onboarding - C4 Component Diagram
+
+Person(client, "Client", "Admin or Invitee")
+
+Container_Boundary(api, "Coop API / Profile Service") {
+    Component(ctrl, "InvitationTokenController", "ASP.NET Controller", "REST endpoints: CRUD,\nvalidate, and use token")
+    Component(mediator, "IMediator", "MediatR", "Routes commands\nand queries")
+    Component(createH, "CreateInvitationToken\nHandler", "RequestHandler", "Creates new token\nand persists it")
+    Component(getH, "GetInvitationToken\nHandler", "RequestHandler", "Retrieves tokens\nby ID or page")
+    Component(updateH, "UpdateInvitationToken\nExpiryHandler", "RequestHandler", "Updates token\nexpiry date")
+    Component(removeH, "RemoveInvitationToken\nHandler", "RequestHandler", "Deletes a token")
+    Component(msgH, "InvitationToken\nMessageHandler", "NotificationHandler", "Validates token via\norchestration events")
+    Component(orch, "IOrchestrationHandler", "Orchestration", "Publishes domain\nevents for sagas")
+}
+
+ContainerDb(db, "Database", "SQL Server", "InvitationTokens table")
+
+client -down-> ctrl : HTTP requests
+ctrl -down-> mediator : Send / Publish
+mediator -down-> createH
+mediator -down-> getH
+mediator -down-> updateH
+mediator -down-> removeH
+mediator -down-> msgH
+
+msgH -right-> orch : Publish\nValidatedInvitationToken
+
+createH -down-> db : Insert
+getH -down-> db : Select
+updateH -down-> db : Update
+removeH -down-> db : Delete
+msgH -down-> db : Query
+
+@enduml

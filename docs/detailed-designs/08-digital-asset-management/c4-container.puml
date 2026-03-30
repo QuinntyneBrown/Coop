@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title C4 Container -- Digital Asset Management
+
+Person(user, "Coop User", "Uploads and manages assets")
+
+System_Boundary(coop, "Coop Platform") {
+  Container(spa, "SPA Front-End", "Angular", "File upload UI,\navatar display,\ndocument viewer")
+  Container(api, "Coop API", ".NET / ASP.NET Core", "DigitalAssetController\nMediatR handlers")
+  Container(assetSvc, "Asset Microservice", ".NET / ASP.NET Core", "DigitalAssetsController\nDirect DB access")
+  ContainerDb(db, "SQL Database", "SQL Server / EF Core", "DigitalAssets table\n(varbinary for bytes)")
+  Container(bus, "Message Bus", "RabbitMQ / MessagePack", "Integration events:\nCreated, Deleted")
+}
+
+Rel(user, spa, "Uploads files,\nviews assets")
+Rel(spa, api, "REST API calls", "HTTPS")
+Rel(spa, assetSvc, "REST API calls", "HTTPS")
+Rel(api, db, "Read/Write assets", "EF Core")
+Rel(assetSvc, db, "Read/Write assets", "EF Core")
+Rel(assetSvc, bus, "Publishes events", "MessagePack")
+
+@enduml

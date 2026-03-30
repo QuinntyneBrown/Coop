@@ -1,0 +1,26 @@
+@startuml
+skinparam dpi 150
+skinparam pageMargin 10
+skinparam defaultFontSize 10
+skinparam stateFontSize 11
+
+title Digital Asset Lifecycle
+
+[*] --> Stored : Upload\n(POST /upload)
+
+Stored : Asset persisted in database
+Stored : Bytes, Name, ContentType set
+Stored : Height/Width extracted (images)
+
+Stored --> Stored : Serve\n(GET /serve/{id})
+Stored --> Stored : Update\n(re-upload same name)
+Stored --> Stored : Batch Retrieve\n(GET /range)
+
+Stored --> Deleted : Delete\n(DELETE /{id})
+
+Deleted : Record removed from database
+Deleted : DigitalAssetDeletedEvent published
+
+Deleted --> [*]
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam dpi 150
+skinparam pageMargin 10
+
+title C4 Context -- Digital Asset Management
+
+Person(user, "Coop User", "Member, staff, or board member\nwho uploads or views assets")
+Person(anon, "Anonymous Viewer", "Unauthenticated user viewing\nserved assets via direct URL")
+
+System(coop, "Coop Platform", "Cooperative management platform\nwith digital asset storage")
+
+System_Ext(browser, "Web Browser", "SPA front-end that uploads\nand displays assets")
+
+Rel(user, browser, "Uses")
+Rel(anon, browser, "Views served assets")
+Rel(browser, coop, "Upload, retrieve, serve,\ndelete assets", "HTTPS / REST")
+
+@enduml
