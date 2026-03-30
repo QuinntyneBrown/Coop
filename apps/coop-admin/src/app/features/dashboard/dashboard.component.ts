@@ -6,6 +6,7 @@ import { MaintenanceService } from '../../core/services/maintenance.service';
 import { MessagingService } from '../../core/services/messaging.service';
 import { UserService } from '../../core/services/user.service';
 import { ProfileService } from '../../core/services/profile.service';
+import { DocumentService } from '../../core/services/document.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
@@ -18,9 +19,13 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div class="top-bar" data-testid="dashboard-top-bar">
         <div class="top-bar-left">
           <span class="material-icons logo-icon" data-testid="dashboard-logo">apartment</span>
-          <span class="logo-text">Coop</span>
+          <h1 class="logo-text" data-testid="dashboard-page-title">Dashboard</h1>
         </div>
         <div class="top-bar-right">
+          <div class="search-bar" data-testid="dashboard-search">
+            <span class="material-icons">search</span>
+            <input type="text" placeholder="Search..." />
+          </div>
           <button class="icon-btn" data-testid="dashboard-notification-bell">
             <span class="material-icons">notifications</span>
             <span *ngIf="unreadCount > 0" class="notification-badge" data-testid="dashboard-notification-badge">{{ unreadCount }}</span>
@@ -39,51 +44,99 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         </div>
 
         <!-- Metric Cards -->
-        <div class="metric-cards">
-          <div class="metric-card" data-testid="dashboard-metric-card" data-testid2="dashboard-metric-requests">
-            <div class="metric-card-inner" data-testid="dashboard-metric-requests">
+        <div class="metric-cards" data-testid="dashboard-metric-cards">
+          <div class="metric-card" data-testid="metric-open-requests">
+            <div class="metric-card-inner">
               <div class="metric-icon requests"><span class="material-icons">build</span></div>
               <div class="metric-info">
-                <span class="metric-count" data-testid="dashboard-metric-requests-count">{{ requestsCount }}</span>
+                <span class="metric-count" data-testid="metric-value">{{ requestsCount }}</span>
                 <span class="metric-label">Open Requests</span>
               </div>
             </div>
           </div>
-          <div class="metric-card" data-testid="dashboard-metric-card">
-            <div class="metric-card-inner" data-testid="dashboard-metric-messages">
+          <div class="metric-card" data-testid="metric-unread-messages">
+            <div class="metric-card-inner">
               <div class="metric-icon messages"><span class="material-icons">chat</span></div>
               <div class="metric-info">
-                <span class="metric-count" data-testid="dashboard-metric-messages-count">{{ messagesCount }}</span>
+                <span class="metric-count" data-testid="metric-value">{{ messagesCount }}</span>
                 <span class="metric-label">Unread Messages</span>
               </div>
             </div>
           </div>
-          <div class="metric-card" data-testid="dashboard-metric-card">
-            <div class="metric-card-inner" data-testid="dashboard-metric-members">
+          <div class="metric-card" data-testid="metric-documents">
+            <div class="metric-card-inner">
+              <div class="metric-icon documents"><span class="material-icons">description</span></div>
+              <div class="metric-info">
+                <span class="metric-count" data-testid="metric-value">{{ documentsCount }}</span>
+                <span class="metric-label">Documents</span>
+              </div>
+            </div>
+          </div>
+          <div class="metric-card" data-testid="metric-active-members">
+            <div class="metric-card-inner">
               <div class="metric-icon members"><span class="material-icons">people</span></div>
               <div class="metric-info">
-                <span class="metric-count" data-testid="dashboard-metric-members-count">{{ membersCount }}</span>
+                <span class="metric-count" data-testid="metric-value">{{ membersCount }}</span>
                 <span class="metric-label">Active Members</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Recent Requests -->
-        <div class="recent-requests card" data-testid="dashboard-recent-requests">
+        <!-- Recent Maintenance Requests -->
+        <div class="recent-requests card" data-testid="dashboard-recent-maintenance">
           <div class="card-header">
             <h3>Recent Maintenance Requests</h3>
             <a routerLink="/maintenance" class="view-all-link" data-testid="dashboard-view-all-requests">View all</a>
           </div>
           <div class="request-list">
-            <div *ngFor="let req of recentRequests" class="request-item" data-testid="dashboard-recent-request-item">
+            <div *ngFor="let req of recentRequests" class="request-item" data-testid="dashboard-maintenance-item">
               <div class="request-info">
                 <span class="request-title">{{ req.title }}</span>
                 <span class="request-date">{{ req.date || req.createdOn }}</span>
               </div>
-              <span class="badge" [ngClass]="getStatusClass(req.status)">{{ req.status || 'New' }}</span>
+              <span class="badge" [ngClass]="getStatusClass(req.status)" data-testid="status-badge">{{ req.status || 'New' }}</span>
             </div>
             <div *ngIf="recentRequests.length === 0" class="empty-state">No recent requests</div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions card" data-testid="dashboard-quick-actions">
+          <div class="card-header">
+            <h3>Quick Actions</h3>
+          </div>
+          <div class="quick-actions-grid">
+            <a routerLink="/maintenance" class="quick-action-btn" data-testid="quick-action-maintenance">
+              <span class="material-icons">build</span>
+              <span>New Maintenance</span>
+            </a>
+            <a routerLink="/documents" class="quick-action-btn" data-testid="quick-action-document">
+              <span class="material-icons">description</span>
+              <span>Create Document</span>
+            </a>
+            <a routerLink="/messaging" class="quick-action-btn" data-testid="quick-action-message">
+              <span class="material-icons">chat</span>
+              <span>New Message</span>
+            </a>
+            <a routerLink="/invitations" class="quick-action-btn" data-testid="quick-action-invitation">
+              <span class="material-icons">mail</span>
+              <span>Send Invitation</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Notices -->
+        <div class="recent-notices card" data-testid="dashboard-recent-notices">
+          <div class="card-header">
+            <h3>Recent Notices</h3>
+          </div>
+          <div class="notices-list">
+            <div *ngFor="let notice of recentNotices" class="notice-item">
+              <span class="notice-title">{{ notice.title }}</span>
+              <span class="notice-date">{{ notice.publishedOn || notice.createdOn }}</span>
+            </div>
+            <div *ngIf="recentNotices.length === 0" class="empty-state">No recent notices</div>
           </div>
         </div>
       </div>
@@ -155,6 +208,27 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
     .badge-warning { background: rgba(245,158,11,0.1); color: #D97706; }
     .badge-info { background: rgba(59,130,246,0.1); color: #3B82F6; }
     .badge-gray { background: rgba(26,25,24,0.06); color: #1A1918CC; }
+    .search-bar {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+      background: #F5F4F1; border-radius: 10px; border: 1px solid #E5E4E1;
+      input { border: none; background: transparent; outline: none; font-size: 14px; }
+      .material-icons { font-size: 18px; color: #1A1918CC; }
+    }
+    .quick-actions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 20px; }
+    .quick-action-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px;
+      border-radius: 10px; background: #F5F4F1; text-decoration: none; color: #1A1918;
+      font-size: 13px; text-align: center; transition: background 0.2s;
+      &:hover { background: #E5E4E1; }
+      .material-icons { font-size: 24px; color: #3D8A5A; }
+    }
+    .notices-list { padding: 8px 0; }
+    .notice-item {
+      display: flex; justify-content: space-between; padding: 12px 20px;
+      &:not(:last-child) { border-bottom: 1px solid #F5F4F1; }
+    }
+    .notice-title { font-size: 14px; font-weight: 500; }
+    .notice-date { font-size: 12px; color: #1A1918CC; }
     @media (max-width: 768px) {
       .metric-cards { grid-template-columns: 1fr; }
     }
@@ -166,19 +240,23 @@ export class DashboardComponent implements OnInit {
   private messagingService = inject(MessagingService);
   private userService = inject(UserService);
   private profileService = inject(ProfileService);
+  private documentService = inject(DocumentService);
 
   displayName = '';
   requestsCount = 0;
   messagesCount = 0;
+  documentsCount = 0;
   membersCount = 0;
   unreadCount = 0;
   recentRequests: any[] = [];
+  recentNotices: any[] = [];
 
   ngOnInit(): void {
     this.displayName = this.authService.currentUser?.username || 'User';
     this.loadProfileName();
     this.loadMetrics();
     this.loadRecentRequests();
+    this.loadRecentNotices();
   }
 
   private loadProfileName(): void {
@@ -218,6 +296,14 @@ export class DashboardComponent implements OnInit {
       },
       error: () => { this.membersCount = 0; }
     });
+
+    this.documentService.getDocuments().subscribe({
+      next: (data: any) => {
+        const list = Array.isArray(data) ? data : (data?.documents || []);
+        this.documentsCount = list.length;
+      },
+      error: () => { this.documentsCount = 0; }
+    });
   }
 
   private loadRecentRequests(): void {
@@ -227,6 +313,18 @@ export class DashboardComponent implements OnInit {
         this.recentRequests = list.slice(0, 5);
       },
       error: () => { this.recentRequests = []; }
+    });
+  }
+
+  private loadRecentNotices(): void {
+    this.documentService.getDocuments().subscribe({
+      next: (data: any) => {
+        const list = Array.isArray(data) ? data : (data?.documents || []);
+        this.recentNotices = list
+          .filter((d: any) => (d.documentType || d.type || '').toLowerCase().includes('notice'))
+          .slice(0, 5);
+      },
+      error: () => { this.recentNotices = []; }
     });
   }
 

@@ -13,40 +13,44 @@ import { TopbarComponent } from '../../layout/topbar.component';
     <div class="roles-page">
       <div class="roles-layout">
         <!-- Role List -->
-        <div class="role-list card">
-          <h3>Roles</h3>
-          <div *ngFor="let role of roles" class="role-item" [class.selected]="selectedRole?.roleId === role.roleId"
-            (click)="selectRole(role)">
-            <span class="material-icons role-icon">shield</span>
-            <span>{{ role.name }}</span>
+        <div class="role-list card" data-testid="roles-panel">
+          <h3 data-testid="roles-panel-title">Roles</h3>
+          <div *ngFor="let role of roles" data-testid="role-card">
+            <div class="role-item" [class.selected]="selectedRole?.roleId === role.roleId"
+              (click)="selectRole(role)"
+              [attr.data-testid]="'role-card-' + (role.name || '').toLowerCase()"
+              [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null">
+              <span class="material-icons role-icon">shield</span>
+              <span>{{ role.name }}</span>
+            </div>
           </div>
         </div>
 
         <!-- Privileges Table -->
-        <div class="privileges-panel card" *ngIf="selectedRole">
+        <div class="privileges-panel card" *ngIf="selectedRole" data-testid="privileges-panel">
           <div class="privileges-header">
-            <h3>{{ selectedRole.name }} - Privileges</h3>
-            <button class="btn btn-primary btn-sm" data-testid="add-privilege-btn">
+            <h3 data-testid="privileges-panel-title">{{ selectedRole.name }} - Privileges</h3>
+            <button class="btn btn-primary btn-sm" data-testid="add-privilege-button">
               <span class="material-icons">add</span> Add Privilege
             </button>
           </div>
-          <table class="privileges-table">
+          <table class="privileges-table" data-testid="privileges-table">
             <thead>
               <tr>
-                <th>Aggregate</th>
-                <th>Create</th>
-                <th>Read</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th data-testid="privilege-header-aggregate">Aggregate</th>
+                <th data-testid="privilege-header-read">Read</th>
+                <th data-testid="privilege-header-write">Write</th>
+                <th data-testid="privilege-header-create">Create</th>
+                <th data-testid="privilege-header-delete">Delete</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let priv of rolePrivileges">
+            <tbody *ngFor="let priv of rolePrivileges" data-testid="privilege-row">
+              <tr [attr.data-testid]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
                 <td>{{ priv.aggregate }}</td>
-                <td><input type="checkbox" [checked]="priv.canCreate" class="privilege-toggle" (change)="togglePrivilege(priv, 'canCreate')" /></td>
-                <td><input type="checkbox" [checked]="priv.canRead" class="privilege-toggle" (change)="togglePrivilege(priv, 'canRead')" /></td>
-                <td><input type="checkbox" [checked]="priv.canUpdate" class="privilege-toggle" (change)="togglePrivilege(priv, 'canUpdate')" /></td>
-                <td><input type="checkbox" [checked]="priv.canDelete" class="privilege-toggle" (change)="togglePrivilege(priv, 'canDelete')" /></td>
+                <td><input type="checkbox" [checked]="priv.canRead" class="privilege-toggle" data-testid="privilege-read" (change)="togglePrivilege(priv, 'canRead')" /></td>
+                <td><input type="checkbox" [checked]="priv.canUpdate" class="privilege-toggle" data-testid="privilege-write" (change)="togglePrivilege(priv, 'canUpdate')" /></td>
+                <td><input type="checkbox" [checked]="priv.canCreate" class="privilege-toggle" data-testid="privilege-create" (change)="togglePrivilege(priv, 'canCreate')" /></td>
+                <td><input type="checkbox" [checked]="priv.canDelete" class="privilege-toggle" data-testid="privilege-delete" (change)="togglePrivilege(priv, 'canDelete')" /></td>
               </tr>
             </tbody>
           </table>

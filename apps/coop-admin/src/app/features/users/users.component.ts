@@ -12,71 +12,94 @@ import { TopbarComponent } from '../../layout/topbar.component';
     <app-topbar title="Users"></app-topbar>
     <div class="users-page">
       <div class="page-header">
-        <h2>User Management</h2>
-        <button class="btn btn-primary" data-testid="users-add-btn" (click)="showModal = true">
-          <span class="material-icons">add</span> Add User
-        </button>
+        <h2 data-testid="users-page-title">Users</h2>
+        <div class="page-actions">
+          <input type="text" class="search-input" placeholder="Search users..." data-testid="users-search" (input)="onSearch($event)" />
+          <button class="btn btn-primary" data-testid="users-add-button" (click)="openAddDialog()">
+            <span class="material-icons">add</span> Add User
+          </button>
+        </div>
       </div>
 
-      <div class="users-table card">
+      <div class="users-table card" data-testid="users-table">
         <table>
           <thead>
             <tr>
-              <th>Username</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th data-testid="users-header-username">Username</th>
+              <th data-testid="users-header-role">Role</th>
+              <th data-testid="users-header-status">Status</th>
+              <th data-testid="users-header-actions">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users" data-testid="user-row">
+            <tr *ngFor="let user of users" data-testid="users-table-row">
               <td>
                 <div class="user-cell">
                   <div class="user-avatar" [style.background]="getColor(user)">{{ user.username?.charAt(0).toUpperCase() }}</div>
-                  {{ user.username }}
+                  <span data-testid="user-username">{{ user.username }}</span>
                 </div>
               </td>
-              <td>{{ user.role || 'Member' }}</td>
+              <td><span data-testid="user-role-badge">{{ user.role || 'Member' }}</span></td>
               <td>
-                <span class="badge" [ngClass]="user.status === 'Disabled' ? 'badge-danger' : 'badge-success'">
+                <span class="badge" [ngClass]="user.status === 'Disabled' ? 'badge-danger' : 'badge-success'" data-testid="user-status-badge">
                   {{ user.status || 'Active' }}
                 </span>
               </td>
               <td>
-                <button class="icon-btn" data-testid="user-edit-btn"><span class="material-icons">edit</span></button>
-                <button class="icon-btn" data-testid="user-delete-btn"><span class="material-icons">delete</span></button>
+                <button class="icon-btn" data-testid="user-edit-button" (click)="openEditDialog(user)"><span class="material-icons">edit</span></button>
+                <button class="icon-btn" data-testid="user-delete-button" (click)="openDeleteDialog(user)"><span class="material-icons">delete</span></button>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="pagination">
-          <span>Showing {{ (page - 1) * pageSize + 1 }}-{{ Math.min(page * pageSize, totalCount) }} of {{ totalCount }} users</span>
+        <div class="pagination" data-testid="users-pagination">
+          <span data-testid="users-pagination-info">Showing {{ (page - 1) * pageSize + 1 }}-{{ Math.min(page * pageSize, totalCount) }} of {{ totalCount }} users</span>
           <div class="page-controls">
-            <button (click)="goToPage(page - 1)" [disabled]="page <= 1">&laquo;</button>
-            <button *ngFor="let p of pages" [class.active]="p === page" (click)="goToPage(p)">{{ p }}</button>
-            <button (click)="goToPage(page + 1)" [disabled]="page >= totalPages">&raquo;</button>
+            <button (click)="goToPage(page - 1)" [disabled]="page <= 1" data-testid="users-pagination-prev">&laquo;</button>
+            <button *ngFor="let p of pages" [class.active]="p === page" (click)="goToPage(p)" data-testid="users-pagination-page">{{ p }}</button>
+            <button (click)="goToPage(page + 1)" [disabled]="page >= totalPages" data-testid="users-pagination-next">&raquo;</button>
           </div>
         </div>
       </div>
 
-      <!-- Add User Modal -->
-      <div *ngIf="showModal" class="modal-overlay">
+      <!-- Add/Edit User Dialog -->
+      <div *ngIf="showModal" class="modal-overlay" data-testid="user-dialog">
         <div class="modal-content card">
-          <h3>Add New User</h3>
+          <h3 data-testid="user-dialog-title">{{ editingUser ? 'Edit User' : 'Add New User' }}</h3>
           <form [formGroup]="userForm" (ngSubmit)="addUser()">
             <div class="form-group">
               <label>Username</label>
-              <input type="text" formControlName="username" data-testid="user-username-input" />
+              <input type="text" formControlName="username" data-testid="user-dialog-username" />
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select formControlName="role" data-testid="user-dialog-role">
+                <option value="Member">Member</option>
+                <option value="BoardMember">Board Member</option>
+                <option value="Admin">Admin</option>
+              </select>
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" formControlName="password" data-testid="user-password-input" />
+              <input type="password" formControlName="password" data-testid="user-dialog-password" />
             </div>
             <div class="modal-actions">
-              <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancel</button>
-              <button type="submit" class="btn btn-primary">Create</button>
+              <button type="button" class="btn btn-secondary" data-testid="user-dialog-cancel" (click)="showModal = false">Cancel</button>
+              <button type="submit" class="btn btn-primary" data-testid="user-dialog-save">{{ editingUser ? 'Save' : 'Create' }}</button>
             </div>
           </form>
+        </div>
+      </div>
+
+      <!-- Delete Confirmation Dialog -->
+      <div *ngIf="showDeleteDialog" class="modal-overlay" data-testid="user-delete-dialog">
+        <div class="modal-content card">
+          <h3>Confirm Delete</h3>
+          <p>Are you sure you want to delete this user?</p>
+          <div class="modal-actions">
+            <button class="btn btn-secondary" data-testid="user-delete-cancel" (click)="showDeleteDialog = false">Cancel</button>
+            <button class="btn btn-danger" data-testid="user-delete-confirm" (click)="confirmDeleteUser()">Delete</button>
+          </div>
         </div>
       </div>
     </div>
@@ -118,6 +141,10 @@ import { TopbarComponent } from '../../layout/topbar.component';
     .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
     .badge-success { background: rgba(16,185,129,0.1); color: #059669; }
     .badge-danger { background: rgba(220,53,69,0.1); color: #DC3545; }
+    .page-actions { display: flex; gap: 12px; align-items: center; }
+    .search-input { padding: 8px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } }
+    select { width: 100%; padding: 10px 14px; border: 1px solid #E5E4E1; border-radius: 8px; font-size: 14px; &:focus { outline: none; border-color: #3D8A5A; } }
+    .btn-danger { background: #DC3545; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
   `]
 })
 export class UsersComponent implements OnInit {
@@ -132,10 +159,14 @@ export class UsersComponent implements OnInit {
   totalPages = 1;
   pages: number[] = [1];
   showModal = false;
+  showDeleteDialog = false;
+  editingUser: any = null;
+  deletingUser: any = null;
 
   userForm: FormGroup = this.fb.group({
     username: ['', Validators.required],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
+    role: ['Member']
   });
 
   private colors = ['#3D8A5A', '#3B82F6', '#F59E0B', '#DC3545', '#8B5CF6', '#EC4899'];
@@ -183,6 +214,49 @@ export class UsersComponent implements OnInit {
       },
       error: () => {}
     });
+  }
+
+  onSearch(event: any): void {
+    // Search functionality - filter locally
+    const query = (event.target.value || '').toLowerCase();
+    if (!query) {
+      this.loadUsers();
+      return;
+    }
+    this.userService.getUsers().subscribe({
+      next: (data: any) => {
+        const all = Array.isArray(data) ? data : (data?.users || []);
+        this.users = all.filter((u: any) => (u.username || '').toLowerCase().includes(query));
+        this.totalCount = this.users.length;
+      },
+      error: () => {}
+    });
+  }
+
+  openAddDialog(): void {
+    this.editingUser = null;
+    this.userForm.reset({ role: 'Member' });
+    this.showModal = true;
+  }
+
+  openEditDialog(user: any): void {
+    this.editingUser = user;
+    this.userForm.patchValue({ username: user.username, role: user.role || 'Member' });
+    this.showModal = true;
+  }
+
+  openDeleteDialog(user: any): void {
+    this.deletingUser = user;
+    this.showDeleteDialog = true;
+  }
+
+  confirmDeleteUser(): void {
+    if (this.deletingUser) {
+      this.userService.deleteUser(this.deletingUser.userId || this.deletingUser.id).subscribe({
+        next: () => { this.showDeleteDialog = false; this.loadUsers(); },
+        error: () => { this.showDeleteDialog = false; }
+      });
+    }
   }
 
   getColor(user: any): string {
