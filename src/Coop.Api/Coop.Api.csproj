@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.*" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.*" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.*" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coop.Application\Coop.Application.csproj" />
+    <ProjectReference Include="..\Coop.Infrastructure\Coop.Infrastructure.csproj" />
+    <ProjectReference Include="..\Coop.Domain\Coop.Domain.csproj" />
+    <ProjectReference Include="..\Coop.SharedKernel\Coop.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
