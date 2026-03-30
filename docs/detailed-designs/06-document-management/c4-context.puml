@@ -8,20 +8,20 @@ title Document Management - C4 Context Diagram
 
 Person(boardMember, "Board Member", "Creates and publishes by-laws, notices, and reports")
 Person(staffMember, "Staff Member", "Manages documents on behalf of the co-op")
-Person(member, "Member", "Views published documents")
+Person(member, "Member / Visitor", "Views published documents")
 
-System(docSystem, "Document Management", "Manages creation, publishing, and retrieval of co-op documents (Notices, By-Laws, Reports)")
+System(docSystem, "Document Management Module", "Manages creation, publishing, and retrieval of cooperative documents")
 
-System_Ext(identitySystem, "Identity & Access", "Authenticates users and manages roles")
-System_Ext(digitalAssetSystem, "Digital Asset Service", "Stores and serves document files (PDFs, images)")
-System_Ext(notificationSystem, "Notification Service", "Sends alerts when documents are published")
+System_Ext(adminApp, "Admin Backend", "Authoring and publication workflows")
+System_Ext(publicApp, "Public Web App", "Renders published content")
+System_Ext(assetModule, "Asset Module", "Stores and serves document files")
 
-Rel(boardMember, docSystem, "Creates, publishes, deletes documents")
-Rel(staffMember, docSystem, "Manages documents")
-Rel(member, docSystem, "Views published documents")
+Rel(boardMember, adminApp, "Uses")
+Rel(staffMember, adminApp, "Uses")
+Rel(member, publicApp, "Uses")
 
-Rel(docSystem, identitySystem, "Validates JWT tokens, resolves user identity")
-Rel(docSystem, digitalAssetSystem, "Stores/retrieves document files via DigitalAssetId")
-Rel(docSystem, notificationSystem, "Publishes integration events", "MessageBus")
+Rel(adminApp, docSystem, "Creates, publishes, deletes documents")
+Rel(publicApp, docSystem, "Reads published documents")
+Rel(docSystem, assetModule, "Stores/retrieves files via DigitalAssetId")
 
 @enduml

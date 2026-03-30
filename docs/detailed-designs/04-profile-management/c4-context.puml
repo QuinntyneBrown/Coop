@@ -10,16 +10,14 @@ title Profile Management - C4 Context Diagram
 Person(resident, "Cooperative Resident", "Member, board member, or staff of the cooperative")
 Person(admin, "System Administrator", "Manages profiles and user assignments")
 
-System(profileService, "Profile Management Service", "Manages profile CRUD, avatar association, and profile-type-specific attributes")
+System(profileModule, "Profile Management Module", "Manages profile CRUD, avatar association, and profile-type-specific attributes")
 
-System_Ext(identityService, "Identity Service", "User accounts, authentication, role-based access, current/default profile tracking")
-System_Ext(assetService, "Asset Service", "Stores and serves digital assets (avatar images)")
-System_Ext(messagingService, "Messaging Service", "Conversation and message management between profiles")
+System_Ext(identityModule, "Identity & Access Module", "User accounts, authentication, and current/default profile ownership")
+System_Ext(assetModule, "Asset Module", "Stores and serves digital assets such as avatar images")
 
-Rel(resident, profileService, "Views and updates own profiles", "HTTPS/JSON")
-Rel(admin, profileService, "Creates and manages all profiles", "HTTPS/JSON")
-Rel(profileService, identityService, "Publishes profile lifecycle events", "Message Bus")
-Rel(profileService, assetService, "References avatar DigitalAssetId", "HTTPS/JSON")
-Rel(messagingService, profileService, "Resolves profile details for conversations", "HTTPS/JSON")
+Rel(resident, profileModule, "Views and updates own profiles", "HTTPS/JSON")
+Rel(admin, profileModule, "Creates and manages all profiles", "HTTPS/JSON")
+Rel(profileModule, identityModule, "Updates current/default profile state", "Internal application contract")
+Rel(profileModule, assetModule, "References avatar DigitalAssetId", "Internal application contract")
 
 @enduml

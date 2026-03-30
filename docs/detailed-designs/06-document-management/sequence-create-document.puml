@@ -13,7 +13,7 @@ participant "MediatR" as Med
 participant "CreateHandler" as Handler
 participant "Document\n(AggregateRoot)" as Doc
 database "CoopDbContext" as DB
-participant "MessageBus" as Bus
+participant "InternalNotification\nDispatcher" as Dispatcher
 
 Client -> Ctrl : POST /api/{type}
 activate Ctrl
@@ -42,10 +42,10 @@ activate DB
 DB --> Handler : saved
 deactivate DB
 
-Handler -> Bus : PublishAsync(DocumentCreatedEvent)
-activate Bus
-Bus --> Handler : published
-deactivate Bus
+Handler -> Dispatcher : Dispatch(DocumentCreated)
+activate Dispatcher
+Dispatcher --> Handler : complete
+deactivate Dispatcher
 
 Handler --> Med : CreateResponse
 deactivate Handler

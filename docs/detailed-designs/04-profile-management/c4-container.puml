@@ -9,23 +9,23 @@ title Profile Management - C4 Container Diagram
 
 Person(user, "User", "Cooperative member, board member, staff, or admin")
 
-System_Boundary(profileBoundary, "Profile Management Service") {
-    Container(profileApi, "Profile API", ".NET 7 / ASP.NET Core", "REST controllers for profile CRUD, avatar management, and type-specific endpoints")
-    Container(profileDomain, "Profile Domain", ".NET Class Library", "ProfileBase, Member, BoardMember, StaffMember entities, ProfileType enum, Address value object")
-    Container(profileInfra, "Profile Infrastructure", ".NET Class Library", "ProfileDbContext, EF Core entity configurations, data seeding")
-    ContainerDb(profileDb, "Profile Database", "SQL Server / SQLite", "Stores profiles table (TPH), invitation tokens")
+System_Boundary(profileBoundary, "Coop Backend - Profile Management") {
+    Container(profileApi, "Profile API", ".NET / ASP.NET Core", "REST endpoints for profile CRUD, avatar management, and type-specific operations")
+    Container(profileApp, "Profile Application", ".NET Class Library", "Commands, queries, and internal coordination with Identity and Asset modules")
+    Container(profileDomain, "Profile Domain", ".NET Class Library", "ProfileBase, Member, BoardMember, StaffMember, OnCall, Address")
+    Container(profileInfra, "Profile Persistence", ".NET Class Library", "EF Core DbContext and entity configurations")
+    ContainerDb(profileDb, "Coop Database", "SQL Server", "Profiles, invitations, and related module-owned tables")
 }
 
-System_Ext(identityService, "Identity Service", "User accounts and authentication")
-System_Ext(messageBus, "Message Bus", "Publishes and consumes integration events")
-System_Ext(assetService, "Asset Service", "Digital asset storage")
+System_Ext(identityModule, "Identity & Access Module", "Owns users and profile-selection state")
+System_Ext(assetModule, "Asset Module", "Stores digital assets")
 
 Rel(user, profileApi, "HTTPS/JSON", "REST API calls")
-Rel(profileApi, profileDomain, "Uses", "Domain entities and logic")
-Rel(profileApi, profileInfra, "Uses", "Data persistence")
+Rel(profileApi, profileApp, "Uses")
+Rel(profileApp, profileDomain, "Uses")
+Rel(profileApp, profileInfra, "Uses")
 Rel(profileInfra, profileDb, "Reads/Writes", "EF Core")
-Rel(profileApi, messageBus, "Publishes", "ProfileCreated/Updated/Deleted events")
-Rel(messageBus, identityService, "Delivers", "Profile lifecycle events")
-Rel(profileApi, assetService, "References", "Avatar DigitalAssetId")
+Rel(profileApp, identityModule, "Coordinates profile ownership", "Internal contract")
+Rel(profileApp, assetModule, "Resolves avatar assets", "Internal contract")
 
 @enduml

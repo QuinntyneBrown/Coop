@@ -15,10 +15,10 @@ Container_Boundary(api, "Document API") {
 
   Component(createHandler, "Create Handlers", "MediatR IRequestHandler", "Handles CreateNotice, CreateByLaw, CreateReport requests")
   Component(queryHandler, "Query Handlers", "MediatR IRequestHandler", "Handles GetById, GetAll, GetPublished, GetPage requests")
-  Component(updateHandler, "Update Handler", "MediatR IRequestHandler", "Handles Update requests (including publish)")
-  Component(deleteHandler, "Delete Handler", "MediatR IRequestHandler", "Handles Remove requests")
-
+  Component(updateHandler, "Update Handler", "MediatR IRequestHandler", "Handles Update requests including publish")
+  Component(deleteHandler, "Delete Handler", "MediatR IRequestHandler", "Handles remove requests")
   Component(validators, "Validators", "FluentValidation", "DocumentValidator, NoticeValidator, ByLawValidator, ReportValidator")
+  Component(dispatcher, "InternalNotificationDispatcher", "Application Service", "Dispatches in-process domain notifications")
 }
 
 Container_Boundary(domainLayer, "Document Domain") {
@@ -30,7 +30,6 @@ Container_Boundary(infraLayer, "Document Infrastructure") {
 }
 
 ComponentDb(db, "SQL Server", "Document tables and StoredEvents")
-Component_Ext(messageBus, "MessageBus", "IMessageBus", "Integration event publishing")
 
 Rel(docCtrl, createHandler, "Dispatches via MediatR")
 Rel(docCtrl, queryHandler, "Dispatches via MediatR")
@@ -42,17 +41,17 @@ Rel(reportCtrl, createHandler, "Dispatches via MediatR")
 Rel(reportCtrl, queryHandler, "Dispatches via MediatR")
 
 Rel(createHandler, docAggregate, "Creates & applies events")
-Rel(updateHandler, docAggregate, "Applies PublishDocument event")
-Rel(deleteHandler, docAggregate, "Applies DeleteDocument event")
+Rel(updateHandler, docAggregate, "Applies publish event")
+Rel(deleteHandler, docAggregate, "Applies delete event")
 Rel(createHandler, validators, "Validates input")
 
 Rel(createHandler, dbContext, "Persists entities")
 Rel(queryHandler, dbContext, "Queries entities")
 Rel(updateHandler, dbContext, "Updates entities")
 Rel(deleteHandler, dbContext, "Removes entities")
+Rel(updateHandler, dispatcher, "Dispatches notifications")
+Rel(deleteHandler, dispatcher, "Dispatches notifications")
 
 Rel(dbContext, db, "Reads/Writes")
-Rel(createHandler, messageBus, "Publishes DocumentCreatedEvent")
-Rel(deleteHandler, messageBus, "Publishes DocumentDeletedEvent")
 
 @enduml

@@ -11,14 +11,15 @@ title Update Profile Avatar - Sequence Diagram
 actor Client
 participant "ProfilesController" as PC
 participant "ProfileDbContext" as DB
-participant "Asset Service" as Asset
+participant "Asset Module" as Asset
 
 note over Client, Asset
-  Precondition: DigitalAsset already uploaded
-  via the Asset Service and its ID is known.
+  Precondition: the digital asset has already
+  been uploaded through the shared backend
+  and its identifier is known.
 end note
 
-Client -> Asset : POST /api/digitalassets\n(upload image)
+Client -> Asset : POST /api/digitalasset/avatar\n(upload image)
 activate Asset
 Asset --> Client : 200 OK { DigitalAssetId }
 deactivate Asset

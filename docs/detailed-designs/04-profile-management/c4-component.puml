@@ -8,32 +8,27 @@ LAYOUT_TOP_DOWN()
 title Profile Management - C4 Component Diagram
 
 Container_Boundary(profileApi, "Profile API") {
-    Component(profilesCtrl, "ProfilesController", "ASP.NET Controller", "GET all/by-id/by-user, PUT avatar, DELETE profile")
-    Component(boardCtrl, "BoardMembersController", "ASP.NET Controller", "CRUD for board member profiles with BoardTitle")
-    Component(membersCtrl, "MembersController", "ASP.NET Controller", "CRUD for member profiles with Address")
-    Component(staffCtrl, "StaffMembersController", "ASP.NET Controller", "CRUD for staff member profiles with JobTitle")
-    Component(onCallCtrl, "OnCallController", "ASP.NET Controller", "CRUD for on-call support profiles")
-    Component(dbContext, "ProfileDbContext", "EF Core DbContext", "DbSet<ProfileBase>, DbSet<Member>, DbSet<StaffMember>, DbSet<BoardMember>")
-    Component(messageBus, "IMessageBus", "Messaging", "Publishes ProfileCreated, ProfileUpdated, ProfileDeleted events")
+    Component(profilesCtrl, "ProfilesController", "ASP.NET Controller", "Get profiles, set avatar, delete profile")
+    Component(boardCtrl, "BoardMembersController", "ASP.NET Controller", "CRUD for board member profiles")
+    Component(membersCtrl, "MembersController", "ASP.NET Controller", "CRUD for member profiles")
+    Component(staffCtrl, "StaffMembersController", "ASP.NET Controller", "CRUD for staff member profiles")
+    Component(onCallCtrl, "OnCallController", "ASP.NET Controller", "CRUD for on-call profiles")
+    Component(profileAppSvc, "ProfileApplicationService", "Application Service", "Coordinates profile creation, updates, and user-profile defaults")
+    Component(dbContext, "ProfileDbContext", "EF Core DbContext", "Persists profiles and invitations")
 }
 
-ContainerDb(db, "Profile Database", "SQL Server", "Profiles table (TPH), InvitationTokens")
-System_Ext(identitySvc, "Identity Service", "Consumes profile events")
-System_Ext(assetSvc, "Asset Service", "Avatar digital assets")
+ContainerDb(db, "Coop Database", "SQL Server", "Profiles and related tables")
+System_Ext(identityModule, "Identity & Access Module", "Updates current/default profile state")
+System_Ext(assetModule, "Asset Module", "Supplies avatar assets")
 
-Rel(profilesCtrl, dbContext, "Queries/Updates profiles")
-Rel(boardCtrl, dbContext, "Queries/Updates board members")
-Rel(membersCtrl, dbContext, "Queries/Updates members")
-Rel(staffCtrl, dbContext, "Queries/Updates staff members")
-Rel(onCallCtrl, dbContext, "Queries/Updates on-call profiles")
-
-Rel(profilesCtrl, messageBus, "Publishes ProfileDeletedEvent")
-Rel(boardCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
-Rel(membersCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
-Rel(staffCtrl, messageBus, "Publishes ProfileCreated/UpdatedEvent")
-
+Rel(profilesCtrl, profileAppSvc, "Uses")
+Rel(boardCtrl, profileAppSvc, "Uses")
+Rel(membersCtrl, profileAppSvc, "Uses")
+Rel(staffCtrl, profileAppSvc, "Uses")
+Rel(onCallCtrl, profileAppSvc, "Uses")
+Rel(profileAppSvc, dbContext, "Queries/Updates profiles")
 Rel(dbContext, db, "EF Core", "SQL")
-Rel(messageBus, identitySvc, "Events", "Message Bus")
-Rel(profilesCtrl, assetSvc, "References avatar", "DigitalAssetId")
+Rel(profileAppSvc, identityModule, "Updates user-profile links", "Internal contract")
+Rel(profileAppSvc, assetModule, "Validates avatar references", "Internal contract")
 
 @enduml
