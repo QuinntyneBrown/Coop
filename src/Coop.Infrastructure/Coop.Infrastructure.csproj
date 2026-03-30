@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.*" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.*" />
+    <PackageReference Include="MediatR" Version="12.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coop.Application\Coop.Application.csproj" />
+    <ProjectReference Include="..\Coop.Domain\Coop.Domain.csproj" />
+    <ProjectReference Include="..\Coop.SharedKernel\Coop.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
