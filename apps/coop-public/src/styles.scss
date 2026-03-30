@@ -1,1 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #3D8A5A;
+  --primary-dark: #2D6B44;
+  --primary-light: #3D8A5A20;
+  --background: #F5F4F1;
+  --surface: #FFFFFF;
+  --text-primary: #1A1918;
+  --text-secondary: #1A1918CC;
+  --border: #E5E4E1;
+  --error: #DC2626;
+  --warning: #F59E0B;
+  --success: #3D8A5A;
+  --info: #3B82F6;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: 'Outfit', sans-serif;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
+
+  &-primary {
+    background: var(--primary);
+    color: #fff;
+    &:hover { background: var(--primary-dark); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+
+  &-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    &:hover { background: var(--primary-light); }
+  }
+
+  &-full {
+    width: 100%;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    background: var(--surface);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: var(--primary);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: var(--error);
+    }
+  }
+
+  textarea { resize: vertical; min-height: 100px; }
+
+  .error-message {
+    color: var(--error);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+}
