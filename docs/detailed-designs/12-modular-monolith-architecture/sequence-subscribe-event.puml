@@ -5,50 +5,31 @@ skinparam shadowing false
 skinparam sequenceMessageAlign center
 skinparam pageMargin 10
 
-title Subscribe and Handle Integration Event
+title Register and Handle In-Process Domain Event
 
-participant "Redis\nPub/Sub" as Redis
-participant "IMessageBus\n(RedisMessageBus)" as Bus
-participant "IMessageSerializer\n(MessagePack)" as Serializer
-participant "IIntegrationEvent\nHandler<TEvent>" as Handler
-participant "Service\n(e.g. Messaging)" as Service
+participant "Application Startup" as Startup
+participant "DomainEventDispatcher" as Dispatcher
+participant "Handler Registry" as Registry
+participant "Module Handler" as Handler
+participant "Owning Module" as Module
 
-== Startup: Register Subscription ==
+== Startup ==
 
-Service -> Bus : SubscribeAsync<TEvent>(handler)
-activate Bus
-Bus -> Bus : GetChannelName<TEvent>()
-Bus -> Redis : SubscribeAsync("{prefix}:{channel}")
-activate Redis
-Redis --> Bus : subscription active
-deactivate Redis
-deactivate Bus
+Startup -> Registry : Register handler for DomainEvent
+Registry --> Startup : registered
 
-== Runtime: Event Arrives ==
+== Runtime ==
 
-Redis -> Bus : OnMessage(channel, byte[] data)
-activate Bus
-
-Bus -> Serializer : Deserialize<MessageEnvelope>(data)
-activate Serializer
-return envelope
-
-Bus -> Serializer : Deserialize<TEvent>(envelope.Payload)
-activate Serializer
-return @event
-
-Bus -> Handler : handler(@event)
+Module -> Dispatcher : DispatchAsync(domainEvent)
+activate Dispatcher
+Dispatcher -> Registry : Resolve handlers
+Registry --> Dispatcher : matching handlers
+Dispatcher -> Handler : HandleAsync(domainEvent)
 activate Handler
-
-Handler -> Service : process domain logic
-activate Service
-Service --> Handler : done
-deactivate Service
-
-Handler --> Bus : Task complete
+Handler -> Module : apply side effect
+Module --> Handler : complete
 deactivate Handler
-
-Bus -> Bus : Log: "Handled event {EventType}"
-deactivate Bus
+Dispatcher --> Module : complete
+deactivate Dispatcher
 
 @enduml

@@ -5,47 +5,28 @@ skinparam shadowing false
 skinparam sequenceMessageAlign center
 skinparam pageMargin 10
 
-title Publish Integration Event via Redis
+title Dispatch In-Process Domain Event
 
-participant "Service\n(e.g. Profile)" as Service
-participant "IntegrationEvent\nPublisher" as Publisher
-participant "IMessageBus\n(RedisMessageBus)" as Bus
-participant "IMessageSerializer\n(MessagePack)" as Serializer
-participant "MessageEnvelope" as Envelope
-participant "Redis\nPub/Sub" as Redis
+participant "Application Service" as Service
+participant "DomainEventDispatcher" as Dispatcher
+participant "DomainEvent" as Event
+participant "Handler" as Handler
+participant "Read Model / Audit" as Projection
 
-Service -> Publisher : PublishAsync<TEvent>(event)
-activate Publisher
+Service -> Event ** : new DomainEvent()
+Service -> Dispatcher : DispatchAsync(event)
+activate Dispatcher
 
-Publisher -> Bus : PublishAsync<TEvent>(event)
-activate Bus
+Dispatcher -> Handler : HandleAsync(event)
+activate Handler
+Handler -> Projection : Update projection / audit
+activate Projection
+Projection --> Handler : complete
+deactivate Projection
+Handler --> Dispatcher : complete
+deactivate Handler
 
-Bus -> Bus : GetChannelName<TEvent>()\n=> event type lowercase
-
-Bus -> Serializer : Serialize<TEvent>(event)
-activate Serializer
-return byte[] payload
-
-Bus -> Envelope ** : new MessageEnvelope
-note right
-  EventType = AssemblyQualifiedName
-  Payload = serialized event bytes
-  Timestamp = UtcNow
-  CorrelationId = event.CorrelationId
-end note
-
-Bus -> Serializer : Serialize<MessageEnvelope>(envelope)
-activate Serializer
-return byte[] data
-
-Bus -> Redis : PublishAsync(\n  "{prefix}:{channel}", data)
-activate Redis
-return message delivered
-
-Bus --> Publisher : complete
-deactivate Bus
-
-Publisher --> Service : complete
-deactivate Publisher
+Dispatcher --> Service : complete
+deactivate Dispatcher
 
 @enduml

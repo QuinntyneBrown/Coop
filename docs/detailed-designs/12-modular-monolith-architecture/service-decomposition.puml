@@ -8,17 +8,14 @@ skinparam pageMargin 10
 skinparam nodesep 20
 skinparam ranksep 20
 
-title Microservices Architecture - Service Decomposition
+title Modular Monolith Architecture - Module Decomposition
 
-package "Gateway" as gw #LightGray {
-  [Coop.Api] as api
-  note right of api
-    Reverse proxy routing
-    to downstream services
-  end note
+package "Application Surfaces" as apps #LightGray {
+  [Public Web App] as publicApp
+  [Admin Backend] as adminApp
 }
 
-package "Identity Service" as identity #LightBlue {
+package "Identity Module" as identity #LightBlue {
   [User] as user
   [Role] as role
   [Privilege] as privilege
@@ -26,7 +23,7 @@ package "Identity Service" as identity #LightBlue {
   role --> privilege
 }
 
-package "Profile Service" as profile #LightGreen {
+package "Profile Module" as profile #LightGreen {
   [ProfileBase] as profileBase
   [Member] as member
   [BoardMember] as boardMember
@@ -38,57 +35,72 @@ package "Profile Service" as profile #LightGreen {
   profileBase ..> invite
 }
 
-package "Maintenance Service" as maintenance #LightYellow {
+package "Maintenance Module" as maintenance #LightYellow {
   [MaintenanceRequest] as mRequest
   [Comment] as comment
-  [DigitalAsset\n(reference)] as mAsset
+  [Attachment\n(reference)] as mAsset
   mRequest --> comment
   mRequest --> mAsset
 }
 
-package "Document Service" as document #LightCoral {
+package "Document Module" as document #LightCoral {
   [DocumentBase] as docBase
   [ByLaw] as bylaw
   [Notice] as notice
   [Report] as report
-  [JsonContent] as jsonContent
   bylaw -u-|> docBase
   notice -u-|> docBase
   report -u-|> docBase
 }
 
-package "Asset Service" as asset #Wheat {
+package "Asset Module" as asset #Wheat {
   [DigitalAsset] as digitalAsset
   [Theme] as theme
-  [OnCall] as onCall
 }
 
-package "Messaging Service" as messaging #Thistle {
+package "Messaging Module" as messaging #Thistle {
   [Conversation] as conversation
   [Message] as message
   conversation --> message
 }
 
-package "SharedKernel" as kernel #WhiteSmoke {
-  [IntegrationEvents] as events
-  [Messaging\n(RedisMessageBus)] as bus
-  [Serialization\n(MessagePack)] as serial
-  bus --> serial
-  bus ..> events : publishes
+package "CMS Module" as cms #WhiteSmoke {
+  [JsonContent] as jsonContent
+  [Named Sections] as sections
+  jsonContent --> sections
 }
 
-identity ..> kernel : references
-profile ..> kernel : references
-maintenance ..> kernel : references
-document ..> kernel : references
-asset ..> kernel : references
-messaging ..> kernel : references
+package "Shared Runtime" as runtime #MintCream {
+  [Coop API] as api
+  [Domain Event\nDispatcher] as dispatcher
+  [Shared Database] as db
+}
 
-api ..> identity : routes to
-api ..> profile : routes to
-api ..> maintenance : routes to
-api ..> document : routes to
-api ..> asset : routes to
-api ..> messaging : routes to
+publicApp ..> api : calls
+adminApp ..> api : calls
+
+api ..> identity : uses
+api ..> profile : uses
+api ..> maintenance : uses
+api ..> document : uses
+api ..> asset : uses
+api ..> messaging : uses
+api ..> cms : uses
+
+identity ..> dispatcher : raises events
+profile ..> dispatcher : raises events
+maintenance ..> dispatcher : raises events
+document ..> dispatcher : raises events
+asset ..> dispatcher : raises events
+messaging ..> dispatcher : raises events
+cms ..> dispatcher : raises events
+
+identity --> db
+profile --> db
+maintenance --> db
+document --> db
+asset --> db
+messaging --> db
+cms --> db
 
 @enduml

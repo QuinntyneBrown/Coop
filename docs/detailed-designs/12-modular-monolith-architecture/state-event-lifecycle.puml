@@ -4,32 +4,24 @@ skinparam defaultFontSize 11
 skinparam shadowing false
 skinparam pageMargin 10
 
-title Integration Event Lifecycle
+title Internal Domain Event Lifecycle
 
 [*] --> Created : Domain operation\ncompletes
 
 Created : EventId = NewGuid()
 Created : CreatedAt = UtcNow
 
-Created --> Serialized : IMessageSerializer\n.Serialize<TEvent>()
+Created --> Dispatched : DomainEventDispatcher\n.DispatchAsync()
 
-Serialized : Wrapped in\nMessageEnvelope
+Dispatched : Routed to matching\nin-process handlers
 
-Serialized --> Published : RedisMessageBus\n.PublishAsync()
+Dispatched --> Handled : Handler executes\nside effects
 
-Published : Sent to Redis\nPub/Sub channel
-
-Published --> Delivered : Redis delivers\nto subscribers
-
-Delivered : Subscriber receives\nbyte[] message
-
-Delivered --> Handled : IIntegrationEventHandler\n.HandleAsync()
-
-Handled : Domain side-effects\napplied
+Handled : Projections, audit,\nor dependent state updated
 
 Handled --> [*]
 
-Published --> Failed : Redis unavailable\nor serialization error
+Dispatched --> Failed : Handler throws\nor validation fails
 Failed --> [*]
 
 @enduml
