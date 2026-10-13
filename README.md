@@ -133,6 +133,7 @@ provenance, and known differences from the requirements.
 | Design reference | `docs/mocks` | Static HTML references of both applications, with capture scripts and a manifest |
 | Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages extracted from the mocks; light appearance only |
 | Requirements | `docs/specs` | L1 high-level and L2 detailed requirements with acceptance criteria |
+| Component requirements | `docs/specs/components` | One CRD (Markdown plus HTML rendering) per design-system component, indexed in its README |
 
 Layer dependencies point inward: Api → Infrastructure → Application →
 Domain → SharedKernel. Business rules live in MediatR handlers and domain
@@ -196,6 +197,7 @@ must not use a real database.
 | --- | --- |
 | Backend guide | [backend/README.md](backend/README.md) |
 | Requirements | [Level 1](docs/specs/L1.md) and [Level 2](docs/specs/L2.md) specifications in [docs/specs](docs/specs/) |
+| Component requirements | [docs/specs/components](docs/specs/components/README.md), one CRD per design-system component |
 | Design reference | [docs/mocks](docs/mocks/pages/) and its [README](docs/mocks/README.md) |
 | Frontend workspace | [frontend](frontend/README.md) |
 | Public app | [frontend/projects/public](frontend/projects/public/README.md) |

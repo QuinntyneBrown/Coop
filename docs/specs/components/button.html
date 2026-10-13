@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button — Component requirements rendering</title>
+<meta name="description" content="Every variant, size and state of the button, in light and dark, keyed to the acceptance criteria in button.md.">
+<meta name="crd:component" content="button">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/fonts.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-caption); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: 100%; }
+.crd-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Button</h1>
+    <p class="ds-lead">Five variants, three sizes, block width, leading icon, icon-only, anchor form and the busy state. Requirements: <a href="button.md">button.md</a>. Design system: <a href="../../design-system/components/button.html">button</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>coop-button</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-REQ-060, 064, 066, 068, 069, 076, 077</span><span class="ds-pill">Light appearance only</span></div>
+    <ul class="ds-toc">
+      <li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li>
+    </ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas crd-row">
+      <button class="btn btn-primary" type="button">Save Changes</button>
+      <button class="btn btn-secondary" type="button">Cancel</button>
+      <button class="btn btn-outline" type="button">Edit</button>
+      <button class="btn btn-danger" type="button">Delete</button>
+      <button class="btn btn-sign-out" type="button">Log Out</button>
+    </div><div class="ds-example__caption"><span>Primary, secondary, outline, danger and sign out. No ghost variant (D-4). <span class="crd-ac">AC-1, AC-2, AC-3, AC-4, AC-5</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas crd-row">
+      <button class="btn btn-primary" type="button"><span class="material-icons" aria-hidden="true">add</span>Add User</button>
+      <button class="btn btn-primary" type="submit" aria-label="Send message"><span class="material-icons" aria-hidden="true">send</span></button>
+      <a class="btn btn-primary btn-lg" href="#top">Join Now</a>
+      <a class="btn btn-secondary" href="#top">Cancel</a>
+    </div><div class="ds-example__caption"><span>Leading icon, icon-only with <code>aria-label</code>, and the anchor form. <span class="crd-ac">AC-6, AC-7, AC-17</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas"><div style="width:100%;max-width:22rem">
+      <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+    </div></div><div class="ds-example__caption"><span>Block width (<code>.btn-full</code>) inside a 22rem form. <span class="crd-ac">AC-9</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas"><div class="modal-actions" style="width:100%;max-width:22rem;margin-top:0">
+      <button class="btn btn-secondary" type="button">Cancel</button>
+      <button class="btn btn-danger" type="button">Delete</button>
+    </div></div><div class="ds-example__caption"><span>Confirm-dialog actions: equal shares, Cancel first. <span class="crd-ac">AC-14, AC-22</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <div class="ds-example"><div class="ds-example__canvas crd-row">
+      <button class="btn btn-primary btn-sm" type="button"><span class="material-icons" aria-hidden="true">add</span>New Conversation</button>
+      <button class="btn btn-primary" type="button">Save Changes</button>
+      <button class="btn btn-primary btn-lg" type="button">Get Started</button>
+    </div><div class="ds-example__caption"><span>Small (2rem), medium (2.5rem), large (3rem). <span class="crd-ac">AC-8</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Hover, focus and active are forced with <code>data-state</code>; disabled and busy use the real attributes.</p>
+    <div class="ds-matrix"><table>
+      <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Busy</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Primary</th><td><button class="btn btn-primary" type="button">Save Changes</button></td><td><button class="btn btn-primary" type="button" data-state="hover">Save Changes</button></td><td><button class="btn btn-primary" type="button" data-state="focus">Save Changes</button></td><td><button class="btn btn-primary" type="button" data-state="active">Save Changes</button></td><td><button class="btn btn-primary" type="button" disabled>Save Changes</button></td><td><button class="btn btn-primary" type="submit" disabled aria-busy="true">Saving...</button></td></tr>
+<tr><th scope="row">Secondary</th><td><button class="btn btn-secondary" type="button">Cancel</button></td><td><button class="btn btn-secondary" type="button" data-state="hover">Cancel</button></td><td><button class="btn btn-secondary" type="button" data-state="focus">Cancel</button></td><td><button class="btn btn-secondary" type="button" data-state="active">Cancel</button></td><td><button class="btn btn-secondary" type="button" disabled>Cancel</button></td><td><button class="btn btn-secondary" type="submit" disabled aria-busy="true">Saving...</button></td></tr>
+<tr><th scope="row">Outline</th><td><button class="btn btn-outline" type="button">Edit</button></td><td><button class="btn btn-outline" type="button" data-state="hover">Edit</button></td><td><button class="btn btn-outline" type="button" data-state="focus">Edit</button></td><td><button class="btn btn-outline" type="button" data-state="active">Edit</button></td><td><button class="btn btn-outline" type="button" disabled>Edit</button></td><td><button class="btn btn-outline" type="submit" disabled aria-busy="true">Saving...</button></td></tr>
+<tr><th scope="row">Danger</th><td><button class="btn btn-danger" type="button">Delete</button></td><td><button class="btn btn-danger" type="button" data-state="hover">Delete</button></td><td><button class="btn btn-danger" type="button" data-state="focus">Delete</button></td><td><button class="btn btn-danger" type="button" data-state="active">Delete</button></td><td><button class="btn btn-danger" type="button" disabled>Delete</button></td><td><button class="btn btn-danger" type="submit" disabled aria-busy="true">Saving...</button></td></tr>
+<tr><th scope="row">Sign out</th><td><button class="btn btn-sign-out" type="button">Log Out</button></td><td><button class="btn btn-sign-out" type="button" data-state="hover">Log Out</button></td><td><button class="btn btn-sign-out" type="button" data-state="focus">Log Out</button></td><td><button class="btn btn-sign-out" type="button" data-state="active">Log Out</button></td><td><button class="btn btn-sign-out" type="button" disabled>Log Out</button></td><td><button class="btn btn-sign-out" type="submit" disabled aria-busy="true">Saving...</button></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-10, AC-11, AC-12, AC-13, AC-15, AC-16, AC-18, AC-24, AC-25</span>
+    <div class="ds-example"><div class="ds-example__canvas"><div style="width:100%;max-width:22rem;display:grid;gap:var(--space-3)">
+      <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+      <button class="btn btn-primary btn-full" type="submit" disabled aria-busy="true">Signing in...</button>
+    </div></div><div class="ds-example__caption"><span>The login submit before and during the request: same width, label swapped, <code>disabled</code> and <code>aria-busy="true"</code>. <span class="crd-ac">AC-12, AC-16, AC-18</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <p>The product ships one light appearance; the dark block below is required by the CRD format and renders the same tokens (D-2).</p>
+    <div class="ds-themes">
+      <div data-theme="light">
+      <div class="ds-example__canvas" style="flex-wrap:wrap;gap:var(--space-3)">
+        <button class="btn btn-primary" type="button">Save Changes</button>
+        <button class="btn btn-secondary" type="button">Cancel</button>
+        <button class="btn btn-outline" type="button">Edit</button>
+        <button class="btn btn-danger" type="button">Delete</button>
+        <button class="btn btn-sign-out" type="button">Log Out</button>
+        <button class="btn btn-primary btn-sm" type="button"><span class="material-icons" aria-hidden="true">add</span>New Conversation</button>
+        <button class="btn btn-primary" type="submit" disabled aria-busy="true">Signing in...</button>
+        <button class="btn btn-primary" type="submit" aria-label="Send message"><span class="material-icons" aria-hidden="true">send</span></button>
+      </div></div>
+      <div data-theme="dark">
+      <div class="ds-example__canvas" style="flex-wrap:wrap;gap:var(--space-3)">
+        <button class="btn btn-primary" type="button">Save Changes</button>
+        <button class="btn btn-secondary" type="button">Cancel</button>
+        <button class="btn btn-outline" type="button">Edit</button>
+        <button class="btn btn-danger" type="button">Delete</button>
+        <button class="btn btn-sign-out" type="button">Log Out</button>
+        <button class="btn btn-primary btn-sm" type="button"><span class="material-icons" aria-hidden="true">add</span>New Conversation</button>
+        <button class="btn btn-primary" type="submit" disabled aria-busy="true">Signing in...</button>
+        <button class="btn btn-primary" type="submit" aria-label="Send message"><span class="material-icons" aria-hidden="true">send</span></button>
+      </div></div>
+    </div>
+    <span class="crd-ac">AC-19, AC-20</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>Buttons have no media rules; the frames show block, dialog-row and hero uses at 320, 360 and 768 px, including a French label that must wrap without clipping.</p>
+    <div class="crd-frames">
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-9, AC-23</span><iframe title="320 pixel wide frame, light theme: block sign-in button" width="320" height="300" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;form&gt;&lt;div class=&quot;form-group&quot;&gt;&lt;label for=&quot;u&quot;&gt;Username&lt;/label&gt;&lt;input id=&quot;u&quot; type=&quot;text&quot; placeholder=&quot;Enter your username&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;form-group&quot;&gt;&lt;label for=&quot;p&quot;&gt;Password&lt;/label&gt;&lt;input id=&quot;p&quot; type=&quot;password&quot; placeholder=&quot;Enter your password&quot;&gt;&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary btn-full&quot; type=&quot;submit&quot;&gt;Sign In&lt;/button&gt;&lt;/form&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-12, AC-23</span><iframe title="320 pixel wide frame, light theme: busy block button" width="320" height="300" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;form&gt;&lt;div class=&quot;form-group&quot;&gt;&lt;label for=&quot;u&quot;&gt;Username&lt;/label&gt;&lt;input id=&quot;u&quot; type=&quot;text&quot; placeholder=&quot;Enter your username&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;form-group&quot;&gt;&lt;label for=&quot;p&quot;&gt;Password&lt;/label&gt;&lt;input id=&quot;p&quot; type=&quot;password&quot; placeholder=&quot;Enter your password&quot;&gt;&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary btn-full&quot; type=&quot;submit&quot; disabled aria-busy=&quot;true&quot;&gt;Creating account...&lt;/button&gt;&lt;/form&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-22</span><iframe title="320 pixel wide frame, light theme: dialog actions" width="320" height="200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;h3 style=&quot;margin:0 0 var(--space-2);font:var(--text-h2)&quot;&gt;Confirm Delete&lt;/h3&gt;&lt;p style=&quot;margin:0&quot;&gt;Are you sure you want to delete this user?&lt;/p&gt;
+&lt;div class=&quot;modal-actions&quot;&gt;&lt;button class=&quot;btn btn-secondary&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn-danger&quot; type=&quot;button&quot;&gt;Delete&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-22</span><iframe title="320 pixel wide frame, light theme: French dialog actions wrap" width="320" height="170" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;modal-actions&quot;&gt;&lt;button class=&quot;btn btn-secondary&quot; type=&quot;button&quot;&gt;Annuler&lt;/button&gt;&lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Enregistrer les modifications&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-21</span><iframe title="320 pixel wide frame, light theme: hero call to action" width="320" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;text-align:center;padding:var(--space-6) var(--space-4);background:var(--color-accent-subtle);border-radius:var(--radius-lg)&quot;&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot;&gt;Join Now&lt;/a&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-20, AC-22</span><iframe title="360 pixel wide frame, dark theme (not specified, renders light tokens): dialog actions" width="360" height="200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;h3 style=&quot;margin:0 0 var(--space-2);font:var(--text-h2)&quot;&gt;Confirm Delete&lt;/h3&gt;&lt;p style=&quot;margin:0&quot;&gt;Are you sure you want to delete this user?&lt;/p&gt;
+&lt;div class=&quot;modal-actions&quot;&gt;&lt;button class=&quot;btn btn-secondary&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn-danger&quot; type=&quot;button&quot;&gt;Delete&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">768 px · light · AC-22</span><iframe title="768 pixel wide frame, light theme: dialog actions" width="768" height="200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;h3 style=&quot;margin:0 0 var(--space-2);font:var(--text-h2)&quot;&gt;Confirm Delete&lt;/h3&gt;&lt;p style=&quot;margin:0&quot;&gt;Are you sure you want to delete this user?&lt;/p&gt;
+&lt;div class=&quot;modal-actions&quot;&gt;&lt;button class=&quot;btn btn-secondary&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn-danger&quot; type=&quot;button&quot;&gt;Delete&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+    </div>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Primary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Primary label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent-hover" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Primary label, active</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent-active" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Secondary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Secondary label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Outline label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Outline label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle-hover" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Outline border on card</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Outline border on page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair"><span>Danger label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Danger label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid-hover" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Sign-out label</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Sign-out label, hover</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-subtle" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Sign-out and danger border</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Primary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Primary label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent-hover" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Primary label, active</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent-active" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Secondary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+    </div>
+    <span class="crd-ac">AC-1, AC-3, AC-4, AC-5, AC-15</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Primary fill</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+<tr><td>Primary fill, hover</td><td><code>--color-accent-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-hover" data-swatch></i><span data-token="--color-accent-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-hover" data-swatch></i><span data-token="--color-accent-hover"></span></span></td></tr>
+<tr><td>Primary fill, active</td><td><code>--color-accent-active</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-active" data-swatch></i><span data-token="--color-accent-active"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-active" data-swatch></i><span data-token="--color-accent-active"></span></span></td></tr>
+<tr><td>Primary label</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+<tr><td>Secondary fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+<tr><td>Secondary fill, hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+<tr><td>Secondary label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+<tr><td>Secondary border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+<tr><td>Outline label</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+<tr><td>Outline fill, hover</td><td><code>--color-accent-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td></tr>
+<tr><td>Danger fill</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+<tr><td>Danger fill, hover</td><td><code>--color-danger-solid-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td></tr>
+<tr><td>Danger label</td><td><code>--color-fg-on-danger</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td></tr>
+<tr><td>Sign-out label</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+<tr><td>Sign-out fill, hover</td><td><code>--color-danger-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-subtle" data-swatch></i><span data-token="--color-danger-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-subtle" data-swatch></i><span data-token="--color-danger-subtle"></span></span></td></tr>
+<tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+<tr><td>Height md / sm / lg</td><td><code>--button-height</code></td><td colspan="2"><span data-token="--button-height"></span></td></tr>
+<tr><td>Side padding</td><td><code>--space-5</code></td><td colspan="2"><span data-token="--space-5"></span></td></tr>
+<tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
+<tr><td>Label font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+<tr><td>Transition</td><td><code>--duration-base</code></td><td colspan="2"><span data-token="--duration-base"></span></td></tr>
+<tr><td>Focus ring width</td><td><code>--focus-ring-width</code></td><td colspan="2"><span data-token="--focus-ring-width"></span></td></tr>
+<tr><td>Focus ring offset</td><td><code>--focus-ring-offset</code></td><td colspan="2"><span data-token="--focus-ring-offset"></span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="ds-footer"><span>Coop component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>

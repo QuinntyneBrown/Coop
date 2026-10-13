@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filter chips — Component requirements rendering</title>
+<meta name="description" content="Every state of the filter chips, in light and dark, keyed to the acceptance criteria in filter-chips.md.">
+<meta name="crd:component" content="filter-chips">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/fonts.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-caption); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: 100%; }
+.crd-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.crd-stack { display: grid; gap: var(--space-4); width: 100%; }
+.crd-panel { font: var(--text-body-sm); color: var(--color-fg-muted); }
+/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed="true"] { border-width: var(--border-width-thick); border-color: CanvasText; } }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Filter chips</h1>
+    <p class="ds-lead">Single-select pill toggles that narrow the maintenance and document lists; one pressed chip, a labelled group, a wrapping row. Requirements: <a href="filter-chips.md">filter-chips.md</a>. Design system: <a href="../../design-system/components/filter-chips.html">filter-chips</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>coop-filter-chips</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-REQ-025, 030, 035</span><span class="ds-pill">Light appearance only</span></div>
+    <ul class="ds-toc">
+      <li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li>
+    </ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div style="width:100%"><div class="filter-tabs" role="group" aria-label="Filter documents by type"><button class="filter-btn" type="button" aria-pressed="true" data-testid="documents-filter-all-documents">All Documents</button><button class="filter-btn" type="button" aria-pressed="false" data-testid="documents-filter-notices">Notices</button><button class="filter-btn" type="button" aria-pressed="false" data-testid="documents-filter-bylaws">By-Laws</button><button class="filter-btn" type="button" aria-pressed="false" data-testid="documents-filter-reports">Reports</button></div></div></div>
+    <div class="ds-example__caption"><span>Admin documents: four chips in a labelled group, "All Documents" pressed, test ids forwarded to the buttons. <span class="crd-ac">AC-1, AC-2, AC-5</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div style="width:100%"><div class="filter-tabs" role="group" aria-label="Filter requests by status"><button class="filter-btn" type="button" aria-pressed="false">All</button><button class="filter-btn" type="button" aria-pressed="true">New</button><button class="filter-btn" type="button" aria-pressed="false">Received</button><button class="filter-btn" type="button" aria-pressed="false">Started</button><button class="filter-btn" type="button" aria-pressed="false">Completed</button></div></div></div>
+    <div class="ds-example__caption"><span>Admin maintenance: the five L2-REQ-025 statuses with "New" pressed. <span class="crd-ac">AC-3, AC-7</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="crd-stack"><div class="filter-tabs" role="group" aria-label="Filter requests by status"><button class="filter-btn" type="button" aria-pressed="true">All</button><button class="filter-btn" type="button" aria-pressed="false">New</button><button class="filter-btn" type="button" aria-pressed="false">Started</button><button class="filter-btn" type="button" aria-pressed="false">Done</button></div><div class="filter-tabs" role="group" aria-label="Filter documents by type"><button class="filter-btn" type="button" aria-pressed="true">All</button><button class="filter-btn" type="button" aria-pressed="false">Notices</button><button class="filter-btn" type="button" aria-pressed="false">By-Laws</button><button class="filter-btn" type="button" aria-pressed="false">Reports</button></div></div></div>
+    <div class="ds-example__caption"><span>Public rows render the same <code>.filter-btn</code> pill (D-4); "All" is pressed when <code>value</code> is null. Labels are the page's (D-13). <span class="crd-ac">AC-4, AC-10</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <p class="ds-na">One size: a 38 px chip from the <code>--text-body-sm</code> line, <code>--space-2</code> padding and hairline edges; width comes from the label.</p>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Hover, focus and active are forced with <code>data-state</code>; pressed uses the real <code>aria-pressed</code>. A pressed chip does not change on hover, and no disabled or loading chip exists (D-9).</p>
+    <div class="ds-matrix"><table>
+      <thead><tr><th scope="col"></th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Pressed</th><th scope="col">Pressed, focus</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Chip</th><td><button class="filter-btn" type="button" aria-pressed="false">Notices</button></td><td><button class="filter-btn" type="button" aria-pressed="false" data-state="hover">Notices</button></td><td><button class="filter-btn" type="button" aria-pressed="false" data-state="focus">Notices</button></td><td><button class="filter-btn" type="button" aria-pressed="false" data-state="active">Notices</button></td><td><button class="filter-btn" type="button" aria-pressed="true">Notices</button></td><td><button class="filter-btn" type="button" aria-pressed="true" data-state="focus">Notices</button></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-2, AC-6, AC-8, AC-9, AC-12, AC-21</span>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div style="width:100%"><div class="filter-tabs" role="group" aria-label="Filter requests by status"><button class="filter-btn" type="button" aria-pressed="false">All</button><button class="filter-btn" type="button" aria-pressed="false">New</button><button class="filter-btn" type="button" aria-pressed="false">Received</button><button class="filter-btn" type="button" aria-pressed="false">Started</button><button class="filter-btn" type="button" aria-pressed="true">Completed</button></div></div></div>
+    <div class="ds-example__caption"><span>After <kbd>Space</kbd> on "Completed": it is the only pressed chip, focus stays on it, and the chips remain enabled while the list loads. <span class="crd-ac">AC-11, AC-13, AC-14, AC-15, AC-16</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <p>The product ships one light appearance; the dark block below is required by the CRD format and renders the same tokens (D-2).</p>
+    <div class="ds-themes">
+      <div data-theme="light"><div class="crd-stack"><div class="filter-tabs" role="group" aria-label="Filter documents by type"><button class="filter-btn" type="button" aria-pressed="true">All Documents</button><button class="filter-btn" type="button" aria-pressed="false">Notices</button><button class="filter-btn" type="button" aria-pressed="false">By-Laws</button><button class="filter-btn" type="button" aria-pressed="false">Reports</button></div><div class="filter-tabs" role="group" aria-label="Filter requests by status"><button class="filter-btn" type="button" aria-pressed="false">All</button><button class="filter-btn" type="button" aria-pressed="true">New</button><button class="filter-btn" type="button" aria-pressed="false">Received</button><button class="filter-btn" type="button" aria-pressed="false">Started</button><button class="filter-btn" type="button" aria-pressed="false">Completed</button></div></div></div>
+      <div data-theme="dark"><div class="crd-stack"><div class="filter-tabs" role="group" aria-label="Filter documents by type"><button class="filter-btn" type="button" aria-pressed="true">All Documents</button><button class="filter-btn" type="button" aria-pressed="false">Notices</button><button class="filter-btn" type="button" aria-pressed="false">By-Laws</button><button class="filter-btn" type="button" aria-pressed="false">Reports</button></div><div class="filter-tabs" role="group" aria-label="Filter requests by status"><button class="filter-btn" type="button" aria-pressed="false">All</button><button class="filter-btn" type="button" aria-pressed="true">New</button><button class="filter-btn" type="button" aria-pressed="false">Received</button><button class="filter-btn" type="button" aria-pressed="false">Started</button><button class="filter-btn" type="button" aria-pressed="false">Completed</button></div></div></div>
+    </div>
+    <span class="crd-ac">AC-17</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>The chips have no media rules; the group wraps (D-6, applied here as a specimen style until <code>components.css</code> catches up). Frames show the admin, public and French rows at 320, 360 and 768 px.</p>
+    <div class="crd-frames">
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-18</span><iframe title="320 pixel wide frame, light theme: admin document chips wrap onto two rows" width="320" height="150" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filter documents by type&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;All Documents&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Notices&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;By-Laws&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Reports&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-3, AC-19</span><iframe title="320 pixel wide frame, light theme: five admin status chips wrap" width="320" height="150" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filter requests by status&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;All&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;New&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Received&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Started&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Completed&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-18</span><iframe title="320 pixel wide frame, light theme: French document chips wrap" width="320" height="150" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filtrer les documents par type&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Tous les documents&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Avis&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Règlements&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Rapports&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">360 px · light · AC-20</span><iframe title="360 pixel wide frame, light theme: public document chips on one row" width="360" height="110" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filter documents by type&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;All&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Notices&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;By-Laws&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Reports&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-10, AC-17</span><iframe title="360 pixel wide frame, dark theme (not specified, renders light tokens): public maintenance chips" width="360" height="110" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filter requests by status&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;All&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;New&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Started&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Done&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">768 px · light · AC-3</span><iframe title="768 pixel wide frame, light theme: admin status chips on one row" width="768" height="110" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: filter-chips D-6 (the group wraps instead of scrolling) */
+.filter-tabs { flex-wrap: wrap; overflow-x: visible; }
+/* Specimen only, not product CSS: filter-chips D-11 (forced colours keep the pressed chip visible) */
+@media (forced-colors: active) { .filter-btn[aria-pressed=&quot;true&quot;] { border-width: var(--border-width-thick); border-color: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;filter-tabs&quot; role=&quot;group&quot; aria-label=&quot;Filter requests by status&quot;&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;All&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;New&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Received&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Started&lt;/button&gt;&lt;button class=&quot;filter-btn&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Completed&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+    </div>
+    <span class="crd-ac">AC-22</span>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Chip label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Pressed label on accent</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Chip edge against the page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair"><span>Hovered and pressed edge against the page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair"><span>Focus ring on the page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Chip label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Pressed label on accent</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Chip edge against the page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Hovered and pressed edge against the page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+    </div>
+    <span class="crd-ac">AC-2, AC-12</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Chip fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+<tr><td>Chip edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+<tr><td>Chip label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+<tr><td>Hover, pressed fill and edge</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+<tr><td>Pressed label</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+<tr><td>Page canvas</td><td><code>--color-bg-canvas</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+<tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+<tr><td>Chip padding, vertical</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+<tr><td>Chip padding, horizontal</td><td><code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+<tr><td>Group gap</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+<tr><td>Chip radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+<tr><td>Label font</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+<tr><td>Edge width</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
+<tr><td>Transition</td><td><code>--duration-base</code></td><td colspan="2"><span data-token="--duration-base"></span></td></tr>
+<tr><td>Focus ring width</td><td><code>--focus-ring-width</code></td><td colspan="2"><span data-token="--focus-ring-width"></span></td></tr>
+<tr><td>Focus ring offset</td><td><code>--focus-ring-offset</code></td><td colspan="2"><span data-token="--focus-ring-offset"></span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="ds-footer"><span>Coop component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>
