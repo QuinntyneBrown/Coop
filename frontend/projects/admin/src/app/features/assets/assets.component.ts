@@ -288,6 +288,23 @@ import { TopbarComponent } from '../../layout/topbar.component';
           color: #1a1918cc;
         }
       }
+      @media (max-width: 768px) {
+        .assets-page {
+          padding: 16px;
+        }
+        .page-header {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .page-actions {
+          flex: 1 1 100%;
+          flex-wrap: wrap;
+        }
+        .search-input {
+          flex: 1 1 160px;
+          min-width: 0;
+        }
+      }
     `,
   ],
 })

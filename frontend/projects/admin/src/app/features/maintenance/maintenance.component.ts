@@ -348,6 +348,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
       .filters {
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
         margin-bottom: 20px;
       }
       .filter-btn {

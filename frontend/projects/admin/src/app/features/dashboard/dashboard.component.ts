@@ -443,8 +443,27 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         color: #1a1918cc;
       }
       @media (max-width: 768px) {
+        .top-bar {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .top-bar-right {
+          flex: 1 1 100%;
+          min-width: 0;
+        }
+        .search-bar {
+          flex: 1;
+          min-width: 0;
+          input {
+            width: 100%;
+            min-width: 0;
+          }
+        }
         .metric-cards {
           grid-template-columns: 1fr;
+        }
+        .quick-actions-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
       }
     `,

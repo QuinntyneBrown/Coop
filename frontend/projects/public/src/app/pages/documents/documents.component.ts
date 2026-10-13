@@ -161,7 +161,7 @@ import { catchError, of } from 'rxjs';
         display: flex;
         gap: 8px;
         margin-bottom: 20px;
-        overflow-x: auto;
+        flex-wrap: wrap;
       }
 
       .filter-tab {

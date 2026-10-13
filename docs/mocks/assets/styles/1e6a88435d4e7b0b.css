@@ -39,3 +39,8 @@
 .password-section[_ngcontent-ng-c4049321225] { margin-top: 24px; padding: 24px; }
 .password-section[_ngcontent-ng-c4049321225] h3[_ngcontent-ng-c4049321225] { margin-bottom: 16px; font-size: 16px; }
 .alert-success[_ngcontent-ng-c4049321225] { background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); padding: 10px 14px; border-radius: 8px; margin-top: 12px; font-size: 14px; }
+@media (max-width: 768px) {
+  .profiles-page[_ngcontent-ng-c4049321225] { padding: 16px; }
+  .profiles-layout[_ngcontent-ng-c4049321225] { grid-template-columns: minmax(0px, 1fr); }
+  .profile-view-panel[_ngcontent-ng-c4049321225], .profile-edit-panel[_ngcontent-ng-c4049321225], .profile-info[_ngcontent-ng-c4049321225], .profile-edit[_ngcontent-ng-c4049321225] { padding: 16px; }
+}

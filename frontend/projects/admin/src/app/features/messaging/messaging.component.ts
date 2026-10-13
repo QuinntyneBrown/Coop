@@ -218,6 +218,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .conv-search-input {
         flex: 1;
+        min-width: 0;
         padding: 8px 14px;
         border: 1px solid #e5e4e1;
         border-radius: 8px;
@@ -480,6 +481,12 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         }
         .conversation-list-panel.hidden-mobile {
           display: none;
+        }
+        .chat-panel.empty-chat {
+          display: none;
+        }
+        .chat-panel {
+          min-width: 0;
         }
         .back-btn {
           display: block;

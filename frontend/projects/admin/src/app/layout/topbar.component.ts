@@ -27,6 +27,8 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
         padding: 16px 24px;
         background: #fff;
         border-bottom: 1px solid #e5e4e1;
@@ -39,6 +41,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         display: flex;
         align-items: center;
         gap: 12px;
+        min-width: 0;
       }
       .search-bar {
         display: flex;
@@ -59,6 +62,22 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         outline: none;
         font-size: 14px;
         width: 200px;
+        min-width: 0;
+      }
+      @media (max-width: 768px) {
+        .topbar {
+          padding: 16px;
+        }
+        .topbar-right {
+          flex: 1 1 100%;
+        }
+        .search-bar {
+          flex: 1;
+          min-width: 0;
+        }
+        .search-bar input {
+          width: 100%;
+        }
       }
       .notification-btn {
         background: none;

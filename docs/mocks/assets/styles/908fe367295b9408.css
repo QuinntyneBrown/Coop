@@ -25,3 +25,9 @@
 .asset-detail-info[_ngcontent-ng-c1235164448] { text-align: center; margin-bottom: 16px; }
 .asset-preview[_ngcontent-ng-c1235164448] { margin-bottom: 16px; }
 .asset-preview[_ngcontent-ng-c1235164448] .material-icons[_ngcontent-ng-c1235164448] { font-size: 64px; color: rgba(26, 25, 24, 0.8); }
+@media (max-width: 768px) {
+  .assets-page[_ngcontent-ng-c1235164448] { padding: 16px; }
+  .page-header[_ngcontent-ng-c1235164448] { flex-wrap: wrap; gap: 12px; }
+  .page-actions[_ngcontent-ng-c1235164448] { flex: 1 1 100%; flex-wrap: wrap; }
+  .search-input[_ngcontent-ng-c1235164448] { flex: 1 1 160px; min-width: 0px; }
+}

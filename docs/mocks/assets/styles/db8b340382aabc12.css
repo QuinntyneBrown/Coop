@@ -51,5 +51,10 @@
 .notice-title[_ngcontent-ng-c4223793772] { font-size: 14px; font-weight: 500; }
 .notice-date[_ngcontent-ng-c4223793772] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
 @media (max-width: 768px) {
+  .top-bar[_ngcontent-ng-c4223793772] { flex-wrap: wrap; gap: 8px; }
+  .top-bar-right[_ngcontent-ng-c4223793772] { flex: 1 1 100%; min-width: 0px; }
+  .search-bar[_ngcontent-ng-c4223793772] { flex: 1 1 0%; min-width: 0px; }
+  .search-bar[_ngcontent-ng-c4223793772] input[_ngcontent-ng-c4223793772] { width: 100%; min-width: 0px; }
   .metric-cards[_ngcontent-ng-c4223793772] { grid-template-columns: 1fr; }
+  .quick-actions-grid[_ngcontent-ng-c4223793772] { grid-template-columns: repeat(2, 1fr); }
 }

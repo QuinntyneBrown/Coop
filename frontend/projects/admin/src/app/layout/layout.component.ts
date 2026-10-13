@@ -31,11 +31,12 @@ import { SidebarComponent } from './sidebar.component';
         background: #f5f4f1;
       }
       @media (max-width: 768px) {
-        .layout-sidebar {
-          display: none;
+        .layout {
+          flex-direction: column;
         }
         .layout-main {
           margin-left: 0;
+          min-width: 0;
         }
       }
     `,

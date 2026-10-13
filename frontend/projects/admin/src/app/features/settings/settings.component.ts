@@ -324,8 +324,17 @@ import { TopbarComponent } from '../../layout/topbar.component';
         padding: 12px 16px;
       }
       @media (max-width: 768px) {
+        .settings-page {
+          padding: 16px;
+        }
+        .tabs {
+          flex-wrap: wrap;
+        }
         .theme-layout {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .theme-form {
+          padding: 16px;
         }
       }
     `,

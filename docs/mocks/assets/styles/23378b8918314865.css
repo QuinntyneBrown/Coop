@@ -1,8 +1,14 @@
-.topbar[_ngcontent-ng-c478361046] { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(229, 228, 225); }
+.topbar[_ngcontent-ng-c478361046] { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 24px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(229, 228, 225); }
 .page-title[_ngcontent-ng-c478361046] { font-size: 20px; font-weight: 600; }
-.topbar-right[_ngcontent-ng-c478361046] { display: flex; align-items: center; gap: 12px; }
+.topbar-right[_ngcontent-ng-c478361046] { display: flex; align-items: center; gap: 12px; min-width: 0px; }
 .search-bar[_ngcontent-ng-c478361046] { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgb(245, 244, 241); border-radius: 10px; border: 1px solid rgb(229, 228, 225); }
 .search-bar[_ngcontent-ng-c478361046] .material-icons[_ngcontent-ng-c478361046] { font-size: 18px; color: rgba(26, 25, 24, 0.8); }
-.search-bar[_ngcontent-ng-c478361046] input[_ngcontent-ng-c478361046] { border: none; background: transparent; outline: none; font-size: 14px; width: 200px; }
+.search-bar[_ngcontent-ng-c478361046] input[_ngcontent-ng-c478361046] { border: none; background: transparent; outline: none; font-size: 14px; width: 200px; min-width: 0px; }
 .notification-btn[_ngcontent-ng-c478361046] { background: none; border: none; padding: 8px; border-radius: 10px; cursor: pointer; color: rgba(26, 25, 24, 0.8); }
 .notification-btn[_ngcontent-ng-c478361046]:hover { background: rgb(245, 244, 241); }
+@media (max-width: 768px) {
+  .topbar[_ngcontent-ng-c478361046] { padding: 16px; }
+  .topbar-right[_ngcontent-ng-c478361046] { flex: 1 1 100%; }
+  .search-bar[_ngcontent-ng-c478361046] { flex: 1 1 0%; min-width: 0px; }
+  .search-bar[_ngcontent-ng-c478361046] input[_ngcontent-ng-c478361046] { width: 100%; }
+}

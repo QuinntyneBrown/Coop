@@ -46,4 +46,7 @@
 .mobile-only[_ngcontent-ng-c4133025109] { display: none; }
 @media (max-width: 768px) {
   .mobile-only[_ngcontent-ng-c4133025109] { display: block; }
+  .documents-page[_ngcontent-ng-c4133025109] { padding: 16px; }
+  .documents-toolbar[_ngcontent-ng-c4133025109] { flex-wrap: wrap; gap: 12px; }
+  .documents-list[_ngcontent-ng-c4133025109] { grid-template-columns: minmax(0px, 1fr); }
 }
