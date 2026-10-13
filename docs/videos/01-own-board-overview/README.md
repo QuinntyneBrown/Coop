@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 4 min 28 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 3 min 33 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 
@@ -47,16 +47,16 @@ and number of homes) are proposal copy to confirm with OWN before the real site.
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:21 | Welcome | Title, "a website and a helping hand", for everyone |
-| 00:21-00:37 | Six things | The six items and the two status chips |
-| 00:37-00:59 | 1 Beautiful and easy to read | Proposed home page, coming next |
-| 00:59-01:48 | 2 OWN runs it | Edited-in-admin tags, colours and photos today, pages and board list next |
-| 01:48-02:11 | 3 Notices | Working today |
-| 02:11-02:48 | 4 Repair requests | Send, receive and follow |
-| 02:48-03:17 | 5 Bigger words | Up to 400%, coming next |
-| 03:17-03:37 | 6 Your own photo | Coming next |
-| 03:37-04:00 | In short | Working today and coming next |
-| 04:00-04:28 | Our ask | Three small things, thank you |
+| 00:00-00:17 | Welcome | Title, "a website and a helping hand", for everyone |
+| 00:17-00:30 | Six things | The six items and the two status chips |
+| 00:30-00:48 | 1 Beautiful and easy to read | Proposed home page, coming next |
+| 00:48-01:26 | 2 OWN runs it | Edited-in-admin tags, colours and photos today, pages and board list next |
+| 01:26-01:44 | 3 Notices | Working today |
+| 01:44-02:12 | 4 Repair requests | Send, receive and follow |
+| 02:12-02:36 | 5 Bigger words | Up to 400%, coming next |
+| 02:36-02:52 | 6 Your own photo | Coming next |
+| 02:52-03:10 | In short | Working today and coming next |
+| 03:10-03:33 | Our ask | Three small things, thank you |
 
 ## Demo commands
 
@@ -65,14 +65,17 @@ From the repository root, in PowerShell:
 ```powershell
 python tools/video-build/capture-mocks.py docs/videos/01-own-board-overview
 node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --dry-run
-node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --engine sapi
+$env:PIPER_PYTHON = ".cache/piper-venv/Scripts/python.exe"
+node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --engine piper
 node tools/video-build/build-video.mjs docs/videos/01-own-board-overview --check
 node tools/video-build/build-video.mjs docs/videos/01-own-board-overview
 ```
 
-The committed audio uses the offline Windows voice (`--engine sapi`) because the free
-edge-tts service answered 403 from the machine that built it. When it works from your
-network, drop `--engine sapi` to regenerate with the neural voice, then rebuild the video.
+The committed audio uses the Piper voice `en_US-lessac-high` from Hugging Face
+(`rhasspy/piper-voices`), slowed with `PIPER_LENGTH_SCALE` 1.3. The free edge-tts
+service answered 403 from the machine that built it. One-time Piper setup is in the
+header of `tools/video-audio/generate-audio.mjs`. Other engines: drop `--engine piper`
+for the edge-tts neural voices, or use `--engine sapi` for the offline Windows voices.
 
 ## Pitfalls
 

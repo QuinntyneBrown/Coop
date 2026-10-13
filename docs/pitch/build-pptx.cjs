@@ -136,7 +136,7 @@ function pair(slide, deskFile, deskAlt, deskCaption, phoneFile, phoneAlt, phoneC
   s.addImage({ path: art('tea.png'), x: 1.0, y: 1.3, w: 3.6, h: 2.7, altText: 'Neighbours having tea together' });
   s.addImage({ path: art('choir.png'), x: 5.7, y: 1.3, w: 2.16, h: 2.7, altText: 'A choir singing together' });
   s.addText('Some of us love the internet.', { x: 0.7, y: 4.1, w: 4.2, h: 0.4, isTextBox: true, fontSize: 18, color: C.text2, align: 'center', margin: 0 });
-  s.addText('Some of us are not so sure. That is fine.', { x: 5.0, y: 4.1, w: 3.6, h: 0.7, isTextBox: true, fontSize: 18, color: C.text2, align: 'center', margin: 0 });
+  s.addText('Some of us like it simple. That is fine.', { x: 5.0, y: 4.1, w: 3.6, h: 0.7, isTextBox: true, fontSize: 18, color: C.text2, align: 'center', margin: 0 });
   s.addText('This is for everyone.', { x: 0.5, y: 4.8, w: 9, h: 0.5, isTextBox: true, fontSize: 24, bold: true, color: C.text1, align: 'center', margin: 0 });
 }
 

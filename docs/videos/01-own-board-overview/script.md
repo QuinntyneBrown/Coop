@@ -6,7 +6,7 @@ Hello, and thank you for having us.
 
 [pause 3s]
 
-Some of us love the internet. Some of us are not sure what day it is, and that is perfectly fine. This platform is for everyone. It is a website, and it is also a helping hand.
+Some of us love the internet. Some of us would rather keep things simple, and that is perfectly fine. This platform is for everyone. It is a website, and it is also a helping hand.
 
 Today we will show you six things. Each one is something you told us matters. For each one, we will say plainly whether it works today, or whether it comes next.
 
