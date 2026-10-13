@@ -50,6 +50,8 @@ export class ProfilesPage {
 
   async goto() {
     await this.page.goto('/profiles');
+    // Lists render after the mocked API responds; wait for requests to settle.
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {

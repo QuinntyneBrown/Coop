@@ -56,6 +56,8 @@ export class DashboardPage {
 
   async goto() {
     await this.page.goto('/dashboard');
+    // Lists render after the mocked API responds; wait for requests to settle.
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {

@@ -44,6 +44,8 @@ export class RolesPage {
 
   async goto() {
     await this.page.goto('/roles');
+    // Lists render after the mocked API responds; wait for requests to settle.
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {

@@ -43,6 +43,8 @@ export class LandingPage {
 
   async goto() {
     await this.page.goto('/');
+    // CMS content renders after the mocked API responds; wait for requests to settle.
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectLoaded() {

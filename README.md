@@ -178,14 +178,17 @@ Development conventions:
 | Backend build | `dotnet build .\backend\Coop.sln` | Compile the API, application, domain, infrastructure, and shared kernel projects |
 | Frontend build | `npm run build` from `frontend` | Build the public and admin applications and the shared libraries |
 | Frontend unit tests | `npm test` from `frontend` | Angular Vitest tests |
-| Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against the API |
+| Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against an in-process mock of the API |
 | Public Playwright | `npm run test:public` from `e2e` | The public app on :4201 |
 | Admin Playwright | `npm run test:admin` from `e2e` | The admin app on :4200 |
 
-The Playwright suite starts the API and both Angular apps when they are not
-already running, and runs in Chromium. There are no backend test projects yet;
-backend behavior should be tested through the API at the integration boundary
-when they are added.
+The Playwright suite starts both Angular apps when they are not already
+running and runs in Chromium. It never needs the backend: every request to
+`http://localhost:5000/api` is answered by the in-process mock in
+`e2e/fixtures/mock-api/`, which seeds fictional data per test. There are no
+backend test projects yet; backend behavior should be tested through the API
+at the integration boundary when they are added, and those acceptance tests
+must not use a real database.
 
 ## Documentation
 

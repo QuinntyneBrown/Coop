@@ -122,9 +122,12 @@ Non-obvious rules:
 
 ### Backend tests
 
-Test backend behavior through the API at the integration boundary. If test
-projects share logger or database state, run them sequentially and record the
-reason in an ADR. Follow existing test-project patterns when adding coverage.
+Test backend behavior through the API at the integration boundary. Backend
+acceptance tests must not use a real database: run the API against an
+in-memory database or a test double, never against SQLite, SQL Server, or any
+other persisted store. If test projects share logger or database state, run
+them sequentially and record the reason in an ADR. Follow existing
+test-project patterns when adding coverage.
 
 ## Architecture and data
 
@@ -180,6 +183,14 @@ reason in an ADR. Follow existing test-project patterns when adding coverage.
   frontend end-to-end tests, use Playwright page objects: page objects own
   selectors and interactions, while tests express intent. Run frontend tests
   in Chromium only.
+- The Playwright suite must pass without a backend. Every request to the API
+  origin is answered by the in-process mock in `e2e/fixtures/mock-api/`; do
+  not add tests, fixtures, or setup that start the API, call a real
+  endpoint, or depend on a database. Seed test data through the mock store
+  and extend the mock when a frontend change calls a new endpoint.
+- Backend acceptance tests must not use a real database. Test against an
+  in-memory database or test double so the suite needs no database server,
+  file, or migration to run.
 - Test behavior, not codebase shape. Do not add tests for file structure,
   naming, banned API scans, or specification traceability; use the compiler,
   formatter, and review for those constraints.

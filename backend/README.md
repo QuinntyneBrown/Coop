@@ -93,8 +93,9 @@ Close these gaps in a slice of their own, with an ADR for each decision.
 dotnet build backend/Coop.sln
 ```
 
-End-to-end behavior is covered by the Playwright suite in `e2e/`, which starts
-the API automatically.
+End-to-end behavior is covered by the Playwright suite in `e2e/`, which mocks
+the API in-process and does not start or require this backend. Backend
+acceptance tests must not use a real database.
 
 ## API surface
 

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/public/auth.fixture';
 import { LandingPage } from '../../pages/public/landing.page';
 
 test.describe('Landing Page', () => {

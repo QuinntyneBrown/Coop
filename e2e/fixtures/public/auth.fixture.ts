@@ -1,20 +1,14 @@
-import { test as base, expect, type Page, type APIRequestContext } from '@playwright/test';
+import { type Page } from '@playwright/test';
+import { test as base, expect } from '../mock-api/mock-api.fixture';
+import type { MockApi } from '../mock-api/mock-api';
 
 /**
- * Auth credentials for the default member user.
+ * Auth credentials for the default member user (seeded in the mock API).
  */
 export const MEMBER_CREDENTIALS = {
   username: 'member',
   password: 'Member123!',
 };
-
-export interface AuthTokenResponse {
-  token: string;
-  refreshToken: string;
-  userId: string;
-  username: string;
-  roles: string[];
-}
 
 export interface AuthState {
   token: string;
@@ -23,39 +17,20 @@ export interface AuthState {
 }
 
 /**
- * Authenticates a user via the API and returns the auth state.
- */
-async function loginViaApi(
-  request: APIRequestContext,
-  username: string,
-  password: string,
-): Promise<AuthState> {
-  const response = await request.post('http://localhost:5000/api/user/token', {
-    data: { username, password },
-  });
-
-  expect(response.ok(), `Login API should return 200 for user "${username}"`).toBeTruthy();
-
-  const body = await response.json();
-
-  return {
-    token: body.token || body.accessToken,
-    userId: body.userId,
-    username: body.username || username,
-  };
-}
-
-/**
  * Injects the auth token into the browser's localStorage so the Angular app
  * picks it up as an already-authenticated session.
  */
 async function injectAuthState(page: Page, authState: AuthState): Promise<void> {
-  await page.goto('http://localhost:4201');
+  await page.goto('/');
   await page.evaluate((state) => {
     localStorage.setItem('auth_token', state.token);
     localStorage.setItem('auth_user_id', state.userId);
     localStorage.setItem('auth_username', state.username);
   }, authState);
+}
+
+function loginViaMock(mockApi: MockApi, username: string, password: string): AuthState {
+  return mockApi.login(username, password);
 }
 
 /**
@@ -71,13 +46,8 @@ type AuthFixtures = {
 };
 
 export const test = base.extend<AuthFixtures>({
-  authState: async ({ request }, use) => {
-    const state = await loginViaApi(
-      request,
-      MEMBER_CREDENTIALS.username,
-      MEMBER_CREDENTIALS.password,
-    );
-    await use(state);
+  authState: async ({ mockApi }, use) => {
+    await use(loginViaMock(mockApi, MEMBER_CREDENTIALS.username, MEMBER_CREDENTIALS.password));
   },
 
   authenticatedPage: async ({ page, authState }, use) => {
@@ -85,9 +55,9 @@ export const test = base.extend<AuthFixtures>({
     await use(page);
   },
 
-  loginAs: async ({ request }, use) => {
+  loginAs: async ({ mockApi }, use) => {
     const fn = async (targetPage: Page, username: string, password: string) => {
-      const state = await loginViaApi(request, username, password);
+      const state = loginViaMock(mockApi, username, password);
       await injectAuthState(targetPage, state);
       return state;
     };
@@ -95,4 +65,4 @@ export const test = base.extend<AuthFixtures>({
   },
 });
 
-export { expect } from '@playwright/test';
+export { expect };

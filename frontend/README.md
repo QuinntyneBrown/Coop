@@ -51,4 +51,5 @@ The API must be running on `http://localhost:5000`.
 
 The Playwright suite that exercises these applications lives in
 [`e2e`](../e2e) (`npm run test:public` and `npm run test:admin`) and runs in
-Chromium.
+Chromium. It answers every API request from an in-process mock, so no backend
+or database is needed.

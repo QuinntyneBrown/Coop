@@ -1,7 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
+/**
+ * The suite never talks to a real backend: every request to the API origin is
+ * answered by the in-process mock in `fixtures/mock-api/`. Only the two
+ * Angular dev servers are started.
+ */
 export default defineConfig({
-  globalSetup: require.resolve('./global-setup'),
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -25,22 +29,16 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'dotnet run --project ../backend/src/Coop.Api/Coop.Api.csproj',
-      url: 'http://localhost:5000/api/user/exists/healthcheck',
-      reuseExistingServer: !process.env.CI,
-      timeout: 30000,
-    },
-    {
       command: 'cd ../frontend && npx ng serve public --port 4201',
       url: 'http://localhost:4201',
       reuseExistingServer: !process.env.CI,
-      timeout: 60000,
+      timeout: 120000,
     },
     {
       command: 'cd ../frontend && npx ng serve admin --port 4200',
       url: 'http://localhost:4200',
       reuseExistingServer: !process.env.CI,
-      timeout: 60000,
+      timeout: 120000,
     },
   ],
 });

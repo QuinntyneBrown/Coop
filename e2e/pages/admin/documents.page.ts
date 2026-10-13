@@ -58,6 +58,8 @@ export class DocumentsPage {
 
   async goto() {
     await this.page.goto('/documents');
+    // Lists render after the mocked API responds; wait for requests to settle.
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {

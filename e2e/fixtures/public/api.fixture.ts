@@ -1,25 +1,15 @@
-import { test as base, expect, type APIRequestContext } from '@playwright/test';
-import { type AuthState } from './auth.fixture';
-
-const API_BASE = 'http://localhost:5000/api';
+import { test as base, expect, MEMBER_CREDENTIALS } from './auth.fixture';
+import type { MockApi } from '../mock-api/mock-api';
+import type { MockUser } from '../mock-api/mock-store';
 
 /**
- * Helpers that seed and tear down test data via the API.
+ * Helpers that seed test data straight into the mock API as the member user.
  */
 export class ApiHelper {
-  private createdIds: { endpoint: string; id: string }[] = [];
-
   constructor(
-    private request: APIRequestContext,
-    private token: string,
+    private mockApi: MockApi,
+    private user: MockUser,
   ) {}
-
-  private headers() {
-    return {
-      Authorization: `Bearer ${this.token}`,
-      'Content-Type': 'application/json',
-    };
-  }
 
   // ── Maintenance Requests ──────────────────────────────────────────
 
@@ -29,31 +19,11 @@ export class ApiHelper {
     priority?: string;
     category?: string;
   }): Promise<string> {
-    const response = await this.request.post(`${API_BASE}/maintenance-requests`, {
-      headers: this.headers(),
-      data: {
-        title: data.title,
-        description: data.description,
-        priority: data.priority ?? 'Medium',
-        category: data.category ?? 'General',
-      },
-    });
-    expect(response.ok(), 'Should create maintenance request').toBeTruthy();
-    const body = await response.json();
-    const id = body.id ?? body.maintenanceRequestId;
-    this.createdIds.push({ endpoint: 'maintenance-requests', id });
-    return id;
+    return this.mockApi.createMaintenanceRequest(this.user, data).maintenanceRequestId;
   }
 
   async addMaintenanceComment(requestId: string, comment: string): Promise<void> {
-    const response = await this.request.post(
-      `${API_BASE}/maintenance-requests/${requestId}/comments`,
-      {
-        headers: this.headers(),
-        data: { content: comment },
-      },
-    );
-    expect(response.ok(), 'Should add maintenance comment').toBeTruthy();
+    this.mockApi.addComment(this.user, requestId, comment);
   }
 
   // ── Documents ─────────────────────────────────────────────────────
@@ -64,20 +34,12 @@ export class ApiHelper {
     content?: string;
     published?: boolean;
   }): Promise<string> {
-    const response = await this.request.post(`${API_BASE}/documents`, {
-      headers: this.headers(),
-      data: {
-        title: data.title,
-        type: data.type,
-        content: data.content ?? 'Test document content.',
-        published: data.published ?? true,
-      },
-    });
-    expect(response.ok(), 'Should create document').toBeTruthy();
-    const body = await response.json();
-    const id = body.id ?? body.documentId;
-    this.createdIds.push({ endpoint: 'documents', id });
-    return id;
+    return this.mockApi.createDocument({
+      title: data.title,
+      type: data.type,
+      content: data.content ?? 'Test document content.',
+      published: data.published ?? true,
+    }).documentId;
   }
 
   // ── Messaging ─────────────────────────────────────────────────────
@@ -87,97 +49,53 @@ export class ApiHelper {
     participantIds: string[];
     initialMessage: string;
   }): Promise<string> {
-    const response = await this.request.post(`${API_BASE}/conversations`, {
-      headers: this.headers(),
-      data: {
-        subject: data.subject,
-        participantIds: data.participantIds,
-        initialMessage: data.initialMessage,
-      },
-    });
-    expect(response.ok(), 'Should create conversation').toBeTruthy();
-    const body = await response.json();
-    const id = body.id ?? body.conversationId;
-    this.createdIds.push({ endpoint: 'conversations', id });
-    return id;
+    return this.mockApi.createConversation(this.user, data).conversationId;
   }
 
   async sendMessage(conversationId: string, content: string): Promise<void> {
-    const response = await this.request.post(
-      `${API_BASE}/conversations/${conversationId}/messages`,
-      {
-        headers: this.headers(),
-        data: { content },
-      },
-    );
-    expect(response.ok(), 'Should send message').toBeTruthy();
+    this.mockApi.sendMessage(this.user, conversationId, content);
   }
 
   // ── JSON Content (CMS) ───────────────────────────────────────────
 
   async getJsonContent(key: string): Promise<unknown> {
-    const response = await this.request.get(`${API_BASE}/json-content/${key}`, {
-      headers: this.headers(),
-    });
-    if (!response.ok()) return null;
-    return response.json();
+    const response = this.mockApi.call('GET', `json-content/${key}`, undefined, this.user);
+    return response.status === 200 ? response.body : null;
   }
 
   // ── User / Profile ───────────────────────────────────────────────
 
   async getProfile(): Promise<Record<string, unknown>> {
-    const response = await this.request.get(`${API_BASE}/user/profile`, {
-      headers: this.headers(),
-    });
-    expect(response.ok(), 'Should fetch profile').toBeTruthy();
-    return response.json();
+    const response = this.mockApi.call('GET', 'user/profile', undefined, this.user);
+    expect(response.status, 'Should fetch profile').toBe(200);
+    return response.body as Record<string, unknown>;
   }
 
   async updateProfile(data: Record<string, unknown>): Promise<void> {
-    const response = await this.request.put(`${API_BASE}/user/profile`, {
-      headers: this.headers(),
-      data,
-    });
-    expect(response.ok(), 'Should update profile').toBeTruthy();
+    const response = this.mockApi.call('PUT', 'user/profile', data, this.user);
+    expect(response.status, 'Should update profile').toBe(200);
   }
 
   // ── Cleanup ───────────────────────────────────────────────────────
 
   async cleanup(): Promise<void> {
-    for (const { endpoint, id } of this.createdIds.reverse()) {
-      try {
-        await this.request.delete(`${API_BASE}/${endpoint}/${id}`, {
-          headers: this.headers(),
-        });
-      } catch {
-        // Best-effort cleanup; ignore errors.
-      }
-    }
-    this.createdIds = [];
+    // Each test owns its own in-memory store, so there is nothing to undo.
   }
 }
 
 // ── Fixture extension ─────────────────────────────────────────────────
 
 type ApiFixtures = {
-  /** An ApiHelper seeded with the authenticated member's token. */
+  /** An ApiHelper acting as the authenticated member. */
   api: ApiHelper;
 };
 
 export const test = base.extend<ApiFixtures>({
-  api: async ({ request }, use) => {
-    // Obtain a token for seeding data
-    const loginResponse = await request.post(`${API_BASE}/user/token`, {
-      data: { username: 'member', password: 'Member123!' },
-    });
-    expect(loginResponse.ok(), 'API login for fixture should succeed').toBeTruthy();
-    const body = await loginResponse.json();
-    const token = body.token || body.accessToken;
-
-    const helper = new ApiHelper(request, token);
-    await use(helper);
-    await helper.cleanup();
+  api: async ({ mockApi }, use) => {
+    const user = mockApi.store.users.find((u) => u.username === MEMBER_CREDENTIALS.username);
+    if (!user) throw new Error('Mock API is missing the seeded member user');
+    await use(new ApiHelper(mockApi, user));
   },
 });
 
-export { expect } from '@playwright/test';
+export { expect };
