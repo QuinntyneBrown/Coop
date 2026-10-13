@@ -109,6 +109,15 @@ export interface MockJsonContent {
   content: Record<string, unknown>;
 }
 
+export interface MockPage {
+  pageId: string;
+  title: string;
+  slug: string;
+  heroImageUrl: string | null;
+  body: string;
+  createdOn: string;
+}
+
 export interface MockTheme {
   themeId: string;
   cssCustomProperties: string;
@@ -128,6 +137,7 @@ export interface MockStore {
   invitations: MockInvitation[];
   assets: MockAsset[];
   jsonContents: MockJsonContent[];
+  pages: MockPage[];
   themes: MockTheme[];
 }
 
@@ -138,6 +148,18 @@ export function newId(): string {
   counter += 1;
   const hex = counter.toString(16).padStart(12, '0');
   return `00000000-0000-4000-8000-${hex}`;
+}
+
+/** The URL slug the API derives from a page title (see Page.SlugFrom in the backend). */
+export function slugOf(title: string): string {
+  return title
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80)
+    .replace(/-+$/g, '');
 }
 
 export function hoursAgo(hours: number): string {
@@ -441,6 +463,20 @@ export function createSeedStore(): MockStore {
     },
   ];
 
+  const pages: MockPage[] = [
+    {
+      pageId: newId(),
+      title: 'How to apply',
+      slug: 'how-to-apply',
+      heroImageUrl: '/own/garden.svg',
+      body:
+        '<p class="own-lead">Membership is open to women aged 55 and over. Applying takes one form and one visit.</p>' +
+        '<h2>Who can apply</h2><ul><li>Women aged 55 or over.</li><li>A willingness to take part.</li></ul>' +
+        '<h2>What happens next</h2><p>Send the form to the office, then come for a visit and a cup of tea.</p>',
+      createdOn: hoursAgo(300),
+    },
+  ];
+
   const themes: MockTheme[] = [
     {
       themeId: newId(),
@@ -463,6 +499,7 @@ export function createSeedStore(): MockStore {
     invitations,
     assets,
     jsonContents,
+    pages,
     themes,
   };
 }

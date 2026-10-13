@@ -1,0 +1,202 @@
+@use '../own-foundation' as own;
+
+/* The site header: brand, navigation with the website pages, Member sign in
+   and the phone menu (docs/mocks/pages/public-landing/, public-page/). */
+
+:host {
+  @include own.tokens;
+  display: block;
+  font: 400 var(--own-size-body) / var(--own-leading) var(--own-font);
+  color: var(--own-text);
+}
+
+@include own.base;
+@include own.buttons;
+
+.own-skip {
+  position: absolute;
+  top: var(--own-space-2);
+  left: var(--own-space-2);
+  z-index: 100;
+  padding: var(--own-space-3) var(--own-space-4);
+  background: var(--own-surface);
+  color: var(--own-text);
+  border-radius: var(--own-radius-sm);
+  box-shadow: var(--own-shadow-2);
+  transform: translateY(-200%);
+}
+.own-skip:focus {
+  transform: none;
+}
+.own-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--own-surface);
+  border-bottom: 1px solid var(--own-border);
+}
+.own-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--own-space-4);
+  min-height: 5rem;
+  padding-block: var(--own-space-3);
+}
+.own-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--own-space-3);
+  color: var(--own-text);
+  text-decoration: none;
+  min-height: var(--own-target);
+}
+.own-brand__mark {
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+}
+.own-brand__name {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+@media (min-width: 64rem) {
+  .own-brand__name {
+    white-space: nowrap;
+  }
+}
+.own-brand__sub {
+  display: none;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--own-muted);
+}
+@media (min-width: 48rem) and (max-width: 63.98rem), (min-width: 80rem) {
+  .own-brand__sub {
+    display: block;
+  }
+}
+.own-nav {
+  display: none;
+}
+.own-nav__list {
+  display: flex;
+  gap: var(--own-space-1);
+}
+.own-nav__link {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  min-height: var(--own-target);
+  padding: 0 var(--own-space-4);
+  border-radius: var(--own-radius-pill);
+  color: var(--own-text);
+  font-weight: 500;
+  text-decoration: none;
+}
+.own-nav__link:hover {
+  background: var(--own-surface-tint);
+}
+.own-nav__link[aria-current='page'] {
+  background: var(--own-accent-soft);
+  color: var(--own-accent-text);
+  font-weight: 600;
+}
+.own-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--own-space-2);
+}
+.own-header__signin {
+  display: none;
+  white-space: nowrap;
+}
+.own-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--own-space-2);
+  min-height: var(--own-target);
+  padding: 0 var(--own-space-4);
+  border: 2px solid var(--own-border);
+  border-radius: var(--own-radius-pill);
+  background: var(--own-surface);
+  color: var(--own-text);
+  font: 600 var(--own-size-small) / 1 var(--own-font);
+  cursor: pointer;
+}
+.own-menu-btn[aria-expanded='true'] {
+  background: var(--own-text);
+  color: var(--own-canvas);
+  border-color: var(--own-text);
+}
+.own-menu {
+  background: var(--own-surface);
+  border-bottom: 1px solid var(--own-border);
+  box-shadow: var(--own-shadow-2);
+}
+.own-menu[hidden] {
+  display: none;
+}
+.own-menu__list {
+  display: grid;
+  gap: var(--own-space-1);
+  padding-block: var(--own-space-4);
+}
+.own-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--own-target-lg);
+  padding: 0 var(--own-space-4);
+  border-radius: var(--own-radius-sm);
+  color: var(--own-text);
+  font-size: var(--own-size-lead);
+  font-weight: 500;
+  text-decoration: none;
+}
+.own-menu__link:hover {
+  background: var(--own-surface-tint);
+}
+.own-menu__link[aria-current='page'] {
+  background: var(--own-accent-soft);
+  color: var(--own-accent-text);
+  font-weight: 600;
+}
+.own-menu__footer {
+  padding: var(--own-space-4) 0 var(--own-space-6);
+  border-top: 1px solid var(--own-border);
+  display: grid;
+  gap: var(--own-space-3);
+}
+@media (min-width: 64rem) {
+  .own-nav {
+    display: block;
+  }
+  .own-header__signin {
+    display: inline-flex;
+  }
+  .own-menu-btn,
+  .own-menu {
+    display: none;
+  }
+}
+
+/* Compact header between 1024 and 1280 px so the full navigation fits on one line. */
+@media (min-width: 64rem) and (max-width: 79.98rem) {
+  .own-brand__name {
+    font-size: 1.125rem;
+  }
+  .own-nav__link {
+    padding-inline: var(--own-space-3);
+    font-size: 1.0625rem;
+  }
+  .own-header__signin {
+    padding-inline: var(--own-space-4);
+    font-size: 1.0625rem;
+    min-height: var(--own-target);
+  }
+  .own-header__inner {
+    gap: var(--own-space-3);
+  }
+}

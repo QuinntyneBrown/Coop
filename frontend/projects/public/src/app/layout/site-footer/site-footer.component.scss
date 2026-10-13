@@ -1,0 +1,63 @@
+@use '../own-foundation' as own;
+
+/* The site footer: contact details, section links and member links. */
+
+:host {
+  @include own.tokens;
+  display: block;
+  font: 400 var(--own-size-body) / var(--own-leading) var(--own-font);
+}
+
+@include own.base;
+
+.own-footer {
+  padding-block: var(--own-space-8) var(--own-space-6);
+  background: var(--own-text);
+  color: var(--own-canvas);
+}
+.own-footer a {
+  color: inherit;
+}
+.own-footer a:hover {
+  color: var(--own-terracotta-300);
+}
+.own-footer__grid {
+  display: grid;
+  gap: var(--own-space-6);
+}
+.own-footer h2 {
+  font-size: var(--own-size-lead);
+  margin-bottom: var(--own-space-3);
+}
+.own-footer address {
+  font-style: normal;
+  display: grid;
+  gap: var(--own-space-2);
+}
+.own-footer__links {
+  display: grid;
+  gap: var(--own-space-1);
+}
+.own-footer__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--own-target);
+}
+.own-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--own-space-3);
+  margin-top: var(--own-space-7);
+  padding-top: var(--own-space-5);
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  font-size: var(--own-size-small);
+}
+.own-footer__bottom p {
+  max-width: none;
+}
+@media (min-width: 48rem) {
+  .own-footer__grid {
+    grid-template-columns: 1.2fr 1fr 1fr;
+  }
+}

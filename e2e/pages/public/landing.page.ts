@@ -16,6 +16,8 @@ export class LandingPage {
   readonly menu: Locator;
   readonly menuLinks: Locator;
   readonly menuSignInLink: Locator;
+  readonly navPageLinks: Locator;
+  readonly menuPageLinks: Locator;
 
   // Hero
   readonly hero: Locator;
@@ -50,14 +52,17 @@ export class LandingPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.header = page.getByTestId('landing-header');
-    this.brand = page.getByTestId('landing-brand');
-    this.nav = page.getByTestId('landing-nav');
-    this.signInLink = page.getByTestId('landing-signin-link');
-    this.menuButton = page.getByTestId('landing-menu-button');
-    this.menu = page.getByTestId('landing-menu');
-    this.menuLinks = this.menu.getByTestId('landing-menu-link');
-    this.menuSignInLink = page.getByTestId('landing-menu-signin-link');
+    // The header and footer are shared with the website pages (site-header, site-footer).
+    this.header = page.getByTestId('site-header');
+    this.brand = page.getByTestId('site-brand');
+    this.nav = page.getByTestId('site-nav');
+    this.signInLink = page.getByTestId('site-signin-link');
+    this.menuButton = page.getByTestId('site-menu-button');
+    this.menu = page.getByTestId('site-menu');
+    this.menuLinks = this.menu.getByTestId('site-menu-link');
+    this.menuSignInLink = page.getByTestId('site-menu-signin-link');
+    this.navPageLinks = this.nav.getByTestId('site-nav-page-link');
+    this.menuPageLinks = this.menu.getByTestId('site-menu-page-link');
 
     this.hero = page.getByTestId('landing-hero');
     this.heroTitle = page.getByTestId('landing-hero-title');
@@ -81,8 +86,8 @@ export class LandingPage {
     this.boardSection = page.getByTestId('landing-board-section');
     this.boardMembers = page.getByTestId('landing-board-member');
 
-    this.footer = page.getByTestId('landing-footer');
-    this.footerPhone = page.getByTestId('landing-footer-phone');
+    this.footer = page.getByTestId('site-footer');
+    this.footerPhone = page.getByTestId('site-footer-phone');
   }
 
   async goto() {

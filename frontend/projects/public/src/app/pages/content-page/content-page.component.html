@@ -1,0 +1,73 @@
+<app-site-header />
+
+<main id="main">
+  @switch (state()) {
+    @case ('ready') {
+      <section class="own-page-banner" aria-labelledby="page-title">
+        <div class="own-container">
+          <h1 id="page-title" data-testid="page-title">{{ page()!.title }}</h1>
+        </div>
+      </section>
+      @if (page()!.heroImageUrl) {
+        <div class="own-container own-page__hero">
+          <img [src]="page()!.heroImageUrl" alt="" data-testid="page-hero" />
+        </div>
+      }
+      <article
+        class="own-container own-prose"
+        [innerHTML]="page()!.body"
+        data-testid="page-body"
+      ></article>
+    }
+    @case ('loading') {
+      <section class="own-page-banner" aria-labelledby="page-title">
+        <div class="own-container">
+          <h1 id="page-title">Loading…</h1>
+        </div>
+      </section>
+      <div
+        class="own-container own-page__status"
+        role="status"
+        aria-live="polite"
+        data-testid="page-loading"
+      >
+        The page is on its way.
+      </div>
+    }
+    @case ('error') {
+      <section class="own-page-banner" aria-labelledby="page-title">
+        <div class="own-container">
+          <h1 id="page-title">Something went wrong</h1>
+        </div>
+      </section>
+      <div class="own-container own-page__missing" role="alert" data-testid="page-error">
+        <p class="own-lead">We couldn't load this page right now.</p>
+        <p>Check your connection, then try again.</p>
+        <button
+          class="own-btn own-btn--primary"
+          type="button"
+          (click)="load()"
+          data-testid="page-retry"
+        >
+          Try again
+        </button>
+      </div>
+    }
+    @case ('not-found') {
+      <section class="own-page-banner" aria-labelledby="page-title">
+        <div class="own-container">
+          <h1 id="page-title" data-testid="page-title">We can't find that page</h1>
+        </div>
+      </section>
+      <div class="own-container own-page__missing" data-testid="page-not-found">
+        <p class="own-lead">We can't find that page</p>
+        <p>It may have been removed, or the address may be wrong.</p>
+        <a class="own-btn own-btn--primary" routerLink="/" data-testid="page-home-link"
+          >Go to the home page</a
+        >
+      </div>
+    }
+  }
+</main>
+
+<app-site-footer />

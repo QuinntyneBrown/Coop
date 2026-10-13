@@ -1,0 +1,111 @@
+@use '../../layout/own-foundation' as own;
+
+/* A website page: title banner, optional hero photograph and the reading
+   column (docs/mocks/pages/public-page/, classes shared with own-site.css). */
+
+:host {
+  @include own.tokens;
+  display: block;
+  background: var(--own-canvas);
+  color: var(--own-text);
+  font: 400 var(--own-size-body) / var(--own-leading) var(--own-font);
+  text-wrap: pretty;
+  overflow-x: clip;
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    --own-duration-fast: 0ms;
+    --own-duration: 0ms;
+  }
+}
+
+@include own.base;
+@include own.buttons;
+
+.own-page-banner {
+  background: var(--own-surface-tint);
+  padding-block: var(--own-space-7);
+}
+.own-page-banner h1 {
+  font-size: var(--own-size-h2);
+  max-width: 20em;
+}
+.own-page__hero {
+  margin-top: calc(-1 * var(--own-space-5));
+}
+.own-page__hero img {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: var(--own-radius-lg);
+  box-shadow: var(--own-shadow-1);
+  background: var(--own-surface);
+}
+.own-prose {
+  max-width: 46rem;
+  padding-block: var(--own-space-7) var(--own-space-9);
+  display: grid;
+  gap: var(--own-space-4);
+}
+.own-page__status {
+  padding-block: var(--own-space-8) var(--own-space-9);
+  font-size: var(--own-size-lead);
+  color: var(--own-muted);
+}
+.own-page__missing {
+  display: grid;
+  gap: var(--own-space-5);
+  justify-items: start;
+  padding-block: var(--own-space-8) var(--own-space-9);
+}
+
+/* The body is HTML the office wrote, injected with innerHTML, so its elements
+   sit outside the component's encapsulation and are styled through ::ng-deep. */
+:host ::ng-deep .own-prose > * {
+  margin: 0;
+  max-width: none;
+}
+:host ::ng-deep .own-prose h2 {
+  margin-top: var(--own-space-5);
+  font-size: var(--own-size-h3);
+  font-weight: 600;
+  line-height: 1.3;
+}
+:host ::ng-deep .own-prose h3 {
+  font-size: var(--own-size-lead);
+  font-weight: 600;
+}
+:host ::ng-deep .own-prose ul,
+:host ::ng-deep .own-prose ol {
+  padding-left: 1.4em;
+  display: grid;
+  gap: var(--own-space-2);
+}
+:host ::ng-deep .own-prose ul {
+  list-style: disc;
+}
+:host ::ng-deep .own-prose ol {
+  list-style: decimal;
+}
+:host ::ng-deep .own-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--own-radius-md);
+}
+:host ::ng-deep .own-prose a {
+  color: var(--own-accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+:host ::ng-deep .own-prose strong {
+  font-weight: 600;
+}
+:host ::ng-deep .own-prose .own-lead {
+  font-size: var(--own-size-lead);
+  color: var(--own-muted);
+  line-height: 1.5;
+}

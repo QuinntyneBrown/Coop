@@ -1,14 +1,14 @@
-import type { LandingLink } from './landing-link';
+import type { SiteLink } from './site-link';
 
 /** The footer: contact details, section links, member links and the bottom line. */
-export interface LandingFooter {
+export interface SiteFooterContent {
   organisation: string;
   area: string;
   phone: string;
   phoneHref: string;
   email: string;
-  siteLinks: LandingLink[];
-  memberLinks: LandingLink[];
+  siteLinks: SiteLink[];
+  memberLinks: SiteLink[];
   copyright: string;
   managedBy: string;
 }

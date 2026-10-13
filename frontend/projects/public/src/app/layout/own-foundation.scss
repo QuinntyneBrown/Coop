@@ -1,0 +1,228 @@
+/* OWN public site foundation, ported from docs/mocks/assets/own-site.css and
+   shared by the site header, the site footer, the home page and the website
+   pages. Every colour, size and duration is a token. Large type, strong
+   contrast and generous targets are deliberate for an older audience. Light
+   theme only; the mock's dark tokens are not implemented in the product. */
+
+/* The --own-* custom properties, declared on a component host. */
+@mixin tokens {
+  /* Primitives */
+  --own-cream-50: #fbf7f0;
+  --own-cream-100: #f6ecdd;
+  --own-cream-200: #f3e7d3;
+  --own-brown-900: #26211d;
+  --own-brown-600: #5e554d;
+  --own-brown-300: #d9cfc2;
+  --own-terracotta-100: #f8e3d7;
+  --own-terracotta-300: #f6a98a;
+  --own-terracotta-600: #b4502a;
+  --own-terracotta-700: #9e4322;
+  --own-sage-100: #e3ebe0;
+  --own-sage-700: #3f6b4f;
+  --own-sage-800: #2f4e3a;
+  --own-plum-100: #efe3ec;
+  --own-plum-700: #6b3f60;
+
+  /* Semantic */
+  --own-canvas: var(--own-cream-50);
+  --own-surface: #ffffff;
+  --own-surface-tint: var(--own-cream-200);
+  --own-text: var(--own-brown-900);
+  --own-muted: var(--own-brown-600);
+  --own-border: var(--own-brown-300);
+  --own-accent: var(--own-terracotta-600);
+  --own-accent-hover: var(--own-terracotta-700);
+  --own-accent-text: var(--own-terracotta-700);
+  --own-on-accent: #ffffff;
+  --own-accent-soft: var(--own-terracotta-100);
+  --own-green: var(--own-sage-700);
+  --own-on-green: #ffffff;
+  --own-green-soft: var(--own-sage-100);
+  --own-plum: var(--own-plum-700);
+  --own-plum-soft: var(--own-plum-100);
+  --own-focus: var(--own-plum-700);
+  --own-shadow-1: 0 1px 2px rgb(38 33 29 / 0.06), 0 6px 20px rgb(38 33 29 / 0.08);
+  --own-shadow-2: 0 10px 40px rgb(38 33 29 / 0.14);
+
+  /* Type, space, shape, motion */
+  --own-font:
+    'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --own-size-body: 1.1875rem;
+  --own-size-small: 1rem;
+  --own-size-lead: 1.375rem;
+  --own-size-h3: 1.5rem;
+  --own-size-h2: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+  --own-size-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+  --own-size-stat: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+  --own-leading: 1.6;
+  --own-measure: 34em;
+  --own-space-1: 0.25rem;
+  --own-space-2: 0.5rem;
+  --own-space-3: 0.75rem;
+  --own-space-4: 1rem;
+  --own-space-5: 1.5rem;
+  --own-space-6: 2rem;
+  --own-space-7: 3rem;
+  --own-space-8: 4rem;
+  --own-space-9: 6rem;
+  --own-radius-sm: 0.75rem;
+  --own-radius-md: 1.25rem;
+  --own-radius-lg: 2rem;
+  --own-radius-pill: 999px;
+  --own-target: 3rem;
+  --own-target-lg: 3.5rem;
+  --own-focus-width: 3px;
+  --own-focus-offset: 3px;
+  --own-duration-fast: 120ms;
+  --own-duration: 200ms;
+  --own-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --own-container: 74rem;
+  --own-gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* Base typography, links, focus ring, container and section rules. */
+@mixin base {
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.12;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  h1 {
+    font-size: var(--own-size-h1);
+  }
+  h2 {
+    font-size: var(--own-size-h2);
+  }
+  h3 {
+    font-size: var(--own-size-h3);
+    line-height: 1.3;
+  }
+  p {
+    margin: 0;
+    max-width: var(--own-measure);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  a {
+    color: var(--own-accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  a:hover {
+    color: var(--own-text);
+  }
+  :focus-visible {
+    outline: var(--own-focus-width) solid var(--own-focus);
+    outline-offset: var(--own-focus-offset);
+    border-radius: var(--own-radius-sm);
+  }
+
+  .own-container {
+    width: 100%;
+    max-width: var(--own-container);
+    margin-inline: auto;
+    padding-inline: var(--own-gutter);
+  }
+  .own-eyebrow {
+    display: inline-block;
+    margin-bottom: var(--own-space-3);
+    font-size: var(--own-size-small);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--own-accent-text);
+  }
+  .own-lead {
+    font-size: var(--own-size-lead);
+    color: var(--own-muted);
+    line-height: 1.5;
+  }
+  .own-section {
+    padding-block: var(--own-space-8);
+  }
+  .own-section--tint {
+    background: var(--own-surface-tint);
+  }
+  .own-section__head {
+    margin-bottom: var(--own-space-6);
+  }
+  .own-section__head p {
+    margin-top: var(--own-space-3);
+  }
+  @media (min-width: 64rem) {
+    .own-section {
+      padding-block: var(--own-space-9);
+    }
+  }
+}
+
+/* Buttons and inline icons. */
+@mixin buttons {
+  .own-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--own-space-2);
+    min-height: var(--own-target-lg);
+    padding: 0 var(--own-space-5);
+    border: 2px solid transparent;
+    border-radius: var(--own-radius-pill);
+    font: 600 var(--own-size-body) / 1.2 var(--own-font);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--own-duration-fast) var(--own-ease),
+      color var(--own-duration-fast) var(--own-ease),
+      transform var(--own-duration-fast) var(--own-ease);
+  }
+  .own-btn .own-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .own-btn--primary {
+    background: var(--own-accent);
+    color: var(--own-on-accent);
+  }
+  .own-btn--primary:hover {
+    background: var(--own-accent-hover);
+    color: var(--own-on-accent);
+  }
+  .own-btn--secondary {
+    background: transparent;
+    color: var(--own-text);
+    border-color: var(--own-text);
+  }
+  .own-btn--secondary:hover {
+    background: var(--own-text);
+    color: var(--own-canvas);
+  }
+  .own-btn:active {
+    transform: translateY(1px);
+  }
+  .own-btn--block {
+    width: 100%;
+  }
+  .own-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+  }
+}
