@@ -29,6 +29,7 @@ src/app/
   core/        # guards, interceptors, and services (API, auth, theme)
   layout/      # shell for signed-in pages
   pages/       # one folder per screen
+public/own/    # photographs for the home page (see pages/landing/landing-content.ts)
 ```
 
 ## Development

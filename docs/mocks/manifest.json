@@ -7,7 +7,7 @@
       "title": "Public \u00b7 Landing",
       "app": "public",
       "route": "/",
-      "source": "Hand-written proposal (not captured); replaces the earlier capture of frontend/projects/public/src/app/pages/landing/landing.component.ts",
+      "source": "Hand-written design reference (not captured), implemented by frontend/projects/public/src/app/pages/landing/landing.component.ts",
       "requirements": [
         "L2-REQ-053",
         "L2-REQ-068",

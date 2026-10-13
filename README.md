@@ -201,6 +201,8 @@ must not use a real database.
 | Requirements | [Level 1](docs/specs/L1.md) and [Level 2](docs/specs/L2.md) specifications in [docs/specs](docs/specs/) |
 | Component requirements | [docs/specs/components](docs/specs/components/README.md), one CRD per design-system component |
 | Design reference | [docs/mocks](docs/mocks/pages/) and its [README](docs/mocks/README.md) |
+| Detailed designs | [docs/detailed-designs](docs/detailed-designs/), one folder per feature with its README and diagrams |
+| Architecture decisions | [docs/adr](docs/adr/) |
 | Frontend workspace | [frontend](frontend/README.md) |
 | Public app | [frontend/projects/public](frontend/projects/public/README.md) |
 | Admin app | [frontend/projects/admin](frontend/projects/admin/README.md) |
@@ -208,9 +210,8 @@ must not use a real database.
 | Board pitch | [docs/pitch](docs/pitch/README.md) |
 | Agent guidance | [AGENTS.md](AGENTS.md) |
 
-Detailed designs and architecture decision records are not currently in the
-working tree. Add them under `docs/detailed-designs/` and `docs/adr/`, and link
-them here, when they are written.
+Detailed designs are written per feature under `docs/detailed-designs/` as the
+feature is implemented; architecture decisions go in `docs/adr/`.
 
 ## Deployment
 

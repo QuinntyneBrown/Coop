@@ -113,7 +113,10 @@ completeness. No ATDD or tests for these design artifacts are introduced.
 `pages/public-landing/` is the one exception to "current UI only". The earlier
 capture of the implemented landing page was replaced by this hand-written
 proposal, made to show Older Women's Network Housing
-Co-operative Inc. (OWN) what their CMS-driven public home page could be. Open
+Co-operative Inc. (OWN) what their CMS-driven public home page could be. The
+public app's `LandingComponent` now implements it (see
+`docs/detailed-designs/public-app/show-home-page/`); the mock remains the design
+reference and changes first when the design changes. Open
 [default.html](pages/public-landing/default.html) or the phone navigation
 state [menu.html](pages/public-landing/menu.html). Use `?theme=dark` for
 the dark appearance and `?chrome=0` to hide the review chrome, including the
@@ -140,7 +143,9 @@ at 320 CSS px with no horizontal scroll.
 
 **Illustrations.** `assets/own/` holds original SVG scenes (building, rooftop
 garden, tea, choir, lobby, knitting circle, portraits) standing in for the
-Co-op's own photographs, which the CMS asset library would supply.
+Co-op's own photographs, which the CMS asset library would supply. The public
+app ships the same files under `frontend/projects/public/public/own/`; replace
+both copies together when the photographs arrive.
 
 **Fictional content.** Board members (Rosalind Achebe, Margit Halvorsen,
 Dolores Quintero, June Okonkwo-Baptiste), the quoted member Beatrix, the events,
