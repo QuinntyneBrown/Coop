@@ -209,7 +209,7 @@ them here, when they are written.
 ## Deployment
 
 A GitHub Actions workflow, `.github/workflows/azure-static-web-apps-white-bay-0cf53f60f.yml`,
-deploys to Azure Static Web Apps on pushes and pull requests to `master`. It is
+deploys to Azure Static Web Apps on pushes and pull requests to `main`. It is
 a scaffold that builds only the public Angular app from `frontend/` (output
 `dist/public/browser`). It has not been verified against the Azure resource, and
 it does not build the admin app or host the API. Add those targets before
