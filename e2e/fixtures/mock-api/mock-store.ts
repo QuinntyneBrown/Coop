@@ -64,6 +64,15 @@ export interface MockMaintenanceRequest {
   date: string;
 }
 
+/** A photo a member attached to their maintenance request (L2-REQ-089). */
+export interface MockPhoto {
+  photoId: string;
+  maintenanceRequestId: string;
+  fileName: string;
+  contentType: string;
+  size: number;
+}
+
 export interface MockComment {
   maintenanceRequestCommentId: string;
   maintenanceRequestId: string;
@@ -132,6 +141,7 @@ export interface MockStore {
   documents: MockDocument[];
   maintenanceRequests: MockMaintenanceRequest[];
   comments: MockComment[];
+  photos: MockPhoto[];
   conversations: MockConversation[];
   messages: MockMessage[];
   invitations: MockInvitation[];
@@ -494,6 +504,7 @@ export function createSeedStore(): MockStore {
     documents,
     maintenanceRequests,
     comments,
+    photos: [],
     conversations,
     messages,
     invitations,

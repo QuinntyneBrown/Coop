@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Illustration of a dripping tap">
+  <rect width="240" height="240" fill="#e6ece4"/>
+  <rect x="60" y="150" width="120" height="50" rx="8" fill="#c4cfc0"/>
+  <path d="M70 70 h80 q20 0 20 20 v24" stroke="#6d7c86" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <rect x="98" y="50" width="16" height="30" rx="4" fill="#6d7c86"/>
+  <path d="M170 128 q-6 10 0 14 q6 -4 0 -14z" fill="#5d9ac9"/>
+  <path d="M170 152 q-5 8 0 11 q5 -3 0 -11z" fill="#5d9ac9"/>
+</svg>

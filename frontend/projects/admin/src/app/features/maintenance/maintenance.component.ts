@@ -174,14 +174,31 @@ import { nextMaintenanceStep } from './next-maintenance-step';
                 <div class="attachments" data-testid="maintenance-detail-photos">
                   <h4>Photos</h4>
                   @if (selectedRequest.digitalAssets?.length) {
-                    <div class="attachment-grid">
-                      @for (asset of selectedRequest.digitalAssets; track asset) {
-                        <div class="attachment-item">
-                          <span class="material-icons">image</span>
-                          <span>{{ asset.name }}</span>
-                        </div>
+                    <ul class="attachment-grid">
+                      @for (
+                        asset of selectedRequest.digitalAssets;
+                        track asset.digitalAssetId;
+                        let i = $index
+                      ) {
+                        <li class="attachment-item" data-testid="maintenance-detail-photo">
+                          @if (photoUrls[asset.digitalAssetId]) {
+                            <a
+                              [href]="photoUrls[asset.digitalAssetId]"
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              <img
+                                [src]="photoUrls[asset.digitalAssetId]"
+                                [alt]="'Photo ' + (i + 1) + ' of ' + selectedRequest.title"
+                              />
+                            </a>
+                          } @else {
+                            <span class="material-icons" aria-hidden="true">image</span>
+                            <span>Loading photo…</span>
+                          }
+                        </li>
                       }
-                    </div>
+                    </ul>
                   }
                   @if (!selectedRequest.digitalAssets?.length) {
                     <div class="no-photos">No photos attached</div>
@@ -444,7 +461,6 @@ import { nextMaintenanceStep } from './next-maintenance-step';
       }
       .step-error {
         margin-top: 12px;
-        font-size: 14px;
         color: #b42318;
       }
       .no-photos {
@@ -580,9 +596,16 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         }
       }
       .attachment-grid {
+        list-style: none;
+        padding: 0;
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
+        img {
+          width: 160px;
+          max-width: 100%;
+          border-radius: 8px;
+        }
       }
       .attachment-item {
         display: flex;
@@ -638,6 +661,7 @@ export class MaintenanceComponent implements OnInit {
   advancing = false;
   stepFailed = false;
   readonly nextStep = nextMaintenanceStep;
+  photoUrls: Record<string, string> = {};
 
   createForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -726,6 +750,14 @@ export class MaintenanceComponent implements OnInit {
     this.activeTab = 'details';
     this.stepFailed = false;
     this.comments = [];
+    for (const asset of req.digitalAssets ?? []) {
+      if (asset.url && !this.photoUrls[asset.digitalAssetId]) {
+        this.maintenanceService.getPhoto(asset.url).subscribe({
+          next: (blob) => (this.photoUrls[asset.digitalAssetId] = URL.createObjectURL(blob)),
+          error: () => {},
+        });
+      }
+    }
     if (req.maintenanceRequestId) {
       this.maintenanceService.getComments(req.maintenanceRequestId).subscribe({
         next: (data: any) => {

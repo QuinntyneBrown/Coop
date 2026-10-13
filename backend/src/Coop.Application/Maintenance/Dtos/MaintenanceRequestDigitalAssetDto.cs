@@ -7,6 +7,7 @@ public class MaintenanceRequestDigitalAssetDto
     public Guid MaintenanceRequestDigitalAssetId { get; set; }
     public Guid MaintenanceRequestId { get; set; }
     public Guid DigitalAssetId { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     public static MaintenanceRequestDigitalAssetDto FromDigitalAsset(MaintenanceRequestDigitalAsset da)
     {
@@ -14,7 +15,8 @@ public class MaintenanceRequestDigitalAssetDto
         {
             MaintenanceRequestDigitalAssetId = da.MaintenanceRequestDigitalAssetId,
             MaintenanceRequestId = da.MaintenanceRequestId,
-            DigitalAssetId = da.DigitalAssetId
+            DigitalAssetId = da.DigitalAssetId,
+            Url = MaintenanceRequestPhotoDto.UrlFor(da.MaintenanceRequestId, da.DigitalAssetId)
         };
     }
 }

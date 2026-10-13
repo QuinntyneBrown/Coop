@@ -24,6 +24,7 @@ export class MaintenancePage {
   readonly detailPhone: Locator;
   readonly detailUnattendedEntry: Locator;
   readonly detailPhotos: Locator;
+  readonly detailPhotoImages: Locator;
 
   // Detail tabs
   readonly detailsTab: Locator;
@@ -63,6 +64,7 @@ export class MaintenancePage {
     this.detailPhone = page.getByTestId('maintenance-detail-phone');
     this.detailUnattendedEntry = page.getByTestId('maintenance-detail-unattended');
     this.detailPhotos = page.getByTestId('maintenance-detail-photos');
+    this.detailPhotoImages = this.detailPhotos.getByRole('img');
 
     this.detailsTab = page.getByTestId('maintenance-tab-details');
     this.commentsTab = page.getByTestId('maintenance-tab-comments');

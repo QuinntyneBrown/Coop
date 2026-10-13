@@ -100,6 +100,76 @@ test.describe('Maintenance Requests', () => {
     });
   });
 
+  test.describe('Photos', () => {
+    const png = (name: string) => ({
+      name,
+      mimeType: 'image/png',
+      buffer: Buffer.from(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+        'base64',
+      ),
+    });
+
+    test('Given a member creating a request, when they add a photo and send, then the request shows the photo', async () => {
+      await maintenance.goto();
+      await maintenance.openCreateForm();
+      await maintenance.fillCreateForm({
+        title: 'E2E: Water under the sink',
+        description: 'There is a puddle under the kitchen sink.',
+      });
+      await maintenance.choosePhotos([png('sink.png')]);
+      await expect(maintenance.chosenPhotos).toHaveText([/sink\.png/]);
+
+      await maintenance.submitRequest();
+      await expect(maintenance.createModal).not.toBeVisible();
+      await maintenance.openRequestByTitle('E2E: Water under the sink');
+
+      await expect(maintenance.detailPhotos).toHaveCount(1);
+      await expect(maintenance.detailPhotos.first()).toHaveAttribute('alt', 'Photo 1 of E2E: Water under the sink');
+    });
+
+    test('Given a file that is not a photo or is too large, then it is refused with a plain message', async () => {
+      await maintenance.goto();
+      await maintenance.openCreateForm();
+      await maintenance.choosePhotos([
+        { name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('hello') },
+        { name: 'huge.png', mimeType: 'image/png', buffer: Buffer.alloc(10 * 1024 * 1024 + 1) },
+      ]);
+
+      await expect(maintenance.photoError).toContainText('“notes.txt” is not a photo we can use.');
+      await expect(maintenance.photoError).toContainText('“huge.png” is too large. Choose a photo smaller than 10 MB.');
+      await expect(maintenance.chosenPhotos).toHaveCount(0);
+    });
+
+    test('Given an existing request, when the member adds a photo, then it shows on the request', async ({ api }) => {
+      await api.createMaintenanceRequest({
+        title: 'E2E: Cracked bathroom tile',
+        description: 'A tile by the bath has cracked.',
+      });
+      await maintenance.goto();
+      await maintenance.openRequestByTitle('E2E: Cracked bathroom tile');
+      await expect(maintenance.detailPhotos).toHaveCount(0);
+
+      await maintenance.addPhoto(png('tile.png'));
+
+      await expect(maintenance.detailPhotos).toHaveCount(1);
+    });
+
+    test('Given another member, when they request the photo, then the API refuses', async ({ api, mockApi }) => {
+      const id = await api.createMaintenanceRequest({
+        title: 'E2E: Private photo',
+        description: 'Only my household and the office should see this.',
+      });
+      await api.addMaintenancePhoto(id);
+      const photoId = mockApi.store.photos.find((p) => p.maintenanceRequestId === id)!.photoId;
+      const neighbour = mockApi.createUser({ username: 'neighbour', password: 'Neighbour123!', role: 'Member' });
+
+      const response = mockApi.call('GET', `maintenance-requests/${id}/photos/${photoId}`, undefined, neighbour);
+
+      expect(response.status).toBe(403);
+    });
+  });
+
   test.describe('Create Request', () => {
     test('should open create request form', async () => {
       await maintenance.goto();

@@ -7,7 +7,7 @@
 
 The office moves a maintenance request through New, Received, Started and
 Completed (L1-REQ-005) with the "Start work" and "Finish work" buttons of the
-admin app (L2-REQ-085). Either step can be sent twice: the browser resends
+admin app (L2-REQ-087). Either step can be sent twice: the browser resends
 after a dropped connection, or two people in the office press the same button
 on the same request. `AGENTS.md` asks that mutations which may be retried are
 idempotent and that the decision is recorded in an ADR.

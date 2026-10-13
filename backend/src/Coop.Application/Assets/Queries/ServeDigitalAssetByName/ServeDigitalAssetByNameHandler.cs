@@ -11,7 +11,8 @@ public class ServeDigitalAssetByNameHandler : IRequestHandler<ServeDigitalAssetB
 
     public async Task<ServeDigitalAssetByNameResponse> Handle(ServeDigitalAssetByNameRequest request, CancellationToken cancellationToken)
     {
-        var da = await _context.DigitalAssets.FirstAsync(d => d.Name == request.Name && !d.IsDeleted, cancellationToken);
+        var da = await _context.DigitalAssets.FirstAsync(d => d.Name == request.Name && !d.IsDeleted
+            && !_context.MaintenanceRequestDigitalAssets.Any(l => l.DigitalAssetId == d.DigitalAssetId), cancellationToken);
         return new ServeDigitalAssetByNameResponse { Bytes = da.Bytes, ContentType = da.ContentType, Name = da.Name };
     }
 }

@@ -1,0 +1,39 @@
+@startuml
+title UML sequence behaviour — The office views a photo, and another member is refused
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as office
+actor "Another member" as neighbour
+box "Frontend — Admin application" #E0F2FE
+  participant "MaintenanceComponent" as screen
+  participant "MaintenanceService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "MaintenanceRequestPhotosController" as controller
+  participant "GetMaintenanceRequestPhotoHandler" as handler
+  participant "MaintenanceRequestAccess" as access
+  participant "ServeDigitalAssetHandler" as serve
+  participant "ExceptionHandlingMiddleware" as middleware
+end box
+office -> screen : selects a request
+screen -> service : getPhoto(url) for each digital asset
+service -> controller : GET api/maintenance-requests/{id}/photos/{photoId} (bearer)
+controller -> handler : Send(GetMaintenanceRequestPhotoRequest)
+handler -> access : CanReadAsync: household or Write on MaintenanceRequest
+access --> handler : office holds Write  [L2-REQ-089 AC9]
+controller --> service : 200 image bytes
+screen --> office : photo with alt "Photo 1 of {title}"  [AC6]
+== Another member asks for the same photo ==
+neighbour -> controller : GET api/maintenance-requests/{id}/photos/{photoId}
+controller -> handler : Send(GetMaintenanceRequestPhotoRequest)
+handler -> access : CanReadAsync
+access --> handler : not the household, only Read
+handler --> middleware : UnauthorizedAccessException
+middleware --> neighbour : 403  [AC9]
+neighbour -> serve : GET api/digitalasset/serve/{photoId}
+serve --> middleware : linked to a request: UnauthorizedAccessException
+middleware --> neighbour : 403  [AC10]
+@enduml

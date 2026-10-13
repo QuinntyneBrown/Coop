@@ -1,7 +1,11 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Security.Cryptography;
+using Coop.Domain.Identity;
+using Coop.Domain.Profiles;
 using Coop.Infrastructure.Persistence;
+using Coop.SharedKernel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -52,4 +56,29 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     public Task<HttpClient> CreateAdminClientAsync() => CreateClientAsAsync(AdminUsername, AdminPassword);
 
     public Task<HttpClient> CreateMemberClientAsync() => CreateClientAsAsync(MemberUsername, MemberPassword);
+
+    /// <summary>
+    /// Signs in as a member of another household, seeding that fictional
+    /// member with the Member role and profile on first use.
+    /// </summary>
+    public async Task<HttpClient> CreateNeighbourClientAsync()
+    {
+        const string username = "neighbour";
+        const string password = "Neighbour123!";
+        using (var scope = Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
+            if (!await context.Users.AnyAsync(u => u.Username == username))
+            {
+                var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+                var salt = RandomNumberGenerator.GetBytes(16);
+                var user = new User { Username = username, Salt = salt, Password = hasher.HashPassword(salt, password) };
+                user.Roles.Add(await context.Roles.SingleAsync(r => r.Name == Constants.Roles.Member));
+                context.Users.Add(user);
+                context.Members.Add(new Member { UserId = user.UserId, Firstname = "Nora", Lastname = "Neighbour", UnitNumber = "102" });
+                await context.SaveChangesAsync();
+            }
+        }
+        return await CreateClientAsAsync(username, password);
+    }
 }

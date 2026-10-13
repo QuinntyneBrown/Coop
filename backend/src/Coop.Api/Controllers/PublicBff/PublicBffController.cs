@@ -226,9 +226,9 @@ public class PublicBffController : ControllerBase
             }),
             attachments = mr.DigitalAssets.Select(da => new
             {
-                id = da.MaintenanceRequestDigitalAssetId.ToString(),
-                fileName = "attachment",
-                url = $"/api/digitalasset/{da.DigitalAssetId}"
+                id = da.DigitalAssetId.ToString(),
+                fileName = "Photo",
+                url = da.Url
             })
         });
         return Ok(items);
@@ -258,9 +258,9 @@ public class PublicBffController : ControllerBase
             }),
             attachments = mr.DigitalAssets.Select(da => new
             {
-                id = da.MaintenanceRequestDigitalAssetId.ToString(),
-                fileName = "attachment",
-                url = $"/api/digitalasset/{da.DigitalAssetId}"
+                id = da.DigitalAssetId.ToString(),
+                fileName = "Photo",
+                url = da.Url
             })
         });
     }

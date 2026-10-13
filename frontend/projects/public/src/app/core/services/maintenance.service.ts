@@ -78,10 +78,22 @@ export class MaintenanceService {
   uploadPhoto(requestId: string, file: File): Observable<MaintenanceAttachment> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.api.http.post<MaintenanceAttachment>(
-      `${this.api.baseUrl}/maintenance-requests/${requestId}/attachments`,
-      formData,
-    );
+    return this.api.http
+      .post<any>(`${this.api.baseUrl}/maintenance-requests/${requestId}/photos`, formData)
+      .pipe(
+        map((resp: any) => ({
+          id: resp.photo.photoId,
+          fileName: resp.photo.name,
+          url: resp.photo.url,
+        })),
+      );
+  }
+
+  /** Photos are private, so they are fetched with the member's token rather than linked. */
+  getPhoto(url: string): Observable<Blob> {
+    return this.api.http.get(`${this.api.baseUrl}${url.replace(/^\/api/, '')}`, {
+      responseType: 'blob',
+    });
   }
 
   private mapRequest(r: any): MaintenanceRequest {

@@ -10,6 +10,7 @@ import {
   type MockMaintenanceRequest,
   type MockMessage,
   type MockPage,
+  type MockPhoto,
   type MockPrivilege,
   type MockProfile,
   type MockStore,
@@ -23,7 +24,20 @@ export const API_BASE = `${API_ORIGIN}/api`;
 export interface MockResponse {
   status: number;
   body?: unknown;
+  /** Binary body (for example a photo) sent instead of JSON. */
+  bytes?: Buffer;
+  contentType?: string;
 }
+
+/** A 1x1 PNG served for every mock photo. */
+const PHOTO_PNG = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+  'base64',
+);
+
+/** Photo rules shared with the API (L2-REQ-089). */
+const PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_PHOTO_BYTES = 10 * 1024 * 1024;
 
 type Handler = (ctx: RequestContext, params: string[]) => MockResponse;
 
@@ -151,6 +165,14 @@ export class MockApi {
     }
 
     const response = this.dispatch(this.contextFrom(request));
+    if (response.bytes) {
+      await route.fulfill({
+        status: response.status,
+        headers: { ...cors, 'Content-Type': response.contentType ?? 'application/octet-stream' },
+        body: response.bytes,
+      });
+      return;
+    }
     await route.fulfill({
       status: response.status,
       headers: { ...cors, 'Content-Type': 'application/json' },
@@ -172,7 +194,12 @@ export class MockApi {
       }
     } else if (rawBody && contentType.includes('multipart/form-data')) {
       const match = /filename="([^"]+)"/.exec(rawBody);
-      body = { fileName: match?.[1] ?? 'upload.bin', size: rawBody.length };
+      const type = /filename="[^"]+"\r?\nContent-Type: ([^\r\n]+)/.exec(rawBody);
+      body = {
+        fileName: match?.[1] ?? 'upload.bin',
+        contentType: type?.[1] ?? 'application/octet-stream',
+        size: rawBody.length,
+      };
     }
     return {
       method: request.method().toUpperCase(),
@@ -274,7 +301,12 @@ export class MockApi {
     };
   }
 
+  private photoUrl(p: MockPhoto): string {
+    return `/api/maintenance-requests/${p.maintenanceRequestId}/photos/${p.photoId}`;
+  }
+
   private maintenanceView(r: MockMaintenanceRequest) {
+    const photos = this.store.photos.filter((p) => p.maintenanceRequestId === r.maintenanceRequestId);
     const comments = this.store.comments
       .filter((c) => c.maintenanceRequestId === r.maintenanceRequestId)
       .map((c) => this.commentView(c));
@@ -296,8 +328,13 @@ export class MockApi {
       createdAt: r.date,
       updatedAt: r.date,
       comments,
-      digitalAssets: [],
-      attachments: [],
+      digitalAssets: photos.map((p) => ({
+        maintenanceRequestDigitalAssetId: p.photoId,
+        maintenanceRequestId: p.maintenanceRequestId,
+        digitalAssetId: p.photoId,
+        url: this.photoUrl(p),
+      })),
+      attachments: photos.map((p) => ({ id: p.photoId, fileName: 'Photo', url: this.photoUrl(p) })),
     };
   }
 
@@ -781,9 +818,28 @@ export class MockApi {
       const comment = this.addComment(ctx.user!, id, ctx.body?.content ?? ctx.body?.body ?? '');
       return ok(this.commentView(comment));
     });
-    this.on('POST', 'maintenance-requests/:id/attachments', (ctx) => {
-      const asset = this.createAsset(ctx.body ?? { fileName: 'photo.png' });
-      return ok(this.assetView(asset));
+    // Like the API: only the requesting household adds photos; the household
+    // and the office read them; re-posting the same photo returns it (ADR 0005).
+    this.on('POST', 'maintenance-requests/:id/photos', (ctx, [id]) => {
+      const request = findRequest(id);
+      if (!request) return notFound();
+      if (request.ownerUserId !== ctx.user!.userId) return forbidden();
+      const { fileName = 'photo.png', contentType = 'image/png', size = 0 } = ctx.body ?? {};
+      if (!PHOTO_TYPES.includes(contentType)) return badRequest('Choose a JPEG, PNG or WebP photo.');
+      if (size > MAX_PHOTO_BYTES) return badRequest('Choose a photo smaller than 10 MB.');
+      const existing = s.photos.find(
+        (p) => p.maintenanceRequestId === id && p.fileName === fileName && p.size === size,
+      );
+      const photo: MockPhoto = existing ?? { photoId: newId(), maintenanceRequestId: id, fileName, contentType, size };
+      if (!existing) s.photos.push(photo);
+      return ok({ photo: { photoId: photo.photoId, name: photo.fileName, url: this.photoUrl(photo) } });
+    });
+    this.on('GET', 'maintenance-requests/:id/photos/:photoId', (ctx, [id, photoId]) => {
+      const request = findRequest(id);
+      const photo = s.photos.find((p) => p.maintenanceRequestId === id && p.photoId === photoId);
+      if (!request || !photo) return notFound();
+      if (request.ownerUserId !== ctx.user!.userId && ctx.user!.role === 'Member') return forbidden();
+      return { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' };
     });
 
     // Maintenance requests (admin app)

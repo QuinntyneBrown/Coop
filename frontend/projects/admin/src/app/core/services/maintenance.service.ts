@@ -46,6 +46,11 @@ export class MaintenanceService {
     return this.api.put('/maintenancerequest/complete', { maintenanceRequestId: id });
   }
 
+  /** Request photos are private, so they are fetched with the office token rather than linked. */
+  getPhoto(url: string): Observable<Blob> {
+    return this.api.getBlob(url.replace(/^\/api/, ''));
+  }
+
   addComment(requestId: string, body: string): Observable<any> {
     return this.api.post('/maintenancerequestcomment', { maintenanceRequestId: requestId, body });
   }

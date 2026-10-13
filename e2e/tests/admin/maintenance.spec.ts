@@ -291,6 +291,24 @@ test.describe('Maintenance Requests', () => {
   });
 
   test.describe('Photos', () => {
+    test('Given a request with a photo, when the office opens it, then the photo shows on the detail', async ({ api }) => {
+      const request = await api.createMaintenanceRequest({
+        title: 'Photo View Test',
+        description: 'A request the household added a photo to',
+      });
+      await api.post(`/api/maintenance-requests/${request.id}/photos`, {
+        fileName: 'leak.png',
+        contentType: 'image/png',
+        size: 68,
+      });
+      await maintenancePage.goto();
+
+      await maintenancePage.selectRequestByTitle('Photo View Test');
+
+      await expect(maintenancePage.detailPhotoImages).toHaveCount(1);
+      await expect(maintenancePage.detailPhotoImages.first()).toHaveAttribute('alt', 'Photo 1 of Photo View Test');
+    });
+
     test('should display attached photos grid', async ({ api }) => {
       await api.createMaintenanceRequest({
         title: 'Photos Test',

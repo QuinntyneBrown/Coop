@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Illustration of water under a kitchen sink">
+  <rect width="240" height="240" fill="#efe7da"/>
+  <rect x="30" y="40" width="180" height="120" rx="6" fill="#c9b79c"/>
+  <rect x="44" y="54" width="70" height="92" rx="4" fill="#b29e80"/>
+  <rect x="126" y="54" width="70" height="92" rx="4" fill="#b29e80"/>
+  <path d="M120 60 v40 q0 14 -14 14 h-12" stroke="#6d7c86" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="120" cy="190" rx="80" ry="16" fill="#8fb8d6" opacity="0.8"/>
+  <circle cx="98" cy="128" r="5" fill="#8fb8d6"/>
+</svg>
