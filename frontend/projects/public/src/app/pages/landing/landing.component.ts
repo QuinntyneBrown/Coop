@@ -8,14 +8,19 @@ import {
   viewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { catchError, of } from 'rxjs';
+import { catchError, of, switchMap } from 'rxjs';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { ApiService } from '../../core/services/api.service';
 import { LANDING_CONTENT } from './landing-content';
 import type { HeroContent } from './hero-content';
 import type { BoardMemberView } from './board-member-view';
 import type { NoticeView } from './notice-view';
-import { heroFrom } from './landing-view-model';
+import {
+  boardMembersFrom,
+  boardMembersFromApi,
+  heroFrom,
+  noticeViewFrom,
+} from './landing-view-model';
 
 /**
  * The public home page, drawn in docs/mocks/pages/public-landing/ (states
@@ -47,6 +52,37 @@ export class LandingComponent implements OnInit {
       .getByName('Hero')
       .pipe(catchError(() => of(null)))
       .subscribe((hero) => this.hero.set(heroFrom(hero?.content, LANDING_CONTENT.hero)));
+
+    this.jsonContent
+      .getByName('BoardOfDirectors')
+      .pipe(
+        catchError(() => of(null)),
+        switchMap((board) => {
+          const members = boardMembersFrom(board?.content);
+          return members.length > 0 ? of(members) : this.boardMembersFromApi();
+        }),
+      )
+      .subscribe((members) => this.boardMembers.set(members));
+
+    this.api
+      .get<unknown>('notice/published')
+      .pipe(catchError(() => of(null)))
+      .subscribe((response) => {
+        const list = Array.isArray(response)
+          ? response
+          : ((response as { notices?: unknown[] } | null)?.notices ?? []);
+        this.notices.set(
+          list.map(noticeViewFrom).filter((notice): notice is NoticeView => notice !== null),
+        );
+      });
+  }
+
+  /** Published board member profiles: the BFF list first, then the profile endpoint the mock serves. */
+  private boardMembersFromApi() {
+    return this.api.get<unknown>('board-members').pipe(
+      catchError(() => this.api.get<unknown>('boardmembers').pipe(catchError(() => of(null)))),
+      switchMap((response) => of(boardMembersFromApi(response))),
+    );
   }
 
   toggleMenu(): void {
