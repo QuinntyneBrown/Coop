@@ -91,6 +91,17 @@ export class ApiHelper {
     return response.body as Record<string, unknown>;
   }
 
+  async setProfilePicture(): Promise<void> {
+    const profileId = (await this.getProfile()).id;
+    const response = this.mockApi.call(
+      'POST',
+      `profiles/${profileId}/avatar`,
+      { fileName: 'me.png', contentType: 'image/png', size: 68 },
+      this.user,
+    );
+    expect(response.status, 'Should set the profile picture').toBe(200);
+  }
+
   async updateProfile(data: Record<string, unknown>): Promise<void> {
     const response = this.mockApi.call('PUT', 'user/profile', data, this.user);
     expect(response.status, 'Should update profile').toBe(200);

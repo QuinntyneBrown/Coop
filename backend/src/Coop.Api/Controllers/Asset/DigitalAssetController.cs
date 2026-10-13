@@ -45,6 +45,8 @@ public class DigitalAssetController : ControllerBase
     public async Task<IActionResult> Serve([FromRoute] Guid id)
     {
         var response = await _mediator.Send(new ServeDigitalAssetRequest { DigitalAssetId = id });
+        if (response is null)
+            return NotFound();
         return File(response.Bytes, response.ContentType, response.Name);
     }
 

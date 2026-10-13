@@ -24,6 +24,8 @@ export interface MockProfile {
   type: number; // 0 Member, 1 BoardMember, 2 StaffMember
   boardTitle?: string;
   avatarUrl: string;
+  /** The current picture's file, compared to treat a re-post as a retry (ADR 0006). */
+  avatarFile?: { fileName: string; size: number };
   memberSince: string;
 }
 

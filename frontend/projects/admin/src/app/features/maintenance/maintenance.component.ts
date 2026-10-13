@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaintenanceService } from '../../core/services/maintenance.service';
+import { ProfileService } from '../../core/services/profile.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import { MaintenanceStep } from './maintenance-step';
 import { nextMaintenanceStep } from './next-maintenance-step';
@@ -139,8 +140,16 @@ import { nextMaintenanceStep } from './next-maintenance-step';
             @if (activeTab === 'details') {
               <div>
                 <div class="detail-meta">
-                  <span data-testid="maintenance-detail-submitted-by"
-                    >Submitted by:
+                  <span class="submitted-by" data-testid="maintenance-detail-submitted-by">
+                    @if (submitterPhotoUrl) {
+                      <img
+                        class="submitter-photo"
+                        [src]="submitterPhotoUrl"
+                        alt=""
+                        data-testid="maintenance-detail-submitter-photo"
+                      />
+                    }
+                    Submitted by:
                     {{
                       selectedRequest.requestedByName || selectedRequest.createdBy || 'Unknown'
                     }}</span
@@ -448,6 +457,17 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         flex-direction: column;
         gap: 4px;
       }
+      .submitted-by {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .submitter-photo {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
       .detail-info-grid {
         margin-bottom: 16px;
         display: flex;
@@ -649,6 +669,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
 })
 export class MaintenanceComponent implements OnInit {
   private maintenanceService = inject(MaintenanceService);
+  private profileService = inject(ProfileService);
   private fb = inject(FormBuilder);
 
   requests: any[] = [];
@@ -663,6 +684,7 @@ export class MaintenanceComponent implements OnInit {
   stepFailed = false;
   readonly nextStep = nextMaintenanceStep;
   photoUrls: Record<string, string> = {};
+  submitterPhotoUrl = '';
 
   createForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -751,6 +773,15 @@ export class MaintenanceComponent implements OnInit {
     this.activeTab = 'details';
     this.stepFailed = false;
     this.comments = [];
+    this.submitterPhotoUrl = '';
+    if (req.requestedByProfileId) {
+      this.profileService.getAvatarUrl(req.requestedByProfileId).subscribe({
+        next: (url) => {
+          if (this.selectedRequest === req) this.submitterPhotoUrl = url;
+        },
+        error: () => {},
+      });
+    }
     for (const asset of req.digitalAssets ?? []) {
       if (asset.url && !this.photoUrls[asset.digitalAssetId]) {
         this.maintenanceService.getPhoto(asset.url).subscribe({

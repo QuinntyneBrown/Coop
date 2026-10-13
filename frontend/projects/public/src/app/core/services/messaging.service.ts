@@ -17,6 +17,7 @@ export interface Message {
   conversationId: string;
   senderId: string;
   senderName: string;
+  senderAvatarUrl: string;
   content: string;
   createdAt: string;
 }
@@ -85,6 +86,7 @@ export class MessagingService {
       conversationId: m.conversationId || '',
       senderId: m.senderId || m.fromProfileId || '',
       senderName: m.senderName || 'Member',
+      senderAvatarUrl: this.api.assetUrl(m.senderAvatarUrl),
       content: m.content || m.body || '',
       createdAt: m.createdAt || m.createdOn || '',
     };

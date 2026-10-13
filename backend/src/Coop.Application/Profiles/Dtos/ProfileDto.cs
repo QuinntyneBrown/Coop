@@ -11,8 +11,13 @@ public class ProfileDto
     public string? PhoneNumber { get; set; }
     public string? Email { get; set; }
     public Guid? AvatarDigitalAssetId { get; set; }
+    public string? AvatarUrl { get; set; }
     public ProfileType Type { get; set; }
     public string Fullname { get; set; } = string.Empty;
+
+    /// <summary>The address the apps show a profile picture from, or null when there is none.</summary>
+    public static string? AvatarUrlFor(Guid? avatarDigitalAssetId)
+        => avatarDigitalAssetId is Guid id ? $"/api/digitalasset/serve/{id}" : null;
 
     public static ProfileDto FromProfile(ProfileBase profile)
     {
@@ -25,6 +30,7 @@ public class ProfileDto
             PhoneNumber = profile.PhoneNumber,
             Email = profile.Email,
             AvatarDigitalAssetId = profile.AvatarDigitalAssetId,
+            AvatarUrl = AvatarUrlFor(profile.AvatarDigitalAssetId),
             Type = profile.Type,
             Fullname = profile.Fullname
         };

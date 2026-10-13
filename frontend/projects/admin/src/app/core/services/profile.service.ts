@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,6 +12,13 @@ export class ProfileService {
 
   getProfileById(id: string): Observable<any> {
     return this.api.get(`/profiles/${id}`);
+  }
+
+  /** The address of a profile's picture, or '' when it has none. */
+  getAvatarUrl(id: string): Observable<string> {
+    return this.getProfileById(id).pipe(
+      map((resp: any) => this.api.assetUrl(resp?.profile?.avatarUrl)),
+    );
   }
 
   getProfilesByCurrentUser(): Observable<any> {

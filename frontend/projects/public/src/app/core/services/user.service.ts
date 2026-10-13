@@ -32,7 +32,7 @@ export class UserService {
           email: p.email || '',
           phone: p.phone || p.phoneNumber || '',
           unit: p.unit || p.unitNumber || '',
-          avatarUrl: p.avatarUrl || '',
+          avatarUrl: this.api.assetUrl(p.avatarUrl),
           memberSince: p.memberSince || '',
           roles: p.roles || [],
         };
@@ -52,7 +52,7 @@ export class UserService {
           email: p.email || data.email || '',
           phone: p.phone || p.phoneNumber || data.phone || '',
           unit: p.unit || '',
-          avatarUrl: p.avatarUrl || '',
+          avatarUrl: this.api.assetUrl(p.avatarUrl),
           memberSince: p.memberSince || '',
           roles: p.roles || [],
         };
@@ -91,7 +91,7 @@ export class UserService {
           email: p.email || '',
           phone: p.phone || p.phoneNumber || '',
           unit: p.unit || '',
-          avatarUrl: p.avatarUrl || '',
+          avatarUrl: this.api.assetUrl(p.avatarUrl),
           memberSince: p.memberSince || '',
           roles: p.roles || [],
         }));
@@ -104,9 +104,16 @@ export class UserService {
     return this.api.post<{ token: string }>('user/switch-profile', { profileId });
   }
 
-  uploadAvatar(file: File): Observable<{ url: string }> {
+  /** Saves a profile picture and returns the address to show it from. */
+  uploadAvatar(profileId: string, file: File): Observable<string> {
     const formData = new FormData();
-    formData.append('file', file);
-    return this.api.http.post<{ url: string }>(`${this.api.baseUrl}/user/avatar`, formData);
+    formData.append('file', file, file.name);
+    return this.api
+      .post<any>(`profiles/${profileId}/avatar`, formData)
+      .pipe(map((resp) => this.api.assetUrl(resp?.profile?.avatarUrl)));
+  }
+
+  removeAvatar(profileId: string): Observable<void> {
+    return this.api.delete<any>(`profiles/${profileId}/avatar`).pipe(map(() => undefined));
   }
 }

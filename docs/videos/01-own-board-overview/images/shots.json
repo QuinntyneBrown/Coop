@@ -7,6 +7,8 @@
   {"name": "public-maintenance-detail-photos", "mock": "dialogs/public-maintenance-detail/photos.html", "phone": true},
   {"name": "public-maintenance-create", "mock": "dialogs/public-maintenance-create/default.html", "phone": true},
   {"name": "public-profile-edit", "mock": "pages/public-profile/edit.html", "phone": true},
+  {"name": "public-profile-photo-preview", "mock": "pages/public-profile/photo-preview.html", "phone": true},
+  {"name": "public-messaging-chat-photo", "mock": "pages/public-messaging/chat-photo.html", "phone": true},
   {"name": "admin-pages", "mock": "pages/admin-pages/default.html", "phone": false},
   {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
   {"name": "admin-documents-notices", "mock": "pages/admin-documents/notices.html", "phone": false},

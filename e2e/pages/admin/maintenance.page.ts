@@ -18,6 +18,7 @@ export class MaintenancePage {
   readonly detailStatusBadge: Locator;
   readonly detailTitle: Locator;
   readonly detailSubmittedBy: Locator;
+  readonly detailSubmitterPhoto: Locator;
   readonly detailDate: Locator;
   readonly detailDescription: Locator;
   readonly detailAddress: Locator;
@@ -58,6 +59,7 @@ export class MaintenancePage {
     this.detailStatusBadge = page.getByTestId('maintenance-detail-status');
     this.detailTitle = page.getByTestId('maintenance-detail-title');
     this.detailSubmittedBy = page.getByTestId('maintenance-detail-submitted-by');
+    this.detailSubmitterPhoto = page.getByTestId('maintenance-detail-submitter-photo');
     this.detailDate = page.getByTestId('maintenance-detail-date');
     this.detailDescription = page.getByTestId('maintenance-detail-description');
     this.detailAddress = page.getByTestId('maintenance-detail-address');

@@ -1,0 +1,37 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Profile pictures
+
+Container_Boundary(publicApp, "Public application") {
+  Component(profileScreen, "ProfileComponent", "Angular standalone component", "Camera button, preview, Save photo, Cancel, Remove photo")
+  Component(check, "photoFileError", "Plain TypeScript function", "Type and size check before saving")
+  Component(userService, "UserService", "Angular service", "uploadAvatar, removeAvatar")
+  Component(chat, "MessagingComponent", "Angular standalone component", "Picture beside the sender's name")
+}
+Container_Boundary(adminApp, "Admin application") {
+  Component(officeScreen, "MaintenanceComponent", "Angular standalone component", "Picture beside Submitted by")
+  Component(profileService, "ProfileService", "Angular service", "getAvatarUrl")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "ProfilesController", "ASP.NET Core controller", "POST and DELETE api/profiles/{id}/avatar; PUT api/profiles/avatar")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "UploadProfileAvatarValidator: type and size")
+  Component(handlers, "Avatar handlers", "MediatR handlers", "UploadProfileAvatar, RemoveProfileAvatar, SetProfileAvatar")
+  Component(access, "ProfileAccess", "Static class", "Owner of the profile, or Write on Member")
+  Component(bff, "PublicBffController", "ASP.NET Core controller", "avatarUrl on user/profile; senderAvatarUrl on messages")
+  Component(serve, "DigitalAssetController", "ASP.NET Core controller", "GET api/digitalasset/serve/{id}; 404 once removed")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Profiles and DigitalAssets")
+}
+Rel(profileScreen, check, "Checks the chosen file with")
+Rel(profileScreen, userService, "Saves and removes with")
+Rel(userService, controller, "Calls", "multipart / JSON over HTTPS")
+Rel(chat, bff, "Reads messages from", "HTTPS")
+Rel(officeScreen, profileService, "Looks up the requester with")
+Rel(profileService, controller, "GET api/profiles/{id}", "HTTPS")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, handlers, "Then")
+Rel(handlers, access, "Asks who may change the picture")
+Rel(handlers, db, "Stores, replaces and removes pictures", "EF Core")
+Rel(bff, db, "Reads avatar ids", "EF Core")
+Rel(serve, db, "Reads the picture", "EF Core")
+@enduml

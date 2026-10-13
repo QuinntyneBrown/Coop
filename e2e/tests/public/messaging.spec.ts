@@ -224,4 +224,37 @@ test.describe('Messaging', () => {
       await messaging.expectLoaded();
     });
   });
+
+  test.describe('Profile pictures', () => {
+    test('Given a member with a picture, when a conversation shows their message, then the picture shows beside their name', async ({
+      api,
+      authState,
+    }) => {
+      await api.setProfilePicture();
+      await api.createConversation({
+        subject: 'E2E: Garden',
+        participantIds: [authState.userId],
+        initialMessage: 'The tulips are up.',
+      });
+
+      await messaging.goto();
+      await messaging.openConversation(0);
+
+      await expect(messaging.messageAvatar.first()).toHaveAttribute('src', /\/api\/digitalasset\/serve\//);
+    });
+
+    test('Given a member without a picture, then no picture shows beside their messages', async ({ api, authState }) => {
+      await api.createConversation({
+        subject: 'E2E: No picture',
+        participantIds: [authState.userId],
+        initialMessage: 'Hello.',
+      });
+
+      await messaging.goto();
+      await messaging.openConversation(0);
+
+      await expect(messaging.messageBubbles.first()).toBeVisible();
+      await expect(messaging.messageAvatar).toHaveCount(0);
+    });
+  });
 });

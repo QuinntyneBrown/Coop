@@ -1,5 +1,7 @@
 using Coop.Application.Profiles.Commands.DeleteProfile;
+using Coop.Application.Profiles.Commands.RemoveProfileAvatar;
 using Coop.Application.Profiles.Commands.SetProfileAvatar;
+using Coop.Application.Profiles.Commands.UploadProfileAvatar;
 using Coop.Application.Profiles.Queries.GetProfileById;
 using Coop.Application.Profiles.Queries.GetProfiles;
 using Coop.Application.Profiles.Queries.GetProfilesByUserId;
@@ -33,6 +35,14 @@ public class ProfilesController : ControllerBase
     [HttpPut("avatar")]
     public async Task<ActionResult<SetProfileAvatarResponse>> SetAvatar([FromBody] SetProfileAvatarRequest request)
         => Ok(await _mediator.Send(request));
+
+    [HttpPost("{profileId}/avatar")]
+    public async Task<ActionResult<UploadProfileAvatarResponse>> UploadAvatar([FromRoute] Guid profileId, IFormFile file)
+        => Ok(await _mediator.Send(new UploadProfileAvatarRequest { ProfileId = profileId, File = file }));
+
+    [HttpDelete("{profileId}/avatar")]
+    public async Task<ActionResult<RemoveProfileAvatarResponse>> RemoveAvatar([FromRoute] Guid profileId)
+        => Ok(await _mediator.Send(new RemoveProfileAvatarRequest { ProfileId = profileId }));
 
     [HttpDelete("{profileId}")]
     public async Task<ActionResult<DeleteProfileResponse>> Delete([FromRoute] Guid profileId)
