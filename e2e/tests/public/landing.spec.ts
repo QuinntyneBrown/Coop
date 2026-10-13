@@ -1,8 +1,10 @@
 // Acceptance Test
-// Traces to: L2-REQ-053, L2-REQ-066, L2-REQ-068, L2-REQ-069, L2-REQ-070, L2-REQ-078
+// Traces to: L2-REQ-053, L2-REQ-066, L2-REQ-067, L2-REQ-068, L2-REQ-069, L2-REQ-070,
+// L2-REQ-071, L2-REQ-078, L2-REQ-079
 // Description: The public home page renders the OWN design: header with sign in,
 // CMS-driven hero with its actions and photograph, the body blocks, the board
-// list and published notices from the API, and the contact footer.
+// list and published notices from the API, the contact footer, and the phone
+// menu and one-column reflow on a narrow viewport.
 
 import { test, expect } from '../../fixtures/public/auth.fixture';
 import { LandingPage } from '../../pages/public/landing.page';
@@ -141,6 +143,74 @@ test.describe('Home page', () => {
       await landing.goto();
       await expect(landing.noticesEmpty).toHaveText('No notices right now. Check back soon.');
       await expect(landing.noticeCards).toHaveCount(0);
+    });
+  });
+
+  test.describe('Phone menu', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.setViewportSize({ width: 360, height: 800 });
+    });
+
+    test('hides the horizontal links behind a labelled Menu button', async () => {
+      await landing.goto();
+      await expect(landing.nav).toBeHidden();
+      await expect(landing.signInLink).toBeHidden();
+      await expect(landing.menuButton).toHaveText(/Menu/);
+      await expect(landing.menuButton).toHaveAttribute('aria-expanded', 'false');
+      await expect(landing.menu).toBeHidden();
+    });
+
+    test('opens a panel with the links, Member sign in and Book a visit', async () => {
+      await landing.goto();
+      await landing.openMenu();
+      await expect(landing.menuButton).toHaveText(/Close/);
+      await expect(landing.menuButton).toHaveAttribute('aria-expanded', 'true');
+      await expect(landing.menuLinks).toHaveText([
+        'Home',
+        'About us',
+        'Living here',
+        "What's on",
+        'Contact',
+      ]);
+      await expect(landing.menuSignInLink).toBeVisible();
+      await expect(landing.menu.getByRole('link', { name: 'Book a visit' })).toBeVisible();
+    });
+
+    test('closes on Escape and returns focus to the Menu button', async () => {
+      await landing.goto();
+      await landing.openMenu();
+      await landing.closeMenuWithEscape();
+      await expect(landing.menu).toBeHidden();
+      await expect(landing.menuButton).toHaveAttribute('aria-expanded', 'false');
+      await expect(landing.menuButton).toBeFocused();
+    });
+
+    test('opens the login page from the panel', async () => {
+      await landing.goto();
+      await landing.openMenu();
+      await landing.menuSignInLink.click();
+      await expect(landing.page).toHaveURL(/\/login/);
+    });
+  });
+
+  test.describe('Reflow', () => {
+    for (const width of [360, 320]) {
+      test(`fits a ${width} px viewport without horizontal scrolling`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 800 });
+        await landing.goto();
+        expect(await landing.hasHorizontalScroll()).toBe(false);
+        await expect(landing.heroCta).toBeVisible();
+        await landing.visit.scrollIntoViewIfNeeded();
+        await expect(landing.visit.getByRole('link', { name: 'Send us a note' })).toBeVisible();
+      });
+    }
+
+    test('shows the horizontal links and hides the Menu button on a desktop', async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
+      await landing.goto();
+      await expect(landing.nav).toBeVisible();
+      await expect(landing.signInLink).toBeVisible();
+      await expect(landing.menuButton).toBeHidden();
     });
   });
 
