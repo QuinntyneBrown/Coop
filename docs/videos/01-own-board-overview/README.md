@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 3 min 33 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 3 min 32 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 
@@ -23,8 +23,8 @@ By the end, the viewer can:
 | Question | What a strong answer includes |
 | --- | --- |
 | What does the platform do for us? | A readable website, office-edited content, notices, repair requests, bigger text, profile photos |
-| What works today? | Notices, repair requests (send with photos, receive, start and finish), colours, photo library, website pages the office adds and removes, the board list, 400% text, profile pictures |
-| What comes next? | New website design |
+| What works today? | All six: the home page, website pages the office adds and removes, the board list, colours, photo library, notices, repair requests (send with photos, receive, start and finish), 400% text, profile pictures |
+| What comes next? | Sending a notice straight to a member's phone or email |
 | What do you need from us? | Two members to try it, first three pages, a named admin |
 
 ## Code / assets on screen
@@ -52,14 +52,14 @@ before the real site.
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title, "a website and a helping hand", for everyone |
 | 00:17-00:30 | Six things | The six items and the two status chips |
-| 00:30-00:48 | 1 Beautiful and easy to read | OWN home page, working today (the narration still says "not live yet"; re-synthesize the audio when the script is updated) |
-| 00:48-01:26 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list today (the narration still says pages and the board list are coming next; re-synthesize the audio when the script is updated) |
-| 01:26-01:44 | 3 Notices | Working today |
-| 01:44-02:12 | 4 Repair requests | Send with photos, receive, start, finish and follow (the narration still says started, finished and photos come next; re-synthesize the audio when the script is updated) |
-| 02:12-02:36 | 5 Bigger words | Up to 400%, working today on every screen (the narration still says this is coming next; re-synthesize the audio when the script is updated) |
-| 02:36-02:52 | 6 Your own photo | Working today (the narration still says this is coming next; re-synthesize the audio when the script is updated) |
-| 02:52-03:10 | In short | Working today (now including pages and the board list) and coming next |
-| 03:10-03:33 | Our ask | Three small things, thank you |
+| 00:30-00:47 | 1 Beautiful and easy to read | OWN home page, working today |
+| 00:47-01:24 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list, all working today |
+| 01:24-01:43 | 3 Notices | Working today; phone and email delivery is a later step |
+| 01:43-02:15 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
+| 02:15-02:33 | 5 Bigger words | Up to 400%, working today on every screen |
+| 02:33-02:47 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
+| 02:47-03:09 | In short | All six working today; notices to phone or email coming next |
+| 03:09-03:32 | Our ask | Three small things, thank you |
 
 ## Demo commands
 
@@ -82,8 +82,9 @@ for the edge-tts neural voices, or use `--engine sapi` for the offline Windows v
 
 ## Pitfalls
 
-- Mocks show design screens, not the running app. Keep the "Coming next" chips honest
-  as features land, and recapture screenshots when a mock changes.
+- Mocks show design screens, not the running app. Keep the "Working today" and
+  "Coming next" chips honest as features land, and recapture screenshots when a mock
+  changes.
 - Slides leave the bottom of the frame free for burned-in captions.
 - Cues must be copied exactly from `script.md`. Edit the script and the slide cue together.
 
