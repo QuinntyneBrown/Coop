@@ -77,6 +77,9 @@ these locations and move existing files here as areas are touched:
   the mocks
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing
   the areas they cover
+- `docs/videos/` — narrated videos (script, slides, captions, MP3/MP4)
+- `docs/pitch/` — board pitch page, handout, and slide deck
+- `tools/` — video tooling (`video-audio/`, `video-build/`)
 
 All areas have moved to this layout. The `api` and `components` libraries in
 `frontend/projects/` are still scaffolds, and `backend/tests/` and `Coop.Cli` do

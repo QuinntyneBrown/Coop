@@ -1,0 +1,156 @@
+/* Shared 1920x1080 slide deck styles for every video's slides.html.
+   Palette values come from the OWN proposal in docs/mocks/assets/own-site.css.
+   Text is large and high contrast on purpose: the audience is older adults
+   watching on a meeting-room screen. All text pairs are at least 4.5:1. */
+@import url("../../mocks/assets/fonts.css");
+
+:root {
+  --cream: #fbf7f0;
+  --cream-deep: #f3e7d3;
+  --ink: #26211d;
+  --ink-soft: #5e554d;
+  --line: #d9cfc2;
+  --terra: #9e4322;
+  --terra-soft: #f8e3d7;
+  --sage: #3f6b4f;
+  --sage-deep: #2f4e3a;
+  --sage-soft: #e3ebe0;
+  --plum: #6b3f60;
+  --plum-soft: #efe3ec;
+  --amber-soft: #fbe6b8;
+  --amber-ink: #5c3a00;
+  --amber-line: #b27a00;
+  --shadow: 0 10px 30px rgb(38 33 29 / 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-size: 44px;
+  line-height: 1.3;
+}
+
+/* ---- header and progress ---- */
+.deck-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 76px;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream-deep);
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  z-index: 10;
+}
+.deck-header .deck-part { color: var(--terra); font-weight: 600; }
+.deck-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--line); }
+.deck-progress i { display: block; height: 100%; width: 0; background: var(--terra); }
+
+/* ---- slides ---- */
+section {
+  position: absolute;
+  inset: 76px 0 0 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  /* Bottom padding leaves room for the burned-in captions. */
+  padding: 30px 110px 170px;
+}
+section.active { display: flex; }
+
+.kicker { font-size: 36px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--terra); margin: 0 0 12px; }
+h1 { font-size: 112px; line-height: 1.05; margin: 0 0 24px; font-weight: 700; }
+h2 { font-size: 72px; line-height: 1.1; margin: 0 0 20px; font-weight: 700; }
+.lead { font-size: 56px; line-height: 1.25; margin: 0; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+.small { font-size: 36px; }
+
+/* ---- status chips: shape and words, never colour alone ---- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 28px;
+  border-radius: 999px;
+  border: 4px solid;
+  font-size: 38px;
+  font-weight: 600;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.chip::before { content: ""; width: 20px; height: 20px; border-radius: 50%; background: currentColor; }
+.chip-now { background: var(--sage-soft); color: var(--sage-deep); border-color: var(--sage); }
+.chip-next { background: var(--amber-soft); color: var(--amber-ink); border-color: var(--amber-line); }
+.chip-next::before { background: transparent; border: 5px solid currentColor; }
+
+.heading-row { display: flex; align-items: center; gap: 40px; flex-wrap: nowrap; margin-bottom: 24px; }
+.heading-row h2 { margin: 0; }
+
+/* ---- layout helpers ---- */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.center { text-align: center; align-items: center; }
+
+.card {
+  background: #fff;
+  border: 4px solid var(--line);
+  border-radius: 28px;
+  padding: 36px 40px;
+  box-shadow: var(--shadow);
+}
+.card h3 { font-size: 52px; margin: 0 0 10px; }
+.card p { margin: 0; font-size: 42px; color: var(--ink-soft); }
+
+.num {
+  display: inline-grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--terra);
+  color: #fff;
+  font-size: 52px;
+  font-weight: 700;
+  flex: none;
+}
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+.steps li { display: flex; align-items: center; gap: 32px; font-size: 56px; font-weight: 500; }
+
+.six { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.six .card { display: flex; align-items: center; gap: 28px; padding: 30px 34px; }
+.six .card span.t { font-size: 46px; font-weight: 600; line-height: 1.15; }
+
+/* ---- pictures ---- */
+.pics { display: flex; align-items: center; justify-content: center; gap: 56px; }
+figure { margin: 0; text-align: center; }
+figcaption { margin-top: 18px; font-size: 38px; font-weight: 500; color: var(--ink-soft); }
+.pics img, .shot {
+  display: block;
+  border-radius: 20px;
+  border: 4px solid var(--line);
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+.h560 { height: 560px; width: auto; }
+.h620 { height: 620px; width: auto; }
+.h680 { height: 680px; width: auto; }
+.h440 { height: 440px; width: auto; }
+.art { display: block; max-height: 640px; max-width: 100%; border-radius: 28px; box-shadow: var(--shadow); }
+.arrow { font-size: 110px; color: var(--terra); line-height: 1; font-weight: 700; }
+
+.legend { display: flex; gap: 40px; margin-top: 36px; justify-content: center; }
+.coming { display: grid; gap: 22px; }
+.coming .card { display: flex; align-items: center; gap: 28px; padding: 22px 30px; }
+.coming .card span.t { font-size: 44px; font-weight: 600; line-height: 1.15; }
+.pict { width: 96px; height: 96px; flex: none; }
