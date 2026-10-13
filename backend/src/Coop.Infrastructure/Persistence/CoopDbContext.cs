@@ -44,6 +44,7 @@ public class CoopDbContext : DbContext, ICoopDbContext
     public DbSet<DigitalAsset> DigitalAssets => Set<DigitalAsset>();
     public DbSet<Theme> Themes => Set<Theme>();
     public DbSet<JsonContent> JsonContents => Set<JsonContent>();
+    public DbSet<Page> Pages => Set<Page>();
     public DbSet<InvitationToken> InvitationTokens => Set<InvitationToken>();
     public DbSet<StoredEvent> StoredEvents => Set<StoredEvent>();
 

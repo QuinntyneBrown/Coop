@@ -32,6 +32,7 @@ public interface ICoopDbContext
     DbSet<DigitalAsset> DigitalAssets { get; }
     DbSet<Theme> Themes { get; }
     DbSet<JsonContent> JsonContents { get; }
+    DbSet<Page> Pages { get; }
     DbSet<InvitationToken> InvitationTokens { get; }
     DbSet<StoredEvent> StoredEvents { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

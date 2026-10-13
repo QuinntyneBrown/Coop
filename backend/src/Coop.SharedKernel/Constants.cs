@@ -40,8 +40,9 @@ public static class Constants
         public const string JsonContent = "JsonContent";
         public const string Theme = "Theme";
         public const string InvitationToken = "InvitationToken";
+        public const string Page = "Page";
 
-        public static readonly string[] All = { BoardMember, ByLaw, DigitalAsset, MaintenanceRequest, Member, Notice, Privilege, Role, StaffMember, User, Report, Message, HtmlContent, CssCustomProperty, JsonContent, Theme, InvitationToken };
+        public static readonly string[] All = { BoardMember, ByLaw, DigitalAsset, MaintenanceRequest, Member, Notice, Privilege, Role, StaffMember, User, Report, Message, HtmlContent, CssCustomProperty, JsonContent, Theme, InvitationToken, Page };
     }
 
     public static class AccessRights
