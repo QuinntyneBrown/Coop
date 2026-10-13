@@ -249,7 +249,8 @@
       "requirements": [
         "L2-REQ-036",
         "L2-REQ-037",
-        "L2-REQ-038"
+        "L2-REQ-038",
+        "L2-REQ-091"
       ],
       "note": "",
       "states": [
@@ -258,7 +259,8 @@
         "empty",
         "chat",
         "chat-empty",
-        "read"
+        "read",
+        "chat-photo"
       ],
       "not_applicable": {
         "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
@@ -299,7 +301,8 @@
         "L2-REQ-015",
         "L2-REQ-016",
         "L2-REQ-018",
-        "L2-REQ-019"
+        "L2-REQ-019",
+        "L2-REQ-091"
       ],
       "note": "",
       "states": [
@@ -308,7 +311,14 @@
         "edit",
         "password",
         "password-invalid",
-        "password-error"
+        "password-error",
+        "photo",
+        "photo-preview",
+        "photo-saving",
+        "photo-invalid",
+        "photo-too-large",
+        "photo-error",
+        "photo-removed"
       ],
       "not_applicable": {
         "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
@@ -526,7 +536,8 @@
         "L2-REQ-025",
         "L2-REQ-030",
         "L2-REQ-087",
-        "L2-REQ-089"
+        "L2-REQ-089",
+        "L2-REQ-091"
       ],
       "note": "",
       "states": [
@@ -544,7 +555,8 @@
         "detail-completed",
         "comments",
         "comments-empty",
-        "detail-photos"
+        "detail-photos",
+        "detail-submitter-photo"
       ],
       "not_applicable": {
         "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."

@@ -161,6 +161,38 @@ test.describe('Maintenance Requests', () => {
       await expect(maintenancePage.detailDate).toBeVisible();
     });
 
+    test('Given the requester has a profile picture, when the office opens the request, then it shows beside Submitted by', async ({
+      api,
+    }) => {
+      const request = await api.createMaintenanceRequest({
+        title: 'Submitter Photo Test',
+        description: 'Testing the submitter picture',
+      });
+      await api.post(`profiles/${request.requestedByProfileId}/avatar`, {
+        fileName: 'me.png',
+        contentType: 'image/png',
+        size: 68,
+      });
+      await maintenancePage.goto();
+
+      await maintenancePage.selectRequest(0);
+
+      await expect(maintenancePage.detailSubmitterPhoto).toHaveAttribute('src', /\/api\/digitalasset\/serve\//);
+    });
+
+    test('Given the requester has no profile picture, then no picture shows beside Submitted by', async ({ api }) => {
+      await api.createMaintenanceRequest({
+        title: 'Submitter Without Photo',
+        description: 'Testing no submitter picture',
+      });
+      await maintenancePage.goto();
+
+      await maintenancePage.selectRequest(0);
+
+      await expect(maintenancePage.detailSubmittedBy).toBeVisible();
+      await expect(maintenancePage.detailSubmitterPhoto).toHaveCount(0);
+    });
+
     test('should display Details and Comments tabs', async ({ api }) => {
       await api.createMaintenanceRequest({
         title: 'Tabs Test',

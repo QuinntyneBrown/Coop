@@ -159,6 +159,16 @@ photo-error (default and empty show the "Add a photo" control);
 request was sent; and `pages/admin-maintenance/detail-photos.html` for the
 office. They are listed in the manifest but not in the coverage table below.
 
+**Profile pictures.** Members set, replace and remove their own picture,
+and it shows beside their name (`L2-REQ-091`). These states are hand-written
+on the captured screens with `assets/profile-picture.css` and the fictional
+illustration `assets/photos/portrait.svg`: `pages/public-profile/` photo,
+photo-preview, photo-saving, photo-invalid, photo-too-large, photo-error and
+photo-removed; `pages/public-messaging/chat-photo.html` for the picture
+beside the sender; and `pages/admin-maintenance/detail-submitter-photo.html`
+for the office. They are listed in the manifest but not in the coverage
+table below.
+
 **400% zoom.** Every screen reflows to one column at 320 CSS px wide
 (`L2-REQ-090`). The narrow-width rules of the applications are copied into
 the extracted styles in `assets/styles/`, so any page mock opened in a window

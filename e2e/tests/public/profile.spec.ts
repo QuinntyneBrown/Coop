@@ -1,7 +1,9 @@
-import { test as base, expect } from '../../fixtures/public/auth.fixture';
+import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
+import { test as apiTest } from '../../fixtures/public/api.fixture';
+import { mergeTests } from '@playwright/test';
 import { ProfilePage } from '../../pages/public/profile.page';
 
-const test = base;
+const test = mergeTests(authTest, apiTest);
 
 test.describe('Profile', () => {
   let profile: ProfilePage;
@@ -123,6 +125,92 @@ test.describe('Profile', () => {
     test('should display current avatar image', async () => {
       await profile.goto();
       await expect(profile.avatarImage).toBeVisible();
+    });
+  });
+
+  test.describe('Profile picture', () => {
+    const png = (name: string) => ({
+      name,
+      mimeType: 'image/png',
+      buffer: Buffer.from(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+        'base64',
+      ),
+    });
+
+    test('Given a member on their profile, when they pick a photo and save, then their picture updates and persists after reload', async ({
+      authenticatedPage,
+    }) => {
+      await profile.goto();
+      await expect(profile.avatarPicture).toHaveCount(0);
+
+      await profile.choosePhoto(png('me.png'));
+      await expect(profile.avatarPicture).toBeVisible();
+      await profile.savePhotoButton.click();
+
+      await expect(profile.photoNotice).toHaveText('Your photo is saved.');
+      await expect(profile.savePhotoButton).toHaveCount(0);
+      await authenticatedPage.reload();
+      await expect(profile.avatarPicture).toHaveAttribute('src', /\/api\/digitalasset\/serve\//);
+      await expect(profile.removePhotoButton).toBeVisible();
+    });
+
+    test('Given a previewed photo, when the member cancels, then nothing is saved', async () => {
+      await profile.goto();
+      await profile.choosePhoto(png('maybe.png'));
+      await expect(profile.avatarPicture).toBeVisible();
+
+      await profile.cancelPhotoButton.click();
+
+      await expect(profile.avatarPicture).toHaveCount(0);
+      await expect(profile.savePhotoButton).toHaveCount(0);
+    });
+
+    test('Given a file that is not a photo or is too large, then it is refused with a plain message', async () => {
+      await profile.goto();
+
+      await profile.choosePhoto({ name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('hello') });
+      await expect(profile.photoError).toHaveText(
+        '“notes.txt” is not a photo we can use. Choose a JPEG, PNG or WebP photo.',
+      );
+      await profile.choosePhoto({ name: 'huge.png', mimeType: 'image/png', buffer: Buffer.alloc(10 * 1024 * 1024 + 1) });
+      await expect(profile.photoError).toHaveText('“huge.png” is too large. Choose a photo smaller than 10 MB.');
+
+      await expect(profile.savePhotoButton).toHaveCount(0);
+      await expect(profile.avatarPicture).toHaveCount(0);
+    });
+
+    test('Given saving fails, then the preview stays and the member is told to try again', async ({ api, mockApi }) => {
+      const profileId = (await api.getProfile()).id;
+      mockApi.failing.add(`POST profiles/${profileId}/avatar`);
+      await profile.goto();
+      await profile.choosePhoto(png('me.png'));
+
+      await profile.savePhotoButton.click();
+
+      await expect(profile.photoError).toHaveText('Your photo was not saved. Please try again.');
+      await expect(profile.savePhotoButton).toBeEnabled();
+      await expect(profile.avatarPicture).toBeVisible();
+    });
+
+    test('Given a member with a picture, when they remove it, then the empty mark returns', async () => {
+      await profile.goto();
+      await profile.choosePhoto(png('me.png'));
+      await profile.savePhotoButton.click();
+      await expect(profile.photoNotice).toHaveText('Your photo is saved.');
+
+      await profile.removePhotoButton.click();
+
+      await expect(profile.photoNotice).toHaveText('Your photo is removed.');
+      await expect(profile.avatarPicture).toHaveCount(0);
+      await expect(profile.removePhotoButton).toHaveCount(0);
+    });
+
+    test('Given another member, when they try to change the picture, then the API refuses', async ({ api, mockApi }) => {
+      const profileId = (await api.getProfile()).id;
+      const neighbour = mockApi.createUser({ username: 'neighbour', password: 'Neighbour123!', role: 'Member' });
+
+      expect(mockApi.call('DELETE', `profiles/${profileId}/avatar`, undefined, neighbour).status).toBe(403);
     });
   });
 

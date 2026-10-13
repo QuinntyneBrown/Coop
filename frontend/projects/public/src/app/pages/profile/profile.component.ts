@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService, UserProfile } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
 import { catchError, of } from 'rxjs';
+import { photoFileError } from '../maintenance/photo-file-error';
 
 @Component({
   selector: 'app-profile',
@@ -17,15 +18,15 @@ import { catchError, of } from 'rxjs';
       <!-- Avatar Section -->
       <div class="avatar-section" data-testid="profile-avatar">
         <div class="avatar-wrapper">
-          @if (profile?.avatarUrl) {
+          @if (shownPhotoUrl) {
             <img
-              [src]="profile!.avatarUrl"
-              alt="Avatar"
+              [src]="shownPhotoUrl"
+              alt=""
               class="avatar-img"
               data-testid="profile-avatar-image"
             />
           }
-          @if (!profile?.avatarUrl) {
+          @if (!shownPhotoUrl) {
             <div class="avatar-placeholder" data-testid="profile-avatar-image">
               <svg
                 width="48"
@@ -43,6 +44,8 @@ import { catchError, of } from 'rxjs';
           <button
             class="avatar-upload-btn"
             data-testid="profile-avatar-upload-btn"
+            aria-label="Choose a profile picture"
+            [disabled]="savingPhoto"
             (click)="avatarInput.click()"
           >
             <svg
@@ -62,11 +65,52 @@ import { catchError, of } from 'rxjs';
           <input
             #avatarInput
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
             hidden
+            data-testid="profile-avatar-input"
             (change)="onAvatarSelect($event)"
           />
         </div>
+        @if (chosenPhoto) {
+          <div class="photo-actions">
+            <button
+              class="btn btn-primary"
+              data-testid="profile-photo-save"
+              [disabled]="savingPhoto"
+              (click)="savePhoto()"
+            >
+              {{ savingPhoto ? 'Saving…' : 'Save photo' }}
+            </button>
+            <button
+              class="btn btn-outline"
+              data-testid="profile-photo-cancel"
+              [disabled]="savingPhoto"
+              (click)="cancelPhoto()"
+            >
+              Cancel
+            </button>
+          </div>
+        } @else if (profile?.avatarUrl) {
+          <div class="photo-actions">
+            <button
+              class="btn btn-outline"
+              data-testid="profile-photo-remove"
+              [disabled]="savingPhoto"
+              (click)="removePhoto()"
+            >
+              {{ savingPhoto ? 'Removing…' : 'Remove photo' }}
+            </button>
+          </div>
+        }
+        <p class="photo-hint">JPEG, PNG or WebP, up to 10 MB.</p>
+        @if (photoError) {
+          <p class="photo-error" role="alert" data-testid="profile-photo-error">{{ photoError }}</p>
+        }
+        @if (photoNotice) {
+          <p class="photo-notice" role="status" data-testid="profile-photo-notice">
+            {{ photoNotice }}
+          </p>
+        }
       </div>
 
       <!-- Success message (shown after edit) -->
@@ -324,8 +368,38 @@ import { catchError, of } from 'rxjs';
 
       .avatar-section {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
         margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .photo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+
+        .btn {
+          min-height: 44px;
+        }
+      }
+
+      .photo-hint {
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .photo-error {
+        color: var(--error);
+        font-size: 15px;
+      }
+
+      .photo-notice {
+        color: var(--primary);
+        font-size: 15px;
+        font-weight: 500;
       }
 
       .avatar-wrapper {
@@ -357,8 +431,8 @@ import { catchError, of } from 'rxjs';
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 32px;
-        height: 32px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         background: var(--primary);
         color: white;
@@ -523,6 +597,11 @@ export class ProfileComponent implements OnInit {
   passwordData = { currentPassword: '', newPassword: '', confirmNewPassword: '' };
   passwordError = '';
   passwordMismatchError = '';
+  chosenPhoto: File | null = null;
+  previewUrl = '';
+  savingPhoto = false;
+  photoError = '';
+  photoNotice = '';
 
   ngOnInit() {
     this.loadProfile();
@@ -570,7 +649,12 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.userService.updateProfile(this.editData).subscribe({
       next: (updated) => {
-        this.profile = { ...this.profile!, ...updated, ...this.editData };
+        this.profile = {
+          ...this.profile!,
+          ...updated,
+          ...this.editData,
+          avatarUrl: this.profile!.avatarUrl,
+        };
         this.successMessage = 'Profile updated successfully!';
         this.editMode = false;
       },
@@ -626,18 +710,65 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /** The chosen photo while it is previewed, otherwise the saved picture. */
+  get shownPhotoUrl(): string {
+    return this.previewUrl || this.profile?.avatarUrl || '';
+  }
+
   onAvatarSelect(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files?.length) {
-      this.userService.uploadAvatar(input.files[0]).subscribe({
-        next: (result) => {
-          if (this.profile) {
-            this.profile = { ...this.profile, avatarUrl: result.url };
-          }
-        },
-        error: () => {},
-      });
-    }
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+    this.photoNotice = '';
+    this.photoError = photoFileError(file) ?? '';
+    if (this.photoError) return;
+    this.cancelPhoto();
+    this.chosenPhoto = file;
+    this.previewUrl = URL.createObjectURL(file);
+  }
+
+  savePhoto() {
+    if (!this.profile || !this.chosenPhoto) return;
+    this.savingPhoto = true;
+    this.photoError = '';
+    this.userService.uploadAvatar(this.profile.id, this.chosenPhoto).subscribe({
+      next: (avatarUrl) => {
+        this.savingPhoto = false;
+        this.cancelPhoto();
+        this.profile = { ...this.profile!, avatarUrl };
+        this.photoNotice = 'Your photo is saved.';
+      },
+      error: () => {
+        this.savingPhoto = false;
+        this.photoError = 'Your photo was not saved. Please try again.';
+      },
+    });
+  }
+
+  cancelPhoto() {
+    if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
+    this.previewUrl = '';
+    this.chosenPhoto = null;
+    this.photoError = '';
+  }
+
+  removePhoto() {
+    if (!this.profile) return;
+    this.savingPhoto = true;
+    this.photoError = '';
+    this.photoNotice = '';
+    this.userService.removeAvatar(this.profile.id).subscribe({
+      next: () => {
+        this.savingPhoto = false;
+        this.profile = { ...this.profile!, avatarUrl: '' };
+        this.photoNotice = 'Your photo is removed.';
+      },
+      error: () => {
+        this.savingPhoto = false;
+        this.photoError = 'Your photo was not removed. Please try again.';
+      },
+    });
   }
 
   logout() {

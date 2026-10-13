@@ -98,9 +98,19 @@ import { catchError, of } from 'rxjs';
                 [class.own]="msg.senderId === currentUserId"
                 data-testid="messaging-message-bubble"
               >
-                <span class="message-sender" data-testid="messaging-message-sender">{{
-                  msg.senderName
-                }}</span>
+                <div class="message-from">
+                  @if (msg.senderAvatarUrl) {
+                    <img
+                      class="message-avatar"
+                      [src]="msg.senderAvatarUrl"
+                      alt=""
+                      data-testid="messaging-message-avatar"
+                    />
+                  }
+                  <span class="message-sender" data-testid="messaging-message-sender">{{
+                    msg.senderName
+                  }}</span>
+                </div>
                 <p data-testid="messaging-message-content">{{ msg.content }}</p>
                 <span class="message-time" data-testid="messaging-message-timestamp">{{
                   msg.createdAt | date: 'shortTime'
@@ -310,12 +320,26 @@ import { catchError, of } from 'rxjs';
           }
         }
 
+        .message-from {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 2px;
+        }
+
+        .message-avatar {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
         .message-sender {
           font-size: 12px;
           font-weight: 500;
           color: var(--text-secondary);
           display: block;
-          margin-bottom: 2px;
         }
 
         p {

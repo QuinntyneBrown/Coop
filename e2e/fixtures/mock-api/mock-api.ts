@@ -340,12 +340,14 @@ export class MockApi {
 
   private messageView(m: MockMessage) {
     const sender = this.store.users.find((u) => u.userId === m.senderUserId);
+    const senderProfile = this.store.profiles.find((p) => p.userId === m.senderUserId);
     return {
       messageId: m.messageId,
       id: m.messageId,
       conversationId: m.conversationId,
       senderId: m.senderUserId,
       senderName: sender?.username ?? 'Member',
+      senderAvatarUrl: senderProfile?.avatarUrl ?? '',
       createdBy: sender?.username ?? 'Member',
       body: m.body,
       content: m.body,
@@ -655,13 +657,6 @@ export class MockApi {
       ok({ profiles: ownProfiles(ctx.user!).map((p) => this.profileView(p)) }),
     );
     this.on('POST', 'user/switch-profile', (ctx) => ok({ token: this.tokenFor(ctx.user!) }));
-    this.on('POST', 'user/avatar', (ctx) => {
-      const profile = ownProfiles(ctx.user!)[0];
-      const url =
-        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>';
-      if (profile) profile.avatarUrl = url;
-      return ok({ url });
-    });
     this.on('GET', 'user/members', () =>
       ok({ members: s.profiles.filter((p) => p.type === 0).map((p) => this.profileView(p)) }),
     );
@@ -1203,6 +1198,41 @@ export class MockApi {
       return ok({ profiles: s.profiles.filter((p) => p.type === code).map((p) => this.profileView(p)) });
     });
     this.on('PUT', 'profiles/avatar', () => ok());
+    // Like the API: the owner and the office change a profile's picture; a
+    // re-posted picture and a repeated removal change nothing (ADR 0006).
+    const canChangePicture = (user: MockUser, profile: MockProfile) =>
+      profile.userId === user.userId || user.role !== 'Member';
+    this.on('POST', 'profiles/:id/avatar', (ctx, [id]) => {
+      const profile = s.profiles.find((p) => p.profileId === id);
+      if (!profile) return notFound();
+      if (!canChangePicture(ctx.user!, profile)) return forbidden();
+      const { fileName = 'photo.png', contentType = 'image/png', size = 0 } = ctx.body ?? {};
+      if (!PHOTO_TYPES.includes(contentType)) return badRequest('Choose a JPEG, PNG or WebP photo.');
+      if (size < 1 || size > MAX_PHOTO_BYTES) return badRequest('Choose a photo smaller than 10 MB.');
+      const same = profile.avatarFile?.fileName === fileName && profile.avatarFile?.size === size;
+      if (!same) {
+        profile.avatarUrl = `/api/digitalasset/serve/${newId()}`;
+        profile.avatarFile = { fileName, size };
+      }
+      return ok({ profile: this.profileView(profile) });
+    });
+    this.on('DELETE', 'profiles/:id/avatar', (ctx, [id]) => {
+      const profile = s.profiles.find((p) => p.profileId === id);
+      if (!profile) return notFound();
+      if (!canChangePicture(ctx.user!, profile)) return forbidden();
+      profile.avatarUrl = '';
+      profile.avatarFile = undefined;
+      return ok({ profile: this.profileView(profile) });
+    });
+    this.on(
+      'GET',
+      'digitalasset/serve/:id',
+      (_ctx, [id]) =>
+        s.profiles.some((p) => p.avatarUrl.endsWith(`/${id}`))
+          ? { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' }
+          : notFound(),
+      true,
+    );
     this.on('GET', 'profiles/:id', (_ctx, [id]) => {
       const profile = s.profiles.find((p) => p.profileId === id);
       return profile ? ok({ profile: this.profileView(profile) }) : notFound();

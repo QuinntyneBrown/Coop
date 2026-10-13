@@ -23,8 +23,8 @@ By the end, the viewer can:
 | Question | What a strong answer includes |
 | --- | --- |
 | What does the platform do for us? | A readable website, office-edited content, notices, repair requests, bigger text, profile photos |
-| What works today? | Notices, repair requests (send with photos, receive, start and finish), colours, photo library, website pages the office adds and removes, the board list, 400% text |
-| What comes next? | New website design, profile pictures |
+| What works today? | Notices, repair requests (send with photos, receive, start and finish), colours, photo library, website pages the office adds and removes, the board list, 400% text, profile pictures |
+| What comes next? | New website design |
 | What do you need from us? | Two members to try it, first three pages, a named admin |
 
 ## Code / assets on screen
@@ -38,7 +38,7 @@ By the end, the viewer can:
 | `images/admin-board-1280.png` | The admin Board screen: add, edit, reorder and remove directors (working today) |
 | `images/admin-documents-notices-1280.png`, `public-documents-notices-360.png` | Notices |
 | `images/public-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `admin-maintenance-detail-started-1280.png`, `public-maintenance-detail-photos-360.png` | Repair requests, with photos |
-| `images/public-profile-edit-1280.png`, `-360.png` | Profile photo screen |
+| `images/public-profile-photo-preview-360.png`, `public-messaging-chat-photo-360.png` | Profile photos: choose and save, then shown beside messages |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`. The
@@ -57,7 +57,7 @@ before the real site.
 | 01:26-01:44 | 3 Notices | Working today |
 | 01:44-02:12 | 4 Repair requests | Send with photos, receive, start, finish and follow (the narration still says started, finished and photos come next; re-synthesize the audio when the script is updated) |
 | 02:12-02:36 | 5 Bigger words | Up to 400%, working today on every screen (the narration still says this is coming next; re-synthesize the audio when the script is updated) |
-| 02:36-02:52 | 6 Your own photo | Coming next |
+| 02:36-02:52 | 6 Your own photo | Working today (the narration still says this is coming next; re-synthesize the audio when the script is updated) |
 | 02:52-03:10 | In short | Working today (now including pages and the board list) and coming next |
 | 03:10-03:33 | Our ask | Three small things, thank you |
 

@@ -22,6 +22,11 @@ public abstract class ProfileBase
         AvatarDigitalAssetId = digitalAssetId;
     }
 
+    public void ClearAvatar()
+    {
+        AvatarDigitalAssetId = null;
+    }
+
     public void Delete()
     {
         IsDeleted = true;

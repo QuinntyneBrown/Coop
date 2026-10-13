@@ -1,0 +1,49 @@
+@startuml
+title UML sequence behaviour — A member saves, replaces and removes their picture
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member" as member
+box "Frontend — Public application" #E0F2FE
+  participant "ProfileComponent" as screen
+  participant "UserService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "ProfilesController" as controller
+  participant "ValidationBehavior" as validation
+  participant "UploadProfileAvatarHandler\nRemoveProfileAvatarHandler" as handler
+  participant "ProfileAccess" as access
+  database "CoopDbContext" as db
+end box
+member -> screen : camera button "Choose a profile picture"
+screen -> screen : photoFileError  [L2-REQ-091 AC4]
+screen --> member : preview in the circle, "Save photo" and "Cancel"  [AC1]
+member -> screen : "Save photo"
+screen --> member : "Saving…", disabled  [AC2]
+screen -> service : uploadAvatar(profileId, file)
+service -> controller : POST api/profiles/{profileId}/avatar (multipart, bearer)
+controller -> validation : Send(UploadProfileAvatarRequest)
+validation -> handler : JPEG, PNG or WebP, at most 10 MB  [AC9]
+handler -> access : owner, or Write on Member?  [AC8]
+alt refused
+  controller --> service : 403
+else same name, type and bytes as the current picture
+  handler --> controller : profile unchanged  [AC11, ADR 0006]
+else new picture
+  handler -> db : add DigitalAsset, delete the previous one, set avatar, SaveChanges  [AC10]
+end
+controller --> service : 200 { profile: { avatarUrl } }
+screen --> member : picture saved, "Your photo is saved."  [AC2]
+alt saving fails
+  screen --> member : preview stays, alert "Your photo was not saved. Please try again."  [AC5]
+end
+member -> screen : "Remove photo"
+screen -> service : removeAvatar(profileId)
+service -> controller : DELETE api/profiles/{profileId}/avatar
+handler -> access : owner, or Write on Member?
+handler -> db : delete the asset, clear the avatar, SaveChanges (nothing when already clear)
+controller --> service : 200 { profile }
+screen --> member : empty mark, "Your photo is removed."  [AC6]
+@enduml

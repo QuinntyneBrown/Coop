@@ -28,6 +28,11 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}${path}`, { responseType: 'blob' });
   }
 
+  /** Turns an address the API returns, such as "/api/digitalasset/serve/{id}", into one an image can load. */
+  assetUrl(path: string | null | undefined): string {
+    return path ? new URL(path, this.apiUrl).href : '';
+  }
+
   upload<T>(path: string, formData: FormData): Observable<T> {
     return this.http.post<T>(`${this.apiUrl}${path}`, formData);
   }

@@ -27,6 +27,7 @@ export class MessagingPage {
 
   // Message bubble details
   readonly messageSender: Locator;
+  readonly messageAvatar: Locator;
   readonly messageContent: Locator;
   readonly messageTimestamp: Locator;
 
@@ -56,6 +57,7 @@ export class MessagingPage {
     this.backToListButton = page.locator('[data-testid="messaging-back-to-list"]');
 
     this.messageSender = page.locator('[data-testid="messaging-message-sender"]');
+    this.messageAvatar = page.getByTestId('messaging-message-avatar');
     this.messageContent = page.locator('[data-testid="messaging-message-content"]');
     this.messageTimestamp = page.locator('[data-testid="messaging-message-timestamp"]');
 

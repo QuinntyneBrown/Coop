@@ -13,6 +13,7 @@ using Coop.Application.Messaging.Commands.SendMessage;
 using Coop.Application.Messaging.Queries.GetConversationsByProfile;
 using Coop.Application.Messaging.Queries.GetMessagesByConversation;
 using Coop.Application.Onboarding.Commands.ValidateInvitationToken;
+using Coop.Application.Profiles.Dtos;
 using Coop.Application.Profiles.Queries.GetBoardMembers;
 using Coop.Application.Profiles.Queries.GetMembers;
 using Coop.Application.Profiles.Queries.GetProfilesByUserId;
@@ -136,7 +137,7 @@ public class PublicBffController : ControllerBase
             email = profile?.Email ?? "",
             phone = profile?.PhoneNumber ?? "",
             unit = (profile is Coop.Domain.Profiles.Member m) ? m.UnitNumber ?? "" : "",
-            avatarUrl = "",
+            avatarUrl = ProfileDto.AvatarUrlFor(profile?.AvatarDigitalAssetId) ?? "",
             memberSince = DateTime.UtcNow.AddYears(-1).ToString("o"),
             roles = user.Roles?.Select(r => r.Name).ToArray() ?? Array.Empty<string>()
         });
@@ -515,6 +516,7 @@ public class PublicBffController : ControllerBase
     public async Task<IActionResult> GetMessages(Guid conversationId)
     {
         var result = await _mediator.Send(new GetMessagesByConversationRequest { ConversationId = conversationId });
+        var avatarUrls = await SenderAvatarUrlsAsync(result.Messages.Select(m => m.FromProfileId));
         var messages = result.Messages.Select(m =>
         {
             var body = m.Body;
@@ -529,6 +531,7 @@ public class PublicBffController : ControllerBase
                 conversationId = m.ConversationId.ToString(),
                 senderId = m.FromProfileId.ToString(),
                 senderName = "Member",
+                senderAvatarUrl = avatarUrls.GetValueOrDefault(m.FromProfileId, ""),
                 content = body,
                 createdAt = m.CreatedOn.ToString("o"),
             };
@@ -548,15 +551,28 @@ public class PublicBffController : ControllerBase
         });
 
         var m = result.Message;
+        var avatarUrls = await SenderAvatarUrlsAsync(new[] { m.FromProfileId });
         return Ok(new
         {
             id = m.MessageId.ToString(),
             conversationId = m.ConversationId.ToString(),
             senderId = m.FromProfileId.ToString(),
             senderName = "Member",
+            senderAvatarUrl = avatarUrls.GetValueOrDefault(m.FromProfileId, ""),
             content = m.Body,
             createdAt = m.CreatedOn.ToString("o"),
         });
+    }
+
+    // The picture shown beside each sender's messages, keyed by profile.
+    private async Task<Dictionary<Guid, string>> SenderAvatarUrlsAsync(IEnumerable<Guid> profileIds)
+    {
+        var ids = profileIds.Distinct().ToList();
+        var avatars = await _context.Profiles
+            .Where(p => ids.Contains(p.ProfileId) && p.AvatarDigitalAssetId != null)
+            .Select(p => new { p.ProfileId, p.AvatarDigitalAssetId })
+            .ToListAsync();
+        return avatars.ToDictionary(p => p.ProfileId, p => ProfileDto.AvatarUrlFor(p.AvatarDigitalAssetId)!);
     }
 
     private static string StripSubjectPrefix(string body)

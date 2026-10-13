@@ -10,6 +10,13 @@ export class ProfilePage {
   readonly avatar: Locator;
   readonly avatarUploadButton: Locator;
   readonly avatarImage: Locator;
+  readonly avatarPicture: Locator;
+  readonly avatarInput: Locator;
+  readonly savePhotoButton: Locator;
+  readonly cancelPhotoButton: Locator;
+  readonly removePhotoButton: Locator;
+  readonly photoError: Locator;
+  readonly photoNotice: Locator;
 
   // Profile info (view mode)
   readonly displayName: Locator;
@@ -51,6 +58,13 @@ export class ProfilePage {
     this.avatar = page.locator('[data-testid="profile-avatar"]');
     this.avatarUploadButton = page.locator('[data-testid="profile-avatar-upload-btn"]');
     this.avatarImage = page.locator('[data-testid="profile-avatar-image"]');
+    this.avatarPicture = page.locator('img[data-testid="profile-avatar-image"]');
+    this.avatarInput = page.getByTestId('profile-avatar-input');
+    this.savePhotoButton = page.getByTestId('profile-photo-save');
+    this.cancelPhotoButton = page.getByTestId('profile-photo-cancel');
+    this.removePhotoButton = page.getByRole('button', { name: 'Remove photo' });
+    this.photoError = page.getByTestId('profile-photo-error');
+    this.photoNotice = page.getByTestId('profile-photo-notice');
 
     this.displayName = page.locator('[data-testid="profile-display-name"]');
     this.username = page.locator('[data-testid="profile-username"]');
@@ -94,6 +108,10 @@ export class ProfilePage {
     await expect(this.displayName).toBeVisible();
     await expect(this.username).toBeVisible();
     await expect(this.email).toBeVisible();
+  }
+
+  async choosePhoto(file: { name: string; mimeType: string; buffer: Buffer }) {
+    await this.avatarInput.setInputFiles(file);
   }
 
   async enterEditMode() {

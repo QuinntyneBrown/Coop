@@ -22,4 +22,9 @@ export class ApiService {
   delete<T>(path: string) {
     return this.http.delete<T>(`${this.baseUrl}/${path}`);
   }
+
+  /** Turns an address the API returns, such as "/api/digitalasset/serve/{id}", into one an image can load. */
+  assetUrl(path: string | null | undefined): string {
+    return path ? new URL(path, this.baseUrl).href : '';
+  }
 }

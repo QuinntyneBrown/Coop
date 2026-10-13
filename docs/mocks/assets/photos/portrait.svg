@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Illustrated portrait of a smiling older woman with short grey hair">
+  <rect width="240" height="240" fill="#e6ece4"/>
+  <path d="M40 240 q0 -70 80 -70 q80 0 80 70z" fill="#3d8a5a"/>
+  <rect x="104" y="150" width="32" height="30" rx="10" fill="#e3b796"/>
+  <circle cx="120" cy="112" r="50" fill="#e9c2a2"/>
+  <path d="M68 108 q4 -58 54 -58 q50 0 52 58 q-10 -30 -52 -32 q-42 2 -54 32z" fill="#c9c6c0"/>
+  <circle cx="102" cy="114" r="5" fill="#3f3a36"/>
+  <circle cx="138" cy="114" r="5" fill="#3f3a36"/>
+  <path d="M104 136 q16 14 32 0" stroke="#9a5b45" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>
