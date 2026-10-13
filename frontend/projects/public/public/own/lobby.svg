@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FBF7F0"/>
+  <rect x="0" y="420" width="800" height="180" fill="#E8D7BB"/>
+  <!-- big window with light -->
+  <rect x="80" y="60" width="300" height="340" rx="150" fill="#CFE3EC"/>
+  <path d="M230 60 v340" stroke="#FFF7EC" stroke-width="10"/><path d="M80 230 h300" stroke="#FFF7EC" stroke-width="10"/>
+  <circle cx="300" cy="150" r="30" fill="#F0B35A"/>
+  <g fill="#8FB58A"><circle cx="140" cy="300" r="40"/><circle cx="190" cy="330" r="34"/></g>
+  <!-- noticeboard -->
+  <rect x="470" y="90" width="260" height="200" rx="16" fill="#B4502A"/>
+  <rect x="486" y="106" width="228" height="168" rx="10" fill="#F6ECDD"/>
+  <g>
+    <rect x="500" y="124" width="90" height="60" rx="6" fill="#D3A9C8"/><rect x="606" y="124" width="92" height="60" rx="6" fill="#A9C9A6"/>
+    <rect x="500" y="196" width="92" height="60" rx="6" fill="#F0B35A"/><rect x="606" y="196" width="92" height="60" rx="6" fill="#CFE3EC"/>
+  </g>
+  <!-- armchair -->
+  <rect x="80" y="380" width="230" height="120" rx="30" fill="#6B3F60"/>
+  <rect x="100" y="300" width="190" height="110" rx="30" fill="#8A5A80"/>
+  <rect x="60" y="400" width="50" height="100" rx="20" fill="#6B3F60"/><rect x="280" y="400" width="50" height="100" rx="20" fill="#6B3F60"/>
+  <rect x="100" y="500" width="24" height="40" rx="8" fill="#5A2E1C"/><rect x="266" y="500" width="24" height="40" rx="8" fill="#5A2E1C"/>
+  <rect x="130" y="380" width="70" height="60" rx="14" fill="#F0B35A"/>
+  <!-- plant -->
+  <rect x="650" y="430" width="90" height="100" rx="14" fill="#B4502A"/>
+  <g fill="#3F6B4F"><ellipse cx="660" cy="380" rx="22" ry="60" transform="rotate(-30 660 380)"/><ellipse cx="695" cy="350" rx="22" ry="70"/><ellipse cx="730" cy="385" rx="22" ry="60" transform="rotate(30 730 385)"/></g>
+  <!-- side table with lamp -->
+  <rect x="400" y="440" width="120" height="14" rx="6" fill="#9E4322"/><rect x="452" y="454" width="16" height="80" rx="6" fill="#9E4322"/>
+  <rect x="440" y="400" width="40" height="40" rx="6" fill="#3F6B4F"/>
+  <path d="M420 400 L500 400 L480 340 L440 340 Z" fill="#F0B35A"/>
+  <!-- rug -->
+  <ellipse cx="400" cy="560" rx="260" ry="36" fill="#D3A9C8" opacity="0.8"/>
+</svg>

@@ -1,50 +1,94 @@
-import { type Locator, type Page, expect } from '@playwright/test';
+import { type Locator, type Page, expect } from "@playwright/test";
 
+/**
+ * The public home page (`/`), drawn in docs/mocks/pages/public-landing/.
+ * Owns every selector; tests only state intent.
+ */
 export class LandingPage {
   readonly page: Page;
 
-  // Hero section
+  // Header and phone menu
+  readonly header: Locator;
+  readonly brand: Locator;
+  readonly nav: Locator;
+  readonly signInLink: Locator;
+  readonly menuButton: Locator;
+  readonly menu: Locator;
+  readonly menuLinks: Locator;
+  readonly menuSignInLink: Locator;
+
+  // Hero
   readonly hero: Locator;
   readonly heroTitle: Locator;
   readonly heroSubtitle: Locator;
   readonly heroCta: Locator;
+  readonly heroSecondaryCta: Locator;
+  readonly heroPhoto: Locator;
 
-  // Board of Directors section
+  // Body blocks
+  readonly stats: Locator;
+  readonly about: Locator;
+  readonly gallery: Locator;
+  readonly galleryPhotos: Locator;
+  readonly features: Locator;
+  readonly quote: Locator;
+  readonly visit: Locator;
+
+  // Notices ("What's on")
+  readonly noticesSection: Locator;
+  readonly noticeCards: Locator;
+  readonly noticesEmpty: Locator;
+
+  // Board
   readonly boardSection: Locator;
   readonly boardMembers: Locator;
 
-  // Public notices / announcements
-  readonly noticesSection: Locator;
-  readonly noticeCards: Locator;
-
-  // Navigation
-  readonly loginLink: Locator;
-  readonly registerLink: Locator;
-  readonly navBar: Locator;
+  // Footer
+  readonly footer: Locator;
+  readonly footerPhone: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
-    this.hero = page.locator('[data-testid="landing-hero"]');
-    this.heroTitle = page.locator('[data-testid="landing-hero-title"]');
-    this.heroSubtitle = page.locator('[data-testid="landing-hero-subtitle"]');
-    this.heroCta = page.locator('[data-testid="landing-hero-cta"]');
+    this.header = page.getByTestId("landing-header");
+    this.brand = page.getByTestId("landing-brand");
+    this.nav = page.getByTestId("landing-nav");
+    this.signInLink = page.getByTestId("landing-signin-link");
+    this.menuButton = page.getByTestId("landing-menu-button");
+    this.menu = page.getByTestId("landing-menu");
+    this.menuLinks = this.menu.getByTestId("landing-menu-link");
+    this.menuSignInLink = page.getByTestId("landing-menu-signin-link");
 
-    this.boardSection = page.locator('[data-testid="landing-board-section"]');
-    this.boardMembers = page.locator('[data-testid="landing-board-member"]');
+    this.hero = page.getByTestId("landing-hero");
+    this.heroTitle = page.getByTestId("landing-hero-title");
+    this.heroSubtitle = page.getByTestId("landing-hero-subtitle");
+    this.heroCta = page.getByTestId("landing-hero-cta");
+    this.heroSecondaryCta = page.getByTestId("landing-hero-secondary-cta");
+    this.heroPhoto = page.getByTestId("landing-hero-photo");
 
-    this.noticesSection = page.locator('[data-testid="landing-notices-section"]');
-    this.noticeCards = page.locator('[data-testid="landing-notice-card"]');
+    this.stats = page.getByTestId("landing-stats");
+    this.about = page.getByTestId("landing-about");
+    this.gallery = page.getByTestId("landing-gallery");
+    this.galleryPhotos = this.gallery.getByRole("img");
+    this.features = page.getByTestId("landing-features");
+    this.quote = page.getByTestId("landing-quote");
+    this.visit = page.getByTestId("landing-visit");
 
-    this.loginLink = page.locator('[data-testid="landing-login-link"]');
-    this.registerLink = page.locator('[data-testid="landing-register-link"]');
-    this.navBar = page.locator('[data-testid="landing-navbar"]');
+    this.noticesSection = page.getByTestId("landing-notices-section");
+    this.noticeCards = page.getByTestId("landing-notice-card");
+    this.noticesEmpty = page.getByTestId("landing-notices-empty");
+
+    this.boardSection = page.getByTestId("landing-board-section");
+    this.boardMembers = page.getByTestId("landing-board-member");
+
+    this.footer = page.getByTestId("landing-footer");
+    this.footerPhone = page.getByTestId("landing-footer-phone");
   }
 
   async goto() {
-    await this.page.goto('/');
+    await this.page.goto("/");
     // CMS content renders after the mocked API responds; wait for requests to settle.
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   async expectLoaded() {
@@ -61,21 +105,34 @@ export class LandingPage {
     await expect(this.noticesSection).toBeVisible();
   }
 
-  async getBoardMemberCount(): Promise<number> {
-    return this.boardMembers.count();
+  boardMember(name: string): Locator {
+    return this.boardMembers.filter({ hasText: name });
   }
 
-  async getNoticeCount(): Promise<number> {
-    return this.noticeCards.count();
+  noticeCard(title: string): Locator {
+    return this.noticeCards.filter({ hasText: title });
   }
 
   async navigateToLogin() {
-    await this.loginLink.click();
-    await this.page.waitForURL('**/login');
+    await this.signInLink.click();
+    await this.page.waitForURL("**/login");
   }
 
-  async navigateToRegister() {
-    await this.registerLink.click();
-    await this.page.waitForURL('**/register');
+  async openMenu() {
+    await this.menuButton.click();
+    await expect(this.menu).toBeVisible();
+  }
+
+  async closeMenuWithEscape() {
+    await this.page.keyboard.press("Escape");
+  }
+
+  /** True when the document is wider than the viewport, i.e. horizontal scrolling is possible. */
+  async hasHorizontalScroll(): Promise<boolean> {
+    return this.page.evaluate(
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth,
+    );
   }
 }

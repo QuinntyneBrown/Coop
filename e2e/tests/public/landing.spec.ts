@@ -1,100 +1,82 @@
-import { test, expect } from '../../fixtures/public/auth.fixture';
-import { LandingPage } from '../../pages/public/landing.page';
+// Acceptance Test
+// Traces to: L2-REQ-066, L2-REQ-068, L2-REQ-069, L2-REQ-078
+// Description: The public home page renders the OWN design: header with sign in,
+// CMS-driven hero with its actions and photograph, and the contact footer.
 
-test.describe('Landing Page', () => {
+import { test, expect } from "../../fixtures/public/auth.fixture";
+import { LandingPage } from "../../pages/public/landing.page";
+
+const DEFAULT_HERO_TITLE = "A home of our own, in the heart of Toronto.";
+
+test.describe("Home page", () => {
   let landing: LandingPage;
 
   test.beforeEach(async ({ page }) => {
     landing = new LandingPage(page);
   });
 
-  test.describe('Page Load', () => {
-    test('should load the landing page without authentication', async () => {
+  test.describe("Header", () => {
+    test("shows the Co-op name and a Member sign in link without signing in", async () => {
       await landing.goto();
-      await landing.expectLoaded();
+      await expect(landing.header).toBeVisible();
+      await expect(landing.brand).toContainText("OWN Housing Co-op");
+      await expect(landing.signInLink).toBeVisible();
     });
 
-    test('should display the hero section with cooperative information', async () => {
-      await landing.goto();
-      await expect(landing.hero).toBeVisible();
-      await expect(landing.heroTitle).toBeVisible();
-      await expect(landing.heroSubtitle).toBeVisible();
-    });
-
-    test('should display a call-to-action button in the hero', async () => {
-      await landing.goto();
-      await expect(landing.heroCta).toBeVisible();
-    });
-  });
-
-  test.describe('CMS Content', () => {
-    test('should render hero content from the JsonContent API', async ({ page }) => {
-      // Intercept the CMS API call and verify it was made
-      const apiPromise = page.waitForResponse(
-        (resp) => resp.url().includes('/api/json-content') && resp.status() === 200,
-      );
-      await landing.goto();
-      const response = await apiPromise;
-      expect(response.ok()).toBeTruthy();
-    });
-
-    test('should display the Board of Directors section', async () => {
-      await landing.goto();
-      await landing.expectBoardSectionVisible();
-    });
-
-    test('should render at least one board member', async () => {
-      await landing.goto();
-      const count = await landing.getBoardMemberCount();
-      expect(count).toBeGreaterThan(0);
-    });
-
-    test('should display public notices/announcements section', async () => {
-      await landing.goto();
-      await landing.expectNoticesVisible();
-    });
-  });
-
-  test.describe('Navigation', () => {
-    test('should have a visible navigation bar', async () => {
-      await landing.goto();
-      await expect(landing.navBar).toBeVisible();
-    });
-
-    test('should navigate to login page from landing', async () => {
+    test("opens the login page from Member sign in", async () => {
       await landing.goto();
       await landing.navigateToLogin();
       await expect(landing.page).toHaveURL(/\/login/);
     });
+  });
 
-    test('should navigate to register page from landing', async () => {
+  test.describe("Hero", () => {
+    test("renders the title and lead from the Hero CMS content", async ({
+      mockApi,
+    }) => {
+      const hero = mockApi.store.jsonContents.find((j) => j.name === "Hero")!;
       await landing.goto();
-      await landing.navigateToRegister();
-      await expect(landing.page).toHaveURL(/\/register/);
+      await expect(landing.heroTitle).toHaveText(String(hero.content["title"]));
+      await expect(landing.heroSubtitle).toHaveText(
+        String(hero.content["subtitle"]),
+      );
+    });
+
+    test("falls back to the default copy when the CMS has no Hero", async ({
+      mockApi,
+    }) => {
+      mockApi.store.jsonContents = [];
+      await landing.goto();
+      await expect(landing.heroTitle).toHaveText(DEFAULT_HERO_TITLE);
+    });
+
+    test("offers Book a visit and How to apply", async () => {
+      await landing.goto();
+      await expect(landing.heroCta).toHaveText(/Book a visit/);
+      await expect(landing.heroSecondaryCta).toHaveText("How to apply");
+    });
+
+    test("shows the hero photograph with a description", async () => {
+      await landing.goto();
+      await expect(landing.heroPhoto).toBeVisible();
+      await expect(landing.heroPhoto).toHaveAttribute("alt", /\S+/);
+    });
+
+    test("stacks the hero in one column on a phone", async ({ page }) => {
+      await page.setViewportSize({ width: 360, height: 800 });
+      await landing.goto();
+      const text = await landing.heroTitle.boundingBox();
+      const photo = await landing.heroPhoto.boundingBox();
+      expect(text && photo && photo.y >= text.y + text.height).toBeTruthy();
     });
   });
 
-  test.describe('Responsive Layout', () => {
-    test('should display correctly on mobile viewport', async ({ page }) => {
-      await page.setViewportSize({ width: 375, height: 812 });
-      landing = new LandingPage(page);
+  test.describe("Footer", () => {
+    test("shows how to visit or write, with the phone as a tel link", async () => {
       await landing.goto();
-      await landing.expectLoaded();
-      await expect(landing.hero).toBeVisible();
-    });
-
-    test('should display correctly on tablet viewport', async ({ page }) => {
-      await page.setViewportSize({ width: 768, height: 1024 });
-      landing = new LandingPage(page);
-      await landing.goto();
-      await landing.expectLoaded();
-    });
-
-    test('should display correctly on desktop viewport', async ({ page }) => {
-      await page.setViewportSize({ width: 1440, height: 900 });
-      landing = new LandingPage(page);
-      await landing.goto();
-      await landing.expectLoaded();
+      await expect(landing.footer).toBeVisible();
+      await expect(landing.footer).toContainText("Visit or write");
+      await expect(landing.footerPhone).toHaveAttribute("href", /^tel:/);
     });
   });
 });

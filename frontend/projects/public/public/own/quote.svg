@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <rect width="600" height="600" fill="#F8E3D7"/>
+  <circle cx="300" cy="320" r="230" fill="#F3E7D3"/>
+  <circle cx="470" cy="130" r="60" fill="#F0B35A"/>
+  <g fill="#8FB58A"><circle cx="90" cy="520" r="60"/><circle cx="150" cy="560" r="50"/></g>
+  <!-- torso with scarf -->
+  <rect x="150" y="380" width="300" height="260" rx="90" fill="#3F6B4F"/>
+  <path d="M190 400 q110 70 220 0 l20 60 q-130 70 -260 0z" fill="#E9775A"/>
+  <path d="M300 440 l-50 160 h50z" fill="#F0B35A"/>
+  <!-- head -->
+  <circle cx="300" cy="280" r="110" fill="#C68B59"/>
+  <path d="M190 270 a110 110 0 0 1 220 0 l10 40 q-120 -40 -240 0z" fill="#E6E2DC"/>
+  <circle cx="190" cy="300" r="26" fill="#E6E2DC"/><circle cx="410" cy="300" r="26" fill="#E6E2DC"/>
+  <!-- glasses -->
+  <g fill="none" stroke="#5A2E1C" stroke-width="6"><circle cx="262" cy="290" r="28"/><circle cx="338" cy="290" r="28"/><path d="M290 290 h20"/></g>
+  <!-- smile and cheeks -->
+  <path d="M262 340 q38 30 76 0" stroke="#5A2E1C" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="238" cy="330" r="14" fill="#E9775A" opacity="0.6"/><circle cx="362" cy="330" r="14" fill="#E9775A" opacity="0.6"/>
+  <!-- earrings -->
+  <circle cx="190" cy="334" r="9" fill="#D3A9C8"/><circle cx="410" cy="334" r="9" fill="#D3A9C8"/>
+</svg>
