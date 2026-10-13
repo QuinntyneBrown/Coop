@@ -183,7 +183,7 @@ a:hover { color: var(--own-text); }
 .own-brand__name { font-weight: 700; font-size: 1.25rem; line-height: 1.15; }
 @media (min-width: 64rem) { .own-brand__name { white-space: nowrap; } }
 .own-brand__sub { display: none; font-weight: 400; font-size: 0.9375rem; color: var(--own-muted); }
-@media (min-width: 48rem) and (max-width: 63.98rem), (min-width: 80rem) { .own-brand__sub { display: block; } }
+@media (min-width: 48rem) and (max-width: 63.98rem), (min-width: 90rem) { .own-brand__sub { display: block; } }
 .own-nav { display: none; }
 .own-nav__list { display: flex; gap: var(--own-space-1); }
 .own-nav__link { display: inline-flex; align-items: center; white-space: nowrap; min-height: var(--own-target); padding: 0 var(--own-space-4); border-radius: var(--own-radius-pill); color: var(--own-text); font-weight: 500; text-decoration: none; }
@@ -323,10 +323,29 @@ a:hover { color: var(--own-text); }
 .own-header .cms-tag { top: auto; bottom: -0.875rem; right: var(--own-gutter); }
 [data-chrome="off"] .cms-tag { display: none; }
 
-/* Compact header between 1024 and 1280 px so the full navigation fits on one line. */
-@media (min-width: 64rem) and (max-width: 79.98rem) {
+/* Compact header between 1024 and 1440 px so the full navigation fits on one line. */
+@media (min-width: 64rem) and (max-width: 89.98rem) {
   .own-brand__name { font-size: 1.125rem; }
   .own-nav__link { padding-inline: var(--own-space-3); font-size: 1.0625rem; }
   .own-header__signin { padding-inline: var(--own-space-4); font-size: 1.0625rem; min-height: var(--own-target); }
   .own-header__inner { gap: var(--own-space-3); }
 }
+
+/* ---------- Website pages (pages/public-page) and a wrapping navigation ---------- */
+.own-nav__list { flex-wrap: wrap; row-gap: var(--own-space-1); justify-content: flex-end; }
+.own-page-banner { background: var(--own-surface-tint); padding-block: var(--own-space-7); }
+.own-page-banner h1 { font-size: var(--own-size-h2); max-width: 20em; }
+.own-page__hero { margin-top: calc(-1 * var(--own-space-5)); }
+.own-page__hero img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; border-radius: var(--own-radius-lg); box-shadow: var(--own-shadow-1); background: var(--own-surface); }
+.own-prose { max-width: 46rem; padding-block: var(--own-space-7) var(--own-space-9); display: grid; gap: var(--own-space-4); }
+.own-prose > * { margin: 0; max-width: none; }
+.own-prose h2 { margin-top: var(--own-space-5); font-size: var(--own-size-h3); font-weight: 600; line-height: 1.3; }
+.own-prose h3 { font-size: var(--own-size-lead); font-weight: 600; }
+.own-prose ul, .own-prose ol { padding-left: 1.4em; display: grid; gap: var(--own-space-2); }
+.own-prose ul { list-style: disc; }
+.own-prose ol { list-style: decimal; }
+.own-prose img { border-radius: var(--own-radius-md); }
+.own-prose strong { font-weight: 600; }
+.own-page__status { padding-block: var(--own-space-8) var(--own-space-9); font-size: var(--own-size-lead); color: var(--own-muted); }
+.own-page__missing { display: grid; gap: var(--own-space-5); justify-items: start; padding-block: var(--own-space-8) var(--own-space-9); }
+.own-page__missing h1 { font-size: var(--own-size-h2); }

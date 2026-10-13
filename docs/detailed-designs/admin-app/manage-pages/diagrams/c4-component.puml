@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage website pages
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(screen, "PagesComponent", "Angular standalone component", "List, editor dialog and remove dialog at /pages")
+  Component(validate, "validatePageDraft", "Plain TypeScript function", "Title, text and duplicate-title checks before posting")
+  Component(service, "PageService", "Angular service", "GET, POST, PUT, DELETE /pages")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "PagesController", "ASP.NET Core controller", "api/pages routes; reads are anonymous")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "Runs CreatePageValidator and UpdatePageValidator")
+  Component(authz, "ResourceOperationAuthorizationBehavior", "MediatR pipeline behavior", "Requires Create, Write or Delete on the Page aggregate")
+  Component(handlers, "Page handlers", "MediatR handlers", "GetPages, GetPageBySlug, CreatePage, UpdatePage, RemovePage")
+  Component(page, "Page", "Domain entity", "Title, slug, hero address, body; SlugFrom, Update, Delete")
+  Component(middleware, "ExceptionHandlingMiddleware", "ASP.NET Core middleware", "ValidationException to 400, UnauthorizedAccessException to 403")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Pages DbSet")
+}
+Rel(screen, validate, "Checks the draft with")
+Rel(screen, service, "Loads and saves pages with")
+Rel(service, controller, "Calls", "JSON/HTTPS")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, authz, "Then")
+Rel(authz, handlers, "Then")
+Rel(handlers, page, "Creates, loads and mutates")
+Rel(handlers, db, "Queries and saves", "EF Core")
+Rel(middleware, controller, "Wraps")
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Load a website page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "SiteHeaderComponent" as header
+  participant "ContentPageComponent" as page
+  participant "PageService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PagesController" as controller
+  participant "GetPagesHandler /\nGetPageBySlugHandler" as handlers
+  database "CoopDbContext" as db
+end box
+actor -> page : Open /pages/how-to-apply (header link)
+page -> page : state = loading, title "Loading…"  [L2-REQ-083 AC4]
+page -> header : render
+header -> service : getAll()
+service -> controller : GET api/pages (anonymous)
+controller -> handlers : GetPagesRequest
+handlers -> db : pages where !IsDeleted order by CreatedOn
+controller --> service : 200 { pages }
+service --> header : WebsitePage[]
+header -> header : section links + one link per page, aria-current on this page  [L2-REQ-082 AC1, AC3]
+page -> service : getBySlug("how-to-apply")
+service -> controller : GET api/pages/how-to-apply (anonymous)
+controller -> handlers : GetPageBySlugRequest
+handlers -> db : page with slug and !IsDeleted
+controller --> service : 200 { page }
+service --> page : WebsitePage
+page -> page : state = ready, document title "{title} · OWN Housing Co-op"
+page --> actor : Banner with the title, hero photograph, sanitised body  [L2-REQ-083 AC1, AC2, AC3]
+alt request fails (not 404)
+  service --> page : error
+  page -> page : state = error
+  page --> actor : "We couldn't load this page right now." + "Try again"  [L2-REQ-083 AC5]
+end
+@enduml

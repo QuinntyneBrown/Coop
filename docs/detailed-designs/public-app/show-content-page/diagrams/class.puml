@@ -1,0 +1,85 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Show a website page
+
+class ContentPageComponent {
+  +state: Signal<ContentPageState>
+  +page: Signal<WebsitePage | null>
+  +load(): void
+}
+enum ContentPageState {
+  loading
+  ready
+  not-found
+  error
+}
+class SiteHeaderComponent {
+  +content: SiteContent
+  +pages: Signal<WebsitePage[]>
+  +menuOpen: Signal<boolean>
+  +isHome(): boolean
+  +toggleMenu(): void
+  +closeMenu(): void
+}
+class SiteFooterComponent {
+  +content: SiteContent
+}
+class SiteContent <<interface>> {
+  +siteName: string
+  +siteSubtitle: string
+  +navigation: SiteLink[]
+  +footer: SiteFooterContent
+}
+class SiteLink <<interface>> {
+  +label: string
+  +href?: string
+  +route?: string
+}
+class SiteFooterContent <<interface>> {
+  +organisation: string
+  +area: string
+  +phone: string
+  +phoneHref: string
+  +email: string
+  +siteLinks: SiteLink[]
+  +memberLinks: SiteLink[]
+  +copyright: string
+  +managedBy: string
+}
+class PageService {
+  +getAll(): Observable<WebsitePage[]>
+  +getBySlug(slug: string): Observable<WebsitePage>
+}
+class WebsitePage <<interface>> {
+  +pageId: string
+  +title: string
+  +slug: string
+  +heroImageUrl: string | null
+  +body: string
+}
+class LandingComponent
+
+ContentPageComponent --> ContentPageState : has
+ContentPageComponent --> WebsitePage : shows
+ContentPageComponent --> PageService : getBySlug
+ContentPageComponent *-- SiteHeaderComponent : renders
+ContentPageComponent *-- SiteFooterComponent : renders
+LandingComponent *-- SiteHeaderComponent : renders
+LandingComponent *-- SiteFooterComponent : renders
+SiteHeaderComponent --> PageService : getAll
+SiteHeaderComponent --> SiteContent : reads
+SiteFooterComponent --> SiteContent : reads
+SiteContent "1" --> "*" SiteLink : navigation
+SiteContent --> SiteFooterContent : footer
+SiteFooterContent "1" --> "*" SiteLink : links
+PageService ..> WebsitePage : returns
+@enduml

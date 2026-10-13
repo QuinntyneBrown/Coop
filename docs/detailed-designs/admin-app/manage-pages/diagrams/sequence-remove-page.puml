@@ -1,0 +1,38 @@
+@startuml
+title UML sequence behaviour — Remove a page, and refuse a member
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as actor
+actor "Member" as member
+box "Frontend — Admin application" #E0F2FE
+  participant "PagesComponent" as screen
+  participant "PageService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PagesController" as controller
+  participant "AuthorizationBehavior" as authz
+  participant "RemovePageHandler" as handler
+  participant "ExceptionHandlingMiddleware" as middleware
+  database "CoopDbContext" as db
+end box
+actor -> screen : "Remove" on a page
+screen --> actor : Dialog "Remove “{title}”?"  [L2-REQ-080 AC10]
+actor -> screen : "Remove page"
+screen -> service : remove(pageId)
+service -> controller : DELETE api/pages/{pageId} (bearer token)
+controller -> authz : Send(RemovePageRequest)
+authz -> handler : caller holds Delete on Page  [L2-REQ-081 AC2]
+handler -> db : load page, Delete(), SaveChanges
+controller --> service : 200 { page }
+screen -> screen : close dialog, reload list, notice "“{title}” was removed from the website."
+screen --> actor : Page gone from the list; the public header no longer lists it  [L2-REQ-082 AC4]
+== A member calls the same endpoint ==
+member -> controller : DELETE api/pages/{pageId} (member bearer token)
+controller -> authz : Send(RemovePageRequest)
+authz -> authz : Privilege claims hold only Read:Page
+authz --> middleware : UnauthorizedAccessException
+middleware --> member : 403 { message }  [L2-REQ-081 AC3]
+@enduml

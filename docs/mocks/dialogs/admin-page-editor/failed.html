@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin · Page Editor · failed</title>
+<meta name="mock:screen" content="admin-page-editor">
+<meta name="mock:kind" content="dialog">
+<meta name="mock:state" content="failed">
+<meta name="mock:requirements" content="L2-REQ-080">
+<meta name="description" content="The editor after the API rejected the save: the entered values stay and a message asks to try again.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/styles/74dcab47ad882ae4.css">
+<link rel="stylesheet" href="../../assets/styles/966523f07b4db81c.css">
+<link rel="stylesheet" href="../../assets/styles/16dbdbc82dc14386.css">
+<link rel="stylesheet" href="../../assets/styles/76475c8d057ec1e8.css">
+<link rel="stylesheet" href="../../assets/styles/ebad4b5fdf1de0ac.css">
+<link rel="stylesheet" href="../../assets/styles/3542d6023f88c226.css">
+<link rel="stylesheet" href="../../assets/admin-pages.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+<script src="../../assets/mock.js" defer></script></head><body>
+<a class="mock-skip" href="#main">Skip to content</a>
+<div inert aria-hidden="true"><app-root ng-version="19.2.25" _nghost-ng-c3984273398=""><app-layout _nghost-ng-c4107272877=""><div _ngcontent-ng-c4107272877="" class="layout"><app-sidebar _ngcontent-ng-c4107272877="" class="layout-sidebar" _nghost-ng-c113394371=""><aside _ngcontent-ng-c113394371="" data-testid="sidebar" class="sidebar"><div _ngcontent-ng-c113394371="" class="sidebar-header"><div _ngcontent-ng-c113394371="" class="logo"><span _ngcontent-ng-c113394371="" data-testid="sidebar-logo" class="material-icons logo-icon">apartment</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-app-title" class="logo-text">Coop Manager</span></div></div><nav _ngcontent-ng-c113394371="" class="sidebar-nav"><a _ngcontent-ng-c113394371="" routerlink="/dashboard" routerlinkactive="active" data-testid="sidebar-nav-dashboard" class="nav-item" href="../../pages/admin-dashboard/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">dashboard</span><span _ngcontent-ng-c113394371="">Dashboard</span></a><a _ngcontent-ng-c113394371="" routerlink="/maintenance" routerlinkactive="active" data-testid="sidebar-nav-maintenance" class="nav-item" href="../../pages/admin-maintenance/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">build</span><span _ngcontent-ng-c113394371="">Maintenance</span></a><a _ngcontent-ng-c113394371="" routerlink="/documents" routerlinkactive="active" data-testid="sidebar-nav-documents" class="nav-item" href="../../pages/admin-documents/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">description</span><span _ngcontent-ng-c113394371="">Documents</span></a><a _ngcontent-ng-c113394371="" routerlink="/pages" routerlinkactive="active" data-testid="sidebar-nav-pages" class="nav-item active" href="../../pages/admin-pages/default.html" data-active="true" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">web</span><span _ngcontent-ng-c113394371="">Pages</span></a><a _ngcontent-ng-c113394371="" routerlink="/messages" routerlinkactive="active" data-testid="sidebar-nav-messages" class="nav-item" href="../../pages/admin-messaging/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">chat</span><span _ngcontent-ng-c113394371="">Messages</span></a><a _ngcontent-ng-c113394371="" routerlink="/users" routerlinkactive="active" data-testid="sidebar-nav-users" class="nav-item" href="../../pages/admin-users/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">people</span><span _ngcontent-ng-c113394371="">Users</span></a><a _ngcontent-ng-c113394371="" routerlink="/roles" routerlinkactive="active" data-testid="sidebar-nav-roles" class="nav-item" href="../../pages/admin-roles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">admin_panel_settings</span><span _ngcontent-ng-c113394371="">Roles &amp; Privileges</span></a><a _ngcontent-ng-c113394371="" routerlink="/profiles" routerlinkactive="active" data-testid="sidebar-nav-profiles" class="nav-item" href="../../pages/admin-profiles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">badge</span><span _ngcontent-ng-c113394371="">Profiles</span></a><a _ngcontent-ng-c113394371="" routerlink="/assets" routerlinkactive="active" data-testid="sidebar-nav-assets" class="nav-item" href="../../pages/admin-assets/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">perm_media</span><span _ngcontent-ng-c113394371="">Assets</span></a><a _ngcontent-ng-c113394371="" routerlink="/invitations" routerlinkactive="active" data-testid="sidebar-nav-invitations" class="nav-item" href="../../pages/admin-invitations/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">mail</span><span _ngcontent-ng-c113394371="">Invitations</span></a><a _ngcontent-ng-c113394371="" routerlink="/settings" routerlinkactive="active" data-testid="sidebar-nav-settings" class="nav-item" href="../../pages/admin-settings/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">settings</span><span _ngcontent-ng-c113394371="">Settings</span></a></nav><div _ngcontent-ng-c113394371="" class="sidebar-footer"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-info" class="user-info"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-avatar" class="user-avatar">M</div><div _ngcontent-ng-c113394371="" class="user-details"><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-name" class="user-name">mira.fern</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-role" class="user-role">Member</span></div></div></div></aside></app-sidebar><main _ngcontent-ng-c4107272877="" class="layout-main" id="main"><div class="pages-page">
+  <div class="pages-header">
+    <div>
+      <h1 data-testid="pages-title">Pages</h1>
+      <p>Pages visitors reach from the website menu. Add a page, write it in plain words, and it is live straight away.</p>
+    </div>
+    <button type="button" class="btn btn-primary" data-mock-href="../../dialogs/admin-page-editor/default.html"><span class="material-icons" aria-hidden="true">add</span> New page</button>
+  </div>
+  <ul class="pages-list" aria-label="Website pages">
+      <li class="page-card">
+        <h2>About us</h2>
+        <div class="page-card__meta">
+          <span class="page-card__address">/pages/about-us</span>
+          <span>With a hero photo</span>
+          <a class="page-card__link" href="../../pages/public-page/default.html">Open on the website <span class="material-icons" aria-hidden="true">open_in_new</span></a>
+        </div>
+        <div class="page-card__actions">
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-page-editor/edit.html" aria-label="Edit About us">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-page-remove/default.html" aria-label="Remove About us">Remove</button>
+        </div>
+      </li>
+      <li class="page-card">
+        <h2>How to apply</h2>
+        <div class="page-card__meta">
+          <span class="page-card__address">/pages/how-to-apply</span>
+          <span>With a hero photo</span>
+          <a class="page-card__link" href="../../pages/public-page/default.html">Open on the website <span class="material-icons" aria-hidden="true">open_in_new</span></a>
+        </div>
+        <div class="page-card__actions">
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-page-editor/edit.html" aria-label="Edit How to apply">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-page-remove/default.html" aria-label="Remove How to apply">Remove</button>
+        </div>
+      </li>
+      <li class="page-card">
+        <h2>Our garden</h2>
+        <div class="page-card__meta">
+          <span class="page-card__address">/pages/our-garden</span>
+          <span>No hero photo</span>
+          <a class="page-card__link" href="../../pages/public-page/default.html">Open on the website <span class="material-icons" aria-hidden="true">open_in_new</span></a>
+        </div>
+        <div class="page-card__actions">
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-page-editor/edit.html" aria-label="Edit Our garden">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-page-remove/default.html" aria-label="Remove Our garden">Remove</button>
+        </div>
+      </li>
+  </ul>
+  <app-bottom-tab-bar _ngcontent-ng-c4133025109="" class="mobile-only" _nghost-ng-c1362238811=""><nav _ngcontent-ng-c1362238811="" data-testid="bottom-tab-bar" class="bottom-tab-bar"><a _ngcontent-ng-c1362238811="" routerlink="/dashboard" routerlinkactive="active" data-testid="tab-home" class="tab-item" href="../../pages/admin-dashboard/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">home</span><span _ngcontent-ng-c1362238811="" class="tab-label">Home</span></a><a _ngcontent-ng-c1362238811="" routerlink="/maintenance" routerlinkactive="active" data-testid="tab-requests" class="tab-item" href="../../pages/admin-maintenance/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">build</span><span _ngcontent-ng-c1362238811="" class="tab-label">Requests</span></a><a _ngcontent-ng-c1362238811="" routerlink="/documents" routerlinkactive="active" data-testid="tab-docs" class="tab-item" href="../../pages/admin-documents/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">description</span><span _ngcontent-ng-c1362238811="" class="tab-label">Docs</span></a><a _ngcontent-ng-c1362238811="" routerlink="/messaging" routerlinkactive="active" data-testid="tab-messages" class="tab-item" href="../../pages/admin-messaging/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">chat</span><span _ngcontent-ng-c1362238811="" class="tab-label">Messages</span></a><a _ngcontent-ng-c1362238811="" routerlink="/profile" routerlinkactive="active" data-testid="tab-profile" class="tab-item" href="../../pages/admin-profile/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">person</span><span _ngcontent-ng-c1362238811="" class="tab-label">Profile</span></a></nav></app-bottom-tab-bar>
+</div></main></div></app-layout></app-root></div>
+<div class="page-dialog-backdrop" aria-hidden="true"></div>
+<dialog class="page-dialog" open aria-labelledby="editor-title" aria-describedby="editor-intro" data-testid="page-editor">
+  <form method="dialog" novalidate>
+    <div class="page-dialog__header">
+      <h2 id="editor-title">New page</h2>
+      <p id="editor-intro">The page appears in the website menu as soon as you save.</p>
+    </div>
+    <div class="page-dialog__body">
+      <div class="page-dialog__errors" role="alert" id="editor-errors">We couldn't save the page. Try again.</div>
+      <div class="form-group">
+        <label for="page-title-field">Page title</label>
+        <input id="page-title-field" name="title" type="text" value="About us" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="page-hero-field">Hero photo address (optional)</label>
+        <input id="page-hero-field" name="heroImageUrl" type="url" value="../../assets/own/lobby.svg" aria-describedby="page-hero-help">
+        <span class="field-help" id="page-hero-help">Paste the address of a photo from the Assets library. It shows under the title.</span>
+      </div>
+      <div class="form-group">
+        <label for="page-body-field">Page text</label>
+        <textarea id="page-body-field" name="body" rows="8" required aria-describedby="page-body-help">&lt;p&gt;Older women built this place. We still run it.&lt;/p&gt;
+&lt;h2&gt;Our story&lt;/h2&gt;
+&lt;p&gt;In 1997 the doors opened. They have stayed open ever since.&lt;/p&gt;</textarea>
+        <span class="field-help" id="page-body-help">Plain words work. For headings and lists use simple HTML: <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>.</span>
+      </div>
+    </div>
+    <div class="page-dialog__footer">
+      <button type="button" class="btn btn-secondary" data-mock-href="../../pages/admin-pages/default.html">Cancel</button>
+      <button type="submit" class="btn btn-primary" data-mock-href="../../notifications/admin-page-saved/success.html">Save page</button>
+    </div>
+  </form>
+</dialog>
+<aside class="mock-bar"><details><summary>Admin · Page Editor · failed — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a> <a href="default.html">default</a> <a href="invalid.html">invalid</a> <a href="busy.html">busy</a> <a href="failed.html" aria-current="page">failed</a> <a href="edit.html">edit</a> <a href="../../pages/admin-pages/default.html">Back to page</a></nav><p class="mock-note">Hand-written design reference for page management, implemented by the admin app in features/pages/. Forms do not submit. Sample pages are fictional.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/pages/pages.component.ts</code></p></details></aside>
+</body></html>

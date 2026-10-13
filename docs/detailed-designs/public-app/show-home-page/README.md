@@ -39,8 +39,10 @@ The feature lives in `frontend/projects/public/src/app/pages/landing/`.
 
 `LandingComponent` (`landing.component.ts`, `landing.component.html`,
 `landing.component.scss`) is the routed, standalone page component. It renders
-the header, hero, body blocks, board, notices, footer and the phone menu, and
-owns the `menuOpen` signal. Its stylesheet carries the OWN foundation from the
+the shared `SiteHeaderComponent` and `SiteFooterComponent` from
+`frontend/projects/public/src/app/layout/` (see
+`../show-content-page/`) around the hero, body blocks, board and notices.
+The header owns the phone menu and its `menuOpen` signal. Its stylesheet carries the OWN foundation from the
 mock (`docs/mocks/assets/own-site.css`): the `--own-*` tokens for colour,
 type, space, radius and motion, and the `own-*` block classes. The classes and
 accessible state attributes match the mock so the Playwright page object and
@@ -48,22 +50,23 @@ the design reference describe the same DOM. The product shows the light
 theme only; the dark tokens in the mock are not implemented.
 
 `LANDING_CONTENT` (`landing-content.ts`) is a plain TypeScript constant
-holding the default copy and the photograph manifest: navigation links, hero
-defaults, at-a-glance figures, value cards, the six gallery photographs, the
-two feature rows, the quotation, the visit band and the footer. Each
+holding the default copy and the photograph manifest: hero defaults,
+at-a-glance figures, value cards, the six gallery photographs, the two
+feature rows, the quotation and the visit band. The site name, the
+navigation links and the footer live in `SITE_CONTENT`
+(`layout/site-content.ts`) because the header and footer are shared. Each
 photograph is a `LandingPhoto` with a path under the public project's
 `public/own/` assets folder, descriptive alternative text and intrinsic size.
 Replacing a photograph means replacing the file and its entry in this
 constant; no template changes.
 
 The view-model types each have their own file: `HeroContent`
-(`hero-content.ts`), `LandingPhoto` (`landing-photo.ts`), `LandingLink`
-(`landing-link.ts`), `LandingStat` (`landing-stat.ts`), `LandingValue`
-(`landing-value.ts`), `LandingFeature` (`landing-feature.ts`),
-`LandingQuote` (`landing-quote.ts`), `LandingVisit` (`landing-visit.ts`),
-`LandingFooter` (`landing-footer.ts`), `LandingContent`
-(`landing-content-shape.ts`), `BoardMemberView` (`board-member-view.ts`) and
-`NoticeView` (`notice-view.ts`).
+(`hero-content.ts`), `LandingPhoto` (`landing-photo.ts`), `LandingStat`
+(`landing-stat.ts`), `LandingValue` (`landing-value.ts`), `LandingFeature`
+(`landing-feature.ts`), `LandingQuote` (`landing-quote.ts`), `LandingVisit`
+(`landing-visit.ts`), `LandingContent` (`landing-content-shape.ts`),
+`BoardMemberView` (`board-member-view.ts`) and `NoticeView`
+(`notice-view.ts`).
 
 `landing-view-model.ts` holds the pure functions that turn API responses into
 view models, so the rules stay out of the template:
@@ -90,12 +93,13 @@ Playwright mock serves. Every request failure resolves to the default copy;
 the page never shows an error banner (`docs/mocks/manifest.json` records this
 choice for the landing page).
 
-Behaviour of the phone menu: `toggleMenu()` flips `menuOpen`; the button
-shows "Menu" or "Close", sets `aria-expanded` and `aria-controls="menu"`;
-`closeMenu()` hides the panel and returns focus to the button. The Escape key
-on the page closes an open menu. The panel is hidden with the `hidden`
-attribute, as in the mock, and CSS hides the button and panel at 1024 px and
-wider.
+Behaviour of the phone menu (in `SiteHeaderComponent`): `toggleMenu()`
+flips `menuOpen`; the button shows "Menu" or "Close", sets `aria-expanded`
+and `aria-controls="menu"`; `closeMenu()` hides the panel and returns focus
+to the button. The Escape key on the page closes an open menu. The panel is
+hidden with the `hidden` attribute, as in the mock, and CSS hides the button
+and panel at 1024 px and wider. The navigation lists the home page section
+links followed by one link per website page (L2-REQ-082).
 
 Acceptance coverage is the Playwright `public` project:
 `e2e/tests/public/landing.spec.ts` states intent and
