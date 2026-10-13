@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin · Director Editor · failed</title>
+<meta name="mock:screen" content="admin-director-editor">
+<meta name="mock:kind" content="dialog">
+<meta name="mock:state" content="failed">
+<meta name="mock:requirements" content="L2-REQ-085">
+<meta name="description" content="The editor after the API rejected the save, keeping the entered values.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/styles/74dcab47ad882ae4.css">
+<link rel="stylesheet" href="../../assets/styles/966523f07b4db81c.css">
+<link rel="stylesheet" href="../../assets/styles/16dbdbc82dc14386.css">
+<link rel="stylesheet" href="../../assets/styles/76475c8d057ec1e8.css">
+<link rel="stylesheet" href="../../assets/styles/ebad4b5fdf1de0ac.css">
+<link rel="stylesheet" href="../../assets/styles/3542d6023f88c226.css">
+<link rel="stylesheet" href="../../assets/admin-board.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+<script src="../../assets/mock.js" defer></script></head><body>
+<a class="mock-skip" href="#main">Skip to content</a>
+<div inert aria-hidden="true"><app-root ng-version="19.2.25" _nghost-ng-c3984273398=""><app-layout _nghost-ng-c4107272877=""><div _ngcontent-ng-c4107272877="" class="layout"><app-sidebar _ngcontent-ng-c4107272877="" class="layout-sidebar" _nghost-ng-c113394371=""><aside _ngcontent-ng-c113394371="" data-testid="sidebar" class="sidebar"><div _ngcontent-ng-c113394371="" class="sidebar-header"><div _ngcontent-ng-c113394371="" class="logo"><span _ngcontent-ng-c113394371="" data-testid="sidebar-logo" class="material-icons logo-icon">apartment</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-app-title" class="logo-text">Coop Manager</span></div></div><nav _ngcontent-ng-c113394371="" class="sidebar-nav"><a _ngcontent-ng-c113394371="" routerlink="/dashboard" routerlinkactive="active" data-testid="sidebar-nav-dashboard" class="nav-item" href="../../pages/admin-dashboard/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">dashboard</span><span _ngcontent-ng-c113394371="">Dashboard</span></a><a _ngcontent-ng-c113394371="" routerlink="/maintenance" routerlinkactive="active" data-testid="sidebar-nav-maintenance" class="nav-item" href="../../pages/admin-maintenance/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">build</span><span _ngcontent-ng-c113394371="">Maintenance</span></a><a _ngcontent-ng-c113394371="" routerlink="/documents" routerlinkactive="active" data-testid="sidebar-nav-documents" class="nav-item" href="../../pages/admin-documents/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">description</span><span _ngcontent-ng-c113394371="">Documents</span></a><a _ngcontent-ng-c113394371="" routerlink="/pages" routerlinkactive="active" data-testid="sidebar-nav-pages" class="nav-item" href="../../pages/admin-pages/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">web</span><span _ngcontent-ng-c113394371="">Pages</span></a><a _ngcontent-ng-c113394371="" routerlink="/board" routerlinkactive="active" data-testid="sidebar-nav-board" class="nav-item active" href="../../pages/admin-board/default.html" data-active="true" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">groups</span><span _ngcontent-ng-c113394371="">Board</span></a><a _ngcontent-ng-c113394371="" routerlink="/messages" routerlinkactive="active" data-testid="sidebar-nav-messages" class="nav-item" href="../../pages/admin-messaging/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">chat</span><span _ngcontent-ng-c113394371="">Messages</span></a><a _ngcontent-ng-c113394371="" routerlink="/users" routerlinkactive="active" data-testid="sidebar-nav-users" class="nav-item" href="../../pages/admin-users/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">people</span><span _ngcontent-ng-c113394371="">Users</span></a><a _ngcontent-ng-c113394371="" routerlink="/roles" routerlinkactive="active" data-testid="sidebar-nav-roles" class="nav-item" href="../../pages/admin-roles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">admin_panel_settings</span><span _ngcontent-ng-c113394371="">Roles &amp; Privileges</span></a><a _ngcontent-ng-c113394371="" routerlink="/profiles" routerlinkactive="active" data-testid="sidebar-nav-profiles" class="nav-item" href="../../pages/admin-profiles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">badge</span><span _ngcontent-ng-c113394371="">Profiles</span></a><a _ngcontent-ng-c113394371="" routerlink="/assets" routerlinkactive="active" data-testid="sidebar-nav-assets" class="nav-item" href="../../pages/admin-assets/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">perm_media</span><span _ngcontent-ng-c113394371="">Assets</span></a><a _ngcontent-ng-c113394371="" routerlink="/invitations" routerlinkactive="active" data-testid="sidebar-nav-invitations" class="nav-item" href="../../pages/admin-invitations/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">mail</span><span _ngcontent-ng-c113394371="">Invitations</span></a><a _ngcontent-ng-c113394371="" routerlink="/settings" routerlinkactive="active" data-testid="sidebar-nav-settings" class="nav-item" href="../../pages/admin-settings/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">settings</span><span _ngcontent-ng-c113394371="">Settings</span></a></nav><div _ngcontent-ng-c113394371="" class="sidebar-footer"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-info" class="user-info"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-avatar" class="user-avatar">M</div><div _ngcontent-ng-c113394371="" class="user-details"><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-name" class="user-name">mira.fern</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-role" class="user-role">Member</span></div></div></div></aside></app-sidebar><main _ngcontent-ng-c4107272877="" class="layout-main" id="main"><div class="board-page">
+  <div class="board-header">
+    <div>
+      <h1 data-testid="board-title">Board of Directors</h1>
+      <p>The directors the home page shows under "Meet the board", in this order. Changes are live on the website as soon as you save.</p>
+    </div>
+    <button type="button" class="btn btn-primary" data-mock-href="../../dialogs/admin-director-editor/default.html"><span class="material-icons" aria-hidden="true">person_add</span> Add director</button>
+  </div>
+  <ol class="board-list" aria-label="Board of Directors">
+      <li class="director-card">
+        <img class="director-card__photo" src="../../assets/own/portrait-1.svg" width="56" height="56" alt="">
+        <h2>Rosalind Achebe</h2>
+        <div class="director-card__meta">
+          <span>President</span>
+          <span>With a photo</span>
+        </div>
+        <div class="director-card__actions">
+          <button type="button" class="btn btn-secondary" aria-label="Move Rosalind Achebe up" disabled><span class="material-icons" aria-hidden="true">arrow_upward</span> Move up</button>
+          <button type="button" class="btn btn-secondary" aria-label="Move Rosalind Achebe down" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_downward</span> Move down</button>
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-director-editor/edit.html" aria-label="Edit Rosalind Achebe">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-director-remove/default.html" aria-label="Remove Rosalind Achebe">Remove</button>
+        </div>
+      </li>
+      <li class="director-card">
+        <img class="director-card__photo" src="../../assets/own/portrait-2.svg" width="56" height="56" alt="">
+        <h2>Margit Halvorsen</h2>
+        <div class="director-card__meta">
+          <span>Treasurer</span>
+          <span>With a photo</span>
+        </div>
+        <div class="director-card__actions">
+          <button type="button" class="btn btn-secondary" aria-label="Move Margit Halvorsen up" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_upward</span> Move up</button>
+          <button type="button" class="btn btn-secondary" aria-label="Move Margit Halvorsen down" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_downward</span> Move down</button>
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-director-editor/edit.html" aria-label="Edit Margit Halvorsen">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-director-remove/default.html" aria-label="Remove Margit Halvorsen">Remove</button>
+        </div>
+      </li>
+      <li class="director-card">
+        <img class="director-card__photo" src="../../assets/own/portrait-3.svg" width="56" height="56" alt="">
+        <h2>Dolores Quintero</h2>
+        <div class="director-card__meta">
+          <span>Secretary</span>
+          <span>With a photo</span>
+        </div>
+        <div class="director-card__actions">
+          <button type="button" class="btn btn-secondary" aria-label="Move Dolores Quintero up" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_upward</span> Move up</button>
+          <button type="button" class="btn btn-secondary" aria-label="Move Dolores Quintero down" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_downward</span> Move down</button>
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-director-editor/edit.html" aria-label="Edit Dolores Quintero">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-director-remove/default.html" aria-label="Remove Dolores Quintero">Remove</button>
+        </div>
+      </li>
+      <li class="director-card">
+        <span class="director-card__photo" aria-hidden="true">JO</span>
+        <h2>June Okonkwo-Baptiste</h2>
+        <div class="director-card__meta">
+          <span>Member at large</span>
+          <span>No photo</span>
+        </div>
+        <div class="director-card__actions">
+          <button type="button" class="btn btn-secondary" aria-label="Move June Okonkwo-Baptiste up" data-mock-href="../../notifications/admin-board-saved/success.html"><span class="material-icons" aria-hidden="true">arrow_upward</span> Move up</button>
+          <button type="button" class="btn btn-secondary" aria-label="Move June Okonkwo-Baptiste down" disabled><span class="material-icons" aria-hidden="true">arrow_downward</span> Move down</button>
+          <button type="button" class="btn btn-secondary" data-mock-href="../../dialogs/admin-director-editor/edit.html" aria-label="Edit June Okonkwo-Baptiste">Edit</button>
+          <button type="button" class="btn btn-danger-outline" data-mock-href="../../dialogs/admin-director-remove/default.html" aria-label="Remove June Okonkwo-Baptiste">Remove</button>
+        </div>
+      </li>
+  </ol>
+  <app-bottom-tab-bar _ngcontent-ng-c4133025109="" class="mobile-only" _nghost-ng-c1362238811=""><nav _ngcontent-ng-c1362238811="" data-testid="bottom-tab-bar" class="bottom-tab-bar"><a _ngcontent-ng-c1362238811="" routerlink="/dashboard" routerlinkactive="active" data-testid="tab-home" class="tab-item" href="../../pages/admin-dashboard/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">home</span><span _ngcontent-ng-c1362238811="" class="tab-label">Home</span></a><a _ngcontent-ng-c1362238811="" routerlink="/maintenance" routerlinkactive="active" data-testid="tab-requests" class="tab-item" href="../../pages/admin-maintenance/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">build</span><span _ngcontent-ng-c1362238811="" class="tab-label">Requests</span></a><a _ngcontent-ng-c1362238811="" routerlink="/documents" routerlinkactive="active" data-testid="tab-docs" class="tab-item" href="../../pages/admin-documents/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">description</span><span _ngcontent-ng-c1362238811="" class="tab-label">Docs</span></a><a _ngcontent-ng-c1362238811="" routerlink="/messaging" routerlinkactive="active" data-testid="tab-messages" class="tab-item" href="../../pages/admin-messaging/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">chat</span><span _ngcontent-ng-c1362238811="" class="tab-label">Messages</span></a><a _ngcontent-ng-c1362238811="" routerlink="/profile" routerlinkactive="active" data-testid="tab-profile" class="tab-item" href="../../pages/admin-profile/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">person</span><span _ngcontent-ng-c1362238811="" class="tab-label">Profile</span></a></nav></app-bottom-tab-bar>
+</div></main></div></app-layout></app-root></div>
+<div class="director-dialog-backdrop" aria-hidden="true"></div>
+<dialog class="director-dialog" open aria-labelledby="director-editor-title" aria-describedby="director-editor-intro" data-testid="director-editor">
+  <form method="dialog" novalidate>
+    <div class="director-dialog__header">
+      <h2 id="director-editor-title">Add director</h2>
+      <p id="director-editor-intro">The director joins the end of the list on the website as soon as you save.</p>
+    </div>
+    <div class="director-dialog__body">
+      <div class="director-dialog__errors" role="alert">We couldn't save the board list. Try again.</div>
+      <div class="form-group">
+        <label for="director-name-field">Name</label>
+        <input id="director-name-field" name="name" type="text" value="June Okonkwo-Baptiste" autocomplete="off" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="director-title-field">Role on the board</label>
+        <input id="director-title-field" name="title" type="text" value="Member at large" autocomplete="off" required aria-describedby="director-title-help">
+        <span class="field-help" id="director-title-help">For example President, Treasurer, Secretary or Member at large.</span>
+      </div>
+      <div class="form-group">
+        <label for="director-photo-field">Photo address (optional)</label>
+        <input id="director-photo-field" name="photoUrl" type="url" value="" aria-describedby="director-photo-help">
+        <span class="field-help" id="director-photo-help">Paste the address of a portrait from the Assets library. Without one, the website shows the director's initials.</span>
+      </div>
+    </div>
+    <div class="director-dialog__footer">
+      <button type="button" class="btn btn-secondary" data-mock-href="../../pages/admin-board/default.html">Cancel</button>
+      <button type="submit" class="btn btn-primary" data-mock-href="../../notifications/admin-board-saved/success.html">Save director</button>
+    </div>
+  </form>
+</dialog>
+<aside class="mock-bar"><details><summary>Admin · Director Editor · failed — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a> <a href="default.html">default</a> <a href="invalid.html">invalid</a> <a href="busy.html">busy</a> <a href="failed.html" aria-current="page">failed</a> <a href="edit.html">edit</a> <a href="../../pages/admin-board/default.html">Back to page</a></nav><p class="mock-note">Hand-written design reference for the Board of Directors list, implemented by the admin app in features/board/. Forms do not submit. Sample directors are fictional.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/board/board.component.ts</code></p></details></aside>
+</body></html>

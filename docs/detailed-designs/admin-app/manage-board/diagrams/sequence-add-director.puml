@@ -1,0 +1,45 @@
+@startuml
+title UML sequence behaviour — Add a director and show them on the home page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as actor
+actor "Visitor" as visitor
+box "Frontend — Admin application" #E0F2FE
+  participant "BoardComponent" as screen
+  participant "BoardService" as service
+end box
+box "Frontend — Public application" #DCFCE7
+  participant "LandingComponent" as landing
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "BoardOfDirectorsController" as controller
+  participant "ValidationBehavior" as validation
+  participant "AuthorizationBehavior" as authz
+  participant "SaveBoardOfDirectorsHandler" as handler
+  database "CoopDbContext" as db
+end box
+actor -> screen : "Add director", fill name, role, photo address, "Save director"
+screen -> screen : validateDirectorDraft(draft)
+alt name or role is empty
+  screen --> actor : Dialog stays open, fields marked invalid  [L2-REQ-085 AC5]
+else draft is valid
+  screen -> screen : saving = true ("Saving…"); list = directors + new director  [L2-REQ-085 AC6]
+  screen -> service : save(list)
+  service -> controller : PUT api/board-of-directors { directors } (bearer token)
+  controller -> validation : Send(SaveBoardOfDirectorsRequest)
+  validation -> authz : names, roles, photo addresses valid  [L2-REQ-086 AC5]
+  authz -> handler : caller holds Write on JsonContent  [L2-REQ-086 AC2]
+  handler -> db : BoardOfDirectors entry (add when missing)
+  handler -> db : Json = { members: [...] }, SaveChanges
+  controller --> service : 200 { directors }
+  screen -> screen : close dialog, notice "“{name}” is now on the board list."
+  screen --> actor : Director listed at the end
+end
+visitor -> landing : open the home page
+landing -> controller : GET api/jsoncontent/name/BoardOfDirectors (anonymous)
+controller --> landing : { members } in the saved order
+landing --> visitor : "Meet the board" shows the new director  [L2-REQ-085 AC11, L2-REQ-070 AC2]
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage the Board of Directors
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(screen, "BoardComponent", "Angular standalone component", "List, reorder, editor dialog and remove dialog at /board")
+  Component(helpers, "validateDirectorDraft, directorFromDraft, moveDirector", "Plain TypeScript functions", "Field checks, trimming and swapping neighbours")
+  Component(service, "BoardService", "Angular service", "GET and PUT /board-of-directors")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "BoardOfDirectorsController", "ASP.NET Core controller", "api/board-of-directors; reads are anonymous")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "Runs SaveBoardOfDirectorsValidator")
+  Component(authz, "ResourceOperationAuthorizationBehavior", "MediatR pipeline behavior", "Requires Write on the JsonContent aggregate")
+  Component(handlers, "Board handlers", "MediatR handlers", "GetBoardOfDirectors, SaveBoardOfDirectors")
+  Component(content, "BoardOfDirectorsContent", "Static helper", "Reads and writes { members: [...] } JSON")
+  Component(middleware, "ExceptionHandlingMiddleware", "ASP.NET Core middleware", "ValidationException to 400, UnauthorizedAccessException to 403")
+  ComponentDb(db, "CoopDbContext", "EF Core", "JsonContents DbSet")
+}
+Rel(screen, helpers, "Uses")
+Rel(screen, service, "Loads and saves the list with")
+Rel(service, controller, "Calls", "JSON/HTTPS")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, authz, "Then")
+Rel(authz, handlers, "Then")
+Rel(handlers, content, "Converts the list with")
+Rel(handlers, db, "Queries and saves the BoardOfDirectors entry", "EF Core")
+Rel(middleware, controller, "Wraps")
+@enduml

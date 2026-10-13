@@ -13,6 +13,7 @@ export class SidebarComponent {
   readonly maintenanceLink: Locator;
   readonly documentsLink: Locator;
   readonly pagesLink: Locator;
+  readonly boardLink: Locator;
   readonly messagesLink: Locator;
   readonly usersLink: Locator;
   readonly rolesLink: Locator;
@@ -38,6 +39,7 @@ export class SidebarComponent {
     this.maintenanceLink = page.getByTestId('sidebar-nav-maintenance');
     this.documentsLink = page.getByTestId('sidebar-nav-documents');
     this.pagesLink = page.getByTestId('sidebar-nav-pages');
+    this.boardLink = page.getByTestId('sidebar-nav-board');
     this.messagesLink = page.getByTestId('sidebar-nav-messages');
     this.usersLink = page.getByTestId('sidebar-nav-users');
     this.rolesLink = page.getByTestId('sidebar-nav-roles');
@@ -69,6 +71,7 @@ export class SidebarComponent {
       | 'maintenance'
       | 'documents'
       | 'pages'
+      | 'board'
       | 'messages'
       | 'users'
       | 'roles'
@@ -82,6 +85,7 @@ export class SidebarComponent {
       maintenance: this.maintenanceLink,
       documents: this.documentsLink,
       pages: this.pagesLink,
+      board: this.boardLink,
       messages: this.messagesLink,
       users: this.usersLink,
       roles: this.rolesLink,

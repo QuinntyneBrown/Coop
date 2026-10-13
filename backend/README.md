@@ -92,7 +92,7 @@ The code does not yet match every rule in [AGENTS.md](../AGENTS.md):
   migrations through an explicit command, and there is no `Coop.Cli` project for
   `migrate`, `seed`, and `reset`.
 - Only `Coop.Api.Tests` exists under `backend/tests/`; it covers website pages
-  so far. Add coverage for other areas through the API, following its pattern.
+  and the Board of Directors list so far. Add coverage for other areas through the API, following its pattern.
 
 Close the remaining gaps in a slice of their own, with an ADR for each decision.
 
@@ -130,6 +130,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/digitalasset` | Upload, avatars, and listing; `serve/{id}` and `by-name/{name}` are anonymous |
 | `/api/theme` | Themes, including the default theme and a theme per profile |
 | `/api/jsoncontent` | CMS content; `GET name/{name}` is anonymous |
+| `/api/board-of-directors` | The board list the home page shows, stored as the `BoardOfDirectors` JSON content; `GET` is anonymous, `PUT` replaces the whole list and requires the Write privilege on the `JsonContent` aggregate |
 | `/api/pages` | Website pages for the public site; `GET` and `GET {slug}` are anonymous, `POST`, `PUT` and `DELETE {pageId}` require the Create, Write or Delete privilege on the `Page` aggregate |
 | `/api/events`, `/api/storedevent` | Event sourcing and audit history |
 | `PublicBffController` routes | Endpoints shaped for the public app: `user/register`, `user/profile`, `maintenance-requests`, `documents`, `conversations/{id}/messages`, `board-members`, `json-content` |
