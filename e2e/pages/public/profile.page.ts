@@ -25,6 +25,7 @@ export class ProfilePage {
   readonly phone: Locator;
   readonly unit: Locator;
   readonly memberSince: Locator;
+  readonly notices: Locator;
 
   // Edit mode
   readonly editButton: Locator;
@@ -35,6 +36,11 @@ export class ProfilePage {
   readonly saveButton: Locator;
   readonly cancelButton: Locator;
   readonly successMessage: Locator;
+  readonly noticeChoice: Locator;
+  readonly noticeByEmail: Locator;
+  readonly noticeByText: Locator;
+  readonly noticeChoiceHint: Locator;
+  readonly noticeChoiceError: Locator;
 
   // Profile switching
   readonly profileSwitcher: Locator;
@@ -72,6 +78,7 @@ export class ProfilePage {
     this.phone = page.locator('[data-testid="profile-phone"]');
     this.unit = page.locator('[data-testid="profile-unit"]');
     this.memberSince = page.locator('[data-testid="profile-member-since"]');
+    this.notices = page.getByTestId('profile-notices');
 
     this.editButton = page.locator('[data-testid="profile-edit-btn"]');
     this.firstNameInput = page.locator('[data-testid="profile-first-name-input"]');
@@ -81,6 +88,19 @@ export class ProfilePage {
     this.saveButton = page.locator('[data-testid="profile-save-btn"]');
     this.cancelButton = page.locator('[data-testid="profile-cancel-btn"]');
     this.successMessage = page.locator('[data-testid="profile-success-message"]');
+    this.noticeChoice = page.getByRole('group', {
+      name: 'Send me new notices',
+    });
+    this.noticeByEmail = this.noticeChoice.getByRole('checkbox', {
+      name: 'By email',
+    });
+    this.noticeByText = this.noticeChoice.getByRole('checkbox', {
+      name: 'By text message',
+    });
+    this.noticeChoiceHint = this.noticeChoice.getByText(
+      'We use the email address and phone number above.',
+    );
+    this.noticeChoiceError = this.noticeChoice.getByRole('alert');
 
     this.profileSwitcher = page.locator('[data-testid="profile-switcher"]');
     this.profileOptions = page.locator('[data-testid="profile-switcher-option"]');

@@ -25,6 +25,12 @@ export class DocumentsPage {
   readonly dialogStatusSelect: Locator;
   readonly dialogCancelButton: Locator;
   readonly dialogSaveButton: Locator;
+  readonly dialogSendCheckbox: Locator;
+  readonly dialogSendHint: Locator;
+  readonly dialogError: Locator;
+
+  // Status message after a notice is sent
+  readonly statusMessage: Locator;
 
   // Delete dialog
   readonly deleteDialog: Locator;
@@ -51,6 +57,15 @@ export class DocumentsPage {
     this.dialogStatusSelect = page.getByTestId('document-dialog-status');
     this.dialogCancelButton = page.getByTestId('document-dialog-cancel');
     this.dialogSaveButton = page.getByTestId('document-dialog-save');
+    this.dialogSendCheckbox = page.getByRole('checkbox', {
+      name: 'Also send to members by email and text',
+    });
+    this.dialogSendHint = this.documentDialog.getByText(
+      'Only members who asked for new notices on their profile get one.',
+    );
+    this.dialogError = this.documentDialog.getByRole('alert');
+
+    this.statusMessage = page.getByRole('status').filter({ hasText: 'is published and sent' });
 
     this.deleteDialog = page.getByTestId('document-delete-dialog');
     this.deleteConfirmButton = page.getByTestId('document-delete-confirm');
@@ -99,6 +114,21 @@ export class DocumentsPage {
     await this.dialogTypeSelect.selectOption(type);
     await this.dialogContentInput.fill(content);
     await this.dialogStatusSelect.selectOption(status);
+    await this.dialogSaveButton.click();
+  }
+
+  async fillDocument(title: string, type: string, content: string, status: string) {
+    await this.newDocumentButton.click();
+    await expect(this.documentDialog).toBeVisible();
+    await this.dialogTitleInput.fill(title);
+    await this.dialogTypeSelect.selectOption(type);
+    await this.dialogContentInput.fill(content);
+    await this.dialogStatusSelect.selectOption(status);
+  }
+
+  async publishNoticeAndSend(title: string, content: string) {
+    await this.fillDocument(title, 'Notice', content, 'Published');
+    await this.dialogSendCheckbox.check();
     await this.dialogSaveButton.click();
   }
 

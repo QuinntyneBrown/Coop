@@ -37,4 +37,12 @@ export class DocumentService {
   publishDocument(id: string): Observable<any> {
     return this.api.put('/document/publish', { documentId: id });
   }
+
+  createNotice(data: { name: string; body: string }): Observable<any> {
+    return this.api.post('/notice', data);
+  }
+
+  sendNotice(id: string): Observable<any> {
+    return this.api.post(`/notice/${id}/send`);
+  }
 }

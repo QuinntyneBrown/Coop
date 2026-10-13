@@ -43,6 +43,7 @@ public static class Dependencies
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<ITokenBuilder, TokenBuilder>();
         services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<INoticeSender, LoggingNoticeSender>();
 
         // Authorization handler
         services.AddScoped<IAuthorizationHandler, ResourceOperationAuthorizationHandler>();

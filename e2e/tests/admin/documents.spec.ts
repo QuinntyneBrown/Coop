@@ -1,6 +1,8 @@
 import { test, expect } from '../../fixtures/admin/api.fixture';
 import { DocumentsPage } from '../../pages/admin/documents.page';
 import { SidebarComponent } from '../../pages/admin/sidebar.component';
+import type { MockApi } from '../../fixtures/mock-api/mock-api';
+import { MEMBER_PROFILE_ID } from '../../fixtures/mock-api/mock-store';
 
 test.describe('Documents', () => {
   let documentsPage: DocumentsPage;
@@ -249,6 +251,97 @@ test.describe('Documents', () => {
       const initialCount = await documentsPage.getDocumentCount();
       await documentsPage.deleteDocument(0);
       await expect(documentsPage.deleteDialog).toBeHidden();
+    });
+  });
+
+  // L2-REQ-093: the office sends a published notice once to the members who asked for it.
+  test.describe('Send a notice to members', () => {
+    const title = 'Water off on Tuesday';
+    const content = 'The water is off on Tuesday from 9 am to noon while the pipes are repaired.';
+
+    const askForNotices = (mockApi: MockApi) => {
+      const member = mockApi.store.profiles.find((p) => p.profileId === MEMBER_PROFILE_ID)!;
+      member.noticeByEmail = true;
+      member.noticeByText = true;
+      return member;
+    };
+
+    test('Given a new notice, when it is published, then the send choice shows unticked with its hint', async () => {
+      await documentsPage.newDocumentButton.click();
+      await expect(documentsPage.dialogSendCheckbox).toBeHidden();
+
+      await documentsPage.dialogStatusSelect.selectOption('Published');
+      await expect(documentsPage.dialogSendCheckbox).toBeVisible();
+      await expect(documentsPage.dialogSendCheckbox).not.toBeChecked();
+      await expect(documentsPage.dialogSendHint).toBeVisible();
+
+      await documentsPage.dialogTypeSelect.selectOption('Report');
+      await expect(documentsPage.dialogSendCheckbox).toBeHidden();
+    });
+
+    test('Given a member who asked for notices, when the office publishes and sends a notice, then it is published and sent once', async ({
+      mockApi,
+    }) => {
+      const member = askForNotices(mockApi);
+
+      await documentsPage.publishNoticeAndSend(title, content);
+
+      await expect(documentsPage.documentDialog).toBeHidden();
+      await expect(documentsPage.statusMessage).toContainText(
+        `“${title}” is published and sent to members who asked for notices.`,
+      );
+      const card = documentsPage.documentCards.filter({ hasText: title });
+      await expect(card.getByTestId('document-status-badge')).toHaveText('Published');
+      const notice = mockApi.store.documents.find((d) => d.name === title)!;
+      expect(notice.documentType).toBe('Notice');
+      expect(notice.sentOn).toBeTruthy();
+      const sent = mockApi.store.noticeMessages.filter((m) => m.documentId === notice.documentId);
+      expect(sent).toContainEqual(expect.objectContaining({ channel: 'email', to: member.email }));
+      expect(sent).toContainEqual(
+        expect.objectContaining({
+          channel: 'text',
+          to: member.phoneNumber,
+          text: `New notice from the co-op: ${title}. ${content}`,
+        }),
+      );
+    });
+
+    test('Given the send choice is left unticked, when the office publishes a notice, then nothing is sent', async ({
+      mockApi,
+    }) => {
+      askForNotices(mockApi);
+
+      await documentsPage.fillDocument(title, 'Notice', content, 'Published');
+      await documentsPage.dialogSaveButton.click();
+
+      await expect(documentsPage.documentDialog).toBeHidden();
+      const notice = mockApi.store.documents.find((d) => d.name === title)!;
+      expect(notice.status).toBe('Published');
+      expect(notice.sentOn).toBeFalsy();
+      expect(mockApi.store.noticeMessages).toHaveLength(0);
+    });
+
+    test('Given sending fails, when the office presses Save again, then it is sent without a second notice', async ({
+      mockApi,
+    }) => {
+      askForNotices(mockApi);
+      mockApi.failing.add('POST notice/:id/send');
+
+      await documentsPage.publishNoticeAndSend(title, content);
+
+      await expect(documentsPage.dialogError).toContainText(
+        `“${title}” is published, but it was not sent to members. Press Save to try again.`,
+      );
+      await expect(documentsPage.dialogTitleInput).toHaveValue(title);
+      await expect(documentsPage.dialogSendCheckbox).toBeChecked();
+
+      mockApi.failing.clear();
+      await documentsPage.dialogSaveButton.click();
+
+      await expect(documentsPage.documentDialog).toBeHidden();
+      await expect(documentsPage.statusMessage).toBeVisible();
+      expect(mockApi.store.documents.filter((d) => d.name === title)).toHaveLength(1);
+      expect(mockApi.store.noticeMessages.filter((m) => m.channel === 'email')).toHaveLength(1);
     });
   });
 });

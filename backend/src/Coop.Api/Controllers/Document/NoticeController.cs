@@ -1,5 +1,6 @@
 using Coop.Application.Documents.Commands.CreateNotice;
 using Coop.Application.Documents.Commands.RemoveNotice;
+using Coop.Application.Documents.Commands.SendNotice;
 using Coop.Application.Documents.Commands.UpdateNotice;
 using Coop.Application.Documents.Queries.GetNoticeById;
 using Coop.Application.Documents.Queries.GetNotices;
@@ -36,6 +37,10 @@ public class NoticeController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CreateNoticeResponse>> Create([FromBody] CreateNoticeRequest request)
         => Ok(await _mediator.Send(request));
+
+    [HttpPost("{documentId}/send")]
+    public async Task<ActionResult<SendNoticeResponse>> Send([FromRoute] Guid documentId)
+        => Ok(await _mediator.Send(new SendNoticeRequest { DocumentId = documentId }));
 
     [HttpPut]
     public async Task<ActionResult<UpdateNoticeResponse>> Update([FromBody] UpdateNoticeRequest request)

@@ -1,0 +1,45 @@
+@startuml
+title UML sequence behaviour — A member chooses email, and the office sends a notice
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member" as member
+actor "Office" as office
+box "Frontend — Public and admin applications" #E0F2FE
+  participant "ProfileComponent" as profile
+  participant "DocumentsComponent" as documents
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PublicBffController" as bff
+  participant "NoticeController\nDocumentController" as controller
+  participant "SendNoticeHandler" as handler
+  participant "INoticeSender\n(LoggingNoticeSender)" as sender
+  database "CoopDbContext" as db
+end box
+member -> profile : Edit, tick "By email", "Save Changes"
+profile -> profile : noticeChoiceError  [L2-REQ-092 AC3]
+profile -> bff : PUT api/user/profile { noticeByEmail: true }
+bff -> db : set NoticeByEmail on own profile  [AC5]
+profile --> member : "New notices: By email"  [AC4]
+office -> documents : New Document, Notice, Published,\ntick "Also send to members by email and text"  [L2-REQ-093 AC1]
+office -> documents : "Save"
+documents --> office : "Saving…", disabled  [AC3]
+documents -> controller : POST api/notice { name, body }
+documents -> controller : PUT api/document/publish { documentId }  [AC2]
+documents -> controller : POST api/notice/{documentId}/send
+controller -> handler : Write on Notice, published notice  [AC6, AC7]
+alt SentOn already set
+  handler --> controller : notice unchanged, nothing sent  [AC8, ADR 0007]
+else first send
+  handler -> db : profiles with NoticeByEmail or NoticeByText and an address
+  handler -> sender : SendEmailAsync(email, "New notice: {title}", text)\nSendTextAsync(phone, "New notice from the co-op: …")  [AC5]
+  handler -> db : SentOn = now, SaveChanges
+end
+controller --> documents : 200 { notice: { sentOn } }
+documents --> office : dialog closes, "“{title}” is published and sent to members who asked for notices."  [AC3]
+alt send fails
+  documents --> office : dialog stays, alert "… Press Save to try again."  [AC4]
+end
+@enduml

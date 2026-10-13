@@ -6,6 +6,7 @@ import { UserService, UserProfile } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
 import { catchError, of } from 'rxjs';
 import { photoFileError } from '../maintenance/photo-file-error';
+import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
 
 @Component({
   selector: 'app-profile',
@@ -151,6 +152,12 @@ import { photoFileError } from '../maintenance/photo-file-error';
               }}</span>
             </div>
             <div class="info-row">
+              <span class="info-label">New notices</span>
+              <span class="info-value" data-testid="profile-notices">{{
+                noticeChoiceLabel(profile?.noticeByEmail, profile?.noticeByText)
+              }}</span>
+            </div>
+            <div class="info-row">
               <span class="info-label">Unit</span>
               <span class="info-value" data-testid="profile-unit">{{
                 profile?.unit || 'Not assigned'
@@ -215,6 +222,47 @@ import { photoFileError } from '../maintenance/photo-file-error';
                 name="phone"
               />
             </div>
+            <fieldset
+              class="notice-choice"
+              [attr.aria-describedby]="
+                noticeError ? 'notice-choice-hint notice-choice-error' : 'notice-choice-hint'
+              "
+            >
+              <legend>Send me new notices</legend>
+              <label for="noticeByEmail">
+                <input
+                  id="noticeByEmail"
+                  type="checkbox"
+                  data-testid="profile-notice-email"
+                  [(ngModel)]="editData.noticeByEmail"
+                  name="noticeByEmail"
+                />
+                By email
+              </label>
+              <label for="noticeByText">
+                <input
+                  id="noticeByText"
+                  type="checkbox"
+                  data-testid="profile-notice-text"
+                  [(ngModel)]="editData.noticeByText"
+                  name="noticeByText"
+                />
+                By text message
+              </label>
+              <p id="notice-choice-hint" class="notice-choice__hint">
+                We use the email address and phone number above.
+              </p>
+              @if (noticeError) {
+                <p
+                  id="notice-choice-error"
+                  class="notice-choice__error"
+                  role="alert"
+                  data-testid="profile-notices-error"
+                >
+                  {{ noticeError }}
+                </p>
+              }
+            </fieldset>
             <div class="edit-actions">
               <button
                 class="btn btn-outline"
@@ -456,6 +504,57 @@ import { photoFileError } from '../maintenance/photo-file-error';
         }
       }
 
+      .notice-choice {
+        border: 0;
+        margin: 0 0 16px;
+        padding: 0;
+        display: grid;
+        gap: 4px;
+        min-width: 0;
+
+        legend {
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          padding: 0;
+        }
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          min-height: 44px;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        input[type='checkbox'] {
+          width: 22px;
+          height: 22px;
+          margin: 0;
+          flex-shrink: 0;
+          accent-color: var(--primary);
+        }
+
+        input[type='checkbox']:focus-visible {
+          outline: 3px solid #6b3f60;
+          outline-offset: 2px;
+        }
+      }
+
+      .notice-choice__hint {
+        font-size: 14px;
+        color: #5f5e5b;
+        margin: 0;
+      }
+
+      .notice-choice__error {
+        color: #b42318;
+        font-size: 15px;
+        margin: 4px 0 0;
+      }
+
       .info-row {
         display: flex;
         justify-content: space-between;
@@ -590,7 +689,16 @@ export class ProfileComponent implements OnInit {
   profile: UserProfile | null = null;
   profiles: UserProfile[] = [];
   editMode = false;
-  editData = { firstName: '', lastName: '', email: '', phone: '' };
+  editData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    noticeByEmail: false,
+    noticeByText: false,
+  };
+  noticeError = '';
+  readonly noticeChoiceLabel = noticeChoiceLabel;
   successMessage = '';
   showPasswordForm = false;
   showProfileOptions = false;
@@ -631,12 +739,15 @@ export class ProfileComponent implements OnInit {
   enterEditMode() {
     this.editMode = true;
     this.successMessage = '';
+    this.noticeError = '';
     if (this.profile) {
       this.editData = {
         firstName: this.profile.firstName || '',
         lastName: this.profile.lastName || '',
         email: this.profile.email || '',
         phone: this.profile.phone || '',
+        noticeByEmail: this.profile.noticeByEmail === true,
+        noticeByText: this.profile.noticeByText === true,
       };
     }
   }
@@ -647,6 +758,8 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile() {
+    this.noticeError = noticeChoiceError(this.editData);
+    if (this.noticeError) return;
     this.userService.updateProfile(this.editData).subscribe({
       next: (updated) => {
         this.profile = {

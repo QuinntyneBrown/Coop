@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Security.Cryptography;
+using Coop.Application.Common.Interfaces;
 using Coop.Domain.Identity;
 using Coop.Domain.Profiles;
 using Coop.Infrastructure.Persistence;
@@ -28,6 +29,9 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     public const string MemberUsername = "member";
     public const string MemberPassword = "Member123!";
 
+    /// <summary>The notices the API sent, kept instead of leaving the system.</summary>
+    public RecordingNoticeSender Notices { get; } = new();
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
@@ -37,6 +41,8 @@ public class CoopApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<DbContextOptions<CoopDbContext>>();
             services.RemoveAll<DbContextOptions>();
             services.AddDbContext<CoopDbContext>(options => options.UseInMemoryDatabase(_databaseName));
+            services.RemoveAll<INoticeSender>();
+            services.AddSingleton<INoticeSender>(Notices);
         });
     }
 

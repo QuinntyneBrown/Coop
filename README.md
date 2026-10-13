@@ -59,6 +59,10 @@ surface that serves both applications.
   comments, photo evidence, and an audit history.
 - Document management for notices, bylaws, and reports, with draft and
   published states; published documents are readable anonymously.
+- Members choose on their profile whether new notices reach them by email or
+  text message, and the office sends a published notice to them once. Until an
+  email and text message provider is connected, the API writes each message to
+  its log.
 - Messaging between members and staff.
 - Digital asset upload, avatars, and anonymous serving of public assets.
 - Theme and JSON content management that drives the public site, and website

@@ -5,6 +5,7 @@ namespace Coop.Application.Documents.Dtos;
 public class NoticeDto : DocumentDto
 {
     public string? Body { get; set; }
+    public DateTime? SentOn { get; set; }
 
     public static NoticeDto FromNotice(Notice notice)
     {
@@ -15,7 +16,8 @@ public class NoticeDto : DocumentDto
             DigitalAssetId = notice.DigitalAssetId,
             CreatedOn = notice.CreatedOn,
             Published = notice.Published,
-            Body = notice.Body
+            Body = notice.Body,
+            SentOn = notice.SentOn
         };
     }
 }

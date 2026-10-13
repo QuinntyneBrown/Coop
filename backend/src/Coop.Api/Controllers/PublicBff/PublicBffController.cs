@@ -138,6 +138,8 @@ public class PublicBffController : ControllerBase
             phone = profile?.PhoneNumber ?? "",
             unit = (profile is Coop.Domain.Profiles.Member m) ? m.UnitNumber ?? "" : "",
             avatarUrl = ProfileDto.AvatarUrlFor(profile?.AvatarDigitalAssetId) ?? "",
+            noticeByEmail = profile?.NoticeByEmail ?? false,
+            noticeByText = profile?.NoticeByText ?? false,
             memberSince = DateTime.UtcNow.AddYears(-1).ToString("o"),
             roles = user.Roles?.Select(r => r.Name).ToArray() ?? Array.Empty<string>()
         });
@@ -157,6 +159,8 @@ public class PublicBffController : ControllerBase
             if (!string.IsNullOrEmpty(request.LastName)) profile.Lastname = request.LastName;
             if (!string.IsNullOrEmpty(request.Email)) profile.Email = request.Email;
             if (!string.IsNullOrEmpty(request.Phone)) profile.PhoneNumber = request.Phone;
+            if (request.NoticeByEmail.HasValue) profile.NoticeByEmail = request.NoticeByEmail.Value;
+            if (request.NoticeByText.HasValue) profile.NoticeByText = request.NoticeByText.Value;
             await _context.SaveChangesAsync(default);
         }
 
@@ -168,6 +172,8 @@ public class PublicBffController : ControllerBase
             lastName = request.LastName ?? profile?.Lastname ?? "",
             email = request.Email ?? profile?.Email ?? "",
             phone = request.Phone ?? profile?.PhoneNumber ?? "",
+            noticeByEmail = profile?.NoticeByEmail ?? false,
+            noticeByText = profile?.NoticeByText ?? false,
         });
     }
 
@@ -662,6 +668,8 @@ public class UpdateProfileRequest
     public string? LastName { get; set; }
     public string? Email { get; set; }
     public string? Phone { get; set; }
+    public bool? NoticeByEmail { get; set; }
+    public bool? NoticeByText { get; set; }
 }
 
 public class ChangePasswordBffRequest
