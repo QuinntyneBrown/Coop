@@ -24,7 +24,7 @@ Use something else instead when:
 Out of scope:
 
 - Form validation, double-submit protection and the form-level error message. The form owns them and drives this component's `busy` input ([form field](form-field.md), [alert](alert.md)).
-- Button rows. `.btn-row` and `.modal-actions` are layout containers owned by the page and by [dialog](dialog.md); this CRD only requires that the button fills its share inside `.modal-actions`.
+- Button rows. `.btn-row` and `.modal-actions` are layout containers owned by the page and by [dialog](dialog.md), including wrapping of three or more actions; this CRD only requires that the button fills its share inside `.modal-actions`.
 - The live-region announcement of a busy state. The form's status region announces it; the button only exposes `aria-busy`.
 
 ## Usage
@@ -245,7 +245,7 @@ The secondary border (`--color-border-default`, decorative) is exempt from 1.4.1
 ## Responsive behaviour
 
 - The mocks define no media rule for buttons; height and padding are the same at every width (design-system page).
-- Below `--layout-breakpoint-md` (768 px) the sign-in, register and profile submits use `block` so they span the form; dialog actions stay on one row in `.modal-actions` with equal shares at every width.
+- Below `--layout-breakpoint-md` (768 px) the sign-in, register and profile submits use `block` so they span the form; a two-button `.modal-actions` row keeps both buttons on one row with equal shares at every width, and rows of three or more wrap as [dialog](dialog.md) D-16 specifies.
 - Labels wrap onto a second line rather than truncate; the minimum height grows with the wrapped label. "Creating account..." fits on one line at 320 px in a block button.
 - At 320 px nothing scrolls horizontally or clips, and at 400 % zoom every button stays reachable and operable (AGENTS.md reflow rule; WCAG 1.4.10).
 - Targets: `md` and `lg` are 40 px and 48 px tall, above the 24 px `--target-min`; `sm` is 32 px tall and keeps `--space-3` or more from its neighbours (accessibility foundation). Primary phone actions are block buttons at 40 px or more.
