@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Show the home page
+
+Person(visitor, "Visitor", "Opens the public site")
+System_Boundary(coop, "Coop") {
+  Container(public, "Public application", "Angular 22", "Public site and member app, served at /")
+  Container(api, "Coop API", "ASP.NET Core", "Anonymous read endpoints for CMS content, board members and published notices")
+  ContainerDb(db, "Coop database", "SQLite via EF Core", "JSON content, profiles and documents")
+}
+
+Rel(visitor, public, "Reads the home page", "HTTPS")
+Rel(public, api, "GET json-content, board-members, notice/published", "JSON/HTTPS")
+Rel(api, db, "Reads", "EF Core")
+@enduml

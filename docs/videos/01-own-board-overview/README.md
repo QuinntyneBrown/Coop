@@ -31,7 +31,7 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
-| `images/public-landing-1280.png`, `-360.png` | The proposed OWN home page, computer and phone |
+| `images/public-landing-1280.png`, `-360.png` | The OWN home page, computer and phone (implemented in the public app) |
 | `images/public-landing-tags-1280.png` | The same page with "Edited in admin" tags |
 | `images/admin-settings-1280.png`, `admin-assets-1280.png` | Colours and photo library (working today) |
 | `images/admin-documents-notices-1280.png`, `public-documents-notices-360.png` | Notices |
@@ -40,8 +40,9 @@ By the end, the viewer can:
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`. The
-home page is the OWN proposal mock; its sample facts (for example the founding year
-and number of homes) are proposal copy to confirm with OWN before the real site.
+home page is the OWN mock that the public app now implements; its sample facts (for
+example the founding year and number of homes) are default copy to confirm with OWN
+before the real site.
 
 ## Run sheet
 
@@ -49,7 +50,7 @@ and number of homes) are proposal copy to confirm with OWN before the real site.
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title, "a website and a helping hand", for everyone |
 | 00:17-00:30 | Six things | The six items and the two status chips |
-| 00:30-00:48 | 1 Beautiful and easy to read | Proposed home page, coming next |
+| 00:30-00:48 | 1 Beautiful and easy to read | OWN home page, working today (the narration still says "not live yet"; re-synthesize the audio when the script is updated) |
 | 00:48-01:26 | 2 OWN runs it | Edited-in-admin tags, colours and photos today, pages and board list next |
 | 01:26-01:44 | 3 Notices | Working today |
 | 01:44-02:12 | 4 Repair requests | Send, receive and follow |

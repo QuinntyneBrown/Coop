@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#E3EBE0"/>
+  <rect x="0" y="300" width="800" height="300" fill="#F6ECDD"/>
+  <rect x="0" y="290" width="800" height="24" rx="8" fill="#B4502A"/>
+  <!-- yarn balls -->
+  <g>
+    <circle cx="150" cy="420" r="60" fill="#D3A9C8"/><path d="M110 400 q40 -30 80 0 M100 430 q50 -34 100 0 M110 460 q40 -30 80 0" stroke="#B88AAE" stroke-width="5" fill="none"/>
+    <circle cx="270" cy="450" r="50" fill="#F0B35A"/><path d="M236 436 q34 -26 68 0 M230 460 q40 -28 80 0" stroke="#D09030" stroke-width="5" fill="none"/>
+    <circle cx="640" cy="430" r="58" fill="#6F9A6A"/><path d="M602 410 q38 -28 76 0 M595 440 q45 -32 90 0 M604 470 q36 -26 72 0" stroke="#4F7A4A" stroke-width="5" fill="none"/>
+  </g>
+  <!-- knitting in progress -->
+  <path d="M330 480 q60 -60 140 -20 q60 30 110 -10" stroke="#B4502A" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <path d="M330 480 q60 -60 140 -20 q60 30 110 -10" stroke="#E9775A" stroke-width="8" fill="none" stroke-dasharray="14 10" stroke-linecap="round"/>
+  <g stroke="#5A2E1C" stroke-width="7" stroke-linecap="round"><path d="M560 460 L700 330"/><path d="M590 470 L720 370"/></g>
+  <circle cx="700" cy="330" r="8" fill="#5A2E1C"/><circle cx="720" cy="370" r="8" fill="#5A2E1C"/>
+  <!-- hands -->
+  <g fill="#C68B59">
+    <ellipse cx="420" cy="500" rx="48" ry="30" transform="rotate(-15 420 500)"/>
+    <ellipse cx="560" cy="490" rx="48" ry="30" transform="rotate(15 560 490)"/>
+  </g>
+  <g fill="#F2C9A7"><ellipse cx="400" cy="520" rx="22" ry="12"/><ellipse cx="580" cy="512" rx="22" ry="12"/></g>
+  <!-- hanging finished scarf -->
+  <g>
+    <rect x="60" y="60" width="140" height="200" rx="16" fill="#6B3F60"/>
+    <g stroke="#D3A9C8" stroke-width="10"><path d="M60 100 h140"/><path d="M60 150 h140"/><path d="M60 200 h140"/></g>
+    <g stroke="#6B3F60" stroke-width="6" stroke-linecap="round"><path d="M80 260 v30"/><path d="M110 260 v34"/><path d="M140 260 v30"/><path d="M170 260 v34"/></g>
+  </g>
+  <!-- window -->
+  <rect x="480" y="50" width="240" height="200" rx="18" fill="#CFE3EC"/>
+  <path d="M600 50 v200 M480 150 h240" stroke="#FFF7EC" stroke-width="10"/>
+  <circle cx="660" cy="110" r="26" fill="#F0B35A"/>
+</svg>

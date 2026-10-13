@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D9C0"/><stop offset="1" stop-color="#FBF1E4"/></linearGradient>
+    <linearGradient id="brick" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8785A"/><stop offset="1" stop-color="#B3623F"/></linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="930" cy="190" r="110" fill="#F0B35A" opacity="0.9"/>
+  <ellipse cx="300" cy="230" rx="170" ry="48" fill="#FFF7EC" opacity="0.9"/>
+  <ellipse cx="760" cy="300" rx="130" ry="40" fill="#FFF7EC" opacity="0.8"/>
+  <!-- distant skyline -->
+  <g fill="#E4C8B6">
+    <rect x="40" y="420" width="90" height="220"/><rect x="150" y="470" width="60" height="170"/>
+    <rect x="1010" y="440" width="70" height="200"/><rect x="1095" y="490" width="90" height="150"/>
+  </g>
+  <!-- main building -->
+  <rect x="300" y="200" width="560" height="470" rx="18" fill="url(#brick)"/>
+  <rect x="300" y="200" width="560" height="36" rx="18" fill="#9E4322"/>
+  <!-- rooftop garden -->
+  <g>
+    <rect x="330" y="176" width="110" height="34" rx="8" fill="#6F8F6A"/>
+    <circle cx="350" cy="168" r="22" fill="#8FB58A"/><circle cx="390" cy="160" r="26" fill="#6F9A6A"/><circle cx="425" cy="170" r="20" fill="#A3C59D"/>
+    <rect x="700" y="176" width="130" height="34" rx="8" fill="#6F8F6A"/>
+    <circle cx="725" cy="164" r="24" fill="#8FB58A"/><circle cx="770" cy="158" r="28" fill="#6F9A6A"/><circle cx="812" cy="168" r="20" fill="#A3C59D"/>
+  </g>
+  <!-- windows -->
+  <g fill="#FFF4E3">
+    <rect x="340" y="270" width="70" height="80" rx="8"/><rect x="450" y="270" width="70" height="80" rx="8"/><rect x="560" y="270" width="70" height="80" rx="8"/><rect x="670" y="270" width="70" height="80" rx="8"/><rect x="770" y="270" width="60" height="80" rx="8"/>
+    <rect x="340" y="390" width="70" height="80" rx="8"/><rect x="450" y="390" width="70" height="80" rx="8"/><rect x="560" y="390" width="70" height="80" rx="8"/><rect x="670" y="390" width="70" height="80" rx="8"/><rect x="770" y="390" width="60" height="80" rx="8"/>
+    <rect x="340" y="510" width="70" height="80" rx="8"/><rect x="450" y="510" width="70" height="80" rx="8"/><rect x="670" y="510" width="70" height="80" rx="8"/><rect x="770" y="510" width="60" height="80" rx="8"/>
+  </g>
+  <!-- warm lit windows -->
+  <g fill="#F7CF8A"><rect x="450" y="270" width="70" height="80" rx="8"/><rect x="670" y="390" width="70" height="80" rx="8"/></g>
+  <!-- balconies -->
+  <g fill="#3F6B4F">
+    <rect x="330" y="350" width="90" height="10" rx="4"/><rect x="330" y="470" width="90" height="10" rx="4"/>
+    <rect x="660" y="350" width="90" height="10" rx="4"/><rect x="660" y="470" width="90" height="10" rx="4"/>
+  </g>
+  <g fill="#E9775A"><circle cx="350" cy="346" r="8"/><circle cx="372" cy="344" r="7"/><circle cx="680" cy="466" r="8"/><circle cx="702" cy="464" r="7"/></g>
+  <!-- entrance -->
+  <rect x="540" y="520" width="110" height="150" rx="14" fill="#3F6B4F"/>
+  <rect x="556" y="540" width="78" height="130" rx="10" fill="#F7CF8A"/>
+  <rect x="520" y="500" width="150" height="24" rx="12" fill="#2F4E3A"/>
+  <!-- ground -->
+  <rect x="0" y="650" width="1200" height="250" fill="#A9C9A6"/>
+  <ellipse cx="600" cy="660" rx="700" ry="40" fill="#BBD5B6"/>
+  <path d="M520 670 Q560 760 470 900 L760 900 Q690 760 680 670 Z" fill="#EBD9BD"/>
+  <!-- trees -->
+  <g>
+    <rect x="212" y="560" width="22" height="130" rx="8" fill="#7A4E35"/>
+    <circle cx="223" cy="520" r="78" fill="#6F9A6A"/><circle cx="180" cy="555" r="52" fill="#8FB58A"/><circle cx="268" cy="552" r="56" fill="#5E8A5C"/>
+    <rect x="968" y="560" width="22" height="130" rx="8" fill="#7A4E35"/>
+    <circle cx="979" cy="520" r="78" fill="#6F9A6A"/><circle cx="936" cy="555" r="52" fill="#8FB58A"/><circle cx="1024" cy="552" r="56" fill="#5E8A5C"/>
+  </g>
+  <!-- bench -->
+  <rect x="790" y="740" width="250" height="22" rx="8" fill="#9E4322"/>
+  <rect x="800" y="762" width="18" height="60" rx="6" fill="#5A2E1C"/><rect x="1012" y="762" width="18" height="60" rx="6" fill="#5A2E1C"/>
+  <rect x="790" y="690" width="250" height="18" rx="8" fill="#B4502A"/>
+  <!-- two women seated, talking -->
+  <g>
+    <!-- woman 1 -->
+    <rect x="840" y="700" width="70" height="80" rx="24" fill="#6B3F60"/>
+    <rect x="845" y="770" width="28" height="60" rx="12" fill="#3B2F3A"/><rect x="880" y="770" width="28" height="60" rx="12" fill="#3B2F3A"/>
+    <circle cx="875" cy="665" r="34" fill="#C68B59"/>
+    <path d="M841 660 a34 34 0 0 1 68 0 v-6 a34 34 0 0 0 -68 0z" fill="#EDE6DC"/>
+    <path d="M860 678 q15 12 30 0" stroke="#5A2E1C" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- woman 2 -->
+    <rect x="930" y="700" width="70" height="80" rx="24" fill="#E0A440"/>
+    <rect x="935" y="770" width="28" height="60" rx="12" fill="#4A3B33"/><rect x="970" y="770" width="28" height="60" rx="12" fill="#4A3B33"/>
+    <circle cx="965" cy="665" r="34" fill="#F2C9A7"/>
+    <path d="M931 662 a34 34 0 0 1 68 0 l4 20 q-38 -14 -76 0z" fill="#BDB6AE"/>
+    <path d="M950 678 q15 12 30 0" stroke="#5A2E1C" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- cane -->
+    <rect x="1004" y="740" width="8" height="90" rx="4" fill="#5A2E1C"/>
+  </g>
+  <!-- planters in front -->
+  <g>
+    <rect x="130" y="730" width="120" height="60" rx="10" fill="#B4502A"/>
+    <circle cx="160" cy="722" r="22" fill="#E9775A"/><circle cx="195" cy="712" r="26" fill="#F0B35A"/><circle cx="228" cy="724" r="20" fill="#D3A9C8"/>
+    <g stroke="#3F6B4F" stroke-width="6" stroke-linecap="round"><path d="M160 740 v-20"/><path d="M195 740 v-26"/><path d="M228 740 v-16"/></g>
+  </g>
+  <!-- woman walking with dog -->
+  <g>
+    <rect x="380" y="700" width="60" height="90" rx="22" fill="#3F6B4F"/>
+    <rect x="386" y="780" width="22" height="70" rx="10" fill="#2F2A26"/><rect x="414" y="780" width="22" height="70" rx="10" fill="#2F2A26"/>
+    <circle cx="410" cy="668" r="30" fill="#8D5A3C"/>
+    <path d="M380 664 a30 30 0 0 1 60 0 v-4 a30 30 0 0 0 -60 0z" fill="#E6E2DC"/>
+    <path d="M398 680 q12 10 24 0" stroke="#3B2316" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M440 740 L500 790" stroke="#5A2E1C" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="520" cy="815" rx="34" ry="22" fill="#D9CFC2"/><circle cx="548" cy="800" r="14" fill="#D9CFC2"/>
+    <rect x="498" y="828" width="10" height="24" rx="4" fill="#C8BEB2"/><rect x="530" y="828" width="10" height="24" rx="4" fill="#C8BEB2"/>
+    <path d="M488 812 q-14 -14 -6 -26" stroke="#D9CFC2" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

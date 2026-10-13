@@ -1,0 +1,27 @@
+@startuml
+title UML sequence behaviour — Open and close the phone menu
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor on a phone" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "LandingComponent" as page
+  participant "Menu button" as button
+  participant "Menu panel" as panel
+end box
+actor -> button : Activate "Menu"
+button -> page : toggleMenu()
+page -> page : menuOpen = true
+page -> button : aria-expanded="true", label "Close"  [L2-REQ-067 AC2]
+page -> panel : Show links, Member sign in, Book a visit
+panel --> actor : Panel visible under the header
+alt Escape key or "Close"
+  actor -> page : keydown.escape or click
+  page -> page : closeMenu(): menuOpen = false
+  page -> panel : Hide
+  page -> button : aria-expanded="false", focus()  [L2-REQ-067 AC3]
+  button --> actor : Focus back on the Menu button
+end
+@enduml
