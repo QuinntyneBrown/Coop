@@ -72,6 +72,34 @@ test.describe('Maintenance Requests', () => {
     });
   });
 
+  test.describe('Following a Request', () => {
+    test('Given the office started a request, then the member sees "Started"', async ({ api }) => {
+      const id = await api.createMaintenanceRequest({
+        title: 'E2E: Sticking balcony door',
+        description: 'The balcony door is hard to open.',
+      });
+      await api.advanceMaintenanceRequest(id, ['receive', 'start']);
+
+      await maintenance.goto();
+      await maintenance.openRequestByTitle('E2E: Sticking balcony door');
+
+      await expect(maintenance.detailStatus).toHaveText('Started');
+    });
+
+    test('Given the office finished a request, then the member sees "Done"', async ({ api }) => {
+      const id = await api.createMaintenanceRequest({
+        title: 'E2E: Loose cupboard hinge',
+        description: 'The kitchen cupboard door hangs loose.',
+      });
+      await api.advanceMaintenanceRequest(id, ['receive', 'start', 'complete']);
+
+      await maintenance.goto();
+      await maintenance.openRequestByTitle('E2E: Loose cupboard hinge');
+
+      await expect(maintenance.detailStatus).toHaveText('Done');
+    });
+  });
+
   test.describe('Create Request', () => {
     test('should open create request form', async () => {
       await maintenance.goto();

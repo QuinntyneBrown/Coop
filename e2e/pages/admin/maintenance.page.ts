@@ -31,6 +31,8 @@ export class MaintenancePage {
 
   // Actions
   readonly receiveRequestButton: Locator;
+  readonly startWorkButton: Locator;
+  readonly finishWorkButton: Locator;
   readonly editDescriptionButton: Locator;
 
   // Comments
@@ -66,6 +68,8 @@ export class MaintenancePage {
     this.commentsTab = page.getByTestId('maintenance-tab-comments');
 
     this.receiveRequestButton = page.getByTestId('maintenance-receive-button');
+    this.startWorkButton = page.getByTestId('maintenance-start-button');
+    this.finishWorkButton = page.getByTestId('maintenance-finish-button');
     this.editDescriptionButton = page.getByTestId('maintenance-edit-description');
 
     this.commentsSection = page.getByTestId('maintenance-comments-section');
@@ -110,6 +114,18 @@ export class MaintenancePage {
     const card = this.requestCards.nth(index);
     const badge = card.getByTestId('request-status-badge');
     await expect(badge).toContainText(status);
+  }
+
+  async selectRequestByTitle(title: string) {
+    await this.requestCards.filter({ hasText: title }).first().click();
+  }
+
+  async startWork() {
+    await this.startWorkButton.click();
+  }
+
+  async finishWork() {
+    await this.finishWorkButton.click();
   }
 
   async addComment(text: string) {

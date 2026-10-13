@@ -805,8 +805,22 @@ export class MockApi {
       });
     });
     this.on('PUT', 'maintenancerequest/receive', transition('Received'));
-    this.on('PUT', 'maintenancerequest/start', transition('Started'));
-    this.on('PUT', 'maintenancerequest/complete', transition('Completed'));
+    // Like the API: a step only follows the one before it, and re-posting a
+    // step that already happened returns the request unchanged (ADR 0004).
+    const lifecycle: MockMaintenanceRequest['status'][] = ['New', 'Received', 'Started', 'Completed'];
+    const step =
+      (status: MockMaintenanceRequest['status'], refusal: string): Handler =>
+      (ctx) => {
+        const request = findRequest(ctx.body?.maintenanceRequestId);
+        if (!request) return notFound();
+        const at = lifecycle.indexOf(request.status);
+        const to = lifecycle.indexOf(status);
+        if (at < to - 1) return badRequest(refusal);
+        if (at === to - 1) request.status = status;
+        return ok({ maintenanceRequest: this.maintenanceView(request) });
+      };
+    this.on('PUT', 'maintenancerequest/start', step('Started', 'Only a received request can be started.'));
+    this.on('PUT', 'maintenancerequest/complete', step('Completed', 'Only a started request can be finished.'));
     this.on('GET', 'maintenancerequest/:id', (_ctx, [id]) => {
       const request = findRequest(id);
       return request ? ok({ maintenanceRequest: this.maintenanceView(request) }) : notFound();

@@ -23,7 +23,7 @@ By the end, the viewer can:
 | Question | What a strong answer includes |
 | --- | --- |
 | What does the platform do for us? | A readable website, office-edited content, notices, repair requests, bigger text, profile photos |
-| What works today? | Notices, repair requests (send and receive), colours, photo library, website pages the office adds and removes |
+| What works today? | Notices, repair requests (send, receive, start and finish), colours, photo library, website pages the office adds and removes |
 | What comes next? | New website design, an editable board list, 400% text, profile pictures |
 | What do you need from us? | Two members to try it, first three pages, a named admin |
 
@@ -36,7 +36,7 @@ By the end, the viewer can:
 | `images/admin-settings-1280.png`, `admin-assets-1280.png` | Colours and photo library (working today) |
 | `images/admin-pages-1280.png` | The admin Pages screen: add, edit and remove website pages (working today) |
 | `images/admin-documents-notices-1280.png`, `public-documents-notices-360.png` | Notices |
-| `images/public-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `public-maintenance-360.png` | Repair requests |
+| `images/public-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `admin-maintenance-detail-started-1280.png`, `public-maintenance-360.png` | Repair requests |
 | `images/public-profile-edit-1280.png`, `-360.png` | Profile photo screen |
 
 All screens are static design mocks under `docs/mocks/`, captured by
@@ -54,7 +54,7 @@ before the real site.
 | 00:30-00:48 | 1 Beautiful and easy to read | OWN home page, working today (the narration still says "not live yet"; re-synthesize the audio when the script is updated) |
 | 00:48-01:26 | 2 OWN runs it | Edited-in-admin tags; colours, photos and pages today, board list next (the narration still says pages are coming next; re-synthesize the audio when the script is updated) |
 | 01:26-01:44 | 3 Notices | Working today |
-| 01:44-02:12 | 4 Repair requests | Send, receive and follow |
+| 01:44-02:12 | 4 Repair requests | Send, receive, start, finish and follow; photos next (the narration still says started and finished come next; re-synthesize the audio when the script is updated) |
 | 02:12-02:36 | 5 Bigger words | Up to 400%, coming next |
 | 02:36-02:52 | 6 Your own photo | Coming next |
 | 02:52-03:10 | In short | Working today (now including pages) and coming next |

@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Start and finish a maintenance request
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(screen, "MaintenanceComponent", "Angular standalone component", "Request list and detail at /maintenance")
+  Component(next, "nextMaintenanceStep", "Plain TypeScript function", "Status to the one next step: Receive, Start work, Finish work or none")
+  Component(adminService, "MaintenanceService", "Angular service", "PUT receive, start, complete")
+}
+Container_Boundary(publicApp, "Public application") {
+  Component(memberScreen, "MaintenanceComponent", "Angular standalone component", "Member's requests at /maintenance")
+  Component(label, "maintenanceStatusLabel", "Plain TypeScript function", "New, Received, Started, Done")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "MaintenanceRequestController", "ASP.NET Core controller", "api/maintenancerequest/start and /complete")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "Start and Complete validators reject a skipped step")
+  Component(handlers, "Start and Complete handlers", "MediatR handlers", "Apply the step once; re-posting returns the request")
+  Component(entity, "MaintenanceRequest", "Domain entity", "Start and Complete guard the order and return the stored event")
+  Component(middleware, "ExceptionHandlingMiddleware", "ASP.NET Core middleware", "ValidationException to 400")
+  ComponentDb(db, "CoopDbContext", "EF Core", "MaintenanceRequests and StoredEvents")
+}
+Rel(screen, next, "Chooses the button with")
+Rel(screen, adminService, "Sends the step with")
+Rel(adminService, controller, "Calls", "JSON/HTTPS")
+Rel(memberScreen, label, "Words the status with")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, handlers, "Then")
+Rel(handlers, entity, "Loads and steps")
+Rel(handlers, db, "Saves the request and its event", "EF Core")
+Rel(middleware, controller, "Wraps")
+@enduml
