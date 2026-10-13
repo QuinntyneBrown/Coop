@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#F3E7D3"/>
+  <rect x="470" y="60" width="250" height="260" rx="20" fill="#CFE3EC"/>
+  <rect x="470" y="60" width="250" height="260" rx="20" fill="none" stroke="#FFF7EC" stroke-width="14"/>
+  <path d="M595 60 v260 M470 190 h250" stroke="#FFF7EC" stroke-width="10"/>
+  <circle cx="660" cy="130" r="36" fill="#F0B35A"/>
+  <!-- table -->
+  <ellipse cx="400" cy="440" rx="330" ry="80" fill="#9E4322"/>
+  <ellipse cx="400" cy="430" rx="330" ry="80" fill="#B4502A"/>
+  <ellipse cx="400" cy="430" rx="250" ry="56" fill="#FFF7EC"/>
+  <!-- teapot -->
+  <ellipse cx="400" cy="405" rx="60" ry="46" fill="#3F6B4F"/>
+  <rect x="385" y="345" width="30" height="20" rx="8" fill="#3F6B4F"/><circle cx="400" cy="342" r="9" fill="#E0A440"/>
+  <path d="M458 395 q40 -10 44 -40" stroke="#3F6B4F" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M342 395 q-40 0 -36 30 q4 20 36 10" stroke="#3F6B4F" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <!-- cups -->
+  <g fill="#D3A9C8"><ellipse cx="280" cy="440" rx="30" ry="18"/><rect x="250" y="420" width="60" height="22" rx="6"/></g>
+  <g fill="#E0A440"><ellipse cx="520" cy="440" rx="30" ry="18"/><rect x="490" y="420" width="60" height="22" rx="6"/></g>
+  <g fill="#6F9A6A"><ellipse cx="400" cy="470" rx="30" ry="18"/><rect x="370" y="450" width="60" height="22" rx="6"/></g>
+  <!-- plate of biscuits -->
+  <ellipse cx="200" cy="470" rx="54" ry="22" fill="#E8D7BB"/>
+  <circle cx="186" cy="462" r="12" fill="#C68B59"/><circle cx="212" cy="466" r="12" fill="#B3623F"/><circle cx="200" cy="450" r="12" fill="#D9A066"/>
+  <!-- steam -->
+  <g stroke="#FFF7EC" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9"><path d="M385 320 q-10 -16 0 -32"/><path d="M405 322 q10 -16 0 -32"/></g>
+  <!-- women around the table (behind) -->
+  <g>
+    <rect x="80" y="260" width="110" height="140" rx="36" fill="#6B3F60"/>
+    <circle cx="135" cy="215" r="48" fill="#8D5A3C"/>
+    <path d="M87 210 a48 48 0 0 1 96 0 v-10 a48 48 0 0 0 -96 0z" fill="#E6E2DC"/>
+    <path d="M115 232 q20 16 40 0" stroke="#3B2316" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="340" y="230" width="120" height="150" rx="38" fill="#3F6B4F"/>
+    <circle cx="400" cy="180" r="50" fill="#F2C9A7"/>
+    <path d="M350 172 a50 50 0 0 1 100 0 l6 24 q-56 -18 -112 0z" fill="#BDB6AE"/>
+    <path d="M380 198 q20 16 40 0" stroke="#5A2E1C" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="610" y="260" width="110" height="140" rx="36" fill="#E0A440"/>
+    <circle cx="665" cy="215" r="48" fill="#C68B59"/>
+    <path d="M617 212 a48 48 0 0 1 96 0 v-6 a48 48 0 0 0 -96 0z" fill="#5A2E1C"/>
+    <circle cx="700" cy="196" r="12" fill="#D3A9C8"/>
+    <path d="M645 232 q20 16 40 0" stroke="#3B2316" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
