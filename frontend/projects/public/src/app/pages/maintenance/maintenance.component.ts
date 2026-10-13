@@ -5,9 +5,11 @@ import {
   MaintenanceService,
   MaintenanceRequest,
   MaintenanceComment,
+  MaintenanceAttachment,
 } from '../../core/services/maintenance.service';
-import { catchError, of } from 'rxjs';
+import { catchError, concatMap, from, of } from 'rxjs';
 import { maintenanceStatusLabel } from './maintenance-status-label';
+import { photoFileError } from './photo-file-error';
 
 @Component({
   selector: 'app-maintenance',
@@ -15,6 +17,11 @@ import { maintenanceStatusLabel } from './maintenance-status-label';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="maintenance-page">
+      @if (photoNotice) {
+        <p class="photo-notice" role="alert" data-testid="maintenance-photo-notice">
+          {{ photoNotice }}
+        </p>
+      }
       <!-- Loading -->
       @if (loading) {
         <div class="loading" data-testid="maintenance-loading">
@@ -181,11 +188,42 @@ import { maintenanceStatusLabel } from './maintenance-status-label';
                 </select>
               </div>
               <div class="form-group" data-testid="maintenance-photo-upload">
-                <label>Photo (optional)</label>
+                <label for="new-photos">Photos (optional)</label>
                 <div class="upload-area">
-                  <span>Upload photo</span>
-                  <input type="file" accept="image/*" (change)="onPhotoSelect($event)" />
+                  <span aria-hidden="true">Choose photos</span>
+                  <input
+                    id="new-photos"
+                    type="file"
+                    multiple
+                    accept="image/jpeg,image/png,image/webp"
+                    aria-describedby="new-photos-hint"
+                    data-testid="maintenance-photo-input"
+                    (change)="onPhotoSelect($event)"
+                  />
                 </div>
+                <p id="new-photos-hint" class="hint">JPEG, PNG or WebP, up to 10 MB each.</p>
+                @if (photoError) {
+                  <p class="field-error" role="alert" data-testid="maintenance-photo-error">
+                    {{ photoError }}
+                  </p>
+                }
+                @if (newPhotos.length) {
+                  <ul class="chosen-photos" data-testid="maintenance-chosen-photos">
+                    @for (photo of newPhotos; track photo; let i = $index) {
+                      <li>
+                        <span>{{ photo.name }}</span>
+                        <button
+                          type="button"
+                          class="btn btn-outline"
+                          [attr.aria-label]="'Remove ' + photo.name"
+                          (click)="removeNewPhoto(i)"
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    }
+                  </ul>
+                }
               </div>
               <div class="modal-actions">
                 <button
@@ -196,8 +234,13 @@ import { maintenanceStatusLabel } from './maintenance-status-label';
                 >
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-primary" data-testid="maintenance-submit-btn">
-                  Submit Request
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-testid="maintenance-submit-btn"
+                  [disabled]="sending"
+                >
+                  {{ sending ? 'Sending…' : 'Submit Request' }}
                 </button>
               </div>
             </form>
@@ -233,14 +276,42 @@ import { maintenanceStatusLabel } from './maintenance-status-label';
               </p>
               <!-- Attachments -->
               <div class="attachments" data-testid="maintenance-attachment-list">
-                <h4>Attachments</h4>
-                @for (att of selectedRequest.attachments; track att) {
-                  <div class="attachment-item">
-                    <a [href]="att.url" target="_blank">{{ att.fileName }}</a>
-                  </div>
+                <h4>Photos</h4>
+                @if (selectedRequest.attachments.length) {
+                  <ul class="photo-grid">
+                    @for (att of selectedRequest.attachments; track att.id; let i = $index) {
+                      <li data-testid="maintenance-photo">
+                        @if (photoUrls[att.id]) {
+                          <img
+                            [src]="photoUrls[att.id]"
+                            [alt]="'Photo ' + (i + 1) + ' of ' + selectedRequest.title"
+                          />
+                        } @else {
+                          <span class="photo-placeholder">Loading photo…</span>
+                        }
+                      </li>
+                    }
+                  </ul>
+                } @else {
+                  <p class="empty-text">No photos yet</p>
                 }
-                @if (!selectedRequest.attachments?.length) {
-                  <p class="empty-text">No attachments</p>
+                <div class="upload-area add-photo">
+                  <span aria-hidden="true">{{
+                    addingPhoto ? 'Adding photo…' : 'Add a photo'
+                  }}</span>
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    aria-label="Add a photo"
+                    data-testid="maintenance-add-photo-input"
+                    [disabled]="addingPhoto"
+                    (change)="addPhoto($event)"
+                  />
+                </div>
+                @if (detailPhotoError) {
+                  <p class="field-error" role="alert" data-testid="maintenance-add-photo-error">
+                    {{ detailPhotoError }}
+                  </p>
                 }
               </div>
               <!-- Comments -->
@@ -491,6 +562,78 @@ import { maintenanceStatusLabel } from './maintenance-status-label';
         }
       }
 
+      .photo-notice {
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--error);
+        color: var(--error);
+        font-size: 15px;
+      }
+
+      .hint {
+        margin-top: 6px;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .field-error {
+        margin-top: 6px;
+        font-size: 14px;
+        color: var(--error);
+      }
+
+      .chosen-photos {
+        list-style: none;
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        li {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          font-size: 14px;
+          overflow-wrap: anywhere;
+        }
+        .btn {
+          min-height: 44px;
+        }
+      }
+
+      .photo-grid {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+        margin-bottom: 12px;
+
+        img {
+          width: 100%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          border-radius: var(--radius-md);
+        }
+      }
+
+      .photo-placeholder {
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .add-photo {
+        min-height: 44px;
+        margin-top: 8px;
+      }
+
+      .upload-area:focus-within {
+        outline: 3px solid var(--primary);
+        outline-offset: 2px;
+      }
+
       .upload-area {
         border: 2px dashed var(--border);
         border-radius: var(--radius-md);
@@ -614,6 +757,13 @@ export class MaintenanceComponent implements OnInit {
   selectedRequest: MaintenanceRequest | null = null;
   newComment = '';
   newRequest = { title: '', description: '', priority: 'Medium', category: 'General' };
+  newPhotos: File[] = [];
+  photoError = '';
+  sending = false;
+  photoNotice = '';
+  photoUrls: Record<string, string> = {};
+  addingPhoto = false;
+  detailPhotoError = '';
 
   ngOnInit() {
     this.loadRequests();
@@ -660,18 +810,40 @@ export class MaintenanceComponent implements OnInit {
     this.createSubmitted = true;
     if (!this.newRequest.title || !this.newRequest.description) return;
 
+    const photos = [...this.newPhotos];
+    this.sending = true;
+    this.photoNotice = '';
     this.maintenanceService.createRequest(this.newRequest).subscribe({
-      next: () => {
-        this.closeCreateModal();
-        this.loadRequests();
+      next: (created) => {
+        // Photos go one at a time after the request exists.
+        from(photos)
+          .pipe(concatMap((photo) => this.maintenanceService.uploadPhoto(created.id, photo)))
+          .subscribe({
+            error: () => {
+              this.photoNotice =
+                'Your request was sent, but a photo could not be added. Open the request to try again.';
+              this.finishCreate();
+            },
+            complete: () => this.finishCreate(),
+          });
       },
-      error: () => {},
+      error: () => {
+        this.sending = false;
+      },
     });
+  }
+
+  private finishCreate() {
+    this.closeCreateModal();
+    this.loadRequests();
   }
 
   closeCreateModal() {
     this.showCreateModal = false;
     this.createSubmitted = false;
+    this.sending = false;
+    this.newPhotos = [];
+    this.photoError = '';
     this.newRequest = { title: '', description: '', priority: 'Medium', category: 'General' };
   }
 
@@ -686,7 +858,41 @@ export class MaintenanceComponent implements OnInit {
           comments: detail.comments || [],
           attachments: detail.attachments || [],
         };
+        this.detailPhotoError = '';
+        this.selectedRequest.attachments.forEach((att) => this.loadPhoto(att));
       });
+  }
+
+  private loadPhoto(att: MaintenanceAttachment) {
+    if (this.photoUrls[att.id] || !att.url) return;
+    this.maintenanceService.getPhoto(att.url).subscribe({
+      next: (blob) => (this.photoUrls[att.id] = URL.createObjectURL(blob)),
+      error: () => {},
+    });
+  }
+
+  addPhoto(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    const request = this.selectedRequest;
+    if (!file || !request) return;
+    this.detailPhotoError = photoFileError(file) ?? '';
+    if (this.detailPhotoError) return;
+    this.addingPhoto = true;
+    this.maintenanceService.uploadPhoto(request.id, file).subscribe({
+      next: (att) => {
+        if (!request.attachments.some((a) => a.id === att.id)) {
+          request.attachments = [...request.attachments, att];
+        }
+        this.loadPhoto(att);
+        this.addingPhoto = false;
+      },
+      error: () => {
+        this.detailPhotoError = 'The photo could not be added. Please try again.';
+        this.addingPhoto = false;
+      },
+    });
   }
 
   addComment() {
@@ -704,7 +910,16 @@ export class MaintenanceComponent implements OnInit {
   }
 
   onPhotoSelect(event: Event) {
-    // Photo upload stub
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files ?? []);
+    input.value = '';
+    const errors = files.map(photoFileError).filter((e): e is string => !!e);
+    this.photoError = errors.join(' ');
+    this.newPhotos = [...this.newPhotos, ...files.filter((f) => !photoFileError(f))];
+  }
+
+  removeNewPhoto(index: number) {
+    this.newPhotos = this.newPhotos.filter((_, i) => i !== index);
   }
 
   getStatusClass(status: string): string {

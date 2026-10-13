@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — A member sends a request with a photo
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member" as member
+box "Frontend — Public application" #E0F2FE
+  participant "MaintenanceComponent" as screen
+  participant "MaintenanceService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PublicBffController" as bff
+  participant "MaintenanceRequestPhotosController" as controller
+  participant "ValidationBehavior" as validation
+  participant "AddMaintenanceRequestPhotoHandler" as handler
+  database "CoopDbContext" as db
+end box
+member -> screen : chooses photos in "Photos (optional)"
+screen -> screen : photoFileError for each file  [L2-REQ-089 AC2]
+screen --> member : chosen photos listed with "Remove"  [AC1]
+member -> screen : "Submit Request"
+screen --> member : "Sending…", disabled  [AC3]
+screen -> service : createRequest
+service -> bff : POST api/maintenance-requests
+bff --> service : 200 { id }
+loop each chosen photo, one at a time
+  screen -> service : uploadPhoto(id, file)
+  service -> controller : POST api/maintenance-requests/{id}/photos (multipart, bearer)
+  controller -> validation : Send(AddMaintenanceRequestPhotoRequest)
+  validation -> handler : JPEG, PNG or WebP, at most 10 MB  [AC8]
+  handler -> db : caller owns the requesting profile?  [AC7]
+  handler -> db : same name, type and bytes already attached?  [AC11, ADR 0005]
+  handler -> db : add DigitalAsset and link, SaveChanges
+  controller --> service : 200 { photo: { photoId, name, url } }
+end
+screen -> screen : close the form, reload the list
+alt a photo fails
+  screen --> member : alert "Your request was sent, but a photo could not be added…"  [AC4]
+end
+@enduml

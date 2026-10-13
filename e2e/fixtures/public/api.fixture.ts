@@ -31,6 +31,17 @@ export class ApiHelper {
     }
   }
 
+  /** Attaches a photo as the member, the way the photo picker would. */
+  async addMaintenancePhoto(requestId: string, fileName = 'leak.png'): Promise<void> {
+    const response = this.mockApi.call(
+      'POST',
+      `maintenance-requests/${requestId}/photos`,
+      { fileName, contentType: 'image/png', size: 68 },
+      this.user,
+    );
+    expect(response.status, 'Should add the photo').toBe(200);
+  }
+
   async addMaintenanceComment(requestId: string, comment: string): Promise<void> {
     this.mockApi.addComment(this.user, requestId, comment);
   }

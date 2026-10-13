@@ -109,8 +109,8 @@ the member.
 | `L2-REQ-023` | `L1-REQ-005` | Staff can mark a received request as work started; the step is audited and re-posting returns the request. |
 | `L2-REQ-024` | `L1-REQ-005` | Staff can mark a started request as completed; the step is audited and re-posting returns the request. |
 | `L2-REQ-025` | `L1-REQ-005` | The status moves forward only, without skipping a step. |
-| `L2-REQ-085` | `L1-REQ-005` | The admin request detail offers the one next step. |
-| `L2-REQ-086` | `L1-REQ-005` | The member sees "Started" and "Done" in plain words. |
+| `L2-REQ-087` | `L1-REQ-005` | The admin request detail offers the one next step. |
+| `L2-REQ-088` | `L1-REQ-005` | The member sees "Started" and "Done" in plain words. |
 
 ## Diagrams
 

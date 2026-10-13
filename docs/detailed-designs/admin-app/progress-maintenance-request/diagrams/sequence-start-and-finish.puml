@@ -20,7 +20,7 @@ box "Backend — Coop API" #FEF3C7
   database "CoopDbContext" as db
 end box
 actor -> screen : opens a Received request
-screen --> actor : "Start work"  [L2-REQ-085 AC2]
+screen --> actor : "Start work"  [L2-REQ-087 AC2]
 actor -> screen : "Start work"
 screen -> controller : PUT api/maintenancerequest/start { maintenanceRequestId }
 controller -> validation : Send(StartMaintenanceRequestRequest)
@@ -30,16 +30,16 @@ start -> db : add StoredEvent, SaveChanges  [L2-REQ-023 AC5]
 controller --> screen : 200 { maintenanceRequest: Started }
 screen --> actor : status "Started", "Finish work"
 member -> memberScreen : opens the request
-memberScreen --> member : status "Started"  [L2-REQ-086 AC1]
+memberScreen --> member : status "Started"  [L2-REQ-088 AC1]
 actor -> screen : "Finish work"
 screen -> controller : PUT api/maintenancerequest/complete
 controller -> validation : Send(CompleteMaintenanceRequestRequest)
 validation -> complete : request is Started or Completed
 complete -> db : Complete(profileId), add StoredEvent, SaveChanges  [L2-REQ-024 AC4]
 controller --> screen : 200 { maintenanceRequest: Completed }
-screen --> actor : status "Completed", no next step  [L2-REQ-085 AC4]
+screen --> actor : status "Completed", no next step  [L2-REQ-087 AC4]
 member -> memberScreen : opens the request
-memberScreen --> member : status "Done"  [L2-REQ-086 AC2]
+memberScreen --> member : status "Done"  [L2-REQ-088 AC2]
 == The same step is posted again ==
 screen -> controller : PUT api/maintenancerequest/complete
 complete --> controller : already Completed: no change, no event  [ADR 0004]
@@ -49,5 +49,5 @@ screen -> controller : PUT api/maintenancerequest/complete (request is New)
 controller -> validation : Send(CompleteMaintenanceRequestRequest)
 validation --> middleware : ValidationException
 middleware --> screen : 400 "Only a started request can be finished."  [L2-REQ-024 AC3]
-screen --> actor : alert "That change was not saved. Please try again."  [L2-REQ-085 AC5]
+screen --> actor : alert "That change was not saved. Please try again."  [L2-REQ-087 AC5]
 @enduml

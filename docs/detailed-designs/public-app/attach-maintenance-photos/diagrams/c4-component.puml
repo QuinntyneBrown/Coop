@@ -1,0 +1,33 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Photos on maintenance requests
+
+Container_Boundary(publicApp, "Public application") {
+  Component(memberScreen, "MaintenanceComponent", "Angular standalone component", "Photo picker in the create form; photos and Add a photo in the detail")
+  Component(check, "photoFileError", "Plain TypeScript function", "Type and size check before sending")
+  Component(memberService, "MaintenanceService", "Angular service", "uploadPhoto, getPhoto (blob)")
+}
+Container_Boundary(adminApp, "Admin application") {
+  Component(officeScreen, "MaintenanceComponent", "Angular standalone component", "Photos on the request detail")
+  Component(officeService, "MaintenanceService", "Angular service", "getPhoto (blob)")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "MaintenanceRequestPhotosController", "ASP.NET Core controller", "POST and GET api/maintenance-requests/{id}/photos")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "AddMaintenanceRequestPhotoValidator: type and size")
+  Component(handlers, "Photo handlers", "MediatR handlers", "AddMaintenanceRequestPhoto, GetMaintenanceRequestPhoto")
+  Component(access, "MaintenanceRequestAccess", "Static class", "Household owns the requesting profile; office holds Write on MaintenanceRequest")
+  Component(serve, "ServeDigitalAsset handlers", "MediatR handlers", "Refuse assets linked to a request")
+  ComponentDb(db, "CoopDbContext", "EF Core", "DigitalAssets and MaintenanceRequestDigitalAssets")
+}
+Rel(memberScreen, check, "Checks chosen files with")
+Rel(memberScreen, memberService, "Sends and loads photos with")
+Rel(officeScreen, officeService, "Loads photos with")
+Rel(memberService, controller, "Calls", "multipart / JSON over HTTPS")
+Rel(officeService, controller, "Calls", "HTTPS")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, handlers, "Then")
+Rel(handlers, access, "Asks who may add or read")
+Rel(handlers, db, "Stores and reads photos", "EF Core")
+Rel(serve, db, "Checks the photo links", "EF Core")
+@enduml

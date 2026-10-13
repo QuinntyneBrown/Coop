@@ -171,7 +171,8 @@
         "L2-REQ-021",
         "L2-REQ-025",
         "L2-REQ-030",
-        "L2-REQ-086"
+        "L2-REQ-088",
+        "L2-REQ-089"
       ],
       "note": "",
       "states": [
@@ -181,7 +182,8 @@
         "new",
         "started",
         "done",
-        "no-results"
+        "no-results",
+        "photo-failed"
       ],
       "not_applicable": {
         "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
@@ -195,17 +197,19 @@
       "route": "/maintenance",
       "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
       "requirements": [
-        "L2-REQ-021"
+        "L2-REQ-021",
+        "L2-REQ-089"
       ],
       "note": "",
       "opens_from": "public-maintenance",
       "states": [
         "default",
-        "invalid"
+        "invalid",
+        "photos",
+        "sending",
+        "photo-invalid"
       ],
-      "not_applicable": {
-        "busy": "The dialog closes on submit and shows no pending indicator in the source."
-      }
+      "not_applicable": {}
     },
     {
       "id": "public-maintenance-detail",
@@ -218,13 +222,17 @@
         "L2-REQ-028",
         "L2-REQ-029",
         "L2-REQ-030",
-        "L2-REQ-086"
+        "L2-REQ-088",
+        "L2-REQ-089"
       ],
       "note": "",
       "opens_from": "public-maintenance",
       "states": [
         "default",
-        "empty"
+        "empty",
+        "photos",
+        "adding-photo",
+        "photo-error"
       ],
       "not_applicable": {
         "busy": "The dialog closes on submit and shows no pending indicator in the source.",
@@ -517,7 +525,8 @@
         "L2-REQ-021",
         "L2-REQ-025",
         "L2-REQ-030",
-        "L2-REQ-085"
+        "L2-REQ-087",
+        "L2-REQ-089"
       ],
       "note": "",
       "states": [
@@ -534,7 +543,8 @@
         "detail-started",
         "detail-completed",
         "comments",
-        "comments-empty"
+        "comments-empty",
+        "detail-photos"
       ],
       "not_applicable": {
         "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."

@@ -25,6 +25,10 @@ export class MaintenancePage {
   readonly prioritySelect: Locator;
   readonly categorySelect: Locator;
   readonly photoUpload: Locator;
+  readonly photoInput: Locator;
+  readonly chosenPhotos: Locator;
+  readonly photoError: Locator;
+  readonly photoNotice: Locator;
   readonly submitButton: Locator;
   readonly cancelButton: Locator;
 
@@ -38,6 +42,9 @@ export class MaintenancePage {
   readonly commentInput: Locator;
   readonly addCommentButton: Locator;
   readonly attachmentList: Locator;
+  readonly detailPhotos: Locator;
+  readonly addPhotoInput: Locator;
+  readonly addPhotoError: Locator;
 
   // Loading
   readonly loadingSpinner: Locator;
@@ -63,6 +70,10 @@ export class MaintenancePage {
     this.prioritySelect = page.locator('[data-testid="maintenance-priority-select"]');
     this.categorySelect = page.locator('[data-testid="maintenance-category-select"]');
     this.photoUpload = page.locator('[data-testid="maintenance-photo-upload"]');
+    this.photoInput = page.getByLabel('Photos (optional)');
+    this.chosenPhotos = page.getByTestId('maintenance-chosen-photos').getByRole('listitem');
+    this.photoError = page.getByTestId('maintenance-photo-error');
+    this.photoNotice = page.getByTestId('maintenance-photo-notice');
     this.submitButton = page.locator('[data-testid="maintenance-submit-btn"]');
     this.cancelButton = page.locator('[data-testid="maintenance-cancel-btn"]');
 
@@ -75,6 +86,9 @@ export class MaintenancePage {
     this.commentInput = page.locator('[data-testid="maintenance-comment-input"]');
     this.addCommentButton = page.locator('[data-testid="maintenance-add-comment-btn"]');
     this.attachmentList = page.locator('[data-testid="maintenance-attachment-list"]');
+    this.detailPhotos = this.attachmentList.getByRole('img');
+    this.addPhotoInput = page.getByLabel('Add a photo');
+    this.addPhotoError = page.getByTestId('maintenance-add-photo-error');
 
     this.loadingSpinner = page.locator('[data-testid="maintenance-loading"]');
   }
@@ -109,6 +123,14 @@ export class MaintenancePage {
     if (data.category) {
       await this.categorySelect.selectOption(data.category);
     }
+  }
+
+  async choosePhotos(files: { name: string; mimeType: string; buffer: Buffer }[]) {
+    await this.photoInput.setInputFiles(files);
+  }
+
+  async addPhoto(file: { name: string; mimeType: string; buffer: Buffer }) {
+    await this.addPhotoInput.setInputFiles(file);
   }
 
   async submitRequest() {
