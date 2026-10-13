@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OWN board handout</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+  @page { size: letter; margin: 0.5in; }
+  body { font-size: 14pt; line-height: 1.3; background: #fff; }
+  .sheet { max-width: 8in; margin: 0 auto; padding: 1rem; }
+  h1 { font-size: 26pt; margin: 0 0 0.15in; }
+  .lead { font-size: 15pt; margin: 0 0 0.2in; }
+  ol.six { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.12in; }
+  ol.six li { display: grid; grid-template-columns: 0.6in 1fr; gap: 0.15in; align-items: center; border: 2px solid var(--line); border-radius: 0.14in; padding: 0.08in 0.15in; }
+  ol.six svg { width: 0.6in; height: 0.6in; color: var(--terra); }
+  ol.six h2 { font-size: 15pt; margin: 0; }
+  ol.six p { margin: 0; font-size: 13pt; }
+  .chip { font-size: 11pt; border-width: 2px; padding: 0 0.1in; margin-left: 0.1in; vertical-align: middle; }
+  .asks { margin-top: 0.2in; }
+  .asks h2 { font-size: 16pt; margin: 0 0 0.05in; }
+  .asks ol { margin: 0; padding-left: 0.3in; font-size: 14pt; }
+  .legend { margin: 0 0 0.15in; }
+  .legend .chip { margin-left: 0; margin-right: 0.15in; }
+  @media print { .sheet { padding: 0; max-width: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-site" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="16" width="76" height="64" rx="10"/><path d="M10 36h76"/><path d="M24 26h1M36 26h1"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 76l6-20 36-36 14 14-36 36z"/><path d="M54 28l14 14"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M48 14c-14 0-22 10-22 24v14l-8 12h60l-8-12V38c0-14-8-24-22-24z"/><path d="M40 80a8 8 0 0016 0"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M66 16a20 20 0 00-22 26L16 70l10 10 28-28a20 20 0 0026-22L66 42l-10-2-2-10z"/></symbol>
+    <symbol id="i-text" viewBox="0 0 96 96"><text x="6" y="74" font-size="72" font-weight="700" fill="currentColor" font-family="Outfit, sans-serif">A</text><text x="54" y="74" font-size="44" font-weight="600" fill="currentColor" font-family="Outfit, sans-serif">a</text></symbol>
+    <symbol id="i-face" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="12" width="72" height="72" rx="14"/><circle cx="48" cy="40" r="12"/><path d="M26 74c4-16 40-16 44 0"/></symbol>
+  </defs>
+</svg>
+
+<main class="sheet">
+  <h1>A website and a helping hand for OWN</h1>
+  <p class="lead">Six things that matter to you.</p>
+  <p class="legend"><span class="chip chip-now">Working today</span><span class="chip chip-next">Coming next</span></p>
+
+  <ol class="six">
+    <li><svg aria-hidden="true"><use href="#i-site"/></svg><div><h2>A beautiful, easy-to-read website <span class="chip chip-next">Coming next</span></h2><p>Big words, big buttons, pictures of home. The design is drawn.</p></div></li>
+    <li><svg aria-hidden="true"><use href="#i-pen"/></svg><div><h2>OWN runs it <span class="chip chip-now">Colours and photos today</span></h2><p>Pages, the board list and new directors after each election come next.</p></div></li>
+    <li><svg aria-hidden="true"><use href="#i-bell"/></svg><div><h2>Notices nobody misses <span class="chip chip-now">Working today</span></h2><p>The office writes it once. Members see it on the website.</p></div></li>
+    <li><svg aria-hidden="true"><use href="#i-wrench"/></svg><div><h2>Easy repair requests <span class="chip chip-now">Working today</span></h2><p>Tap, type, send. The office taps Receive. Started, finished and photos come next.</p></div></li>
+    <li><svg aria-hidden="true"><use href="#i-text"/></svg><div><h2>Bigger words, up to 400% <span class="chip chip-next">Coming next</span></h2><p>Everything stacks into one easy column.</p></div></li>
+    <li><svg aria-hidden="true"><use href="#i-face"/></svg><div><h2>Your own photo <span class="chip chip-next">Coming next</span></h2><p>Neighbours see who is writing.</p></div></li>
+  </ol>
+
+  <div class="asks">
+    <h2>Three small things we ask</h2>
+    <ol>
+      <li>Let two members try notices and repair requests.</li>
+      <li>Tell us the first three pages you want on your website.</li>
+      <li>Choose who in your office will be your admin.</li>
+    </ol>
+  </div>
+</main>
+</body>
+</html>

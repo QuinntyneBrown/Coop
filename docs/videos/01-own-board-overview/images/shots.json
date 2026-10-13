@@ -1,0 +1,15 @@
+[
+  { "name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true },
+  { "name": "public-landing-tags", "mock": "pages/public-landing/default.html", "phone": false, "tags": true },
+  { "name": "public-documents-notices", "mock": "pages/public-documents/notices.html", "phone": true },
+  { "name": "public-maintenance", "mock": "pages/public-maintenance/default.html", "phone": true },
+  { "name": "public-maintenance-done", "mock": "pages/public-maintenance/done.html", "phone": true },
+  { "name": "public-maintenance-create", "mock": "dialogs/public-maintenance-create/default.html", "phone": true },
+  { "name": "public-profile-edit", "mock": "pages/public-profile/edit.html", "phone": true },
+  { "name": "admin-documents-notices", "mock": "pages/admin-documents/notices.html", "phone": false },
+  { "name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false },
+  { "name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false },
+  { "name": "admin-settings", "mock": "pages/admin-settings/default.html", "phone": false },
+  { "name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false },
+  { "name": "admin-landing", "mock": "pages/admin-landing/default.html", "phone": false }
+]

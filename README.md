@@ -134,6 +134,8 @@ provenance, and known differences from the requirements.
 | Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages extracted from the mocks; light appearance only |
 | Requirements | `docs/specs` | L1 high-level and L2 detailed requirements with acceptance criteria |
 | Component requirements | `docs/specs/components` | One CRD (Markdown plus HTML rendering) per design-system component, indexed in its README |
+| Videos | `docs/videos`, `tools/` | Narrated videos built from a script and slides; tools in `tools/video-audio` and `tools/video-build` |
+| Board pitch | `docs/pitch` | Picture-first pitch page, one-page handout, and slide deck for the OWN board |
 
 Layer dependencies point inward: Api → Infrastructure → Application →
 Domain → SharedKernel. Business rules live in MediatR handlers and domain
@@ -202,6 +204,8 @@ must not use a real database.
 | Frontend workspace | [frontend](frontend/README.md) |
 | Public app | [frontend/projects/public](frontend/projects/public/README.md) |
 | Admin app | [frontend/projects/admin](frontend/projects/admin/README.md) |
+| Videos | [docs/videos](docs/videos/README.md) |
+| Board pitch | [docs/pitch](docs/pitch/README.md) |
 | Agent guidance | [AGENTS.md](AGENTS.md) |
 
 Detailed designs and architecture decision records are not currently in the
