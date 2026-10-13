@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top bar — Coop design system</title>
+<meta name="description" content="The sticky header with logo and global icon buttons.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Top bar</h1>
+      <p class="ds-lead">A sticky header holding the logo and a few global icon buttons, such as notifications and the menu that opens the sidebar drawer.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;header&gt;</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+<p>The top bar is a sticky strip across the top of the screen. In the public member app it holds the logo and two icon buttons: notifications and the menu (hamburger) that opens the <a href="sidebar.html">sidebar</a> drawer. In the admin shell each page has its own <code>.topbar</code> with the page title on the left and search, bell and avatar on the right.</p>
+<ul>
+<li>Use it for brand and global actions, not for page-level navigation; that belongs in the <a href="sidebar.html">sidebar</a> or <a href="bottom-tab-bar.html">bottom tab bar</a>.</li>
+<li>Its icon buttons are <a href="icon-button.html">icon buttons</a>.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+<div class="ds-anatomy">
+<figure class="ds-anatomy__figure"><header class="top-bar" style="position: static;">
+  <div class="top-bar-inner">
+    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div>
+    <div class="top-bar-actions">
+      <button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button>
+      <button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false"><span class="material-icons" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header></figure>
+<ol class="ds-anatomy__list">
+<li><div><b>Bar (<code>.top-bar</code>)</b><small>Sticky at the top, <code>--z-sticky</code>, white surface, hairline rule below.</small></div></li>
+<li><div><b>Inner (<code>.top-bar-inner</code>)</b><small>Row with space between, centred, max width <code>--layout-container-max</code> (1440px), <code>--space-3</code> by <code>--space-4</code> padding.</small></div></li>
+<li><div><b>Logo (<code>.logo</code>)</b><small>Mark and product name.</small></div></li>
+<li><div><b>Actions (<code>.top-bar-actions</code>)</b><small>Icon buttons with <code>--space-2</code> gap. Each needs an <code>aria-label</code>.</small></div></li>
+</ol>
+</div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+<p>Two bars exist in the product. Both use the same surface and rule; they differ in content.</p>
+<h3>Public: logo and actions</h3>
+<div class="ds-example">
+<div class="ds-example__canvas">
+<header class="top-bar" style="position: static;">
+  <div class="top-bar-inner">
+    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div>
+    <div class="top-bar-actions">
+      <button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button>
+      <button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false"><span class="material-icons" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>
+</div>
+<div class="ds-example__caption"><span>Member app. The hamburger toggles the sidebar drawer; the notification bell opens notifications.</span></div>
+<details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;header class="top-bar" style="position: static;"&gt;
+  &lt;div class="top-bar-inner"&gt;
+    &lt;div class="logo"&gt;&lt;span class="material-icons logo-icon" aria-hidden="true"&gt;apartment&lt;/span&gt;&lt;span class="logo-text"&gt;Coop&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="top-bar-actions"&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Notifications"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;notifications&lt;/span&gt;&lt;/button&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;menu&lt;/span&gt;&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre></details>
+</div>
+<h3>Admin: page title, search and bell</h3>
+<div class="ds-example">
+<div class="ds-example__canvas">
+<header class="topbar" style="position: static; display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-6); width: 100%;">
+<h2 class="logo-text">Users</h2>
+<div class="top-bar-actions"><button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button></div>
+</header>
+</div>
+<div class="ds-example__caption"><span>Admin pages place a title and actions in <code>.topbar</code> (16px 24px padding). The layout properties here are the admin page's own; the shared stylesheet supplies only surface, rule and stickiness.</span></div>
+</div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The top bar has one size; its height comes from the 40px icon button plus vertical padding."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The top bar has one size; its height comes from the 40px icon button plus vertical padding.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+<p>The bar itself has no states. Its icon buttons have hover, focus, active and disabled states documented on <a href="icon-button.html">icon button</a>.</p>
+<div class="ds-example">
+<div class="ds-example__canvas">
+<button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button>
+<button class="icon-btn" type="button" aria-label="Notifications" data-state="hover"><span class="material-icons" aria-hidden="true">notifications</span></button>
+<button class="icon-btn" type="button" aria-label="Notifications" data-state="focus"><span class="material-icons" aria-hidden="true">notifications</span></button>
+<button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="true" data-state="active"><span class="material-icons" aria-hidden="true">menu</span></button>
+</div>
+<div class="ds-example__caption"><span>Default, hover, focus and pressed. The menu button sets <code>aria-expanded</code> while the drawer is open.</span></div>
+</div>
+<p>An unread-count badge on the bell exists in the public stylesheet (<code>.notification-badge</code>, 16px circle on the error colour) but is not in the shared component stylesheet yet; see the request in the page handover.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+<ul>
+<li>The bar is sticky at every width and fills the width up to 1440px (<code>--layout-container-max</code>), then centres.</li>
+<li>The public bar and drawer swap at 1024px: the docked <a href="sidebar.html">sidebar</a> shows at 1024px and wider; below that the hamburger opens the drawer. No <code>@media</code> rule hides the hamburger itself in the captured CSS.</li>
+<li>The admin <code>.topbar</code> has no breakpoint rule of its own.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
+      <p class="ds-na">The product ships one light appearance; there are no theme variants.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+<h3>Role and pattern</h3>
+<p>A <code>&lt;header&gt;</code> banner landmark containing buttons. The hamburger is a disclosure button: <code>aria-expanded</code> reflects whether the drawer is open and <code>aria-controls</code> points to it (requirement; the mocks set neither).</p>
+<h3>Keyboard</h3>
+<div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves between the logo (if a link), bell and menu buttons.</td></tr><tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused button.</td></tr><tr><td><kbd>Esc</kbd></td><td>Requirement: closes an open drawer opened from the menu button and returns focus to it.</td></tr></tbody></table></div>
+<h3>Focus</h3>
+<p>Shared focus ring on <code>:focus-visible</code>. Sticky bars must not hide a focused element: the top bar does not cover content because the page scrolls beneath it with the scroll padding of the bar height (requirement, WCAG 2.4.11).</p>
+<h3>Labelling</h3>
+<p>Icon-only buttons need <code>aria-label</code>. The mocks give "dashboard notification bell" and "dashboard hamburger menu", which repeat the page name; the system labels are "Notifications" and "Open menu".</p>
+<h3>Contrast</h3>
+<div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Icon on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Hover background keeps icon readable</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Logo mark on surface (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-brand|--color-bg-surface" data-min="3"></span></div>
+</div>
+<h3>Motion</h3>
+<p>Hover background changes over <code>--duration-base</code>; no other motion in the bar.</p>
+<h3>Touch</h3>
+<p>Icon buttons are 40px square with 8px between them, above the 24px minimum.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+<ul>
+<li>The logo text is the product name ("Coop"), not the page title in the public bar. The admin bar shows the page title as its heading.</li>
+<li>Action labels name the action ("Notifications", "Open menu"), not the icon ("Bell", "Hamburger").</li>
+<li>If a count is shown it is included in the name: "Notifications, 3 unread".</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Open menu"><span class="material-icons" aria-hidden="true">menu</span></button></div><figcaption>Name icon buttons by what they do: <code>aria-label="Open menu"</code>.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button"><span class="material-icons" aria-hidden="true">menu</span></button></div><figcaption>Do not ship an icon button with no accessible name.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><div class="top-bar-actions"><button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button></div></div><figcaption>Keep the bar to global actions: notifications and menu.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="top-bar-actions"><a class="nav-item" href="#do-dont">Maintenance</a><a class="nav-item" href="#do-dont">Documents</a><a class="nav-item" href="#do-dont">Messages</a></div></div><figcaption>Do not put page navigation in the top bar; it belongs in the sidebar or bottom tab bar.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td>Surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span> </td></tr>
+<tr><td>Bottom rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span> </td></tr>
+<tr><td>Layer</td><td><code>--z-sticky</code></td><td><span data-token="--z-sticky"></span> </td></tr>
+<tr><td>Max inner width</td><td><code>--layout-container-max</code></td><td><span data-token="--layout-container-max"></span> </td></tr>
+<tr><td>Inner padding</td><td><code>--space-3</code> / <code>--space-4</code></td><td><span data-token="--space-3"></span> <span data-token="--space-4"></span> </td></tr>
+<tr><td>Action gap</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span> </td></tr>
+<tr><td>Logo mark</td><td><code>--color-brand</code></td><td><span class="ds-swatch-cell"><i data-token="--color-brand" data-swatch></i><span data-token="--color-brand"></span></span> </td></tr>
+<tr><td>Logo text</td><td><code>--text-h3</code></td><td><span data-token="--text-h3"></span> </td></tr>
+</tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+<pre><code>&lt;header class="top-bar" style="position: static;"&gt;
+  &lt;div class="top-bar-inner"&gt;
+    &lt;div class="logo"&gt;&lt;span class="material-icons logo-icon" aria-hidden="true"&gt;apartment&lt;/span&gt;&lt;span class="logo-text"&gt;Coop&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="top-bar-actions"&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Notifications"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;notifications&lt;/span&gt;&lt;/button&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;menu&lt;/span&gt;&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+<tr><td><code>.top-bar</code> / <code>.topbar</code></td><td>Sticky surface with bottom rule.</td></tr>
+<tr><td><code>.top-bar-inner</code></td><td>Centred row, max 1440px.</td></tr>
+<tr><td><code>.top-bar-actions</code></td><td>Row of icon buttons, 8px gap.</td></tr>
+<tr><td><code>.logo</code> <code>.logo-icon</code> <code>.logo-text</code></td><td>Brand lockup.</td></tr>
+<tr><td><code>aria-expanded</code></td><td>On the menu button: drawer open or closed.</td></tr>
+</tbody></table></div>
+<p>The demos use <code>style="position: static;"</code> so the sticky bar stays inside the example frame; real pages omit it.</p>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+<p>Extracted from these mocks:</p>
+<ul><li><a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a> (public top bar: logo, bell, hamburger)</li><li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (admin page top bar with title, search and bell)</li></ul>
+<h3>Drift</h3>
+<p>Where the mocks differ from each other or fail WCAG 2.2 AA, the design system resolves it as follows.</p>
+<ul><li>Hamburger and bell have page-prefixed labels ("dashboard hamburger menu"); the system uses "Open menu" and "Notifications".</li><li>Menu button sets no <code>aria-expanded</code> or <code>aria-controls</code>; both are required.</li><li>Admin uses <code>.topbar</code> (16px 24px padding) and public uses <code>.top-bar</code> (12px 16px); both classes share one rule here.</li><li>Icon buttons use 8px padding with no focus style; the system uses the 40px <a href="icon-button.html">icon button</a> and the shared focus ring.</li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

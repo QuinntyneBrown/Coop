@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spacing — Coop design system</title>
+<meta name="description" content="A 4px spacing scale with rules for space inside and between components and the 24px minimum target.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Spacing</h1>
+      <p class="ds-lead">A 4px scale from 0 to 48px, one half step for hairlines, and a 24px minimum target size. Inside space belongs to the component; between space belongs to the layout.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Tokens: <code>--space-*</code>, <code>--target-min</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#scale">The scale</a></li><li><a href="#rules">Inside vs between</a></li><li><a href="#target">Target size</a></li><li><a href="#drift">Drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Spacing is a 4px scale from <code>--space-0</code> to <code>--space-12</code>. The mocks already lived close to a 4px rhythm, so the scale keeps their common values (8, 12, 16, 20, 24, 32, 48) and snaps the strays. A step is named by its multiple of 4px, so <code>--space-4</code> is 16px; the one half step, <code>--space-0-5</code> (2px), exists for hairline gaps.</p>
+
+</section>
+<section class="ds-section" id="scale"><h2><a href="#scale">The scale</a></h2>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-scale__row"><code>--space-0</code><span>0</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-0);"></span><span>None</span></span></div><div class="ds-scale__row"><code>--space-0-5</code><span>2px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-0-5);"></span><span>Hairline gaps, badge vertical padding</span></span></div><div class="ds-scale__row"><code>--space-1</code><span>4px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-1);"></span><span>Icon to label, list gaps</span></span></div><div class="ds-scale__row"><code>--space-2</code><span>8px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-2);"></span><span>Inside chips, between inline items</span></span></div><div class="ds-scale__row"><code>--space-3</code><span>12px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-3);"></span><span>Compact padding</span></span></div><div class="ds-scale__row"><code>--space-4</code><span>16px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-4);"></span><span>Default padding, stack gap</span></span></div><div class="ds-scale__row"><code>--space-5</code><span>20px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-5);"></span><span>Card padding</span></span></div><div class="ds-scale__row"><code>--space-6</code><span>24px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-6);"></span><span>Large button padding, panels</span></span></div><div class="ds-scale__row"><code>--space-8</code><span>32px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-8);"></span><span>Dialog padding</span></span></div><div class="ds-scale__row"><code>--space-12</code><span>48px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--space-12);"></span><span>Empty-state padding, section rhythm</span></span></div></div></div>
+</section>
+<section class="ds-section" id="rules"><h2><a href="#rules">Inside versus between</a></h2>
+
+<p>Space does two jobs. Keep them separate so a component can be reused anywhere.</p>
+<ul>
+<li><b>Inside</b> a component (padding and the gap between its own parts) uses <code>--space-1</code> to <code>--space-6</code>. A card is padded <code>--space-5</code>; a compact row <code>--space-3</code>; a badge <code>--space-0-5</code> by <code>--space-3</code>.</li>
+<li><b>Between</b> components (stack gaps, grid gaps, margins) uses <code>--space-4</code> and up. Related items sit <code>--space-4</code> apart; groups <code>--space-6</code>; major sections <code>--space-8</code> to <code>--space-12</code>.</li>
+<li>Gaps between things belong to the parent (<code>gap</code>), not to margins on the children, so components carry no outside space of their own.</li>
+</ul>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas">
+<div class="card" style="display: grid; gap: var(--space-4); width: 100%;"><div style="font: var(--text-h3);">Stack of fields</div><div class="form-group" style="margin: 0;"><label for="sp-name">Name</label><input id="sp-name" type="text" value="Alex Morgan"></div><div class="btn-row"><button class="btn btn-primary" type="button">Save</button><button class="btn btn-secondary" type="button">Cancel</button></div></div>
+</div><div class="ds-example__caption"><span>Padding inside the card is <code>--space-5</code>; the gap between its children is <code>--space-4</code>.</span></div></div>
+</section>
+<section class="ds-section" id="target"><h2><a href="#target">Target size</a></h2>
+
+<p><code>--target-min</code> is 24px, the WCAG 2.2 AA minimum for a pointer target (2.5.8). It is a floor, not a design size: the mocks' real controls are 32 to 48px tall.</p>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-scale__row"><code>--target-min</code><span>24px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__bar" style="--size: var(--target-min);"></span><span>Smallest allowed interactive target</span></span></div></div></div>
+</section>
+<section class="ds-section" id="drift"><h2><a href="#drift">Drift</a></h2>
+
+<p>The harvest lists 22 distinct spacing values. Most are on the 4px grid. These are not.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Uses</th><th scope="col">Snapped to</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td>6px</td><td>26</td><td><code>--space-2</code> 8px</td><td>Between small inline items. Going up keeps touch targets from crowding.</td></tr>
+<tr><td>10px</td><td>47</td><td><code>--space-2</code> 8px for gaps; <code>--space-3</code> 12px for padding</td><td>Gaps tighten to the chip step; control padding opens to the compact step.</td></tr>
+<tr><td>14px</td><td>38</td><td><code>--space-4</code> 16px</td><td>Card and list padding takes the default.</td></tr>
+<tr><td>2px</td><td>11</td><td>Kept as <code>--space-0-5</code></td><td>A deliberate hairline, used between stacked list rows and in badges. It is the only half step.</td></tr>
+<tr><td>3px</td><td>1</td><td><code>--space-1</code> 4px</td><td>One-off.</td></tr>
+<tr><td>60px, 72px, 80px, 100px section padding</td><td>16</td><td>Not tokenised</td><td>Landing and hero screens. They sit above the scale; use <code>--space-12</code> repeated where a screen needs it, and flag any need for larger steps.</td></tr>
+</tbody></table></div>
+
+</section>
+<section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Use a spacing token for every margin, padding and gap. Do not write pixel values.</li>
+<li>Prefer fewer distinct values on a screen: a view usually needs three or four.</li>
+<li>Control height is not a spacing token. Components set their own heights, never below <code>--target-min</code>.</li>
+<li>Reduce nothing at small widths below <code>--space-4</code> of page padding; phone layouts keep the same tokens and stack instead.</li>
+</ul>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div style="display: flex; gap: var(--space-2);"><span class="badge badge-info">Open</span><span class="badge badge-gray">Admin</span></div></div><figcaption>Use <code>--space-2</code> between inline items.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div style="display: flex; gap: 6px;"><span class="badge badge-info">Open</span><span class="badge badge-gray">Admin</span></div></div><figcaption>Do not hand-set 6px or 10px. The mocks used 73 off-grid gaps and no two screens agreed.</figcaption></figure></div><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="padding: var(--space-4);">Card with default padding</div></div><figcaption>Take padding from the scale: 16px, not 14px.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="padding: 14px;">Card with 14px padding</div></div><figcaption>Do not use 14px padding; it is one of the off-grid values the scale removes.</figcaption></figure></div>
+</section>
+<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+
+<ul>
+<li>Interactive targets are at least <code>--target-min</code> (24px) in both dimensions, or have 24px of clear space around them (WCAG 2.5.8). Primary touch controls in the mocks are 32 to 48px tall.</li>
+<li>Spacing is in <code>rem</code>, so it grows with the browser text size and survives 200% zoom.</li>
+<li>Keep at least <code>--space-2</code> between adjacent small targets so a thumb does not hit the wrong one.</li>
+</ul>
+
+</section>
+<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>Every spacing token. Values resolve live from <code>tokens/tokens.css</code>.</p><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Use</th></tr></thead><tbody>
+<tr><td><code>--space-0</code></td><td data-token="--space-0"></td><td></td></tr>
+<tr><td><code>--space-0-5</code></td><td data-token="--space-0-5"></td><td>2px  hairline gaps</td></tr>
+<tr><td><code>--space-1</code></td><td data-token="--space-1"></td><td>4px  icon-to-label, list gaps</td></tr>
+<tr><td><code>--space-2</code></td><td data-token="--space-2"></td><td>8px  inside chips, between inline items (mocks: 6, 10)</td></tr>
+<tr><td><code>--space-3</code></td><td data-token="--space-3"></td><td>12px compact padding (mocks: 10, 14)</td></tr>
+<tr><td><code>--space-4</code></td><td data-token="--space-4"></td><td>16px default padding, stack gap (mocks: 14)</td></tr>
+<tr><td><code>--space-5</code></td><td data-token="--space-5"></td><td>20px card padding</td></tr>
+<tr><td><code>--space-6</code></td><td data-token="--space-6"></td><td>24px large button padding, panels</td></tr>
+<tr><td><code>--space-8</code></td><td data-token="--space-8"></td><td>32px dialog padding</td></tr>
+<tr><td><code>--space-12</code></td><td data-token="--space-12"></td><td>48px empty-state padding</td></tr>
+<tr><td><code>--target-min</code></td><td data-token="--target-min"></td><td>24px  WCAG 2.2 AA minimum target size</td></tr>
+</tbody></table></div>
+</section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

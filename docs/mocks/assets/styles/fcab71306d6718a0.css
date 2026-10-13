@@ -1,0 +1,17 @@
+[_nghost-ng-c2531882536] { display: flex; flex-direction: column; min-height: 100vh; background: var(--background); }
+.register-header[_ngcontent-ng-c2531882536] { background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      #2D6B44 100%); color: white; padding: 40px 24px 32px; text-align: center; border-radius: 0px 0px 24px 24px; }
+.register-header[_ngcontent-ng-c2531882536] h1[_ngcontent-ng-c2531882536] { font-size: 32px; font-weight: 700; }
+.register-header[_ngcontent-ng-c2531882536] p[_ngcontent-ng-c2531882536] { font-size: 16px; opacity: 0.9; margin-top: 4px; }
+.register-body[_ngcontent-ng-c2531882536] { flex: 1 1 0%; padding: 24px 24px 80px; max-width: 400px; width: 100%; margin: 0px auto; }
+.heading[_ngcontent-ng-c2531882536] { font-size: 24px; font-weight: 600; margin-bottom: 20px; }
+.terms-row[_ngcontent-ng-c2531882536] { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.terms-row[_ngcontent-ng-c2531882536] input[type="checkbox"][_ngcontent-ng-c2531882536] { width: 18px; height: 18px; accent-color: var(--primary); }
+.terms-row[_ngcontent-ng-c2531882536] label[_ngcontent-ng-c2531882536] { font-size: 14px; color: var(--text-secondary); cursor: pointer; }
+.register-error[_ngcontent-ng-c2531882536] { margin: 12px 0px; padding: 10px; background: rgb(254, 242, 242); border: 1px solid rgb(254, 202, 202); border-radius: var(--radius-sm); text-align: center; }
+.create-btn[_ngcontent-ng-c2531882536] { margin-top: 16px; height: 48px; }
+.sign-in-row[_ngcontent-ng-c2531882536] { text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-secondary); }
+.sign-in-row[_ngcontent-ng-c2531882536] a[_ngcontent-ng-c2531882536] { color: var(--primary); font-weight: 500; }
+input.invalid[_ngcontent-ng-c2531882536] { border-color: var(--error); }

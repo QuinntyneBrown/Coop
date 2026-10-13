@@ -1,56 +1,246 @@
-# Coop
+<h1 align="center">Coop</h1>
 
-Coop is a documentation-first repository for a cooperative residential management platform.
+<p align="center">
+  <strong>Cooperative housing, managed.</strong><br>
+  A cooperative residential management platform with a public-facing web app
+  for members and an admin backend for staff, board members, and system
+  administrators.
+</p>
 
-The current target architecture is a **modular monolith** that serves **two application surfaces**:
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/.NET-10.0-512BD4.svg" alt=".NET 10">
+  <img src="https://img.shields.io/badge/Angular-22-DD0031.svg" alt="Angular 22">
+  <img src="https://img.shields.io/badge/Playwright-e2e-2EAD33.svg" alt="Playwright">
+</p>
 
-- a **CMS-driven public-facing web app** for the Coop
-- an **admin backend** for staff, board members, and system administrators
+<p align="center">
+  <a href="#overview">Overview</a> ·
+  <a href="#getting-started">Getting started</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#development">Development</a> ·
+  <a href="#testing">Testing</a> ·
+  <a href="#documentation">Documentation</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a>
+</p>
 
-## Scope
+---
 
-The platform requirements and designs cover:
+## Overview
 
-- user accounts, authentication, and authorization
-- profile and invitation management
-- maintenance workflows
-- document publishing
-- messaging
-- digital assets
-- theme and CMS content management
-- audit history and event sourcing
+Coop is built around the day-to-day work of running a housing cooperative:
 
-## Repository Layout
+- members raise maintenance requests, read published notices, bylaws, and
+  reports, and message staff;
+- staff and board members triage requests, publish documents, and manage
+  invitations and onboarding;
+- system administrators manage users, roles, privileges, themes, and CMS
+  content.
 
-- `docs/specs` - high-level and detailed requirements
-- `docs/detailed-designs` - feature-level and architecture design documents
-- `docs` - supporting architecture and planning documents
+The project is documentation-first and full-stack. The requirements in
+`docs/specs/` define behavior, and the backend owns business rules,
+persistence, authentication, seeding, and API contracts. The two Angular
+applications own the user experience and consume the backend through a shared
+REST API. The Playwright suites check behavior in each application.
 
-The previous implementation directories (`src/` and `tests/`) have been removed from this repository so it can act as the canonical product and technical design pack.
+The target architecture is a **modular monolith**: one deployable backend
+organized into explicit business modules, one shared database, and one REST API
+surface that serves both applications.
 
-## Architecture Summary
+## Features
 
-The documented solution uses:
+- User accounts with secure credential storage and soft delete, JWT
+  authentication, and role-based access control with resource-level
+  privileges (Read, Write, Create, Delete) for the Member, Staff, BoardMember,
+  SystemAdministrator, and Support roles.
+- Multiple profile types per user (Member, BoardMember, StaffMember, OnCall)
+  with a current and default profile.
+- Maintenance request workflow: New, Received, Started, and Completed, with
+  comments, photo evidence, and an audit history.
+- Document management for notices, bylaws, and reports, with draft and
+  published states; published documents are readable anonymously.
+- Messaging between members and staff.
+- Digital asset upload, avatars, and anonymous serving of public assets.
+- Theme and JSON content management that drives the public site.
+- Invitation and onboarding flows for new members.
+- Event sourcing and audit trail for domain changes.
+- Static HTML references of the implemented screens under `docs/mocks/`,
+  captured from both applications.
 
-- one deployable backend organized into explicit business modules
-- one shared database with module-owned tables or schemas
-- one shared ASP.NET Core REST API surface on **.NET 10 LTS**
-- two **Angular 21** front-end applications: the public web app and the admin backend
+## Getting started
 
-## Technology Baseline
+### Prerequisites
 
-Unless a document explicitly describes a migration constraint or legacy compatibility concern, the Coop design pack assumes the following implementation baseline:
+- .NET SDK `10.0.401` or a compatible feature-band SDK, as pinned by
+  `backend/global.json`
+- Node.js and npm
+- Chromium for the Playwright suites (`npx playwright install chromium`)
 
-- **Backend:** ASP.NET Core on **.NET 10 LTS**
-- **Client applications:** **Angular 21** for both the public web app and the admin backend
-- **API documentation:** OpenAPI / Swagger
-- **Authentication:** JWT bearer tokens
+The backend stores data in a local SQLite file, so no database server is
+required.
+
+### Quick start
+
+Run the API and both applications in separate terminals.
+
+```powershell
+# API on http://localhost:5000
+dotnet run --project .\backend\src\Coop.Api --urls http://localhost:5000
+```
+
+```powershell
+cd frontend
+npm ci
+
+# Public app on http://localhost:4201
+npm run start:public
+
+# Admin app on http://localhost:4200 (in another terminal)
+npm run start:admin
+```
+
+The applications compile in `http://localhost:5000/api` as the API address, and
+the API only allows CORS requests from `http://localhost:4200` and
+`http://localhost:4201`, so keep those ports.
+
+On startup the API creates `coop.db` if it is missing and seeds fictional
+development data: roles and privileges, an `admin` user, a `member` user, and
+sample board members. Swagger is available at `http://localhost:5000/swagger`
+in the Development environment. See [backend/README.md](backend/README.md) for the seed
+accounts and the backend layout.
+
+### Design reference (static mocks)
+
+Open any page under [docs/mocks/pages](docs/mocks/pages/), for example
+`docs/mocks/pages/public-login/default.html`, directly from disk. No server is
+required. See the [mock README](docs/mocks/README.md) for capture setup,
+provenance, and known differences from the requirements.
+
+## Architecture
+
+| Area | Path | Notes |
+| --- | --- | --- |
+| Backend API | `backend/src/Coop.Api` | ASP.NET Core controllers, `Program.cs`, DI composition, Swagger, seed data |
+| Application layer | `backend/src/Coop.Application` | MediatR handlers, FluentValidation validators, pipeline behaviors, DTO contracts |
+| Domain layer | `backend/src/Coop.Domain` | Entities, enums, aggregates, and authorization rules with no infrastructure dependency |
+| Infrastructure | `backend/src/Coop.Infrastructure` | EF Core with SQLite, `CoopDbContext`, identity services, notifications |
+| Shared kernel | `backend/src/Coop.SharedKernel` | Constants and authentication primitives shared across layers |
+| Public app | `frontend/projects/public` | Angular public and member application ([README](frontend/projects/public/README.md)) |
+| Admin app | `frontend/projects/admin` | Angular administration application ([README](frontend/projects/admin/README.md)) |
+| API library | `frontend/projects/api` | Angular library for service contracts and injection tokens; scaffold only so far |
+| Component library | `frontend/projects/components` | Angular library for design-system components; scaffold only so far |
+| E2E suite | `e2e` | Playwright projects for the public and admin apps; `tests/` express intent, `pages/` own selectors, `fixtures/` hold test data |
+| Design reference | `docs/mocks` | Static HTML references of both applications, with capture scripts and a manifest |
+| Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages extracted from the mocks; light appearance only |
+| Requirements | `docs/specs` | L1 high-level and L2 detailed requirements with acceptance criteria |
+
+Layer dependencies point inward: Api → Infrastructure → Application →
+Domain → SharedKernel. Business rules live in MediatR handlers and domain
+services, not controllers. The repository follows the `backend/`, `frontend/`, and `e2e/` layout described
+in [AGENTS.md](AGENTS.md).
+
+## Development
+
+Common commands from the repository root:
+
+```powershell
+# Backend
+dotnet build .\backend\Coop.sln
+dotnet run --project .\backend\src\Coop.Api --urls http://localhost:5000
+
+# Frontend workspace
+cd frontend
+npm run start:public     # http://localhost:4201
+npm run start:admin      # http://localhost:4200
+npm run build            # builds every project
+npm test
+```
+
+Development conventions:
+
+- Keep backend business rules in application handlers and domain services, not
+  controllers.
+- Keep cross-cutting rules (validation, resource authorization) in MediatR
+  pipeline behaviors.
+- Run EF migrations through an explicit command; the API should not apply
+  them on startup.
+- Keep seed data idempotent, safe to rerun, and clearly fictional.
+- Require authentication by default and mark anonymous endpoints explicitly.
+- Update the L1/L2 requirements, detailed design, and mock before changing
+  production behavior.
+- Keep each class, interface, type alias, and enum in its own kebab-case file,
+  with separate Angular template and style files.
+
+## Testing
+
+| Suite | Command | Purpose |
+| --- | --- | --- |
+| Backend build | `dotnet build .\backend\Coop.sln` | Compile the API, application, domain, infrastructure, and shared kernel projects |
+| Frontend build | `npm run build` from `frontend` | Build the public and admin applications and the shared libraries |
+| Frontend unit tests | `npm test` from `frontend` | Angular Vitest tests |
+| Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against the API |
+| Public Playwright | `npm run test:public` from `e2e` | The public app on :4201 |
+| Admin Playwright | `npm run test:admin` from `e2e` | The admin app on :4200 |
+
+The Playwright suite starts the API and both Angular apps when they are not
+already running, and runs in Chromium. There are no backend test projects yet;
+backend behavior should be tested through the API at the integration boundary
+when they are added.
 
 ## Documentation
 
-- [L1 high-level requirements](docs/specs/L1.md)
-- [L2 detailed requirements and acceptance criteria](docs/specs/L2.md)
+| Topic | Location |
+| --- | --- |
+| Backend guide | [backend/README.md](backend/README.md) |
+| Requirements | [Level 1](docs/specs/L1.md) and [Level 2](docs/specs/L2.md) specifications in [docs/specs](docs/specs/) |
+| Design reference | [docs/mocks](docs/mocks/pages/) and its [README](docs/mocks/README.md) |
+| Frontend workspace | [frontend](frontend/README.md) |
+| Public app | [frontend/projects/public](frontend/projects/public/README.md) |
+| Admin app | [frontend/projects/admin](frontend/projects/admin/README.md) |
+| Agent guidance | [AGENTS.md](AGENTS.md) |
+
+Detailed designs and architecture decision records are not currently in the
+working tree. Add them under `docs/detailed-designs/` and `docs/adr/`, and link
+them here, when they are written.
+
+## Deployment
+
+A GitHub Actions workflow, `.github/workflows/azure-static-web-apps-white-bay-0cf53f60f.yml`,
+deploys to Azure Static Web Apps on pushes and pull requests to `master`. It is
+a scaffold that builds only the public Angular app from `frontend/` (output
+`dist/public/browser`). It has not been verified against the Azure resource, and
+it does not build the admin app or host the API. Add those targets before
+relying on it.
+
+Before deploying anywhere, replace the development `Authentication:JwtKey` in
+`backend/src/Coop.Api/appsettings.json` with a secret supplied through environment
+variables or a secret store, and update the CORS origins in
+`backend/src/Coop.Api/Dependencies.cs`.
 
 ## Contributing
 
-Keep contributions scoped to the design and requirements artifacts in `docs/`, and update the relevant requirements or detailed designs whenever architecture or product behavior changes.
+Contributions are welcome when they keep the platform useful, testable, and
+aligned with the requirements. See [CONTRIBUTING.md](CONTRIBUTING.md) for the
+development workflow, coding guidelines, test expectations, and pull request
+checklist.
+
+## Security
+
+Do not report suspected security vulnerabilities in public issues. See
+[SECURITY.md](SECURITY.md) for supported versions, private reporting guidance,
+and security-sensitive areas that require extra review.
+
+## Support
+
+Use GitHub Issues for reproducible bugs, feature requests, and documentation
+problems. See [SUPPORT.md](SUPPORT.md) for the information to include in a good
+report.
+
+## Code of Conduct
+
+Participation in this project is governed by
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## License
+
+Coop is licensed under the [MIT License](LICENSE).

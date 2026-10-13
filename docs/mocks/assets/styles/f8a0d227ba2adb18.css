@@ -1,0 +1,19 @@
+.onboarding-page[_ngcontent-ng-c1041431931] { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: rgb(245, 244, 241); padding: 20px; }
+.onboarding-card[_ngcontent-ng-c1041431931] { width: 100%; max-width: 560px; padding: 40px; text-align: center; }
+.step-indicator[_ngcontent-ng-c1041431931] { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
+.step-dot[_ngcontent-ng-c1041431931] { width: 10px; height: 10px; border-radius: 50%; background: rgb(229, 228, 225); }
+.step-dot.active[_ngcontent-ng-c1041431931] { background: rgb(61, 138, 90); }
+.step-dot.current[_ngcontent-ng-c1041431931] { box-shadow: rgba(61, 138, 90, 0.2) 0px 0px 0px 3px; }
+.step-content[_ngcontent-ng-c1041431931] { margin-top: 24px; }
+.step-content[_ngcontent-ng-c1041431931] h2[_ngcontent-ng-c1041431931] { font-size: 22px; margin-bottom: 12px; }
+.step-content[_ngcontent-ng-c1041431931] p[_ngcontent-ng-c1041431931] { color: rgba(26, 25, 24, 0.8); margin-bottom: 20px; }
+.form-row[_ngcontent-ng-c1041431931] { display: flex; gap: 12px; }
+.form-group[_ngcontent-ng-c1041431931] { margin-bottom: 16px; text-align: left; flex: 1 1 0%; }
+.form-group[_ngcontent-ng-c1041431931] label[_ngcontent-ng-c1041431931] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
+.form-group[_ngcontent-ng-c1041431931] input[_ngcontent-ng-c1041431931] { width: 100%; padding: 10px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 8px; font-size: 14px; }
+.form-group[_ngcontent-ng-c1041431931] input[_ngcontent-ng-c1041431931]:focus { outline: none; border-color: rgb(61, 138, 90); }
+.btn-row[_ngcontent-ng-c1041431931] { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+.unit-options[_ngcontent-ng-c1041431931] { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 16px 0px; }
+.unit-option[_ngcontent-ng-c1041431931] { padding: 10px 20px; border: 1px solid rgb(229, 228, 225); border-radius: 10px; cursor: pointer; }
+.unit-option.selected[_ngcontent-ng-c1041431931] { background: rgb(61, 138, 90); color: rgb(255, 255, 255); border-color: rgb(61, 138, 90); }
+.unit-option[_ngcontent-ng-c1041431931]:hover { border-color: rgb(61, 138, 90); }

@@ -1,0 +1,22 @@
+[_nghost-ng-c330221105] { display: flex; flex-direction: column; min-height: 100vh; background: var(--background); }
+.login-header[_ngcontent-ng-c330221105] { background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      #2D6B44 100%); color: white; padding: 48px 24px 40px; text-align: center; border-radius: 0px 0px 24px 24px; }
+.login-header[_ngcontent-ng-c330221105] h1[_ngcontent-ng-c330221105] { font-size: 32px; font-weight: 700; }
+.login-header[_ngcontent-ng-c330221105] p[_ngcontent-ng-c330221105] { font-size: 16px; opacity: 0.9; margin-top: 4px; }
+.login-body[_ngcontent-ng-c330221105] { flex: 1 1 0%; padding: 32px 24px; max-width: 400px; width: 100%; margin: 0px auto; }
+.welcome[_ngcontent-ng-c330221105] { font-size: 24px; font-weight: 600; margin-bottom: 24px; }
+.forgot-row[_ngcontent-ng-c330221105] { text-align: right; margin-bottom: 8px; }
+.forgot-row[_ngcontent-ng-c330221105] a[_ngcontent-ng-c330221105] { font-size: 14px; color: var(--primary); }
+.login-error[_ngcontent-ng-c330221105] { margin-bottom: 12px; padding: 10px; background: rgb(254, 242, 242); border: 1px solid rgb(254, 202, 202); border-radius: var(--radius-sm); text-align: center; }
+.sign-in-btn[_ngcontent-ng-c330221105] { margin-top: 8px; height: 48px; font-size: 16px; }
+.sign-up-row[_ngcontent-ng-c330221105] { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-secondary); }
+.sign-up-row[_ngcontent-ng-c330221105] a[_ngcontent-ng-c330221105] { color: var(--primary); font-weight: 500; }
+input.invalid[_ngcontent-ng-c330221105] { border-color: var(--error); }
+.bottom-tab-bar[_ngcontent-ng-c330221105] { position: fixed; bottom: 0px; left: 0px; right: 0px; background: var(--surface); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 100; }
+.tab-item[_ngcontent-ng-c330221105] { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 12px; color: var(--text-secondary); text-decoration: none; font-size: 11px; font-weight: 500; min-width: 56px; }
+.tab-item[_ngcontent-ng-c330221105]:hover { text-decoration: none; color: var(--primary); }
+@media (min-width: 1024px) {
+  .bottom-tab-bar[_ngcontent-ng-c330221105] { display: none; }
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content — Coop design system</title>
+<meta name="description" content="Voice, tone, casing, button verbs, error and empty-state formulas, and a microcopy table taken from the real copy in the Coop mocks.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Content</h1>
+      <p class="ds-lead">Plain, short and friendly. The rules below are what the mocks already do, with the inconsistencies named and a recommended wording where they disagree.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview and voice</a></li><li><a href="#casing">Casing and button verbs</a></li><li><a href="#formulas">Message formulas, dates</a></li><li><a href="#microcopy">Microcopy table</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview and voice</a></h2>
+
+<p>This page describes the voice the mocks already have, taken from the real copy in <code>docs/mocks</code>. It records patterns, and where two mocks say the same thing differently it names the inconsistency and gives a clearly marked <em>Recommended</em> wording. The product's reference date is 13 October 2026 and all names and addresses are fictional.</p>
+<p>The voice is plain, short and friendly: a neighbourhood cooperative, not a bank. Copy addresses the member as "you" ("Your" in onboarding headings), uses contractions ("Here's your overview", "You're all set!", "we'll send you a link") and avoids jargon and exclamation marks except to welcome or confirm completion.</p>
+
+    </section>
+    <section class="ds-section" id="casing"><h2><a href="#casing">Casing and button verbs</a></h2>
+
+<h3>Casing</h3>
+<ul>
+<li><strong>Buttons and links that act:</strong> Title Case. "Save Changes", "Create Account", "Update Password", "Send Reset Link", "Go to Dashboard", "Add User", "Edit Profile". Short words such as "to" stay lower case.</li>
+<li><strong>Screen and dialog titles:</strong> Title Case. "Maintenance Requests", "Change Password", "Edit Member Profile", "Asset Details", "Confirm Delete".</li>
+<li><strong>Labels:</strong> Title Case. "First Name", "Confirm New Password", "Invitation Token", "Board Title". Optional fields add "(optional)".</li>
+<li><strong>Sentences</strong> (subtitles, hints, errors, empty states, success): sentence case, ending with a full stop only when there is more than one sentence or the line is a full sentence ("No public notices at this time.").</li>
+<li><strong>Placeholders:</strong> sentence case, an example or instruction: "Enter your username", "Brief title for your request", "Search documents...".</li>
+<li>Status and category values (<em>New, Received, Started, Completed, Draft, Published, Active, Expired, Used, Low, Medium, High</em>) are single Title Case words in badges.</li>
+</ul>
+<p>Auth headings are the exception: they use sentence case ("Welcome back", "Join your cooperative", "Set up your profile") while the admin onboarding headings use Title Case ("Select Your Unit").</p>
+
+<h3>Button verbs</h3>
+<ul>
+<li>Create something: <strong>Create</strong> for records ("Create Account", "Create Invitation", "Create Request"), <strong>Add</strong> for list members ("Add User", "Add Privilege"), <strong>New</strong> for the entry button ("New Request", "New Document", "New Conversation").</li>
+<li>Change something: <strong>Save Changes</strong> for profile edits, <strong>Update Password</strong> for passwords, <strong>Edit</strong> / <strong>Edit Profile</strong> to start editing.</li>
+<li>Leave or dismiss: <strong>Cancel</strong> when a flow was started, <strong>Close</strong> for viewers, <strong>Done</strong> after success, <strong>Skip</strong> and <strong>Back</strong> in onboarding.</li>
+<li>Destructive: <strong>Delete</strong> in a "Confirm Delete" dialog; the dialog states the object ("Are you sure you want to delete this user?").</li>
+<li>Session: <strong>Sign In</strong>, <strong>Create Account</strong>, <strong>Log Out</strong>.</li>
+<li>Busy: the button label becomes the present participle with three dots ("Signing in...", "Creating account...").</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="formulas"><h2><a href="#formulas">Message formulas, dates</a></h2>
+
+<h3>Formulas</h3>
+<ul>
+<li><strong>Required field error:</strong> "<em>Field</em> is required" ("Username is required", "First name is required"). Choice: "You must accept the terms".</li>
+<li><strong>Mismatch error:</strong> "Passwords do not match".</li>
+<li><strong>Form-level failure:</strong> "<em>What failed</em>. <em>What to check</em>." ("Registration failed. Please check your invitation token.", "Failed to change password. Check your current password."). A short fact is allowed when nothing can be fixed ("Invalid username or password").</li>
+<li><strong>Empty state:</strong> "No <em>things</em> found" for lists, "No <em>things</em> yet" for things the person creates, "No recent <em>things</em>" on dashboards. They sit under a 48px icon and, where the user can act, next to the entry button. The mocks reuse the empty-state text for no-results; no separate "no matches" wording exists.</li>
+<li><strong>Success:</strong> "<em>Thing</em> updated successfully" ("Profile updated successfully", "Password updated successfully", "Theme saved successfully").</li>
+<li><strong>Hints:</strong> one sentence of instruction or a rule ("Password must be at least 8 characters long").</li>
+<li><strong>Greeting:</strong> "Hello, <em>FirstName</em>" followed by "Here's your overview".</li>
+</ul>
+<h3>Dates and numbers</h3>
+<ul>
+<li>Dates: short month, day and year in US order: <strong>Oct 13, 2026</strong>. With a time: <strong>Oct 13, 2026, 8:00 AM</strong> (12-hour with AM/PM). Form date fields hold ISO values (2026-10-13).</li>
+<li>The asset detail dialog shows seconds ("Oct 13, 2026, 8:00:00 AM") and a raw byte count ("2048"). These are unformatted values rather than a chosen style.</li>
+<li>Counts are bare numbers beside a label ("Requests 4").</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="microcopy"><h2><a href="#microcopy">Microcopy table</a></h2>
+<p>Every string is quoted from the mocks and linked to the first mock that contains it.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Kind</th><th scope="col">String in the mocks</th><th scope="col">Source</th><th scope="col">Recommended where inconsistent</th></tr></thead><tbody>
+<tr><td>Screen title</td><td>Maintenance Requests</td><td><a href="../../mocks/pages/public-maintenance/default.html">public-maintenance / default</a></td><td></td></tr>
+<tr><td>Screen title</td><td>Change Password</td><td><a href="../../mocks/pages/admin-change-password/default.html">admin-change-password / default</a></td><td></td></tr>
+<tr><td>Dialog title</td><td>Confirm Delete</td><td><a href="../../mocks/dialogs/admin-user-delete/default.html">admin-user-delete / default</a></td><td></td></tr>
+<tr><td>Greeting</td><td>Hello, Mira</td><td><a href="../../mocks/pages/public-dashboard/default.html">public-dashboard / default</a></td><td></td></tr>
+<tr><td>Subtitle</td><td>Here's your overview</td><td><a href="../../mocks/pages/public-dashboard/default.html">public-dashboard / default</a></td><td></td></tr>
+<tr><td>Heading, sentence case</td><td>Welcome back</td><td><a href="../../mocks/pages/public-login/default.html">public-login / default</a></td><td></td></tr>
+<tr><td>Heading, public</td><td>Select your unit</td><td><a href="../../mocks/pages/public-onboarding/unit-selected.html">public-onboarding / unit-selected</a></td><td><strong>Recommended:</strong> Select Your Unit (match the admin app and the Title Case rule for screen titles)</td></tr>
+<tr><td>Heading, admin</td><td>Select Your Unit</td><td><a href="../../mocks/pages/admin-onboarding/unit-selected.html">admin-onboarding / unit-selected</a></td><td></td></tr>
+<tr><td>Heading, public</td><td>Set up your profile</td><td><a href="../../mocks/pages/public-onboarding/profile.html">public-onboarding / profile</a></td><td><strong>Recommended:</strong> Set Up Your Profile</td></tr>
+<tr><td>Completion</td><td>You're all set!</td><td><a href="../../mocks/pages/admin-onboarding/unit-selected.html">admin-onboarding / unit-selected</a></td><td></td></tr>
+<tr><td>Button</td><td>Save Changes</td><td><a href="../../mocks/pages/admin-profile/board-edit.html">admin-profile / board-edit</a></td><td></td></tr>
+<tr><td>Button</td><td>Send Reset Link</td><td><a href="../../mocks/pages/public-forgot-password/default.html">public-forgot-password / default</a></td><td></td></tr>
+<tr><td>Button</td><td>Go to Dashboard</td><td><a href="../../mocks/pages/admin-onboarding/unit-selected.html">admin-onboarding / unit-selected</a></td><td></td></tr>
+<tr><td>Button</td><td>Logout</td><td><a href="../../mocks/pages/admin-profile/default.html">admin-profile / default</a></td><td><strong>Recommended:</strong> Log Out (matches the Log Out button in the profile switcher)</td></tr>
+<tr><td>Button</td><td>Log Out</td><td><a href="../../mocks/dialogs/public-profile-switcher/default.html">public-profile-switcher / default</a></td><td></td></tr>
+<tr><td>Button</td><td>Submit</td><td><a href="../../mocks/dialogs/admin-maintenance-create/default.html">admin-maintenance-create / default</a></td><td><strong>Recommended:</strong> Create Request (matches the public dialog and the verb rule)</td></tr>
+<tr><td>Button</td><td>Submit Request</td><td><a href="../../mocks/dialogs/public-maintenance-create/default.html">public-maintenance-create / default</a></td><td><strong>Recommended:</strong> Create Request</td></tr>
+<tr><td>Busy button</td><td>Signing in...</td><td><a href="../../mocks/pages/admin-login/submitting.html">admin-login / submitting</a></td><td><strong>Recommended:</strong> Signing in…</td></tr>
+<tr><td>Busy button</td><td>Creating account...</td><td><a href="../../mocks/pages/public-register/submitting.html">public-register / submitting</a></td><td><strong>Recommended:</strong> Creating account…</td></tr>
+<tr><td>Busy button</td><td>Creating...</td><td><a href="../../mocks/pages/admin-register/submitting.html">admin-register / submitting</a></td><td><strong>Recommended:</strong> Creating account…</td></tr>
+<tr><td>Placeholder</td><td>Search documents...</td><td><a href="../../mocks/pages/admin-documents/bylaws.html">admin-documents / bylaws</a></td><td></td></tr>
+<tr><td>Hint</td><td>Password must be at least 8 characters long</td><td><a href="../../mocks/pages/admin-change-password/default.html">admin-change-password / default</a></td><td></td></tr>
+<tr><td>Hint</td><td>Enter your username or email and we'll send you a link to reset your password.</td><td><a href="../../mocks/pages/public-forgot-password/default.html">public-forgot-password / default</a></td><td></td></tr>
+<tr><td>Validation</td><td>Username is required</td><td><a href="../../mocks/pages/admin-login/invalid.html">admin-login / invalid</a></td><td></td></tr>
+<tr><td>Validation</td><td>Passwords do not match</td><td><a href="../../mocks/pages/admin-change-password/mismatch.html">admin-change-password / mismatch</a></td><td></td></tr>
+<tr><td>Validation</td><td>New passwords do not match</td><td><a href="../../mocks/pages/public-profile/password-invalid.html">public-profile / password-invalid</a></td><td><strong>Recommended:</strong> Passwords do not match</td></tr>
+<tr><td>Validation</td><td>You must accept the terms</td><td><a href="../../mocks/pages/public-register/invalid.html">public-register / invalid</a></td><td><strong>Recommended:</strong> You must accept the terms and conditions</td></tr>
+<tr><td>Validation</td><td>You must accept the terms and conditions</td><td><a href="../../mocks/pages/admin-register/invalid.html">admin-register / invalid</a></td><td></td></tr>
+<tr><td>Form error</td><td>Invalid username or password</td><td><a href="../../mocks/pages/public-login/error.html">public-login / error</a></td><td></td></tr>
+<tr><td>Form error</td><td>Registration failed. Please check your invitation token.</td><td><a href="../../mocks/pages/public-register/error.html">public-register / error</a></td><td><strong>Recommended:</strong> Registration failed. Check your invitation token. (drop "Please"; match the password error)</td></tr>
+<tr><td>Form error</td><td>Failed to change password. Check your current password.</td><td><a href="../../mocks/pages/public-profile/password-error.html">public-profile / password-error</a></td><td></td></tr>
+<tr><td>Empty state</td><td>No maintenance requests found</td><td><a href="../../mocks/pages/public-maintenance/empty.html">public-maintenance / empty</a></td><td></td></tr>
+<tr><td>Empty state</td><td>No conversations yet</td><td><a href="../../mocks/pages/public-messaging/empty.html">public-messaging / empty</a></td><td></td></tr>
+<tr><td>Empty state</td><td>No assets uploaded yet</td><td><a href="../../mocks/pages/admin-assets/empty.html">admin-assets / empty</a></td><td></td></tr>
+<tr><td>Empty state</td><td>No recent requests</td><td><a href="../../mocks/pages/public-dashboard/empty.html">public-dashboard / empty</a></td><td></td></tr>
+<tr><td>Empty state</td><td>No public notices at this time.</td><td><a href="../../mocks/pages/public-landing/empty.html">public-landing / empty</a></td><td><strong>Recommended:</strong> No public notices at this time (drop the full stop to match the other empty states)</td></tr>
+<tr><td>Empty state</td><td>Select a conversation to start chatting</td><td><a href="../../mocks/pages/admin-messaging/default.html">admin-messaging / default</a></td><td></td></tr>
+<tr><td>Confirmation</td><td>Are you sure you want to delete this user?</td><td><a href="../../mocks/dialogs/admin-user-delete/default.html">admin-user-delete / default</a></td><td></td></tr>
+<tr><td>Success</td><td>Profile updated successfully</td><td><a href="../../mocks/notifications/admin-profile-saved/success.html">admin-profile-saved / success</a></td><td></td></tr>
+<tr><td>Success</td><td>Profile updated successfully!</td><td><a href="../../mocks/notifications/public-profile-saved/success.html">public-profile-saved / success</a></td><td><strong>Recommended:</strong> Profile updated successfully (no exclamation mark; the public mock is the only one with it)</td></tr>
+<tr><td>Success</td><td>Password updated successfully</td><td><a href="../../mocks/notifications/admin-password-saved/success.html">admin-password-saved / success</a></td><td></td></tr>
+<tr><td>Success</td><td>Theme saved successfully</td><td><a href="../../mocks/notifications/admin-theme-saved/success.html">admin-theme-saved / success</a></td><td></td></tr>
+</tbody></table></div>
+    </section>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Use the verb table above before inventing a new label. A button names what it does to the object ("Create Request"), not "Submit" or "OK".</li>
+<li>Write error text that says what is wrong and how to fix it, next to the field, and in a form that screen readers announce (see <a href="accessibility.html#gaps">Accessibility</a>).</li>
+<li>Use "Oct 13, 2026" style dates everywhere, and drop seconds.</li>
+<li>Use the three-dots busy text while a form submits and keep the button label stable in width where possible.</li>
+<li>Keep copy fictional-safe: invented names, the address 101 Fictional Court, and <code>.invalid</code> e-mail domains in examples.</li>
+</ul>
+<h3>Drift</h3>
+<ul>
+<li>Heading and button casing differs between the public and admin apps for the same screens.</li>
+<li>Equivalent actions have different labels (Submit, Submit Request, Create Request; Logout, Log Out).</li>
+<li>The two validation messages for terms and for password mismatch differ between apps.</li>
+<li>Busy labels use three ASCII dots and differ in wording ("Creating..." versus "Creating account...").</li>
+<li>Asset detail shows raw bytes and seconds in the timestamp.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>This page owns no tokens.</p>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

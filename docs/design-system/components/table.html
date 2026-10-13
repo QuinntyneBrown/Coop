@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table — Coop design system</title>
+<meta name="description" content="A data table inside a card: header row, avatar, badge and icon-button cells, with pagination below.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Table</h1>
+      <p class="ds-lead">A table lists records of the same kind in rows and columns, so people can scan and compare. The product has one: the Users table, a card holding a header row, one row per user and pagination beneath.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;table&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a table when each row is a record and each column is the same attribute of every record, and when the records are compared or managed (edited, deleted). Use <a href="list-item.html">list items</a> for conversations and profiles that read as a sequence, <a href="card.html">cards</a> for documents and requests that read as summaries, and a <a href="description-list.html">description list</a> for one record's attributes.</p>
+      <p>The mocks implement a plain table only. They do not show sorting, row selection, a sticky header or column resizing; this system does not either.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="card table-card" style="width: 100%;">
+            <div class="ds-table-wrap"><table class="table">
+              <caption>Users</caption>
+              <thead><tr><th scope="col">Username</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+              <tbody><tr><td><div class="user-cell"><span class="avatar avatar-sm" aria-hidden="true">M</span><span>mira.fern</span></div></td><td><span class="badge badge-success">Active</span></td><td><button class="icon-btn" type="button" aria-label="Edit mira.fern"><span class="material-icons" aria-hidden="true">edit</span></button></td></tr></tbody>
+            </table></div>
+            <div class="pagination"><span>Showing 1-1 of 1 users</span></div>
+          </div>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Container</b><small><code>.card.table-card</code>: card with no padding and hidden overflow so the header row follows the rounded corners.</small></div></li>
+          <li><div><b>Caption</b><small>Names the table. Visually hidden by the system (<code>.table caption</code>); announced by screen readers.</small></div></li>
+          <li><div><b>Header row</b><small><code>th scope="col"</code>: subtle fill, muted label text, 12px by 20px padding, hairline below.</small></div></li>
+          <li><div><b>Cell</b><small><code>td</code>: <code>--text-body-sm</code>, same padding, hairline below (none on the last row), vertically centred.</small></div></li>
+          <li><div><b>Avatar cell</b><small><code>.user-cell</code>: an <a href="avatar.html">avatar</a> and the username, 12px apart.</small></div></li>
+          <li><div><b>Badge cell</b><small>A <a href="badge.html">badge</a> for status.</small></div></li>
+          <li><div><b>Actions cell</b><small>One or more <a href="icon-button.html">icon buttons</a>, each labelled with the verb and the row's subject.</small></div></li>
+          <li><div><b>Pagination</b><small>Below the table inside the card; see <a href="pagination.html">pagination</a>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>There is one table. It varies only by the content of its cells.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="card table-card" style="width: 100%;">
+            <div class="ds-table-wrap"><table class="table">
+              <caption>Users</caption>
+              <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+              <tbody>
+                <tr><td><div class="user-cell"><span class="avatar avatar-sm" aria-hidden="true">M</span><span>mira.fern</span></div></td><td>Member</td><td><span class="badge badge-success">Active</span></td><td><button class="icon-btn" type="button" aria-label="Edit mira.fern"><span class="material-icons" aria-hidden="true">edit</span></button><button class="icon-btn" type="button" aria-label="Delete mira.fern"><span class="material-icons" aria-hidden="true">delete</span></button></td></tr>
+                <tr><td><div class="user-cell"><span class="avatar avatar-sm" aria-hidden="true">T</span><span>tavi.moss</span></div></td><td>Member</td><td><span class="badge badge-success">Active</span></td><td><button class="icon-btn" type="button" aria-label="Edit tavi.moss"><span class="material-icons" aria-hidden="true">edit</span></button><button class="icon-btn" type="button" aria-label="Delete tavi.moss"><span class="material-icons" aria-hidden="true">delete</span></button></td></tr>
+              </tbody>
+            </table></div>
+            <div class="pagination"><span>Showing 1-2 of 4 users</span><div class="page-controls"><button type="button" disabled aria-label="Previous page">«</button><button type="button" class="active" aria-current="page" aria-label="Page 1">1</button><button type="button" aria-label="Page 2">2</button><button type="button" aria-label="Next page">»</button></div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Avatar cell, text cell, badge cell and icon-button cell, with pagination.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card table-card"&gt;
+  &lt;table class="table"&gt;
+    &lt;caption&gt;Users&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Username&lt;/th&gt;...&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;div class="user-cell"&gt;&lt;span class="avatar avatar-sm" aria-hidden="true"&gt;M&lt;/span&gt;&lt;span&gt;mira.fern&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span class="badge badge-success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button class="icon-btn" aria-label="Edit mira.fern"&gt;...&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div class="pagination"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The table has one density; there are no size variants."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Cell padding is fixed at <code>--space-3</code> by <code>--space-5</code>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Row, default</th><td><div class="card table-card"><table class="table"><caption>Row default</caption><thead><tr><th scope="col">Username</th><th scope="col">Status</th></tr></thead><tbody><tr><td>mira.fern</td><td><span class="badge badge-success">Active</span></td></tr></tbody></table></div></td><td>White surface.</td></tr>
+          <tr><th scope="row">Row, hover</th><td><div class="card table-card"><div class="ds-table-wrap"><table class="table"><caption>Row hover</caption><thead><tr><th scope="col">Username</th><th scope="col">Status</th></tr></thead><tbody><tr style="background: var(--color-bg-subtle);"><td>mira.fern</td><td><span class="badge badge-success">Active</span></td></tr></tbody></table></div></div></td><td>Row fill becomes <code>--color-bg-subtle</code>. The row itself is not interactive; hover only helps the eye follow it.</td></tr>
+          <tr><th scope="row">Action, focus</th><td><button class="icon-btn" type="button" aria-label="Edit mira.fern" data-state="focus"><span class="material-icons" aria-hidden="true">edit</span></button></td><td>The shared focus ring on the row's icon button.</td></tr>
+          <tr><th scope="row">Action, hover</th><td><button class="icon-btn" type="button" aria-label="Delete mira.fern" data-state="hover"><span class="material-icons" aria-hidden="true">delete</span></button></td><td>Fill becomes <code>--color-bg-subtle</code>.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Empty</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="card table-card" style="width: 100%;">
+            <div class="ds-table-wrap"><table class="table">
+              <caption>Users</caption>
+              <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+              <tbody><tr><td colspan="4"><div class="empty-state"><span class="material-icons" aria-hidden="true">people</span><p>No users found</p></div></td></tr></tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The mocks (admin-users/empty and no-results) show an empty body under the header row; the system fills it with an <a href="empty-state.html">empty state</a> so the table is never silently blank.</span></div>
+      </div>
+      <p>Selection, sorting, sticky headers, loading skeletons and row expansion are not implemented and are not part of the system.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The mocks have no <code>@media</code> rule for the table. The card's <code>overflow: hidden</code> clips columns that do not fit, so on a narrow phone the Actions column can be cut off. This is a gap.</li>
+        <li><b>Requirement:</b> at widths where the table does not fit, the table scrolls horizontally inside its own card (<code>overflow-x: auto</code>), reachable by keyboard (the scroll container has <code>tabindex="0"</code>, a role of <code>region</code> and a label), so that the page itself never scrolls sideways and no column is lost.</li>
+        <li>Four columns of this content fit from about 640px up. Below that, keep the username and actions visible by letting the secondary columns scroll.</li>
+        <li>Pagination wraps its two parts when narrow.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
+      <p class="ds-na">Table colours use semantic tokens only.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A native <code>&lt;table&gt;</code> with <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> and <code>th scope="col"</code>. It is a static data table, not an ARIA grid: there is no cell-by-cell keyboard navigation. The mocks' tables have neither a caption nor <code>scope</code> on headers; the system requires both so a screen reader can announce "Username, mira.fern" while moving through cells. Use <code>th scope="row"</code> for the first cell of a row only when it identifies the row.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the icon buttons in each row, then to pagination.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused button (edit, delete).</td></tr>
+        <tr><td>Arrow keys</td><td>No table navigation; read with the screen reader's table commands.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The ring (<code>2px --color-focus-ring</code>) is drawn on the icon buttons. Because the card hides overflow, the 2px offset can clip at the edge of the last column; keep the actions cell padded by <code>--space-5</code>.</p>
+      <h3>Labelling</h3>
+      <p>Each icon button names its verb and its row: "Edit mira.fern", "Delete mira.fern". The mocks' buttons had no label at all. The avatar is decorative (<code>aria-hidden</code>) because the name follows it. Status is the badge's text, never colour alone.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Cell text on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Header text on header fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Cell text on hovered row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Success badge</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>None. Row hover is an instant fill change.</p>
+      <h3>Touch</h3>
+      <p>Icon buttons are 40px square with no gap between them in the mock; add <code>--space-1</code> between neighbouring buttons so a mis-tap on Delete is less likely. Both exceed the 24px minimum.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Column headings are single nouns: "Username", "Role", "Status", "Actions". No colons or units unless needed.</li>
+        <li>The caption names the data: "Users". It is not a sentence.</li>
+        <li>Status text is one word ("Active", "Pending"); the badge colour supports it.</li>
+        <li>The pagination summary says "Showing 1-2 of 4 users".</li>
+        <li>An empty result says what is missing: "No users found".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Delete mira.fern"><span class="material-icons" aria-hidden="true">delete</span></button></div><figcaption>Label each row action with the verb and the subject.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button"><span class="material-icons" aria-hidden="true">delete</span></button></div><figcaption>An unlabelled icon button in every row, as in the mock. Screen readers announce only "button".</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="card table-card"><div class="ds-table-wrap"><table class="table"><caption>Users</caption><thead><tr><th scope="col">Username</th><th scope="col">Status</th></tr></thead><tbody><tr><td>mira.fern</td><td><span class="badge badge-success">Active</span></td></tr></tbody></table></div></div></div><figcaption>A caption and <code>scope="col"</code> on every header.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card table-card"><div class="ds-table-wrap"><table class="table"><thead><tr><th>Username</th><th>Status</th></tr></thead><tbody><tr><td>mira.fern</td><td><span class="badge badge-success">Active</span></td></tr></tbody></table></div></div></div><figcaption>Headers with no scope and a table with no caption, as in the mock.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Header fill</td><td data-token="--color-bg-subtle"></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Header text</td><td data-token="--color-fg-muted"></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Row divider</td><td data-token="--color-border-default"></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Row hover fill</td><td data-token="--color-bg-subtle"></td><td><span data-token="--color-bg-subtle"></span></td></tr>
+          <tr><td>Cell padding block</td><td data-token="--space-3"></td><td><span data-token="--space-3"></span></td></tr>
+          <tr><td>Cell padding inline</td><td data-token="--space-5"></td><td><span data-token="--space-5"></span></td></tr>
+          <tr><td>Avatar to name gap</td><td data-token="--space-3"></td><td><span data-token="--space-3"></span></td></tr>
+          <tr><td>Cell text</td><td data-token="--text-body-sm"></td><td><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Header text style</td><td data-token="--text-label"></td><td><span data-token="--text-label"></span></td></tr>
+          <tr><td>Card radius</td><td data-token="--radius-lg"></td><td><span data-token="--radius-lg"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="card table-card"&gt;
+  &lt;table class="table"&gt;
+    &lt;caption&gt;Users&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Username&lt;/th&gt;&lt;th scope="col"&gt;Actions&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;...&lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div class="pagination"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.table-card</code></td><td>Removes card padding and clips to the rounded corners. Use with <code>.card</code>.</td></tr>
+        <tr><td><code>.table</code></td><td>Full width, collapsed borders, small body type, row hover.</td></tr>
+        <tr><td><code>.table caption</code></td><td>Visually hidden, announced to assistive technology.</td></tr>
+        <tr><td><code>.user-cell</code></td><td>Avatar and name side by side.</td></tr>
+        <tr><td><code>th scope="col"</code></td><td>Required on every header cell.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (the table, pagination)</li>
+        <li><a href="../../mocks/pages/admin-users/page-2.html">pages/admin-users/page-2</a></li>
+        <li><a href="../../mocks/pages/admin-users/empty.html">pages/admin-users/empty</a> and <a href="../../mocks/pages/admin-users/no-results.html">no-results</a></li>
+      </ul>
+      <h3>Drift</h3>
+      <ul>
+        <li>The mock's table was <code>.users-table.card</code> with component-scoped table styles; the system names the card <code>.table-card</code> and the table <code>.table</code>.</li>
+        <li>No caption and no <code>scope</code> on header cells; the system requires both.</li>
+        <li>Edit and delete icon buttons had no accessible name; the system requires "Verb subject" labels.</li>
+        <li>The avatar's colour was set per user with an inline style (random hues); the system uses the single <code>--color-accent</code> avatar.</li>
+        <li>No responsive rule: clipped by <code>overflow: hidden</code>. The system requires an in-card scroll region.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

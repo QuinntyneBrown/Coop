@@ -1,0 +1,27 @@
+.register-page[_ngcontent-ng-c3918628189] { display: flex; min-height: 100vh; }
+.register-header[_ngcontent-ng-c3918628189] { flex: 1 1 0%; background: linear-gradient(135deg, rgb(61, 138, 90) 0%, rgb(45, 107, 68) 100%); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); padding: 40px; }
+.header-content[_ngcontent-ng-c3918628189] { text-align: center; }
+.header-content[_ngcontent-ng-c3918628189] .material-icons.header-icon[_ngcontent-ng-c3918628189] { font-size: 64px; margin-bottom: 16px; }
+.header-content[_ngcontent-ng-c3918628189] h1[_ngcontent-ng-c3918628189] { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+.header-content[_ngcontent-ng-c3918628189] p[_ngcontent-ng-c3918628189] { font-size: 18px; opacity: 0.9; }
+.register-form-panel[_ngcontent-ng-c3918628189] { flex: 1 1 0%; display: flex; align-items: center; justify-content: center; background: rgb(255, 255, 255); padding: 40px; overflow-y: auto; }
+.form-container[_ngcontent-ng-c3918628189] { width: 100%; max-width: 400px; }
+.form-container[_ngcontent-ng-c3918628189] h2[_ngcontent-ng-c3918628189] { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.form-container[_ngcontent-ng-c3918628189] .form-subtitle[_ngcontent-ng-c3918628189] { color: rgba(26, 25, 24, 0.8); margin-bottom: 24px; }
+.form-group[_ngcontent-ng-c3918628189] { margin-bottom: 20px; }
+.form-group[_ngcontent-ng-c3918628189] label[_ngcontent-ng-c3918628189] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: rgba(26, 25, 24, 0.8); }
+.form-group[_ngcontent-ng-c3918628189] input[type="text"][_ngcontent-ng-c3918628189], .form-group[_ngcontent-ng-c3918628189] input[type="password"][_ngcontent-ng-c3918628189] { width: 100%; padding: 12px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 10px; font-size: 14px; transition: border-color 0.2s; }
+.form-group[_ngcontent-ng-c3918628189] input[type="text"][_ngcontent-ng-c3918628189]:focus, .form-group[_ngcontent-ng-c3918628189] input[type="password"][_ngcontent-ng-c3918628189]:focus { outline: none; border-color: rgb(61, 138, 90); }
+.form-group[_ngcontent-ng-c3918628189] input[type="text"].invalid[_ngcontent-ng-c3918628189], .form-group[_ngcontent-ng-c3918628189] input[type="password"].invalid[_ngcontent-ng-c3918628189] { border-color: rgb(220, 53, 69); }
+.form-group[_ngcontent-ng-c3918628189] .error-message[_ngcontent-ng-c3918628189] { color: rgb(220, 53, 69); font-size: 12px; margin-top: 4px; }
+.checkbox-label[_ngcontent-ng-c3918628189] { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.checkbox-label[_ngcontent-ng-c3918628189] input[_ngcontent-ng-c3918628189] { cursor: pointer; }
+.btn-block[_ngcontent-ng-c3918628189] { width: 100%; padding: 12px; font-size: 16px; font-weight: 600; border-radius: 12px; }
+.sign-in-text[_ngcontent-ng-c3918628189] { text-align: center; margin-top: 24px; font-size: 14px; color: rgba(26, 25, 24, 0.8); }
+.sign-in-text[_ngcontent-ng-c3918628189] a[_ngcontent-ng-c3918628189] { color: rgb(61, 138, 90); font-weight: 500; }
+.alert-danger[_ngcontent-ng-c3918628189] { background: rgba(220, 53, 69, 0.1); color: rgb(220, 53, 69); padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+@media (max-width: 768px) {
+  .register-page[_ngcontent-ng-c3918628189] { flex-direction: column; }
+  .register-header[_ngcontent-ng-c3918628189] { flex: 0 0 auto; padding: 40px 20px; }
+  .register-form-panel[_ngcontent-ng-c3918628189] { padding: 24px; }
+}

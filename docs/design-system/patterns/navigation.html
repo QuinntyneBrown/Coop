@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navigation — Coop design system</title>
+<meta name="description" content="The three page shells Coop uses: admin sidebar and main, public top bar with tab bar, and shell-free landing and sign-in pages.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Navigation</h1>
+      <p class="ds-lead">Signed-in pages sit in an app shell: a fixed sidebar beside the content in the admin app, a top bar and bottom tab bar around the content in the public app. Landing and sign-in pages have no shell.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light theme only</span><span class="ds-pill">Breakpoints 768 and 1024</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Navigation in Coop is flat: one level of destinations, always visible in the shell, with the current one marked. There are no breadcrumbs, no nested menus and no tabs-within-navigation. The parts are <a href="../components/sidebar.html">sidebar</a>, <a href="../components/top-bar.html">top bar</a> and <a href="../components/bottom-tab-bar.html">bottom tab bar</a>.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Shell</th><th scope="col">Used by</th><th scope="col">Parts</th></tr></thead><tbody>
+        <tr><th scope="row">Admin shell</th><td>Dashboard, maintenance, documents, messages, users, roles, profiles, assets, invitations, settings</td><td>Sidebar (10 destinations) beside a main column that starts with a page top bar</td></tr>
+        <tr><th scope="row">Public shell</th><td>Dashboard, requests, documents, messages, profile, onboarding</td><td>Top bar, sidebar (5 destinations), main content, bottom tab bar (5 destinations)</td></tr>
+        <tr><th scope="row">No shell</th><td>Landing, login, register, forgot password; admin change password</td><td>Page content only, with links to the next page</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <ul>
+        <li><b>Sidebar</b>: a destination that a signed-in person returns to repeatedly. Ten admin destinations, five public ones.</li>
+        <li><b>Bottom tab bar</b>: the five public destinations on touch screens. Admin repeats the same five (Home, Requests, Docs, Messages, Profile) on phones.</li>
+        <li><b>Top bar</b>: the logo, a notification bell and the menu button on the public app; a page title, search and bell on the admin app.</li>
+        <li><b>No shell</b>: anything a signed-out person sees, and one-off task pages such as change password. These link onward with text links ("Sign up", "Sign in", "Forgot password?") and a Cancel button.</li>
+        <li><b>Do not</b> put a primary action in the navigation. Actions live in the page header (<code>.page-header</code>) as a button.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+
+      <h3>Admin: sidebar and main</h3>
+      <p>The sidebar is 260px wide (<code>--layout-sidebar-width</code>): a header with the logo, a nav list of <code>.nav-item</code> links (icon then label), and a footer with the signed-in user. The main column fills the rest and is offset by the sidebar width.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <aside class="sidebar">
+            <div class="sidebar-header"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop Manager</span></div></div>
+            <nav class="sidebar-nav" aria-label="Admin">
+              <a class="nav-item" href="#structure"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a>
+              <a class="nav-item" href="#structure"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a>
+              <a class="nav-item" href="#structure"><span class="material-icons" aria-hidden="true">description</span><span>Documents</span></a>
+              <a class="nav-item active" href="#structure" aria-current="page"><span class="material-icons" aria-hidden="true">perm_media</span><span>Assets</span></a>
+              <a class="nav-item" href="#structure"><span class="material-icons" aria-hidden="true">settings</span><span>Settings</span></a>
+            </nav>
+            <div class="sidebar-footer"><span class="avatar" aria-hidden="true">M</span><span>mira.fern</span></div>
+          </aside>
+          <div class="card">
+            <header class="top-bar"><div class="top-bar-inner"><h2 class="page-title">Digital Assets</h2><div class="top-bar-actions"><div class="search-bar"><span class="material-icons" aria-hidden="true">search</span><input type="text" aria-label="Search" placeholder="Search..."></div><button type="button" class="icon-btn" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button></div></div></header>
+            <div class="card-body"><p>Page content</p></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Admin shell: the sidebar marks the current page with <code>aria-current="page"</code>; the main column carries the page top bar and the page.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="layout"&gt;
+  &lt;aside class="sidebar"&gt;
+    &lt;div class="sidebar-header"&gt;…logo…&lt;/div&gt;
+    &lt;nav class="sidebar-nav" aria-label="Admin"&gt;
+      &lt;a class="nav-item active" aria-current="page" href="/assets"&gt;…&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;div class="sidebar-footer"&gt;…user…&lt;/div&gt;
+  &lt;/aside&gt;
+  &lt;main class="layout-main" id="main"&gt;…&lt;/main&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Public: top bar, page, bottom tab bar</h3>
+      <p>The public shell wraps the page in a sticky top bar and a fixed bottom tab bar. The top bar has the logo on the left, and a notification bell and menu button on the right. The tab bar shows five destinations as icon over label.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas ds-example__canvas--stack">
+          <header class="top-bar"><div class="top-bar-inner"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div><div class="top-bar-actions"><button type="button" class="icon-btn" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button><button type="button" class="icon-btn" aria-label="Open menu"><span class="material-icons" aria-hidden="true">menu</span></button></div></div></header>
+          <div class="card"><div class="page-header"><h2 class="page-title">Maintenance Requests</h2><button type="button" class="btn btn-primary">+ Create Request</button></div><p>Page content</p></div>
+          <nav class="bottom-tab-bar" aria-label="Primary">
+            <a class="tab-item" href="#structure"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a>
+            <a class="tab-item active" href="#structure" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a>
+            <a class="tab-item" href="#structure"><span class="material-icons" aria-hidden="true">description</span><span>Docs</span></a>
+            <a class="tab-item" href="#structure"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+            <a class="tab-item" href="#structure"><span class="material-icons" aria-hidden="true">person</span><span>Profile</span></a>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Public shell at phone width. At 1024px and wider the public app also shows its five-link sidebar.</span></div>
+      </div>
+
+      <h3>No shell: landing and sign-in</h3>
+      <p>The landing page has a slim navbar (logo, "Sign In", and a primary "Get Started" or "Register" link) above a hero and content sections, and a footer. Sign-in and register pages show a brand panel or header and a form, then a text link to the sibling page. They do not show the sidebar or top bar. The source still renders the bottom tab bar on the public and admin sign-in pages on phones (see Drift).</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas ds-example__canvas--stack">
+          <nav class="top-bar" aria-label="Landing"><div class="top-bar-inner"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div><div class="top-bar-actions"><a class="btn btn-secondary" href="#structure">Sign In</a><a class="btn btn-primary" href="#structure">Get Started</a></div></div></nav>
+        </div>
+        <div class="ds-example__caption"><span>Landing navbar: brand left, two links right; the primary link is the only filled button.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Sidebar item</th>
+            <td><a class="nav-item" href="#states"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a></td>
+            <td><a class="nav-item" href="#states" data-state="hover"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a></td>
+            <td><a class="nav-item" href="#states" data-state="focus"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a></td>
+            <td><a class="nav-item active" href="#states" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a></td></tr>
+          <tr><th scope="row">Tab item</th>
+            <td><a class="tab-item" href="#states"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td>
+            <td><a class="tab-item" href="#states" data-state="hover"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td>
+            <td><a class="tab-item" href="#states" data-state="focus"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td>
+            <td><a class="tab-item active" href="#states" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td></tr>
+        </tbody>
+      </table></div>
+      <p>The current page is the only persistent state. The notification bell carries an unread count badge on the admin dashboard only; the bell has no click handler in the source. A drawer-open state exists in CSS for the public sidebar (<code>.sidebar.open</code> with a backdrop) but no mock captures it.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <p>Only these rules exist in the captured CSS.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Shell</th><th scope="col">Width</th><th scope="col">Behaviour</th></tr></thead><tbody>
+        <tr><th scope="row" rowspan="2">Admin</th><td>Above 768px</td><td>Sidebar fixed at 260px; main offset by 260px; bottom tab bar hidden.</td></tr>
+        <tr><td>768px and below</td><td>Sidebar hidden, main offset removed, five-item bottom tab bar shown. There is no drawer: Users, Roles, Profiles, Assets, Invitations and Settings cannot be reached from the shell.</td></tr>
+        <tr><th scope="row" rowspan="2">Public</th><td>Below 1024px</td><td>Sidebar hidden; top bar and bottom tab bar visible. The menu button reveals the sidebar as a drawer (<code>.sidebar.open</code>, fixed, <code>--z-drawer</code>) over a backdrop.</td></tr>
+        <tr><td>1024px and above</td><td>Sidebar shown fixed at 260px, main offset by 260px, bottom padding removed. The tab bar stays in the markup and keeps displaying.</td></tr>
+        <tr><th scope="row">Public sign-in</th><td>1024px and above</td><td>The bottom tab bar is hidden.</td></tr>
+        <tr><th scope="row">Admin sign-in</th><td>768px and below</td><td>The brand panel is hidden; the form panel gains bottom padding to clear the tab bar.</td></tr>
+        <tr><th scope="row">Landing</th><td>640px and below</td><td>Hero and section padding shrink, board grid becomes two columns, notices become one.</td></tr>
+      </tbody></table></div>
+      <p>The tab bar pads its bottom by <code>env(safe-area-inset-bottom)</code>, so it clears the home indicator on phones.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Each group of links is a <code>&lt;nav&gt;</code> landmark with a distinct <code>aria-label</code> ("Admin", "Primary"). This is the WAI-ARIA <a href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/">landmark</a> approach, not the menu pattern: items are plain links. The source navs have no labels, which the design system requires. Mark the current link with <code>aria-current="page"</code> in addition to the <code>.active</code> class.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Move through links in DOM order. Sidebar and tab bar items are links, each a tab stop.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follow the link.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Requirement for the public drawer: close it and return focus to the menu button.</td></tr>
+      </tbody></table></div>
+      <p>A "Skip to content" link as the first focusable element jumps to <code>#main</code>. The sidebar must precede main in the DOM so the skip link is useful.</p>
+      <h3>Focus</h3>
+      <p>The shared focus ring applies to every link and icon button. When the drawer is open the page behind must be inert and focus must be trapped in the drawer (requirement; the source has neither).</p>
+      <h3>Labelling</h3>
+      <p>Icon-only controls (bell, menu) need an accessible name. Tab items keep their text label visible; do not hide labels at small widths.</p>
+      <h3>Contrast</h3>
+      <div class="ds-pair"><span>Active sidebar link</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+      <div class="ds-pair"><span>Inactive link on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+      <div class="ds-pair"><span>Active tab label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface" data-min="4.5"></span></div>
+      <h3>Motion and touch</h3>
+      <p>Link backgrounds fade over <code>--duration-base</code>. Tab items are at least 3.5rem wide and a tab-bar row is about 3.5rem tall; the 24px icon with a 11px label meets the 24px target-size minimum (2.5.8).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Labels</b>: one or two words, nouns: "Dashboard", "Maintenance", "Documents", "Messages".</li>
+        <li><b>Tab labels</b> are shorter than sidebar labels: "Docs" for "Documents", "Requests" for "Maintenance" on the public app.</li>
+        <li><b>Same destination, same icon</b>: home, build, description, chat, person across the tab bar and the sidebar.</li>
+        <li><b>Order</b>: Home first, Profile last. Admin management items (Users, Roles &amp; Privileges, Profiles, Assets, Invitations, Settings) follow the shared items.</li>
+        <li><b>Page title</b>: the same words as the navigation label.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas">
+          <a class="nav-item active" href="#do-dont" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a>
+        </div><figcaption>Show the current page with the active style and <code>aria-current</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas">
+          <a class="nav-item" href="#do-dont"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a>
+        </div><figcaption>Leave every item the same so the person cannot tell where they are. Public pages that the sidebar does not list (onboarding) do this.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas">
+          <button type="button" class="icon-btn" aria-label="Open menu"><span class="material-icons" aria-hidden="true">menu</span></button>
+        </div><figcaption>Give the menu icon button a name.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas">
+          <button type="button" class="icon-btn"><span class="material-icons" aria-hidden="true">menu</span></button>
+        </div><figcaption>Ship an icon-only button with no name. The source hamburger relies on a review-only label.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas">
+          <a class="btn btn-secondary" href="#do-dont">Sign In</a><a class="btn btn-primary" href="#do-dont">Get Started</a>
+        </div><figcaption>One filled link in a navbar, the others plain.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas">
+          <a class="btn btn-primary" href="#do-dont">Sign In</a><a class="btn btn-primary" href="#do-dont">Get Started</a>
+        </div><figcaption>Fill two competing links.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul>
+        <li>Admin shell: <a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a>, <a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a>, <a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a></li>
+        <li>Public shell: <a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a>, <a href="../../mocks/pages/public-maintenance/default.html">pages/public-maintenance/default</a>, <a href="../../mocks/pages/public-onboarding/default.html">pages/public-onboarding/default</a></li>
+        <li>No shell: <a href="../../mocks/pages/public-landing/default.html">pages/public-landing/default</a>, <a href="../../mocks/pages/admin-landing/default.html">pages/admin-landing/default</a>, <a href="../../mocks/pages/public-login/default.html">pages/public-login/default</a>, <a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a>, <a href="../../mocks/pages/admin-change-password/default.html">pages/admin-change-password/default</a></li>
+      </ul>
+      <h3>Drift</h3>
+      <ul>
+        <li>The design intent is a drawer below 768px, but the compiled CSS collapses the public sidebar below 1024px (drawer, behind a menu button) and the admin sidebar at 768px with no drawer. The design system documents both as implemented and requires an admin drawer or an equivalent route to the six admin-only destinations on phones.</li>
+        <li>Admin pages show a "hamburger" button in the dashboard header, but no mock captures a menu opening, so the design system does not document that behaviour.</li>
+        <li>Public and admin sign-in pages render the bottom tab bar on phones, linking to pages that need a session. The design system treats sign-in as shell-free and omits the tab bar there.</li>
+        <li>The public tab bar still displays at 1024px and above alongside the sidebar; the design system treats it as phone and tablet navigation only.</li>
+        <li>Public and admin use different sidebar class names (<code>.sidebar-link</code> and <code>.nav-item</code>), different landing navbars (<code>.landing-navbar</code> and <code>.navbar</code>), and different sidebar footers. <code>components.css</code> keeps both names with one look.</li>
+        <li>Sidebar, tab bar and icon buttons lack landmark labels and names in the source; labels are added in this pattern.</li>
+        <li>Not implemented: breadcrumbs, nested navigation, a notification list behind the bell, a 404 screen (unknown routes redirect to the landing page).</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List item — Coop design system</title>
+<meta name="description" content="A single selectable row in a list: conversation, profile, notice or asset, with an optional avatar or icon tile.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>List item</h1>
+      <p class="ds-lead">A list item is one row in a vertical list. It leads with an avatar or an icon tile, then a title with a line of metadata, and may end with a badge or time. The selected item carries a 3px accent marker on its left edge.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">List pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The mocks have several row types that share one structure: the messaging <code>.conversation-item</code>, the profile switcher's <code>.profile-card</code>, the dashboard's <code>.notice-item</code>, and the asset and document rows that lead with a thumbnail or document icon. The design system consolidates them into <code>.list-item</code>.</p>
+      <ul>
+        <li>Use a list item for rows that are compared at a glance or chosen from: conversations, profiles to switch to, notices, assets.</li>
+        <li>Use a <a href="table.html">table</a> when rows have several comparable columns and row actions.</li>
+        <li>Use a <a href="card.html">card</a> when each entry needs a title and a paragraph of its own.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="card" style="width: 100%; padding: 0;">
+            <div class="list-item">
+              <span class="avatar" aria-hidden="true">C</span>
+              <div style="flex: 1; min-width: 0;"><div class="list-item-title">Courtyard gathering</div><div class="list-item-meta">Can I bring a table?</div></div>
+              <span class="badge badge-info">2</span>
+            </div>
+          </div>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Row</b><small><code>.list-item</code>: flex row, 12px gap, 12px by 20px padding, hairline divider below.</small></div></li>
+          <li><div><b>Leading visual (optional)</b><small>An <a href="avatar.html">avatar</a> for people and conversations, or an <code>.icon-tile</code> for documents and assets.</small></div></li>
+          <li><div><b>Title</b><small><code>.list-item-title</code>: semibold <code>--text-label</code>.</small></div></li>
+          <li><div><b>Meta</b><small><code>.list-item-meta</code>: caption size, muted; preview text, type, date or size.</small></div></li>
+          <li><div><b>Trailing (optional)</b><small>A <a href="badge.html">badge</a> (unread count) or a time.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>With avatar (conversation, profile)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="card" style="width: 100%; max-width: 28rem; padding: 0;">
+            <div role="list">
+              <div class="list-item" role="listitem"><span class="avatar" aria-hidden="true">C</span><div style="flex: 1; min-width: 0;"><div class="list-item-title"><a href="#main">Courtyard gathering</a></div><div class="list-item-meta">Can I bring a table?</div></div><span class="badge badge-info">2</span></div>
+              <div class="list-item" role="listitem"><span class="avatar" aria-hidden="true">B</span><div style="flex: 1; min-width: 0;"><div class="list-item-title"><a href="#main">Bike room</a></div><div class="list-item-meta">Lock fixed on Friday.</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The conversation list and profile switcher: avatar, title, preview, optional unread badge.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="list-item" role="listitem"&gt;
+  &lt;span class="avatar" aria-hidden="true"&gt;C&lt;/span&gt;
+  &lt;div&gt;
+    &lt;div class="list-item-title"&gt;&lt;a href="/messages/1"&gt;Courtyard gathering&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="list-item-meta"&gt;Can I bring a table?&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="badge badge-info"&gt;2&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>With icon tile (document, asset)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="card" style="width: 100%; max-width: 28rem; padding: 0;">
+            <div role="list">
+              <div class="list-item" role="listitem"><span class="icon-tile icon-tile-success" aria-hidden="true"><span class="material-icons">campaign</span></span><div><div class="list-item-title"><a href="#main">Autumn courtyard gathering</a></div><div class="list-item-meta">Notice · Oct 13, 2026</div></div></div>
+              <div class="list-item" role="listitem"><span class="icon-tile icon-tile-info" aria-hidden="true"><span class="material-icons">gavel</span></span><div><div class="list-item-title"><a href="#main">Quiet hours by-law</a></div><div class="list-item-meta">ByLaw · Oct 1, 2026</div></div></div>
+              <div class="list-item" role="listitem"><span class="icon-tile icon-tile-warning" aria-hidden="true"><span class="material-icons">assessment</span></span><div><div class="list-item-title"><a href="#main">Q3 financial report</a></div><div class="list-item-meta">Report · Sep 30, 2026</div></div></div>
+              <div class="list-item" role="listitem"><span class="icon-tile" aria-hidden="true"><span class="material-icons">insert_drive_file</span></span><div><div class="list-item-title"><a href="#main">Courtyard plan.pdf</a></div><div class="list-item-meta">2 KB · 10/13/26</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The <code>.icon-tile</code> is 48px square with a <code>--radius-md</code> corner. Success, info and warning tints map to notice, by-law and report; the neutral tile is the default and the asset thumbnail.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="icon-tile icon-tile-success" aria-hidden="true"&gt;
+  &lt;span class="material-icons"&gt;campaign&lt;/span&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The list item has one size; the leading visual is fixed at 36px (avatar) or 48px (icon tile)."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The implemented list item has no size variants.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code> for review; real pages use <code>:hover</code> and <code>:focus-visible</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th><th scope="col">Behaviour</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Default</th><td><div class="list-item"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title">Courtyard gathering</div><div class="list-item-meta">Can I bring a table?</div></div></div></td><td>White surface.</td></tr>
+          <tr><th scope="row">Hover</th><td><div class="list-item" data-state="hover"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title">Courtyard gathering</div><div class="list-item-meta">Can I bring a table?</div></div></div></td><td>Fill <code>--color-bg-subtle</code> over <code>--duration-base</code>.</td></tr>
+          <tr><th scope="row">Focus</th><td><div class="list-item"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title"><a href="#main" data-state="focus">Courtyard gathering</a></div><div class="list-item-meta">Can I bring a table?</div></div></div></td><td>Shared focus ring on the title link.</td></tr>
+          <tr><th scope="row">Selected</th><td><div class="list-item" aria-current="true"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title">Courtyard gathering</div><div class="list-item-meta">Can I bring a table?</div></div></div></td><td>3px <code>--color-accent</code> left border and <code>--color-accent-subtle</code> fill. Set with <code>aria-current="true"</code> (alias <code>.selected</code>).</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>The selected marker is a border added to the row, so unselected rows should reserve it (a 3px transparent left border) or the content of the selected row shifts 3px to the right. The mock had the same shift. See Drift.</li>
+        <li>Disabled and loading rows are not implemented. An empty list uses an <a href="empty-state.html">empty state</a>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The row is fluid. The text column shrinks and wraps; the trailing badge keeps its width.</li>
+        <li>On the messaging page, at <code>max-width: 768px</code> the conversation list becomes full width and hides when a chat is open (<code>.conversation-list-panel.hidden-mobile</code>), with a back button to return. That is page layout; the row itself does not change.</li>
+        <li>At <code>max-width: 640px</code> the documents list collapses to one column.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
+      <p class="ds-na">Icon tile tints use the semantic status tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The list is a semantic list (<code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>, or <code>role="list"</code>/<code>"listitem"</code> on divs) so the number of items is announced. The row's primary control is a native <code>&lt;a href&gt;</code> (or <code>&lt;button&gt;</code> when it changes the view in place) around the title. The mocks used <code>div role="link" tabindex="0"</code> with no key handler; the system requires a native control.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>One tab stop per row, on the title link.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the item.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Activates it when the control is a <code>&lt;button&gt;</code>.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The ring (<code>2px --color-focus-ring</code>) appears on the title link, offset 2px. Clicking anywhere on the row activates the link, but focus lives on the link.</p>
+      <h3>Labelling</h3>
+      <p>The link text is the item's title. Avatars and icon tiles are <code>aria-hidden</code>. An unread badge needs text a screen reader can read: "2 unread" (visually hidden suffix), not a bare "2". The selected row has <code>aria-current="true"</code>, so the marker is not conveyed by colour alone.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta on hovered row</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta on selected row</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected marker on selected row</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-accent-subtle" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on selected row</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-accent-subtle" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Background changes over <code>--duration-base</code> (200 ms); nothing moves.</p>
+      <h3>Touch</h3>
+      <p>Rows are at least 62px tall (12px padding around a 36px or 48px visual), above the 44px comfortable target, and the whole row is clickable.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The title is the item's name: a subject, document title or profile name. It truncates with an ellipsis rather than wrapping beyond one line.</li>
+        <li>Meta is the first useful detail: the last message, "Type · date", or "size · date". Separate parts with a middle dot.</li>
+        <li>Unread counts are numbers only; keep them to the badge.</li>
+        <li>Dates use one format on a page.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="width: 100%; padding: 0;"><div class="list-item" aria-current="true"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title"><a href="#main">Courtyard gathering</a></div><div class="list-item-meta">Can I bring a table?</div></div></div></div></div><figcaption>Selection is announced with <code>aria-current</code> and the title is a real link.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="width: 100%; padding: 0;"><div class="list-item selected" role="link" tabindex="0"><span class="avatar" aria-hidden="true">C</span><div><div class="list-item-title">Courtyard gathering</div><div class="list-item-meta">Can I bring a table?</div></div></div></div></div><figcaption>A <code>div role="link"</code> with a colour-only <code>.selected</code> marker, as in the conversation list. Keyboard users cannot open it.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="width: 100%; padding: 0;"><div class="list-item"><span class="icon-tile" aria-hidden="true"><span class="material-icons">insert_drive_file</span></span><div><div class="list-item-title">Courtyard plan.pdf</div><div class="list-item-meta">2 KB · 10/13/26</div></div></div></div></div><figcaption>An icon tile for files; the type is also in the text.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="width: 100%; padding: 0;"><div class="list-item"><span class="icon-tile" aria-hidden="true"><span class="material-icons">insert_drive_file</span></span><div><div class="list-item-title">2048</div><div class="list-item-meta">10/13/26</div></div></div></div></div><figcaption>The mock's asset row showed the raw byte count "2048" with no unit and a different date format from the rest of the page.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Hover fill</td><td data-token="--color-bg-subtle"></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Selected fill</td><td data-token="--color-accent-subtle"></td><td><span class="ds-swatch-cell"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Selected marker</td><td data-token="--color-accent"></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Marker width</td><td data-token="--border-width-thick"></td><td><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Divider</td><td data-token="--color-border-default"></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Meta text</td><td data-token="--color-fg-muted"></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Padding</td><td data-token="--space-3"></td><td><span data-token="--space-3"></span> by <span data-token="--space-5"></span></td></tr>
+          <tr><td>Gap</td><td data-token="--space-3"></td><td><span data-token="--space-3"></span></td></tr>
+          <tr><td>Icon tile radius</td><td data-token="--radius-md"></td><td><span data-token="--radius-md"></span></td></tr>
+          <tr><td>Icon tile tints</td><td data-token="--color-success-bg"></td><td><span class="ds-swatch-cell"><i data-token="--color-success-bg" data-swatch></i><span data-token="--color-success-bg"></span></span></td></tr>
+          <tr><td>Title style</td><td data-token="--text-label"></td><td><span data-token="--text-label"></span></td></tr>
+          <tr><td>Meta style</td><td data-token="--text-caption"></td><td><span data-token="--text-caption"></span></td></tr>
+          <tr><td>Transition</td><td data-token="--duration-base"></td><td><span data-token="--duration-base"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div role="list"&gt;
+  &lt;div class="list-item" role="listitem" aria-current="true"&gt;
+    &lt;span class="icon-tile icon-tile-success" aria-hidden="true"&gt;
+      &lt;span class="material-icons"&gt;campaign&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;div&gt;
+      &lt;div class="list-item-title"&gt;&lt;a href="/documents/7"&gt;Autumn courtyard gathering&lt;/a&gt;&lt;/div&gt;
+      &lt;div class="list-item-meta"&gt;Notice · Oct 13, 2026&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.list-item</code></td><td>Row layout, divider, hover fill, pointer cursor.</td></tr>
+        <tr><td><code>aria-current="true"</code> / <code>.selected</code></td><td>Selected row: 3px accent marker and tinted fill.</td></tr>
+        <tr><td><code>.list-item-title</code> <code>.list-item-meta</code></td><td>Title and metadata text styles.</td></tr>
+        <tr><td><code>.icon-tile</code> <code>.icon-tile-success|info|warning</code></td><td>48px icon square: neutral, or tinted for notice, by-law, report.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-messaging/default.html">pages/admin-messaging/default</a> (conversation items, selected state, unread badge)</li>
+        <li><a href="../../mocks/pages/public-messaging/default.html">pages/public-messaging/default</a></li>
+        <li><a href="../../mocks/dialogs/public-profile-switcher/default.html">dialogs/public-profile-switcher/default</a> (profile cards)</li>
+        <li><a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a> (notice items)</li>
+        <li><a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (asset rows, thumbnail)</li>
+        <li><a href="../../mocks/pages/public-documents/default.html">pages/public-documents/default</a> (document icons)</li>
+      </ul>
+      <h3>Drift</h3>
+      <ul>
+        <li>Conversation, profile and notice rows were three separately styled components with different paddings (12px or 14px by 20px), radii (10px) and selected tints (5% green). The system merges them into <code>.list-item</code>.</li>
+        <li>The selected marker was added only on selection, shifting the row's content 3px. The system should reserve a transparent 3px border on every row (proposed change to <code>components.css</code>).</li>
+        <li>Rows were <code>div role="link" tabindex="0"</code> with no Enter or Space handling.</li>
+        <li>Document type icons used 10% tints of raw colours; they now use the semantic status tokens (<code>.icon-tile-success|info|warning</code>).</li>
+        <li>The conversation divider was the canvas colour and the other rows used the card border colour; the system uses <code>--color-border-default</code>.</li>
+        <li>Asset size is shown as a raw number with no unit.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

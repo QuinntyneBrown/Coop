@@ -1,0 +1,19 @@
+.roles-page[_ngcontent-ng-c3334892396] { padding: 24px; }
+.roles-layout[_ngcontent-ng-c3334892396] { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+.role-list[_ngcontent-ng-c3334892396] { padding: 20px; }
+.role-list[_ngcontent-ng-c3334892396] h3[_ngcontent-ng-c3334892396] { margin-bottom: 16px; font-size: 16px; font-weight: 600; }
+.role-item[_ngcontent-ng-c3334892396] { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 14px; margin-bottom: 4px; }
+.role-item[_ngcontent-ng-c3334892396]:hover { background: rgb(245, 244, 241); }
+.role-item.selected[_ngcontent-ng-c3334892396] { background: rgb(61, 138, 90); color: rgb(255, 255, 255); }
+.role-icon[_ngcontent-ng-c3334892396] { font-size: 18px; }
+.privileges-panel[_ngcontent-ng-c3334892396] { padding: 20px; overflow-x: auto; }
+.privileges-header[_ngcontent-ng-c3334892396] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.privileges-header[_ngcontent-ng-c3334892396] h3[_ngcontent-ng-c3334892396] { font-size: 16px; font-weight: 600; }
+.btn-sm[_ngcontent-ng-c3334892396] { padding: 6px 14px; font-size: 13px; }
+.privileges-table[_ngcontent-ng-c3334892396] { width: 100%; border-collapse: collapse; }
+.privileges-table[_ngcontent-ng-c3334892396] th[_ngcontent-ng-c3334892396] { text-align: left; padding: 10px 16px; font-size: 13px; font-weight: 600; color: rgba(26, 25, 24, 0.8); border-bottom: 1px solid rgb(229, 228, 225); }
+.privileges-table[_ngcontent-ng-c3334892396] td[_ngcontent-ng-c3334892396] { padding: 10px 16px; font-size: 14px; border-bottom: 1px solid rgb(245, 244, 241); }
+.privilege-toggle[_ngcontent-ng-c3334892396] { width: 18px; height: 18px; accent-color: rgb(61, 138, 90); cursor: pointer; }
+@media (max-width: 768px) {
+  .roles-layout[_ngcontent-ng-c3334892396] { grid-template-columns: 1fr; }
+}

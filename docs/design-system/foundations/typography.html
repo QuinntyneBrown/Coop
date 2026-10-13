@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography — Coop design system</title>
+<meta name="description" content="Outfit in four weights, a six-step rem scale and eight roles; mono for code only, Material Icons as an icon font.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Typography</h1>
+      <p class="ds-lead">One typeface, Outfit, in six sizes and eight roles. Monospace is for code only, and Material Icons is an icon font, not a text face.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Tokens: <code>--font-*</code>, <code>--line-height-*</code>, <code>--text-*</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#families">Families</a></li><li><a href="#scale">Role specimens</a></li><li><a href="#sizes">Size scale</a></li><li><a href="#weights">Weights</a></li><li><a href="#measure">Measure</a></li><li><a href="#drift">Drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Coop uses one text family, <b>Outfit</b>, in five weights. The type scale has six sizes and eight roles. Roles bundle weight, size, line height and family into a single <code>font:</code> shorthand, so a component sets <code>font: var(--text-body-sm)</code> and nothing else.</p>
+<ul>
+<li><b>Outfit</b> (<code>--font-family-sans</code>) is every piece of interface text. It falls back to the system UI font stack.</li>
+<li><b>Monospace</b> (<code>--font-family-mono</code>) is used only for code: token names, class names and snippets in documentation, and the <code>--text-code</code> role.</li>
+<li><b>Material Icons</b> (<code>--font-family-icon</code>) is an icon font, not a text face. It renders glyphs from ligature names such as <code>edit</code>; never set running text in it. See <a href="iconography.html">Iconography</a>.</li>
+</ul>
+
+</section>
+<section class="ds-section" id="families"><h2><a href="#families">Families</a></h2>
+
+<p>Fonts are self-hosted: the Outfit weights 300 to 700 and the Material Icons font are declared in <code>assets/fonts.css</code>.</p>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack">
+<p style="font-family: var(--font-family-sans); font-size: var(--font-size-xl);">Outfit: Welcome to your cooperative home.</p><p style="font-family: var(--font-family-mono); font-size: var(--font-size-md);">Mono: <code>--space-4</code> .btn-primary</p><p><span class="material-icons" aria-hidden="true">home</span> <span class="material-icons" aria-hidden="true">edit</span> <span class="material-icons" aria-hidden="true">notifications</span> Material Icons glyphs, decorative here</p>
+</div><div class="ds-example__caption"><span>Sans for interface text, mono for code only, Material Icons for glyphs.</span></div></div>
+</section>
+<section class="ds-section" id="scale"><h2><a href="#scale">Role specimens</a></h2>
+
+<p>Each role is a token you can paste into <code>font:</code>. Sizes and line heights are the raw values from the scale below.</p>
+<div class="ds-example"><div class="ds-specimen"><div class="ds-specimen__meta">--text-h1<br>600 · 24px / 1.2</div><div style="font: var(--text-h1);">Page title: Maintenance requests</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h2<br>600 · 20px / 1.2</div><div style="font: var(--text-h2);">Section title: Recent notices</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h3<br>600 · 18px / 1.4</div><div style="font: var(--text-h3);">Card title: Annual general meeting</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body<br>400 · 16px / 1.5</div><div style="font: var(--text-body);">Body text sits at sixteen pixels so it reads comfortably on a phone and respects the user's browser size setting.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body-sm<br>400 · 14px / 1.5</div><div style="font: var(--text-body-sm);">Secondary text, table cells, controls and form values.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-label<br>500 · 14px / 1.5</div><div style="font: var(--text-label);">Field label or navigation item</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-caption<br>400 · 12px / 1.5</div><div style="font: var(--text-caption);">Caption, badge text and timestamps</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-code<br>400 · 14px / 1.5 mono</div><div style="font: var(--text-code);">var(--space-4) .btn-primary</div></div></div>
+</section>
+<section class="ds-section" id="sizes"><h2><a href="#sizes">Size scale</a></h2>
+
+<p>Sizes are in <code>rem</code> so they follow the browser's base size. The root is 16px.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Size</th><th scope="col">Sample</th><th scope="col">Used by</th></tr></thead><tbody>
+<tr><td><code>--font-size-xs</code></td><td>12px</td><td style="font-size: var(--font-size-xs);">Sample text</td><td>Captions, badges</td></tr>
+<tr><td><code>--font-size-sm</code></td><td>14px</td><td style="font-size: var(--font-size-sm);">Sample text</td><td>Secondary text, controls, labels</td></tr>
+<tr><td><code>--font-size-md</code></td><td>16px</td><td style="font-size: var(--font-size-md);">Sample text</td><td>Body, large controls</td></tr>
+<tr><td><code>--font-size-lg</code></td><td>18px</td><td style="font-size: var(--font-size-lg);">Sample text</td><td>Card titles</td></tr>
+<tr><td><code>--font-size-xl</code></td><td>20px</td><td style="font-size: var(--font-size-xl);">Sample text</td><td>Section titles</td></tr>
+<tr><td><code>--font-size-2xl</code></td><td>24px</td><td style="font-size: var(--font-size-2xl);">Sample text</td><td>Page titles</td></tr>
+</tbody></table></div>
+
+</section>
+<section class="ds-section" id="weights"><h2><a href="#weights">Weights and line heights</a></h2>
+
+<p>Four weights are in the scale. The 300 weight is loaded by <code>fonts.css</code> but no role uses it.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<span style="font-weight: var(--font-weight-regular);">Regular 400</span><span style="font-weight: var(--font-weight-medium);">Medium 500</span><span style="font-weight: var(--font-weight-semibold);">Semibold 600</span><span style="font-weight: var(--font-weight-bold);">Bold 700</span>
+</div><div class="ds-example__caption"><span>Regular for body, medium for labels, semibold for headings, bold for strong emphasis.</span></div></div><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--line-height-tight</code></td><td>1.2</td><td>Page and section titles</td></tr><tr><td><code>--line-height-snug</code></td><td>1.4</td><td>Card titles and card text</td></tr><tr><td><code>--line-height-normal</code></td><td>1.5</td><td>Body and controls</td></tr><tr><td><code>--line-height-relaxed</code></td><td>1.6</td><td>Long-form reading, such as notice and by-law text</td></tr></tbody></table></div>
+</section>
+<section class="ds-section" id="measure"><h2><a href="#measure">Measure</a></h2>
+
+<p>Keep running text to about 65 characters per line. In the documentation, paragraphs are capped at <code>65ch</code>. Product long-form content (notices, by-laws, document viewers) should sit in a container that limits line length rather than stretching across wide screens, and uses <code>--line-height-relaxed</code>.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<p style="max-width: 65ch; line-height: var(--line-height-relaxed);">The board will meet on the first Tuesday of each month. Members may submit questions in advance through the member portal, and minutes are posted within seven days of every meeting so that everyone can follow decisions.</p>
+</div><div class="ds-example__caption"><span>About 65 characters per line at body size, with relaxed line height.</span></div></div>
+</section>
+<section class="ds-section" id="drift"><h2><a href="#drift">Drift</a></h2>
+
+<p>The mocks use 21 distinct font sizes (see <code>docs/design-system/.cache/harvest.md</code>). The scale collapses the off-grid ones to the nearest step.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Snapped to</th><th scope="col">Note</th></tr></thead><tbody>
+<tr><td>10px, 11px (12 uses)</td><td><code>--font-size-xs</code> 12px</td><td>Below 12px is hard to read on phones.</td></tr>
+<tr><td>13px (24 uses)</td><td><code>--font-size-sm</code> 14px</td><td>Merged with the 14px already used for controls and secondary text.</td></tr>
+<tr><td>15px (8 uses)</td><td><code>--font-size-md</code> 16px</td><td>One body size.</td></tr>
+<tr><td>22px (8 uses)</td><td><code>--font-size-2xl</code> 24px</td><td>Page titles.</td></tr>
+<tr><td>26px (1 use)</td><td><code>--font-size-2xl</code> 24px</td><td>One-off.</td></tr>
+<tr><td>28px, 36px, 42px headings (landing section titles, auth page headers, hero)</td><td>Not in the scale; use <code>--text-h1</code> 24px</td><td>These are marketing and auth display headings used on a handful of screens. No display role exists. Listed so the gap is visible rather than silently dropped.</td></tr>
+<tr><td>28px to 120px on icon glyphs (close buttons, empty-state, lock, hero icon)</td><td>Icon sizes, not text</td><td>Owned by <a href="iconography.html">Iconography</a>.</td></tr>
+<tr><td>Line height 1.7 on viewer text</td><td><code>--line-height-relaxed</code> 1.6</td><td>One value for long-form text.</td></tr>
+<tr><td>Uppercase labels with <code>letter-spacing: 0.5px</code> (document type)</td><td>Not tokenised</td><td>One use. No letter-spacing token exists.</td></tr>
+<tr><td>Default monospace in a few code areas; <code>system-ui</code> in the mock viewer chrome</td><td><code>--font-family-mono</code>; Outfit</td><td>Viewer chrome is not product.</td></tr>
+</tbody></table></div>
+
+</section>
+<section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Set text with a role: <code>font: var(--text-body-sm);</code>. Override only the colour.</li>
+<li>One <code>h1</code> per page using <code>--text-h1</code>. Do not skip heading levels to get a size; choose the role separately from the level.</li>
+<li>Size with <code>rem</code> so the user's browser text size scales the interface. Never set text in <code>px</code>.</li>
+<li>Do not use Material Icons for text. Icons need a text label or <code>aria-label</code>.</li>
+</ul>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><p style="font: var(--text-body-sm);">Next review: 12 March</p></div><figcaption>Use a role and let it carry size, weight and line height together.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><p style="font-size: 13px;">Next review: 12 March</p></div><figcaption>Do not hand-set 13px. The mocks did, 24 times, alongside 14px.</figcaption></figure></div><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><h2 style="font: var(--text-h2);">Recent notices</h2></div><figcaption>Pick the role for the visual level, and the heading element for the document outline.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><h2 style="font: var(--text-caption);">Recent notices</h2></div><figcaption>Do not shrink a heading into a caption; it stays in the outline but loses its visual rank.</figcaption></figure></div>
+</section>
+<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+
+<ul>
+<li>Body text is 16px and the smallest text is 12px. Because sizes are in <code>rem</code>, text scales with the browser setting; layouts must survive 200% zoom (WCAG 1.4.4) and 400% reflow at 320px (1.4.10).</li>
+<li>Text spacing must tolerate user overrides: line height 1.5, paragraph spacing 2 times the font size, letter spacing 0.12em, word spacing 0.16em (1.4.12). Do not fix heights on text containers.</li>
+<li>Text colour contrast is verified on the <a href="color.html#accessibility">Color</a> page.</li>
+<li>Outfit loads with <code>font-display: swap</code> so text is visible before the font arrives.</li>
+</ul>
+
+</section>
+<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>Every typography token. Values resolve live from <code>tokens/tokens.css</code>.</p><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Use</th></tr></thead><tbody>
+<tr><td><code>--font-family-sans</code></td><td data-token="--font-family-sans"></td><td></td></tr>
+<tr><td><code>--font-family-mono</code></td><td data-token="--font-family-mono"></td><td></td></tr>
+<tr><td><code>--font-family-icon</code></td><td data-token="--font-family-icon"></td><td></td></tr>
+<tr><td><code>--font-size-xs</code></td><td data-token="--font-size-xs"></td><td>12px  captions, badges (mocks: 10, 11)</td></tr>
+<tr><td><code>--font-size-sm</code></td><td data-token="--font-size-sm"></td><td>14px  secondary text, controls (mocks: 13, 14)</td></tr>
+<tr><td><code>--font-size-md</code></td><td data-token="--font-size-md"></td><td>16px  body, large controls (mocks: 15)</td></tr>
+<tr><td><code>--font-size-lg</code></td><td data-token="--font-size-lg"></td><td>18px  card titles</td></tr>
+<tr><td><code>--font-size-xl</code></td><td data-token="--font-size-xl"></td><td>20px  section titles</td></tr>
+<tr><td><code>--font-size-2xl</code></td><td data-token="--font-size-2xl"></td><td>24px  page titles (mocks: 22)</td></tr>
+<tr><td><code>--font-weight-regular</code></td><td data-token="--font-weight-regular"></td><td></td></tr>
+<tr><td><code>--font-weight-medium</code></td><td data-token="--font-weight-medium"></td><td></td></tr>
+<tr><td><code>--font-weight-semibold</code></td><td data-token="--font-weight-semibold"></td><td></td></tr>
+<tr><td><code>--font-weight-bold</code></td><td data-token="--font-weight-bold"></td><td></td></tr>
+<tr><td><code>--line-height-tight</code></td><td data-token="--line-height-tight"></td><td>titles</td></tr>
+<tr><td><code>--line-height-snug</code></td><td data-token="--line-height-snug"></td><td>card text</td></tr>
+<tr><td><code>--line-height-normal</code></td><td data-token="--line-height-normal"></td><td>body</td></tr>
+<tr><td><code>--line-height-relaxed</code></td><td data-token="--line-height-relaxed"></td><td>long-form reading</td></tr>
+<tr><td><code>--text-h1</code></td><td data-token="--text-h1"></td><td></td></tr>
+<tr><td><code>--text-h2</code></td><td data-token="--text-h2"></td><td></td></tr>
+<tr><td><code>--text-h3</code></td><td data-token="--text-h3"></td><td></td></tr>
+<tr><td><code>--text-body</code></td><td data-token="--text-body"></td><td></td></tr>
+<tr><td><code>--text-body-sm</code></td><td data-token="--text-body-sm"></td><td></td></tr>
+<tr><td><code>--text-caption</code></td><td data-token="--text-caption"></td><td></td></tr>
+<tr><td><code>--text-label</code></td><td data-token="--text-label"></td><td></td></tr>
+<tr><td><code>--text-code</code></td><td data-token="--text-code"></td><td></td></tr>
+</tbody></table></div>
+</section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

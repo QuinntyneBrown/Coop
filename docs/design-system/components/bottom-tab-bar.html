@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bottom tab bar — Coop design system</title>
+<meta name="description" content="Fixed bottom navigation for the member app on compact screens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Bottom tab bar</h1>
+      <p class="ds-lead">Five icon-over-label links fixed to the bottom of compact screens, with safe-area padding for the home indicator.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;nav&gt;</code> and <code>&lt;a&gt;</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+<p>The bottom tab bar is the member app's primary navigation on compact screens: five destinations, each an icon above a short label, fixed to the bottom of the viewport. It replaces the <a href="sidebar.html">sidebar</a> below 1024px.</p>
+<ul>
+<li>It navigates between pages, so items are links. For switching views inside a page use <a href="tabs.html">tabs</a>.</li>
+<li>Use three to five items. The product uses five: Home, Requests, Docs, Messages, Profile.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+<div class="ds-anatomy">
+<figure class="ds-anatomy__figure"><nav class="bottom-tab-bar" style="position: static; width: 100%;" aria-label="Main">
+  <a class="tab-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>Docs</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">person</span><span>Profile</span></a>
+</nav></figure>
+<ol class="ds-anatomy__list">
+<li><div><b>Bar (<code>.bottom-tab-bar</code>)</b><small>Sticky to the bottom, <code>--z-sticky</code>, white surface, hairline rule above, items spaced evenly.</small></div></li>
+<li><div><b>Item (<code>.tab-item</code>)</b><small>Column: icon above label; minimum width 56px; <code>--space-1</code> by <code>--space-3</code> padding.</small></div></li>
+<li><div><b>Icon</b><small>24px, <code>aria-hidden</code>.</small></div></li>
+<li><div><b>Label</b><small><code>--text-caption</code> (12px), medium weight.</small></div></li>
+<li><div><b>Safe-area padding</b><small>Bottom padding is <code>--space-2</code> plus <code>env(safe-area-inset-bottom)</code> so items clear the home indicator.</small></div></li>
+</ol>
+</div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+<p>One variant. Items show their selection by colour: the current item uses <code>--color-fg-accent</code>, the others <code>--color-fg-muted</code>.</p>
+<div class="ds-example">
+<div class="ds-example__canvas" style="padding: 0;">
+<nav class="bottom-tab-bar" style="position: static; width: 100%;" aria-label="Main">
+  <a class="tab-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>Docs</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+  <a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">person</span><span>Profile</span></a>
+</nav>
+</div>
+<div class="ds-example__caption"><span>Five destinations. The current page is marked with <code>aria-current="page"</code>.</span></div>
+<details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;nav class="bottom-tab-bar" style="position: static; width: 100%;" aria-label="Main"&gt;
+  &lt;a class="tab-item" href="#main" aria-current="page"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;home&lt;/span&gt;&lt;span&gt;Home&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="tab-item" href="#main"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;build&lt;/span&gt;&lt;span&gt;Requests&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="tab-item" href="#main"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;description&lt;/span&gt;&lt;span&gt;Docs&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="tab-item" href="#main"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;chat&lt;/span&gt;&lt;span&gt;Messages&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="tab-item" href="#main"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;person&lt;/span&gt;&lt;span&gt;Profile&lt;/span&gt;&lt;/a&gt;
+&lt;/nav&gt;</code></pre></details>
+</div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The bar has one size; the label is 12px and the icon 24px."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The bar has one size; the label is 12px and the icon 24px.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+<p>Hover and focus are forced with <code>data-state</code>.</p>
+<div class="ds-matrix"><table>
+<thead><tr><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current page</th></tr></thead>
+<tbody><tr>
+<td><a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td><td><a class="tab-item" href="#main" data-state="hover"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td><td><a class="tab-item" href="#main" data-state="focus"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td><td><a class="tab-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a></td>
+</tr></tbody></table></div>
+<ul>
+<li>The current item changes colour only. Colour alone is not enough for WCAG 1.4.1 in general, but here the label and position also stay stable and <code>aria-current</code> carries the state for assistive tech; a weight or indicator change is not implemented in the mocks.</li>
+<li>No badge, disabled or loading state is implemented.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+<ul>
+<li>Below 1024px the bar is shown, fixed to the bottom of the viewport; the page content reserves 72px of bottom padding so the last content is not covered.</li>
+<li>At 1024px and wider the bar is hidden (<code>@media (min-width: 1024px)</code>) and the docked <a href="sidebar.html">sidebar</a> takes over.</li>
+<li>Safe areas: padding adds <code>env(safe-area-inset-bottom, 0px)</code>. The page must set <code>viewport-fit=cover</code> for the inset to be non-zero on notched devices.</li>
+<li>Items spread evenly with <code>justify-content: space-around</code>; at 320px five 56px items still fit without scrolling.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
+      <p class="ds-na">The product ships one light appearance; there are no theme variants.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+<h3>Role and pattern</h3>
+<p>A <code>&lt;nav aria-label="Main"&gt;</code> landmark of links. It is not an ARIA tablist: items navigate to new pages. Do not add <code>role="tab"</code>.</p>
+<h3>Keyboard</h3>
+<div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the five links in order.</td></tr><tr><td><kbd>Enter</kbd></td><td>Follows the link.</td></tr></tbody></table></div>
+<h3>Focus</h3>
+<p>Shared focus ring on <code>:focus-visible</code>. The ring is drawn outside the item, with a 2px offset, so it is not clipped by the bar.</p>
+<h3>Labelling</h3>
+<p>Every item has a visible text label; the icon is <code>aria-hidden</code>. Mark the current item with <code>aria-current="page"</code>; the mocks only toggle <code>.active</code>, which is not announced.</p>
+<h3>Contrast</h3>
+<div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Current label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+</div>
+<h3>Motion</h3>
+<p>Colour changes only. The mocks transition colour over 0.2s; the tokens remove it under <code>prefers-reduced-motion</code>.</p>
+<h3>Touch</h3>
+<p>Each item is at least 56px wide and about 48px tall (24px icon, 12px label, padding), above the 24px minimum and the 44px comfortable target.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+<ul>
+<li>One word per label: Home, Requests, Docs, Messages, Profile.</li>
+<li>The mocks use 11px labels; the system size is 12px (<code>--font-size-xs</code>), the smallest on the scale.</li>
+<li>Match each label to the page's heading where possible; "Docs" is shortened from "Documents" to fit and the heading keeps the long form.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div style="width: 100%;"><a class="tab-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a></div></div><figcaption>Pair every icon with a visible label and mark the current page with <code>aria-current</code>.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><a class="tab-item" href="#do-dont"><span class="material-icons" aria-hidden="true">home</span></a></div><figcaption>Do not drop the label: an icon-only link has no accessible name.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><div class="bottom-tab-bar" style="position: static; width: 100%;"><a class="tab-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a><a class="tab-item" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a></div></div><figcaption>Keep the item count between three and five so labels never wrap.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><span class="tab-item" style="font-size: 11px;"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></span></div><figcaption>Do not set labels below 12px, as the mocks do at 11px.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td>Surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span> </td></tr>
+<tr><td>Top rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span> </td></tr>
+<tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
+<tr><td>Current and hover label</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span> </td></tr>
+<tr><td>Label font</td><td><code>--text-caption</code></td><td><span data-token="--text-caption"></span> </td></tr>
+<tr><td>Item padding</td><td><code>--space-1</code> / <code>--space-3</code></td><td><span data-token="--space-1"></span> <span data-token="--space-3"></span> </td></tr>
+<tr><td>Bar padding</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span> </td></tr>
+<tr><td>Icon to label gap</td><td><code>--space-0-5</code></td><td><span data-token="--space-0-5"></span> </td></tr>
+<tr><td>Item radius</td><td><code>--radius-sm</code></td><td><span data-token="--radius-sm"></span> </td></tr>
+<tr><td>Layer</td><td><code>--z-sticky</code></td><td><span data-token="--z-sticky"></span> </td></tr>
+</tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+<pre><code>&lt;nav class="bottom-tab-bar" aria-label="Main"&gt;
+  &lt;a class="tab-item" href="/dashboard" aria-current="page"&gt;
+    &lt;span class="material-icons" aria-hidden="true"&gt;home&lt;/span&gt;&lt;span&gt;Home&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a class="tab-item" href="/maintenance"&gt;
+    &lt;span class="material-icons" aria-hidden="true"&gt;build&lt;/span&gt;&lt;span&gt;Requests&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+<tr><td><code>.bottom-tab-bar</code></td><td>Sticky bar with safe-area bottom padding. Hide at 1024px and wider in the app.</td></tr>
+<tr><td><code>.tab-item</code></td><td>One destination; icon over label.</td></tr>
+<tr><td><code>aria-current="page"</code></td><td>Current page; styles the item with <code>--color-fg-accent</code>.</td></tr>
+</tbody></table></div>
+<p>The demos use <code>style="position: static;"</code> so the bar stays inside the example frame.</p>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+<p>Extracted from these mocks:</p>
+<ul><li><a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a> (bar with five items)</li><li><a href="../../mocks/pages/public-maintenance/default.html">pages/public-maintenance/default</a> (same bar on a list page)</li></ul>
+<h3>Drift</h3>
+<p>Where the mocks differ from each other or fail WCAG 2.2 AA, the design system resolves it as follows.</p>
+<ul><li>Labels are 11px in the mocks; the system uses 12px (<code>--font-size-xs</code>).</li><li>Current item is marked with <code>.active</code> only; the system adds <code>aria-current="page"</code>.</li><li>The mocks use inline SVG icons; the system uses the Material Icons font for consistency with the rest of the product.</li><li>Some mock builds use a fixed bar and others a sticky one; the system uses sticky with 72px of page bottom padding.</li><li>The bar sets no minimum width on one mock build; the 56px minimum from the other is kept.</li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

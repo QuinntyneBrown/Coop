@@ -1,0 +1,37 @@
+.documents-page[_ngcontent-ng-c2542245651] { padding: 24px 16px; max-width: 900px; margin: 0px auto; }
+h1[_ngcontent-ng-c2542245651] { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
+.filter-tabs[_ngcontent-ng-c2542245651] { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; }
+.filter-tab[_ngcontent-ng-c2542245651] { padding: 8px 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface); font-size: 14px; font-weight: 500; white-space: nowrap; color: var(--text-secondary); transition: 0.2s; }
+.filter-tab.active[_ngcontent-ng-c2542245651] { background: var(--primary); color: white; border-color: var(--primary); }
+.filter-tab[_ngcontent-ng-c2542245651]:hover:not(.active) { border-color: var(--primary); }
+.document-list[_ngcontent-ng-c2542245651] { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.document-card[_ngcontent-ng-c2542245651] { cursor: pointer; padding: 0px; overflow: hidden; transition: box-shadow 0.2s; }
+.document-card[_ngcontent-ng-c2542245651]:hover { box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 8px; }
+.card-color-bar[_ngcontent-ng-c2542245651] { height: 4px; }
+.card-color-bar.notices[_ngcontent-ng-c2542245651] { background: var(--primary); }
+.card-color-bar.bylaws[_ngcontent-ng-c2542245651] { background: var(--info); }
+.card-color-bar.reports[_ngcontent-ng-c2542245651] { background: var(--warning); }
+.card-body[_ngcontent-ng-c2542245651] { padding: 16px 20px; }
+.card-body[_ngcontent-ng-c2542245651] .doc-type[_ngcontent-ng-c2542245651] { font-size: 12px; font-weight: 500; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px; }
+.card-body[_ngcontent-ng-c2542245651] h3[_ngcontent-ng-c2542245651] { font-size: 16px; font-weight: 500; margin: 8px 0px; }
+.card-body[_ngcontent-ng-c2542245651] .doc-date[_ngcontent-ng-c2542245651] { font-size: 13px; color: var(--text-secondary); }
+.empty-state[_ngcontent-ng-c2542245651] { text-align: center; padding: 48px 20px; color: var(--text-secondary); }
+.empty-state[_ngcontent-ng-c2542245651] svg[_ngcontent-ng-c2542245651] { margin-bottom: 12px; }
+.loading[_ngcontent-ng-c2542245651] { display: flex; justify-content: center; padding: 48px; }
+.spinner[_ngcontent-ng-c2542245651] { width: 32px; height: 32px; border-top-style: ; border-top-width: ; border-right-color: ; border-right-style: ; border-right-width: ; border-bottom-color: ; border-bottom-style: ; border-bottom-width: ; border-left-color: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-top-color: var(--primary); border-radius: 50%; animation: 0.6s linear 0s infinite normal none running _ngcontent-ng-c2542245651_spin; }
+@keyframes _ngcontent-ng-c2542245651_spin { 
+  100% { transform: rotate(360deg); }
+}
+.modal-overlay[_ngcontent-ng-c2542245651] { position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+.viewer-modal[_ngcontent-ng-c2542245651] { width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
+.modal-header[_ngcontent-ng-c2542245651] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-header[_ngcontent-ng-c2542245651] h2[_ngcontent-ng-c2542245651] { font-size: 18px; font-weight: 600; }
+.modal-header[_ngcontent-ng-c2542245651] .close-btn[_ngcontent-ng-c2542245651] { background: none; border: none; font-size: 28px; color: var(--text-secondary); padding: 0px 4px; }
+.viewer-meta[_ngcontent-ng-c2542245651] { display: flex; gap: 12px; margin-bottom: 16px; }
+.viewer-meta[_ngcontent-ng-c2542245651] .doc-type[_ngcontent-ng-c2542245651] { font-size: 12px; font-weight: 500; text-transform: uppercase; color: var(--primary); }
+.viewer-meta[_ngcontent-ng-c2542245651] .doc-date[_ngcontent-ng-c2542245651] { font-size: 12px; color: var(--text-secondary); }
+.viewer-content[_ngcontent-ng-c2542245651] { font-size: 15px; line-height: 1.7; color: var(--text-secondary); white-space: pre-wrap; }
+.viewer-actions[_ngcontent-ng-c2542245651] { margin-top: 20px; display: flex; justify-content: flex-end; }
+@media (max-width: 640px) {
+  .document-list[_ngcontent-ng-c2542245651] { grid-template-columns: 1fr; }
+}

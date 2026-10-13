@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theming — Coop design system</title>
+<meta name="description" content="How Coop design tokens are layered in three tiers, how components override them, and how tokens.json is consumed; the product has no dark mode.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Theming</h1>
+      <p class="ds-lead">One light appearance, three token tiers, and component tokens as the override points. No dark theme is implemented or specified.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#tiers">The three tiers</a></li><li><a href="#overrides">Component overrides</a></li><li><a href="#tokens-json">tokens.json</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>The implemented Coop product ships <strong>one light appearance</strong>. There is no dark palette, no theme switch and no per-user colour mode; the mocks README records that <code>?theme=dark</code> keeps the same light product. <strong>No dark theme is specified</strong> by this design system either. <code>tokens.css</code> declares <code>color-scheme: light</code>, and the documentation pages have no theme toggle.</p>
+<p>Theming here therefore means how tokens are layered, so that a value can change in one place, and how a component can be adjusted without editing its stylesheet. It does not mean theme variants.</p>
+
+    </section>
+    <section class="ds-section" id="tiers"><h2><a href="#tiers">The three tiers</a></h2>
+
+<p>Tokens come in three tiers. Each tier references the one below it, never the reverse.</p>
+<ol>
+<li><strong>Primitives</strong> (<code>--palette-*</code>, <code>--font-*</code>) are raw values: a hex colour, a font stack, a size. Components never use them directly. This is the only tier where raw colour values live.</li>
+<li><strong>Semantic</strong> tokens (<code>--color-*</code>, <code>--text-*</code>, <code>--space-*</code>, <code>--radius-*</code>, <code>--shadow-*</code>, <code>--duration-*</code>, <code>--z-*</code>, <code>--layout-*</code>) name a role and alias a primitive. Components and pages consume these. Example: <code>--color-accent</code> aliases <code>--palette-green-700</code>.</li>
+<li><strong>Component</strong> tokens (<code>--button-bg</code>, <code>--button-height</code>, <code>--icon-size</code>, <code>--alert-bg</code>, <code>--field-border</code>, <code>--avatar-size</code>, <code>--icon-btn-size</code>) are declared inside a component rule in <code>components.css</code> and always alias a semantic token. They are the supported override points.</li>
+</ol>
+<p>The system also honours three user preferences by overriding semantic tokens in <code>tokens.css</code>: <code>prefers-reduced-motion</code> (shortens durations), <code>prefers-contrast: more</code> (stronger borders and secondary text) and <code>forced-colors</code> (system colours for the focus ring and borders). These are accessibility adaptations of the single appearance, not themes.</p>
+
+    </section>
+    <section class="ds-section" id="overrides"><h2><a href="#overrides">Component overrides</a></h2>
+
+<p>A component reads its look from its own tokens. To change one instance, set the component token on that element or a wrapper; to change a role everywhere, change the semantic token. <code>.btn-primary</code> works exactly this way: it only reassigns the button tokens.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<button class="btn btn-primary" type="button">Primary</button>
+<button class="btn btn-danger" type="button">Danger</button>
+<button class="btn btn-outline" type="button">Outline</button>
+</div>
+<div class="ds-example__code"><details><summary>Show the override</summary><pre><code>.btn-danger {
+  --button-bg: var(--color-danger-solid);
+  --button-bg-hover: var(--color-danger-solid-hover);
+  --button-fg: var(--color-fg-on-danger);
+  --button-border: var(--color-danger-solid);
+}</code></pre></details></div>
+<div class="ds-example__caption"><span>Variants are token reassignments, not new rules. See <a href="../components/button.html">Button</a>.</span></div></div>
+<p>Overrides must point at semantic tokens (<code>var(--color-accent)</code>), never at a literal colour, so contrast is checked once in <code>tokens/contrast-pairs.json</code>.</p>
+
+    </section>
+    <section class="ds-section" id="tokens-json"><h2><a href="#tokens-json">tokens.json</a></h2>
+
+<p><code>tokens/tokens.json</code> is the same set of tokens in the Design Tokens Community Group format. It is exported from <code>tokens.css</code>, which stays the source of truth. Each entry has <code>$type</code>, <code>$value</code> and the CSS custom property name under <code>$extensions["com.agent-toolkit"].css</code>.</p>
+<pre><code>{
+  "layout": {
+    "breakpoint": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "40rem",
+        "$extensions": { "com.agent-toolkit": { "css": "--layout-breakpoint-sm" } }
+      }
+    }
+  }
+}</code></pre>
+<ul>
+<li>Web code consumes <code>tokens.css</code> directly through <code>var(--token)</code>. Link it before <code>components.css</code>.</li>
+<li>Other tools (design software, native code, style generators) read <code>tokens.json</code> and use the <code>css</code> extension to map back to the property name.</li>
+<li>Edit <code>tokens.css</code> first, then regenerate <code>tokens.json</code>. Do not edit both by hand.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Add a new value as a primitive first, then alias it with a semantic token. Pages and components use the semantic name.</li>
+<li>Do not add a dark or high-contrast <em>theme</em>. Preference media queries may adapt existing tokens; they do not introduce a second palette.</li>
+<li>Do not use <code>data-theme</code> to switch appearance. The mocks set <code>data-theme="light"</code> only as a constant.</li>
+<li>When a component needs a new adjustable value, declare it as a component token that aliases a semantic token.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+
+<p>This page owns no tokens. It lists the tiers only.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Prefix</th><th scope="col">Tier</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><td><code>--palette-*</code></td><td>Primitive</td><td><code>--palette-green-700</code></td></tr>
+<tr><td><code>--font-*</code></td><td>Primitive</td><td><code>--font-size-md</code></td></tr>
+<tr><td><code>--color-*</code></td><td>Semantic</td><td><code>--color-accent</code></td></tr>
+<tr><td><code>--text-*</code></td><td>Semantic</td><td><code>--text-body</code></td></tr>
+<tr><td><code>--space-*</code></td><td>Semantic</td><td><code>--space-4</code></td></tr>
+<tr><td><code>--radius-*</code>, <code>--border-width-*</code></td><td>Semantic</td><td><code>--radius-md</code></td></tr>
+<tr><td><code>--shadow-*</code></td><td>Semantic</td><td><code>--shadow-2</code></td></tr>
+<tr><td><code>--duration-*</code>, <code>--ease-*</code></td><td>Semantic</td><td><code>--duration-base</code></td></tr>
+<tr><td><code>--z-*</code></td><td>Semantic</td><td><code>--z-modal</code></td></tr>
+<tr><td><code>--layout-*</code></td><td>Semantic</td><td><code>--layout-sidebar-width</code></td></tr>
+<tr><td><code>--target-min</code>, <code>--focus-ring-*</code></td><td>Semantic</td><td><code>--focus-ring-width</code></td></tr>
+<tr><td><code>--button-*</code>, <code>--alert-*</code>, <code>--field-*</code>, <code>--avatar-size</code>, <code>--icon-size</code>, <code>--icon-btn-size</code></td><td>Component</td><td><code>--button-bg</code></td></tr>
+</tbody></table></div>
+
+    </section>
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

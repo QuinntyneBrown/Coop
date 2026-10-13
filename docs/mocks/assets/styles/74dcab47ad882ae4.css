@@ -1,0 +1,32 @@
+* { margin: 0px; padding: 0px; box-sizing: border-box; }
+html, body { height: 100%; font-family: Outfit, sans-serif; font-size: 16px; color: rgb(26, 25, 24); background-color: rgb(245, 244, 241); -webkit-font-smoothing: antialiased; }
+a { color: rgb(61, 138, 90); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: Outfit, sans-serif; cursor: pointer; }
+input, select, textarea { font-family: Outfit, sans-serif; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: 0.2s; }
+.btn-primary { background-color: rgb(61, 138, 90); color: rgb(255, 255, 255); }
+.btn-primary:hover { background-color: rgb(45, 107, 68); }
+.btn-secondary { background-color: rgb(255, 255, 255); color: rgb(26, 25, 24); border: 1px solid rgb(229, 228, 225); }
+.btn-secondary:hover { background-color: rgb(245, 244, 241); }
+.btn-danger { background-color: rgb(220, 53, 69); color: rgb(255, 255, 255); }
+.btn-danger:hover { background-color: rgb(200, 35, 51); }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: rgba(26, 25, 24, 0.8); }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 8px; font-size: 14px; color: rgb(26, 25, 24); background-color: rgb(255, 255, 255); transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: rgb(61, 138, 90); box-shadow: rgba(61, 138, 90, 0.1) 0px 0px 0px 3px; }
+.form-group input.ng-invalid.ng-touched, .form-group select.ng-invalid.ng-touched, .form-group textarea.ng-invalid.ng-touched { border-color: rgb(220, 53, 69); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group .error-message { color: rgb(220, 53, 69); font-size: 12px; margin-top: 4px; }
+.card { background: rgb(255, 255, 255); border-radius: 12px; box-shadow: rgba(26, 25, 24, 0.03) 0px 2px 8px; border: 1px solid rgb(229, 228, 225); }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.badge-success { background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); }
+.badge-danger { background: rgba(220, 53, 69, 0.1); color: rgb(220, 53, 69); }
+.badge-warning { background: rgba(245, 158, 11, 0.1); color: rgb(217, 119, 6); }
+.badge-info { background: rgba(59, 130, 246, 0.1); color: rgb(59, 130, 246); }
+.badge-gray { background: rgba(26, 25, 24, 0.06); color: rgba(26, 25, 24, 0.8); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(26, 25, 24, 0.15); border-radius: 3px; }

@@ -1,0 +1,1127 @@
+{
+  "project": "Coop \u2014 implemented UI",
+  "screens": [
+    {
+      "id": "public-landing",
+      "kind": "page",
+      "title": "Public \u00b7 Landing",
+      "app": "public",
+      "route": "/",
+      "source": "frontend/projects/public/src/app/pages/landing/landing.component.ts",
+      "requirements": [
+        "L2-REQ-053",
+        "L2-REQ-068",
+        "L2-REQ-070"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty"
+      ],
+      "not_applicable": {
+        "loading": "Content comes from CMS collections shown as-is; the source renders no loading screen.",
+        "error": "Failed CMS fetches leave the empty sections shown in the empty state; no error banner is implemented."
+      }
+    },
+    {
+      "id": "public-login",
+      "kind": "page",
+      "title": "Public \u00b7 Login",
+      "app": "public",
+      "route": "/login",
+      "source": "frontend/projects/public/src/app/pages/login/login.component.ts",
+      "requirements": [
+        "L2-REQ-007",
+        "L2-REQ-076"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "invalid",
+        "submitting",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "The component loads no data on entry, so there is no loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
+      }
+    },
+    {
+      "id": "public-register",
+      "kind": "page",
+      "title": "Public \u00b7 Register",
+      "app": "public",
+      "route": "/register",
+      "source": "frontend/projects/public/src/app/pages/register/register.component.ts",
+      "requirements": [
+        "L2-REQ-001",
+        "L2-REQ-044",
+        "L2-REQ-077"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "invalid",
+        "mismatch",
+        "submitting",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "The component loads no data on entry, so there is no loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
+      }
+    },
+    {
+      "id": "public-forgot-password",
+      "kind": "page",
+      "title": "Public \u00b7 Forgot Password",
+      "app": "public",
+      "route": "/forgot-password",
+      "source": "frontend/projects/public/src/app/pages/forgot-password/forgot-password.component.ts",
+      "requirements": [
+        "L2-REQ-001"
+      ],
+      "note": "Submit handler is a stub. There is no implemented reset request, busy indicator, or confirmation. Requirement linkage is contextual; self-service reset is not specified by L2-REQ-001.",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "The submit handler is a stub, so there is no busy or loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation.",
+        "error": "The submit handler is a stub, so no failure feedback is implemented."
+      }
+    },
+    {
+      "id": "public-dashboard",
+      "kind": "page",
+      "title": "Public \u00b7 Dashboard",
+      "app": "public",
+      "route": "/dashboard",
+      "source": "frontend/projects/public/src/app/pages/dashboard/dashboard.component.ts",
+      "requirements": [
+        "L2-REQ-009",
+        "L2-REQ-030",
+        "L2-REQ-038"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "partial"
+      ],
+      "not_applicable": {
+        "loading": "Dashboard cards render zero counts until data arrives; no loading presentation is implemented.",
+        "error": "A failed request leaves an empty section (see the partial state); no error banner is implemented."
+      }
+    },
+    {
+      "id": "public-documents",
+      "kind": "page",
+      "title": "Public \u00b7 Documents",
+      "app": "public",
+      "route": "/documents",
+      "source": "frontend/projects/public/src/app/pages/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-035"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "notices",
+        "bylaws",
+        "reports",
+        "no-results"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "public-document-viewer",
+      "kind": "dialog",
+      "title": "Public \u00b7 Document Viewer",
+      "app": "public",
+      "route": "/documents",
+      "source": "frontend/projects/public/src/app/pages/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-035"
+      ],
+      "note": "",
+      "opens_from": "public-documents",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "public-maintenance",
+      "kind": "page",
+      "title": "Public \u00b7 Maintenance",
+      "app": "public",
+      "route": "/maintenance",
+      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021",
+        "L2-REQ-025",
+        "L2-REQ-030"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "new",
+        "started",
+        "done",
+        "no-results"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "public-maintenance-create",
+      "kind": "dialog",
+      "title": "Public \u00b7 Maintenance Create",
+      "app": "public",
+      "route": "/maintenance",
+      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021"
+      ],
+      "note": "",
+      "opens_from": "public-maintenance",
+      "states": [
+        "default",
+        "invalid"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source."
+      }
+    },
+    {
+      "id": "public-maintenance-detail",
+      "kind": "dialog",
+      "title": "Public \u00b7 Maintenance Detail",
+      "app": "public",
+      "route": "/maintenance",
+      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-028",
+        "L2-REQ-029",
+        "L2-REQ-030"
+      ],
+      "note": "",
+      "opens_from": "public-maintenance",
+      "states": [
+        "default",
+        "empty"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "public-messaging",
+      "kind": "page",
+      "title": "Public \u00b7 Messaging",
+      "app": "public",
+      "route": "/messaging",
+      "source": "frontend/projects/public/src/app/pages/messaging/messaging.component.ts",
+      "requirements": [
+        "L2-REQ-036",
+        "L2-REQ-037",
+        "L2-REQ-038"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "chat",
+        "chat-empty",
+        "read"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "public-onboarding",
+      "kind": "page",
+      "title": "Public \u00b7 Onboarding",
+      "app": "public",
+      "route": "/onboarding",
+      "source": "frontend/projects/public/src/app/pages/onboarding/onboarding.component.ts",
+      "requirements": [
+        "L2-REQ-014"
+      ],
+      "note": "No blocking validation, busy state, or API failure screen is implemented in the step navigation.",
+      "states": [
+        "default",
+        "profile",
+        "unit",
+        "unit-selected",
+        "success"
+      ],
+      "not_applicable": {
+        "loading": "Step navigation is local; the source shows no loading presentation.",
+        "empty": "Steps always render their fixed content; there is no empty presentation.",
+        "error": "The source shows no failure feedback in step navigation."
+      }
+    },
+    {
+      "id": "public-profile",
+      "kind": "page",
+      "title": "Public \u00b7 Profile",
+      "app": "public",
+      "route": "/profile",
+      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
+      "requirements": [
+        "L2-REQ-015",
+        "L2-REQ-016",
+        "L2-REQ-018",
+        "L2-REQ-019"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "edit",
+        "password",
+        "password-invalid",
+        "password-error"
+      ],
+      "not_applicable": {
+        "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
+        "error": "Save failures are not surfaced distinctly; the saved notification can appear after a failed save."
+      }
+    },
+    {
+      "id": "public-profile-switcher",
+      "kind": "dialog",
+      "title": "Public \u00b7 Profile Switcher",
+      "app": "public",
+      "route": "/profile",
+      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
+      "requirements": [
+        "L2-REQ-018"
+      ],
+      "note": "",
+      "opens_from": "public-profile",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "public-profile-saved",
+      "kind": "notification",
+      "title": "Public \u00b7 Profile Saved",
+      "app": "public",
+      "route": "/profile",
+      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
+      "requirements": [
+        "L2-REQ-015"
+      ],
+      "note": "The source also shows success after an API save failure.",
+      "opens_from": "public-profile",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The source implements no info notification for this screen.",
+        "warning": "The source implements only its success feedback; there is no warning notification.",
+        "danger": "The source implements only its success feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-landing",
+      "kind": "page",
+      "title": "Admin \u00b7 Landing",
+      "app": "admin",
+      "route": "/",
+      "source": "frontend/projects/admin/src/app/features/landing/landing.component.ts",
+      "requirements": [
+        "L2-REQ-053",
+        "L2-REQ-068",
+        "L2-REQ-070"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty"
+      ],
+      "not_applicable": {
+        "loading": "Content comes from CMS collections shown as-is; the source renders no loading screen.",
+        "error": "Failed CMS fetches leave the empty sections shown in the empty state; no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-login",
+      "kind": "page",
+      "title": "Admin \u00b7 Login",
+      "app": "admin",
+      "route": "/login",
+      "source": "frontend/projects/admin/src/app/features/login/login.component.ts",
+      "requirements": [
+        "L2-REQ-007",
+        "L2-REQ-076"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "invalid",
+        "submitting",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "The component loads no data on entry, so there is no loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
+      }
+    },
+    {
+      "id": "admin-register",
+      "kind": "page",
+      "title": "Admin \u00b7 Register",
+      "app": "admin",
+      "route": "/register",
+      "source": "frontend/projects/admin/src/app/features/register/register.component.ts",
+      "requirements": [
+        "L2-REQ-001",
+        "L2-REQ-044",
+        "L2-REQ-077"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "invalid",
+        "mismatch",
+        "submitting",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "The component loads no data on entry, so there is no loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
+      }
+    },
+    {
+      "id": "admin-forgot-password",
+      "kind": "page",
+      "title": "Admin \u00b7 Forgot Password",
+      "app": "admin",
+      "route": "/forgot-password",
+      "source": "frontend/projects/admin/src/app/features/forgot-password/forgot-password.component.ts",
+      "requirements": [
+        "L2-REQ-001"
+      ],
+      "note": "Submit handler is a stub. There is no implemented reset request, busy indicator, or confirmation. Requirement linkage is contextual; self-service reset is not specified by L2-REQ-001.",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "The submit handler is a stub, so there is no busy or loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation.",
+        "error": "The submit handler is a stub, so no failure feedback is implemented."
+      }
+    },
+    {
+      "id": "admin-dashboard",
+      "kind": "page",
+      "title": "Admin \u00b7 Dashboard",
+      "app": "admin",
+      "route": "/dashboard",
+      "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
+      "requirements": [
+        "L2-REQ-009",
+        "L2-REQ-030",
+        "L2-REQ-035",
+        "L2-REQ-038"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "partial"
+      ],
+      "not_applicable": {
+        "loading": "Dashboard cards render zero counts until data arrives; no loading presentation is implemented.",
+        "error": "A failed request leaves an empty section (see the partial state); no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-documents",
+      "kind": "page",
+      "title": "Admin \u00b7 Documents",
+      "app": "admin",
+      "route": "/documents",
+      "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-035"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "notices",
+        "bylaws",
+        "reports",
+        "no-results"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "admin-document-viewer",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Document Viewer",
+      "app": "admin",
+      "route": "/documents",
+      "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-035"
+      ],
+      "note": "",
+      "opens_from": "admin-documents",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-maintenance",
+      "kind": "page",
+      "title": "Admin \u00b7 Maintenance",
+      "app": "admin",
+      "route": "/maintenance",
+      "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021",
+        "L2-REQ-025",
+        "L2-REQ-030"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "new",
+        "started",
+        "done",
+        "received",
+        "no-results",
+        "detail-new",
+        "detail-received",
+        "detail-started",
+        "detail-completed",
+        "comments",
+        "comments-empty"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "admin-maintenance-create",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Maintenance Create",
+      "app": "admin",
+      "route": "/maintenance",
+      "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021"
+      ],
+      "note": "",
+      "opens_from": "admin-maintenance",
+      "states": [
+        "default",
+        "invalid"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source."
+      }
+    },
+    {
+      "id": "admin-messaging",
+      "kind": "page",
+      "title": "Admin \u00b7 Messaging",
+      "app": "admin",
+      "route": "/messages",
+      "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
+      "requirements": [
+        "L2-REQ-036",
+        "L2-REQ-037",
+        "L2-REQ-038"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "chat",
+        "chat-empty",
+        "read",
+        "no-results"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "admin-new-conversation",
+      "kind": "dialog",
+      "title": "Admin \u00b7 New Conversation",
+      "app": "admin",
+      "route": "/messages",
+      "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
+      "requirements": [
+        "L2-REQ-036"
+      ],
+      "note": "Start only closes the dialog and clears the recipient; no conversation is created by this handler.",
+      "opens_from": "admin-messaging",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-onboarding",
+      "kind": "page",
+      "title": "Admin \u00b7 Onboarding",
+      "app": "admin",
+      "route": "/onboarding",
+      "source": "frontend/projects/admin/src/app/features/onboarding/onboarding.component.ts",
+      "requirements": [
+        "L2-REQ-014"
+      ],
+      "note": "No blocking validation, busy state, or API failure screen is implemented in the step navigation.",
+      "states": [
+        "default",
+        "profile",
+        "unit",
+        "unit-selected"
+      ],
+      "not_applicable": {
+        "loading": "Step navigation is local; the source shows no loading presentation.",
+        "empty": "Steps always render their fixed content; there is no empty presentation.",
+        "error": "The source shows no failure feedback in step navigation."
+      }
+    },
+    {
+      "id": "admin-profile",
+      "kind": "page",
+      "title": "Admin \u00b7 Profile",
+      "app": "admin",
+      "route": "/profile",
+      "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
+      "requirements": [
+        "L2-REQ-015",
+        "L2-REQ-016",
+        "L2-REQ-018",
+        "L2-REQ-019"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "edit",
+        "password",
+        "invalid",
+        "board-edit"
+      ],
+      "not_applicable": {
+        "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
+        "error": "Save failures are not surfaced distinctly; the saved notification can appear after a failed save."
+      }
+    },
+    {
+      "id": "admin-profile-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Profile Saved",
+      "app": "admin",
+      "route": "/profile",
+      "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
+      "requirements": [
+        "L2-REQ-015"
+      ],
+      "note": "The source also shows success after an API save failure.",
+      "opens_from": "admin-profile",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The source implements no info notification for this screen.",
+        "warning": "The source implements only its success feedback; there is no warning notification.",
+        "danger": "The source implements only its success feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-profiles",
+      "kind": "page",
+      "title": "Admin \u00b7 Profiles",
+      "app": "admin",
+      "route": "/profiles",
+      "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
+      "requirements": [
+        "L2-REQ-015",
+        "L2-REQ-016",
+        "L2-REQ-018",
+        "L2-REQ-019"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "edit",
+        "password",
+        "invalid",
+        "board-edit"
+      ],
+      "not_applicable": {
+        "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
+        "error": "Save failures are not surfaced distinctly; the saved notification can appear after a failed save."
+      }
+    },
+    {
+      "id": "admin-profiles-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Profiles Saved",
+      "app": "admin",
+      "route": "/profiles",
+      "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
+      "requirements": [
+        "L2-REQ-015"
+      ],
+      "note": "The source also shows success after an API save failure.",
+      "opens_from": "admin-profiles",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The source implements no info notification for this screen.",
+        "warning": "The source implements only its success feedback; there is no warning notification.",
+        "danger": "The source implements only its success feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-users",
+      "kind": "page",
+      "title": "Admin \u00b7 Users",
+      "app": "admin",
+      "route": "/users",
+      "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
+      "requirements": [
+        "L2-REQ-001",
+        "L2-REQ-002",
+        "L2-REQ-003",
+        "L2-REQ-013",
+        "L2-REQ-057"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "no-results",
+        "page-2"
+      ],
+      "not_applicable": {
+        "loading": "The user list renders without a loading presentation in the source.",
+        "error": "A failed fetch leaves the list unchanged or empty; no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-user-create",
+      "kind": "dialog",
+      "title": "Admin \u00b7 User Create",
+      "app": "admin",
+      "route": "/users",
+      "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
+      "requirements": [
+        "L2-REQ-001"
+      ],
+      "note": "",
+      "opens_from": "admin-users",
+      "states": [
+        "default",
+        "invalid"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source."
+      }
+    },
+    {
+      "id": "admin-user-edit",
+      "kind": "dialog",
+      "title": "Admin \u00b7 User Edit",
+      "app": "admin",
+      "route": "/users",
+      "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
+      "requirements": [
+        "L2-REQ-002"
+      ],
+      "note": "The edit dialog submits through addUser(), which calls createUser().",
+      "opens_from": "admin-users",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-user-delete",
+      "kind": "dialog",
+      "title": "Admin \u00b7 User Delete",
+      "app": "admin",
+      "route": "/users",
+      "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
+      "requirements": [
+        "L2-REQ-003"
+      ],
+      "note": "",
+      "opens_from": "admin-users",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-roles",
+      "kind": "page",
+      "title": "Admin \u00b7 Roles",
+      "app": "admin",
+      "route": "/roles",
+      "source": "frontend/projects/admin/src/app/features/roles/roles.component.ts",
+      "requirements": [
+        "L2-REQ-010",
+        "L2-REQ-011",
+        "L2-REQ-012"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "no-privileges",
+        "member"
+      ],
+      "not_applicable": {
+        "loading": "The role list renders without a loading presentation in the source.",
+        "error": "A failed fetch leaves the lists empty; no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-assets",
+      "kind": "page",
+      "title": "Admin \u00b7 Assets",
+      "app": "admin",
+      "route": "/assets",
+      "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
+      "requirements": [
+        "L2-REQ-040",
+        "L2-REQ-041",
+        "L2-REQ-042"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty",
+        "no-results"
+      ],
+      "not_applicable": {
+        "loading": "The asset grid renders without a loading presentation in the source.",
+        "error": "A failed fetch leaves the grid empty; no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-asset-upload",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Asset Upload",
+      "app": "admin",
+      "route": "/assets",
+      "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
+      "requirements": [
+        "L2-REQ-040"
+      ],
+      "note": "",
+      "opens_from": "admin-assets",
+      "states": [
+        "default",
+        "busy"
+      ],
+      "not_applicable": {
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-asset-detail",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Asset Detail",
+      "app": "admin",
+      "route": "/assets",
+      "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
+      "requirements": [
+        "L2-REQ-041"
+      ],
+      "note": "Download button has no click handler.",
+      "opens_from": "admin-assets",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-asset-delete",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Asset Delete",
+      "app": "admin",
+      "route": "/assets",
+      "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
+      "requirements": [
+        "L2-REQ-042"
+      ],
+      "note": "The confirmation is stacked over the still-open detail dialog.",
+      "opens_from": "admin-assets",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-invitations",
+      "kind": "page",
+      "title": "Admin \u00b7 Invitations",
+      "app": "admin",
+      "route": "/invitations",
+      "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
+      "requirements": [
+        "L2-REQ-043",
+        "L2-REQ-044"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "empty"
+      ],
+      "not_applicable": {
+        "loading": "The invitation list renders without a loading presentation in the source.",
+        "error": "A failed fetch leaves the list empty; no error banner is implemented."
+      }
+    },
+    {
+      "id": "admin-invitation-create",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Invitation Create",
+      "app": "admin",
+      "route": "/invitations",
+      "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
+      "requirements": [
+        "L2-REQ-043"
+      ],
+      "note": "",
+      "opens_from": "admin-invitations",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-invitation-created",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Invitation Created",
+      "app": "admin",
+      "route": "/invitations",
+      "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
+      "requirements": [
+        "L2-REQ-043"
+      ],
+      "note": "",
+      "opens_from": "admin-invitations",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-document-create",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Document Create",
+      "app": "admin",
+      "route": "/documents",
+      "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-031"
+      ],
+      "note": "",
+      "opens_from": "admin-documents",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-document-delete",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Document Delete",
+      "app": "admin",
+      "route": "/documents",
+      "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-034"
+      ],
+      "note": "",
+      "opens_from": "admin-documents",
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
+        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
+      }
+    },
+    {
+      "id": "admin-settings",
+      "kind": "page",
+      "title": "Admin \u00b7 Settings",
+      "app": "admin",
+      "route": "/settings",
+      "source": "frontend/projects/admin/src/app/features/settings/settings.component.ts",
+      "requirements": [
+        "L2-REQ-045",
+        "L2-REQ-046"
+      ],
+      "note": "Content and Account tabs contain only headings and descriptive text. errorMsg is rendered but never assigned a nonempty value by the implementation.",
+      "states": [
+        "default",
+        "content",
+        "account"
+      ],
+      "not_applicable": {
+        "loading": "Theme values are read from local storage, so there is no loading presentation.",
+        "empty": "Settings always show their controls; there is no empty presentation.",
+        "error": "The errorMsg template branch is never assigned a nonempty value, so no error presentation is reachable."
+      }
+    },
+    {
+      "id": "admin-theme-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Theme Saved",
+      "app": "admin",
+      "route": "/settings",
+      "source": "frontend/projects/admin/src/app/features/settings/settings.component.ts",
+      "requirements": [
+        "L2-REQ-045"
+      ],
+      "note": "API failures also display success because settings are stored locally.",
+      "opens_from": "admin-settings",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The source implements no info notification for this screen.",
+        "warning": "The source implements only its success feedback; there is no warning notification.",
+        "danger": "The source implements only its success feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-change-password",
+      "kind": "page",
+      "title": "Admin \u00b7 Change Password",
+      "app": "admin",
+      "route": "/change-password",
+      "source": "frontend/projects/admin/src/app/features/change-password/change-password.component.ts",
+      "requirements": [
+        "L2-REQ-004"
+      ],
+      "note": "",
+      "states": [
+        "default",
+        "invalid",
+        "submitting",
+        "mismatch",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "Only the submit button changes while busy (see the submitting state); there is no page-level loading presentation.",
+        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
+      }
+    },
+    {
+      "id": "admin-password-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Password Saved",
+      "app": "admin",
+      "route": "/change-password",
+      "source": "frontend/projects/admin/src/app/features/change-password/change-password.component.ts",
+      "requirements": [
+        "L2-REQ-004"
+      ],
+      "note": "The form resets while submitted stays true, so required-field errors remain visible after success.",
+      "opens_from": "admin-change-password",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The source implements no info notification for this screen.",
+        "warning": "The source implements only its success feedback; there is no warning notification.",
+        "danger": "The source implements only its success feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-dashboard-unread",
+      "kind": "notification",
+      "title": "Admin \u00b7 Dashboard Unread",
+      "app": "admin",
+      "route": "/dashboard",
+      "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
+      "requirements": [
+        "L2-REQ-038"
+      ],
+      "note": "Notification bell has no handler. Badge reflects unread message count.",
+      "opens_from": "admin-dashboard",
+      "states": [
+        "info"
+      ],
+      "not_applicable": {
+        "success": "The source implements no success notification for this screen.",
+        "warning": "The source implements only its info feedback; there is no warning notification.",
+        "danger": "The source implements only its info feedback; there is no danger notification."
+      }
+    }
+  ]
+}

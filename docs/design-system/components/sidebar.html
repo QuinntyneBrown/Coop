@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sidebar — Coop design system</title>
+<meta name="description" content="The vertical primary navigation for the admin shell and the desktop member app.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Sidebar</h1>
+      <p class="ds-lead">A vertical list of page links with a logo header and, in the admin shell, a signed-in user footer.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;nav&gt;</code> and <code>&lt;a&gt;</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+<p>The sidebar is the primary navigation for a signed-in area: a logo header, a vertical list of destinations and, on the admin shell, a footer showing who is signed in. It is a list of links to pages, so it is a <code>&lt;nav&gt;</code> of <code>&lt;a&gt;</code> elements, never buttons.</p>
+<ul>
+<li><b>Admin shell</b> uses <code>.nav-item</code> links with a leading Material icon, and a footer with the signed-in user.</li>
+<li><b>Public shell</b> uses <code>.sidebar-link</code> with the same look; it appears beside the page at 1024px and wider and becomes a drawer below that.</li>
+<li>Use the <a href="bottom-tab-bar.html">bottom tab bar</a> for the member app on compact screens and <a href="tabs.html">tabs</a> to switch views inside one page.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+<div class="ds-anatomy">
+<figure class="ds-anatomy__figure">
+<div class="sidebar-frame" style="height: 26rem; width: 16.25rem; max-width: 100%;">
+<aside class="sidebar" style="height: 100%;" aria-label="Admin">
+  <div class="sidebar-header"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop Manager</span></div></div>
+  <nav class="sidebar-nav" aria-label="Primary">
+    <a class="nav-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>Documents</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">people</span><span>Users</span></a>
+  </nav>
+  <div class="sidebar-footer"><span class="avatar avatar-sm" aria-hidden="true">M</span><div><span>mira.fern</span><br><span>Member</span></div></div>
+</aside>
+</div>
+</figure>
+<ol class="ds-anatomy__list">
+<li><div><b>Container (<code>.sidebar</code>)</b><small>260px wide (<code>--layout-sidebar-width</code>), white surface, 1px right border, column flex layout.</small></div></li>
+<li><div><b>Header (<code>.sidebar-header</code>)</b><small>Logo mark and product name; hairline rule below, <code>--space-5</code> padding.</small></div></li>
+<li><div><b>Nav list (<code>.sidebar-nav</code>)</b><small>Grows to fill the height and scrolls on overflow; <code>--space-3</code> padding.</small></div></li>
+<li><div><b>Item (<code>.nav-item</code> / <code>.sidebar-link</code>)</b><small>20px icon, label, <code>--radius-md</code> corners, <code>--space-3</code> padding and gap.</small></div></li>
+<li><div><b>Footer (<code>.sidebar-footer</code>)</b><small>Avatar and user name and role, hairline rule above. Admin shell only.</small></div></li>
+</ol>
+</div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+<p>Two shells use the same component with two class names. Both render identically; the name is the only difference.</p>
+<h3>Admin: <code>.nav-item</code> with footer</h3>
+<div class="ds-example">
+<div class="ds-example__canvas">
+<div class="sidebar-frame" style="height: 26rem; width: 16.25rem; max-width: 100%;">
+<aside class="sidebar" style="height: 100%;" aria-label="Admin">
+  <div class="sidebar-header"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop Manager</span></div></div>
+  <nav class="sidebar-nav" aria-label="Primary">
+    <a class="nav-item" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Maintenance</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>Documents</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+    <a class="nav-item" href="#main"><span class="material-icons" aria-hidden="true">people</span><span>Users</span></a>
+  </nav>
+  <div class="sidebar-footer"><span class="avatar avatar-sm" aria-hidden="true">M</span><div><span>mira.fern</span><br><span>Member</span></div></div>
+</aside>
+</div>
+</div>
+<div class="ds-example__caption"><span>Ten admin destinations in the product; five shown. The current page is marked with <code>aria-current="page"</code>.</span></div>
+</div>
+<h3>Public: <code>.sidebar-link</code>, no footer</h3>
+<div class="ds-example">
+<div class="ds-example__canvas">
+<div style="height: 22rem; width: 16.25rem; max-width: 100%;">
+<aside class="sidebar" style="height: 100%;" aria-label="Member">
+  <div class="sidebar-header"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div></div>
+  <nav class="sidebar-nav" aria-label="Primary">
+    <a class="sidebar-link" href="#main" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a>
+    <a class="sidebar-link" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Requests</span></a>
+    <a class="sidebar-link" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>Docs</span></a>
+    <a class="sidebar-link" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+    <a class="sidebar-link" href="#main"><span class="material-icons" aria-hidden="true">person</span><span>Profile</span></a>
+  </nav>
+</aside>
+</div>
+</div>
+<div class="ds-example__caption"><span>Member app. Same container and item styling; no footer.</span></div>
+</div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The sidebar has one width, 260px (--layout-sidebar-width), and one item size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The sidebar has one width, 260px (--layout-sidebar-width), and one item size.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+<p>Items have four states. Hover and focus are forced here with <code>data-state</code>; real pages get them from <code>:hover</code> and <code>:focus-visible</code>.</p>
+<div class="ds-matrix"><table>
+<thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current page</th></tr></thead>
+<tbody>
+<tr><th scope="row">Nav item</th>
+<td><a class="nav-item" href="#states">Documents</a></td>
+<td><a class="nav-item" href="#states" data-state="hover">Documents</a></td>
+<td><a class="nav-item" href="#states" data-state="focus">Documents</a></td>
+<td><a class="nav-item" href="#states" aria-current="page">Documents</a></td></tr>
+</tbody></table></div>
+<ul>
+<li><b>Current page</b> uses <code>--color-accent-subtle</code> with <code>--color-fg-accent</code> text. The mocks mark it with an <code>.active</code> class set by the router; the design system requires <code>aria-current="page"</code> as well, and the stylesheet styles both.</li>
+<li><b>Hover</b> lightens to <code>--color-bg-subtle</code> and darkens the label to <code>--color-fg-default</code>.</li>
+<li>No disabled, loading, collapsed or badge state is implemented in the mocks.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+<p>Behaviour differs between the two shells because the mocks implement it differently.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Shell</th><th scope="col">Width</th><th scope="col">Behaviour</th></tr></thead><tbody>
+<tr><td>Admin</td><td>769px and wider</td><td>Fixed 260px sidebar; the main column is offset by 260px.</td></tr>
+<tr><td>Admin</td><td>768px and narrower</td><td>The sidebar is hidden (<code>display: none</code>) and the offset is removed. The mocks provide no replacement navigation: not implemented.</td></tr>
+<tr><td>Public</td><td>1024px and wider</td><td>Sidebar shown beside the page at <code>z-index: 100</code>.</td></tr>
+<tr><td>Public</td><td>1023px and narrower</td><td>The sidebar is hidden until the <a href="top-bar.html">top bar</a> hamburger toggles <code>.open</code>, which shows it as a fixed 260px drawer at <code>z-index: 200</code> over a backdrop at 199. The <a href="bottom-tab-bar.html">bottom tab bar</a> carries navigation at rest.</td></tr>
+</tbody></table></div>
+<p>The drawer layers are <code>--z-sticky</code> (100) for the docked sidebar, top bar and tab bar, and <code>--z-drawer</code> (200) for the open drawer. The drawer, backdrop and hamburger are page-level behaviour in the app; this stylesheet documents the docked sidebar only.</p>
+    </section>
+
+    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
+      <p class="ds-na">The product ships one light appearance; there are no theme variants.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+<h3>Role and pattern</h3>
+<p>A <code>&lt;nav aria-label="Primary"&gt;</code> landmark containing links (WAI-ARIA landmark and the "Disclosure navigation" pattern without a menu role). Do not use <code>role="menu"</code>; the items are page links. The wrapping <code>&lt;aside&gt;</code> in the mocks has no label; the design system requires <code>aria-label</code> on it when it holds more than the nav.</p>
+<h3>Keyboard</h3>
+<div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the links in DOM order; each link is one stop.</td></tr><tr><td><kbd>Enter</kbd></td><td>Follows the link.</td></tr><tr><td><kbd>Esc</kbd></td><td>Requirement for the public drawer: closes it and returns focus to the hamburger button. Not implemented in the mocks.</td></tr></tbody></table></div>
+<p>Requirement, not implemented in the mocks: when the public drawer is open, focus moves into it, stays inside until it closes, and the page behind is inert.</p>
+<h3>Focus</h3>
+<p>The shared ring (<code>--focus-ring-width</code> 2px, <code>--focus-ring-offset</code> 2px, <code>--color-focus-ring</code>) shows on <code>:focus-visible</code>. The mocks removed it; the design system restores it.</p>
+<h3>Labelling</h3>
+<p>The label text is the accessible name. Icons are <code>aria-hidden="true"</code>. The current page carries <code>aria-current="page"</code>; the <code>.active</code> class alone is not announced.</p>
+<h3>Contrast</h3>
+<div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Item label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Hovered label on subtle background</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Current page: accent text on accent-subtle</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+</div>
+<h3>Motion</h3>
+<p>Background colour changes over <code>--duration-base</code>; the tokens drop to near zero under <code>prefers-reduced-motion</code>. The drawer slide, if added, must respect the same setting.</p>
+<h3>Touch</h3>
+<p>Items are about 44px tall (20px icon plus 24px padding) and full width of the list, above the 24px minimum (<code>--target-min</code>).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+<ul>
+<li>Labels are one or two words naming the destination in title or sentence case: "Maintenance", "Users", "Roles &amp; Privileges".</li>
+<li>Use the same noun as the page title it opens.</li>
+<li>The footer shows the user's handle and role as text; do not rely on the avatar initial alone.</li>
+</ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div style="width: 14rem;"><a class="nav-item" href="#do-dont" aria-current="page"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a></div></div><figcaption>Mark the current page with <code>aria-current="page"</code> and use the tinted accent state.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div style="width: 14rem;"><a class="nav-item" href="#do-dont" style="background: var(--color-accent); color: var(--color-fg-on-accent);"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a></div></div><figcaption>Do not fill the active admin item with solid green and white text, as the admin mock does; the original brand green gives 4.2:1, below AA.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><div style="width: 14rem;"><a class="nav-item" href="#do-dont"><span class="material-icons" aria-hidden="true">people</span><span>Users</span></a></div></div><figcaption>Items are links with a visible text label next to the icon.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div style="width: 14rem;"><button class="nav-item" type="button" style="border: 0; width: 100%;"><span class="material-icons" aria-hidden="true">people</span><span>Users</span></button></div></div><figcaption>Do not build navigation from buttons; use real links so the browser handles open-in-new-tab and history.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td>Width</td><td><code>--layout-sidebar-width</code></td><td><span data-token="--layout-sidebar-width"></span> </td></tr>
+<tr><td>Surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span> </td></tr>
+<tr><td>Divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span> </td></tr>
+<tr><td>Item label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
+<tr><td>Item hover background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span> </td></tr>
+<tr><td>Current background</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span> </td></tr>
+<tr><td>Current text</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span> </td></tr>
+<tr><td>Item radius</td><td><code>--radius-md</code></td><td><span data-token="--radius-md"></span> </td></tr>
+<tr><td>Item padding and gap</td><td><code>--space-3</code></td><td><span data-token="--space-3"></span> </td></tr>
+<tr><td>Header and footer padding</td><td><code>--space-5</code> / <code>--space-4</code></td><td><span data-token="--space-5"></span> <span data-token="--space-4"></span> </td></tr>
+<tr><td>Label font</td><td><code>--text-label</code></td><td><span data-token="--text-label"></span> </td></tr>
+<tr><td>Hover transition</td><td><code>--duration-base</code></td><td><span data-token="--duration-base"></span> </td></tr>
+<tr><td>Layer: docked / drawer</td><td><code>--z-sticky</code> / <code>--z-drawer</code></td><td><span data-token="--z-sticky"></span> <span data-token="--z-drawer"></span> </td></tr>
+</tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+<pre><code>&lt;aside class="sidebar" aria-label="Admin"&gt;
+  &lt;div class="sidebar-header"&gt;
+    &lt;div class="logo"&gt;&lt;span class="material-icons logo-icon" aria-hidden="true"&gt;apartment&lt;/span&gt;&lt;span class="logo-text"&gt;Coop Manager&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;nav class="sidebar-nav" aria-label="Primary"&gt;
+    &lt;a class="nav-item" href="/dashboard" aria-current="page"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;dashboard&lt;/span&gt;&lt;span&gt;Dashboard&lt;/span&gt;&lt;/a&gt;
+    &lt;a class="nav-item" href="/maintenance"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;build&lt;/span&gt;&lt;span&gt;Maintenance&lt;/span&gt;&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;div class="sidebar-footer"&gt;...&lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+<tr><td><code>.sidebar</code></td><td>260px column container with right border.</td></tr>
+<tr><td><code>.sidebar-header</code> <code>.sidebar-nav</code> <code>.sidebar-footer</code></td><td>The three regions.</td></tr>
+<tr><td><code>.nav-item</code> / <code>.sidebar-link</code></td><td>One link; identical styling, admin and public names.</td></tr>
+<tr><td><code>aria-current="page"</code></td><td>Current page. Styled the same as the mocks' <code>.active</code> class.</td></tr>
+<tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+</tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+<p>Extracted from these mocks:</p>
+<ul><li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (admin shell: header, nav items, footer)</li><li><a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a> (public shell: sidebar links, drawer rules, top bar)</li></ul>
+<h3>Drift</h3>
+<p>Where the mocks differ from each other or fail WCAG 2.2 AA, the design system resolves it as follows.</p>
+<ul><li>Admin active item is white on <code>#3D8A5A</code> (4.2:1, fails AA); public active link is tinted green. The system uses <code>--color-accent-subtle</code> with <code>--color-fg-accent</code> for both.</li><li>Admin sidebar hides at 768px and below with no replacement; the public sidebar becomes a drawer at 1023px and below. Documented as implemented; unifying them is not decided.</li><li>Active page is marked with a <code>.active</code> class only; the system requires <code>aria-current="page"</code>.</li><li>Item padding is 10px 14px (admin) or 10px 12px (public) and radius 10px; the system uses <code>--space-3</code> and <code>--radius-md</code>.</li><li>No focus indicator in the mocks; the shared focus ring is applied.</li><li>Admin <code>&lt;aside&gt;</code> has no accessible name and the nav has no label; labels are required.</li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

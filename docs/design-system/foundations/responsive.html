@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Responsive — Coop design system</title>
+<meta name="description" content="What the Coop mocks actually do at the 640, 768 and 1024 pixel breakpoints, including safe-area handling.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Responsive</h1>
+      <p class="ds-lead">The real @media rules in the mocks, component by component, with the gaps recorded as requirements.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#summary">Rules by breakpoint</a></li><li><a href="#components">Rules by component</a></li><li><a href="#safe-area">Safe areas</a></li><li><a href="#requirements">Requirements and drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>This page lists what the mocks actually do at each breakpoint, taken from the <code>@media</code> rules in <code>docs/mocks/assets/styles/*.css</code>. The product has three breakpoints (640, 768 and 1024 CSS pixels), no container queries, and no rules beyond those below. Anything not listed here (for example stacking of <code>.form-row</code> or a dialog turning into a bottom sheet) is <strong>not implemented</strong>.</p>
+<p>The queries are not uniform: most use <code>max-width: 768px</code> (applies at 768 and below), the public shell uses <code>min-width: 1024px</code> and <code>max-width: 1023px</code>, and two use <code>max-width: 640px</code> and <code>min-width: 640px</code>. Token values are listed under <a href="layout.html#tokens">Layout</a>.</p>
+
+    </section>
+    <section class="ds-section" id="summary"><h2><a href="#summary">Rules by breakpoint</a></h2>
+
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Breakpoint</th><th scope="col">Rule</th><th scope="col">What changes</th></tr></thead><tbody>
+<tr><td>640px and below</td><td><code>max-width: 640px</code></td><td>Public documents list becomes one column. Public landing: smaller hero, tighter section padding, board grid two columns, notices one column.</td></tr>
+<tr><td>640px and above</td><td><code>min-width: 640px</code></td><td>Public dashboard metric grid goes from one to three columns.</td></tr>
+<tr><td>768px and below</td><td><code>max-width: 768px</code></td><td>Admin sidebar hidden and main offset removed; tab bar wrapper (<code>.mobile-only</code>) shown; two-pane and multi-column admin screens stack; auth pages become a column.</td></tr>
+<tr><td>1023px and below</td><td><code>max-width: 1023px</code></td><td>Public sidebar is a drawer, shown only when it has the <code>open</code> class.</td></tr>
+<tr><td>1024px and above</td><td><code>min-width: 1024px</code></td><td>Public sidebar is permanent, main content offsets by 260px; public dashboard padding grows to 32px; the sign-in page hides its tab bar.</td></tr>
+</tbody></table></div>
+
+    </section>
+    <section class="ds-section" id="components"><h2><a href="#components">Rules by component</a></h2>
+
+<h3>Sidebar and navigation</h3>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Behaviour in the mocks</th></tr></thead><tbody>
+<tr><td>Admin sidebar</td><td>Fixed, 260px, always visible above 768px. At 768px and below it is <code>display: none</code> and <code>.layout-main</code> loses its 260px left margin. There is no drawer for the admin sidebar.</td></tr>
+<tr><td>Public sidebar</td><td>Hidden below 1024px; <code>display: flex</code> from 1024px with <code>margin-left: 260px</code> on main content and the 72px bottom reserve removed. At 1023px and below, adding <code>.open</code> shows it as a drawer (z-index 200) over a <code>.sidebar-backdrop</code> (z-index 199). The mocks do not render an open state.</td></tr>
+<tr><td>Top bar (public)</td><td>Sticky at every width. Inner row is capped at 1440px and centred. The hamburger button has no responsive rule and stays visible at every width.</td></tr>
+<tr><td>Bottom tab bar (admin)</td><td>Rendered inside a <code>.mobile-only</code> wrapper, which is hidden by default and shown (<code>display: block</code>) at 768px and below.</td></tr>
+<tr><td>Bottom tab bar (public)</td><td>Fixed to the viewport bottom. The public shell keeps it <code>display: flex</code> at 1024px and above; the sign-in page stylesheet hides it from 1024px.</td></tr>
+</tbody></table></div>
+
+<h3>Screens and layout</h3>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Screen</th><th scope="col">Rule</th><th scope="col">Behaviour</th></tr></thead><tbody>
+<tr><td>Admin dashboard</td><td>768px and below</td><td><code>.metric-cards</code> from four columns to one.</td></tr>
+<tr><td>Admin settings</td><td>768px and below</td><td><code>.theme-layout</code> to one column.</td></tr>
+<tr><td>Admin roles</td><td>768px and below</td><td><code>.roles-layout</code> to one column.</td></tr>
+<tr><td>Admin maintenance</td><td>768px and below</td><td><code>.content-area</code> to one column; <code>.mobile-only</code> shown.</td></tr>
+<tr><td>Admin messaging</td><td>768px and below</td><td>Conversation list is full width and can be hidden (<code>.hidden-mobile</code>); a back button (<code>.back-btn</code>) is shown; <code>.mobile-only</code> shown.</td></tr>
+<tr><td>Admin documents</td><td>768px and below</td><td><code>.mobile-only</code> shown.</td></tr>
+<tr><td>Admin sign in</td><td>768px and below</td><td>Page becomes a column, the brand header is hidden, form panel padding is 24px 24px 80px.</td></tr>
+<tr><td>Admin register</td><td>768px and below</td><td>Page becomes a column; header padding 40px 20px; form panel padding 24px.</td></tr>
+<tr><td>Admin landing</td><td>768px and below</td><td>Hero becomes a column and centred; hero image 200px; section padding 40px 20px; hero heading 28px.</td></tr>
+<tr><td>Public landing</td><td>640px and below</td><td>Hero heading 28px; hero padding 48px 20px; section padding 40px 16px; board grid two columns; notices grid one column.</td></tr>
+<tr><td>Public documents</td><td>640px and below</td><td><code>.document-list</code> to one column.</td></tr>
+<tr><td>Public dashboard</td><td>640px and above; 1024px and above</td><td>Metric grid three columns; padding 32px.</td></tr>
+</tbody></table></div>
+
+<h3>Forms and dialogs</h3>
+<ul>
+<li><strong>Form rows.</strong> <code>.form-row</code> is a flex row with a 12px gap. No <code>@media</code> rule stacks it, so two fields stay side by side at phone width.</li>
+<li><strong>Dialogs.</strong> No <code>@media</code> rule changes them. They are fluid (<code>width: 100%</code> up to 400, 500 or 700px) inside an overlay with 16px padding and never become a full-screen sheet. See <a href="layout.html#dialogs">Layout: dialog widths</a>.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="safe-area"><h2><a href="#safe-area">Safe areas</a></h2>
+
+<p>Safe areas appear in one place: the bottom tab bar reserves the device inset under its labels.</p>
+<ul>
+<li>Public shell and sign-in: <code>padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px))</code>.</li>
+<li>Admin tab bar: <code>padding-bottom: env(safe-area-inset-bottom, 8px)</code> (the fallback is 8px).</li>
+<li>The profile page reserves 100px at the bottom and the public shell 72px so content clears the bar.</li>
+</ul>
+<p>There are no <code>env()</code> uses for the top, left or right insets, and the mocks (and the Angular <code>index.html</code> files) declare <code>width=device-width, initial-scale=1</code> without <code>viewport-fit=cover</code>, so the insets resolve to zero on devices that need them.</p>
+
+    </section>
+    <section class="ds-section" id="requirements"><h2><a href="#requirements">Requirements and drift</a></h2>
+
+<h3>Requirements the design system sets</h3>
+<p>These are requirements, not implemented behaviour.</p>
+<ul>
+<li>Layouts reflow to 320 CSS pixels without horizontal scrolling (WCAG 1.4.10). The mocks fail this: 77 admin mocks are wider than a 360px screen, by 42px to 313px (Users 462px wide, Messaging 673px). No public mock overflows.</li>
+<li>Declare <code>viewport-fit=cover</code> wherever <code>env(safe-area-inset-*)</code> is used, so the tab bar actually clears the home indicator.</li>
+<li>Show the bottom tab bar and the hamburger only where the sidebar is not shown, on both apps.</li>
+<li>Do not disable zoom (<code>user-scalable=no</code> or <code>maximum-scale</code>); the mocks do not.</li>
+<li>Keep targets at least 24px (<code>--target-min</code>), and 44px for primary phone actions.</li>
+</ul>
+<h3>Drift</h3>
+<ul>
+<li>The admin app changes navigation at 768px and the public app at 1024px, and the rules use different query styles (<code>max-width: 768px</code>, <code>max-width: 1023px</code>, <code>min-width: 1024px</code>). The system keeps both because the mocks implement both.</li>
+<li>The public shell leaves the bottom tab bar displayed at 1024px and above, beside the sidebar; the sign-in page hides it. The system treats the sign-in behaviour as correct.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Design for 360px first, then add rules at 640, 768 and 1024. Prefer <code>min-width</code> queries for new rules.</li>
+<li>Write the query with the pixel value; custom properties are not allowed inside media conditions.</li>
+<li>Use <code>rem</code> for sizes; the breakpoints are <code>40rem</code>, <code>48rem</code> and <code>64rem</code> in the tokens.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>This page owns no tokens. The breakpoint tokens are listed on <a href="layout.html#tokens">Layout</a>.</p>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

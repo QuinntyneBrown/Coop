@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elevation — Coop design system</title>
+<meta name="description" content="Three shadows and four stacking layers; no dark theme and no stronger elevation levels.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Elevation</h1>
+      <p class="ds-lead">A nearly flat system: three shadows for three jobs and four z-order layers. There is no dark theme and no stronger elevation level.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Tokens: <code>--shadow-*</code>, <code>--z-*</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#shadows">Shadows</a></li><li><a href="#z-order">Z-order</a></li><li><a href="#drift">Drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Coop is almost flat. Surfaces are separated by a hairline border and a change of background, not by shadow. Three shadows exist, each with one job, and four stacking layers keep overlays in order.</p>
+<ul>
+<li><b>No dark theme.</b> The product ships one light appearance, so elevation is never expressed through lighter surfaces, and no shadow has a dark variant.</li>
+<li><b>No stronger levels.</b> The mocks show no raised menu, popover, drawer or toast shadow beyond these three. Dialogs sit on a scrim, not on a shadow. Do not add levels 3, 4 and up.</li>
+</ul>
+
+</section>
+<section class="ds-section" id="shadows"><h2><a href="#shadows">Shadows</a></h2>
+
+<div class="ds-shadow-grid"><div style="--shadow: var(--shadow-1);">--shadow-1</div><div style="--shadow: var(--shadow-2);">--shadow-2</div><div style="--shadow: var(--shadow-selected);">--shadow-selected</div></div>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Look</th><th scope="col">Used for</th></tr></thead><tbody>
+<tr><td><code>--shadow-1</code></td><td>Faint, soft, 2px down, 8px blur</td><td>Metric cards at rest</td></tr>
+<tr><td><code>--shadow-2</code></td><td>Slightly stronger, same offset and blur</td><td>Hovered cards and rows</td></tr>
+<tr><td><code>--shadow-selected</code></td><td>2px ring, no blur, in the brand green at 20%</td><td>Selected request card</td></tr>
+</tbody></table></div>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas">
+<div class="card metric-card" style="width: 14rem;"><div class="metric-card-inner"><div class="metric-info"><div class="metric-count">12</div><div class="metric-label">Open requests</div></div></div></div><div class="card card-interactive" data-state="hover" style="width: 14rem;">Hovered card</div><div class="card card-interactive" aria-current="true" style="width: 14rem;">Selected card</div>
+</div><div class="ds-example__caption"><span>Metric card (<code>--shadow-1</code>), hovered interactive card (<code>--shadow-2</code>) and selected card (<code>--shadow-selected</code>).</span></div></div>
+</section>
+<section class="ds-section" id="z-order"><h2><a href="#z-order">Z-order</a></h2>
+
+<p>Four layers. Pick the layer; never write a raw <code>z-index</code>.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Layer</th></tr></thead><tbody>
+<tr><td><code>--z-base</code></td><td>0</td><td>Normal flow</td></tr>
+<tr><td><code>--z-sticky</code></td><td>100</td><td>Sidebar, top bar and bottom tab bar</td></tr>
+<tr><td><code>--z-drawer</code></td><td>200</td><td>Mobile sidebar drawer</td></tr>
+<tr><td><code>--z-modal</code></td><td>1000</td><td>Dialog overlay and its content</td></tr>
+</tbody></table></div>
+<p>Dialogs sit above the drawer, which sits above the sticky bars, which sit above the page. A toast or menu is not a layer in the mocks.</p>
+
+</section>
+<section class="ds-section" id="drift"><h2><a href="#drift">Drift</a></h2>
+
+<p>Shadow values (8 distinct in the harvest) and z-indexes (8 distinct) are mostly consistent, with these exceptions.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Resolved to</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td><code>0 2px 8px</code> at 3% of the text colour (4 uses) and at 8% black (3 uses)</td><td>Two tokens: <code>--shadow-1</code> and <code>--shadow-2</code></td><td>Same geometry; the strength tells rest from hover.</td></tr>
+<tr><td>Selected ring at 2px 20% (1 use), 3px 20% (1 use) and 3px 10% (2 uses)</td><td><code>--shadow-selected</code>, 2px at 20%</td><td>One selected ring.</td></tr>
+<tr><td><code>0 4px 24px</code> and <code>0 4px 20px</code> at 13% black</td><td>Dropped</td><td>These exist only in the mock viewer chrome (<code>assets/mock.css</code>), not in the product.</td></tr>
+<tr><td><code>z-index: 101</code> on in-page action rows (4 uses)</td><td><code>--z-base</code> or <code>--z-sticky</code> by context</td><td>Used to sit above the bottom bar's area; an in-flow row should not need its own layer.</td></tr>
+<tr><td><code>z-index: 199</code> on the drawer scrim, <code>200</code> on the drawer</td><td><code>--z-drawer</code> for both; scrim first in the DOM</td><td>One layer for the drawer and its scrim, ordered by DOM position.</td></tr>
+<tr><td><code>z-index: 10000</code> to <code>10002</code></td><td>Dropped</td><td>Mock viewer chrome, not product.</td></tr>
+</tbody></table></div>
+
+</section>
+<section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Separate surfaces with a border and background first. Add a shadow only for the three jobs above.</li>
+<li>Hover shadow appears with <code>--duration-base</code>; it is a response, not a resting state.</li>
+<li>A selected item takes <code>--shadow-selected</code> plus an accent border. The ring is not a focus indicator.</li>
+<li>Overlays use the layer tokens, not numbers: a new overlay chooses an existing layer.</li>
+</ul>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card card-interactive" data-state="hover">Hovered card gains <code>--shadow-2</code></div></div><figcaption>Reserve shadow for the metric card, hover and selected states.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="box-shadow: 0 12px 32px var(--color-bg-backdrop);">Heavy shadow on a plain card</div></div><figcaption>Do not add a heavier shadow. No stronger level exists and the product is deliberately flat.</figcaption></figure></div><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="position: relative; z-index: var(--z-base);">Layer from a token</div></div><figcaption>Choose a layer token for stacking.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="position: relative; z-index: 9999;">Layer from a number</div></div><figcaption>Do not escalate with numbers. The mocks reached 10002 in one file; there are only four layers.</figcaption></figure></div>
+</section>
+<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+
+<ul>
+<li>Shadow never carries meaning alone. The selected state also has an accent border and <code>aria-current</code>.</li>
+<li>Do not rely on a shadow to show a boundary; keep the hairline border, which survives forced colours.</li>
+<li>A shadow must not reduce the contrast of text on or beside it; the shadows are faint so they do not.</li>
+<li>Dialogs should trap focus and make the page behind inert while open. The mocks do not implement a focus trap; the design system requires one (see <a href="../components/dialog.html">Dialog</a>).</li>
+</ul>
+
+</section>
+<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>Every elevation token. Values resolve live from <code>tokens/tokens.css</code>.</p><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Use</th></tr></thead><tbody>
+<tr><td><code>--shadow-1</code></td><td data-token="--shadow-1"></td><td>metric cards</td></tr>
+<tr><td><code>--shadow-2</code></td><td data-token="--shadow-2"></td><td>hovered cards and rows</td></tr>
+<tr><td><code>--shadow-selected</code></td><td data-token="--shadow-selected"></td><td>selected request card</td></tr>
+<tr><td><code>--z-base</code></td><td data-token="--z-base"></td><td></td></tr>
+<tr><td><code>--z-sticky</code></td><td data-token="--z-sticky"></td><td>sidebar, top bar, bottom tab bar</td></tr>
+<tr><td><code>--z-drawer</code></td><td data-token="--z-drawer"></td><td>mobile sidebar drawer</td></tr>
+<tr><td><code>--z-modal</code></td><td data-token="--z-modal"></td><td>dialog overlay</td></tr>
+</tbody></table></div>
+</section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

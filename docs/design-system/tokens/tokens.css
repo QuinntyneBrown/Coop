@@ -1,0 +1,228 @@
+/* ==========================================================================
+   Coop design tokens — single source of truth for colour, type, space,
+   shape, elevation, motion, layout and z-order.
+
+   Extracted from docs/mocks (see ../README.md for the drift log). Only values
+   the implemented product uses are defined here. The implementation ships a
+   light appearance only, so there is no dark theme.
+
+   Three tiers:
+     1. Primitives  (--palette-*, --font-*)   raw values, never used directly
+                    by components.
+     2. Semantic    (--color-*, --text-*, --space-*, --radius-*, --shadow-*,
+                    --duration-*, --z-*, --layout-*) meaning-based aliases
+                    that components consume.
+     3. Component   (--button-*, --field-*, ...) declared in components.css,
+                    always alias a semantic token.
+   ========================================================================== */
+
+:root {
+  /* ---------- Primitives: colour --------------------------------------- */
+  --palette-white: #ffffff;
+
+  /* Warm neutral: canvas #F5F4F1, border #E5E4E1, text #1A1918 in the mocks. */
+  --palette-gray-50: #f5f4f1;
+  --palette-gray-100: #ecebe7;
+  --palette-gray-200: #e5e4e1;
+  --palette-gray-400: #a8a6a0;
+  --palette-gray-500: #6b6963;
+  --palette-gray-600: #5a5853;
+  --palette-gray-900: #1a1918;
+
+  /* Brand green: #3D8A5A (500) and the admin hover #2D6B44 (700) in the mocks. */
+  --palette-green-50: #eef7f1;
+  --palette-green-100: #d7ecde;
+  --palette-green-200: #b3d9c1;
+  --palette-green-500: #3d8a5a;
+  --palette-green-700: #2d6b44;
+  --palette-green-800: #245737;
+  --palette-green-900: #1b4229;
+
+  --palette-blue-100: #dbeafe;
+  --palette-blue-200: #bfdbfe;
+  --palette-blue-600: #2563eb;
+  --palette-blue-800: #1e40af;
+
+  --palette-amber-100: #fef3c7;
+  --palette-amber-300: #fcd34d;
+  --palette-amber-600: #b45309;
+  --palette-amber-700: #92400e;
+
+  --palette-red-50: #fef2f2;
+  --palette-red-100: #fee2e2;
+  --palette-red-200: #fecaca;
+  --palette-red-600: #dc2626;
+  --palette-red-700: #b91c1c;
+  --palette-red-800: #991b1b;
+
+  /* ---------- Primitives: typography ----------------------------------- */
+  --font-family-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-family-icon: "Material Icons";
+
+  --font-size-xs: 0.75rem;    /* 12px  captions, badges (mocks: 10, 11) */
+  --font-size-sm: 0.875rem;   /* 14px  secondary text, controls (mocks: 13, 14) */
+  --font-size-md: 1rem;       /* 16px  body, large controls (mocks: 15) */
+  --font-size-lg: 1.125rem;   /* 18px  card titles */
+  --font-size-xl: 1.25rem;    /* 20px  section titles */
+  --font-size-2xl: 1.5rem;    /* 24px  page titles (mocks: 22) */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;   /* titles */
+  --line-height-snug: 1.4;    /* card text */
+  --line-height-normal: 1.5;  /* body */
+  --line-height-relaxed: 1.6; /* long-form reading */
+
+  /* ---------- Semantic: colour ----------------------------------------- */
+  --color-bg-canvas: var(--palette-gray-50);         /* page background */
+  --color-bg-surface: var(--palette-white);          /* cards, panels, inputs, sidebar */
+  --color-bg-subtle: var(--palette-gray-50);         /* hover rows, quick actions, thumbs */
+  --color-bg-subtle-hover: var(--palette-gray-200);
+  --color-bg-inverse: var(--palette-gray-900);
+  --color-bg-backdrop: rgba(0, 0, 0, 0.5);           /* dialog scrim */
+
+  --color-fg-default: var(--palette-gray-900);       /* body text */
+  --color-fg-muted: var(--palette-gray-600);         /* secondary text (mocks: 80% black) */
+  --color-fg-subtle: var(--palette-gray-500);        /* placeholders, metadata */
+  --color-fg-disabled: var(--palette-gray-400);      /* disabled text; exempt from contrast */
+  --color-fg-inverse: var(--palette-white);
+  --color-fg-link: var(--palette-green-700);
+  --color-fg-link-hover: var(--palette-green-800);
+
+  --color-border-default: var(--palette-gray-200);   /* dividers, card edges (decorative) */
+  --color-border-strong: var(--palette-gray-500);    /* form control edges (>= 3:1) */
+
+  /* Accent is #2D6B44, not the mocks' #3D8A5A: white on #3D8A5A is 4.2:1 and
+     fails AA for button labels. #3D8A5A stays as the brand mark colour. */
+  --color-brand: var(--palette-green-500);           /* logo, avatars, decorative marks */
+  --color-accent: var(--palette-green-700);          /* primary actions, selected states */
+  --color-accent-hover: var(--palette-green-800);
+  --color-accent-active: var(--palette-green-900);
+  --color-accent-subtle: var(--palette-green-50);    /* selected row, active nav */
+  --color-accent-subtle-hover: var(--palette-green-100);
+  --color-fg-on-accent: var(--palette-white);
+  --color-fg-accent: var(--palette-green-700);       /* accent-coloured text on surfaces */
+
+  --color-focus-ring: var(--palette-green-500);
+
+  --color-info-bg: var(--palette-blue-100);
+  --color-info-fg: var(--palette-blue-800);
+  --color-info-border: var(--palette-blue-200);
+  --color-info-icon: var(--palette-blue-600);
+
+  --color-success-bg: var(--palette-green-100);
+  --color-success-fg: var(--palette-green-800);
+  --color-success-border: var(--palette-green-200);
+  --color-success-icon: var(--palette-green-500);
+
+  --color-warning-bg: var(--palette-amber-100);
+  --color-warning-fg: var(--palette-amber-700);
+  --color-warning-border: var(--palette-amber-300);
+  --color-warning-icon: var(--palette-amber-600);
+
+  --color-danger-bg: var(--palette-red-100);
+  --color-danger-fg: var(--palette-red-800);
+  --color-danger-border: var(--palette-red-200);
+  --color-danger-icon: var(--palette-red-600);
+  --color-danger-subtle: var(--palette-red-50);      /* error message, sign-out hover */
+  --color-danger-solid: var(--palette-red-600);      /* destructive buttons, invalid borders */
+  --color-danger-solid-hover: var(--palette-red-700);
+  --color-fg-on-danger: var(--palette-white);
+
+  /* ---------- Semantic: typography roles ------------------------------- */
+  --text-h1: var(--font-weight-semibold) var(--font-size-2xl) / var(--line-height-tight) var(--font-family-sans);
+  --text-h2: var(--font-weight-semibold) var(--font-size-xl) / var(--line-height-tight) var(--font-family-sans);
+  --text-h3: var(--font-weight-semibold) var(--font-size-lg) / var(--line-height-snug) var(--font-family-sans);
+  --text-body: var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans);
+  --text-body-sm: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans);
+  --text-caption: var(--font-weight-regular) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans);
+  --text-label: var(--font-weight-medium) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans);
+  --text-code: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-mono);
+
+  /* ---------- Semantic: spacing (4px base) ----------------------------- */
+  --space-0: 0;
+  --space-0-5: 0.125rem; /* 2px  hairline gaps */
+  --space-1: 0.25rem;    /* 4px  icon-to-label, list gaps */
+  --space-2: 0.5rem;     /* 8px  inside chips, between inline items (mocks: 6, 10) */
+  --space-3: 0.75rem;    /* 12px compact padding (mocks: 10, 14) */
+  --space-4: 1rem;       /* 16px default padding, stack gap (mocks: 14) */
+  --space-5: 1.25rem;    /* 20px card padding */
+  --space-6: 1.5rem;     /* 24px large button padding, panels */
+  --space-8: 2rem;       /* 32px dialog padding */
+  --space-12: 3rem;      /* 48px empty-state padding */
+
+  /* ---------- Semantic: layout ----------------------------------------- */
+  --layout-breakpoint-sm: 40rem;   /* 640px  (mocks: 640) */
+  --layout-breakpoint-md: 48rem;   /* 768px  sidebar becomes a drawer (mocks: 768) */
+  --layout-breakpoint-lg: 64rem;   /* 1024px (mocks: 1024) */
+  --layout-container-max: 90rem;   /* 1440px public top bar */
+  --layout-sidebar-width: 16.25rem;/* 260px */
+  --layout-dialog-sm: 25rem;       /* 400px confirm and short forms */
+  --layout-dialog-md: 31.25rem;    /* 500px forms */
+  --layout-dialog-lg: 43.75rem;    /* 700px viewers */
+
+  /* ---------- Semantic: shape ------------------------------------------ */
+  --radius-xs: 0.25rem;   /* 4px  small marks (mocks: 3) */
+  --radius-sm: 0.5rem;    /* 8px  inputs, buttons, alerts (mocks: 6, 8) */
+  --radius-md: 0.75rem;   /* 12px nav items, dialogs, tiles (mocks: 10, 12) */
+  --radius-lg: 1rem;      /* 16px cards (mocks: 14, 16) */
+  --radius-xl: 1.5rem;    /* 24px mobile bottom sheets */
+  --radius-full: 9999px;  /* pills, avatars, dots (mocks: 50%, 20px) */
+
+  --border-width-hairline: 1px;
+  --border-width-thick: 3px; /* selected-row marker */
+
+  /* ---------- Semantic: elevation -------------------------------------- */
+  --shadow-1: 0 2px 8px rgb(26 25 24 / 0.03);        /* metric cards */
+  --shadow-2: 0 2px 8px rgb(0 0 0 / 0.08);           /* hovered cards and rows */
+  --shadow-selected: 0 0 0 2px rgb(61 138 90 / 0.2); /* selected request card */
+
+  /* ---------- Semantic: motion ----------------------------------------- */
+  --duration-base: 200ms;      /* hover, colour changes (mocks: 0.2s) */
+  --duration-slow: 300ms;      /* step dots (mocks: 0.3s) */
+  --duration-spin: 1s;         /* spinner rotation (mocks: 0.6s, 1s) */
+  --ease-standard: ease;       /* mocks never set one; the browser default */
+
+  /* ---------- Semantic: z-order ---------------------------------------- */
+  --z-base: 0;
+  --z-sticky: 100;   /* sidebar, top bar, bottom tab bar */
+  --z-drawer: 200;   /* mobile sidebar drawer */
+  --z-modal: 1000;   /* dialog overlay */
+
+  /* ---------- Semantic: interaction ------------------------------------ */
+  --target-min: 1.5rem;          /* 24px  WCAG 2.2 AA minimum target size */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  color-scheme: light;
+}
+
+/* ---------- Preference overrides ------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-base: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-spin: 2s;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-border-default: var(--color-border-strong);
+    --color-fg-muted: var(--color-fg-default);
+    --color-fg-subtle: var(--color-fg-muted);
+  }
+}
+
+/* Windows High Contrast / forced colours: hand control to system colours. */
+@media (forced-colors: active) {
+  :root {
+    --color-focus-ring: Highlight;
+    --color-border-default: CanvasText;
+    --color-border-strong: CanvasText;
+  }
+}

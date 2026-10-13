@@ -1,0 +1,24 @@
+400;500;600;700&display=swap");
+:root { --primary: #3D8A5A; --primary-dark: #2D6B44; --primary-light: #3D8A5A20; --background: #F5F4F1; --surface: #FFFFFF; --text-primary: #1A1918; --text-secondary: #1A1918CC; --border: #E5E4E1; --error: #DC2626; --warning: #F59E0B; --success: #3D8A5A; --info: #3B82F6; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; }
+* { margin: 0px; padding: 0px; box-sizing: border-box; }
+html, body { height: 100%; }
+body { font-family: Outfit, sans-serif; background: var(--background); color: var(--text-primary); -webkit-font-smoothing: antialiased; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: Outfit, sans-serif; cursor: pointer; }
+input, select, textarea { font-family: Outfit, sans-serif; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-md); font-size: 16px; font-weight: 500; border: none; transition: 0.2s; }
+.btn-primary { background: var(--primary); color: rgb(255, 255, 255); }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+.btn-outline:hover { background: var(--primary-light); }
+.btn-full { width: 100%; }
+.card { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 20px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 16px; background: var(--surface); color: var(--text-primary); outline: none; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+.form-group input.ng-invalid.ng-touched, .form-group select.ng-invalid.ng-touched, .form-group textarea.ng-invalid.ng-touched { border-color: var(--error); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group .error-message { color: var(--error); font-size: 13px; margin-top: 4px; }

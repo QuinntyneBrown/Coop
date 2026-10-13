@@ -1,0 +1,39 @@
+[_nghost-ng-c4027145001] { display: block; }
+.landing-navbar[_ngcontent-ng-c4027145001] { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0px; z-index: 100; }
+.nav-inner[_ngcontent-ng-c4027145001] { max-width: 1200px; margin: 0px auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo[_ngcontent-ng-c4027145001] { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 600; }
+.nav-links[_ngcontent-ng-c4027145001] { display: flex; gap: 16px; align-items: center; }
+.nav-link[_ngcontent-ng-c4027145001] { font-weight: 500; color: var(--text-primary); padding: 8px 16px; border-radius: var(--radius-md); text-decoration: none; }
+.nav-link[_ngcontent-ng-c4027145001]:hover { text-decoration: none; background: var(--primary-light); }
+.nav-link-primary[_ngcontent-ng-c4027145001] { background: var(--primary); color: rgb(255, 255, 255) !important; }
+.nav-link-primary[_ngcontent-ng-c4027145001]:hover { background: var(--primary-dark); }
+.hero[_ngcontent-ng-c4027145001] { background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      #2D6B44 100%); color: white; padding: 80px 20px; text-align: center; }
+.hero-inner[_ngcontent-ng-c4027145001] { max-width: 700px; margin: 0px auto; }
+.hero-inner[_ngcontent-ng-c4027145001] h1[_ngcontent-ng-c4027145001] { font-size: 40px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+.hero-subtitle[_ngcontent-ng-c4027145001] { font-size: 18px; opacity: 0.9; margin-bottom: 32px; line-height: 1.5; }
+.btn-lg[_ngcontent-ng-c4027145001] { padding: 14px 32px; font-size: 18px; border-radius: var(--radius-md); background: white; color: var(--primary); font-weight: 600; text-decoration: none; display: inline-block; }
+.btn-lg[_ngcontent-ng-c4027145001]:hover { background: rgb(240, 240, 240); text-decoration: none; }
+.section[_ngcontent-ng-c4027145001] { padding: 60px 20px; }
+.section-inner[_ngcontent-ng-c4027145001] { max-width: 1200px; margin: 0px auto; }
+.section-title[_ngcontent-ng-c4027145001] { font-size: 28px; font-weight: 600; margin-bottom: 32px; text-align: center; }
+.board-grid[_ngcontent-ng-c4027145001] { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.board-member-card[_ngcontent-ng-c4027145001] { text-align: center; padding: 24px; }
+.board-member-card[_ngcontent-ng-c4027145001] h3[_ngcontent-ng-c4027145001] { font-size: 16px; margin-top: 12px; }
+.board-member-card[_ngcontent-ng-c4027145001] .member-role[_ngcontent-ng-c4027145001] { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+.member-avatar[_ngcontent-ng-c4027145001] { width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; margin: 0px auto; }
+.notices-grid[_ngcontent-ng-c4027145001] { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.notice-card[_ngcontent-ng-c4027145001] h3[_ngcontent-ng-c4027145001] { font-size: 18px; margin-bottom: 8px; }
+.notice-card[_ngcontent-ng-c4027145001] p[_ngcontent-ng-c4027145001] { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.notice-card[_ngcontent-ng-c4027145001] .notice-date[_ngcontent-ng-c4027145001] { font-size: 12px; color: var(--text-secondary); margin-top: 12px; display: block; }
+.empty-text[_ngcontent-ng-c4027145001] { text-align: center; color: var(--text-secondary); font-size: 16px; }
+.landing-footer[_ngcontent-ng-c4027145001] { background: var(--surface); border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; }
+@media (max-width: 640px) {
+  .hero-inner[_ngcontent-ng-c4027145001] h1[_ngcontent-ng-c4027145001] { font-size: 28px; }
+  .hero[_ngcontent-ng-c4027145001] { padding: 48px 20px; }
+  .section[_ngcontent-ng-c4027145001] { padding: 40px 16px; }
+  .board-grid[_ngcontent-ng-c4027145001] { grid-template-columns: repeat(2, 1fr); }
+  .notices-grid[_ngcontent-ng-c4027145001] { grid-template-columns: 1fr; }
+}

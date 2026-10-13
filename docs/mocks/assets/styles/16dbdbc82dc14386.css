@@ -1,0 +1,7 @@
+.layout[_ngcontent-ng-c4107272877] { display: flex; min-height: 100vh; }
+.layout-sidebar[_ngcontent-ng-c4107272877] { flex-shrink: 0; }
+.layout-main[_ngcontent-ng-c4107272877] { flex: 1 1 0%; margin-left: 260px; min-height: 100vh; background: rgb(245, 244, 241); }
+@media (max-width: 768px) {
+  .layout-sidebar[_ngcontent-ng-c4107272877] { display: none; }
+  .layout-main[_ngcontent-ng-c4107272877] { margin-left: 0px; }
+}

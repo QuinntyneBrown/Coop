@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iconography — Coop design system</title>
+<meta name="description" content="The Material Icons font and inline SVG icons the Coop product uses, with every ligature name, sizes and labelling rules.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+<style>
+.ico-grid td:first-child { width: 4rem; }
+.ico-sizes { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-end; }
+.ico-sizes figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); font: var(--text-caption); color: var(--color-fg-muted); text-align: center; }
+.ico-svg { display: block; flex: none; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Iconography</h1>
+      <p class="ds-lead">Material Icons ligatures in four sizes, a small inline SVG set in the public shell, and the rules for labelling both.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#catalog">Icon catalog</a></li><li><a href="#svg">Inline SVG icons</a></li><li><a href="#accessibility">Accessibility and labelling</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Coop uses the <strong>Material Icons</strong> font (filled style, ligature names such as <code>build</code>), bundled locally so the product works offline. The public app also draws a small set of inline SVG icons in its shell. Nothing else (no icon sprite, no icon set from another family, no image icons) is used. Every ligature below appears in the mocks.</p>
+<p>Icons are rendered with <code>&lt;span class="material-icons"&gt;name&lt;/span&gt;</code>. The font family is <code>--font-family-icon</code>; the size comes from the component-level <code>--icon-size</code> property, which defaults to 24px.</p>
+
+    </section>
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+
+<p>Four sizes exist, set through modifier classes in <code>components.css</code>. Choose the size by the component that hosts the icon, not by taste.</p>
+<div class="ds-example"><div class="ds-example__canvas"><div class="ico-sizes">
+<figure><span class="material-icons icon-sm" aria-hidden="true">search</span><span><code>.icon-sm</code><br>18px<br>search bar</span></span>
+<figure><span class="material-icons icon-md" aria-hidden="true">build</span><span><code>.icon-md</code><br>20px<br>sidebar nav items</span></span>
+<figure><span class="material-icons" aria-hidden="true">home</span><span>default<br>24px<br>tab bar, buttons, headers</span></span>
+<figure><span class="material-icons icon-xl" aria-hidden="true">inbox</span><span><code>.icon-xl</code><br>48px<br>empty states</span></span>
+</div></div></div>
+<p>Icons inherit the colour of the text around them (<code>currentColor</code>), so they take the hover, active and disabled colours of their control. Meaningful state is never carried by icon colour alone.</p>
+
+    </section>
+    <section class="ds-section" id="catalog"><h2><a href="#catalog">Icon catalog</a></h2>
+
+<h3>Navigation</h3>
+<p>Admin sidebar items, in order. See <a href="../components/sidebar.html">Sidebar</a>.</p>
+<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
+<tr><td><span class="material-icons" aria-hidden="true">dashboard</span></td><td><code>dashboard</code></td><td>Dashboard</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">build</span></td><td><code>build</code></td><td>Maintenance (also Requests in the tab bar)</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">description</span></td><td><code>description</code></td><td>Documents (also Docs in the tab bar)</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">chat</span></td><td><code>chat</code></td><td>Messages</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">people</span></td><td><code>people</code></td><td>Users</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">admin_panel_settings</span></td><td><code>admin_panel_settings</code></td><td>Roles and privileges</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">badge</span></td><td><code>badge</code></td><td>Profiles</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">perm_media</span></td><td><code>perm_media</code></td><td>Assets</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">mail</span></td><td><code>mail</code></td><td>Invitations</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">settings</span></td><td><code>settings</code></td><td>Settings</td></tr>
+</tbody></table></div>
+
+<h3>Shell</h3>
+<p>Top bar, tab bar and brand marks. See <a href="../components/bottom-tab-bar.html">Bottom tab bar</a> and <a href="../components/top-bar.html">Top bar</a>.</p>
+<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
+<tr><td><span class="material-icons" aria-hidden="true">home</span></td><td><code>home</code></td><td>Home tab</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">person</span></td><td><code>person</code></td><td>Profile tab</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">menu</span></td><td><code>menu</code></td><td>Open navigation (admin top bar)</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">notifications</span></td><td><code>notifications</code></td><td>Notifications button</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">apartment</span></td><td><code>apartment</code></td><td>Brand mark in the sidebar, auth headers and landing hero</td></tr>
+</tbody></table></div>
+
+<h3>Actions</h3>
+<p>Icons inside buttons and icon buttons. See <a href="../components/button.html">Button</a> and <a href="../components/icon-button.html">Icon button</a>.</p>
+<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
+<tr><td><span class="material-icons" aria-hidden="true">add</span></td><td><code>add</code></td><td>Create (New Request, Add User, New Document, Create Invitation)</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">edit</span></td><td><code>edit</code></td><td>Edit</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">delete</span></td><td><code>delete</code></td><td>Delete</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">search</span></td><td><code>search</code></td><td>Search bar</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">upload</span></td><td><code>upload</code></td><td>Upload</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">download</span></td><td><code>download</code></td><td>Download</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">send</span></td><td><code>send</code></td><td>Send message</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">close</span></td><td><code>close</code></td><td>Close a viewer</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">arrow_back</span></td><td><code>arrow_back</code></td><td>Back from a conversation on phones</td></tr>
+</tbody></table></div>
+
+<h3>Content, status and empty states</h3>
+<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
+<tr><td><span class="material-icons" aria-hidden="true">gavel</span></td><td><code>gavel</code></td><td>By-law document</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">campaign</span></td><td><code>campaign</code></td><td>Notice document</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">assessment</span></td><td><code>assessment</code></td><td>Report document</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">insert_drive_file</span></td><td><code>insert_drive_file</code></td><td>File or asset preview</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">shield</span></td><td><code>shield</code></td><td>Role in the roles list</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">lock</span></td><td><code>lock</code></td><td>Change password page</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">lock_reset</span></td><td><code>lock_reset</code></td><td>Forgot password page</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">inbox</span></td><td><code>inbox</code></td><td>Empty maintenance list</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">chat_bubble_outline</span></td><td><code>chat_bubble_outline</code></td><td>Empty conversation list and empty chat pane</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">cloud_upload</span></td><td><code>cloud_upload</code></td><td>Empty asset list and upload target</td></tr>
+<tr><td><span class="material-icons" aria-hidden="true">sync</span></td><td><code>sync</code></td><td>Loading state; the product adds a <code>spin</code> class that turns it</td></tr>
+</tbody></table></div>
+
+    </section>
+    <section class="ds-section" id="svg"><h2><a href="#svg">Inline SVG icons</a></h2>
+
+<p>The public app does not use the Material Icons font in its shell. It draws 24-unit outline icons as inline SVG: <code>viewBox="0 0 24 24"</code>, <code>fill="none"</code>, <code>stroke="currentColor"</code>, <code>stroke-width="2"</code>. They render at 24px in the top bar, tab bar and metric tiles, 20px in sidebar links, and the brand mark is a 28px rounded square with a letter.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Home</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Requests</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documents</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Messages</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Members</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notifications</span></span>
+<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Menu</span></span>
+</div></div>
+<p>The two icon systems draw the same destinations differently: the admin app shows <code>build</code> for Requests, the public app a wrench outline; admin <code>description</code> against a public page outline. Both are listed here because both ship. A consolidated set is a future decision, not a rule of this system.</p>
+
+    </section>
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility and labelling</a></h2>
+
+<ul>
+<li><strong>Decorative icons</strong> (the icon sits beside a visible text label) carry <code>aria-hidden="true"</code>. This is the default for icons in nav items, tab items, and buttons that also show text.</li>
+<li><strong>Icon-only buttons and links</strong> need an accessible name: <code>aria-label</code> on the button, never on the icon. Use the action, not the glyph: "Notifications", "Open menu", "Delete document".</li>
+<li><strong>Meaningful stand-alone icons</strong> (a status shown without text) either get a visually hidden text alternative or are replaced by text.</li>
+<li>Material Icons are ligatures: if the font fails to load, the ligature name is shown as text. Always keep <code>aria-hidden="true"</code> so assistive technology does not read "inbox" before the real label.</li>
+<li>Icons that carry meaning must reach 3:1 contrast against their background (WCAG 1.4.11). The brand green and the accent colour both pass on white; see <a href="accessibility.html">Accessibility</a>.</li>
+<li>Icon-only buttons meet the 24px minimum target through the 2.5rem (40px) icon button.</li>
+</ul>
+<div class="ds-example"><div class="ds-example__canvas">
+<button class="icon-btn" type="button" aria-label="Delete document"><span class="material-icons" aria-hidden="true">delete</span></button>
+<button class="btn btn-primary" type="button"><span class="material-icons icon-md" aria-hidden="true">add</span>New Request</button>
+</div><div class="ds-example__caption"><span>Icon-only button named with <code>aria-label</code>; icon plus text with the glyph hidden.</span></div></div>
+
+    </section>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Use only the ligatures listed in the catalog. Adding an icon means adding it to the catalog first.</li>
+<li>Pick the size modifier from the host component (search bar 18, nav item 20, default 24, empty state 48). Do not size icons with ad hoc <code>font-size</code>.</li>
+<li>Do not colour icons independently of their text, except the semantic tiles (<code>.icon-tile-success</code>, <code>.icon-tile-info</code>, <code>.icon-tile-warning</code>).</li>
+</ul>
+<h3>Drift</h3>
+<ul>
+<li>The mocks set icon sizes in pixels (<code>font-size: 24px</code>, hero icons 80px on phones). The system exposes four sizes through <code>--icon-size</code>.</li>
+<li>Several icon-only controls in the mocks have no accessible name. The system requires one; see <a href="accessibility.html#gaps">Known gaps</a>.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>This page owns no tokens. Icon size is a component-level property (<code>--icon-size</code> on <code>.material-icons</code>) and the icon font is <code>--font-family-icon</code>, which Typography lists.</p>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

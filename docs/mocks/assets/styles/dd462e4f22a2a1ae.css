@@ -1,0 +1,11 @@
+.forgot-page[_ngcontent-ng-c3355490508] { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: rgb(245, 244, 241); padding: 20px; }
+.forgot-card[_ngcontent-ng-c3355490508] { width: 100%; max-width: 440px; padding: 40px; text-align: center; }
+.forgot-card[_ngcontent-ng-c3355490508] h2[_ngcontent-ng-c3355490508] { font-size: 24px; margin-bottom: 8px; }
+.forgot-card[_ngcontent-ng-c3355490508] p[_ngcontent-ng-c3355490508] { color: rgba(26, 25, 24, 0.8); margin-bottom: 24px; font-size: 14px; }
+.lock-icon[_ngcontent-ng-c3355490508] { font-size: 48px; color: rgb(61, 138, 90); margin-bottom: 16px; }
+.form-group[_ngcontent-ng-c3355490508] { margin-bottom: 20px; text-align: left; }
+.form-group[_ngcontent-ng-c3355490508] label[_ngcontent-ng-c3355490508] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
+.form-group[_ngcontent-ng-c3355490508] input[_ngcontent-ng-c3355490508] { width: 100%; padding: 12px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 10px; font-size: 14px; }
+.form-group[_ngcontent-ng-c3355490508] input[_ngcontent-ng-c3355490508]:focus { outline: none; border-color: rgb(61, 138, 90); }
+.btn-block[_ngcontent-ng-c3355490508] { width: 100%; padding: 12px; font-size: 16px; border-radius: 12px; }
+.back-link[_ngcontent-ng-c3355490508] { margin-top: 16px; font-size: 14px; }

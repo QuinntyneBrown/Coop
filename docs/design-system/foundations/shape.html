@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shape — Coop design system</title>
+<meta name="description" content="A six-step radius scale and two border widths, with a rule for which radius each element takes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Shape</h1>
+      <p class="ds-lead">Six radii, from nearly square to fully round, and two border widths. Radius follows the element: controls are small, cards are large, pills are full.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Tokens: <code>--radius-*</code>, <code>--border-width-*</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#radius">Radius scale</a></li><li><a href="#elements">By element</a></li><li><a href="#borders">Borders</a></li><li><a href="#drift">Drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Shape is a six-step radius scale plus two border widths. Radius follows the size and role of the element: small marks are nearly square, form controls are gently rounded, cards are rounder, and pills and avatars are fully round. Borders are one hairline, with one thick marker.</p>
+
+</section>
+<section class="ds-section" id="radius"><h2><a href="#radius">Radius scale</a></h2>
+<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-scale__row"><code>--radius-xs</code><span>4px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-xs);"></span><span>Small marks</span></span></div><div class="ds-scale__row"><code>--radius-sm</code><span>8px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-sm);"></span><span>Inputs, buttons, alerts</span></span></div><div class="ds-scale__row"><code>--radius-md</code><span>12px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-md);"></span><span>Navigation items, dialogs, tiles</span></span></div><div class="ds-scale__row"><code>--radius-lg</code><span>16px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-lg);"></span><span>Cards</span></span></div><div class="ds-scale__row"><code>--radius-xl</code><span>24px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-xl);"></span><span>Mobile bottom sheets</span></span></div><div class="ds-scale__row"><code>--radius-full</code><span>9999px</span><span style="display: flex; align-items: center; gap: var(--space-3);"><span class="ds-scale__box" style="--size: var(--radius-full);"></span><span>Pills, avatars, dots</span></span></div></div></div>
+</section>
+<section class="ds-section" id="elements"><h2><a href="#elements">Which radius for which element</a></h2>
+
+<p>Pick by element, not by taste.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<button class="btn btn-primary" type="button">Button</button><span class="badge badge-success">Pill badge</span><span class="avatar" aria-hidden="true">AM</span><div class="alert alert-warning" style="margin: 0;">Alert</div><div class="card" style="padding: var(--space-4);">Card</div>
+</div><div class="ds-example__caption"><span>Buttons and alerts <code>--radius-sm</code>; cards <code>--radius-lg</code>; badges and avatars <code>--radius-full</code>.</span></div></div><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Element</th><th scope="col">Token</th></tr></thead><tbody><tr><td>Inputs, buttons, alerts, search bar</td><td><code>--radius-sm</code></td></tr><tr><td>Navigation items, dialogs, metric tiles, icon tiles</td><td><code>--radius-md</code></td></tr><tr><td>Cards, tables in cards</td><td><code>--radius-lg</code></td></tr><tr><td>Mobile bottom sheets</td><td><code>--radius-xl</code></td></tr><tr><td>Badges, avatars, step dots, filter pills</td><td><code>--radius-full</code></td></tr><tr><td>Small marks inside other elements</td><td><code>--radius-xs</code></td></tr></tbody></table></div>
+</section>
+<section class="ds-section" id="borders"><h2><a href="#borders">Border widths</a></h2>
+
+<p>Two widths. Hairline (1px) is every border: card edges, dividers, input edges. Thick (3px) is the marker on a selected row or step.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<div class="card" style="padding: var(--space-4); border-width: var(--border-width-hairline);">Hairline card edge</div><div class="card" style="padding: var(--space-4); border-left: var(--border-width-thick) solid var(--color-accent);">Selected marker</div>
+</div><div class="ds-example__caption"><span>The 2px focus ring is <code>--focus-ring-width</code>, not a border width; see <a href="accessibility.html">Accessibility</a>.</span></div></div>
+</section>
+<section class="ds-section" id="drift"><h2><a href="#drift">Drift</a></h2>
+
+<p>The harvest lists 16 distinct radius values. They collapse to the scale like this.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Uses</th><th scope="col">Snapped to</th></tr></thead><tbody>
+<tr><td>3px</td><td>2</td><td><code>--radius-xs</code> 4px</td></tr>
+<tr><td>4px</td><td>2</td><td><code>--radius-xs</code> 4px</td></tr>
+<tr><td>6px</td><td>3</td><td><code>--radius-sm</code> 8px</td></tr>
+<tr><td>8px</td><td>34</td><td><code>--radius-sm</code> 8px</td></tr>
+<tr><td>10px</td><td>23</td><td><code>--radius-md</code> 12px</td></tr>
+<tr><td>12px</td><td>12</td><td><code>--radius-md</code> 12px</td></tr>
+<tr><td>14px</td><td>7</td><td><code>--radius-lg</code> 16px</td></tr>
+<tr><td>16px</td><td>2</td><td><code>--radius-lg</code> 16px</td></tr>
+<tr><td><code>0 0 24px 24px</code> (sheet corners)</td><td>3</td><td><code>--radius-xl</code> 24px</td></tr>
+<tr><td>24px</td><td>2</td><td><code>--radius-xl</code> 24px</td></tr>
+<tr><td>20px (pill badges) and 50% (avatars, dots)</td><td>27</td><td><code>--radius-full</code></td></tr>
+</tbody></table></div>
+<p>The mocks' own variables also defined <code>--radius-sm</code> 8px, <code>--radius-md</code> 12px and <code>--radius-lg</code> 16px; the design system keeps those names and adds the extremes.</p>
+
+</section>
+<section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Use a token for every <code>border-radius</code>; do not write pixel values.</li>
+<li>Nest radii inward: an element inside a card padded <code>--space-4</code> uses a smaller radius than the card.</li>
+<li>Use <code>--radius-full</code> for circles and pills rather than <code>50%</code>, so a non-square element still gets a pill.</li>
+<li>Borders are hairline unless marking selection. Do not invent other widths.</li>
+</ul>
+<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="padding: var(--space-4);">Card, <code>--radius-lg</code></div></div><figcaption>Cards take the large radius.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="padding: var(--space-4); border-radius: 14px;">Card, 14px</div></div><figcaption>Do not use 14px or 10px. They sat between steps on seven and 23 elements respectively.</figcaption></figure></div><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn-secondary" type="button">Cancel</button></div><figcaption>Buttons use the small radius.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn-secondary" type="button" style="border-radius: var(--radius-full);">Cancel</button></div><figcaption>Do not make a button a pill. Pills are for status badges, avatars and filter chips.</figcaption></figure></div>
+</section>
+<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+
+<ul>
+<li>Control edges that identify an input must reach 3:1 against the background (WCAG 1.4.11); that is <code>--color-border-strong</code>, not the decorative <code>--color-border-default</code>.</li>
+<li>Do not rely on a radius alone to show state. Selection uses colour, the thick marker and <code>aria-current</code> or <code>aria-selected</code>.</li>
+<li>Under forced colours, borders become system colours, so keep borders (not only fills) on controls.</li>
+</ul>
+
+</section>
+<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>Every shape token. Values resolve live from <code>tokens/tokens.css</code>.</p><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Use</th></tr></thead><tbody>
+<tr><td><code>--radius-xs</code></td><td data-token="--radius-xs"></td><td>4px  small marks (mocks: 3)</td></tr>
+<tr><td><code>--radius-sm</code></td><td data-token="--radius-sm"></td><td>8px  inputs, buttons, alerts (mocks: 6, 8)</td></tr>
+<tr><td><code>--radius-md</code></td><td data-token="--radius-md"></td><td>12px nav items, dialogs, tiles (mocks: 10, 12)</td></tr>
+<tr><td><code>--radius-lg</code></td><td data-token="--radius-lg"></td><td>16px cards (mocks: 14, 16)</td></tr>
+<tr><td><code>--radius-xl</code></td><td data-token="--radius-xl"></td><td>24px mobile bottom sheets</td></tr>
+<tr><td><code>--radius-full</code></td><td data-token="--radius-full"></td><td>pills, avatars, dots (mocks: 50%, 20px)</td></tr>
+<tr><td><code>--border-width-hairline</code></td><td data-token="--border-width-hairline"></td><td></td></tr>
+<tr><td><code>--border-width-thick</code></td><td data-token="--border-width-thick"></td><td>selected-row marker</td></tr>
+</tbody></table></div>
+</section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

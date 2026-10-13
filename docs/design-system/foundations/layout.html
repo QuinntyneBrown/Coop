@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout — Coop design system</title>
+<meta name="description" content="The implemented page shells, breakpoints, sidebar, top-bar container and dialog widths of the Coop product.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+<style>
+.lay-diagram { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); background: var(--color-bg-canvas); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); min-height: 11rem; width: 100%; }
+.lay-diagram--row { flex-direction: row; }
+.lay-box { display: grid; place-items: center; padding: var(--space-2); text-align: center; font: var(--text-caption); background: var(--color-bg-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); color: var(--color-fg-muted); }
+.lay-box--accent { background: var(--color-accent-subtle); color: var(--color-fg-accent); border-color: var(--color-accent); }
+.lay-box--fill { flex: 1 1 0; }
+.lay-side { flex: 0 0 26%; }
+.lay-row { display: flex; gap: var(--space-2); flex: 1 1 0; }
+.lay-center { width: 55%; margin-inline: auto; }
+.lay-pair { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); width: 100%; }
+.lay-pair figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.lay-pair figcaption { font: var(--text-caption); color: var(--color-fg-muted); }
+.lay-stack { position: relative; min-height: 11rem; background: var(--color-bg-backdrop); border-radius: var(--radius-md); display: grid; place-items: center; padding: var(--space-4); width: 100%; }
+.lay-dialog { background: var(--color-bg-surface); border-radius: var(--radius-lg); padding: var(--space-3); text-align: center; font: var(--text-caption); color: var(--color-fg-default); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Layout</h1>
+      <p class="ds-lead">Three breakpoints, one 260px sidebar, a 1440px top-bar container and three dialog widths. That is all the layout system the product implements.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#shells">Page shells</a></li><li><a href="#dialogs">Dialog widths</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+
+<p>Coop has no grid system. The mocks lay pages out with flexbox and CSS grid directly, with a small set of fixed dimensions: three breakpoints, one sidebar width, one top-bar container width and three dialog widths. This page documents exactly those, and the page shells that use them. It does not define a column grid, gutters or margins, because the implemented product has none.</p>
+<ul>
+<li>Breakpoints are <strong>640</strong>, <strong>768</strong> and <strong>1024</strong> CSS pixels. Rules mix <code>max-width</code> and <code>min-width</code>; see <a href="responsive.html">Responsive</a> for what changes at each.</li>
+<li>Spacing between and inside elements comes from the 4px-based spacing scale, not from layout tokens.</li>
+<li>The product is light only and has a single set of layouts for both apps; the admin app and the public app use different shells.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="shells"><h2><a href="#shells">Page shells</a></h2>
+
+<p>Four shells exist. Diagrams are schematic; the live strips below them use the real <code>.top-bar</code> and <code>.bottom-tab-bar</code> component classes.</p>
+
+<h3>Admin shell: fixed sidebar and main</h3>
+<p>The admin layout (<code>.layout</code>) is a flex row. The sidebar is <code>position: fixed</code>, 260px wide, full height, and the main area (<code>.layout-main</code>) sits beside it with <code>margin-left: 260px</code> on the canvas colour. At 768px and below the sidebar is hidden and the margin is removed; navigation moves to the bottom tab bar (<code>.mobile-only</code> wrapper). The sidebar stacks above content at <code>--z-sticky</code>.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<div class="lay-pair">
+<figure><div class="lay-diagram lay-diagram--row" role="img" aria-label="Admin shell above 768px: 260 pixel fixed sidebar on the left, main content filling the rest"><div class="lay-box lay-box--accent lay-side">Sidebar<br>260px fixed</div><div class="lay-box lay-box--fill">Main<br>margin-left 260px</div></div><figcaption>Above 768px</figcaption></figure>
+<figure><div class="lay-diagram" role="img" aria-label="Admin shell at 768px and below: main content full width with a bottom tab bar"><div class="lay-box lay-box--fill">Main, margin-left 0</div><div class="lay-box lay-box--accent">Bottom tab bar</div></div><figcaption>768px and below</figcaption></figure>
+</div>
+</div></div>
+
+<h3>Public shell: top bar, content, tab bar</h3>
+<p>The public layout (<code>app-layout</code>) is a flex column at 100vh. The top bar is sticky (<code>--z-sticky</code>) and its inner row is centred and capped at the container width, with 12px by 16px padding. Main content scrolls and reserves 72px at the bottom so the fixed bottom tab bar never covers it. From 1024px a 260px fixed sidebar appears, the main content gets <code>margin-left: 260px</code> and the 72px reserve is removed.</p>
+<div class="ds-example"><div class="ds-example__canvas">
+<div class="lay-pair">
+<figure><div class="lay-diagram" role="img" aria-label="Public shell below 1024px: sticky top bar, content, fixed bottom tab bar"><div class="lay-box lay-box--accent">Top bar (max 1440px inner)</div><div class="lay-box lay-box--fill">Content<br>padding-bottom 72px</div><div class="lay-box lay-box--accent">Bottom tab bar (fixed)</div></div><figcaption>Below 1024px</figcaption></figure>
+<figure><div class="lay-diagram" role="img" aria-label="Public shell from 1024px: top bar across the top, 260 pixel sidebar on the left, content on the right"><div class="lay-box lay-box--accent">Top bar (max 1440px inner)</div><div class="lay-row"><div class="lay-box lay-box--accent lay-side">Sidebar<br>260px</div><div class="lay-box lay-box--fill">Content<br>margin-left 260px</div></div></div><figcaption>From 1024px</figcaption></figure>
+</div>
+</div></div>
+<div class="ds-example">
+<div class="ds-example__canvas ds-example__canvas--stack">
+<header class="top-bar"><div class="top-bar-inner"><div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div><div class="top-bar-actions"><button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button><button class="icon-btn" type="button" aria-label="Menu"><span class="material-icons" aria-hidden="true">menu</span></button></div></div></header>
+<nav class="bottom-tab-bar" aria-label="Primary"><a class="tab-item active" href="#shells" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span class="tab-label">Home</span></a><a class="tab-item" href="#shells"><span class="material-icons" aria-hidden="true">build</span><span class="tab-label">Requests</span></a><a class="tab-item" href="#shells"><span class="material-icons" aria-hidden="true">description</span><span class="tab-label">Docs</span></a><a class="tab-item" href="#shells"><span class="material-icons" aria-hidden="true">chat</span><span class="tab-label">Messages</span></a><a class="tab-item" href="#shells"><span class="material-icons" aria-hidden="true">person</span><span class="tab-label">Profile</span></a></nav>
+</div>
+<div class="ds-example__caption"><span>Real <code>.top-bar</code> and <code>.bottom-tab-bar</code> classes. Components: <a href="../components/top-bar.html">Top bar</a>, <a href="../components/bottom-tab-bar.html">Bottom tab bar</a>.</span></div>
+</div>
+
+<h3>Auth pages: login, register, forgot password</h3>
+<p>Sign-in and registration pages have no sidebar or top bar. A branded header panel sits above a form body (<code>.login-body</code>, <code>.register-body</code>, <code>.form-container</code>) that is centred, full width up to <strong>400px</strong>, with 32px by 24px padding. In the admin app at 768px and below the page becomes a column, the login header is hidden and the form panel gets extra bottom padding (80px) to clear the tab bar.</p>
+<div class="ds-example"><div class="ds-example__canvas"><div class="lay-diagram" role="img" aria-label="Auth page: header panel above a centred form body capped at 400 pixels"><div class="lay-box lay-box--accent">Header panel</div><div class="lay-box lay-box--fill lay-center">Form body<br>max-width 400px</div></div></div></div>
+
+<h3>Content column widths used by pages</h3>
+<p>Inside the shells each screen caps its own content column. These are per-screen values in the mocks, not layout tokens.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Screen</th><th scope="col">Max width</th><th scope="col">Notes</th></tr></thead><tbody>
+<tr><td>Public dashboard</td><td>900px</td><td>24px by 16px padding; 32px from 1024px; metric grid is one column, three from 640px.</td></tr>
+<tr><td>Admin dashboard</td><td>800px</td><td>24px by 20px padding; metric cards in four columns, one at 768px and below.</td></tr>
+<tr><td>Public messaging</td><td>700px</td><td>24px by 16px padding.</td></tr>
+<tr><td>Public profile</td><td>500px</td><td>24px 16px 100px padding (bottom space for the tab bar).</td></tr>
+<tr><td>Forms on auth pages</td><td>400px</td><td>Centred.</td></tr>
+</tbody></table></div>
+
+    </section>
+    <section class="ds-section" id="dialogs"><h2><a href="#dialogs">Dialog widths</a></h2>
+
+<p>Dialogs are a fixed overlay (<code>.modal-overlay</code>) at <code>--z-modal</code>, centring one panel on a half-black backdrop with 16px of overlay padding so the panel never touches the viewport edge. The panel is <code>width: 100%</code> up to one of three maximum widths, scrolls inside when taller than 90% of the viewport, and uses 32px padding. The mocks do not change dialog layout at any breakpoint.</p>
+<div class="ds-example"><div class="ds-example__canvas"><div class="lay-stack" role="img" aria-label="Dialog centred on a backdrop"><div class="lay-dialog">Dialog panel<br>width 100%, max 400 / 500 / 700px</div></div></div></div>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Size</th><th scope="col">Max width</th><th scope="col">Where the mocks use it</th></tr></thead><tbody>
+<tr><td><code>.modal-content</code></td><td>400px</td><td>Admin user create, edit and delete; new conversation; invitation create and created.</td></tr>
+<tr><td><code>.modal-content.modal-md</code></td><td>500px</td><td>Admin asset detail, upload and delete; admin and public maintenance create; public maintenance detail.</td></tr>
+<tr><td><code>.modal-content.modal-lg</code></td><td>700px</td><td>Document viewers and the document dialogs that load the viewer stylesheet (max height 80vh in the mocks).</td></tr>
+</tbody></table></div>
+<p>See <a href="../components/dialog.html">Dialog</a> and <a href="../patterns/dialogs.html">Dialogs pattern</a>.</p>
+
+    </section>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+
+<ul>
+<li>Use <code>var(--layout-sidebar-width)</code> for the sidebar width and the main content offset so the two cannot drift apart.</li>
+<li>Use <code>var(--layout-container-max)</code> for the public top-bar inner row only. Other content columns keep the per-screen caps above.</li>
+<li>Use the three dialog tokens through the <code>.modal-md</code> and <code>.modal-lg</code> modifiers rather than writing a new <code>max-width</code>.</li>
+<li>CSS custom properties cannot be used inside <code>@media</code> conditions. Write the breakpoint value (<code>40rem</code>, <code>48rem</code>, <code>64rem</code>) in the query and keep it in step with the token.</li>
+<li>Reserve space for the fixed bottom tab bar (72px in the mocks) wherever it is shown, and respect the bottom safe area; see <a href="responsive.html">Responsive</a>.</li>
+</ul>
+<h3>Resolutions where the mocks disagree</h3>
+<ul>
+<li>The admin asset delete confirmation renders at 500px in the mocks. The design system sets confirmations to the 400px size.</li>
+<li>Breakpoints are written as <code>max-width: 768px</code> in most rules and <code>min-width: 1024px</code> or <code>max-width: 1023px</code> in others, so 768px itself and the 1023px to 1024px boundary are treated unevenly. The system names the tokens at 640, 768 and 1024 and expects new rules to use <code>min-width</code>.</li>
+</ul>
+
+    </section>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+<p>This page owns every <code>--layout-*</code> token.</p>
+<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Role</th></tr></thead><tbody>
+<tr><td><code>--layout-breakpoint-sm</code></td><td data-token="--layout-breakpoint-sm"></td><td>Small breakpoint (640px). Public landing and documents collapse grids; public dashboard grows to three columns.</td></tr>
+<tr><td><code>--layout-breakpoint-md</code></td><td data-token="--layout-breakpoint-md"></td><td>Medium breakpoint (768px). Admin sidebar hides and tab bar shows; two-pane screens stack.</td></tr>
+<tr><td><code>--layout-breakpoint-lg</code></td><td data-token="--layout-breakpoint-lg"></td><td>Large breakpoint (1024px). Public sidebar appears and the main content offsets by the sidebar width.</td></tr>
+<tr><td><code>--layout-container-max</code></td><td data-token="--layout-container-max"></td><td>Maximum inner width of the public top bar (1440px).</td></tr>
+<tr><td><code>--layout-sidebar-width</code></td><td data-token="--layout-sidebar-width"></td><td>Fixed sidebar width and main content offset (260px).</td></tr>
+<tr><td><code>--layout-dialog-sm</code></td><td data-token="--layout-dialog-sm"></td><td>Confirmations and short forms (400px).</td></tr>
+<tr><td><code>--layout-dialog-md</code></td><td data-token="--layout-dialog-md"></td><td>Forms and detail dialogs (500px).</td></tr>
+<tr><td><code>--layout-dialog-lg</code></td><td data-token="--layout-dialog-lg"></td><td>Document viewers (700px).</td></tr>
+</tbody></table></div>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

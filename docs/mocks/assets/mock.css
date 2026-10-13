@@ -1,0 +1,15 @@
+/* Review chrome only. Product CSS is captured unchanged in styles/. */
+.mock-bar { position:fixed; z-index:10000; bottom:12px; right:12px; max-width:min(440px,calc(100vw - 24px)); max-height:45vh; overflow:auto; border:1px solid #c8c8c8; border-radius:12px; padding:12px; background:#fff; color:#1a1918; box-shadow:0 4px 24px #0002; font:13px/1.5 system-ui,sans-serif; }
+.mock-bar summary { cursor:pointer; font-weight:600; }
+.mock-bar nav { display:flex; flex-wrap:wrap; gap:6px 12px; padding-top:8px; }
+.mock-bar a { color:#245e3a; text-decoration:underline; }
+.mock-bar [aria-current] { font-weight:bold; }
+.mock-note { padding-top:8px; }
+.mock-bar code { overflow-wrap:anywhere; }
+.mock-skip { position:fixed; top:0; left:0; transform:translateY(-120%); z-index:10001; background:white; color:#245e3a; padding:12px; }
+.mock-skip:focus { transform:none; }
+[data-chrome="off"] .mock-bar, [data-chrome="off"] .mock-skip { display:none; }
+[data-mock-href] { cursor:pointer; }
+[data-mock-href]:focus-visible { outline:2px solid #245e3a; outline-offset:3px; }
+.mock-review-heading { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip-path:inset(50%); }
+.mock-status { position:fixed; z-index:10002; bottom:12px; left:12px; max-width:min(420px,calc(100vw - 24px)); background:#fff; color:#1a1918; border:1px solid #c8c8c8; padding:12px; font:14px/1.5 system-ui,sans-serif; box-shadow:0 4px 20px #0002; }

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms — Coop design system</title>
+<meta name="description" content="How Coop forms are composed: label above field, error under field after the field is touched, a busy submit button and a right-aligned button row.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+    <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
+      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Forms</h1>
+      <p class="ds-lead">Every form in Coop stacks label, field and error in a form group, validates on the client for guidance only, and ends in one primary button that goes busy while the request runs.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light theme only</span><span class="ds-pill">Login, register, onboarding, change password, create dialogs</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The forms pattern covers the screens and dialogs where a person types values and submits them: sign in, create account, forgot password, change password, the onboarding steps, and the create dialogs for maintenance requests and users. It is built from <a href="../components/form-field.html">form field</a>, <a href="../components/button.html">button</a> and <a href="../components/alert.html">alert</a>.</p>
+      <ul>
+        <li>The label sits above its field, never beside it or inside it.</li>
+        <li>A field error sits directly under its field and appears only after the field has been touched. The field border turns red at the same time.</li>
+        <li>The submit button is never disabled for invalid input. It is disabled only while the request is in flight, and its label changes to say so.</li>
+        <li>A failed request shows one form-level message above the button row.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <p>Use a form when the person supplies two or more values, or one value that needs validation, and the result is saved or sent together. For a single confirmation use a confirm <a href="../components/dialog.html">dialog</a> instead (see <a href="dialogs.html">Dialogs</a>). For a single filter or search use a <a href="../components/search-bar.html">search bar</a> or <a href="../components/filter-chips.html">filter chips</a>, which apply as the person types.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Form</th><th scope="col">Where</th><th scope="col">Fields</th></tr></thead><tbody>
+        <tr><td>Sign in</td><td>Login page, both apps</td><td>Username, password; admin adds a remember-me checkbox</td></tr>
+        <tr><td>Create account</td><td>Register page, both apps</td><td>Invitation token, username, password, confirm password, terms checkbox</td></tr>
+        <tr><td>Forgot password</td><td>Forgot-password page, both apps</td><td>Single field; the submit handler is a stub (see Sources)</td></tr>
+        <tr><td>Change password</td><td>Admin change-password page</td><td>Current, new and confirm password</td></tr>
+        <tr><td>Onboarding steps</td><td>Onboarding page, both apps</td><td>Profile details and unit selection, one step at a time</td></tr>
+        <tr><td>Create maintenance request</td><td>Dialog in both apps</td><td>Title, description, priority, category, optional photo</td></tr>
+        <tr><td>Create user</td><td>Admin dialog</td><td>Username, role, password</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>A form is a stack of <code>.form-group</code> blocks followed by a button row. Each group holds a <code>label</code>, the control, and, when needed, a <code>.error-message</code> or <code>.form-hint</code>. Related fields that share a line, such as first and last name, sit in <code>.form-row</code>. The button row is <code>.btn-row</code> on pages and <code>.modal-actions</code> inside a dialog.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <form class="card" novalidate aria-label="Example create-account form">
+            <div class="form-group">
+              <label for="f1-username">Username</label>
+              <input id="f1-username" type="text" name="username" placeholder="Choose a username" autocomplete="username">
+            </div>
+            <div class="form-group">
+              <label for="f1-password">Password</label>
+              <input id="f1-password" type="password" name="password" placeholder="Create a password" autocomplete="new-password" aria-describedby="f1-hint">
+              <p class="form-hint" id="f1-hint">Password must be at least 8 characters long</p>
+            </div>
+            <div class="form-group">
+              <label for="f1-role">Role</label>
+              <select id="f1-role" name="role">
+                <option>Member</option>
+                <option>Board Member</option>
+                <option>Admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label" for="f1-terms"><input id="f1-terms" type="checkbox" name="terms"> I agree to the Terms and Conditions</label>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary">Cancel</button>
+              <button type="submit" class="btn btn-primary">Create Account</button>
+            </div>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Default form: label above field, optional hint under the field, secondary action left of the primary in a right-aligned <code>.btn-row</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;form class="card" novalidate&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label for="username"&gt;Username&lt;/label&gt;
+    &lt;input id="username" type="text" name="username"&gt;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label for="password"&gt;Password&lt;/label&gt;
+    &lt;input id="password" type="password" aria-describedby="password-hint"&gt;
+    &lt;p class="form-hint" id="password-hint"&gt;Password must be at least 8 characters long&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="btn-row"&gt;
+    &lt;button type="button" class="btn btn-secondary"&gt;Cancel&lt;/button&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Create Account&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre></details>
+      </div>
+      <h3>Button placement</h3>
+      <ul>
+        <li><b>Pages with a card</b> (change password, onboarding steps): <code>.btn-row</code>, right aligned, Cancel (secondary) then the primary action.</li>
+        <li><b>Dialogs</b>: <code>.modal-actions</code>. The buttons share the width equally (<code>flex: 1 1 0</code>), Cancel first.</li>
+        <li><b>Auth pages</b> (login, register): a single full-width primary button (<code>.btn-full</code> or <code>.btn-block</code>) with the alternative route as a text link below, for example "Don't have an account? Sign up".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A form moves through four visible states, taken from the login and register mocks. Validation text appears only for fields the person has touched; an untouched empty form shows no errors.</p>
+
+      <h3>Default</h3>
+      <p>Empty fields, enabled primary button. Shown in the structure example above.</p>
+
+      <h3>Invalid (field errors)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <form class="card" novalidate aria-label="Example sign-in form with errors">
+            <div class="form-group">
+              <label for="f2-username">Username</label>
+              <input id="f2-username" type="text" name="username" placeholder="Enter your username" aria-invalid="true" aria-describedby="f2-username-error">
+              <div class="error-message" id="f2-username-error">Username is required</div>
+            </div>
+            <div class="form-group">
+              <label for="f2-password">Password</label>
+              <input id="f2-password" type="password" name="password" placeholder="Enter your password" aria-invalid="true" aria-describedby="f2-password-error">
+              <div class="error-message" id="f2-password-error">Password is required</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Touched and empty. Border turns red, message sits under the field, the button stays enabled.</span></div>
+      </div>
+      <p>Cross-field rules use the same treatment on the dependent field. Register shows "Passwords do not match" under Confirm Password, and "You must accept the terms" under the terms checkbox.</p>
+
+      <h3>Submitting</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button type="submit" class="btn btn-primary btn-lg" disabled>Signing in...</button>
+          <button type="submit" class="btn btn-primary btn-lg" disabled>Creating account...</button>
+        </div>
+        <div class="ds-example__caption"><span>The primary button is disabled while the request runs and its label becomes a present-participle phrase. There is no spinner inside the button.</span></div>
+      </div>
+
+      <h3>Error (request failed)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <form class="card" novalidate aria-label="Example sign-in form with a failed request">
+            <div class="form-group">
+              <label for="f3-username">Username</label>
+              <input id="f3-username" type="text" name="username" value="mira.fern">
+            </div>
+            <div class="form-group">
+              <label for="f3-password">Password</label>
+              <input id="f3-password" type="password" name="password">
+            </div>
+            <div class="error-message-block" role="alert">Invalid username or password</div>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Public login and register put a red message block above the button. The admin login puts the same message in an <code>.alert.alert-danger</code> above the form (see Drift).</span></div>
+      </div>
+      <p>Forgot password has no implemented submitting, success or error presentation, and the dialogs close on submit without a busy indicator. These are not part of the pattern today.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <p>Forms are single-column at every width, so the field stack itself never reflows. What changes is the surrounding page.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Width</th><th scope="col">Behaviour</th><th scope="col">Source rule</th></tr></thead><tbody>
+        <tr><td>768px and below</td><td>Admin login hides the green brand panel and keeps only the form panel, with extra bottom padding for the tab bar. Admin register stacks its header above the form.</td><td><code>@media (max-width: 768px)</code></td></tr>
+        <tr><td>Public auth pages</td><td>One column at all sizes: brand header, then a form body no wider than 400px, centred.</td><td><code>max-width: 400px</code></td></tr>
+        <tr><td>Dialogs</td><td>Form dialogs are 400px wide (<code>--layout-dialog-sm</code>) or 500px (<code>--layout-dialog-md</code>) and shrink to the viewport minus the overlay padding.</td><td><code>.modal-content</code></td></tr>
+      </tbody></table></div>
+      <p>The compiled CSS has no 640px or 1024px rule for forms. <code>.form-row</code> is a fixed two-column flex row with no wrapping rule, so use it only for short fields.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;form&gt;</code> with native controls. Forms use <code>novalidate</code> because Coop draws its own messages; the server remains authoritative for every rule. A form-level failure message is a live region (<code>role="alert"</code>).</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Move through fields in reading order, then the button row.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Submit from any text field (native form behaviour).</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Toggle a focused checkbox; activate a focused button.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The design system draws one 2px focus ring on every control. The mocks removed the browser outline on inputs and relied on the border colour change alone, which fails WCAG 2.4.7 and 2.4.11; the ring is a design-system requirement, not source behaviour. After a failed submit, move focus to the first invalid field or to the form-level message.</p>
+      <h3>Labelling</h3>
+      <ul>
+        <li>Every control has a visible label tied with <code>for</code> and <code>id</code>. The public app does this; the admin forms only carry <code>aria-label</code> on the input, which the design system treats as a minimum, not the pattern.</li>
+        <li>Mark an invalid field with <code>aria-invalid="true"</code> and point to its message with <code>aria-describedby</code>.</li>
+        <li>Never use the placeholder as the label.</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-pair"><span>Field error on surface</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+      <div class="ds-pair"><span>Form-level error block</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-subtle" data-min="4.5"></span></div>
+      <div class="ds-pair"><span>Input border</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+      <div class="ds-pair"><span>Invalid input border</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+      <p>Colour is never the only signal: the error text names the problem, and the invalid border is paired with <code>aria-invalid</code>.</p>
+      <h3>Motion and touch</h3>
+      <p>Only border-colour transitions (<code>--duration-base</code>). Controls are at least 2.5rem tall; the auth buttons are 3rem (<code>.btn-lg</code> height) or full width.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Labels</b>: noun phrases in sentence case, matching the data ("Username", "Confirm Password" in the mocks; the design system prefers "Confirm password").</li>
+        <li><b>Field errors</b>: say what is missing or wrong, without blame: "Username is required", "Passwords do not match", "You must accept the terms".</li>
+        <li><b>Hints</b>: state the rule before the person fails it: "Password must be at least 8 characters long".</li>
+        <li><b>Submit labels</b>: the action as a verb phrase ("Sign In", "Create Account", "Update Password", "Submit Request"); the busy label is the same verb as a participle ("Signing in...", "Creating account...").</li>
+        <li><b>Request failure</b>: one short sentence: "Invalid username or password".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="form-group"><label for="d1-name">Username</label><input id="d1-name" type="text" aria-invalid="true" aria-describedby="d1-err"><div class="error-message" id="d1-err">Username is required</div></div>
+        </div><figcaption>Explain the problem in text under the field, with the red border as reinforcement.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="form-group"><label for="d2-name">Username</label><input id="d2-name" type="text" aria-invalid="true"></div>
+        </div><figcaption>Turn the border red with no message. The admin Add New User dialog does this today.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas">
+          <button type="submit" class="btn btn-primary" disabled>Updating...</button>
+        </div><figcaption>Disable the button while the request runs and say what is happening.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas">
+          <button type="submit" class="btn btn-primary" disabled>Update Password</button>
+        </div><figcaption>Disable the button with its normal label, so it looks broken. Admin change password does this today.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas">
+          <button type="button" class="btn btn-secondary">Cancel</button><button type="submit" class="btn btn-primary">Create</button>
+        </div><figcaption>Put Cancel first and the one primary action last.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas">
+          <button type="button" class="btn btn-primary">Cancel</button><button type="submit" class="btn btn-primary">Create</button>
+        </div><figcaption>Make two primary buttons compete.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul>
+        <li><a href="../../mocks/pages/public-login/default.html">pages/public-login/default</a>, <a href="../../mocks/pages/public-login/invalid.html">invalid</a>, <a href="../../mocks/pages/public-login/submitting.html">submitting</a>, <a href="../../mocks/pages/public-login/error.html">error</a></li>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a>, <a href="../../mocks/pages/admin-login/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-login/submitting.html">submitting</a>, <a href="../../mocks/pages/admin-login/error.html">error</a></li>
+        <li><a href="../../mocks/pages/public-register/default.html">pages/public-register/default</a>, <a href="../../mocks/pages/public-register/invalid.html">invalid</a>, <a href="../../mocks/pages/public-register/mismatch.html">mismatch</a>, <a href="../../mocks/pages/public-register/submitting.html">submitting</a>, <a href="../../mocks/pages/public-register/error.html">error</a></li>
+        <li><a href="../../mocks/pages/admin-register/invalid.html">pages/admin-register/invalid</a></li>
+        <li><a href="../../mocks/pages/public-forgot-password/default.html">pages/public-forgot-password/default</a>, <a href="../../mocks/pages/admin-forgot-password/default.html">pages/admin-forgot-password/default</a></li>
+        <li><a href="../../mocks/pages/admin-change-password/default.html">pages/admin-change-password/default</a>, <a href="../../mocks/pages/admin-change-password/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-change-password/submitting.html">submitting</a></li>
+        <li><a href="../../mocks/pages/public-onboarding/default.html">pages/public-onboarding/default</a>, <a href="../../mocks/pages/admin-onboarding/profile.html">pages/admin-onboarding/profile</a></li>
+        <li><a href="../../mocks/dialogs/public-maintenance-create/invalid.html">dialogs/public-maintenance-create/invalid</a>, <a href="../../mocks/dialogs/admin-maintenance-create/invalid.html">dialogs/admin-maintenance-create/invalid</a>, <a href="../../mocks/dialogs/admin-user-create/invalid.html">dialogs/admin-user-create/invalid</a></li>
+      </ul>
+      <h3>Drift</h3>
+      <ul>
+        <li>The form-level request error is a red block in public login and register (<code>.error-message-block</code>) but an <code>.alert.alert-danger</code> in admin login. The design system keeps both as implemented; new forms use the alert, which carries a border and a role.</li>
+        <li>Busy labels differ: "Signing in..." (login), "Creating account..." (public register), "Creating..." (admin register), and no label change at all in admin change password. The design system requires a changed label.</li>
+        <li>Admin forms wrap the input in a label with no <code>for</code> and the review build added <code>aria-label</code>; public forms use <code>for</code>/<code>id</code>. The design system requires the <code>for</code>/<code>id</code> pair.</li>
+        <li>The admin Add New User dialog marks fields invalid with no explanatory text; admin settings and several profile forms do the same. Source gap, text required by this pattern.</li>
+        <li>After a successful admin password change, the form keeps its submitted flag, so required-field errors remain beside the success alert (see <a href="feedback.html">Feedback</a>).</li>
+        <li>Inputs lose the browser outline on focus in the source; the shared focus ring replaces it.</li>
+        <li>Public profile edit and change-password expand an inline form below a button. The repository convention is a dialog or a separate screen; this pattern does not document the inline form as a variant.</li>
+        <li>Not implemented: inline spinner in the submit button, "copied" or success confirmation on forgot password, and validation on onboarding step navigation.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>
