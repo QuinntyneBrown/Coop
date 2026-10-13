@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stepper — Component requirements rendering</title>
+<meta name="description" content="Every state of the onboarding stepper, in light and dark, keyed to the acceptance criteria in stepper.md.">
+<meta name="crd:component" content="stepper">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/fonts.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-caption); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: 100%; }
+.crd-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.crd-stack { display: grid; gap: var(--space-4); width: 100%; }
+.crd-panel { font: var(--text-body-sm); color: var(--color-fg-muted); }
+/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current="step"] { background: CanvasText; } }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Stepper</h1>
+    <p class="ds-lead">Progress dots with a "Step n of N" status for the public and admin onboarding flows: an exposed list with hidden step names, nothing interactive. Requirements: <a href="stepper.md">stepper.md</a>. Design system: <a href="../../design-system/components/stepper.html">stepper</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>coop-stepper</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-REQ-014</span><span class="ds-pill">Light appearance only</span></div>
+    <ul class="ds-toc">
+      <li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li>
+    </ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div style="width:100%;text-align:center"><ol class="step-indicator" aria-label="Onboarding progress" data-testid="onboarding-step-indicator"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status" data-testid="onboarding-current-step">Step 2 of 4</p></div></div>
+    <div class="ds-example__caption"><span>Public flow, step 2 of 4: one completed dot, the current dot scaled, two upcoming; each dot holds its hidden step name and the label is a status region. <span class="crd-ac">AC-1, AC-2, AC-5, AC-6, AC-11</span></span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas"><div style="width:100%"><div class="card"><ol class="step-indicator" aria-label="Onboarding progress"><li class="step-dot completed"><span class="visually-hidden">Welcome to Your Cooperative!</span></li><li class="step-dot completed"><span class="visually-hidden">Set Up Your Profile</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Select Your Unit</span></li></ol><p class="step-label" role="status">Step 3 of 3</p><h2 style="font:var(--text-h2);margin:0">Select Your Unit</h2></div></div></div>
+    <div class="ds-example__caption"><span>Admin flow, step 3 of 3 in the onboarding card: the mocks' <code>.active.current</code> ring is not rendered (D-6). <span class="crd-ac">AC-3</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <p class="ds-na">One size: 10 px dots, the current one scaled 1.2; the row is about 78 px wide for four dots and is centred.</p>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Each dot is in one of three states; nothing is interactive, so there are no hover, focus, active or disabled states.</p>
+    <div class="ds-matrix"><table>
+      <thead><tr><th scope="col">Upcoming</th><th scope="col">Current</th><th scope="col">Completed</th></tr></thead>
+      <tbody>
+<tr><td><ol class="step-indicator" aria-label="One dot" style="margin-bottom:0"><li class="step-dot"><span class="visually-hidden">upcoming</span></li></ol></td><td><ol class="step-indicator" aria-label="One dot" style="margin-bottom:0"><li class="step-dot" aria-current="step"><span class="visually-hidden">current</span></li></ol></td><td><ol class="step-indicator" aria-label="One dot" style="margin-bottom:0"><li class="step-dot completed"><span class="visually-hidden">completed</span></li></ol></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-7</span>
+    <h3>Whole flow</h3>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="crd-stack" style="justify-items:center"><div style="display:grid;gap:var(--space-2);justify-items:center;width:100%"><ol class="step-indicator" aria-label="Onboarding progress" style="margin-bottom:0"><li class="step-dot" aria-current="step"><span class="visually-hidden">Welcome</span></li><li class="step-dot"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status" style="margin:var(--space-3) 0 0">Step 1 of 4</p></div><div style="display:grid;gap:var(--space-2);justify-items:center;width:100%"><ol class="step-indicator" aria-label="Onboarding progress" style="margin-bottom:0"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status" style="margin:var(--space-3) 0 0">Step 2 of 4</p></div><div style="display:grid;gap:var(--space-2);justify-items:center;width:100%"><ol class="step-indicator" aria-label="Onboarding progress" style="margin-bottom:0"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot completed"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status" style="margin:var(--space-3) 0 0">Step 3 of 4</p></div><div style="display:grid;gap:var(--space-2);justify-items:center;width:100%"><ol class="step-indicator" aria-label="Onboarding progress" style="margin-bottom:0"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot completed"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot completed"><span class="visually-hidden">Select your unit</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status" style="margin:var(--space-3) 0 0">Step 4 of 4</p></div></div></div>
+    <div class="ds-example__caption"><span>Steps 1 to 4 of the public flow: the row's height never changes, and the label announces each step once (D-4). An out-of-range <code>current</code> clamps to the last step. <span class="crd-ac">AC-4, AC-8, AC-9, AC-12, AC-15, AC-16</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <p>The product ships one light appearance; the dark block below is required by the CRD format and renders the same tokens (D-2).</p>
+    <div class="ds-themes">
+      <div data-theme="light"><div class="crd-stack"><div style="text-align:center"><ol class="step-indicator" aria-label="Onboarding progress"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status">Step 2 of 4</p></div><div class="card"><ol class="step-indicator" aria-label="Onboarding progress"><li class="step-dot completed"><span class="visually-hidden">Welcome to Your Cooperative!</span></li><li class="step-dot completed"><span class="visually-hidden">Set Up Your Profile</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Select Your Unit</span></li></ol><p class="step-label" role="status">Step 3 of 3</p><h2 style="font:var(--text-h2);margin:0">Select Your Unit</h2></div></div></div>
+      <div data-theme="dark"><div class="crd-stack"><div style="text-align:center"><ol class="step-indicator" aria-label="Onboarding progress"><li class="step-dot completed"><span class="visually-hidden">Welcome</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Set up your profile</span></li><li class="step-dot"><span class="visually-hidden">Select your unit</span></li><li class="step-dot"><span class="visually-hidden">All set</span></li></ol><p class="step-label" role="status">Step 2 of 4</p></div><div class="card"><ol class="step-indicator" aria-label="Onboarding progress"><li class="step-dot completed"><span class="visually-hidden">Welcome to Your Cooperative!</span></li><li class="step-dot completed"><span class="visually-hidden">Set Up Your Profile</span></li><li class="step-dot" aria-current="step"><span class="visually-hidden">Select Your Unit</span></li></ol><p class="step-label" role="status">Step 3 of 3</p><h2 style="font:var(--text-h2);margin:0">Select Your Unit</h2></div></div></div>
+    </div>
+    <span class="crd-ac">AC-13</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>No media rule targets the stepper; the frames show it above the public profile form, inside the admin card and with a French label at 320, 360 and 768 px.</p>
+    <div class="crd-frames">
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-1, AC-2, AC-10, AC-14</span><iframe title="320 pixel wide frame, light theme: public flow, step 2 of 4 above the profile form" width="320" height="260" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current=&quot;step&quot;] { background: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;text-align:center&quot;&gt;&lt;ol class=&quot;step-indicator&quot; aria-label=&quot;Onboarding progress&quot; data-testid=&quot;onboarding-step-indicator&quot;&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Welcome&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Set up your profile&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Select your unit&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;All set&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;step-label&quot; role=&quot;status&quot; data-testid=&quot;onboarding-current-step&quot;&gt;Step 2 of 4&lt;/p&gt;&lt;/div&gt;&lt;h2 style=&quot;font:var(--text-h2);margin:0 0 var(--space-2);text-align:center&quot;&gt;Set up your profile&lt;/h2&gt;&lt;div class=&quot;form-group&quot;&gt;&lt;label for=&quot;fn&quot;&gt;First Name&lt;/label&gt;&lt;input id=&quot;fn&quot; type=&quot;text&quot; placeholder=&quot;First name&quot;&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-3, AC-14</span><iframe title="320 pixel wide frame, light theme: admin flow, last step in a card" width="320" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current=&quot;step&quot;] { background: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;ol class=&quot;step-indicator&quot; aria-label=&quot;Onboarding progress&quot;&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Welcome to Your Cooperative!&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Set Up Your Profile&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Select Your Unit&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;step-label&quot; role=&quot;status&quot;&gt;Step 3 of 3&lt;/p&gt;&lt;h2 style=&quot;font:var(--text-h2);margin:0&quot;&gt;Select Your Unit&lt;/h2&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-14</span><iframe title="320 pixel wide frame, light theme: French label" width="320" height="120" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current=&quot;step&quot;] { background: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;text-align:center&quot;&gt;&lt;ol class=&quot;step-indicator&quot; aria-label=&quot;Progression de l&#x27;inscription&quot;&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Bienvenue&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Configurez votre profil&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Choisissez votre unité&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Terminé&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;step-label&quot; role=&quot;status&quot;&gt;Étape 2 sur 4&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-13</span><iframe title="360 pixel wide frame, dark theme (not specified, renders light tokens): public flow, step 4 of 4" width="360" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current=&quot;step&quot;] { background: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;text-align:center&quot;&gt;&lt;ol class=&quot;step-indicator&quot; aria-label=&quot;Onboarding progress&quot; data-testid=&quot;onboarding-step-indicator&quot;&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Welcome&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Set up your profile&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot completed&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Select your unit&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;All set&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;step-label&quot; role=&quot;status&quot; data-testid=&quot;onboarding-current-step&quot;&gt;Step 4 of 4&lt;/p&gt;&lt;/div&gt;&lt;h2 style=&quot;font:var(--text-h2);margin:0 0 var(--space-2);text-align:center&quot;&gt;You&#x27;re all set!&lt;/h2&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+<figure class="crd-frame"><span class="crd-ac">768 px · light · AC-4</span><iframe title="768 pixel wide frame, light theme: admin flow, first step" width="768" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/fonts.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;body{padding:12px}.card{padding:var(--space-5)}/* Specimen only, not product CSS: stepper D-5 (the label sits under the dots as .step-label; components.css gains this rule in the first slice) */
+.step-label { margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8); font: var(--text-body-sm); color: var(--color-fg-muted); text-align: center; }
+/* Specimen only, not product CSS: stepper D-4 (hidden step names; the component ships this rule in its own stylesheet) */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Specimen only, not product CSS: stepper D-7 (forced colours keep every dot and the current dot visible) */
+@media (forced-colors: active) { .step-dot { border: var(--border-width-hairline) solid CanvasText; } .step-dot[aria-current=&quot;step&quot;] { background: CanvasText; } }&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;card&quot;&gt;&lt;ol class=&quot;step-indicator&quot; aria-label=&quot;Onboarding progress&quot;&gt;&lt;li class=&quot;step-dot&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Welcome to Your Cooperative!&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Set Up Your Profile&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;step-dot&quot;&gt;&lt;span class=&quot;visually-hidden&quot;&gt;Select Your Unit&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;step-label&quot; role=&quot;status&quot;&gt;Step 1 of 3&lt;/p&gt;&lt;h2 style=&quot;font:var(--text-h2);margin:0&quot;&gt;Welcome to Your Cooperative!&lt;/h2&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+    </div>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <p>The completed dot (accent at 0.5 opacity) is about 2.2:1 and is acceptable only because the label and list order carry the information; it is not listed as a pair.</p>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair"><span>Upcoming dot on the admin card (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Upcoming dot on the public page (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair"><span>Current dot on the card (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair"><span>Current dot on the page (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair"><span>Label on the card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+<div class="ds-pair"><span>Label on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Upcoming dot on the admin card (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Upcoming dot on the public page (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Current dot on the card (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark (same tokens): Current dot on the page (non-text)</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+    </div>
+    <span class="crd-ac">AC-7</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Upcoming dot</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+<tr><td>Current and completed dot</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+<tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+<tr><td>Admin card</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+<tr><td>Public page</td><td><code>--color-bg-canvas</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+<tr><td>Dot gap</td><td><code>--space-3</code></td><td colspan="2"><span data-token="--space-3"></span></td></tr>
+<tr><td>Space below the row</td><td><code>--space-8</code></td><td colspan="2"><span data-token="--space-8"></span></td></tr>
+<tr><td>Dot shape</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+<tr><td>Label font</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+<tr><td>Colour and scale transition</td><td><code>--duration-slow</code></td><td colspan="2"><span data-token="--duration-slow"></span></td></tr>
+<tr><td>Easing</td><td><code>--ease-standard</code></td><td colspan="2"><span data-token="--ease-standard"></span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="ds-footer"><span>Coop component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>
