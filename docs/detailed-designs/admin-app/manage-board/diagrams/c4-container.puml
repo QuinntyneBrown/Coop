@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage the Board of Directors
+
+Person(admin, "Office administrator", "Keeps the board list")
+Person(visitor, "Visitor", "Reads the board list")
+System_Boundary(coop, "Coop") {
+  Container(adminApp, "Admin application", "Angular", "Board screen at /board with the editor and remove dialogs")
+  Container(publicApp, "Public application", "Angular", "Home page “Meet the board”")
+  Container(api, "Coop API", "ASP.NET Core", "api/board-of-directors: read and replace the list; api/jsoncontent/name/{name}")
+  ContainerDb(db, "Coop database", "SQLite", "JsonContents table, BoardOfDirectors entry")
+}
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(adminApp, api, "GET, PUT api/board-of-directors", "JSON/HTTPS, bearer token")
+Rel(publicApp, api, "GET api/jsoncontent/name/BoardOfDirectors", "JSON/HTTPS, anonymous")
+Rel(api, db, "Reads and writes", "EF Core")
+@enduml

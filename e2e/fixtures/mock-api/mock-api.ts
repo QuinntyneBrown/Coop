@@ -55,6 +55,9 @@ const PAGE_ROLES = {
   delete: ['SystemAdministrator'],
 };
 
+/** Roles whose seeded privilege on the JsonContent aggregate reaches Write. */
+const JSON_CONTENT_WRITE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
+
 const DOC_TYPES: Record<string, MockDocument['documentType']> = {
   notice: 'Notice',
   notices: 'Notice',
@@ -985,6 +988,38 @@ export class MockApi {
     this.on('GET', 'json-content/name/:name', (_ctx, [name]) => jsonContentView(name), true);
     this.on('GET', 'json-content/:name', (_ctx, [name]) => jsonContentView(name), true);
     this.on('GET', 'jsoncontent/name/:name', (_ctx, [name]) => jsonContentView(name), true);
+
+    // Board of Directors list (L2-REQ-085, L2-REQ-086), stored as the BoardOfDirectors JSON content
+    const boardContent = () => s.jsonContents.find((j) => j.name === 'BoardOfDirectors');
+    const directorsView = () => {
+      const members = boardContent()?.content['members'];
+      return (Array.isArray(members) ? members : []).map((m: any) => ({
+        name: String(m?.name ?? ''),
+        title: String(m?.title ?? m?.role ?? ''),
+        photoUrl: m?.photoUrl ?? null,
+      }));
+    };
+    this.on('GET', 'board-of-directors', () => ok({ directors: directorsView() }), true);
+    this.on('PUT', 'board-of-directors', (ctx) => {
+      if (!JSON_CONTENT_WRITE_ROLES.includes(ctx.user!.role)) return forbidden();
+      const list = ctx.body?.directors;
+      if (!Array.isArray(list)) return badRequest('One or more fields are invalid.');
+      const invalid = list.some((d: any) => {
+        const name = String(d?.name ?? '').trim();
+        const title = String(d?.title ?? '').trim();
+        return !name || !title || name.length > 100 || title.length > 100 || String(d?.photoUrl ?? '').length > 2048;
+      });
+      if (invalid) return badRequest('One or more fields are invalid.');
+      const members = list.map((d: any) => ({
+        name: String(d.name).trim(),
+        title: String(d.title).trim(),
+        photoUrl: String(d.photoUrl ?? '').trim() || null,
+      }));
+      const existing = boardContent();
+      if (existing) existing.content = { members };
+      else s.jsonContents.push({ jsonContentId: newId(), name: 'BoardOfDirectors', content: { members } });
+      return ok({ directors: directorsView() });
+    });
 
     // Board, units, theme
     this.on(

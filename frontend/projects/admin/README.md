@@ -2,7 +2,7 @@
 
 Angular administration application for Coop. It is the admin backend for staff,
 board members, and system administrators: maintenance triage, document
-publishing, website pages, messaging, user and role management, invitations,
+publishing, website pages, the Board of Directors list, messaging, user and role management, invitations,
 digital assets, and theme and content settings.
 
 It is the `admin` project of the [frontend workspace](../../README.md) and talks
@@ -10,20 +10,21 @@ to the Coop API at `http://localhost:5000/api`.
 
 ## Routes
 
-| Route                                         | Screen                                    | Access    |
-| --------------------------------------------- | ----------------------------------------- | --------- |
-| `/`                                           | Landing page                              | Public    |
-| `/login`, `/register`, `/forgot-password`     | Authentication                            | Public    |
-| `/onboarding`, `/change-password`, `/profile` | Account setup and profile                 | Signed in |
-| `/dashboard`                                  | Dashboard                                 | Signed in |
-| `/maintenance`                                | Maintenance requests                      | Signed in |
-| `/documents`                                  | Documents                                 | Signed in |
-| `/pages`                                      | Website pages (add, edit, remove)         | Signed in |
-| `/messages`                                   | Messaging (`/messaging` redirects here)   | Signed in |
-| `/users`, `/roles`, `/profiles`               | Users, roles and privileges, and profiles | Signed in |
-| `/assets`                                     | Digital assets                            | Signed in |
-| `/invitations`                                | Invitations                               | Signed in |
-| `/settings`                                   | Theme and content settings                | Signed in |
+| Route                                         | Screen                                               | Access    |
+| --------------------------------------------- | ---------------------------------------------------- | --------- |
+| `/`                                           | Landing page                                         | Public    |
+| `/login`, `/register`, `/forgot-password`     | Authentication                                       | Public    |
+| `/onboarding`, `/change-password`, `/profile` | Account setup and profile                            | Signed in |
+| `/dashboard`                                  | Dashboard                                            | Signed in |
+| `/maintenance`                                | Maintenance requests                                 | Signed in |
+| `/documents`                                  | Documents                                            | Signed in |
+| `/pages`                                      | Website pages (add, edit, remove)                    | Signed in |
+| `/board`                                      | Board of Directors list (add, edit, reorder, remove) | Signed in |
+| `/messages`                                   | Messaging (`/messaging` redirects here)              | Signed in |
+| `/users`, `/roles`, `/profiles`               | Users, roles and privileges, and profiles            | Signed in |
+| `/assets`                                     | Digital assets                                       | Signed in |
+| `/invitations`                                | Invitations                                          | Signed in |
+| `/settings`                                   | Theme and content settings                           | Signed in |
 
 Unknown routes redirect to the landing page.
 

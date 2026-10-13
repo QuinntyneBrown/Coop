@@ -1233,6 +1233,87 @@
         "warning": "The screen has no warning notification.",
         "danger": "Failures show inside the editor dialog (failed state) or as the page error state."
       }
+    },
+    {
+      "id": "admin-board",
+      "kind": "page",
+      "title": "Admin \u00b7 Board",
+      "app": "admin",
+      "route": "/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "requirements": [
+        "L2-REQ-085"
+      ],
+      "note": "The Board of Directors list the home page shows: add, edit, reorder and remove.",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-director-editor",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Director Editor",
+      "app": "admin",
+      "route": "/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "requirements": [
+        "L2-REQ-085"
+      ],
+      "note": "Native dialog for a new or existing director.",
+      "opens_from": "admin-board",
+      "states": [
+        "default",
+        "invalid",
+        "busy",
+        "failed",
+        "edit"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-director-remove",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Director Remove",
+      "app": "admin",
+      "route": "/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "requirements": [
+        "L2-REQ-085"
+      ],
+      "note": "Confirmation before a director is removed from the board list.",
+      "opens_from": "admin-board",
+      "states": [
+        "default",
+        "busy"
+      ],
+      "not_applicable": {
+        "invalid": "A confirmation has no fields to validate."
+      }
+    },
+    {
+      "id": "admin-board-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Board Saved",
+      "app": "admin",
+      "route": "/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "requirements": [
+        "L2-REQ-085"
+      ],
+      "note": "Status message after a director is saved, moved or removed.",
+      "opens_from": "admin-board",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The screen has no warning notification.",
+        "danger": "Failures show inside the editor dialog (failed state), as the page error state, or as an alert after a failed move."
+      }
     }
   ]
 }

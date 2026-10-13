@@ -7,6 +7,7 @@
   {"name": "public-maintenance-create", "mock": "dialogs/public-maintenance-create/default.html", "phone": true},
   {"name": "public-profile-edit", "mock": "pages/public-profile/edit.html", "phone": true},
   {"name": "admin-pages", "mock": "pages/admin-pages/default.html", "phone": false},
+  {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
   {"name": "admin-documents-notices", "mock": "pages/admin-documents/notices.html", "phone": false},
   {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
   {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},

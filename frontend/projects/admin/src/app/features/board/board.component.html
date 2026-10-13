@@ -1,0 +1,314 @@
+<div class="board-page">
+  <div class="board-header">
+    <div>
+      <h1 data-testid="board-title">Board of Directors</h1>
+      <p>
+        The directors the home page shows under "Meet the board", in this order. Changes are live on
+        the website as soon as you save.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openEditor(null, $event)"
+      data-testid="board-add-button"
+    >
+      <span class="material-icons" aria-hidden="true">person_add</span> Add director
+    </button>
+  </div>
+
+  <div role="status" aria-live="polite">
+    @if (notice()) {
+      <div class="board-alert board-alert--success">
+        <span class="material-icons" aria-hidden="true">check_circle</span>
+        <span data-testid="board-notice">{{ notice() }}</span>
+      </div>
+    }
+  </div>
+
+  @if (listError()) {
+    <div class="board-alert board-alert--danger" role="alert">
+      <span class="material-icons" aria-hidden="true">error_outline</span>
+      <span data-testid="board-save-error">{{ listError() }}</span>
+    </div>
+  }
+
+  @switch (status()) {
+    @case ('loading') {
+      <div class="board-loading" role="status" aria-live="polite" data-testid="board-loading">
+        <span class="board-spinner" aria-hidden="true"></span>Loading the board list…
+      </div>
+    }
+    @case ('error') {
+      <div class="board-alert board-alert--danger" role="alert" data-testid="board-error">
+        <span class="material-icons" aria-hidden="true">error_outline</span>
+        <span>We couldn't load the board list. Check your connection and try again.</span>
+        <button type="button" class="btn btn-secondary" (click)="load()" data-testid="board-retry">
+          Try again
+        </button>
+      </div>
+    }
+    @case ('ready') {
+      @if (directors().length > 0) {
+        <ol class="board-list" aria-label="Board of Directors" data-testid="board-list">
+          @for (
+            director of directors();
+            track $index;
+            let i = $index, first = $first, last = $last
+          ) {
+            <li class="director-card" data-testid="director-card">
+              @if (director.photoUrl) {
+                <img
+                  class="director-card__photo"
+                  [src]="director.photoUrl"
+                  width="56"
+                  height="56"
+                  alt=""
+                />
+              } @else {
+                <span class="director-card__photo" aria-hidden="true">{{
+                  initialsOf(director.name)
+                }}</span>
+              }
+              <h2 data-testid="director-card-name">{{ director.name }}</h2>
+              <div class="director-card__meta">
+                <span data-testid="director-card-title">{{ director.title }}</span>
+                <span>{{ director.photoUrl ? 'With a photo' : 'No photo' }}</span>
+              </div>
+              <div class="director-card__actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [attr.aria-label]="'Move ' + director.name + ' up'"
+                  [disabled]="first || moving()"
+                  (click)="move(i, -1)"
+                  data-testid="director-move-up"
+                >
+                  <span class="material-icons" aria-hidden="true">arrow_upward</span> Move up
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [attr.aria-label]="'Move ' + director.name + ' down'"
+                  [disabled]="last || moving()"
+                  (click)="move(i, 1)"
+                  data-testid="director-move-down"
+                >
+                  <span class="material-icons" aria-hidden="true">arrow_downward</span> Move down
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [attr.aria-label]="'Edit ' + director.name"
+                  (click)="openEditor(i, $event)"
+                  data-testid="director-edit"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger-outline"
+                  [attr.aria-label]="'Remove ' + director.name"
+                  (click)="confirmRemove(i, $event)"
+                  data-testid="director-remove"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+          }
+        </ol>
+      } @else {
+        <div class="board-empty" data-testid="board-empty">
+          <span class="material-icons" aria-hidden="true">groups</span>
+          <h2>No directors listed yet</h2>
+          <p>
+            Until you add the directors here, the home page shows the board member profiles. Add
+            each director with their role, such as President or Treasurer.
+          </p>
+          <button type="button" class="btn btn-primary" (click)="openEditor(null, $event)">
+            <span class="material-icons" aria-hidden="true">person_add</span> Add director
+          </button>
+        </div>
+      }
+    }
+  }
+
+  <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
+</div>
+
+<dialog
+  #editorDialog
+  class="director-dialog"
+  aria-labelledby="director-editor-title"
+  aria-describedby="director-editor-intro"
+  (close)="onEditorClosed()"
+  data-testid="director-editor"
+>
+  <form (submit)="save($event)" novalidate>
+    <div class="director-dialog__header">
+      <h2 id="director-editor-title" data-testid="director-editor-heading">
+        {{ editingIndex() === null ? 'Add director' : 'Edit director' }}
+      </h2>
+      <p id="director-editor-intro">
+        {{
+          editingIndex() === null
+            ? 'The director joins the end of the list on the website as soon as you save.'
+            : 'Changes show on the website as soon as you save.'
+        }}
+      </p>
+    </div>
+    <div class="director-dialog__body">
+      @if (errors().name || errors().title) {
+        <div class="director-dialog__errors" role="alert" data-testid="director-editor-errors">
+          <strong>Something needs attention before the director can be saved.</strong>
+          <ul>
+            @if (errors().name) {
+              <li>
+                <a href="#director-name-field">{{ errors().name }}</a>
+              </li>
+            }
+            @if (errors().title) {
+              <li>
+                <a href="#director-title-field">{{ errors().title }}</a>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+      @if (saveFailed()) {
+        <div class="director-dialog__errors" role="alert" data-testid="director-editor-failed">
+          We couldn't save the board list. Try again.
+        </div>
+      }
+      <div class="form-group">
+        <label for="director-name-field">Name</label>
+        <input
+          id="director-name-field"
+          name="name"
+          type="text"
+          autocomplete="off"
+          autofocus
+          [(ngModel)]="draft.name"
+          [attr.aria-invalid]="errors().name ? 'true' : null"
+          [attr.aria-describedby]="errors().name ? 'director-name-error' : null"
+          data-testid="director-name-input"
+        />
+        @if (errors().name) {
+          <span class="field-error" id="director-name-error"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="director-name-error">{{ errors().name }}</span></span
+          >
+        }
+      </div>
+      <div class="form-group">
+        <label for="director-title-field">Role on the board</label>
+        <input
+          id="director-title-field"
+          name="title"
+          type="text"
+          autocomplete="off"
+          [(ngModel)]="draft.title"
+          [attr.aria-invalid]="errors().title ? 'true' : null"
+          [attr.aria-describedby]="
+            errors().title ? 'director-title-help director-title-error' : 'director-title-help'
+          "
+          data-testid="director-title-input"
+        />
+        <span class="field-help" id="director-title-help"
+          >For example President, Treasurer, Secretary or Member at large.</span
+        >
+        @if (errors().title) {
+          <span class="field-error" id="director-title-error"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="director-title-error">{{ errors().title }}</span></span
+          >
+        }
+      </div>
+      <div class="form-group">
+        <label for="director-photo-field">Photo address (optional)</label>
+        <input
+          id="director-photo-field"
+          name="photoUrl"
+          type="url"
+          [(ngModel)]="draft.photoUrl"
+          aria-describedby="director-photo-help"
+          data-testid="director-photo-input"
+        />
+        <span class="field-help" id="director-photo-help"
+          >Paste the address of a portrait from the Assets library. Without one, the website shows
+          the director's initials.</span
+        >
+      </div>
+    </div>
+    <div class="director-dialog__footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [disabled]="saving()"
+        (click)="closeEditor()"
+        data-testid="director-editor-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="saving()"
+        [attr.aria-busy]="saving() ? 'true' : null"
+        data-testid="director-editor-save"
+      >
+        {{ saving() ? 'Saving…' : 'Save director' }}
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<dialog
+  #removeDialog
+  class="director-dialog"
+  aria-labelledby="director-remove-title"
+  aria-describedby="director-remove-intro"
+  (close)="onRemoveClosed()"
+  data-testid="director-remove-dialog"
+>
+  <div class="director-dialog__inner">
+    <div class="director-dialog__header">
+      <h2 id="director-remove-title" data-testid="director-remove-heading">
+        Remove “{{ removingName() }}” from the board list?
+      </h2>
+      <p id="director-remove-intro">
+        They leave the home page straight away. You can add them again later.
+      </p>
+    </div>
+    @if (removeFailed()) {
+      <div class="director-dialog__body">
+        <div class="director-dialog__errors" role="alert">
+          We couldn't save the board list. Try again.
+        </div>
+      </div>
+    }
+    <div class="director-dialog__footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        autofocus
+        [disabled]="removeBusy()"
+        (click)="closeRemove()"
+        data-testid="director-remove-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        [disabled]="removeBusy()"
+        [attr.aria-busy]="removeBusy() ? 'true' : null"
+        (click)="remove()"
+        data-testid="director-remove-confirm"
+      >
+        {{ removeBusy() ? 'Removing…' : 'Remove director' }}
+      </button>
+    </div>
+  </div>
+</dialog>
