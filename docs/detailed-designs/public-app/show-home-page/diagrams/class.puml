@@ -1,0 +1,98 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Show the home page
+
+class LandingComponent {
+  +hero: Signal<HeroContent>
+  +boardMembers: Signal<BoardMemberView[]>
+  +notices: Signal<NoticeView[]>
+  +menuOpen: Signal<boolean>
+  +content: LandingContent
+  +toggleMenu(): void
+  +closeMenu(): void
+}
+
+class LandingContent {
+  +hero: HeroContent
+  +navigation: LandingLink[]
+  +stats: LandingStat[]
+  +values: LandingValue[]
+  +gallery: LandingPhoto[]
+  +features: LandingFeature[]
+  +quote: LandingQuote
+  +visit: LandingVisit
+  +footer: LandingFooter
+}
+
+class HeroContent {
+  +eyebrow: string
+  +title: string
+  +subtitle: string
+  +photo: LandingPhoto
+  +badge: string
+}
+
+class LandingPhoto {
+  +src: string
+  +alt: string
+  +width: number
+  +height: number
+  +caption?: string
+  +layout?: 'wide' | 'tall' | 'small'
+}
+
+class BoardMemberView {
+  +name: string
+  +title: string
+  +initials: string
+  +avatarUrl?: string
+}
+
+class NoticeView {
+  +id: string
+  +title: string
+  +excerpt: string
+  +day: string
+  +month: string
+  +dateLabel: string
+  +dateTime: string
+}
+
+class "landing-view-model" as VM <<functions>> {
+  +heroFrom(content, defaults): HeroContent
+  +boardMembersFrom(content): BoardMemberView[]
+  +boardMembersFromApi(response): BoardMemberView[]
+  +noticeViewFrom(notice): NoticeView
+  +excerptOf(text, max): string
+}
+
+class JsonContentService {
+  +getByName(name): Observable<JsonContent | null>
+}
+
+class ApiService {
+  +get<T>(path): Observable<T>
+}
+
+LandingComponent --> LandingContent : reads defaults
+LandingComponent ..> VM : maps responses with
+LandingComponent ..> JsonContentService : loads Hero, BoardOfDirectors
+LandingComponent ..> ApiService : loads notices, board members
+LandingContent *-- HeroContent
+LandingContent "1" *-- "*" LandingPhoto
+HeroContent --> LandingPhoto
+VM ..> HeroContent : produces
+VM ..> BoardMemberView : produces
+VM ..> NoticeView : produces
+@enduml

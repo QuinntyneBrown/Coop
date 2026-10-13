@@ -1,0 +1,61 @@
+@startuml
+title UML sequence behaviour — Load the home page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "LandingComponent" as page
+  participant "landing-view-model" as vm
+  participant "JsonContentService / ApiService" as client
+end box
+box "Backend — Coop API application" #D1FADF
+  participant "PublicBffController" as bff
+  participant "NoticeController" as notice
+end box
+box "Backend — Coop Application and Domain" #ECFDF3
+  participant "MediatR query handlers" as handler
+end box
+box "Backend — Coop Infrastructure" #FFF4E5
+  database "Coop database" as db
+end box
+actor -> page : Open /
+page -> page : Render header, hero defaults, body blocks and footer from LANDING_CONTENT
+page -> client : getByName("Hero")
+client -> bff : GET api/json-content/Hero (anonymous)
+bff -> handler : GetJsonContentByNameRequest
+handler -> db : Load JSON content
+db --> handler : JsonContent
+handler --> bff : Parsed content
+bff --> client : { id, name, content }
+client --> page : JsonContent | null
+page -> vm : heroFrom(content, defaults)  [L2-REQ-068 AC1, AC2]
+vm --> page : HeroContent
+page -> client : getByName("BoardOfDirectors")
+client -> bff : GET api/json-content/BoardOfDirectors
+bff --> client : { content: { members } } or null
+client --> page : JsonContent | null
+alt members listed
+  page -> vm : boardMembersFrom(content)  [L2-REQ-070 AC2]
+else no members
+  page -> client : get("board-members")
+  client -> bff : GET api/board-members
+  bff --> client : [{ name, role }]
+  client --> page : members
+  page -> vm : boardMembersFromApi(members)  [L2-REQ-070 AC3]
+end
+vm --> page : BoardMemberView[]
+page -> client : get("notice/published")
+client -> notice : GET api/notice/published (anonymous)
+notice -> handler : GetPublishedNoticesRequest
+handler -> db : Load published notices
+db --> handler : Notices
+handler --> notice : GetPublishedNoticesResponse
+notice --> client : { notices }
+client --> page : notices
+page -> vm : noticeViewFrom(each notice)  [L2-REQ-070 AC4, AC5]
+vm --> page : NoticeView[]
+page --> actor : Home page with CMS hero, board and notices
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Show the home page
+
+Person(visitor, "Visitor", "Anyone who opens the public site, including members who seldom use the web")
+Person(office, "Office staff", "Edits the hero, board list and notices in the admin app")
+System(coop, "Coop", "Cooperative management platform: public site, admin app and API")
+
+Rel(visitor, coop, "Reads the home page with")
+Rel(office, coop, "Publishes CMS content and notices with")
+@enduml
