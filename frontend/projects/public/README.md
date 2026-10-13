@@ -12,6 +12,7 @@ talks to the Coop API at `http://localhost:5000/api`.
 | Route                                     | Screen                                 | Access    |
 | ----------------------------------------- | -------------------------------------- | --------- |
 | `/`                                       | Landing page                           | Public    |
+| `/pages/:slug`                            | A website page the office added        | Public    |
 | `/login`, `/register`, `/forgot-password` | Authentication                         | Public    |
 | `/documents`                              | Published notices, bylaws, and reports | Public    |
 | `/dashboard`                              | Member dashboard                       | Signed in |
@@ -27,7 +28,7 @@ Unknown routes redirect to the landing page.
 ```
 src/app/
   core/        # guards, interceptors, and services (API, auth, theme)
-  layout/      # shell for signed-in pages
+  layout/      # shell for signed-in pages, and the site header and footer shared by the public pages
   pages/       # one folder per screen
 public/own/    # photographs for the home page (see pages/landing/landing-content.ts)
 ```

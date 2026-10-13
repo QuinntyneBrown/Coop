@@ -2,8 +2,8 @@
 
 Angular administration application for Coop. It is the admin backend for staff,
 board members, and system administrators: maintenance triage, document
-publishing, messaging, user and role management, invitations, digital assets, and
-theme and content settings.
+publishing, website pages, messaging, user and role management, invitations,
+digital assets, and theme and content settings.
 
 It is the `admin` project of the [frontend workspace](../../README.md) and talks
 to the Coop API at `http://localhost:5000/api`.
@@ -18,6 +18,7 @@ to the Coop API at `http://localhost:5000/api`.
 | `/dashboard`                                  | Dashboard                                 | Signed in |
 | `/maintenance`                                | Maintenance requests                      | Signed in |
 | `/documents`                                  | Documents                                 | Signed in |
+| `/pages`                                      | Website pages (add, edit, remove)         | Signed in |
 | `/messages`                                   | Messaging (`/messaging` redirects here)   | Signed in |
 | `/users`, `/roles`, `/profiles`               | Users, roles and privileges, and profiles | Signed in |
 | `/assets`                                     | Digital assets                            | Signed in |

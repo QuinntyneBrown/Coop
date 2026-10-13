@@ -82,8 +82,9 @@ Run the checks that match your change. For cross-stack changes, run all of
 them.
 
 ```powershell
-# Backend build
+# Backend build and acceptance tests
 dotnet build .\backend\Coop.sln
+dotnet test .\backend\Coop.sln
 
 # Frontend build and unit tests
 cd frontend

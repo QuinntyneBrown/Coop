@@ -82,8 +82,9 @@ these locations and move existing files here as areas are touched:
 - `tools/` — video tooling (`video-audio/`, `video-build/`)
 
 All areas have moved to this layout. The `api` and `components` libraries in
-`frontend/projects/` are still scaffolds, and `backend/tests/` and `Coop.Cli` do
-not exist yet. Update this note and `README.md` when that changes.
+`frontend/projects/` are still scaffolds, `backend/tests/` holds only
+`Coop.Api.Tests`, and `Coop.Cli` does not exist yet. Update this note and
+`README.md` when that changes.
 
 See `README.md` for setup and development commands.
 
