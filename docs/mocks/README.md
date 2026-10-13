@@ -25,7 +25,9 @@ are inert text. The complete fixture and state inventory is in
 
 The user selected **current UI only**. The implementation takes precedence over
 the HTML-mocks skill's suggested future capabilities and generic state matrix.
-Both apps are covered: 10 public routes and 17 admin route presentations.
+Both apps are covered: 10 public routes and 17 admin route presentations. The
+public landing page is the exception described under *Proposal* below: it is a
+hand-written redesign, and `scripts/capture.py` no longer captures it.
 Admin `/profile` and `/profiles` render the same component in different shells;
 both are captured. Admin `/messaging` redirects to `/messages`. Both wildcard
 routes redirect to the landing page and do not implement a 404 screen.
@@ -108,11 +110,12 @@ completeness. No ATDD or tests for these design artifacts are introduced.
 
 ## Proposal: the public site reimagined for OWN
 
-`pages/public-home-proposal/` is the one exception to "current UI only". It is a
-hand-written proposal, not a capture, made to show Older Women's Network Housing
+`pages/public-landing/` is the one exception to "current UI only". The earlier
+capture of the implemented landing page was replaced by this hand-written
+proposal, made to show Older Women's Network Housing
 Co-operative Inc. (OWN) what their CMS-driven public home page could be. Open
-[default.html](pages/public-home-proposal/default.html) or the phone navigation
-state [menu.html](pages/public-home-proposal/menu.html). Use `?theme=dark` for
+[default.html](pages/public-landing/default.html) or the phone navigation
+state [menu.html](pages/public-landing/menu.html). Use `?theme=dark` for
 the dark appearance and `?chrome=0` to hide the review chrome, including the
 purple "Edited in admin" tags that show which CMS block owns each section.
 
@@ -198,8 +201,7 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 
 | Screen | default | loading | empty | error | menu | invalid | submitting | mismatch | partial | notices | bylaws | reports | no-results | new | started | done | chat | chat-empty | read | profile | unit | unit-selected | success | edit | password | password-invalid | password-error | received | detail-new | detail-received | detail-started | detail-completed | comments | comments-empty | board-edit | page-2 | no-privileges | member | content | account | Requirements |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Public · Landing (`public-landing`) | [✅](pages/public-landing/default.html) | ➖ | [✅](pages/public-landing/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-053`, `L2-REQ-068`, `L2-REQ-070` |
-| Public · Home (reimagined for OWN) (`public-home-proposal`) | [✅](pages/public-home-proposal/default.html) | ➖ | ➖ | ➖ | [✅](pages/public-home-proposal/menu.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-053`, `L2-REQ-068`, `L2-REQ-070`, `L2-REQ-072` |
+| Public · Landing (`public-landing`) | [✅](pages/public-landing/default.html) | ➖ | ➖ | ➖ | [✅](pages/public-landing/menu.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-053`, `L2-REQ-068`, `L2-REQ-070`, `L2-REQ-072` |
 | Public · Login (`public-login`) | [✅](pages/public-login/default.html) | ➖ | ➖ | [✅](pages/public-login/error.html) |  | [✅](pages/public-login/invalid.html) | [✅](pages/public-login/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-007`, `L2-REQ-076` |
 | Public · Register (`public-register`) | [✅](pages/public-register/default.html) | ➖ | ➖ | [✅](pages/public-register/error.html) |  | [✅](pages/public-register/invalid.html) | [✅](pages/public-register/submitting.html) | [✅](pages/public-register/mismatch.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-044`, `L2-REQ-077` |
 | Public · Forgot Password (`public-forgot-password`) | [✅](pages/public-forgot-password/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001` |

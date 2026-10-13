@@ -51,3 +51,12 @@ The earlier capture used paths one level too deep, a mis-encoded separator and a
 wrong metadata key. These were fixed in `scripts/capture.py` and
 `scripts/export-dom.js`, then every file was regenerated. The manifest now
 carries a specific reason for each `not_applicable` state.
+
+## Landing page replaced
+
+On 13 October 2026 the captured `public-landing` mocks (default, empty) were
+replaced by the hand-written OWN proposal (default, menu) described in the
+README. Its stylesheet `assets/styles/a7b0d893cb707d60.css` was used only by
+the capture and was removed. The capture script skips the public landing so a
+recapture does not overwrite the proposal. Counts are unchanged: 50 screens,
+154 state files.

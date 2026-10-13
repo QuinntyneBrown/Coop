@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Public · Home (reimagined for OWN) · default</title>
+<title>Public · Landing · menu</title>
 <meta name="mock:kind" content="page">
-<meta name="mock:screen" content="public-home-proposal">
-<meta name="mock:state" content="default">
+<meta name="mock:screen" content="public-landing">
+<meta name="mock:state" content="menu">
 <meta name="mock:requirements" content="L2-REQ-053 L2-REQ-068 L2-REQ-070 L2-REQ-072">
-<meta name="description" content="Proposal: the CMS-driven public home page reimagined for Older Women's Network Housing Co-operative, photo-forward and plain-spoken, with every block editable in admin.">
+<meta name="description" content="Phone navigation open: the same page with the full-width menu panel expanded under the header. Proposal: the CMS-driven public home page reimagined for Older Women's Network Housing Co-operative, photo-forward and plain-spoken, with every block editable in admin.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/fonts.css">
 <link rel="stylesheet" href="../../assets/own-site.css">
@@ -36,13 +36,13 @@
     </nav>
     <div class="own-header__actions">
       <a class="own-btn own-btn--secondary own-header__signin" href="../public-login/default.html">Member sign in</a>
-      <button class="own-menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-mock-href="menu.html">
-        <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Menu
+      <button class="own-menu-btn" type="button" aria-expanded="true" aria-controls="menu" data-mock-href="default.html">
+        <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        Close
       </button>
     </div>
   </div>
-  <div class="own-menu" id="menu" hidden>
+  <div class="own-menu" id="menu">
     <div class="own-container">
       <ul class="own-menu__list">
         <li><a class="own-menu__link" href="default.html" aria-current="page">Home</a></li>
@@ -282,7 +282,7 @@
   </div>
 </footer>
 
-<aside class="mock-bar"><details><summary>Public · Home (reimagined for OWN) · default — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html" aria-current="page">default</a> <a href="menu.html">menu</a> <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button></nav><p class="mock-note">Proposal, not a capture of the implemented app. Purple tags show which block the Co-op edits in the admin CMS; hide them with <code>?chrome=0</code>. People, events and contact details are fictional. Illustrations stand in for the Co-op's own photographs.</p></details></aside>
+<aside class="mock-bar"><details><summary>Public · Landing · menu — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html">default</a> <a href="menu.html" aria-current="page">menu</a> <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button></nav><p class="mock-note">Phone navigation open (view at 360 px; the panel hides at 1024 px and wider where the links sit in the header). Escape or Close returns to the page and focus goes back to the Menu button. Proposal, not a capture of the implemented app. Purple tags show which block the Co-op edits in the admin CMS; hide them with <code>?chrome=0</code>. People, events and contact details are fictional. Illustrations stand in for the Co-op's own photographs.</p></details></aside>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{const set=t=>{document.documentElement.dataset.theme=t;const b=document.querySelector('[data-theme-toggle]');if(b){b.setAttribute('aria-pressed',String(t==='dark'));b.textContent=t==='dark'?'☀ Light':'☾ Dark';}};if(new URLSearchParams(location.search).get('theme')==='dark')set('dark');document.querySelector('[data-theme-toggle]')?.addEventListener('click',()=>set(document.documentElement.dataset.theme==='dark'?'light':'dark'));});
 </script>
