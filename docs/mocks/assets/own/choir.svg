@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#EFE3EC"/>
+  <circle cx="400" cy="380" r="300" fill="#F6ECDD"/>
+  <!-- music notes -->
+  <g fill="#6B3F60">
+    <circle cx="150" cy="160" r="16"/><rect x="162" y="90" width="8" height="74" rx="4"/><path d="M170 90 q30 8 30 36" stroke="#6B3F60" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <circle cx="640" cy="120" r="16"/><rect x="652" y="50" width="8" height="74" rx="4"/><path d="M660 50 q30 8 30 36" stroke="#6B3F60" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <circle cx="690" cy="300" r="12"/><rect x="699" y="250" width="7" height="54" rx="3"/>
+    <circle cx="90" cy="330" r="12"/><rect x="99" y="280" width="7" height="54" rx="3"/>
+  </g>
+  <!-- back row -->
+  <g>
+    <rect x="130" y="440" width="130" height="200" rx="44" fill="#3F6B4F"/>
+    <circle cx="195" cy="385" r="56" fill="#F2C9A7"/><path d="M139 380 a56 56 0 0 1 112 0 v-8 a56 56 0 0 0 -112 0z" fill="#E6E2DC"/>
+    <ellipse cx="195" cy="408" rx="12" ry="16" fill="#5A2E1C"/>
+    <rect x="335" y="420" width="130" height="200" rx="44" fill="#B4502A"/>
+    <circle cx="400" cy="365" r="56" fill="#8D5A3C"/><path d="M344 362 a56 56 0 0 1 112 0 l4 26 q-60 -22 -120 0z" fill="#3B2316"/>
+    <ellipse cx="400" cy="390" rx="12" ry="16" fill="#3B2316"/>
+    <rect x="540" y="440" width="130" height="200" rx="44" fill="#E0A440"/>
+    <circle cx="605" cy="385" r="56" fill="#C68B59"/><path d="M549 380 a56 56 0 0 1 112 0 v-6 a56 56 0 0 0 -112 0z" fill="#BDB6AE"/>
+    <ellipse cx="605" cy="408" rx="12" ry="16" fill="#5A2E1C"/>
+  </g>
+  <!-- front row -->
+  <g>
+    <rect x="230" y="620" width="150" height="230" rx="50" fill="#6B3F60"/>
+    <circle cx="305" cy="560" r="62" fill="#C68B59"/><path d="M243 556 a62 62 0 0 1 124 0 v-10 a62 62 0 0 0 -124 0z" fill="#E6E2DC"/>
+    <ellipse cx="305" cy="588" rx="13" ry="17" fill="#3B2316"/>
+    <rect x="420" y="620" width="150" height="230" rx="50" fill="#D3A9C8"/>
+    <circle cx="495" cy="560" r="62" fill="#F2C9A7"/><path d="M433 552 a62 62 0 0 1 124 0 l6 30 q-68 -24 -136 0z" fill="#BDB6AE"/>
+    <ellipse cx="495" cy="588" rx="13" ry="17" fill="#5A2E1C"/>
+  </g>
+  <!-- song sheets -->
+  <g fill="#FFF7EC" stroke="#D9CFC2" stroke-width="3">
+    <rect x="268" y="700" width="74" height="90" rx="6" transform="rotate(-6 305 745)"/>
+    <rect x="458" y="700" width="74" height="90" rx="6" transform="rotate(6 495 745)"/>
+  </g>
+  <rect x="0" y="850" width="800" height="150" fill="#D9C4A6"/>
+</svg>

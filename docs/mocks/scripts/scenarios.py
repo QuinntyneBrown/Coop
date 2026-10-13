@@ -46,8 +46,9 @@ def notice(app,name,parent,req,patch,variant='success',note=''):
     return s
 
 for app in ['public','admin']:
-    s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=BOARD,notices=DOCS[:1],currentYear=2026))
-    state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='Empty CMS collections. No loading or error screen is implemented.')
+    if app=='admin':  # the public landing is the hand-written OWN proposal in pages/public-landing; it is not captured
+        s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=BOARD,notices=DOCS[:1],currentYear=2026))
+        state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='Empty CMS collections. No loading or error screen is implemented.')
     s=add(app,'login',[7,76]); state(s); state(s,'invalid',dict(submitted=True))
     state(s,'submitting',dict(loading=True,username='mira.fern',password='FictionalPass123!'),forms={'loginForm':dict(username='mira.fern',password='FictionalPass123!')} if app=='admin' else {})
     state(s,'error',dict(loginError='Invalid username or password',username='mira.fern'),forms={'loginForm':dict(username='mira.fern')} if app=='admin' else {})
@@ -173,8 +174,34 @@ def na_reason(s,n):
         if n in ('warning','danger'): return 'The source implements only its '+' and '.join(x['name'] for x in s['cases'])+' feedback; there is no '+n+' notification.'
         return 'The source implements no '+n+' notification for this screen.'
     return 'No distinct presentation of the '+n+' state exists in '+s['source']+'.'
+# Hand-written screens that live beside the captures. They are listed first so manifest.json keeps them across recaptures.
+PROPOSALS=[{
+        "id": "public-landing",
+        "kind": "page",
+        "title": "Public · Landing",
+        "app": "public",
+        "route": "/",
+        "source": "Hand-written proposal (not captured); replaces the earlier capture of frontend/projects/public/src/app/pages/landing/landing.component.ts",
+        "requirements": [
+            "L2-REQ-053",
+            "L2-REQ-068",
+            "L2-REQ-070",
+            "L2-REQ-072"
+        ],
+        "note": "Public landing page reimagined for Older Women's Network Housing Co-operative Inc.: the CMS-driven home page reimagined with a PAL Toronto-style structure (hero, at a glance, who we are, gallery, building and community, what's on, board, quote, visit, footer). Hand-written HTML on its own stylesheet (assets/own-site.css) with light and dark themes; not a capture of the implemented app.",
+        "states": [
+            "default",
+            "menu"
+        ],
+        "not_applicable": {
+            "loading": "Marketing page rendered from published CMS content; no in-page loading presentation is proposed.",
+            "empty": "A published home page always has a hero and footer; blocks without content are simply omitted by the CMS.",
+            "error": "Failed content fetches fall back to the last published page; no error presentation is proposed."
+        }
+    }]
+
 def manifest():
-    result=[]
+    result=list(PROPOSALS)
     for s in screens:
         names=[x['name'] for x in s['cases']]
         result.append({k:v for k,v in dict(s,states=names,not_applicable={n:na_reason(s,n) for n in DEFAULTS[s['kind']] if n not in names}).items() if k not in ['base','cases','selector']})
