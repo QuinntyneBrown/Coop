@@ -12,6 +12,7 @@ export class SidebarComponent {
   readonly dashboardLink: Locator;
   readonly maintenanceLink: Locator;
   readonly documentsLink: Locator;
+  readonly pagesLink: Locator;
   readonly messagesLink: Locator;
   readonly usersLink: Locator;
   readonly rolesLink: Locator;
@@ -36,6 +37,7 @@ export class SidebarComponent {
     this.dashboardLink = page.getByTestId('sidebar-nav-dashboard');
     this.maintenanceLink = page.getByTestId('sidebar-nav-maintenance');
     this.documentsLink = page.getByTestId('sidebar-nav-documents');
+    this.pagesLink = page.getByTestId('sidebar-nav-pages');
     this.messagesLink = page.getByTestId('sidebar-nav-messages');
     this.usersLink = page.getByTestId('sidebar-nav-users');
     this.rolesLink = page.getByTestId('sidebar-nav-roles');
@@ -66,6 +68,7 @@ export class SidebarComponent {
       | 'dashboard'
       | 'maintenance'
       | 'documents'
+      | 'pages'
       | 'messages'
       | 'users'
       | 'roles'
@@ -78,6 +81,7 @@ export class SidebarComponent {
       dashboard: this.dashboardLink,
       maintenance: this.maintenanceLink,
       documents: this.documentsLink,
+      pages: this.pagesLink,
       messages: this.messagesLink,
       users: this.usersLink,
       roles: this.rolesLink,

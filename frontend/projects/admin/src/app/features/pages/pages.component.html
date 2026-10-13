@@ -1,0 +1,263 @@
+<div class="pages-page">
+  <div class="pages-header">
+    <div>
+      <h1 data-testid="pages-title">Pages</h1>
+      <p>
+        Pages visitors reach from the website menu. Add a page, write it in plain words, and it is
+        live straight away.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openEditor(null, $event)"
+      data-testid="pages-new-button"
+    >
+      <span class="material-icons" aria-hidden="true">add</span> New page
+    </button>
+  </div>
+
+  @if (notice()) {
+    <div class="pages-alert pages-alert--success" role="status" aria-live="polite">
+      <span class="material-icons" aria-hidden="true">check_circle</span>
+      <span data-testid="pages-notice">{{ notice() }}</span>
+    </div>
+  }
+
+  @switch (status()) {
+    @case ('loading') {
+      <div class="pages-loading" role="status" aria-live="polite" data-testid="pages-loading">
+        <span class="pages-spinner" aria-hidden="true"></span>Loading pages…
+      </div>
+    }
+    @case ('error') {
+      <div class="pages-alert pages-alert--danger" role="alert" data-testid="pages-error">
+        <span class="material-icons" aria-hidden="true">error_outline</span>
+        <span>We couldn't load the pages. Check your connection and try again.</span>
+        <button type="button" class="btn btn-secondary" (click)="load()" data-testid="pages-retry">
+          Try again
+        </button>
+      </div>
+    }
+    @case ('ready') {
+      @if (pages().length > 0) {
+        <ul class="pages-list" aria-label="Website pages" data-testid="pages-list">
+          @for (page of pages(); track page.pageId) {
+            <li class="page-card" data-testid="page-card">
+              <h2 data-testid="page-card-title">{{ page.title }}</h2>
+              <div class="page-card__meta">
+                <span class="page-card__address" data-testid="page-card-address"
+                  >/pages/{{ page.slug }}</span
+                >
+                <span>{{ page.heroImageUrl ? 'With a hero photo' : 'No hero photo' }}</span>
+              </div>
+              <div class="page-card__actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [attr.aria-label]="'Edit ' + page.title"
+                  (click)="openEditor(page, $event)"
+                  data-testid="page-card-edit"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger-outline"
+                  [attr.aria-label]="'Remove ' + page.title"
+                  (click)="confirmRemove(page, $event)"
+                  data-testid="page-card-remove"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="pages-empty" data-testid="pages-empty">
+          <span class="material-icons" aria-hidden="true">web</span>
+          <h2>No pages yet</h2>
+          <p>
+            The website menu shows the home page sections only. Add a page such as "About us" or
+            "How to apply" and visitors will see it in the menu.
+          </p>
+          <button type="button" class="btn btn-primary" (click)="openEditor(null, $event)">
+            <span class="material-icons" aria-hidden="true">add</span> New page
+          </button>
+        </div>
+      }
+    }
+  }
+
+  <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
+</div>
+
+<dialog
+  #editorDialog
+  class="page-dialog"
+  aria-labelledby="editor-title"
+  aria-describedby="editor-intro"
+  (close)="onEditorClosed()"
+  data-testid="page-editor"
+>
+  <form (submit)="save($event)" novalidate>
+    <div class="page-dialog__header">
+      <h2 id="editor-title" data-testid="page-editor-heading">
+        {{ editing() ? 'Edit page' : 'New page' }}
+      </h2>
+      <p id="editor-intro">
+        {{
+          editing()
+            ? 'Changes show on the website as soon as you save.'
+            : 'The page appears in the website menu as soon as you save.'
+        }}
+      </p>
+    </div>
+    <div class="page-dialog__body">
+      @if (errors().title || errors().body) {
+        <div class="page-dialog__errors" role="alert" data-testid="page-editor-errors">
+          <strong>Something needs attention before the page can be saved.</strong>
+          <ul>
+            @if (errors().title) {
+              <li>
+                <a href="#page-title-field">{{ errors().title }}</a>
+              </li>
+            }
+            @if (errors().body) {
+              <li>
+                <a href="#page-body-field">{{ errors().body }}</a>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+      @if (saveFailed()) {
+        <div class="page-dialog__errors" role="alert" data-testid="page-editor-failed">
+          We couldn't save the page. Try again.
+        </div>
+      }
+      <div class="form-group">
+        <label for="page-title-field">Page title</label>
+        <input
+          id="page-title-field"
+          name="title"
+          type="text"
+          autofocus
+          [(ngModel)]="draft.title"
+          [attr.aria-invalid]="errors().title ? 'true' : null"
+          [attr.aria-describedby]="errors().title ? 'page-title-error' : null"
+          data-testid="page-title-input"
+        />
+        @if (errors().title) {
+          <span class="field-error" id="page-title-error"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="page-title-error">{{ errors().title }}</span></span
+          >
+        }
+      </div>
+      <div class="form-group">
+        <label for="page-hero-field">Hero photo address (optional)</label>
+        <input
+          id="page-hero-field"
+          name="heroImageUrl"
+          type="url"
+          [(ngModel)]="draft.heroImageUrl"
+          aria-describedby="page-hero-help"
+          data-testid="page-hero-input"
+        />
+        <span class="field-help" id="page-hero-help"
+          >Paste the address of a photo from the Assets library. It shows under the title.</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="page-body-field">Page text</label>
+        <textarea
+          id="page-body-field"
+          name="body"
+          rows="8"
+          [(ngModel)]="draft.body"
+          [attr.aria-invalid]="errors().body ? 'true' : null"
+          [attr.aria-describedby]="
+            errors().body ? 'page-body-help page-body-error' : 'page-body-help'
+          "
+          data-testid="page-body-input"
+        ></textarea>
+        <span class="field-help" id="page-body-help"
+          >Plain words work. For headings and lists use simple HTML: <code>&lt;h2&gt;</code>,
+          <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>,
+          <code>&lt;strong&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>.</span
+        >
+        @if (errors().body) {
+          <span class="field-error" id="page-body-error"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="page-body-error">{{ errors().body }}</span></span
+          >
+        }
+      </div>
+    </div>
+    <div class="page-dialog__footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [disabled]="saving()"
+        (click)="closeEditor()"
+        data-testid="page-editor-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="saving()"
+        [attr.aria-busy]="saving() ? 'true' : null"
+        data-testid="page-editor-save"
+      >
+        {{ saving() ? 'Saving…' : 'Save page' }}
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<dialog
+  #removeDialog
+  class="page-dialog"
+  aria-labelledby="remove-title"
+  aria-describedby="remove-intro"
+  (close)="onRemoveClosed()"
+  data-testid="page-remove-dialog"
+>
+  <div class="page-dialog__inner">
+    <div class="page-dialog__header">
+      <h2 id="remove-title" data-testid="page-remove-heading">Remove “{{ removing()?.title }}”?</h2>
+      <p id="remove-intro">It leaves the website menu straight away. You can add it again later.</p>
+    </div>
+    @if (removeFailed()) {
+      <div class="page-dialog__body">
+        <div class="page-dialog__errors" role="alert">We couldn't remove the page. Try again.</div>
+      </div>
+    }
+    <div class="page-dialog__footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        autofocus
+        [disabled]="removeBusy()"
+        (click)="closeRemove()"
+        data-testid="page-remove-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        [disabled]="removeBusy()"
+        [attr.aria-busy]="removeBusy() ? 'true' : null"
+        (click)="remove()"
+        data-testid="page-remove-confirm"
+      >
+        {{ removeBusy() ? 'Removing…' : 'Remove page' }}
+      </button>
+    </div>
+  </div>
+</dialog>
