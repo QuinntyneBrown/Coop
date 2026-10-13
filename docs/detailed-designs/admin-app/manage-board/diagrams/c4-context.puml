@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage the Board of Directors
+
+Person(admin, "Office administrator", "Adds, edits, reorders and removes directors")
+Person(visitor, "Visitor", "Reads the board list on the home page")
+System(coop, "Coop", "Cooperative management platform: admin app, public site and API")
+
+Rel(admin, coop, "Keeps the board list in the admin app", "HTTPS")
+Rel(visitor, coop, "Sees “Meet the board” on the home page", "HTTPS")
+@enduml

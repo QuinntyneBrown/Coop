@@ -1,0 +1,111 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage the Board of Directors
+
+package "Coop.Domain.CMS" {
+  class JsonContent {
+    +Guid JsonContentId
+    +string Name
+    +string Json
+    +bool IsDeleted
+  }
+}
+
+package "Coop.Application.CMS" {
+  class DirectorDto {
+    +string Name
+    +string Title
+    +string? PhotoUrl
+  }
+  class BoardOfDirectorsContent <<static>> {
+    {static} +Name: string = "BoardOfDirectors"
+    {static} +Read(json: string?): List<DirectorDto>
+    {static} +Write(directors: IEnumerable<DirectorDto>): string
+  }
+  class GetBoardOfDirectorsRequest
+  class GetBoardOfDirectorsHandler {
+    +Handle(request, ct): GetBoardOfDirectorsResponse
+  }
+  class GetBoardOfDirectorsResponse {
+    +List<DirectorDto> Directors
+  }
+  class SaveBoardOfDirectorsRequest <<Write JsonContent>> {
+    +List<DirectorDto> Directors
+  }
+  class SaveBoardOfDirectorsValidator
+  class SaveBoardOfDirectorsHandler {
+    +Handle(request, ct): SaveBoardOfDirectorsResponse
+  }
+  class SaveBoardOfDirectorsResponse {
+    +List<DirectorDto> Directors
+  }
+}
+
+package "Coop.Api.Controllers.CMS" {
+  class BoardOfDirectorsController {
+    +Get(): GetBoardOfDirectorsResponse
+    +Save(request: SaveBoardOfDirectorsRequest): SaveBoardOfDirectorsResponse
+  }
+}
+
+package "admin app: features/board" {
+  class BoardComponent {
+    +directors: Signal<Director[]>
+    +status: Signal<'loading' | 'ready' | 'error'>
+    +notice: Signal<string>
+    +listError: Signal<string>
+    +editingIndex: Signal<number | null>
+    +draft: DirectorDraft
+    +errors: Signal<DirectorFormErrors>
+    +load(): void
+    +openEditor(index: number | null, event): void
+    +save(event): void
+    +move(index: number, offset: -1 | 1): void
+    +confirmRemove(index: number, event): void
+    +remove(): void
+  }
+  class BoardService {
+    +getAll(): Observable<Director[]>
+    +save(directors: Director[]): Observable<Director[]>
+  }
+  interface Director {
+    name: string
+    title: string
+    photoUrl: string | null
+  }
+  interface DirectorDraft {
+    name: string
+    title: string
+    photoUrl: string
+  }
+  interface DirectorFormErrors {
+    name?: string
+    title?: string
+  }
+}
+
+BoardOfDirectorsController ..> GetBoardOfDirectorsRequest : sends
+BoardOfDirectorsController ..> SaveBoardOfDirectorsRequest : sends
+GetBoardOfDirectorsHandler ..> GetBoardOfDirectorsResponse
+SaveBoardOfDirectorsHandler ..> SaveBoardOfDirectorsResponse
+SaveBoardOfDirectorsValidator ..> SaveBoardOfDirectorsRequest : validates
+GetBoardOfDirectorsHandler ..> BoardOfDirectorsContent : Read
+SaveBoardOfDirectorsHandler ..> BoardOfDirectorsContent : Write
+BoardOfDirectorsContent ..> JsonContent : Json of the BoardOfDirectors entry
+GetBoardOfDirectorsResponse o-- DirectorDto
+SaveBoardOfDirectorsRequest o-- DirectorDto
+BoardComponent --> BoardService
+BoardComponent ..> DirectorDraft
+BoardComponent ..> DirectorFormErrors
+BoardService ..> Director
+BoardService ..> BoardOfDirectorsController : HTTP
+@enduml

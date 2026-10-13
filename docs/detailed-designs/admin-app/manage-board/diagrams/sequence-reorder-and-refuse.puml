@@ -1,0 +1,41 @@
+@startuml
+title UML sequence behaviour — Move a director, and refuse a member
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as actor
+actor "Member" as member
+box "Frontend — Admin application" #E0F2FE
+  participant "BoardComponent" as screen
+  participant "BoardService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "BoardOfDirectorsController" as controller
+  participant "AuthorizationBehavior" as authz
+  participant "SaveBoardOfDirectorsHandler" as handler
+  participant "ExceptionHandlingMiddleware" as middleware
+  database "CoopDbContext" as db
+end box
+actor -> screen : "Move up" on a director
+screen -> screen : moveDirector(list, index, -1)
+screen -> service : save(reordered list)
+service -> controller : PUT api/board-of-directors { directors }
+controller -> authz : Send(SaveBoardOfDirectorsRequest)
+authz -> handler : caller holds Write on JsonContent
+handler -> db : replace the BoardOfDirectors Json, SaveChanges
+alt saved
+  controller --> service : 200 { directors }
+  screen --> actor : New order, notice "“{name}” moved to position {n}.", focus stays on the director  [L2-REQ-085 AC9]
+else the API fails
+  controller --> service : error
+  screen --> actor : Alert "We couldn't save the board list. Try again.", list reloaded in the saved order
+end
+== A member calls the same endpoint ==
+member -> controller : PUT api/board-of-directors (member bearer token)
+controller -> authz : Send(SaveBoardOfDirectorsRequest)
+authz -> authz : Privilege claims hold only Read:JsonContent
+authz --> middleware : UnauthorizedAccessException
+middleware --> member : 403 { message }; list unchanged  [L2-REQ-086 AC3]
+@enduml

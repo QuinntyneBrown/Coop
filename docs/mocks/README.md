@@ -138,6 +138,16 @@ is trapped, Escape closes and the page behind is inert; the editor shows
 inline errors with a summary, a busy save, and a failed save that keeps the
 entered values.
 
+**Board of Directors.** The office keeps the "Meet the board" list from the
+admin "Board" screen (`L2-REQ-085`): `pages/admin-board/` (default, loading,
+empty, error), `dialogs/admin-director-editor/` (default, invalid, busy,
+failed, edit), `dialogs/admin-director-remove/` and
+`notifications/admin-board-saved/` are hand-written on the same captured admin
+shell with `assets/admin-board.css`. Each director shows the portrait or
+initials, name and role with Move up, Move down, Edit and Remove, in the order
+the home page shows them, and every captured admin sidebar carries the "Board"
+link. The sample directors are the fictional board of the landing proposal.
+
 **Structure.** The page order follows the warm, photo-led shape of PAL Toronto's
 About page as inspiration only (no text, images, branding or name is copied):
 header with CMS navigation and Member sign in; hero; three "at a glance"
@@ -251,6 +261,7 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 | Admin · Change Password (`admin-change-password`) | [✅](pages/admin-change-password/default.html) | ➖ | ➖ | [✅](pages/admin-change-password/error.html) |  | [✅](pages/admin-change-password/invalid.html) | [✅](pages/admin-change-password/submitting.html) | [✅](pages/admin-change-password/mismatch.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-004` |
 | Public · Page (`public-page`) | [✅](pages/public-page/default.html) | [✅](pages/public-page/loading.html) | ➖ | [✅](pages/public-page/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/public-page/not-found.html) | `L2-REQ-072`, `L2-REQ-073`, `L2-REQ-082`, `L2-REQ-083`, `L2-REQ-084` |
 | Admin · Pages (`admin-pages`) | [✅](pages/admin-pages/default.html) | [✅](pages/admin-pages/loading.html) | [✅](pages/admin-pages/empty.html) | [✅](pages/admin-pages/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-080` |
+| Admin · Board (`admin-board`) | [✅](pages/admin-board/default.html) | [✅](pages/admin-board/loading.html) | [✅](pages/admin-board/empty.html) | [✅](pages/admin-board/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-085` |
 
 ### Dialogs
 
@@ -275,6 +286,8 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 | Admin · Document Delete (`admin-document-delete`) | [✅](dialogs/admin-document-delete/default.html) | ➖ | ➖ |  |  |  | `L2-REQ-034` |
 | Admin · Page Editor (`admin-page-editor`) | [✅](dialogs/admin-page-editor/default.html) | [✅](dialogs/admin-page-editor/busy.html) | [✅](dialogs/admin-page-editor/invalid.html) |  | [✅](dialogs/admin-page-editor/failed.html) | [✅](dialogs/admin-page-editor/edit.html) | `L2-REQ-080` |
 | Admin · Page Remove (`admin-page-remove`) | [✅](dialogs/admin-page-remove/default.html) | [✅](dialogs/admin-page-remove/busy.html) | ➖ |  |  |  | `L2-REQ-080` |
+| Admin · Director Editor (`admin-director-editor`) | [✅](dialogs/admin-director-editor/default.html) | [✅](dialogs/admin-director-editor/busy.html) | [✅](dialogs/admin-director-editor/invalid.html) |  | [✅](dialogs/admin-director-editor/failed.html) | [✅](dialogs/admin-director-editor/edit.html) | `L2-REQ-085` |
+| Admin · Director Remove (`admin-director-remove`) | [✅](dialogs/admin-director-remove/default.html) | [✅](dialogs/admin-director-remove/busy.html) | ➖ |  |  |  | `L2-REQ-085` |
 
 ### Notifications
 
@@ -287,5 +300,6 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 | Admin · Password Saved (`admin-password-saved`) | ➖ | [✅](notifications/admin-password-saved/success.html) | ➖ | ➖ | `L2-REQ-004` |
 | Admin · Dashboard Unread (`admin-dashboard-unread`) | [✅](notifications/admin-dashboard-unread/info.html) | ➖ | ➖ | ➖ | `L2-REQ-038` |
 | Admin · Page Saved (`admin-page-saved`) | ➖ | [✅](notifications/admin-page-saved/success.html) | ➖ | ➖ | `L2-REQ-080` |
+| Admin · Board Saved (`admin-board-saved`) | ➖ | [✅](notifications/admin-board-saved/success.html) | ➖ | ➖ | `L2-REQ-085` |
 
 <!-- coverage:end -->

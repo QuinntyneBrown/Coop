@@ -26,8 +26,9 @@ Terms used in this design:
   horizontal navigation below 1024 px
 
 Three blocks are CMS-driven today: the hero (`Hero` JSON content), the board
-list (`BoardOfDirectors` JSON content, falling back to the board member
-profiles) and the notices (published notices). The remaining blocks (at a
+list (`BoardOfDirectors` JSON content, which the office keeps from the admin
+Board screen in `../../admin-app/manage-board/`, falling back to the board
+member profiles) and the notices (published notices). The remaining blocks (at a
 glance, who we are, gallery, building and community rows, quote, visit band,
 navigation and footer) render default copy. Editing them in admin is planned
 work outside this design; the page keeps every block's copy in one place so
@@ -74,8 +75,8 @@ view models, so the rules stay out of the template:
 - `heroFrom(content, defaults)` overrides the default eyebrow, title and
   subtitle with the `Hero` JSON content when a value is present.
 - `boardMembersFrom(content)` reads `members` from the `BoardOfDirectors`
-  JSON content, accepting `name`, `title`, `role` and `avatarUrl` in either
-  casing, and derives two-letter initials for members without a photograph.
+  JSON content, accepting `name`, `title`, `role`, `avatarUrl` and `photoUrl` in
+  either casing, and derives two-letter initials for members without a photograph.
 - `boardMembersFromApi(response)` reads the `api/board-members` array or the
   `boardMembers` property of `api/boardmembers`.
 - `noticeViewFrom(notice)` maps a published notice (`name` or `title`,
