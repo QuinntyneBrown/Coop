@@ -17,6 +17,8 @@ backend/
     Coop.Application/            # MediatR handlers, validators, pipeline behaviors, DTOs, ICoopDbContext
     Coop.Infrastructure/         # CoopDbContext (EF Core + SQLite), identity services, notifications
     Coop.Api/                    # controllers, Program.cs, DI composition in Dependencies.cs
+  tests/
+    Coop.Api.Tests/              # acceptance tests through the API over an in-memory database
 ```
 
 Layer dependencies point inward and are strict: Api references all other
@@ -25,10 +27,15 @@ and Domain references only the shared kernel.
 
 Business modules are organized by folder in the Domain and Application layers:
 Identity, Roles and Privileges, Profiles, Maintenance, Documents, Messaging,
-Assets, CMS, Onboarding, and EventSourcing. Controllers translate HTTP to
-MediatR requests and responses; business rules live in handlers and domain
-services. Validation and resource authorization run as pipeline behaviors in
-`Coop.Application/Behaviors/`.
+Assets, CMS (JSON content, themes and website pages), Onboarding, and
+EventSourcing. Controllers translate HTTP to MediatR requests and responses;
+business rules live in handlers and domain services. Validation and resource
+authorization run as pipeline behaviors (`ValidationBehavior` in
+`Coop.Application/Behaviors/` and `ResourceOperationAuthorizationBehavior` in
+`Coop.Domain/Authorization/`); a request class opts into authorization with
+`[AuthorizeResourceOperation(accessRight, aggregate)]`, and
+`ExceptionHandlingMiddleware` in `Coop.Api/Middleware/` turns validation
+failures into 400 and refused operations into 403.
 
 ## Local quickstart
 
@@ -66,7 +73,9 @@ environment variables or a secret store for any shared or deployed environment.
 On startup the API ensures the database exists and seeds it when it is empty.
 Seed data is clearly fictional: the five roles (Member, Staff, BoardMember,
 SystemAdministrator, Support) with their privileges, three sample board members,
-and two development accounts that the Playwright suites sign in with.
+and two development accounts that the Playwright suites sign in with. Seeding
+is safe to re-run: when a new aggregate such as `Page` is added, the next start
+grants it to the existing roles at each role's level.
 
 | Username | Password | Role |
 | --- | --- | --- |
@@ -82,20 +91,26 @@ The code does not yet match every rule in [AGENTS.md](../AGENTS.md):
 - The API creates the database and seeds it on startup instead of applying
   migrations through an explicit command, and there is no `Coop.Cli` project for
   `migrate`, `seed`, and `reset`.
-- There are no backend test projects under `backend/tests/`. Behavior should be
-  tested through the API at the integration boundary when they are added.
+- Only `Coop.Api.Tests` exists under `backend/tests/`; it covers website pages
+  so far. Add coverage for other areas through the API, following its pattern.
 
-Close these gaps in a slice of their own, with an ADR for each decision.
+Close the remaining gaps in a slice of their own, with an ADR for each decision.
 
 ## Test the stack
 
 ```powershell
 dotnet build backend/Coop.sln
+dotnet test backend/Coop.sln
 ```
 
-End-to-end behavior is covered by the Playwright suite in `e2e/`, which mocks
-the API in-process and does not start or require this backend. Backend
+`backend/tests/Coop.Api.Tests` hosts the real API with
+`WebApplicationFactory<Program>` over the EF Core in-memory provider, one
+database per test class, seeded by the API's own startup seed; tests sign in
+with the seeded accounts and assert HTTP responses only (ADR 0003). Backend
 acceptance tests must not use a real database.
+
+End-to-end behavior is covered by the Playwright suite in `e2e/`, which mocks
+the API in-process and does not start or require this backend.
 
 ## API surface
 
@@ -115,6 +130,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/digitalasset` | Upload, avatars, and listing; `serve/{id}` and `by-name/{name}` are anonymous |
 | `/api/theme` | Themes, including the default theme and a theme per profile |
 | `/api/jsoncontent` | CMS content; `GET name/{name}` is anonymous |
+| `/api/pages` | Website pages for the public site; `GET` and `GET {slug}` are anonymous, `POST`, `PUT` and `DELETE {pageId}` require the Create, Write or Delete privilege on the `Page` aggregate |
 | `/api/events`, `/api/storedevent` | Event sourcing and audit history |
 | `PublicBffController` routes | Endpoints shaped for the public app: `user/register`, `user/profile`, `maintenance-requests`, `documents`, `conversations/{id}/messages`, `board-members`, `json-content` |
 

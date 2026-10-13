@@ -61,7 +61,9 @@ surface that serves both applications.
   published states; published documents are readable anonymously.
 - Messaging between members and staff.
 - Digital asset upload, avatars, and anonymous serving of public assets.
-- Theme and JSON content management that drives the public site.
+- Theme and JSON content management that drives the public site, and website
+  pages the office adds, edits and removes from the admin app that appear in
+  the public header navigation.
 - Invitation and onboarding flows for new members.
 - Event sourcing and audit trail for domain changes.
 - Static HTML references of the implemented screens under `docs/mocks/`,
@@ -121,6 +123,7 @@ provenance, and known differences from the requirements.
 | Area | Path | Notes |
 | --- | --- | --- |
 | Backend API | `backend/src/Coop.Api` | ASP.NET Core controllers, `Program.cs`, DI composition, Swagger, seed data |
+| Backend tests | `backend/tests/Coop.Api.Tests` | Acceptance tests through the API over an in-memory database |
 | Application layer | `backend/src/Coop.Application` | MediatR handlers, FluentValidation validators, pipeline behaviors, DTO contracts |
 | Domain layer | `backend/src/Coop.Domain` | Entities, enums, aggregates, and authorization rules with no infrastructure dependency |
 | Infrastructure | `backend/src/Coop.Infrastructure` | EF Core with SQLite, `CoopDbContext`, identity services, notifications |
@@ -179,6 +182,7 @@ Development conventions:
 | Suite | Command | Purpose |
 | --- | --- | --- |
 | Backend build | `dotnet build .\backend\Coop.sln` | Compile the API, application, domain, infrastructure, and shared kernel projects |
+| Backend tests | `dotnet test .\backend\Coop.sln` | Acceptance tests through the API with an in-memory database (`backend/tests/Coop.Api.Tests`) |
 | Frontend build | `npm run build` from `frontend` | Build the public and admin applications and the shared libraries |
 | Frontend unit tests | `npm test` from `frontend` | Angular Vitest tests |
 | Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against an in-process mock of the API |
@@ -188,10 +192,10 @@ Development conventions:
 The Playwright suite starts both Angular apps when they are not already
 running and runs in Chromium. It never needs the backend: every request to
 `http://localhost:5000/api` is answered by the in-process mock in
-`e2e/fixtures/mock-api/`, which seeds fictional data per test. There are no
-backend test projects yet; backend behavior should be tested through the API
-at the integration boundary when they are added, and those acceptance tests
-must not use a real database.
+`e2e/fixtures/mock-api/`, which seeds fictional data per test. Backend
+behavior is tested through the API at the integration boundary in
+`backend/tests/Coop.Api.Tests`, over an in-memory database rather than a
+real one.
 
 ## Documentation
 

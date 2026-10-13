@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Create a website page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as actor
+box "Frontend — Admin application" #E0F2FE
+  participant "PagesComponent" as screen
+  participant "validatePageDraft" as validate
+  participant "PageService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PagesController" as controller
+  participant "ValidationBehavior" as validation
+  participant "AuthorizationBehavior" as authz
+  participant "CreatePageHandler" as handler
+  database "CoopDbContext" as db
+end box
+actor -> screen : "New page", fill title, hero address, text, "Save page"
+screen -> validate : validatePageDraft(draft, pages)
+alt a field is missing or the title repeats a loaded page
+  validate --> screen : field errors  [L2-REQ-080 AC5, AC6]
+  screen --> actor : Dialog stays open, fields marked invalid
+else draft is valid
+  screen -> screen : saving = true ("Saving…")  [L2-REQ-080 AC7]
+  screen -> service : create(draft)
+  service -> controller : POST api/pages (bearer token)
+  controller -> validation : Send(CreatePageRequest)
+  validation -> authz : title, body, hero address valid  [L2-REQ-080 AC13]
+  authz -> handler : caller holds Create on Page  [L2-REQ-081 AC2]
+  handler -> handler : slug = Page.SlugFrom(title)
+  handler -> db : page with slug and not deleted?
+  alt slug already exists
+    db --> handler : existing page
+    handler --> controller : existing page unchanged  [L2-REQ-080 AC11, ADR 0002]
+  else new slug
+    handler -> db : Add(Page), SaveChanges
+    handler --> controller : new page
+  end
+  controller --> service : 200 { page }
+  service --> screen : WebsitePage
+  screen -> screen : close dialog, reload list, notice "“{title}” is now on the website."
+  screen --> actor : Page listed with its address /pages/{slug}
+end
+@enduml

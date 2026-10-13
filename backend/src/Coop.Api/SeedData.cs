@@ -97,6 +97,27 @@ public static class SeedData
             await context.SaveChangesAsync();
         }
 
+        // Grant the Page aggregate (added after the first seed) to roles that predate it, at each role's level.
+        var pageAccess = new Dictionary<string, AccessRight>
+        {
+            [Constants.Roles.Member] = AccessRight.Read,
+            [Constants.Roles.Staff] = AccessRight.Write,
+            [Constants.Roles.BoardMember] = AccessRight.Create,
+            [Constants.Roles.SystemAdministrator] = AccessRight.Delete,
+            [Constants.Roles.Support] = AccessRight.Write,
+        };
+        var rolesMissingPage = await context.Roles
+            .Include(r => r.Privileges)
+            .Where(r => r.Privileges.All(p => p.Aggregate != Constants.Aggregates.Page))
+            .ToListAsync();
+        foreach (var role in rolesMissingPage)
+        {
+            if (pageAccess.TryGetValue(role.Name, out var accessRight))
+                role.AddPrivilege(new Privilege { AccessRight = accessRight, Aggregate = Constants.Aggregates.Page });
+        }
+        if (rolesMissingPage.Count > 0)
+            await context.SaveChangesAsync();
+
         // Seed invitation tokens if none exist
         if (!await context.InvitationTokens.AnyAsync())
         {

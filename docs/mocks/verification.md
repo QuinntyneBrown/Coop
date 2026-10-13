@@ -60,3 +60,16 @@ README. Its stylesheet `assets/styles/a7b0d893cb707d60.css` was used only by
 the capture and was removed. The capture script skips the public landing so a
 recapture does not overwrite the proposal. Counts are unchanged: 50 screens,
 154 state files.
+
+## Website pages added
+
+On 13 October 2026 the page management screens were added as hand-written
+design references: `public-page` (4 states), `admin-pages` (4 states),
+`admin-page-editor` (5 states), `admin-page-remove` (2 states) and
+`admin-page-saved` (1 state), 16 files in all, plus the "How to apply" link
+in the landing navigation and the "Pages" link in every captured admin
+sidebar. `check_mocks.py docs/mocks --write` now reports 55 screens, 170
+mocks and the same four intentional dashboard `h1` errors. The new screens
+were screenshotted at 360 and 1280 px: the public page and its not-found
+state reflow to one column, the admin list stacks its cards and actions, and
+the dialogs become bottom sheets under 640 px.

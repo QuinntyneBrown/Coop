@@ -1,6 +1,6 @@
 // Acceptance Test
 // Traces to: L2-REQ-053, L2-REQ-066, L2-REQ-067, L2-REQ-068, L2-REQ-069, L2-REQ-070,
-// L2-REQ-071, L2-REQ-078, L2-REQ-079
+// L2-REQ-071, L2-REQ-078, L2-REQ-079, L2-REQ-082
 // Description: The public home page renders the OWN design: header with sign in,
 // CMS-driven hero with its actions and photograph, the body blocks, the board
 // list and published notices from the API, the contact footer, and the phone
@@ -30,6 +30,33 @@ test.describe('Home page', () => {
       await landing.goto();
       await landing.navigateToLogin();
       await expect(landing.page).toHaveURL(/\/login/);
+    });
+
+    test('lists the website pages after the home page sections', async ({ mockApi, page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
+      const seeded = mockApi.store.pages[0];
+      await landing.goto();
+      await expect(landing.nav.getByRole('link')).toHaveText([
+        'Home',
+        'About us',
+        'Living here',
+        "What's on",
+        'Contact',
+        seeded.title,
+      ]);
+      await expect(landing.navPageLinks).toHaveAttribute('href', `/pages/${seeded.slug}`);
+      await expect(landing.nav.getByRole('link', { name: 'Home' })).toHaveAttribute(
+        'aria-current',
+        'page',
+      );
+    });
+
+    test('shows only the home page sections when there are no pages', async ({ mockApi, page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
+      mockApi.store.pages = [];
+      await landing.goto();
+      await expect(landing.navPageLinks).toHaveCount(0);
+      await expect(landing.nav.getByRole('link')).toHaveCount(5);
     });
   });
 
@@ -172,6 +199,7 @@ test.describe('Home page', () => {
         "What's on",
         'Contact',
       ]);
+      await expect(landing.menuPageLinks).toHaveText(['How to apply']);
       await expect(landing.menuSignInLink).toBeVisible();
       await expect(landing.menu.getByRole('link', { name: 'Book a visit' })).toBeVisible();
     });

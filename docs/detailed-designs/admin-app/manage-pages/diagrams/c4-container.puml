@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage website pages
+
+Person(admin, "Office administrator", "Manages pages")
+Person(visitor, "Visitor", "Reads pages")
+System_Boundary(coop, "Coop") {
+  Container(adminApp, "Admin application", "Angular", "Pages screen at /pages with the editor and remove dialogs")
+  Container(publicApp, "Public application", "Angular", "Header navigation and /pages/{slug}")
+  Container(api, "Coop API", "ASP.NET Core", "api/pages: list, get by slug, create, update, remove")
+  ContainerDb(db, "Coop database", "SQLite", "Pages table")
+}
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(adminApp, api, "GET, POST, PUT, DELETE api/pages", "JSON/HTTPS, bearer token")
+Rel(publicApp, api, "GET api/pages, api/pages/{slug}", "JSON/HTTPS, anonymous")
+Rel(api, db, "Reads and writes", "EF Core")
+@enduml

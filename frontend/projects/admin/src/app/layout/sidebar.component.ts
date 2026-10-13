@@ -48,6 +48,16 @@ import { AuthService } from '../core/services/auth.service';
           <span>Documents</span>
         </a>
         <a
+          routerLink="/pages"
+          routerLinkActive="active"
+          class="nav-item"
+          data-testid="sidebar-nav-pages"
+          [attr.data-active]="isActive('/pages')"
+        >
+          <span class="material-icons">web</span>
+          <span>Pages</span>
+        </a>
+        <a
           routerLink="/messages"
           routerLinkActive="active"
           class="nav-item"

@@ -1124,6 +1124,112 @@
         "warning": "The source implements only its info feedback; there is no warning notification.",
         "danger": "The source implements only its info feedback; there is no danger notification."
       }
+    },
+    {
+      "id": "public-page",
+      "kind": "page",
+      "title": "Public \u00b7 Page",
+      "app": "public",
+      "route": "/pages/{slug}",
+      "source": "Hand-written design reference, implemented by frontend/projects/public/src/app/pages/content-page/content-page.component.ts",
+      "requirements": [
+        "L2-REQ-072",
+        "L2-REQ-073",
+        "L2-REQ-082",
+        "L2-REQ-083",
+        "L2-REQ-084"
+      ],
+      "note": "A website page the office added in the admin Pages screen, shown inside the shared header and footer. The header lists the page after the home page sections.",
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "not-found"
+      ],
+      "not_applicable": {
+        "empty": "A page always has a title and text (L2-REQ-080 AC5), so there is no empty presentation."
+      }
+    },
+    {
+      "id": "admin-pages",
+      "kind": "page",
+      "title": "Admin \u00b7 Pages",
+      "app": "admin",
+      "route": "/pages",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "requirements": [
+        "L2-REQ-080"
+      ],
+      "note": "Website pages the office manages: list, add, edit and remove.",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-page-editor",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Page Editor",
+      "app": "admin",
+      "route": "/pages",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "requirements": [
+        "L2-REQ-080"
+      ],
+      "note": "Native dialog for a new or existing page.",
+      "opens_from": "admin-pages",
+      "states": [
+        "default",
+        "invalid",
+        "busy",
+        "failed",
+        "edit"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-page-remove",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Page Remove",
+      "app": "admin",
+      "route": "/pages",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "requirements": [
+        "L2-REQ-080"
+      ],
+      "note": "Confirmation before a page is removed.",
+      "opens_from": "admin-pages",
+      "states": [
+        "default",
+        "busy"
+      ],
+      "not_applicable": {
+        "invalid": "A confirmation has no fields to validate."
+      }
+    },
+    {
+      "id": "admin-page-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Page Saved",
+      "app": "admin",
+      "route": "/pages",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "requirements": [
+        "L2-REQ-080"
+      ],
+      "note": "Status message after a page is saved or removed.",
+      "opens_from": "admin-pages",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The screen has no warning notification.",
+        "danger": "Failures show inside the editor dialog (failed state) or as the page error state."
+      }
     }
   ]
 }

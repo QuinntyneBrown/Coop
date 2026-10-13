@@ -1,4 +1,5 @@
 using Coop.Api;
+using Coop.Api.Middleware;
 using Coop.Domain.Identity;
 using Coop.Infrastructure.Persistence;
 using Serilog;
@@ -35,9 +36,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+// Exposes the entry point to the acceptance tests (WebApplicationFactory<Program>).
+public partial class Program { }

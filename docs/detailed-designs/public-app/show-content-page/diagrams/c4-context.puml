@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Show a website page
+
+Person(visitor, "Visitor", "Opens a page from the header navigation")
+Person(admin, "Office administrator", "Adds and removes the pages in the admin app")
+System(coop, "Coop", "Cooperative management platform: public site, admin app and API")
+
+Rel(visitor, coop, "Reads website pages", "HTTPS")
+Rel(admin, coop, "Publishes website pages", "HTTPS")
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Unknown or removed page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "SiteHeaderComponent" as header
+  participant "ContentPageComponent" as page
+  participant "PageService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "PagesController" as controller
+  participant "GetPageBySlugHandler" as handler
+  database "CoopDbContext" as db
+end box
+actor -> page : Open /pages/about (page removed by the office)
+page -> header : render
+header -> service : getAll()
+service --> header : pages without "about"  [L2-REQ-082 AC4]
+page -> service : getBySlug("about")
+service -> controller : GET api/pages/about
+controller -> handler : GetPageBySlugRequest
+handler -> db : page with slug and !IsDeleted
+db --> handler : none
+handler --> controller : Page = null
+controller --> service : 404
+service --> page : HttpErrorResponse 404
+page -> page : state = not-found, document title "Page not found · OWN Housing Co-op"
+page --> actor : "We can't find that page", explanation, "Go to the home page"  [L2-REQ-084 AC1, AC2]
+@enduml

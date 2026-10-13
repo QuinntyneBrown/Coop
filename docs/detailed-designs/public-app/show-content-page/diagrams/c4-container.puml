@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Show a website page
+
+Person(visitor, "Visitor", "Reads a page")
+System_Boundary(coop, "Coop") {
+  Container(publicApp, "Public application", "Angular", "Site header with the page links; /pages/{slug}")
+  Container(api, "Coop API", "ASP.NET Core", "GET api/pages and GET api/pages/{slug}, anonymous")
+  ContainerDb(db, "Coop database", "SQLite", "Pages table")
+}
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(publicApp, api, "GET api/pages, GET api/pages/{slug}", "JSON/HTTPS")
+Rel(api, db, "Reads", "EF Core")
+@enduml

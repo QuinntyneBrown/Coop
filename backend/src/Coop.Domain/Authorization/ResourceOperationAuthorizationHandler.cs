@@ -3,7 +3,6 @@ using Coop.Domain.Identity;
 using Coop.SharedKernel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Newtonsoft.Json;
 
 namespace Coop.Domain.Authorization;
 
@@ -19,12 +18,16 @@ public class ResourceOperationAuthorizationHandler
 
         foreach (var privilegeClaim in privilegeClaims)
         {
-            var privilege = JsonConvert.DeserializeObject<PrivilegeDto>(privilegeClaim.Value);
-
-            if (privilege is null)
+            // Claims are issued as "{AccessRight}:{Aggregate}" (see AuthenticateHandler).
+            var separator = privilegeClaim.Value.IndexOf(':');
+            if (separator <= 0)
                 continue;
 
-            if (privilege.Aggregate == aggregate && HasRequiredAccess(privilege.AccessRight, requirement))
+            if (!Enum.TryParse<AccessRight>(privilegeClaim.Value[..separator], out var accessRight))
+                continue;
+
+            var claimAggregate = privilegeClaim.Value[(separator + 1)..];
+            if (claimAggregate == aggregate && HasRequiredAccess(accessRight, requirement))
             {
                 context.Succeed(requirement);
                 return Task.CompletedTask;
@@ -44,11 +47,5 @@ public class ResourceOperationAuthorizationHandler
             nameof(Operations.Delete) => accessRight >= AccessRight.Delete,
             _ => false
         };
-    }
-
-    private class PrivilegeDto
-    {
-        public AccessRight AccessRight { get; set; }
-        public string Aggregate { get; set; } = string.Empty;
     }
 }

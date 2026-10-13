@@ -9,10 +9,12 @@ import {
   type MockInvitation,
   type MockMaintenanceRequest,
   type MockMessage,
+  type MockPage,
   type MockPrivilege,
   type MockProfile,
   type MockStore,
   type MockUser,
+  slugOf,
 } from './mock-store';
 
 export const API_ORIGIN = 'http://localhost:5000';
@@ -44,6 +46,14 @@ const ok = (body: unknown = {}): MockResponse => ({ status: 200, body });
 const notFound = (message = 'Not found'): MockResponse => ({ status: 404, body: { message } });
 const badRequest = (message: string): MockResponse => ({ status: 400, body: { message } });
 const unauthorized = (): MockResponse => ({ status: 401, body: { message: 'Unauthorized' } });
+const forbidden = (): MockResponse => ({ status: 403, body: { message: 'Access denied.' } });
+
+/** Roles whose seeded privilege on the Page aggregate reaches each access right. */
+const PAGE_ROLES = {
+  create: ['SystemAdministrator', 'BoardMember'],
+  write: ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'],
+  delete: ['SystemAdministrator'],
+};
 
 const DOC_TYPES: Record<string, MockDocument['documentType']> = {
   notice: 'Notice',
@@ -77,6 +87,8 @@ const PROFILE_TYPE_NAMES: Record<number, string> = {
  */
 export class MockApi {
   readonly store: MockStore = createSeedStore();
+  /** "METHOD path" entries that answer 500 until removed, to exercise error states. */
+  readonly failing = new Set<string>();
   private readonly routes: RouteEntry[] = [];
 
   constructor() {
@@ -169,6 +181,9 @@ export class MockApi {
   }
 
   private dispatch(ctx: RequestContext): MockResponse {
+    if (this.failing.has(`${ctx.method} ${ctx.path}`)) {
+      return { status: 500, body: { message: 'Simulated failure' } };
+    }
     for (const entry of this.routes) {
       if (entry.method !== ctx.method) continue;
       const match = entry.pattern.exec(ctx.path);
@@ -337,7 +352,28 @@ export class MockApi {
     };
   }
 
+  private pageView(p: MockPage) {
+    return { ...p };
+  }
+
   // ── Store mutations shared by HTTP handlers and fixtures ─────────
+
+  /** Adds a page, or returns the page that already has the title's slug (ADR 0002). */
+  createPage(data: { title: string; body: string; heroImageUrl?: string | null }): MockPage {
+    const slug = slugOf(data.title);
+    const existing = this.store.pages.find((p) => p.slug === slug);
+    if (existing) return existing;
+    const page: MockPage = {
+      pageId: newId(),
+      title: data.title.trim(),
+      slug,
+      heroImageUrl: data.heroImageUrl?.trim() || null,
+      body: data.body,
+      createdOn: new Date().toISOString(),
+    };
+    this.store.pages.push(page);
+    return page;
+  }
 
   createUser(data: { username: string; password: string; role?: string }): MockUser {
     const user: MockUser = {
@@ -851,6 +887,59 @@ export class MockApi {
       ok({ messages: messagesFor(id) }),
     );
     this.on('GET', 'messages/unread-count/:id', () => ok({ count: 0 }));
+
+    // Website pages (L2-REQ-080, L2-REQ-081)
+    const pageErrors = (b: any): string[] => {
+      const errors: string[] = [];
+      const title = String(b?.title ?? '');
+      if (!title.trim()) errors.push('Give the page a title');
+      else if (!slugOf(title)) errors.push('The title needs at least one letter or number.');
+      else if (title.length > 120) errors.push('The title is too long.');
+      if (!String(b?.body ?? '')) errors.push('Write something for the page');
+      return errors;
+    };
+    const pagesSorted = () => [...s.pages].sort((a, b) => a.createdOn.localeCompare(b.createdOn));
+    this.on('GET', 'pages', () => ok({ pages: pagesSorted().map((p) => this.pageView(p)) }), true);
+    this.on(
+      'GET',
+      'pages/:slug',
+      (_ctx, [slug]) => {
+        const page = s.pages.find((p) => p.slug === slug);
+        return page ? ok({ page: this.pageView(page) }) : notFound('Page not found.');
+      },
+      true,
+    );
+    this.on('POST', 'pages', (ctx) => {
+      if (!PAGE_ROLES.create.includes(ctx.user!.role)) return forbidden();
+      const errors = pageErrors(ctx.body);
+      if (errors.length) return badRequest(errors.join(' '));
+      const b = ctx.body;
+      return ok({ page: this.pageView(this.createPage({ title: b.title, body: b.body, heroImageUrl: b.heroImageUrl })) });
+    });
+    this.on('PUT', 'pages', (ctx) => {
+      if (!PAGE_ROLES.write.includes(ctx.user!.role)) return forbidden();
+      const b = ctx.body ?? {};
+      const page = s.pages.find((p) => p.pageId === b.pageId);
+      if (!page) return notFound('Page not found.');
+      const errors = pageErrors(b);
+      if (errors.length) return badRequest(errors.join(' '));
+      const slug = slugOf(b.title);
+      if (s.pages.some((p) => p.slug === slug && p.pageId !== page.pageId)) {
+        return badRequest('A page with this title already exists.');
+      }
+      page.title = String(b.title).trim();
+      page.slug = slug;
+      page.heroImageUrl = String(b.heroImageUrl ?? '').trim() || null;
+      page.body = b.body;
+      return ok({ page: this.pageView(page) });
+    });
+    this.on('DELETE', 'pages/:id', (ctx, [id]) => {
+      if (!PAGE_ROLES.delete.includes(ctx.user!.role)) return forbidden();
+      const page = s.pages.find((p) => p.pageId === id);
+      if (!page) return notFound('Page not found.');
+      s.pages = s.pages.filter((p) => p.pageId !== id);
+      return ok({ page: this.pageView(page) });
+    });
 
     // JSON content
     const jsonContentView = (name: string) => {

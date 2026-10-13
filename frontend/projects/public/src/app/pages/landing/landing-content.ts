@@ -3,6 +3,7 @@ import type { LandingContent } from './landing-content-shape';
 /**
  * Default copy and the photograph manifest for every block of the home page,
  * in the order the OWN design draws them (docs/mocks/pages/public-landing/).
+ * The site name, navigation and footer live in layout/site-content.ts.
  * The hero title and lead, the board list and the notices are replaced by CMS
  * content when the API returns it. Replace a photograph by replacing its file
  * under `public/own/` and its entry here.
@@ -10,15 +11,6 @@ import type { LandingContent } from './landing-content-shape';
  * People, events and contact details are fictional.
  */
 export const LANDING_CONTENT: LandingContent = {
-  siteName: 'OWN Housing Co-op',
-  siteSubtitle: "Older Women's Network Housing Co-operative",
-  navigation: [
-    { label: 'Home', href: '#main' },
-    { label: 'About us', href: '#about' },
-    { label: 'Living here', href: '#life' },
-    { label: "What's on", href: '#events' },
-    { label: 'Contact', href: '#contact' },
-  ],
   hero: {
     eyebrow: 'A co-operative for older women',
     title: 'A home of our own, in the heart of Toronto.',
@@ -171,26 +163,5 @@ export const LANDING_CONTENT: LandingContent = {
     phone: '416 555 0142',
     phoneHref: 'tel:+14165550142',
     hours: 'Monday to Friday, 9 am to 4 pm',
-  },
-  footer: {
-    organisation: 'OWN Housing Co-operative Inc.',
-    area: 'St. Lawrence neighbourhood, downtown Toronto',
-    phone: '416 555 0142',
-    phoneHref: 'tel:+14165550142',
-    email: 'office@ownhousing.example',
-    siteLinks: [
-      { label: 'About us', href: '#about' },
-      { label: 'Living here', href: '#life' },
-      { label: "What's on", href: '#events' },
-      { label: 'Our board', href: '#board' },
-    ],
-    memberLinks: [
-      { label: 'Member sign in', route: '/login' },
-      { label: 'Report a repair', route: '/maintenance' },
-      { label: 'Documents and bylaws', route: '/documents' },
-    ],
-    copyright:
-      '© 2026 OWN Housing Co-operative Inc. Built to WCAG 2.2 AA and usable at 400% zoom. If anything is hard to use, please tell us.',
-    managedBy: 'Website managed by the Co-op with Coop.',
   },
 };

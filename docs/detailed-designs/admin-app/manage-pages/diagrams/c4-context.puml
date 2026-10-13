@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage website pages
+
+Person(admin, "Office administrator", "Adds, edits and removes the website pages")
+Person(visitor, "Visitor", "Reads the pages from the header navigation")
+System(coop, "Coop", "Cooperative management platform: admin app, public site and API")
+
+Rel(admin, coop, "Manages pages in the admin app", "HTTPS")
+Rel(visitor, coop, "Reads pages on the public site", "HTTPS")
+@enduml

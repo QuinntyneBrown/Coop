@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Show a website page
+
+Container_Boundary(publicApp, "Public application") {
+  Component(content, "ContentPageComponent", "Angular standalone component", "Routed page at pages/:slug: banner, hero, body, loading, error and not-found states")
+  Component(header, "SiteHeaderComponent", "Angular standalone component", "Brand, section links, one link per page, Member sign in, phone menu")
+  Component(footer, "SiteFooterComponent", "Angular standalone component", "Contact details and site links")
+  Component(siteContent, "SITE_CONTENT", "Plain TypeScript constant", "Site name, section links and footer copy")
+  Component(service, "PageService", "Angular service", "GET pages, GET pages/{slug}")
+  Component(apiService, "ApiService", "Angular service", "HttpClient wrapper for the API base URL")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "PagesController", "ASP.NET Core controller", "api/pages (anonymous reads)")
+  Component(handlers, "GetPagesHandler, GetPageBySlugHandler", "MediatR handlers", "Pages that are not deleted")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Pages DbSet")
+}
+Rel(content, header, "Renders")
+Rel(content, footer, "Renders")
+Rel(header, siteContent, "Reads copy from")
+Rel(footer, siteContent, "Reads copy from")
+Rel(content, service, "getBySlug(slug)")
+Rel(header, service, "getAll()")
+Rel(service, apiService, "Calls")
+Rel(apiService, controller, "GET", "JSON/HTTPS")
+Rel(controller, handlers, "Sends queries to")
+Rel(handlers, db, "Queries", "EF Core")
+@enduml

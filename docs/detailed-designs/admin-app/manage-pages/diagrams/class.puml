@@ -1,0 +1,148 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage website pages
+
+package "Coop.Domain.CMS" {
+  class Page {
+    +Guid PageId
+    +string Title
+    +string Slug
+    +string? HeroImageUrl
+    +string Body
+    +DateTime CreatedOn
+    +bool IsDeleted
+    +Update(title: string, heroImageUrl: string?, body: string): void
+    +Delete(): void
+    {static} +SlugFrom(title: string): string
+  }
+}
+
+package "Coop.Application.CMS.Pages" {
+  class PageDto {
+    +Guid PageId
+    +string Title
+    +string Slug
+    +string? HeroImageUrl
+    +string Body
+    +DateTime CreatedOn
+    {static} +FromPage(page: Page): PageDto
+  }
+  class CreatePageRequest <<AuthorizeResourceOperation(Create, Page)>> {
+    +string Title
+    +string? HeroImageUrl
+    +string Body
+  }
+  class UpdatePageRequest <<AuthorizeResourceOperation(Write, Page)>> {
+    +Guid PageId
+    +string Title
+    +string? HeroImageUrl
+    +string Body
+  }
+  class RemovePageRequest <<AuthorizeResourceOperation(Delete, Page)>> {
+    +Guid PageId
+  }
+  class GetPagesRequest
+  class GetPageBySlugRequest {
+    +string Slug
+  }
+  class CreatePageHandler {
+    +Handle(request: CreatePageRequest): Task<CreatePageResponse>
+  }
+  class UpdatePageHandler {
+    +Handle(request: UpdatePageRequest): Task<UpdatePageResponse>
+  }
+  class RemovePageHandler {
+    +Handle(request: RemovePageRequest): Task<RemovePageResponse>
+  }
+  class GetPagesHandler {
+    +Handle(request: GetPagesRequest): Task<GetPagesResponse>
+  }
+  class GetPageBySlugHandler {
+    +Handle(request: GetPageBySlugRequest): Task<GetPageBySlugResponse>
+  }
+  class CreatePageValidator
+  class UpdatePageValidator
+}
+
+package "Coop.Api" {
+  class PagesController {
+    +Get(): GetPagesResponse
+    +GetBySlug(slug: string): GetPageBySlugResponse
+    +Create(request: CreatePageRequest): CreatePageResponse
+    +Update(request: UpdatePageRequest): UpdatePageResponse
+    +Remove(pageId: Guid): RemovePageResponse
+  }
+  class ExceptionHandlingMiddleware {
+    +InvokeAsync(context: HttpContext): Task
+  }
+}
+
+package "Admin application" {
+  class PagesComponent {
+    +pages: Signal<WebsitePage[]>
+    +status: Signal<'loading' | 'ready' | 'error'>
+    +notice: Signal<string>
+    +draft: WebsitePageDraft
+    +errors: Signal<PageFormErrors>
+    +saving: Signal<boolean>
+    +saveFailed: Signal<boolean>
+    +load(): void
+    +openEditor(page?: WebsitePage): void
+    +save(): void
+    +confirmRemove(page: WebsitePage): void
+    +remove(): void
+  }
+  class PageService {
+    +getAll(): Observable<WebsitePage[]>
+    +create(draft: WebsitePageDraft): Observable<WebsitePage>
+    +update(pageId: string, draft: WebsitePageDraft): Observable<WebsitePage>
+    +remove(pageId: string): Observable<void>
+  }
+  class WebsitePage <<interface>> {
+    +pageId: string
+    +title: string
+    +slug: string
+    +heroImageUrl: string | null
+    +body: string
+  }
+  class WebsitePageDraft <<interface>> {
+    +title: string
+    +heroImageUrl: string
+    +body: string
+  }
+  class "validatePageDraft()" as validate
+  class "pageSlug()" as slug
+}
+
+PagesController ..> CreatePageRequest : sends
+PagesController ..> UpdatePageRequest : sends
+PagesController ..> RemovePageRequest : sends
+PagesController ..> GetPagesRequest : sends
+PagesController ..> GetPageBySlugRequest : sends
+CreatePageHandler ..> CreatePageRequest : handles
+UpdatePageHandler ..> UpdatePageRequest : handles
+RemovePageHandler ..> RemovePageRequest : handles
+GetPagesHandler ..> GetPagesRequest : handles
+GetPageBySlugHandler ..> GetPageBySlugRequest : handles
+CreatePageValidator ..> CreatePageRequest : validates
+UpdatePageValidator ..> UpdatePageRequest : validates
+CreatePageHandler --> Page : creates or returns existing
+UpdatePageHandler --> Page : loads / updates
+RemovePageHandler --> Page : loads / deletes
+PageDto ..> Page : maps
+PagesComponent --> PageService : uses
+PagesComponent ..> validate : checks draft
+validate ..> slug : compares titles
+PagesComponent --> WebsitePage : lists
+PagesComponent --> WebsitePageDraft : edits
+PageService ..> PagesController : HTTP
+@enduml

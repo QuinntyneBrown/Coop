@@ -1,0 +1,41 @@
+<footer class="own-footer" id="contact" data-testid="site-footer">
+  <div class="own-container">
+    <div class="own-footer__grid">
+      <section aria-labelledby="footer-contact">
+        <h2 id="footer-contact">Visit or write</h2>
+        <address>
+          <span>{{ content.footer.organisation }}</span>
+          <span>{{ content.footer.area }}</span>
+          <a [href]="content.footer.phoneHref" data-testid="site-footer-phone">{{
+            content.footer.phone
+          }}</a>
+          <a [href]="'mailto:' + content.footer.email">{{ content.footer.email }}</a>
+        </address>
+      </section>
+      <section aria-labelledby="footer-links">
+        <h2 id="footer-links">Around the site</h2>
+        <ul class="own-footer__links">
+          @for (link of content.footer.siteLinks; track link.label) {
+            <li>
+              <a [href]="link.href">{{ link.label }}</a>
+            </li>
+          }
+        </ul>
+      </section>
+      <section aria-labelledby="footer-members">
+        <h2 id="footer-members">For members</h2>
+        <ul class="own-footer__links">
+          @for (link of content.footer.memberLinks; track link.label) {
+            <li>
+              <a [routerLink]="link.route">{{ link.label }}</a>
+            </li>
+          }
+        </ul>
+      </section>
+    </div>
+    <div class="own-footer__bottom">
+      <p>{{ content.footer.copyright }}</p>
+      <p>{{ content.footer.managedBy }}</p>
+    </div>
+  </div>
+</footer>
