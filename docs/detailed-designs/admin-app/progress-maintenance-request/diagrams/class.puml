@@ -1,0 +1,79 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Start and finish a maintenance request
+
+package "Coop.Domain.Maintenance" {
+  enum MaintenanceRequestStatus {
+    New
+    Received
+    InProgress
+    Complete
+  }
+  class MaintenanceRequest {
+    +Guid MaintenanceRequestId
+    +MaintenanceRequestStatus Status
+    +DateTime? StartDate
+    +DateTime? CompleteDate
+    +bool IsStarted
+    +bool IsCompleted
+    +StoredEvent Start(Guid startedByProfileId)
+    +StoredEvent Complete(Guid completedByProfileId)
+  }
+  class Start <<event>> {
+    +Guid MaintenanceRequestId
+    +Guid StartedByProfileId
+  }
+  class Complete <<event>> {
+    +Guid MaintenanceRequestId
+    +Guid CompletedByProfileId
+    +string WorkDetails
+  }
+}
+package "Coop.Domain.EventSourcing" {
+  class StoredEvent {
+    +string StreamId
+    +string Aggregate
+    +string Data
+    +DateTime CreatedOn
+  }
+}
+package "Coop.Application.Maintenance.Commands" {
+  class StartMaintenanceRequestValidator
+  class StartMaintenanceRequestHandler
+  class CompleteMaintenanceRequestValidator
+  class CompleteMaintenanceRequestHandler
+}
+package "admin features/maintenance" {
+  interface MaintenanceStep {
+    +action : 'receive' | 'start' | 'complete'
+    +label : string
+    +testId : string
+  }
+  class "nextMaintenanceStep(status)" as nextStep
+  class "MaintenanceComponent" as adminScreen {
+    +advancing : boolean
+    +stepFailed : boolean
+    +advance(step)
+  }
+}
+package "public pages/maintenance" {
+  class "maintenanceStatusLabel(status)" as label
+}
+MaintenanceRequest --> MaintenanceRequestStatus
+MaintenanceRequest ..> Start : records
+MaintenanceRequest ..> Complete : records
+MaintenanceRequest ..> StoredEvent : returns
+StartMaintenanceRequestHandler --> MaintenanceRequest
+CompleteMaintenanceRequestHandler --> MaintenanceRequest
+nextStep ..> MaintenanceStep : returns
+adminScreen --> nextStep
+@enduml

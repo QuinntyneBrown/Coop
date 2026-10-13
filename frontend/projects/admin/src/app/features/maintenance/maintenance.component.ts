@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
+import { MaintenanceStep } from './maintenance-step';
+import { nextMaintenanceStep } from './next-maintenance-step';
 
 @Component({
   selector: 'app-maintenance',
@@ -186,17 +188,25 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
                   }
                 </div>
                 <div class="detail-actions">
-                  <button
-                    class="btn btn-primary"
-                    data-testid="maintenance-receive-button"
-                    (click)="receiveRequest()"
-                  >
-                    Receive Request
-                  </button>
+                  @if (nextStep(selectedRequest.status); as step) {
+                    <button
+                      class="btn btn-primary"
+                      [attr.data-testid]="step.testId"
+                      [disabled]="advancing"
+                      (click)="advance(step)"
+                    >
+                      {{ step.label }}
+                    </button>
+                  }
                   <button class="btn btn-secondary" data-testid="maintenance-edit-description">
                     Edit Description
                   </button>
                 </div>
+                @if (stepFailed) {
+                  <p class="step-error" role="alert" data-testid="maintenance-step-error">
+                    That change was not saved. Please try again.
+                  </p>
+                }
               </div>
             }
             <!-- Comments Tab -->
@@ -432,6 +442,11 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         gap: 12px;
         margin-top: 16px;
       }
+      .step-error {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #b42318;
+      }
       .no-photos {
         font-size: 13px;
         color: #1a1918cc;
@@ -620,6 +635,9 @@ export class MaintenanceComponent implements OnInit {
   activeTab = 'details';
   loading = true;
   showCreateModal = false;
+  advancing = false;
+  stepFailed = false;
+  readonly nextStep = nextMaintenanceStep;
 
   createForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -679,28 +697,34 @@ export class MaintenanceComponent implements OnInit {
     }
   }
 
-  receiveRequest(): void {
-    if (!this.selectedRequest?.maintenanceRequestId) return;
-    this.maintenanceService
-      .receiveMaintenanceRequest(this.selectedRequest.maintenanceRequestId)
-      .subscribe({
-        next: (data: any) => {
-          const updated = data?.maintenanceRequest || data;
-          this.selectedRequest.status = updated?.status ?? 'Received';
-          if (typeof this.selectedRequest.status === 'number') {
-            this.selectedRequest.status = 'Received';
-          }
-        },
-        error: () => {
-          // Optimistically update status even on error
-          this.selectedRequest.status = 'Received';
-        },
-      });
+  advance(step: MaintenanceStep): void {
+    const request = this.selectedRequest;
+    if (!request?.maintenanceRequestId) return;
+    const calls = {
+      receive: (id: string) => this.maintenanceService.receiveMaintenanceRequest(id),
+      start: (id: string) => this.maintenanceService.startMaintenanceRequest(id),
+      complete: (id: string) => this.maintenanceService.completeMaintenanceRequest(id),
+    };
+    this.advancing = true;
+    this.stepFailed = false;
+    calls[step.action](request.maintenanceRequestId).subscribe({
+      next: (data: any) => {
+        const updated = data?.maintenanceRequest || data;
+        request.status = updated?.status ?? request.status;
+        this.applyFilter();
+        this.advancing = false;
+      },
+      error: () => {
+        this.stepFailed = true;
+        this.advancing = false;
+      },
+    });
   }
 
   selectRequest(req: any): void {
     this.selectedRequest = req;
     this.activeTab = 'details';
+    this.stepFailed = false;
     this.comments = [];
     if (req.maintenanceRequestId) {
       this.maintenanceService.getComments(req.maintenanceRequestId).subscribe({
@@ -740,8 +764,8 @@ export class MaintenanceComponent implements OnInit {
     const numMap: Record<number, string> = {
       0: 'New',
       1: 'Received',
-      2: 'InProgress',
-      3: 'Complete',
+      2: 'Started',
+      3: 'Completed',
     };
     if (typeof status === 'number') return numMap[status] || 'New';
     return status || 'New';

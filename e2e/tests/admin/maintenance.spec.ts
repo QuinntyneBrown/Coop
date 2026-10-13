@@ -243,6 +243,53 @@ test.describe('Maintenance Requests', () => {
     });
   });
 
+  test.describe('Start and Finish', () => {
+    test('Given a received request, when the office starts it, then it shows as Started', async ({ api }) => {
+      const request = await api.createMaintenanceRequest({
+        title: 'Start Test',
+        description: 'Testing the start action',
+      });
+      await api.put('/api/maintenancerequest/receive', { maintenanceRequestId: request.id });
+      await maintenancePage.goto();
+
+      await maintenancePage.selectRequestByTitle('Start Test');
+      await expect(maintenancePage.receiveRequestButton).toHaveCount(0);
+      await maintenancePage.startWork();
+
+      await expect(maintenancePage.detailStatusBadge).toHaveText('Started');
+      await expect(maintenancePage.startWorkButton).toHaveCount(0);
+      await expect(maintenancePage.finishWorkButton).toBeVisible();
+    });
+
+    test('Given a started request, when the office finishes it, then it shows as Completed with no next step', async ({ api }) => {
+      const request = await api.createMaintenanceRequest({
+        title: 'Finish Test',
+        description: 'Testing the finish action',
+      });
+      await api.put('/api/maintenancerequest/receive', { maintenanceRequestId: request.id });
+      await api.put('/api/maintenancerequest/start', { maintenanceRequestId: request.id });
+      await maintenancePage.goto();
+
+      await maintenancePage.selectRequestByTitle('Finish Test');
+      await maintenancePage.finishWork();
+
+      await expect(maintenancePage.detailStatusBadge).toHaveText('Completed');
+      await expect(maintenancePage.finishWorkButton).toHaveCount(0);
+      await expect(maintenancePage.receiveRequestButton).toHaveCount(0);
+    });
+
+    test('Given a new request, when finish is posted, then the API rejects it', async ({ api }) => {
+      const request = await api.createMaintenanceRequest({
+        title: 'Skip Test',
+        description: 'Testing a skipped step',
+      });
+
+      await expect(
+        api.put('/api/maintenancerequest/complete', { maintenanceRequestId: request.id }),
+      ).rejects.toThrow(/400.*Only a started request can be finished/);
+    });
+  });
+
   test.describe('Photos', () => {
     test('should display attached photos grid', async ({ api }) => {
       await api.createMaintenanceRequest({

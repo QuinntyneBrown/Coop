@@ -170,7 +170,8 @@
       "requirements": [
         "L2-REQ-021",
         "L2-REQ-025",
-        "L2-REQ-030"
+        "L2-REQ-030",
+        "L2-REQ-086"
       ],
       "note": "",
       "states": [
@@ -216,7 +217,8 @@
       "requirements": [
         "L2-REQ-028",
         "L2-REQ-029",
-        "L2-REQ-030"
+        "L2-REQ-030",
+        "L2-REQ-086"
       ],
       "note": "",
       "opens_from": "public-maintenance",
@@ -514,7 +516,8 @@
       "requirements": [
         "L2-REQ-021",
         "L2-REQ-025",
-        "L2-REQ-030"
+        "L2-REQ-030",
+        "L2-REQ-085"
       ],
       "note": "",
       "states": [

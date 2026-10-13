@@ -7,6 +7,7 @@ import {
   MaintenanceComment,
 } from '../../core/services/maintenance.service';
 import { catchError, of } from 'rxjs';
+import { maintenanceStatusLabel } from './maintenance-status-label';
 
 @Component({
   selector: 'app-maintenance',
@@ -80,7 +81,7 @@ import { catchError, of } from 'rxjs';
             >
               <div class="request-card-header">
                 <span class="status-badge" [class]="getStatusClass(req.status)">{{
-                  req.status
+                  statusLabel(req.status)
                 }}</span>
                 <span class="priority-badge" [class]="getPriorityClass(req.priority)">{{
                   req.priority
@@ -218,7 +219,7 @@ import { catchError, of } from 'rxjs';
                   class="status-badge"
                   [class]="getStatusClass(selectedRequest.status)"
                   data-testid="maintenance-detail-status"
-                  >{{ selectedRequest.status }}</span
+                  >{{ statusLabel(selectedRequest.status) }}</span
                 >
                 <span
                   class="priority-badge"
@@ -606,6 +607,7 @@ export class MaintenanceComponent implements OnInit {
   requests: MaintenanceRequest[] = [];
   filteredRequests: MaintenanceRequest[] = [];
   loading = true;
+  readonly statusLabel = maintenanceStatusLabel;
   activeFilter = 'all';
   showCreateModal = false;
   createSubmitted = false;

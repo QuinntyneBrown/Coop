@@ -22,6 +22,15 @@ export class ApiHelper {
     return this.mockApi.createMaintenanceRequest(this.user, data).maintenanceRequestId;
   }
 
+  /** Moves a request along as the office would: receive, start, complete. */
+  async advanceMaintenanceRequest(requestId: string, steps: ('receive' | 'start' | 'complete')[]): Promise<void> {
+    const office = this.mockApi.userByToken(this.mockApi.login('admin', 'Admin123!').token);
+    for (const step of steps) {
+      const response = this.mockApi.call('PUT', `maintenancerequest/${step}`, { maintenanceRequestId: requestId }, office);
+      expect(response.status, `Should ${step} the request`).toBe(200);
+    }
+  }
+
   async addMaintenanceComment(requestId: string, comment: string): Promise<void> {
     this.mockApi.addComment(this.user, requestId, comment);
   }

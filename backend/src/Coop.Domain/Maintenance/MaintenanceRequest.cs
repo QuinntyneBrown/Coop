@@ -1,3 +1,6 @@
+using Coop.Domain.EventSourcing;
+using Newtonsoft.Json;
+
 namespace Coop.Domain.Maintenance;
 
 public class MaintenanceRequest
@@ -27,17 +30,43 @@ public class MaintenanceRequest
         Status = MaintenanceRequestStatus.Received;
     }
 
-    public void Start()
+    public bool IsStarted => Status is MaintenanceRequestStatus.InProgress or MaintenanceRequestStatus.Complete;
+
+    public bool IsCompleted => Status is MaintenanceRequestStatus.Complete;
+
+    public StoredEvent Start(Guid startedByProfileId)
     {
+        if (Status != MaintenanceRequestStatus.Received)
+            throw new InvalidOperationException("Only a received request can be started.");
+
         StartDate = DateTime.UtcNow;
         Status = MaintenanceRequestStatus.InProgress;
+        return ToStoredEvent(new Start { MaintenanceRequestId = MaintenanceRequestId, StartedByProfileId = startedByProfileId });
     }
 
-    public void Complete()
+    public StoredEvent Complete(Guid completedByProfileId)
     {
+        if (Status != MaintenanceRequestStatus.InProgress)
+            throw new InvalidOperationException("Only a started request can be finished.");
+
         CompleteDate = DateTime.UtcNow;
         Status = MaintenanceRequestStatus.Complete;
+        return ToStoredEvent(new Complete
+        {
+            MaintenanceRequestId = MaintenanceRequestId,
+            CompletedByProfileId = completedByProfileId,
+            WorkDetails = WorkDetails ?? string.Empty
+        });
     }
+
+    private StoredEvent ToStoredEvent(Common.BaseDomainEvent @event) => new()
+    {
+        StreamId = MaintenanceRequestId.ToString(),
+        Aggregate = nameof(MaintenanceRequest),
+        Data = JsonConvert.SerializeObject(@event),
+        CreatedOn = @event.Created,
+        CorrelationId = @event.CorrelationId
+    };
 
     public void Delete()
     {
