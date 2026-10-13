@@ -188,8 +188,15 @@ import { TopbarComponent } from '../../layout/topbar.component';
         cursor: pointer;
       }
       @media (max-width: 768px) {
+        .roles-page {
+          padding: 16px;
+        }
         .roles-layout {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .privileges-header {
+          flex-wrap: wrap;
+          gap: 12px;
         }
       }
     `,

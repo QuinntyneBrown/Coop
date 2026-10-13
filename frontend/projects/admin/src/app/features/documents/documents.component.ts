@@ -468,6 +468,16 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         .mobile-only {
           display: block;
         }
+        .documents-page {
+          padding: 16px;
+        }
+        .documents-toolbar {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .documents-list {
+          grid-template-columns: minmax(0, 1fr);
+        }
       }
     `,
   ],

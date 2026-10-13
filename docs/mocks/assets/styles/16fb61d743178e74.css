@@ -24,5 +24,8 @@
 .preview-content[_ngcontent-ng-c3161414445] { border-radius: 10px; overflow: hidden; border: 1px solid rgb(229, 228, 225); }
 .preview-header[_ngcontent-ng-c3161414445] { padding: 12px 16px; }
 @media (max-width: 768px) {
-  .theme-layout[_ngcontent-ng-c3161414445] { grid-template-columns: 1fr; }
+  .settings-page[_ngcontent-ng-c3161414445] { padding: 16px; }
+  .tabs[_ngcontent-ng-c3161414445] { flex-wrap: wrap; }
+  .theme-layout[_ngcontent-ng-c3161414445] { grid-template-columns: minmax(0px, 1fr); }
+  .theme-form[_ngcontent-ng-c3161414445] { padding: 16px; }
 }

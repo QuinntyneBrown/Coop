@@ -159,6 +159,13 @@ photo-error (default and empty show the "Add a photo" control);
 request was sent; and `pages/admin-maintenance/detail-photos.html` for the
 office. They are listed in the manifest but not in the coverage table below.
 
+**400% zoom.** Every screen reflows to one column at 320 CSS px wide
+(`L2-REQ-090`). The narrow-width rules of the applications are copied into
+the extracted styles in `assets/styles/`, so any page mock opened in a window
+320 CSS px wide shows the narrow layout: the admin menu above the screen,
+wrapped headers, filters and tabs, stacked panels, and wide tables scrolling
+inside their card.
+
 **Structure.** The page order follows the warm, photo-led shape of PAL Toronto's
 About page as inspiration only (no text, images, branding or name is copied):
 header with CMS navigation and Member sign in; hero; three "at a glance"

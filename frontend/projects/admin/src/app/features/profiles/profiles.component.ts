@@ -423,6 +423,20 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         margin-top: 12px;
         font-size: 14px;
       }
+      @media (max-width: 768px) {
+        .profiles-page {
+          padding: 16px;
+        }
+        .profiles-layout {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .profile-view-panel,
+        .profile-edit-panel,
+        .profile-info,
+        .profile-edit {
+          padding: 16px;
+        }
+      }
     `,
   ],
 })

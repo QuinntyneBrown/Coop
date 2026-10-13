@@ -15,5 +15,7 @@
 .privileges-table[_ngcontent-ng-c3334892396] td[_ngcontent-ng-c3334892396] { padding: 10px 16px; font-size: 14px; border-bottom: 1px solid rgb(245, 244, 241); }
 .privilege-toggle[_ngcontent-ng-c3334892396] { width: 18px; height: 18px; accent-color: rgb(61, 138, 90); cursor: pointer; }
 @media (max-width: 768px) {
-  .roles-layout[_ngcontent-ng-c3334892396] { grid-template-columns: 1fr; }
+  .roles-page[_ngcontent-ng-c3334892396] { padding: 16px; }
+  .roles-layout[_ngcontent-ng-c3334892396] { grid-template-columns: minmax(0px, 1fr); }
+  .privileges-header[_ngcontent-ng-c3334892396] { flex-wrap: wrap; gap: 12px; }
 }

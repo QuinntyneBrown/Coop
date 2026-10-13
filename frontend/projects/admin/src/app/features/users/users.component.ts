@@ -203,7 +203,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
         }
       }
       .users-table {
-        overflow: hidden;
+        overflow-x: auto;
       }
       table {
         width: 100%;
@@ -364,6 +364,23 @@ import { TopbarComponent } from '../../layout/topbar.component';
         padding: 8px 16px;
         border-radius: 8px;
         cursor: pointer;
+      }
+      @media (max-width: 768px) {
+        .users-page {
+          padding: 16px;
+        }
+        .page-header {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .page-actions {
+          flex: 1 1 100%;
+          flex-wrap: wrap;
+        }
+        .search-input {
+          flex: 1 1 160px;
+          min-width: 0;
+        }
       }
     `,
   ],

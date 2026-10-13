@@ -5,7 +5,7 @@
 .conversation-list-panel[_ngcontent-ng-c3787445096] { width: 360px; background: rgb(255, 255, 255); border-right: 1px solid rgb(229, 228, 225); overflow-y: auto; flex-shrink: 0; }
 .conversation-list-panel[_ngcontent-ng-c3787445096] h2[_ngcontent-ng-c3787445096] { padding: 16px 20px 0px; font-size: 18px; font-weight: 600; }
 .conv-toolbar[_ngcontent-ng-c3787445096] { display: flex; gap: 8px; padding: 12px 20px; }
-.conv-search-input[_ngcontent-ng-c3787445096] { flex: 1 1 0%; padding: 8px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 8px; font-size: 14px; }
+.conv-search-input[_ngcontent-ng-c3787445096] { flex: 1 1 0%; min-width: 0px; padding: 8px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 8px; font-size: 14px; }
 .conv-search-input[_ngcontent-ng-c3787445096]:focus { outline: none; border-color: rgb(61, 138, 90); }
 .form-group[_ngcontent-ng-c3787445096] { margin-bottom: 16px; }
 .form-group[_ngcontent-ng-c3787445096] label[_ngcontent-ng-c3787445096] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
@@ -56,4 +56,6 @@
   .conversation-list-panel.hidden-mobile[_ngcontent-ng-c3787445096] { display: none; }
   .back-btn[_ngcontent-ng-c3787445096] { display: block; }
   .mobile-only[_ngcontent-ng-c3787445096] { display: block; }
+  .chat-panel.empty-chat[_ngcontent-ng-c3787445096] { display: none; }
+  .chat-panel[_ngcontent-ng-c3787445096] { min-width: 0px; }
 }

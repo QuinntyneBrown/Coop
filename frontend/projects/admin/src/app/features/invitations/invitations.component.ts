@@ -144,7 +144,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
         }
       }
       .invitations-table {
-        overflow: hidden;
+        overflow-x: auto;
       }
       table {
         width: 100%;
@@ -230,6 +230,15 @@ import { TopbarComponent } from '../../layout/topbar.component';
       .badge-gray {
         background: rgba(26, 25, 24, 0.06);
         color: #1a1918cc;
+      }
+      @media (max-width: 768px) {
+        .invitations-page {
+          padding: 16px;
+        }
+        .page-header {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
       }
     `,
   ],

@@ -245,6 +245,15 @@ import { AuthService } from '../core/services/auth.service';
         font-size: 12px;
         color: #1a1918cc;
       }
+      @media (max-width: 768px) {
+        .sidebar {
+          position: static;
+          width: auto;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid #e5e4e1;
+        }
+      }
     `,
   ],
 })
