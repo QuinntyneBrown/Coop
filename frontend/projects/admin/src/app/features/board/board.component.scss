@@ -1,0 +1,393 @@
+/* The Board screen and its dialogs, ported from docs/mocks/assets/admin-board.css.
+   .btn, .form-group and .card come from the admin global styles; the dialogs
+   are native <dialog> elements opened with showModal(). */
+:host {
+  --adm-primary: #3d8a5a;
+  --adm-primary-dark: #2d6b44;
+  --adm-primary-soft: rgba(61, 138, 90, 0.1);
+  --adm-bg: #f5f4f1;
+  --adm-surface: #ffffff;
+  --adm-text: #1a1918;
+  --adm-text-soft: #1a1918cc;
+  --adm-border: #e5e4e1;
+  --adm-danger: #dc3545;
+  --adm-danger-soft: rgba(220, 53, 69, 0.1);
+  --adm-success: #059669;
+  --adm-success-soft: rgba(16, 185, 129, 0.1);
+  --adm-radius: 12px;
+  --adm-radius-sm: 8px;
+  --adm-target: 44px;
+  --adm-focus: 3px solid #6b3f60;
+}
+.board-page {
+  min-height: 100vh;
+  background: var(--adm-bg);
+  padding: 24px;
+  padding-bottom: 80px;
+}
+.board-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.board-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.board-header p {
+  margin: 0;
+  color: var(--adm-text-soft);
+  font-size: 15px;
+  max-width: 46em;
+}
+.board-page .btn {
+  min-height: var(--adm-target);
+  font-size: 15px;
+}
+.board-page .btn:focus-visible,
+.director-dialog .btn:focus-visible {
+  outline: var(--adm-focus);
+  outline-offset: 2px;
+}
+.board-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--adm-radius-sm);
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.board-alert .material-icons {
+  font-size: 22px;
+}
+.board-alert--success {
+  background: var(--adm-success-soft);
+  color: var(--adm-success);
+}
+.board-alert--danger {
+  background: var(--adm-danger-soft);
+  color: var(--adm-danger);
+}
+.board-alert .btn {
+  margin-left: auto;
+}
+.board-list {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.director-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius);
+  box-shadow: 0 2px 8px rgba(26, 25, 24, 0.03);
+}
+.director-card h2 {
+  grid-column: 1;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+.director-card__meta {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--adm-text-soft);
+}
+.director-card__actions {
+  display: flex;
+  gap: 8px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.director-card__actions .btn {
+  padding: 8px 14px;
+}
+.btn-danger-outline {
+  background: var(--adm-surface);
+  color: var(--adm-danger);
+  border: 1px solid var(--adm-danger);
+}
+.btn-danger-outline:hover {
+  background: var(--adm-danger-soft);
+}
+.board-empty {
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--adm-surface);
+  border: 1px dashed var(--adm-border);
+  border-radius: var(--adm-radius);
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+.board-empty .material-icons {
+  font-size: 48px;
+  color: var(--adm-primary);
+}
+.board-empty h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+.board-empty p {
+  margin: 0 0 8px;
+  color: var(--adm-text-soft);
+  max-width: 36em;
+}
+.board-loading {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 48px;
+  color: var(--adm-text-soft);
+}
+.board-spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid var(--adm-border);
+  border-top-color: var(--adm-primary);
+  border-radius: 50%;
+  animation: board-spin 1s linear infinite;
+}
+@keyframes board-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .board-spinner {
+    animation: none;
+  }
+}
+@media (max-width: 640px) {
+  .board-page {
+    padding: 16px;
+    padding-bottom: 88px;
+  }
+  .director-card {
+    grid-template-columns: 1fr;
+  }
+  .director-card__actions {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .director-card__actions .btn {
+    flex: 1;
+  }
+}
+
+/* Dialogs: native <dialog> so focus is trapped, Escape closes and the page behind is inert. */
+.director-dialog {
+  border: 0;
+  border-radius: 16px;
+  padding: 0;
+  width: min(640px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  background: var(--adm-surface);
+  color: var(--adm-text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.director-dialog[open] {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: 1001;
+}
+.director-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+.director-dialog form,
+.director-dialog__inner {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+}
+.director-dialog__header {
+  padding: 20px 24px 0;
+}
+.director-dialog__header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.director-dialog__header p {
+  margin: 0;
+  color: var(--adm-text-soft);
+  font-size: 14px;
+}
+.director-dialog__body {
+  padding: 16px 24px;
+  overflow: auto;
+}
+.director-dialog__body .form-group label {
+  font-size: 15px;
+  color: var(--adm-text);
+}
+.director-dialog__body .form-group input,
+.director-dialog__body .form-group textarea {
+  font-size: 15px;
+  min-height: var(--adm-target);
+}
+.director-dialog__body .form-group textarea {
+  min-height: 180px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 14px;
+}
+.director-dialog__body [aria-invalid='true'] {
+  border-color: var(--adm-danger);
+  box-shadow: 0 0 0 3px var(--adm-danger-soft);
+}
+.field-help {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--adm-text-soft);
+}
+.field-help code {
+  font-size: 12px;
+  background: var(--adm-bg);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--adm-danger);
+}
+.field-error .material-icons {
+  font-size: 18px;
+}
+.director-dialog__errors {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: var(--adm-radius-sm);
+  background: var(--adm-danger-soft);
+  color: var(--adm-danger);
+  font-size: 14px;
+}
+.director-dialog__errors ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+.director-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px 24px 20px;
+  border-top: 1px solid var(--adm-border);
+}
+.director-dialog__footer .btn {
+  min-height: var(--adm-target);
+  font-size: 15px;
+}
+.btn[aria-busy='true'] {
+  opacity: 0.75;
+  cursor: progress;
+}
+.btn[aria-busy='true']::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: board-spin 0.8s linear infinite;
+}
+@media (max-width: 640px) {
+  .director-dialog,
+  .director-dialog[open] {
+    width: 100vw;
+    max-width: none;
+    margin: auto 0 0;
+    border-radius: 16px 16px 0 0;
+    max-height: 92vh;
+  }
+  .director-dialog__footer .btn {
+    flex: 1;
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* Board-specific: the photograph or initials beside each director, and wrapping actions. */
+.board-list {
+  padding-left: 0;
+}
+.director-card {
+  grid-template-columns: auto 1fr auto;
+}
+.director-card__photo {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--adm-primary-soft);
+  color: var(--adm-primary-dark);
+  font-size: 18px;
+  font-weight: 600;
+}
+.director-card h2,
+.director-card__meta {
+  grid-column: 2;
+}
+.director-card__actions {
+  grid-column: 3;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.director-card__actions .btn .material-icons {
+  font-size: 18px;
+}
+.director-card__actions .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .director-card {
+    grid-template-columns: auto 1fr;
+  }
+  .director-card__actions {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 640px) {
+  .director-card {
+    grid-template-columns: auto 1fr;
+  }
+  .director-card__actions .btn {
+    flex: 1 1 40%;
+  }
+}
