@@ -69,7 +69,8 @@ these locations and move existing files here as areas are touched:
   tokens), and `components` (design-system library)
 - `e2e/` — Playwright suite: `tests/` express intent, `pages/` own selectors
   and interactions, `fixtures/` hold test data
-- `docs/specs/` — L1/L2 requirements
+- `docs/specs/` — L1/L2 requirements; `docs/specs/components/` holds the
+  component requirements documents (CRDs) indexed in its `README.md`
 - `docs/detailed-designs/` — detailed designs
 - `docs/mocks/` — static design reference
 - `docs/design-system/` — tokens, component styles, and pages extracted from

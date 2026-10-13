@@ -36,7 +36,7 @@ SECTIONS = [
 ]
 
 AC_LINE = re.compile(r"^\s*-\s+\*\*AC-(\d+)\*\*\s+(.*)$")
-L2_ID = re.compile(r"\bL2-\d{3}\b")
+L2_ID = re.compile(r"\bL2-(?:REQ-)?\d{3}\b")  # L2-006 or this project's L2-REQ-006
 TOKEN = re.compile(r"(?<![\w-])--([a-z][a-z0-9]*(?:-[a-z0-9]+)*)(?![\w/*{…-])")
 HEX = re.compile(r"(?<![\w&])#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b")
 UNRESOLVED = re.compile(r"\b(TBD|TODO|FIXME)\b|open question", re.IGNORECASE)
@@ -96,7 +96,7 @@ def check_md(path: Path, l2_ids: set[str], tokens: set[str], prefixes: set[str],
         acs[number] = body
         if not re.search(r"\bGiven\b", body) or not re.search(r"\bwhen\b", body, re.I) or not re.search(r"\bthen\b", body, re.I):
             errors.append(f"{name}: AC-{number} is not Given/When/Then")
-        trace = re.search(r"\((L2-\d{3})\)\s*$", body)
+        trace = re.search(r"\((L2-(?:REQ-)?\d{3})\)\s*$", body)
         if not trace:
             errors.append(f"{name}: AC-{number} does not end with one L2 ID in parentheses")
     if not acs:
@@ -188,7 +188,7 @@ def main() -> int:
     if not design_system.exists():
         print(f"warning: {design_system} not found; token names are not checked", file=sys.stderr)
 
-    l2_ids = set(re.findall(r"^## (L2-\d{3}):", l2.read_text(encoding="utf-8"), re.MULTILINE))
+    l2_ids = set(re.findall(r"^#{2,3} (L2-(?:REQ-)?\d{3}):", l2.read_text(encoding="utf-8"), re.MULTILINE))
     tokens = defined_tokens(design_system)
     prefixes = {t.split("-")[0] for t in tokens}
 
