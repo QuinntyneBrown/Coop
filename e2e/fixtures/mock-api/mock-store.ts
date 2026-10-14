@@ -1,3 +1,5 @@
+import { createSiteContent } from './site-content-seed';
+
 /**
  * In-memory data for the mocked backend. One store is created per test, so
  * tests never share state and never need a running API or database.
@@ -138,6 +140,7 @@ export interface MockPage {
   title: string;
   slug: string;
   heroImageUrl: string | null;
+  heroImageAlt: string | null;
   body: string;
   createdOn: string;
 }
@@ -470,11 +473,8 @@ export function createSeedStore(): MockStore {
   const jsonContents: MockJsonContent[] = [
     {
       jsonContentId: newId(),
-      name: 'Hero',
-      content: {
-        title: 'A home for retired women, run by its members',
-        subtitle: 'Submit requests, read notices, and stay in touch with your neighbours.',
-      },
+      name: 'SiteContent',
+      content: createSiteContent(),
     },
     {
       jsonContentId: newId(),
@@ -495,6 +495,7 @@ export function createSeedStore(): MockStore {
       title: 'How to apply',
       slug: 'how-to-apply',
       heroImageUrl: '/own/garden.svg',
+      heroImageAlt: 'A woman in a sun hat waters planters of flowers and herbs on the rooftop.',
       body:
         '<p class="own-lead">Membership is open to women aged 55 and over. Applying takes one form and one visit.</p>' +
         '<h2>Who can apply</h2><ul><li>Women aged 55 or over.</li><li>A willingness to take part.</li></ul>' +

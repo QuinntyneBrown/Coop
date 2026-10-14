@@ -22,6 +22,8 @@ export class PagesPage {
   readonly editorHeading: Locator;
   readonly titleInput: Locator;
   readonly heroInput: Locator;
+  readonly heroAltInput: Locator;
+  readonly heroAltError: Locator;
   readonly bodyInput: Locator;
   readonly editorErrors: Locator;
   readonly titleError: Locator;
@@ -52,6 +54,8 @@ export class PagesPage {
     this.editorHeading = page.getByTestId('page-editor-heading');
     this.titleInput = page.getByTestId('page-title-input');
     this.heroInput = page.getByTestId('page-hero-input');
+    this.heroAltInput = page.getByTestId('page-hero-alt-input');
+    this.heroAltError = page.getByTestId('page-hero-alt-error');
     this.bodyInput = page.getByTestId('page-body-input');
     this.editorErrors = page.getByTestId('page-editor-errors');
     this.titleError = page.getByTestId('page-title-error');
@@ -94,9 +98,10 @@ export class PagesPage {
     await expect(this.editor).toBeVisible();
   }
 
-  async fillEditor(fields: { title?: string; hero?: string; body?: string }) {
+  async fillEditor(fields: { title?: string; hero?: string; heroAlt?: string; body?: string }) {
     if (fields.title !== undefined) await this.titleInput.fill(fields.title);
     if (fields.hero !== undefined) await this.heroInput.fill(fields.hero);
+    if (fields.heroAlt !== undefined) await this.heroAltInput.fill(fields.heroAlt);
     if (fields.body !== undefined) await this.bodyInput.fill(fields.body);
   }
 

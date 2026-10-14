@@ -7,7 +7,8 @@ import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import { SiteFooterComponent } from '../../layout/site-footer/site-footer.component';
 import { SiteHeaderComponent } from '../../layout/site-header/site-header.component';
-import { SITE_CONTENT } from '../../layout/site-content';
+import { SiteContentService } from '../../core/services/site-content.service';
+import { showPhotoUnavailable } from '../../core/site-content/show-photo-unavailable';
 import type { ContentPageState } from './content-page-state';
 
 /**
@@ -27,6 +28,9 @@ export class ContentPageComponent {
   private readonly pageService = inject(PageService);
   private readonly title = inject(Title);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly siteContent = inject(SiteContentService).content;
+
+  readonly showPhotoUnavailable = showPhotoUnavailable;
 
   readonly state = signal<ContentPageState>('loading');
   readonly page = signal<WebsitePage | null>(null);
@@ -61,6 +65,6 @@ export class ContentPageComponent {
   }
 
   private setTitle(prefix: string): void {
-    this.title.setTitle(`${prefix} · ${SITE_CONTENT.siteName}`);
+    this.title.setTitle(`${prefix} · ${this.siteContent().header.siteName}`);
   }
 }

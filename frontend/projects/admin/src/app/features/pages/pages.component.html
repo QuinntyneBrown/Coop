@@ -115,13 +115,18 @@
       </p>
     </div>
     <div class="page-dialog__body">
-      @if (errors().title || errors().body) {
+      @if (errors().title || errors().heroImageAlt || errors().body) {
         <div class="page-dialog__errors" role="alert" data-testid="page-editor-errors">
           <strong>Something needs attention before the page can be saved.</strong>
           <ul>
             @if (errors().title) {
               <li>
                 <a href="#page-title-field">{{ errors().title }}</a>
+              </li>
+            }
+            @if (errors().heroImageAlt) {
+              <li>
+                <a href="#page-hero-alt-field">{{ errors().heroImageAlt }}</a>
               </li>
             }
             @if (errors().body) {
@@ -169,6 +174,30 @@
         <span class="field-help" id="page-hero-help"
           >Paste the address of a photo from the Assets library. It shows under the title.</span
         >
+      </div>
+      <div class="form-group">
+        <label for="page-hero-alt-field">Photo description</label>
+        <textarea
+          id="page-hero-alt-field"
+          class="page-photo-alt"
+          name="heroImageAlt"
+          rows="3"
+          [(ngModel)]="draft.heroImageAlt"
+          [attr.aria-invalid]="errors().heroImageAlt ? 'true' : null"
+          [attr.aria-describedby]="
+            errors().heroImageAlt ? 'page-hero-alt-help page-hero-alt-error' : 'page-hero-alt-help'
+          "
+          data-testid="page-hero-alt-input"
+        ></textarea>
+        <span class="field-help" id="page-hero-alt-help"
+          >Describe the photo for people who cannot see it. Needed when the page has a photo.</span
+        >
+        @if (errors().heroImageAlt) {
+          <span class="field-error" id="page-hero-alt-error"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="page-hero-alt-error">{{ errors().heroImageAlt }}</span></span
+          >
+        }
       </div>
       <div class="form-group">
         <label for="page-body-field">Page text</label>

@@ -1,5 +1,4 @@
 import type { BoardMemberView } from './board-member-view';
-import type { HeroContent } from './hero-content';
 import type { NoticeView } from './notice-view';
 
 type Json = Record<string, unknown> | null | undefined;
@@ -11,16 +10,6 @@ const text = (source: Json, ...keys: string[]): string => {
   }
   return '';
 };
-
-/** Overlay the published `Hero` content on the default hero, field by field. */
-export function heroFrom(content: Json, defaults: HeroContent): HeroContent {
-  return {
-    ...defaults,
-    eyebrow: text(content, 'eyebrow', 'Eyebrow') || defaults.eyebrow,
-    title: text(content, 'title', 'Title') || defaults.title,
-    subtitle: text(content, 'subtitle', 'Subtitle') || defaults.subtitle,
-  };
-}
 
 export function initialsOf(name: string): string {
   return name

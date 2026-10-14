@@ -16,6 +16,7 @@ export class LandingPage {
   readonly menu: Locator;
   readonly menuLinks: Locator;
   readonly menuSignInLink: Locator;
+  readonly menuVisitLink: Locator;
   readonly navPageLinks: Locator;
   readonly menuPageLinks: Locator;
 
@@ -26,15 +27,20 @@ export class LandingPage {
   readonly heroCta: Locator;
   readonly heroSecondaryCta: Locator;
   readonly heroPhoto: Locator;
+  readonly heroEyebrow: Locator;
+  readonly heroBadge: Locator;
 
   // Body blocks
   readonly stats: Locator;
   readonly about: Locator;
   readonly gallery: Locator;
   readonly galleryPhotos: Locator;
+  readonly galleryCaptions: Locator;
   readonly features: Locator;
   readonly quote: Locator;
   readonly visit: Locator;
+  readonly visitPhone: Locator;
+  readonly visitAction: Locator;
 
   // Notices ("What's on")
   readonly noticesSection: Locator;
@@ -48,6 +54,8 @@ export class LandingPage {
   // Footer
   readonly footer: Locator;
   readonly footerPhone: Locator;
+  readonly footerEmail: Locator;
+  readonly footerCopyright: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -61,6 +69,7 @@ export class LandingPage {
     this.menu = page.getByTestId('site-menu');
     this.menuLinks = this.menu.getByTestId('site-menu-link');
     this.menuSignInLink = page.getByTestId('site-menu-signin-link');
+    this.menuVisitLink = page.getByTestId('site-menu-visit-link');
     this.navPageLinks = this.nav.getByTestId('site-nav-page-link');
     this.menuPageLinks = this.menu.getByTestId('site-menu-page-link');
 
@@ -70,14 +79,19 @@ export class LandingPage {
     this.heroCta = page.getByTestId('landing-hero-cta');
     this.heroSecondaryCta = page.getByTestId('landing-hero-secondary-cta');
     this.heroPhoto = page.getByTestId('landing-hero-photo');
+    this.heroEyebrow = page.getByTestId('landing-hero-eyebrow');
+    this.heroBadge = page.getByTestId('landing-hero-badge');
 
     this.stats = page.getByTestId('landing-stats');
     this.about = page.getByTestId('landing-about');
     this.gallery = page.getByTestId('landing-gallery');
     this.galleryPhotos = this.gallery.getByRole('img');
+    this.galleryCaptions = this.gallery.locator('figcaption');
     this.features = page.getByTestId('landing-features');
     this.quote = page.getByTestId('landing-quote');
     this.visit = page.getByTestId('landing-visit');
+    this.visitPhone = page.getByTestId('landing-visit-phone');
+    this.visitAction = page.getByTestId('landing-visit-action');
 
     this.noticesSection = page.getByTestId('landing-notices-section');
     this.noticeCards = page.getByTestId('landing-notice-card');
@@ -88,6 +102,8 @@ export class LandingPage {
 
     this.footer = page.getByTestId('site-footer');
     this.footerPhone = page.getByTestId('site-footer-phone');
+    this.footerEmail = page.getByTestId('site-footer-email');
+    this.footerCopyright = page.getByTestId('site-footer-copyright');
   }
 
   async goto() {
@@ -108,6 +124,28 @@ export class LandingPage {
 
   async expectNoticesVisible() {
     await expect(this.noticesSection).toBeVisible();
+  }
+
+  /** A link anywhere in the header by its visible name. */
+  navLink(name: string): Locator {
+    return this.nav.getByRole('link', { name, exact: true });
+  }
+
+  footerLink(name: string): Locator {
+    return this.footer.getByRole('link', { name, exact: true });
+  }
+
+  footerHeading(name: string): Locator {
+    return this.footer.getByRole('heading', { name, exact: true });
+  }
+
+  /** Counts the requests the page makes for the site content while it loads. */
+  countSiteContentRequests(): () => number {
+    let count = 0;
+    this.page.on('request', (request) => {
+      if (new URL(request.url()).pathname === '/api/site-content') count++;
+    });
+    return () => count;
   }
 
   boardMember(name: string): Locator {

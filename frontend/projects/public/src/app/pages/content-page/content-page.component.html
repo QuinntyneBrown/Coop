@@ -10,7 +10,12 @@
       </section>
       @if (page()!.heroImageUrl) {
         <div class="own-container own-page__hero">
-          <img [src]="page()!.heroImageUrl" alt="" data-testid="page-hero" />
+          <img
+            [src]="page()!.heroImageUrl"
+            [alt]="page()!.heroImageAlt ?? ''"
+            (error)="showPhotoUnavailable($event)"
+            data-testid="page-hero"
+          />
         </div>
       }
       <article

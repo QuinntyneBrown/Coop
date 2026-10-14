@@ -2,5 +2,7 @@
 export interface WebsitePageDraft {
   title: string;
   heroImageUrl: string;
+  /** The hero photo's description, needed when there is a photo (L2-REQ-095). */
+  heroImageAlt: string;
   body: string;
 }

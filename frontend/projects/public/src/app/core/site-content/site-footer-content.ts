@@ -1,14 +1,16 @@
 import type { SiteLink } from './site-link';
 
-/** The footer: contact details, section links, member links and the bottom line. */
+/** The footer on every public page: contact details, two link lists and the bottom line. */
 export interface SiteFooterContent {
+  contactHeading: string;
   organisation: string;
   area: string;
   phone: string;
-  phoneHref: string;
   email: string;
+  siteLinksHeading: string;
   siteLinks: SiteLink[];
+  memberLinksHeading: string;
   memberLinks: SiteLink[];
   copyright: string;
-  managedBy: string;
+  websiteLine: string;
 }

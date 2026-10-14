@@ -4,7 +4,7 @@ import type { PageFormErrors } from './page-form-errors';
 import { pageSlug } from './page-slug';
 
 /**
- * Client-side checks before a save (L2-REQ-080 AC5, AC6). The API applies the
+ * Client-side checks before a save (L2-REQ-080 AC5, AC6; L2-REQ-095 AC4). The API applies the
  * same rules and stays authoritative.
  */
 export function validatePageDraft(
@@ -22,6 +22,12 @@ export function validatePageDraft(
     errors.title = 'The title needs at least one letter or number.';
   } else if (pages.some((page) => page.slug === slug && page.pageId !== editingPageId)) {
     errors.title = `There is already a page called “${title}”. Choose a different title.`;
+  }
+
+  if (draft.heroImageUrl.trim() && !draft.heroImageAlt.trim()) {
+    errors.heroImageAlt = 'Describe this photo for people who cannot see it';
+  } else if (draft.heroImageAlt.trim().length > 250) {
+    errors.heroImageAlt = 'Keep the description under 250 characters';
   }
 
   if (!draft.body.trim()) {
