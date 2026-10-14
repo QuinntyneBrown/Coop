@@ -84,3 +84,5 @@
   .page-dialog, .page-dialog[open] { width: 100vw; max-width: none; margin: auto 0 0; border-radius: 16px 16px 0 0; max-height: 92vh; }
   .page-dialog__footer .btn { flex: 1; }
 }
+/* Photo description: plain prose, so the body's monospace look does not apply. */
+.page-dialog__body .form-group textarea.page-photo-alt { min-height: 96px; font-family: inherit; font-size: 15px; }

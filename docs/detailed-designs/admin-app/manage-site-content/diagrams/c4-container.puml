@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage the Public Site Content
+
+Person(admin, "Office administrator", "Publishes the site content")
+Person(visitor, "Visitor", "Reads the public site")
+System_Boundary(coop, "Coop") {
+  Container(adminApp, "Admin application", "Angular", "Website screen at /website with the editor and photo picker dialogs")
+  Container(publicApp, "Public application", "Angular", "Header, footer and home page drawn from the site content over built-in defaults")
+  Container(api, "Coop API", "ASP.NET Core", "api/site-content: read and replace; api/digitalasset: list, upload and serve photos")
+  ContainerDb(db, "Coop database", "SQLite", "JsonContents table (SiteContent entry), DigitalAssets table")
+}
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(adminApp, api, "GET, PUT api/site-content; GET, POST api/digitalasset", "JSON/HTTPS, bearer token")
+Rel(publicApp, api, "GET api/site-content once per load; photos from api/digitalasset/serve", "JSON/HTTPS, anonymous")
+Rel(api, db, "Reads and writes", "EF Core")
+@enduml

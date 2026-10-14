@@ -1,0 +1,138 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage the Public Site Content
+
+package "Coop.Domain.CMS" {
+  class JsonContent {
+    +Guid JsonContentId
+    +string Name
+    +string Json
+    +bool IsDeleted
+  }
+  class Page {
+    +string? HeroImageUrl
+    +string? HeroImageAlt
+    +Update(title, heroImageUrl, heroImageAlt, body)
+  }
+}
+
+package "Coop.Application.CMS" {
+  class SiteContentDto {
+    +SiteHeaderDto Header
+    +SiteFooterDto Footer
+    +HomeContentDto Home
+  }
+  class HomeContentDto {
+    +HeroDto Hero
+    +GlanceDto Glance
+    +AboutDto About
+    +GalleryDto Gallery
+    +FeaturesDto Features
+    +NoticesDto Notices
+    +SectionHeadDto Board
+    +QuoteDto Quote
+    +VisitDto Visit
+  }
+  class LinkDto {
+    +string Label
+    +string Href
+  }
+  class PhotoDto {
+    +string Src
+    +string Alt
+    +int Width
+    +int Height
+  }
+  class SiteContentRules <<static>> {
+    {static} +Name: string = "SiteContent"
+    {static} +IsSafeLink(href): bool
+    {static} +IsSafeImageAddress(src): bool
+  }
+  class SaveSiteContentRequest <<Write JsonContent>> {
+    +SiteContentDto SiteContent
+  }
+  class SaveSiteContentValidator
+  class SaveSiteContentHandler
+  class GetSiteContentRequest
+  class GetSiteContentHandler
+}
+
+package "Coop.Api" {
+  class SiteContentController {
+    +Get()
+    +Save(request)
+  }
+  class SiteContentSeed <<static>> {
+    {static} +Create(): SiteContentDto
+  }
+}
+
+package "admin app" {
+  class WebsiteComponent {
+    +content: Signal
+    +status: Signal
+    +editing: Signal<ContentBlock>
+    +draft
+    +openEditor(block)
+    +save()
+  }
+  class PhotoPickerComponent {
+    +open(current)
+    +picked: Output<PickedPhoto>
+  }
+  class ContentBlock {
+    +id
+    +name
+    +group
+    +path
+    +summary(content)
+    +fields: ContentField[]
+  }
+  class ContentField {
+    +kind
+    +key
+    +label
+    +itemName?
+    +fields?
+  }
+  class "SiteContentService (admin)" as AdminService {
+    +get()
+    +save(content)
+  }
+}
+
+package "public app" {
+  class "SiteContentService (public)" as PublicService {
+    +content: Signal<SiteContent>
+  }
+  class mergeContent <<function>>
+  class SITE_DEFAULTS <<const>>
+}
+
+SiteContentDto *-- HomeContentDto
+HomeContentDto ..> LinkDto
+HomeContentDto ..> PhotoDto
+SaveSiteContentRequest --> SiteContentDto
+SaveSiteContentValidator ..> SiteContentRules
+SaveSiteContentHandler ..> JsonContent : writes
+GetSiteContentHandler ..> JsonContent : reads
+SiteContentController ..> SaveSiteContentRequest
+SiteContentController ..> GetSiteContentRequest
+WebsiteComponent --> ContentBlock
+ContentBlock *-- ContentField
+WebsiteComponent ..> PhotoPickerComponent
+WebsiteComponent ..> AdminService
+AdminService ..> SiteContentController : HTTP
+PublicService ..> SiteContentController : HTTP
+PublicService ..> mergeContent
+mergeContent ..> SITE_DEFAULTS
+@enduml

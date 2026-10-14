@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin · Content Editor · invalid</title>
+<meta name="mock:screen" content="admin-content-editor">
+<meta name="mock:kind" content="dialog">
+<meta name="mock:state" content="invalid">
+<meta name="mock:requirements" content="L2-REQ-093, L2-REQ-094, L2-REQ-095, L2-REQ-096">
+<meta name="description" content="The Hero editor after saving with an empty title and a newly chosen photo without a description: an error summary and inline messages.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/styles/74dcab47ad882ae4.css">
+<link rel="stylesheet" href="../../assets/styles/966523f07b4db81c.css">
+<link rel="stylesheet" href="../../assets/styles/16dbdbc82dc14386.css">
+<link rel="stylesheet" href="../../assets/styles/76475c8d057ec1e8.css">
+<link rel="stylesheet" href="../../assets/styles/ebad4b5fdf1de0ac.css">
+<link rel="stylesheet" href="../../assets/styles/3542d6023f88c226.css">
+<link rel="stylesheet" href="../../assets/admin-website.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+<script src="../../assets/mock.js" defer></script></head><body>
+<a class="mock-skip" href="#main">Skip to content</a>
+<div inert aria-hidden="true"><app-root ng-version="19.2.25" _nghost-ng-c3984273398=""><app-layout _nghost-ng-c4107272877=""><div _ngcontent-ng-c4107272877="" class="layout"><app-sidebar _ngcontent-ng-c4107272877="" class="layout-sidebar" _nghost-ng-c113394371=""><aside _ngcontent-ng-c113394371="" data-testid="sidebar" class="sidebar"><div _ngcontent-ng-c113394371="" class="sidebar-header"><div _ngcontent-ng-c113394371="" class="logo"><span _ngcontent-ng-c113394371="" data-testid="sidebar-logo" class="material-icons logo-icon">apartment</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-app-title" class="logo-text">Coop Manager</span></div></div><nav _ngcontent-ng-c113394371="" class="sidebar-nav"><a _ngcontent-ng-c113394371="" routerlink="/dashboard" routerlinkactive="active" data-testid="sidebar-nav-dashboard" class="nav-item" href="../../pages/admin-dashboard/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">dashboard</span><span _ngcontent-ng-c113394371="">Dashboard</span></a><a _ngcontent-ng-c113394371="" routerlink="/maintenance" routerlinkactive="active" data-testid="sidebar-nav-maintenance" class="nav-item" href="../../pages/admin-maintenance/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">build</span><span _ngcontent-ng-c113394371="">Maintenance</span></a><a _ngcontent-ng-c113394371="" routerlink="/documents" routerlinkactive="active" data-testid="sidebar-nav-documents" class="nav-item" href="../../pages/admin-documents/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">description</span><span _ngcontent-ng-c113394371="">Documents</span></a><a _ngcontent-ng-c113394371="" routerlink="/pages" routerlinkactive="active" data-testid="sidebar-nav-pages" class="nav-item" href="../../pages/admin-pages/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">web</span><span _ngcontent-ng-c113394371="">Pages</span></a><a _ngcontent-ng-c113394371="" routerlink="/board" routerlinkactive="active" data-testid="sidebar-nav-board" class="nav-item" href="../../pages/admin-board/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">groups</span><span _ngcontent-ng-c113394371="">Board</span></a><a _ngcontent-ng-c113394371="" routerlink="/website" routerlinkactive="active" data-testid="sidebar-nav-website" class="nav-item active" href="../../pages/admin-website/default.html" data-active="true" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">web</span><span _ngcontent-ng-c113394371="">Website</span></a><a _ngcontent-ng-c113394371="" routerlink="/messages" routerlinkactive="active" data-testid="sidebar-nav-messages" class="nav-item" href="../../pages/admin-messaging/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">chat</span><span _ngcontent-ng-c113394371="">Messages</span></a><a _ngcontent-ng-c113394371="" routerlink="/users" routerlinkactive="active" data-testid="sidebar-nav-users" class="nav-item" href="../../pages/admin-users/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">people</span><span _ngcontent-ng-c113394371="">Users</span></a><a _ngcontent-ng-c113394371="" routerlink="/roles" routerlinkactive="active" data-testid="sidebar-nav-roles" class="nav-item" href="../../pages/admin-roles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">admin_panel_settings</span><span _ngcontent-ng-c113394371="">Roles &amp; Privileges</span></a><a _ngcontent-ng-c113394371="" routerlink="/profiles" routerlinkactive="active" data-testid="sidebar-nav-profiles" class="nav-item" href="../../pages/admin-profiles/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">badge</span><span _ngcontent-ng-c113394371="">Profiles</span></a><a _ngcontent-ng-c113394371="" routerlink="/assets" routerlinkactive="active" data-testid="sidebar-nav-assets" class="nav-item" href="../../pages/admin-assets/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">perm_media</span><span _ngcontent-ng-c113394371="">Assets</span></a><a _ngcontent-ng-c113394371="" routerlink="/invitations" routerlinkactive="active" data-testid="sidebar-nav-invitations" class="nav-item" href="../../pages/admin-invitations/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">mail</span><span _ngcontent-ng-c113394371="">Invitations</span></a><a _ngcontent-ng-c113394371="" routerlink="/settings" routerlinkactive="active" data-testid="sidebar-nav-settings" class="nav-item" href="../../pages/admin-settings/default.html" data-active="false" data-source-action="click"><span _ngcontent-ng-c113394371="" class="material-icons">settings</span><span _ngcontent-ng-c113394371="">Settings</span></a></nav><div _ngcontent-ng-c113394371="" class="sidebar-footer"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-info" class="user-info"><div _ngcontent-ng-c113394371="" data-testid="sidebar-user-avatar" class="user-avatar">M</div><div _ngcontent-ng-c113394371="" class="user-details"><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-name" class="user-name">mira.fern</span><span _ngcontent-ng-c113394371="" data-testid="sidebar-user-role" class="user-role">Member</span></div></div></div></aside></app-sidebar><main _ngcontent-ng-c4107272877="" class="layout-main" id="main"><div class="website-page">
+  <div class="website-header">
+    <h1 data-testid="website-title">Website</h1>
+    <p>Everything visitors read and see on the public website. Changes are live as soon as you save.</p>
+  </div>
+  <section class="website-group" aria-labelledby="website-group-1">
+    <h2 id="website-group-1">On every page</h2>
+    <ul class="website-blocks">
+      <li class="block-card">
+        <h3>Header</h3>
+        <p class="block-card__summary">OWN Housing Co-op</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Header" data-mock-href="../../dialogs/admin-content-editor/list.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>Footer</h3>
+        <p class="block-card__summary">OWN Housing Co-operative Inc.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Footer" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+    </ul>
+  </section>
+  <section class="website-group" aria-labelledby="website-group-2">
+    <h2 id="website-group-2">Home page</h2>
+    <ul class="website-blocks">
+      <li class="block-card block-card--photo">
+        <img class="block-card__thumb" src="../../assets/own/hero.svg" width="72" height="54" alt="">
+        <h3>Hero</h3>
+        <p class="block-card__summary">A home of our own, in the heart of Toronto.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Hero" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>At a glance</h3>
+        <p class="block-card__summary">3 figures</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit At a glance" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>Who we are</h3>
+        <p class="block-card__summary">Older women built this place. We still run it.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Who we are" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card block-card--photo">
+        <img class="block-card__thumb" src="../../assets/own/tea.svg" width="72" height="54" alt="">
+        <h3>A look around</h3>
+        <p class="block-card__summary">6 photos</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit A look around" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card block-card--photo">
+        <img class="block-card__thumb" src="../../assets/own/lobby.svg" width="72" height="54" alt="">
+        <h3>Our building and community</h3>
+        <p class="block-card__summary">2 rows</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Our building and community" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>What&#x27;s on</h3>
+        <p class="block-card__summary">Something for every week.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit What&#x27;s on" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>Meet the board</h3>
+        <p class="block-card__summary">Elected by neighbours, for neighbours.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Meet the board" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card block-card--photo">
+        <img class="block-card__thumb" src="../../assets/own/quote.svg" width="72" height="54" alt="">
+        <h3>A word from a member</h3>
+        <p class="block-card__summary">“I came for an apartment I could afford. I stayed for the women down the hall.”</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit A word from a member" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+      <li class="block-card">
+        <h3>Visit or apply</h3>
+        <p class="block-card__summary">Come and see for yourself.</p>
+        <button type="button" class="btn btn-secondary" aria-label="Edit Visit or apply" data-mock-href="../../dialogs/admin-content-editor/default.html">Edit</button>
+      </li>
+    </ul>
+  </section>
+  <app-bottom-tab-bar _ngcontent-ng-c4133025109="" class="mobile-only" _nghost-ng-c1362238811=""><nav _ngcontent-ng-c1362238811="" data-testid="bottom-tab-bar" class="bottom-tab-bar"><a _ngcontent-ng-c1362238811="" routerlink="/dashboard" routerlinkactive="active" data-testid="tab-home" class="tab-item" href="../../pages/admin-dashboard/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">home</span><span _ngcontent-ng-c1362238811="" class="tab-label">Home</span></a><a _ngcontent-ng-c1362238811="" routerlink="/maintenance" routerlinkactive="active" data-testid="tab-requests" class="tab-item" href="../../pages/admin-maintenance/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">build</span><span _ngcontent-ng-c1362238811="" class="tab-label">Requests</span></a><a _ngcontent-ng-c1362238811="" routerlink="/documents" routerlinkactive="active" data-testid="tab-docs" class="tab-item" href="../../pages/admin-documents/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">description</span><span _ngcontent-ng-c1362238811="" class="tab-label">Docs</span></a><a _ngcontent-ng-c1362238811="" routerlink="/messaging" routerlinkactive="active" data-testid="tab-messages" class="tab-item" href="../../pages/admin-messaging/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">chat</span><span _ngcontent-ng-c1362238811="" class="tab-label">Messages</span></a><a _ngcontent-ng-c1362238811="" routerlink="/profile" routerlinkactive="active" data-testid="tab-profile" class="tab-item" href="../../pages/admin-profile/default.html" data-source-action="click"><span _ngcontent-ng-c1362238811="" class="material-icons">person</span><span _ngcontent-ng-c1362238811="" class="tab-label">Profile</span></a></nav></app-bottom-tab-bar>
+</div></main></div></app-layout></app-root></div>
+<div class="content-dialog-backdrop" aria-hidden="true"></div>
+<dialog class="content-dialog" open aria-labelledby="content-editor-title" aria-describedby="content-editor-intro" data-testid="content-editor">
+  <form method="dialog" novalidate>
+    <div class="content-dialog__header">
+      <h2 id="content-editor-title">Edit Hero</h2>
+      <p id="content-editor-intro">Changes show on the website as soon as you save.</p>
+    </div>
+    <div class="content-dialog__body">
+      <div class="content-dialog__errors" role="alert">
+        <strong>Something needs attention before your changes can be saved.</strong>
+        <ul>
+          <li><a href="#hero-title-field">Fill in “Title”</a></li>
+          <li><a href="#hero-photo-alt-field">Describe this photo for people who cannot see it</a></li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <label for="hero-eyebrow-field">Small heading above the title (optional)</label>
+        <input id="hero-eyebrow-field" name="eyebrow" type="text" value="A co-operative for older women" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="hero-title-field">Title</label>
+        <input id="hero-title-field" name="title" type="text" value="" autocomplete="off" required autofocus aria-invalid="true" aria-describedby="hero-title-field-error">
+        <span class="field-error" id="hero-title-field-error"><span class="material-icons" aria-hidden="true">error_outline</span>Fill in “Title”</span>
+      </div>
+      <div class="form-group">
+        <label for="hero-lead-field">Introduction (optional)</label>
+        <textarea id="hero-lead-field" name="lead" rows="3">Bright apartments, a rooftop garden, and neighbours who look out for one another. Run by the women who live here.</textarea>
+      </div>
+      <div class="form-group">
+        <label for="hero-badge-field">Badge on the photo (optional)</label>
+        <input id="hero-badge-field" name="badge" type="text" value="Welcoming members since 1997" autocomplete="off">
+      </div>
+      <fieldset class="content-fieldset">
+        <legend>Main button</legend>
+        <div class="content-fieldset__row">
+          <div class="form-group">
+            <label for="hero-primary-label-field">Label</label>
+            <input id="hero-primary-label-field" name="label" type="text" value="Book a visit" autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <label for="hero-primary-href-field">Address</label>
+            <input id="hero-primary-href-field" name="href" type="text" inputmode="url" spellcheck="false" value="/#visit" autocomplete="off" required aria-describedby="hero-primary-href-field-help">
+            <span class="field-help" id="hero-primary-href-field-help">A page on this site such as /#visit, a web address, an e-mail address or a phone number.</span>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="content-fieldset">
+        <legend>Second button</legend>
+        <div class="content-fieldset__row">
+          <div class="form-group">
+            <label for="hero-secondary-label-field">Label</label>
+            <input id="hero-secondary-label-field" name="label" type="text" value="How to apply" autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <label for="hero-secondary-href-field">Address</label>
+            <input id="hero-secondary-href-field" name="href" type="text" inputmode="url" spellcheck="false" value="/#visit" autocomplete="off" required aria-describedby="hero-secondary-href-field-help">
+            <span class="field-help" id="hero-secondary-href-field-help">A page on this site such as /#visit, a web address, an e-mail address or a phone number.</span>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="content-fieldset">
+        <legend>Photo</legend>
+        <div class="photo-field__current">
+          <img class="photo-field__thumb" src="../../assets/own/garden.svg" width="160" height="120" alt="">
+          <div>
+            <span class="photo-field__name" id="hero-photo-name">Current photo: garden.svg</span>
+            <button type="button" class="btn btn-secondary" aria-describedby="hero-photo-name" data-mock-href="../../dialogs/admin-photo-picker/default.html"><span class="material-icons" aria-hidden="true">photo_library</span> Choose photo</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="hero-photo-alt-field">Photo description</label>
+          <textarea id="hero-photo-alt-field" name="alt" rows="3" required aria-invalid="true" aria-describedby="hero-photo-alt-field-help hero-photo-alt-field-error"></textarea>
+          <span class="field-help" id="hero-photo-alt-field-help">Describe the photo for people who cannot see it.</span>
+          <span class="field-error" id="hero-photo-alt-field-error"><span class="material-icons" aria-hidden="true">error_outline</span>Describe this photo for people who cannot see it</span>
+        </div>
+      </fieldset>
+    </div>
+    <div class="content-dialog__footer">
+      <button type="button" class="btn btn-secondary" data-mock-href="../../pages/admin-website/default.html">Cancel</button>
+      <button type="submit" class="btn btn-primary" data-mock-href="../../notifications/admin-website-saved/success.html">Save changes</button>
+    </div>
+  </form>
+</dialog>
+<aside class="mock-bar"><details><summary>Admin · Content Editor · invalid — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a> <a href="default.html">default</a> <a href="list.html">list</a> <a href="invalid.html" aria-current="page">invalid</a> <a href="busy.html">busy</a> <a href="failed.html">failed</a> <a href="../../dialogs/admin-photo-picker/default.html">Photo Picker</a> <a href="../../pages/admin-website/default.html">Back to page</a></nav><p class="mock-note">Hand-written design reference for the Website screen, implemented by the admin app in features/website/. Forms do not submit. The sample content is the public site&#x27;s built-in default content, which the seed publishes; all people, places and contact details in it are fictional.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/website/website.component.ts</code></p></details></aside>
+</body></html>

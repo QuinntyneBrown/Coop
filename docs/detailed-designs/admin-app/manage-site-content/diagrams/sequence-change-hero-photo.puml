@@ -1,0 +1,50 @@
+@startuml
+title UML sequence behaviour — Change the hero photograph and show it on the home page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office administrator" as actor
+actor "Visitor" as visitor
+box "Frontend — Admin application" #E0F2FE
+  participant "WebsiteComponent" as screen
+  participant "PhotoPickerComponent" as picker
+  participant "SiteContentService" as service
+end box
+box "Frontend — Public application" #DCFCE7
+  participant "LandingComponent" as landing
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  participant "ValidationBehavior" as validation
+  participant "AuthorizationBehavior" as authz
+  participant "SaveSiteContentHandler" as handler
+  database "CoopDbContext" as db
+end box
+actor -> screen : "Edit Hero"
+screen -> screen : draft = copy of home.hero; open editor dialog
+actor -> picker : "Choose photo", pick a library photo or upload one  [L2-REQ-095 AC1]
+picker --> screen : { src, width, height }
+screen -> screen : photo = new photo, description cleared
+actor -> screen : "Save changes"
+screen -> screen : validateBlock(hero, draft)
+alt description or a required value is empty
+  screen --> actor : Dialog stays open, fields marked invalid  [L2-REQ-094 AC4, L2-REQ-095 AC2]
+else draft is valid
+  screen -> screen : saving = true ("Saving…"); content = writePath(content, home.hero, draft)
+  screen -> service : save(content)
+  service -> controller : PUT api/site-content { siteContent } (bearer token)
+  controller -> validation : Send(SaveSiteContentRequest)
+  validation -> authz : required values, safe links, photo rules  [L2-REQ-097 AC5]
+  authz -> handler : caller holds Write on JsonContent  [L2-REQ-097 AC2]
+  handler -> db : SiteContent entry (add when missing), Json = content, SaveChanges
+  controller --> service : 200 { siteContent }
+  screen -> screen : close dialog, notice "Your changes are now on the website."
+  screen --> actor : Hero card shows the new photo
+end
+visitor -> landing : open the home page
+landing -> controller : GET api/site-content (anonymous, once per load)
+controller --> landing : { siteContent }
+landing --> visitor : hero shows the new photograph and description  [L2-REQ-094 AC2]
+@enduml
