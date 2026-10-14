@@ -25,14 +25,13 @@ Terms used in this design:
 - **phone menu** — full-width panel under the header that replaces the
   horizontal navigation below 1024 px
 
-Three blocks are CMS-driven today: the hero (`Hero` JSON content), the board
-list (`BoardOfDirectors` JSON content, which the office keeps from the admin
-Board screen in `../../admin-app/manage-board/`, falling back to the board
-member profiles) and the notices (published notices). The remaining blocks (at a
-glance, who we are, gallery, building and community rows, quote, visit band,
-navigation and footer) render default copy. Editing them in admin is planned
-work outside this design; the page keeps every block's copy in one place so
-that a later CMS block replaces a default without a template change.
+Every block is CMS-driven. The text, links and photographs of the header,
+footer and every home page block come from the site content the office edits
+on the admin Website screen (`../../admin-app/manage-site-content/`,
+`L2-REQ-092`). The board list comes from the `BoardOfDirectors` JSON content,
+which the office keeps from the admin Board screen in
+`../../admin-app/manage-board/`, falling back to the board member profiles,
+and the notices are published notices.
 
 ## Description
 
@@ -50,30 +49,22 @@ accessible state attributes match the mock so the Playwright page object and
 the design reference describe the same DOM. The product shows the light
 theme only; the dark tokens in the mock are not implemented.
 
-`LANDING_CONTENT` (`landing-content.ts`) is a plain TypeScript constant
-holding the default copy and the photograph manifest: hero defaults,
-at-a-glance figures, value cards, the six gallery photographs, the two
-feature rows, the quotation and the visit band. The site name, the
-navigation links and the footer live in `SITE_CONTENT`
-(`layout/site-content.ts`) because the header and footer are shared. Each
-photograph is a `LandingPhoto` with a path under the public project's
-`public/own/` assets folder, descriptive alternative text and intrinsic size.
-Replacing a photograph means replacing the file and its entry in this
-constant; no template changes.
-
-The view-model types each have their own file: `HeroContent`
-(`hero-content.ts`), `LandingPhoto` (`landing-photo.ts`), `LandingStat`
-(`landing-stat.ts`), `LandingValue` (`landing-value.ts`), `LandingFeature`
-(`landing-feature.ts`), `LandingQuote` (`landing-quote.ts`), `LandingVisit`
-(`landing-visit.ts`), `LandingContent` (`landing-content-shape.ts`),
-`BoardMemberView` (`board-member-view.ts`) and `NoticeView`
-(`notice-view.ts`).
+`LandingComponent` reads the merged site content from `SiteContentService`
+(`core/services/site-content.service.ts`), which requests `api/site-content`
+once per load and lays it over `SITE_DEFAULTS`
+(`core/site-content/site-defaults.ts`) value by value with `mergeContent`.
+The content types each have their own file in `core/site-content/`
+(`SiteContent`, `HomeContent`, `HeroContent`, `SitePhoto`, `SiteLink` and
+one per block). Empty optional texts and empty lists leave their element or
+block out; value-card colours follow position and feature rows alternate the
+photograph's side. A photograph that fails to load is replaced with
+`own/photo-unavailable.svg` by `showPhotoUnavailable`. `BoardMemberView`
+(`board-member-view.ts`) and `NoticeView` (`notice-view.ts`) stay beside the
+page.
 
 `landing-view-model.ts` holds the pure functions that turn API responses into
 view models, so the rules stay out of the template:
 
-- `heroFrom(content, defaults)` overrides the default eyebrow, title and
-  subtitle with the `Hero` JSON content when a value is present.
 - `boardMembersFrom(content)` reads `members` from the `BoardOfDirectors`
   JSON content, accepting `name`, `title`, `role`, `avatarUrl` and `photoUrl` in
   either casing, and derives two-letter initials for members without a photograph.
@@ -90,7 +81,8 @@ calls `GET api/json-content/{name}` on `PublicBffController` (anonymous) and
 falls back to `GET api/jsoncontent/name/{name}`. `ApiService.get` calls
 `GET api/notice/published` on `NoticeController` and `GET api/board-members`
 on `PublicBffController`, with `GET api/boardmembers` as the fallback the
-Playwright mock serves. Every request failure resolves to the default copy;
+Playwright mock serves. `SiteContentService` calls `GET api/site-content` on `SiteContentController`.
+Every request failure resolves to the default copy;
 the page never shows an error banner (`docs/mocks/manifest.json` records this
 choice for the landing page).
 
@@ -105,13 +97,14 @@ links followed by one link per website page (L2-REQ-082).
 Acceptance coverage is the Playwright `public` project:
 `e2e/tests/public/landing.spec.ts` states intent and
 `e2e/pages/public/landing.page.ts` owns the selectors. The in-process mock
-API in `e2e/fixtures/mock-api/` seeds the `Hero` and `BoardOfDirectors`
-content and one published notice; tests that need an empty notices block
+API in `e2e/fixtures/mock-api/` seeds the `SiteContent` and
+`BoardOfDirectors` content and one published notice; tests that need an empty notices block
 clear `mockApi.store.documents` before navigating.
 
 Items marked `<TO SUPPLY>`: the Co-op's own photographs for the hero,
-gallery, feature rows, board and quotation. The default manifest ships the
-mock's illustrations until the photographs are supplied.
+gallery, feature rows, board and quotation. The seeded content ships the
+mock's illustrations until the office chooses its photographs on the Website
+screen.
 
 ## Requirements
 
@@ -151,9 +144,9 @@ typed blocks, the two API-derived view models and the mapping functions.
 
 ![Class structure for the home page](diagrams/class.png)
 
-Loading the page renders the defaults first, then overlays the hero, board
-and notices as each anonymous request returns; a failed request leaves the
-defaults in place.
+Loading the page renders the defaults first, then overlays the site content,
+board and notices as each anonymous request returns; a failed request leaves
+the defaults in place.
 
 ![Sequence for loading the home page](diagrams/sequence-load-home-page.png)
 

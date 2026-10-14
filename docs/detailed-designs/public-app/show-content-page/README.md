@@ -57,7 +57,8 @@ type `ContentPageState` (`content-page-state.ts`: `loading`, `ready`,
 `not-found`, `error`) beside the loaded `page`:
 
 - `ready` renders the title banner (`own-page-banner`, the only `h1`), the
-  hero photograph when `heroImageUrl` is set, and the body in an
+  hero photograph when `heroImageUrl` is set, with `heroImageAlt` as its
+  alternative text, and the body in an
   `own-prose` reading column bound with `[innerHTML]`. Angular's sanitiser
   removes script elements and event-handler attributes before rendering.
 - `loading` renders a "Loading…" status line in the same column.

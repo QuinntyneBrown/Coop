@@ -67,8 +67,9 @@ surface that serves both applications.
 - Digital asset upload, avatars, and anonymous serving of public assets.
 - Theme and JSON content management that drives the public site, and website
   pages the office adds, edits and removes from the admin app that appear in
-  the public header navigation, and the Board of Directors list the home page
-  shows, kept from the admin app.
+  the public header navigation, the Board of Directors list the home page
+  shows, and every text, link and photo of the public header, footer and home
+  page, all kept from the admin app.
 - Invitation and onboarding flows for new members.
 - Event sourcing and audit trail for domain changes.
 - Static HTML references of the implemented screens under `docs/mocks/`,
@@ -111,8 +112,11 @@ the API only allows CORS requests from `http://localhost:4200` and
 `http://localhost:4201`, so keep those ports.
 
 On startup the API creates `coop.db` if it is missing and seeds fictional
-development data: roles and privileges, an `admin` user, a `member` user, and
-sample board members. Swagger is available at `http://localhost:5000/swagger`
+development data: roles and privileges, an `admin` user, a `member` user,
+sample board members, and the public site content the admin Website screen
+edits. The database has no migrations yet, so after an update that adds a
+column (such as the website page photo description) delete `coop.db` and
+restart the API to recreate it. Swagger is available at `http://localhost:5000/swagger`
 in the Development environment. See [backend/README.md](backend/README.md) for the seed
 accounts and the backend layout.
 

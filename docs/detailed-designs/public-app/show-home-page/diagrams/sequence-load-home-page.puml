@@ -9,7 +9,7 @@ actor "Visitor" as actor
 box "Frontend — Public application" #E0F2FE
   participant "LandingComponent" as page
   participant "landing-view-model" as vm
-  participant "JsonContentService / ApiService" as client
+  participant "SiteContentService / JsonContentService / ApiService" as client
 end box
 box "Backend — Coop API application" #D1FADF
   participant "PublicBffController" as bff
@@ -22,17 +22,10 @@ box "Backend — Coop Infrastructure" #FFF4E5
   database "Coop database" as db
 end box
 actor -> page : Open /
-page -> page : Render header, hero defaults, body blocks and footer from LANDING_CONTENT
-page -> client : getByName("Hero")
-client -> bff : GET api/json-content/Hero (anonymous)
-bff -> handler : GetJsonContentByNameRequest
-handler -> db : Load JSON content
-db --> handler : JsonContent
-handler --> bff : Parsed content
-bff --> client : { id, name, content }
-client --> page : JsonContent | null
-page -> vm : heroFrom(content, defaults)  [L2-REQ-068 AC1, AC2]
-vm --> page : HeroContent
+page -> page : Render the header, blocks and footer from the built-in defaults
+page -> client : SiteContentService: GET api/site-content (once per load, anonymous)
+client --> page : { siteContent } or an error
+page -> page : mergeContent(SITE_DEFAULTS, published): every block's text, links and photos  [L2-REQ-068 AC1, AC2; L2-REQ-098]
 page -> client : getByName("BoardOfDirectors")
 client -> bff : GET api/json-content/BoardOfDirectors
 bff --> client : { content: { members } } or null
@@ -57,5 +50,5 @@ notice --> client : { notices }
 client --> page : notices
 page -> vm : noticeViewFrom(each notice)  [L2-REQ-070 AC4, AC5]
 vm --> page : NoticeView[]
-page --> actor : Home page with CMS hero, board and notices
+page --> actor : Home page with the published content, board and notices
 @enduml

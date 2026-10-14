@@ -1,0 +1,373 @@
+<div class="website-page">
+  <div class="website-header">
+    <h1 data-testid="website-title">Website</h1>
+    <p>
+      Everything visitors read and see on the public website. Changes are live as soon as you save.
+    </p>
+  </div>
+
+  <div role="status" aria-live="polite">
+    @if (notice()) {
+      <div class="website-alert website-alert--success">
+        <span class="material-icons" aria-hidden="true">check_circle</span>
+        <span data-testid="website-notice">{{ notice() }}</span>
+      </div>
+    }
+  </div>
+
+  @switch (status()) {
+    @case ('loading') {
+      <div class="website-loading" role="status" aria-live="polite" data-testid="website-loading">
+        <span class="website-spinner" aria-hidden="true"></span>Loading the website content…
+      </div>
+    }
+    @case ('error') {
+      <div class="website-alert website-alert--danger" role="alert" data-testid="website-error">
+        <span class="material-icons" aria-hidden="true">error_outline</span>
+        <span>We couldn't load the website content. Check your connection and try again.</span>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="load()"
+          data-testid="website-retry"
+        >
+          Try again
+        </button>
+      </div>
+    }
+    @case ('ready') {
+      @for (group of groups; track group.id) {
+        <section class="website-group" [attr.aria-labelledby]="'website-group-' + group.id">
+          <h2 [id]="'website-group-' + group.id">{{ group.name }}</h2>
+          <ul class="website-blocks">
+            @for (block of group.blocks; track block.id) {
+              @let value = blockValue(block);
+              @let photo = block.photo?.(value);
+              <li class="block-card" [class.block-card--photo]="photo" data-testid="website-block">
+                @if (photo) {
+                  <img
+                    class="block-card__thumb"
+                    [src]="previewUrl(photo)"
+                    width="72"
+                    height="54"
+                    alt=""
+                  />
+                }
+                <h3>{{ block.name }}</h3>
+                <p class="block-card__summary">{{ block.summary(value) }}</p>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [attr.aria-label]="'Edit ' + block.name"
+                  (click)="openEditor(block, $event)"
+                >
+                  Edit
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    }
+  }
+
+  <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
+</div>
+
+<dialog
+  #editorDialog
+  class="content-dialog"
+  aria-labelledby="content-editor-title"
+  aria-describedby="content-editor-intro"
+  (close)="onEditorClosed()"
+  data-testid="content-editor"
+>
+  @if (editing(); as block) {
+    <form (submit)="save($event)" novalidate>
+      <div class="content-dialog__header">
+        <h2 id="content-editor-title" data-testid="content-editor-heading">
+          Edit {{ block.name }}
+        </h2>
+        <p id="content-editor-intro">Changes show on the website as soon as you save.</p>
+      </div>
+      <div class="content-dialog__body">
+        @if (errorList().length > 0) {
+          <div class="content-dialog__errors" role="alert" data-testid="content-editor-errors">
+            <strong>Something needs attention before your changes can be saved.</strong>
+            <ul>
+              @for (error of errorList(); track error.id) {
+                <li>
+                  <a [href]="'#' + error.id">{{ error.message }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+        @if (saveFailed()) {
+          <div class="content-dialog__errors" role="alert" data-testid="content-editor-failed">
+            We couldn't save your changes. Try again.
+          </div>
+        }
+        @for (field of block.fields; track field.key) {
+          <ng-container
+            *ngTemplateOutlet="
+              fieldTemplate;
+              context: { $implicit: field, target: draft(), path: field.key }
+            "
+          />
+        }
+      </div>
+      <div class="content-dialog__footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          [disabled]="saving()"
+          (click)="closeEditor()"
+          data-testid="content-editor-cancel"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="saving()"
+          [attr.aria-busy]="saving() ? 'true' : null"
+          data-testid="content-editor-save"
+        >
+          {{ saving() ? 'Saving…' : 'Save changes' }}
+        </button>
+      </div>
+    </form>
+  }
+</dialog>
+
+<app-photo-picker (picked)="onPhotoPicked($event)" />
+
+<!-- One field of a block, drawn by kind; groups and lists draw their own fields with it. -->
+<ng-template #fieldTemplate let-field let-target="target" let-path="path">
+  @let id = fieldId(path);
+  @let error = errors()[path];
+  @let describedBy =
+    ((field.help ? id + '-help ' : '') + (error ? id + '-error' : '')).trim() || null;
+  @switch (field.kind) {
+    @case ('group') {
+      <fieldset class="content-fieldset">
+        <legend>{{ field.label }}</legend>
+        <div [class.content-fieldset__row]="field.columns">
+          @for (sub of field.fields; track sub.key) {
+            <ng-container
+              *ngTemplateOutlet="
+                fieldTemplate;
+                context: { $implicit: sub, target: target[field.key], path: path + '.' + sub.key }
+              "
+            />
+          }
+        </div>
+      </fieldset>
+    }
+    @case ('list') {
+      <fieldset class="content-list">
+        <legend>{{ field.label }}</legend>
+        <ol class="content-list__items">
+          @for (
+            item of target[field.key];
+            track $index;
+            let i = $index, first = $first, last = $last
+          ) {
+            @let legend = itemLegend(field, i);
+            @let name = legend.toLowerCase();
+            <li [attr.data-item]="path + '.' + i">
+              <fieldset class="content-fieldset">
+                <legend>{{ legend }}</legend>
+                <div [class.content-fieldset__row]="field.columns">
+                  @for (sub of field.fields; track sub.key) {
+                    <ng-container
+                      *ngTemplateOutlet="
+                        fieldTemplate;
+                        context: {
+                          $implicit: sub,
+                          target: item,
+                          path: path + '.' + i + '.' + sub.key,
+                        }
+                      "
+                    />
+                  }
+                </div>
+                <div class="content-list__actions">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    [attr.aria-label]="'Move ' + name + ' up'"
+                    [attr.data-move]="path + '.' + i + '.up'"
+                    [disabled]="first"
+                    (click)="moveItem(target, field, path, i, -1)"
+                  >
+                    <span class="material-icons" aria-hidden="true">arrow_upward</span> Move up
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    [attr.aria-label]="'Move ' + name + ' down'"
+                    [attr.data-move]="path + '.' + i + '.down'"
+                    [disabled]="last"
+                    (click)="moveItem(target, field, path, i, 1)"
+                  >
+                    <span class="material-icons" aria-hidden="true">arrow_downward</span> Move down
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger-outline"
+                    [attr.aria-label]="'Remove ' + name"
+                    (click)="removeItem(target, field, path, i)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </fieldset>
+            </li>
+          }
+        </ol>
+        <button
+          type="button"
+          class="btn btn-secondary content-list__add"
+          [attr.data-add]="path"
+          (click)="addItem(target, field, path)"
+        >
+          <span class="material-icons" aria-hidden="true">add</span> Add {{ field.itemName }}
+        </button>
+      </fieldset>
+    }
+    @case ('photo') {
+      @let photo = target[field.key];
+      @let srcError = errors()[path + '.src'];
+      @let altId = fieldId(path + '.alt');
+      @let altError = errors()[path + '.alt'];
+      <fieldset class="content-fieldset">
+        <legend>{{ field.label }}</legend>
+        <div class="photo-field__current">
+          @if (photo.src) {
+            <img
+              class="photo-field__thumb"
+              [src]="previewUrl(photo.src)"
+              width="160"
+              height="120"
+              alt=""
+            />
+          }
+          <div>
+            <span class="photo-field__name" [id]="id + '-name'">{{
+              photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet'
+            }}</span>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              [id]="fieldId(path + '.src')"
+              [attr.aria-describedby]="srcError ? id + '-name ' + id + '-src-error' : id + '-name'"
+              (click)="choosePhoto(photo, path)"
+            >
+              <span class="material-icons" aria-hidden="true">photo_library</span> Choose photo
+            </button>
+            @if (srcError) {
+              <span class="field-error" [id]="id + '-src-error'"
+                ><span class="material-icons" aria-hidden="true">error_outline</span
+                ><span data-testid="field-error">{{ srcError }}</span></span
+              >
+            }
+          </div>
+        </div>
+        <div class="form-group">
+          <label [for]="altId">Photo description</label>
+          <textarea
+            [id]="altId"
+            rows="3"
+            [(ngModel)]="photo.alt"
+            [ngModelOptions]="{ standalone: true }"
+            [attr.aria-invalid]="altError ? 'true' : null"
+            [attr.aria-describedby]="altId + '-help' + (altError ? ' ' + altId + '-error' : '')"
+          ></textarea>
+          <span class="field-help" [id]="altId + '-help'"
+            >Describe the photo for people who cannot see it.</span
+          >
+          @if (altError) {
+            <span class="field-error" [id]="altId + '-error'"
+              ><span class="material-icons" aria-hidden="true">error_outline</span
+              ><span data-testid="field-error">{{ altError }}</span></span
+            >
+          }
+        </div>
+      </fieldset>
+    }
+    @default {
+      <div class="form-group">
+        <label [for]="id">{{ field.label }}</label>
+        @switch (field.kind) {
+          @case ('choice') {
+            <select
+              [id]="id"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-describedby]="describedBy"
+            >
+              @for (option of field.options; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          }
+          @case ('textarea') {
+            <textarea
+              [id]="id"
+              rows="3"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            ></textarea>
+          }
+          @case ('lines') {
+            <textarea
+              [id]="id"
+              rows="4"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            ></textarea>
+          }
+          @case ('address') {
+            <input
+              [id]="id"
+              type="text"
+              inputmode="url"
+              spellcheck="false"
+              autocomplete="off"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            />
+          }
+          @default {
+            <input
+              [id]="id"
+              type="text"
+              autocomplete="off"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            />
+          }
+        }
+        @if (field.help) {
+          <span class="field-help" [id]="id + '-help'">{{ field.help }}</span>
+        }
+        @if (error) {
+          <span class="field-error" [id]="id + '-error'"
+            ><span class="material-icons" aria-hidden="true">error_outline</span
+            ><span data-testid="field-error">{{ error }}</span></span
+          >
+        }
+      </div>
+    }
+  }
+</ng-template>

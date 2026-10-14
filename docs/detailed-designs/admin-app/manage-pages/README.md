@@ -18,11 +18,13 @@ rather than as a named JSON block.
 Terms used in this design:
 
 - **website page** — page of the public site with a title, an optional hero
-  photograph address and an HTML body, stored as a `Page` entity
+  photograph address with its description and an HTML body, stored as a `Page` entity
 - **slug** — URL segment derived from the page title, for example `about-us`
   for "About us"; the public route is `/pages/{slug}`
 - **hero photograph address** — URL of a photograph, usually one served by
   the asset library at `api/digital-asset/serve/{id}`, shown under the title
+- **photo description** — the hero photograph's alternative text, required
+  whenever the page has a photograph (`L2-REQ-095`)
 - **page text** — HTML body the office writes in the editor; the public page
   renders it after sanitising
 - **editor dialog** — modal dialog that creates or edits one page
@@ -41,17 +43,19 @@ rules:
 |-------|--------|---------|
 | `GET api/pages` | anonymous | `GetPagesRequest` → `{ pages: PageDto[] }` |
 | `GET api/pages/{slug}` | anonymous | `GetPageBySlugRequest` → `{ page: PageDto }` or 404 |
-| `POST api/pages` | `Create` on `Page` | `CreatePageRequest { title, heroImageUrl?, body }` → `{ page }` |
-| `PUT api/pages` | `Write` on `Page` | `UpdatePageRequest { pageId, title, heroImageUrl?, body }` → `{ page }` |
+| `POST api/pages` | `Create` on `Page` | `CreatePageRequest { title, heroImageUrl?, heroImageAlt?, body }` → `{ page }` |
+| `PUT api/pages` | `Write` on `Page` | `UpdatePageRequest { pageId, title, heroImageUrl?, heroImageAlt?, body }` → `{ page }` |
 | `DELETE api/pages/{pageId}` | `Delete` on `Page` | `RemovePageRequest` → `{ page }` |
 
 `Page` (`backend/src/Coop.Domain/CMS/Page.cs`) holds `PageId`, `Title`,
-`Slug`, `HeroImageUrl`, `Body`, `CreatedOn` and `IsDeleted`. `Page.SlugFrom`
+`Slug`, `HeroImageUrl`, `HeroImageAlt`, `Body`, `CreatedOn` and `IsDeleted`. `Page.SlugFrom`
 derives the slug: lower case, letters and digits kept, accents removed, other
 runs collapsed to one hyphen, trimmed, at most 80 characters. `Update` sets
-the title, slug, hero address and body together; `Delete` sets `IsDeleted`.
+the title, slug, hero address, photo description and body together, and
+keeps no description without a photograph; `Delete` sets `IsDeleted`.
 `PageConfiguration` maps the entity with a required title of 120 characters,
-a required slug of 80 characters and a hero address of 2048 characters.
+a required slug of 80 characters, a hero address of 2048 characters and a
+photo description of 250 characters.
 
 The handlers live in `backend/src/Coop.Application/CMS/Pages/`:
 
@@ -68,8 +72,9 @@ The handlers live in `backend/src/Coop.Application/CMS/Pages/`:
 - `RemovePageHandler` loads the page and calls `Delete`.
 
 `CreatePageValidator` and `UpdatePageValidator` (FluentValidation) require a
-title of at most 120 characters whose slug is not empty, a non-empty body and
-a hero address of at most 2048 characters. `ValidationBehavior` runs them
+title of at most 120 characters whose slug is not empty, a non-empty body,
+a hero address of at most 2048 characters and, when there is a hero address,
+a photo description of at most 250 characters (`PageRules.PageHeroImageAlt`). `ValidationBehavior` runs them
 before every handler.
 
 The three command requests carry
@@ -107,8 +112,9 @@ button that opened it.
 
 `validatePageDraft` (`validate-page-draft.ts`) is a pure function that
 returns the field errors: "Give the page a title", "Write something for the
-page", and "There is already a page called “{title}”. Choose a different
-title." when `pageSlug` (`page-slug.ts`, the client copy of `Page.SlugFrom`)
+page", "Describe this photo for people who cannot see it" when a hero
+photograph address has no photo description, and "There is already a page
+called “{title}”. Choose a different title." when `pageSlug` (`page-slug.ts`, the client copy of `Page.SlugFrom`)
 matches another loaded page. The server rules stay authoritative; these
 checks only avoid a round trip.
 
