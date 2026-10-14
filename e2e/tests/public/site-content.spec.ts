@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-092, L2-REQ-093, L2-REQ-094, L2-REQ-095, L2-REQ-096, L2-REQ-097, L2-REQ-098
+// Traces to: L2-REQ-094, L2-REQ-095, L2-REQ-096, L2-REQ-097, L2-REQ-098, L2-REQ-099, L2-REQ-100
 // Description: The public site draws its header, footer and home page from the
 // published SiteContent entry: changed text, links and photos appear without a
 // code change, empty lists leave their block out, links to other websites are

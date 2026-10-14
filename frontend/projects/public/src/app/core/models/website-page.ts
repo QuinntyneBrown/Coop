@@ -4,7 +4,7 @@ export interface WebsitePage {
   title: string;
   slug: string;
   heroImageUrl: string | null;
-  /** The hero photo's description, its alternative text (L2-REQ-095). */
+  /** The hero photo's description, its alternative text (L2-REQ-097). */
   heroImageAlt?: string | null;
   body: string;
 }

@@ -1209,7 +1209,7 @@
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
       "requirements": [
         "L2-REQ-080",
-        "L2-REQ-095"
+        "L2-REQ-097"
       ],
       "note": "Native dialog for a new or existing page.",
       "opens_from": "admin-pages",
@@ -1352,8 +1352,8 @@
       "route": "/website",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
       "requirements": [
-        "L2-REQ-093",
-        "L2-REQ-094"
+        "L2-REQ-095",
+        "L2-REQ-096"
       ],
       "note": "The header, footer and home page blocks of the public website, each with a summary and an Edit action.",
       "states": [
@@ -1373,10 +1373,10 @@
       "route": "/website",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
       "requirements": [
-        "L2-REQ-093",
-        "L2-REQ-094",
         "L2-REQ-095",
-        "L2-REQ-096"
+        "L2-REQ-096",
+        "L2-REQ-097",
+        "L2-REQ-098"
       ],
       "note": "Native dialog that edits one block: text fields, links as label and address, photos with their description, and repeatable lists.",
       "opens_from": "admin-website",
@@ -1397,7 +1397,7 @@
       "route": "/website",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
       "requirements": [
-        "L2-REQ-095"
+        "L2-REQ-097"
       ],
       "note": "Second native dialog stacked over the block editor: pick a photo from the Assets library or upload a new one.",
       "opens_from": "admin-content-editor",
@@ -1420,8 +1420,8 @@
       "route": "/website",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
       "requirements": [
-        "L2-REQ-093",
-        "L2-REQ-094"
+        "L2-REQ-095",
+        "L2-REQ-096"
       ],
       "note": "Status message after a block is saved.",
       "opens_from": "admin-website",

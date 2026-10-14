@@ -18,7 +18,7 @@ import type { WebsitePage } from '../../core/models/website-page';
  * The site header shared by the home page and the website pages: brand, the
  * home page section links followed by one link per website page
  * (L2-REQ-082), Member sign in, and the phone menu (L2-REQ-066, L2-REQ-067).
- * The name, links and buttons are the published site content (L2-REQ-093).
+ * The name, links and buttons are the published site content (L2-REQ-095).
  */
 @Component({
   selector: 'app-site-header',

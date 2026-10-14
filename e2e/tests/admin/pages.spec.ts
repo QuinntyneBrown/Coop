@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-080, L2-REQ-095
+// Traces to: L2-REQ-080, L2-REQ-097
 // Description: An office administrator lists, adds, edits and removes the
 // website pages from the admin Pages screen: list, empty and error states,
 // the editor dialog with its validation (including the hero photo's

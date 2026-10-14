@@ -1,5 +1,5 @@
 /**
- * The API's rules for addresses (L2-REQ-096): a link goes to a site path
+ * The API's rules for addresses (L2-REQ-098): a link goes to a site path
  * starting with one "/", an http(s) address, a mailto: address or a tel:
  * number; a photo is a site path or an http(s) address. The server rules stay
  * authoritative.

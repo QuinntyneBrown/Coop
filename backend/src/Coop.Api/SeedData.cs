@@ -170,7 +170,7 @@ public static class SeedData
             await context.SaveChangesAsync();
         }
 
-        // Seed the public site content once; an administrator's saved content is kept (L2-REQ-098 AC1)
+        // Seed the public site content once; an administrator's saved content is kept (L2-REQ-100 AC1)
         if (!await context.JsonContents.AnyAsync(j => j.Name == SiteContentRules.Name && !j.IsDeleted))
         {
             context.JsonContents.Add(new Coop.Domain.CMS.JsonContent

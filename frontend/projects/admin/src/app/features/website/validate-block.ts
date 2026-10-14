@@ -7,8 +7,8 @@ export const UNSAFE_LINK =
 const TEXT_MAX_LENGTH = 2000;
 
 /**
- * Client-side checks before a save (L2-REQ-093 AC4, L2-REQ-094 AC4,
- * L2-REQ-095 AC2 and AC3, L2-REQ-096 AC1): a message per field path, such as
+ * Client-side checks before a save (L2-REQ-095 AC4, L2-REQ-096 AC4,
+ * L2-REQ-097 AC2 and AC3, L2-REQ-098 AC1): a message per field path, such as
  * `title` or `menuLinks.2.href`. The API applies the same rules and stays
  * authoritative.
  */

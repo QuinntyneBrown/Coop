@@ -1,4 +1,4 @@
-/** A photo's natural width and height, so the public page can reserve its space (L2-REQ-095 AC4). */
+/** A photo's natural width and height, so the public page can reserve its space (L2-REQ-097 AC4). */
 export function measurePhoto(src: string): Promise<{ width: number; height: number }> {
   return new Promise((resolve) => {
     const image = new Image();

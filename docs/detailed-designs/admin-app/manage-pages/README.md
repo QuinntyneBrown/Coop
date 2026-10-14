@@ -24,7 +24,7 @@ Terms used in this design:
 - **hero photograph address** — URL of a photograph, usually one served by
   the asset library at `api/digital-asset/serve/{id}`, shown under the title
 - **photo description** — the hero photograph's alternative text, required
-  whenever the page has a photograph (`L2-REQ-095`)
+  whenever the page has a photograph (`L2-REQ-097`)
 - **page text** — HTML body the office writes in the editor; the public page
   renders it after sanitising
 - **editor dialog** — modal dialog that creates or edits one page

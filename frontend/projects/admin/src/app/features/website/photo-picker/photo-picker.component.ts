@@ -18,7 +18,7 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
 
 /**
  * Chooses a photo from the Assets library or uploads a new one into it
- * (L2-REQ-095 AC1), drawn in docs/mocks/dialogs/admin-photo-picker/. A native
+ * (L2-REQ-097 AC1), drawn in docs/mocks/dialogs/admin-photo-picker/. A native
  * <dialog> stacked over the block editor: focus is trapped, Escape closes it
  * alone, and the editor behind is inert.
  */

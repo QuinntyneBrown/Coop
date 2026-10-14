@@ -25,7 +25,7 @@ actor -> page : Open /
 page -> page : Render the header, blocks and footer from the built-in defaults
 page -> client : SiteContentService: GET api/site-content (once per load, anonymous)
 client --> page : { siteContent } or an error
-page -> page : mergeContent(SITE_DEFAULTS, published): every block's text, links and photos  [L2-REQ-068 AC1, AC2; L2-REQ-098]
+page -> page : mergeContent(SITE_DEFAULTS, published): every block's text, links and photos  [L2-REQ-068 AC1, AC2; L2-REQ-100]
 page -> client : getByName("BoardOfDirectors")
 client -> bff : GET api/json-content/BoardOfDirectors
 bff --> client : { content: { members } } or null

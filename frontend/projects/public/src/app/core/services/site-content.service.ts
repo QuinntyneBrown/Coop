@@ -6,10 +6,10 @@ import { SITE_DEFAULTS } from '../site-content/site-defaults';
 import type { SiteContent } from '../site-content/site-content';
 
 /**
- * The header, footer and home page content (L2-REQ-092). The site content is
+ * The header, footer and home page content (L2-REQ-094). The site content is
  * requested once, when the service is first used, and shared by every
- * component (L2-REQ-097 AC6); until it arrives, and when it cannot be loaded,
- * the built-in defaults show (L2-REQ-098).
+ * component (L2-REQ-099 AC6); until it arrives, and when it cannot be loaded,
+ * the built-in defaults show (L2-REQ-100).
  */
 @Injectable({ providedIn: 'root' })
 export class SiteContentService {

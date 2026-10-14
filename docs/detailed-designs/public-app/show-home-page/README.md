@@ -28,7 +28,7 @@ Terms used in this design:
 Every block is CMS-driven. The text, links and photographs of the header,
 footer and every home page block come from the site content the office edits
 on the admin Website screen (`../../admin-app/manage-site-content/`,
-`L2-REQ-092`). The board list comes from the `BoardOfDirectors` JSON content,
+`L2-REQ-094`). The board list comes from the `BoardOfDirectors` JSON content,
 which the office keeps from the admin Board screen in
 `../../admin-app/manage-board/`, falling back to the board member profiles,
 and the notices are published notices.

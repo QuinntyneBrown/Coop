@@ -23,15 +23,15 @@ alt content loads
   controller -> handler : Send(GetSiteContentRequest)
   handler --> controller : stored JSON as it is
   controller --> service : 200 { siteContent }
-  service -> service : mergeContent(SITE_DEFAULTS, published): missing values take the default  [L2-REQ-098 AC3]
+  service -> service : mergeContent(SITE_DEFAULTS, published): missing values take the default  [L2-REQ-100 AC3]
 else request fails
   controller --> service : error
-  service -> service : SITE_DEFAULTS alone  [L2-REQ-098 AC2]
+  service -> service : SITE_DEFAULTS alone  [L2-REQ-100 AC2]
 end
 service --> page : merged content
-page --> visitor : header, blocks and footer; empty lists leave their block out  [L2-REQ-092 AC5]
+page --> visitor : header, blocks and footer; empty lists leave their block out  [L2-REQ-094 AC5]
 member -> controller : PUT api/site-content (member token)
 controller -> authz : Send(SaveSiteContentRequest)
 authz --> controller : UnauthorizedAccessException (Read only on JsonContent)
-controller --> member : 403, content unchanged  [L2-REQ-097 AC3]
+controller --> member : 403, content unchanged  [L2-REQ-099 AC3]
 @enduml

@@ -1,6 +1,6 @@
 /**
- * The API's site content rules (SaveSiteContentValidator, L2-REQ-093 to
- * L2-REQ-097): required values, safe links and photo addresses, photo
+ * The API's site content rules (SaveSiteContentValidator, L2-REQ-095 to
+ * L2-REQ-099): required values, safe links and photo addresses, photo
  * descriptions and length limits. Returns the first problem found, or null.
  */
 export function siteContentError(content: any): string | null {

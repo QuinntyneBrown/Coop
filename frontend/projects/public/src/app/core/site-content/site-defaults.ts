@@ -13,7 +13,7 @@ const photo = (src: string, alt: string, width: number, height: number): SitePho
 /**
  * The built-in content of the header, footer and home page, shown for any
  * value the published site content lacks or when it cannot be loaded
- * (L2-REQ-098). It matches the content the API seeds
+ * (L2-REQ-100). It matches the content the API seeds
  * (backend/src/Coop.Api/SiteContentSeed.cs). People, events and contact
  * details are fictional.
  */

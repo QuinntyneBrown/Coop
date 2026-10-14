@@ -4,7 +4,7 @@ import { linkTarget } from './link-target';
 import type { SiteLink } from './site-link';
 
 /**
- * Completes a published link on an anchor that binds its `href` (L2-REQ-096):
+ * Completes a published link on an anchor that binds its `href` (L2-REQ-098):
  * `rel="noopener noreferrer"` for another website, and in-app navigation for
  * a site path without a section, so the page does not reload.
  */

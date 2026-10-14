@@ -3,7 +3,7 @@ import { Observable, map } from 'rxjs';
 import { ApiService } from './api.service';
 import type { SiteContent } from '../models/site-content';
 
-/** The public site content (`/api/site-content`, L2-REQ-097). */
+/** The public site content (`/api/site-content`, L2-REQ-099). */
 @Injectable({ providedIn: 'root' })
 export class SiteContentService {
   private readonly api = inject(ApiService);

@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-092, L2-REQ-095, L2-REQ-096, L2-REQ-097, L2-REQ-098
+// Traces to: L2-REQ-094, L2-REQ-097, L2-REQ-098, L2-REQ-099, L2-REQ-100
 // Description: The site content through the API: the seeded content read
 // anonymously, whole-content replacement stored as the SiteContent JSON
 // content entry, idempotent re-sending, the field rules (required values,

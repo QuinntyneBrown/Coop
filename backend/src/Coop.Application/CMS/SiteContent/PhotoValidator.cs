@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Coop.Application.CMS.SiteContent;
 
-/// <summary>A photo needs a safe address, a description and its size (L2-REQ-095).</summary>
+/// <summary>A photo needs a safe address, a description and its size (L2-REQ-097).</summary>
 public class PhotoValidator : AbstractValidator<PhotoDto>
 {
     public PhotoValidator()

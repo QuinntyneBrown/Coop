@@ -6,7 +6,7 @@ import { telHref } from '../../core/site-content/tel-href';
 /**
  * The site footer shared by the home page and the website pages (L2-REQ-078,
  * L2-REQ-079). Its headings, contact details, links and bottom line are the
- * published site content (L2-REQ-093).
+ * published site content (L2-REQ-095).
  */
 @Component({
   selector: 'app-site-footer',

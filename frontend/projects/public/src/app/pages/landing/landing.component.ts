@@ -22,7 +22,7 @@ import { boardMembersFrom, boardMembersFromApi, noticeViewFrom } from './landing
 /**
  * The public home page, drawn in docs/mocks/pages/public-landing/ (states
  * `default` and `menu`). Every text, link and photograph is the published site
- * content (L2-REQ-092, L2-REQ-094) over the built-in defaults (L2-REQ-098); the
+ * content (L2-REQ-094, L2-REQ-096) over the built-in defaults (L2-REQ-100); the
  * board list and notices come from their own CMS content.
  * The header (with the phone menu) and footer are the shared site components.
  */

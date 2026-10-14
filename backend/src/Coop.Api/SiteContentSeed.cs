@@ -3,7 +3,7 @@ using Coop.Application.CMS.Dtos;
 namespace Coop.Api;
 
 /// <summary>
-/// The site content a fresh installation publishes (L2-REQ-098 AC1): every
+/// The site content a fresh installation publishes (L2-REQ-100 AC1): every
 /// value the public site shows, matching the public application's built-in
 /// defaults. Photographs are the public application's own files under
 /// <c>/own/</c>. People, places and contact details are fictional.

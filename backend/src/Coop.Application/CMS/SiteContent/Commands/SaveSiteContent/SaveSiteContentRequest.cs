@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Coop.Application.CMS.SiteContent.Commands.SaveSiteContent;
 
-/// <summary>Replaces the whole site content (L2-REQ-097 AC2).</summary>
+/// <summary>Replaces the whole site content (L2-REQ-099 AC2).</summary>
 [AuthorizeResourceOperation(AccessRight.Write, Constants.Aggregates.JsonContent)]
 public class SaveSiteContentRequest : IRequest<SaveSiteContentResponse>
 {

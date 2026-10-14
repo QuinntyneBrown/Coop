@@ -4,7 +4,7 @@ using FluentValidation;
 namespace Coop.Application.CMS.SiteContent.Commands.SaveSiteContent;
 
 /// <summary>
-/// Rules for every block of the site content (L2-REQ-093 to L2-REQ-097):
+/// Rules for every block of the site content (L2-REQ-095 to L2-REQ-099):
 /// required values, safe links, photo descriptions and length limits.
 /// </summary>
 public class SaveSiteContentValidator : AbstractValidator<SaveSiteContentRequest>

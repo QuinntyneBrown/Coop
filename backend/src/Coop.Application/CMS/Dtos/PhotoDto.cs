@@ -1,6 +1,6 @@
 namespace Coop.Application.CMS.Dtos;
 
-/// <summary>A photograph on the public site: its address, description and intrinsic size (L2-REQ-095).</summary>
+/// <summary>A photograph on the public site: its address, description and intrinsic size (L2-REQ-097).</summary>
 public class PhotoDto
 {
     public string Src { get; set; } = string.Empty;

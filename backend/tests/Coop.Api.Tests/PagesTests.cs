@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-080, L2-REQ-081, L2-REQ-095
+// Traces to: L2-REQ-080, L2-REQ-081, L2-REQ-097
 // Description: Website pages through the API: anonymous reads, idempotent
 // creation with a derived slug, update, removal, validation (including the
 // hero photo's description), and refusal of members and anonymous callers.

@@ -1,5 +1,5 @@
 /**
- * How a published link address is drawn (L2-REQ-096): a site path without a
+ * How a published link address is drawn (L2-REQ-098): a site path without a
  * section is a router link, anything else a plain `href`. Addresses on other
  * websites are marked external so they carry `rel="noopener noreferrer"`.
  */

@@ -29,7 +29,7 @@ import { validateBlock } from './validate-block';
 type LoadStatus = 'loading' | 'ready' | 'error';
 
 /**
- * The public site content (L2-REQ-093, L2-REQ-094), drawn in
+ * The public site content (L2-REQ-095, L2-REQ-096), drawn in
  * docs/mocks/pages/admin-website/ with the block editor in
  * docs/mocks/dialogs/admin-content-editor/ and the photo picker in
  * docs/mocks/dialogs/admin-photo-picker/. Each block opens one editor dialog,

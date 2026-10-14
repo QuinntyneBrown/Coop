@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Coop.Application.CMS.SiteContent;
 
-/// <summary>A link needs a label and a safe address (L2-REQ-096).</summary>
+/// <summary>A link needs a label and a safe address (L2-REQ-098).</summary>
 public class LinkValidator : AbstractValidator<LinkDto>
 {
     public LinkValidator()

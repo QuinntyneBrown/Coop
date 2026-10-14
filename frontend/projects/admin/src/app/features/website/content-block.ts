@@ -1,7 +1,7 @@
 import type { ContentRecord } from '../../core/models/content-record';
 import type { ContentField } from './content-field';
 
-/** A part of the site content edited as a unit on the Website screen (L2-REQ-093, L2-REQ-094). */
+/** A part of the site content edited as a unit on the Website screen (L2-REQ-095, L2-REQ-096). */
 export interface ContentBlock {
   id: string;
   name: string;

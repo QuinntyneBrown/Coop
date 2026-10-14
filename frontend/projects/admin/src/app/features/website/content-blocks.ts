@@ -56,7 +56,7 @@ const count = (items: unknown, one: string, many: string) => {
 
 /**
  * Every block of the site content the Website screen lists, in the order the
- * public site shows them (L2-REQ-093, L2-REQ-094). The editor dialog draws
+ * public site shows them (L2-REQ-095, L2-REQ-096). The editor dialog draws
  * each block from its fields.
  */
 export const CONTENT_BLOCKS: ContentBlock[] = [

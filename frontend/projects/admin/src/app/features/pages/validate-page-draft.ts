@@ -4,7 +4,7 @@ import type { PageFormErrors } from './page-form-errors';
 import { pageSlug } from './page-slug';
 
 /**
- * Client-side checks before a save (L2-REQ-080 AC5, AC6; L2-REQ-095 AC4). The API applies the
+ * Client-side checks before a save (L2-REQ-080 AC5, AC6; L2-REQ-097 AC4). The API applies the
  * same rules and stays authoritative.
  */
 export function validatePageDraft(

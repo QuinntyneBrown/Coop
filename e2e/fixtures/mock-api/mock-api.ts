@@ -1088,7 +1088,7 @@ export class MockApi {
     this.on('GET', 'json-content/:name', (_ctx, [name]) => jsonContentView(name), true);
     this.on('GET', 'jsoncontent/name/:name', (_ctx, [name]) => jsonContentView(name), true);
 
-    // Site content (L2-REQ-092 to L2-REQ-098), stored as the SiteContent JSON content
+    // Site content (L2-REQ-094 to L2-REQ-100), stored as the SiteContent JSON content
     const siteContent = () => s.jsonContents.find((j) => j.name === 'SiteContent');
     this.on(
       'GET',

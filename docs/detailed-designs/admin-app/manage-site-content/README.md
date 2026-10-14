@@ -62,7 +62,7 @@ photo's `size` is `wide`, `tall` or `small`. Value-card colours follow position
 (green, accent, plum, repeating) and feature rows alternate the photograph's
 side by position, so neither is stored.
 
-Rules (`L2-REQ-093` to `L2-REQ-097`):
+Rules (`L2-REQ-095` to `L2-REQ-099`):
 
 - the site name, every block `title` (hero, who we are, a look around, each
   feature row, what's on, meet the board, visit or apply), the quotation text,
@@ -88,7 +88,7 @@ Rules (`L2-REQ-093` to `L2-REQ-097`):
 
 `GetSiteContentHandler` returns the stored JSON as it is, so a value that an
 older entry lacks stays absent and the public site can show its built-in
-default for that value alone (`L2-REQ-098` AC3). `SaveSiteContentHandler`
+default for that value alone (`L2-REQ-100` AC3). `SaveSiteContentHandler`
 creates the entry when it is missing, replaces its JSON with the serialised
 `SiteContentDto` (camel-case names) and saves; sending the same content again
 leaves the same content.
@@ -119,14 +119,14 @@ seeded content: every value the public site showed before this feature, with
 the photographs addressed as the public application's own files
 (`/own/hero.svg` and so on). `SeedData` adds the `SiteContent` entry only when
 no entry of that name exists, so re-running the seed keeps saved content
-(`L2-REQ-098` AC1). The obsolete `Hero` entry is no longer seeded or read.
+(`L2-REQ-100` AC1). The obsolete `Hero` entry is no longer seeded or read.
 
 ### Website page photo description
 
 `Page` gains `HeroImageAlt`, set by `Page.Update` alongside the hero photo
 address and returned in `PageDto`. `PageRules.PageHeroImageAlt` requires a
 description when an address is given and limits it to 250 characters; the
-create and update validators apply it (`L2-REQ-080` AC13, `L2-REQ-095` AC4).
+create and update validators apply it (`L2-REQ-080` AC13, `L2-REQ-097` AC4).
 The admin page editor adds a "Photo description" field after the hero photo
 address, and `ContentPageComponent` uses the description as the photo's
 alternative text.
@@ -190,27 +190,27 @@ on Escape and make the page behind inert.
 
 `SiteContentService` (`core/services/site-content.service.ts`) requests
 `api/site-content` once per application load and shares the answer, so the
-header, footer and page blocks of a page cost one request (`L2-REQ-097` AC6).
+header, footer and page blocks of a page cost one request (`L2-REQ-099` AC6).
 `mergeContent` lays the published content over `SITE_DEFAULTS`
 (`core/site-content/site-defaults.ts`, the former header, footer and home page
 copy) value by value: a published string, even an empty one, wins; a missing
 value takes the default; a published list replaces the default list; a
-failed request yields the defaults (`L2-REQ-098` AC2, AC3).
+failed request yields the defaults (`L2-REQ-100` AC2, AC3).
 
 `SiteHeaderComponent`, `SiteFooterComponent` and `LandingComponent` read the
 merged content as a signal. Empty optional texts are left out, empty lists
 leave their block out, and the notices block keeps its empty message
-(`L2-REQ-092` AC5). `linkTarget` turns a link address into a router link for
+(`L2-REQ-094` AC5). `linkTarget` turns a link address into a router link for
 a site path without a section, and a plain `href` otherwise; links to other
 websites carry `rel="noopener noreferrer"` and open in the same tab
-(`L2-REQ-096` AC2). `telHref` builds `tel:` from the digits of a phone number,
+(`L2-REQ-098` AC2). `telHref` builds `tel:` from the digits of a phone number,
 keeping a leading `+`; the e-mail address links with `mailto:`. Angular
-interpolation escapes every published text (`L2-REQ-096` AC3).
+interpolation escapes every published text (`L2-REQ-098` AC3).
 
 Each photograph carries its published description, width and height. When a
 photograph fails to load, `showPhotoUnavailable` replaces it once with the
 built-in `own/photo-unavailable.svg` and the description "Photo not
-available" (`L2-REQ-095` AC5).
+available" (`L2-REQ-097` AC5).
 
 ### Tests
 
@@ -229,13 +229,13 @@ same role check and rules.
 
 | L2 ID | Refines (L1) | Requirement |
 |-------|--------------|-------------|
-| `L2-REQ-092` | `L1-REQ-020` | The public app shall take every visible image, link and text on the header, home page, website pages and footer from content published through the admin app. |
-| `L2-REQ-093` | `L1-REQ-020` | The admin app shall let an office administrator edit and publish the header and footer from a "Website" screen at `/website`. |
-| `L2-REQ-094` | `L1-REQ-020` | The admin app shall let an office administrator edit and publish every block of the home page. |
-| `L2-REQ-095` | `L1-REQ-020` | Every image shall be chosen from the Assets library and carry alternative text the administrator writes. |
-| `L2-REQ-096` | `L1-REQ-020` | Every published link shall point to a safe target, and the public site shall render it safely. |
-| `L2-REQ-097` | `L1-REQ-020` | The API shall expose the site content at `/api/site-content`, store it as the `SiteContent` JSON content entry, and restrict changes to roles that hold `Write` on `JsonContent`. |
-| `L2-REQ-098` | `L1-REQ-020` | The public site shall never render blank or broken when content is missing, and a fresh installation shall start with every value published. |
+| `L2-REQ-094` | `L1-REQ-020` | The public app shall take every visible image, link and text on the header, home page, website pages and footer from content published through the admin app. |
+| `L2-REQ-095` | `L1-REQ-020` | The admin app shall let an office administrator edit and publish the header and footer from a "Website" screen at `/website`. |
+| `L2-REQ-096` | `L1-REQ-020` | The admin app shall let an office administrator edit and publish every block of the home page. |
+| `L2-REQ-097` | `L1-REQ-020` | Every image shall be chosen from the Assets library and carry alternative text the administrator writes. |
+| `L2-REQ-098` | `L1-REQ-020` | Every published link shall point to a safe target, and the public site shall render it safely. |
+| `L2-REQ-099` | `L1-REQ-020` | The API shall expose the site content at `/api/site-content`, store it as the `SiteContent` JSON content entry, and restrict changes to roles that hold `Write` on `JsonContent`. |
+| `L2-REQ-100` | `L1-REQ-020` | The public site shall never render blank or broken when content is missing, and a fresh installation shall start with every value published. |
 
 ## Diagrams
 

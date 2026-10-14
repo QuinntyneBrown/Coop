@@ -1,6 +1,6 @@
 namespace Coop.Application.CMS.Dtos;
 
-/// <summary>The home page blocks, in page order (L2-REQ-094).</summary>
+/// <summary>The home page blocks, in page order (L2-REQ-096).</summary>
 public class HomeContentDto
 {
     public HeroDto Hero { get; set; } = new();

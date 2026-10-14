@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Coop.Api.Controllers.CMS;
 
 /// <summary>
-/// The header, footer and home page content of the public site (L2-REQ-092 to
-/// L2-REQ-098). Reads are anonymous; saving is authorized per request by the
+/// The header, footer and home page content of the public site (L2-REQ-094 to
+/// L2-REQ-100). Reads are anonymous; saving is authorized per request by the
 /// JsonContent aggregate privilege.
 /// </summary>
 [ApiController]

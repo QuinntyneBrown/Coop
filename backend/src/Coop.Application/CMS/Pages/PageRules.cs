@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Coop.Application.CMS.Pages;
 
-/// <summary>Validation rules shared by the create and update page requests (L2-REQ-080 AC13, L2-REQ-095).</summary>
+/// <summary>Validation rules shared by the create and update page requests (L2-REQ-080 AC13, L2-REQ-097).</summary>
 public static class PageRules
 {
     public const string DuplicateTitleMessage = "A page with this title already exists.";

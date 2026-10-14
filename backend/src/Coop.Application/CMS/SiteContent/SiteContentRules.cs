@@ -3,8 +3,8 @@ using FluentValidation;
 namespace Coop.Application.CMS.SiteContent;
 
 /// <summary>
-/// Rules shared by every block of the site content (L2-REQ-095, L2-REQ-096,
-/// L2-REQ-097 AC5): safe link and photo addresses and the length limits.
+/// Rules shared by every block of the site content (L2-REQ-097, L2-REQ-098,
+/// L2-REQ-099 AC5): safe link and photo addresses and the length limits.
 /// </summary>
 public static class SiteContentRules
 {

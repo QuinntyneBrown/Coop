@@ -1,6 +1,6 @@
 /**
  * Lays published content over the built-in defaults value by value
- * (L2-REQ-098 AC3): a published string, even an empty one, wins; a published
+ * (L2-REQ-100 AC3): a published string, even an empty one, wins; a published
  * positive number wins; a published list replaces the default list; any
  * missing or malformed value takes the default.
  */
