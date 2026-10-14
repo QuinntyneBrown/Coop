@@ -125,6 +125,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/maintenancerequestcomment`, `/api/maintenancerequestdigitalasset` | Comments and photo evidence on a request |
 | `/api/document` | Documents, including publish |
 | `/api/notice`, `/api/bylaw`, `/api/report` | Typed documents; `GET published` is anonymous |
+| `/api/notice/{documentId}/send` | Sends a published notice once to the members who chose email or text message on their profile; requires the Write privilege on the `Notice` aggregate. Messages go through `INoticeSender`; the default `LoggingNoticeSender` writes them to the log and sends nothing outside the system (ADR 0007) |
 | `/api/conversations`, `/api/messages` | Messaging |
 | `/api/invitationtoken` | Invitation tokens; `GET validate/{value}` is anonymous |
 | `/api/digitalasset` | Upload, avatars, and listing; `serve/{id}` and `by-name/{name}` are anonymous |
@@ -133,7 +134,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/board-of-directors` | The board list the home page shows, stored as the `BoardOfDirectors` JSON content; `GET` is anonymous, `PUT` replaces the whole list and requires the Write privilege on the `JsonContent` aggregate |
 | `/api/pages` | Website pages for the public site; `GET` and `GET {slug}` are anonymous, `POST`, `PUT` and `DELETE {pageId}` require the Create, Write or Delete privilege on the `Page` aggregate |
 | `/api/events`, `/api/storedevent` | Event sourcing and audit history |
-| `PublicBffController` routes | Endpoints shaped for the public app: `user/register`, `user/profile`, `maintenance-requests`, `documents`, `conversations/{id}/messages`, `board-members`, `json-content` |
+| `PublicBffController` routes | Endpoints shaped for the public app: `user/register`, `user/profile` (including the `noticeByEmail` and `noticeByText` choice), `maintenance-requests`, `documents`, `conversations/{id}/messages`, `board-members`, `json-content` |
 
 Most collections also expose `GET page/{pageSize}/{index}` for paging. The
 generated Swagger document is the complete reference.

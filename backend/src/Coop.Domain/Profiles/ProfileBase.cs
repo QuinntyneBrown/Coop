@@ -14,6 +14,8 @@ public abstract class ProfileBase
     public Address? Address { get; set; }
     public ProfileType Type { get; set; }
     public bool IsDeleted { get; set; }
+    public bool NoticeByEmail { get; set; }
+    public bool NoticeByText { get; set; }
 
     public string Fullname => $"{Firstname} {Lastname}";
 

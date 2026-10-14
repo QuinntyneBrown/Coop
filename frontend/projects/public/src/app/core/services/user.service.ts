@@ -13,6 +13,9 @@ export interface UserProfile {
   avatarUrl: string;
   memberSince: string;
   roles: string[];
+  /** How new notices reach the member (L2-REQ-092). */
+  noticeByEmail?: boolean;
+  noticeByText?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -35,6 +38,8 @@ export class UserService {
           avatarUrl: this.api.assetUrl(p.avatarUrl),
           memberSince: p.memberSince || '',
           roles: p.roles || [],
+          noticeByEmail: p.noticeByEmail === true,
+          noticeByText: p.noticeByText === true,
         };
       }),
     );

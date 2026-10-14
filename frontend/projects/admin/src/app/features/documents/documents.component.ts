@@ -1,7 +1,9 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
+import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
@@ -12,6 +14,15 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
     <div class="documents-page">
       <div class="page-header">
         <h1 data-testid="documents-page-title">Documents</h1>
+      </div>
+
+      <div role="status" aria-live="polite">
+        @if (statusMessage) {
+          <p class="notice-alert notice-alert--success" data-testid="documents-status">
+            <span class="material-icons" aria-hidden="true">check_circle</span>
+            <span>{{ statusMessage }}</span>
+          </p>
+        }
       </div>
 
       <div class="filter-tabs">
@@ -155,10 +166,39 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
                 <option value="Published">Published</option>
               </select>
             </div>
+            @if (dialogDoc.type === 'Notice' && dialogDoc.status === 'Published') {
+              <div class="notice-send">
+                <label for="notice-send">
+                  <input
+                    id="notice-send"
+                    type="checkbox"
+                    data-testid="document-dialog-send"
+                    aria-describedby="notice-send-hint"
+                    [(ngModel)]="dialogDoc.send"
+                    [disabled]="saving"
+                  />
+                  Also send to members by email and text
+                </label>
+                <p id="notice-send-hint" class="notice-send__hint">
+                  Only members who asked for new notices on their profile get one.
+                </p>
+              </div>
+            }
+            @if (dialogError) {
+              <p
+                class="notice-alert notice-alert--danger"
+                role="alert"
+                data-testid="document-dialog-error"
+              >
+                <span class="material-icons" aria-hidden="true">error</span>
+                <span>{{ dialogError }}</span>
+              </p>
+            }
             <div class="modal-actions">
               <button
                 class="btn btn-secondary"
                 data-testid="document-dialog-cancel"
+                [disabled]="saving"
                 (click)="showDocumentDialog = false"
               >
                 Cancel
@@ -166,9 +206,10 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <button
                 class="btn btn-primary"
                 data-testid="document-dialog-save"
+                [disabled]="saving"
                 (click)="saveDocument()"
               >
-                Save
+                {{ saving ? 'Saving…' : 'Save' }}
               </button>
             </div>
           </div>
@@ -451,6 +492,60 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         display: flex;
         justify-content: flex-end;
       }
+      .notice-send {
+        display: grid;
+        gap: 4px;
+        margin-bottom: 16px;
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          min-height: 44px;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+        input[type='checkbox'] {
+          width: 22px;
+          height: 22px;
+          margin: 0;
+          flex-shrink: 0;
+          accent-color: #2d6b44;
+        }
+        input[type='checkbox']:focus-visible {
+          outline: 3px solid #6b3f60;
+          outline-offset: 2px;
+        }
+      }
+      .notice-send__hint {
+        font-size: 14px;
+        color: #5f5e5b;
+        margin: 0;
+      }
+      .notice-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        font-size: 15px;
+        margin: 0 0 16px;
+        .material-icons {
+          font-size: 22px;
+        }
+      }
+      .notice-alert--success {
+        background: rgba(16, 185, 129, 0.1);
+        color: #05603a;
+      }
+      .notice-alert--danger {
+        background: rgba(220, 53, 69, 0.1);
+        color: #b42318;
+      }
+      .modal-actions .btn[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
       .icon-btn {
         background: none;
         border: none;
@@ -494,7 +589,12 @@ export class DocumentsComponent implements OnInit {
   showDeleteDocDialog = false;
   editingDocument: any = null;
   deletingDocument: any = null;
-  dialogDoc: any = { title: '', type: 'Notice', content: '', status: 'Draft' };
+  dialogDoc: any = { title: '', type: 'Notice', content: '', status: 'Draft', send: false };
+  saving = false;
+  dialogError = '';
+  statusMessage = '';
+  /** The document this dialog already created, so Save after a failed send does not create another (ADR 0007). */
+  private savedDocumentId: string | null = null;
 
   ngOnInit(): void {
     this.loadDocuments();
@@ -575,7 +675,10 @@ export class DocumentsComponent implements OnInit {
 
   openCreateDialog(): void {
     this.editingDocument = null;
-    this.dialogDoc = { title: '', type: 'Notice', content: '', status: 'Draft' };
+    this.dialogDoc = { title: '', type: 'Notice', content: '', status: 'Draft', send: false };
+    this.savedDocumentId = null;
+    this.dialogError = '';
+    this.statusMessage = '';
     this.showDocumentDialog = true;
   }
 
@@ -583,20 +686,49 @@ export class DocumentsComponent implements OnInit {
     if (!this.dialogDoc.title || this.dialogDoc.title.trim() === '') {
       return;
     }
-    const payload = {
-      name: this.dialogDoc.title,
-      body: this.dialogDoc.content,
-    };
-    this.documentService.createDocument(payload).subscribe({
-      next: () => {
-        this.showDocumentDialog = false;
-        this.loadDocuments();
-      },
-      error: () => {
-        this.showDocumentDialog = false;
-        this.loadDocuments();
-      },
-    });
+    const doc = this.dialogDoc;
+    const publish = doc.status === 'Published';
+    const send = doc.type === 'Notice' && publish && doc.send === true;
+    let published = false;
+    this.saving = true;
+    this.dialogError = '';
+    this.createOnce(doc)
+      .pipe(
+        switchMap((id) =>
+          publish ? this.documentService.publishDocument(id).pipe(map(() => id)) : of(id),
+        ),
+        tap(() => (published = publish)),
+        switchMap((id) =>
+          send ? this.documentService.sendNotice(id).pipe(map(() => true)) : of(false),
+        ),
+      )
+      .subscribe({
+        next: (sent) => {
+          this.saving = false;
+          this.showDocumentDialog = false;
+          if (sent) this.statusMessage = noticeSentMessage(doc.title);
+          this.loadDocuments();
+        },
+        error: () => {
+          this.saving = false;
+          if (send && published) {
+            this.dialogError = noticeNotSentMessage(doc.title);
+            return;
+          }
+          this.showDocumentDialog = false;
+          this.loadDocuments();
+        },
+      });
+  }
+
+  private createOnce(doc: any): Observable<string> {
+    if (this.savedDocumentId) return of(this.savedDocumentId);
+    const payload = { name: doc.title, body: doc.content };
+    const created =
+      doc.type === 'Notice'
+        ? this.documentService.createNotice(payload).pipe(map((r: any) => r.notice.documentId))
+        : this.documentService.createDocument(payload).pipe(map((r: any) => r.document.documentId));
+    return created.pipe(tap((id: string) => (this.savedDocumentId = id)));
   }
 
   confirmDeleteDocument(doc: any, event: Event): void {

@@ -84,8 +84,9 @@ reported during verification. The review panel is outside the product UI.
   status locally after a server failure; its button remains visible for all
   statuses. Edit Description has no handler. No extra lifecycle dialogs are
   invented. Failed creates/comments have no distinct visible error state.
-- **Documents:** admin Create closes/reloads even on failure; its type/status
-  controls are not included in the save payload. The dormant edit title branch
+- **Documents:** admin Create closes/reloads even on failure, except a failed
+  send to members. A Notice is created as a notice and the Published status
+  is applied; other types are still created as plain documents. The dormant edit title branch
   has no implemented entry action, so it is not presented as an edit flow.
 - **Messaging:** admin Start New Conversation only closes the dialog and clears
   the recipient. A public failed send clears the input without adding a message.
@@ -168,6 +169,16 @@ photo-removed; `pages/public-messaging/chat-photo.html` for the picture
 beside the sender; and `pages/admin-maintenance/detail-submitter-photo.html`
 for the office. They are listed in the manifest but not in the coverage
 table below.
+
+**Sending notices.** Members choose on their profile whether new notices
+reach them by email or text message (`L2-REQ-092`), and the office sends a
+published notice to them once (`L2-REQ-093`). These states are hand-written
+on the captured screens with `assets/send-notices.css`:
+`dialogs/admin-document-create/` send, busy and send-error;
+`notifications/admin-notice-sent/success.html`; the "New notices" row on the
+`pages/public-profile/` states; and the "Send me new notices" choice in
+`pages/public-profile/edit.html` and notices-invalid. No message provider is
+connected yet; the API writes each message to its log.
 
 **400% zoom.** Every screen reflows to one column at 320 CSS px wide
 (`L2-REQ-090`). The narrow-width rules of the applications are copied into

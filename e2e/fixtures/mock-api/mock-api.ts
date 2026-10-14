@@ -43,6 +43,7 @@ type Handler = (ctx: RequestContext, params: string[]) => MockResponse;
 
 interface RouteEntry {
   method: string;
+  route: string;
   pattern: RegExp;
   handler: Handler;
   anonymous?: boolean;
@@ -71,6 +72,9 @@ const PAGE_ROLES = {
 
 /** Roles whose seeded privilege on the JsonContent aggregate reaches Write. */
 const JSON_CONTENT_WRITE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
+
+/** Roles whose seeded privilege on the Notice aggregate reaches Write. */
+const NOTICE_WRITE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
 
 const DOC_TYPES: Record<string, MockDocument['documentType']> = {
   notice: 'Notice',
@@ -104,7 +108,7 @@ const PROFILE_TYPE_NAMES: Record<number, string> = {
  */
 export class MockApi {
   readonly store: MockStore = createSeedStore();
-  /** "METHOD path" entries that answer 500 until removed, to exercise error states. */
+  /** "METHOD path" or "METHOD route" (e.g. "POST notice/:id/send") entries that answer 500 until removed, to exercise error states. */
   readonly failing = new Set<string>();
   private readonly routes: RouteEntry[] = [];
 
@@ -218,6 +222,9 @@ export class MockApi {
       if (entry.method !== ctx.method) continue;
       const match = entry.pattern.exec(ctx.path);
       if (!match) continue;
+      if (this.failing.has(`${entry.method} ${entry.route}`)) {
+        return { status: 500, body: { message: 'Simulated failure' } };
+      }
       if (!entry.anonymous && !ctx.user) return unauthorized();
       return entry.handler(ctx, match.slice(1));
     }
@@ -227,7 +234,7 @@ export class MockApi {
   private on(method: string, pattern: string, handler: Handler, anonymous = false): void {
     // ":id" segments become capture groups; the whole path must match.
     const source = pattern.replace(/:[a-zA-Z]+/g, '([^/]+)');
-    this.routes.push({ method, pattern: new RegExp(`^${source}$`), handler, anonymous });
+    this.routes.push({ method, route: pattern, pattern: new RegExp(`^${source}$`), handler, anonymous });
   }
 
   // ── Views (response shapes the apps understand) ──────────────────
@@ -255,6 +262,8 @@ export class MockApi {
       profileType: PROFILE_TYPE_NAMES[p.type] ?? 'Member',
       boardTitle: p.boardTitle ?? '',
       avatarUrl: p.avatarUrl,
+      noticeByEmail: p.noticeByEmail ?? false,
+      noticeByText: p.noticeByText ?? false,
       memberSince: p.memberSince,
       roles: user ? [user.role] : [],
     };
@@ -284,6 +293,7 @@ export class MockApi {
       createdOn: d.createdOn,
       createdAt: d.createdOn,
       updatedAt: d.createdOn,
+      sentOn: d.sentOn ?? null,
     };
   }
 
@@ -651,6 +661,8 @@ export class MockApi {
       if (b.lastName != null) profile.lastname = b.lastName;
       if (b.email != null) profile.email = b.email;
       if (b.phone != null) profile.phoneNumber = b.phone;
+      if (typeof b.noticeByEmail === 'boolean') profile.noticeByEmail = b.noticeByEmail;
+      if (typeof b.noticeByText === 'boolean') profile.noticeByText = b.noticeByText;
       return ok(this.profileView(profile));
     });
     this.on('GET', 'user/profiles', (ctx) =>
@@ -760,6 +772,36 @@ export class MockApi {
         status: b.status || 'Draft',
       });
       return ok({ document: this.documentView(doc) });
+    });
+    // Notices (admin app): create, and send once to the members who chose it (L2-REQ-093, ADR 0007).
+    this.on('POST', 'notice', (ctx) => {
+      const b = ctx.body ?? {};
+      const doc = this.createDocument({ title: b.name || '', type: 'Notice', content: b.body, status: 'Draft' });
+      return ok({ notice: this.documentView(doc) });
+    });
+    this.on('POST', 'notice/:id/send', (ctx, [id]) => {
+      if (!NOTICE_WRITE_ROLES.includes(ctx.user!.role)) return forbidden();
+      const doc = s.documents.find((d) => d.documentId === id);
+      if (!doc || doc.documentType !== 'Notice' || doc.status !== 'Published') {
+        return badRequest('Only a published notice can be sent.');
+      }
+      if (!doc.sentOn) {
+        const emails = new Set(s.profiles.filter((p) => p.noticeByEmail && p.email).map((p) => p.email));
+        const phones = new Set(s.profiles.filter((p) => p.noticeByText && p.phoneNumber).map((p) => p.phoneNumber));
+        emails.forEach((to) =>
+          s.noticeMessages.push({ documentId: id, channel: 'email', to, text: `New notice: ${doc.name}` }),
+        );
+        phones.forEach((to) =>
+          s.noticeMessages.push({
+            documentId: id,
+            channel: 'text',
+            to,
+            text: `New notice from the co-op: ${doc.name}. ${doc.body}`,
+          }),
+        );
+        doc.sentOn = new Date().toISOString();
+      }
+      return ok({ notice: this.documentView(doc) });
     });
     this.on('PUT', 'document/publish', (ctx) => {
       const doc = s.documents.find((d) => d.documentId === ctx.body?.documentId);

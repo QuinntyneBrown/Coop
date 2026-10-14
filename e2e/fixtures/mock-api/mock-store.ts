@@ -26,6 +26,9 @@ export interface MockProfile {
   avatarUrl: string;
   /** The current picture's file, compared to treat a re-post as a retry (ADR 0006). */
   avatarFile?: { fileName: string; size: number };
+  /** The member's choice of how new notices reach them (L2-REQ-092); unset means not chosen. */
+  noticeByEmail?: boolean;
+  noticeByText?: boolean;
   memberSince: string;
 }
 
@@ -48,6 +51,16 @@ export interface MockDocument {
   body: string;
   status: 'Published' | 'Draft';
   createdOn: string;
+  /** When a notice was sent to members; it is sent once (ADR 0007). */
+  sentOn?: string;
+}
+
+/** A message the mock "sent" for a notice, kept instead of leaving the test. */
+export interface MockNoticeMessage {
+  documentId: string;
+  channel: 'email' | 'text';
+  to: string;
+  text: string;
 }
 
 export interface MockMaintenanceRequest {
@@ -141,6 +154,7 @@ export interface MockStore {
   roles: MockRole[];
   privileges: MockPrivilege[];
   documents: MockDocument[];
+  noticeMessages: MockNoticeMessage[];
   maintenanceRequests: MockMaintenanceRequest[];
   comments: MockComment[];
   photos: MockPhoto[];
@@ -504,6 +518,7 @@ export function createSeedStore(): MockStore {
     roles,
     privileges,
     documents,
+    noticeMessages: [],
     maintenanceRequests,
     comments,
     photos: [],

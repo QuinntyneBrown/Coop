@@ -2,6 +2,7 @@ import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
 import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { ProfilePage } from '../../pages/public/profile.page';
+import { MEMBER_PROFILE_ID, type MockProfile } from '../../fixtures/mock-api/mock-store';
 
 const test = mergeTests(authTest, apiTest);
 
@@ -271,6 +272,73 @@ test.describe('Profile', () => {
         // Display name may change after profile switch
         await expect(profile.displayName).toBeVisible();
       }
+    });
+  });
+
+  // L2-REQ-092: members choose how new notices reach them.
+  test.describe('New notices', () => {
+    const own = (mockApi: { store: { profiles: MockProfile[] } }) =>
+      mockApi.store.profiles.find((p) => p.profileId === MEMBER_PROFILE_ID)!;
+
+    test('Given a member who has not chosen, when the profile shows, then new notices are not sent to them', async () => {
+      await profile.goto();
+      await expect(profile.notices).toHaveText('Not sent to you');
+    });
+
+    test('Given the member chooses email, when they save, then the choice shows and stays after a reload', async ({
+      mockApi,
+    }) => {
+      await profile.goto();
+      await profile.enterEditMode();
+      await expect(profile.noticeChoiceHint).toBeVisible();
+      await expect(profile.noticeByEmail).not.toBeChecked();
+      await expect(profile.noticeByText).not.toBeChecked();
+
+      await profile.noticeByEmail.check();
+      await profile.saveButton.click();
+
+      await expect(profile.notices).toHaveText('By email');
+      expect(own(mockApi).noticeByEmail).toBe(true);
+      await profile.page.reload();
+      await expect(profile.notices).toHaveText('By email');
+      await profile.enterEditMode();
+      await expect(profile.noticeByEmail).toBeChecked();
+    });
+
+    test('Given the member chooses both, when they save, then both show', async () => {
+      await profile.goto();
+      await profile.enterEditMode();
+      await profile.noticeByEmail.check();
+      await profile.noticeByText.check();
+      await profile.saveButton.click();
+
+      await expect(profile.notices).toHaveText('By email and text message');
+    });
+
+    test('Given text messages are chosen without a phone number, when the member saves, then nothing is saved and they are told why', async ({
+      mockApi,
+    }) => {
+      await profile.goto();
+      await profile.enterEditMode();
+      await profile.phoneInput.clear();
+      await profile.noticeByText.check();
+      await profile.saveButton.click();
+
+      await expect(profile.noticeChoiceError).toHaveText(
+        'Add your phone number to get notices by text message.',
+      );
+      expect(own(mockApi).noticeByText).toBeFalsy();
+
+      await profile.phoneInput.fill('555-0204');
+      await profile.emailInput.clear();
+      await profile.noticeByText.uncheck();
+      await profile.noticeByEmail.check();
+      await profile.saveButton.click();
+
+      await expect(profile.noticeChoiceError).toHaveText(
+        'Add your email address to get notices by email.',
+      );
+      expect(own(mockApi).noticeByEmail).toBeFalsy();
     });
   });
 

@@ -1,0 +1,39 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Send notices to members
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(documents, "DocumentsComponent", "Angular standalone component", "New Document dialog with Also send to members by email and text")
+  Component(messages, "notice-messages", "Plain TypeScript functions", "Sent and not-sent messages")
+  Component(documentService, "DocumentService", "Angular service", "createNotice, publishDocument, sendNotice")
+}
+Container_Boundary(publicApp, "Public application") {
+  Component(profile, "ProfileComponent", "Angular standalone component", "New notices row; Send me new notices checkboxes")
+  Component(choice, "notice-choice", "Plain TypeScript functions", "noticeChoiceLabel, noticeChoiceError")
+  Component(profileService, "UserService", "Angular service", "getProfile, updateProfile")
+}
+Container_Boundary(api, "Coop API") {
+  Component(bff, "PublicBffController", "ASP.NET Core controller", "noticeByEmail and noticeByText on api/user/profile")
+  Component(noticeController, "NoticeController", "ASP.NET Core controller", "POST api/notice; POST api/notice/{id}/send")
+  Component(documentController, "DocumentController", "ASP.NET Core controller", "PUT api/document/publish")
+  Component(pipeline, "Pipeline behaviors", "MediatR", "Write on Notice; SendNoticeValidator: published notice")
+  Component(handler, "SendNoticeHandler", "MediatR handler", "Once: recipients by choice, then SentOn")
+  Component(sender, "INoticeSender", "Interface", "SendEmailAsync, SendTextAsync")
+  Component(logSender, "LoggingNoticeSender", "Infrastructure", "Writes each message to the API log")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Profiles and Documents")
+}
+Rel(documents, messages, "Words its messages with")
+Rel(documents, documentService, "Saves, publishes and sends with")
+Rel(documentService, noticeController, "Calls", "JSON over HTTPS")
+Rel(documentService, documentController, "Publishes with", "JSON over HTTPS")
+Rel(profile, choice, "Labels and checks the choice with")
+Rel(profile, profileService, "Saves with")
+Rel(profileService, bff, "GET and PUT api/user/profile", "HTTPS")
+Rel(noticeController, pipeline, "Sends SendNoticeRequest through")
+Rel(pipeline, handler, "Then")
+Rel(handler, db, "Reads choices, sets SentOn", "EF Core")
+Rel(handler, sender, "Hands each message to")
+Rel(logSender, sender, "Implements")
+Rel(bff, db, "Reads and sets the choice", "EF Core")
+@enduml

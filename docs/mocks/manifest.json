@@ -302,7 +302,8 @@
         "L2-REQ-016",
         "L2-REQ-018",
         "L2-REQ-019",
-        "L2-REQ-091"
+        "L2-REQ-091",
+        "L2-REQ-092"
       ],
       "note": "",
       "states": [
@@ -318,7 +319,8 @@
         "photo-invalid",
         "photo-too-large",
         "photo-error",
-        "photo-removed"
+        "photo-removed",
+        "notices-invalid"
       ],
       "not_applicable": {
         "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
@@ -353,7 +355,8 @@
       "route": "/profile",
       "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
       "requirements": [
-        "L2-REQ-015"
+        "L2-REQ-015",
+        "L2-REQ-092"
       ],
       "note": "The source also shows success after an API save failure.",
       "opens_from": "public-profile",
@@ -1009,15 +1012,18 @@
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
       "requirements": [
-        "L2-REQ-031"
+        "L2-REQ-031",
+        "L2-REQ-093"
       ],
-      "note": "",
+      "note": "Send, busy and send-error are hand-written design references for sending a published notice to members (L2-REQ-093).",
       "opens_from": "admin-documents",
       "states": [
-        "default"
+        "default",
+        "send",
+        "busy",
+        "send-error"
       ],
       "not_applicable": {
-        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
         "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
       }
     },
@@ -1335,6 +1341,27 @@
         "info": "The screen has no info notification.",
         "warning": "The screen has no warning notification.",
         "danger": "Failures show inside the editor dialog (failed state), as the page error state, or as an alert after a failed move."
+      }
+    },
+    {
+      "id": "admin-notice-sent",
+      "kind": "notification",
+      "title": "Admin \u00b7 Notice Sent",
+      "app": "admin",
+      "route": "/documents",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-093"
+      ],
+      "note": "Status message after a published notice is sent to members.",
+      "opens_from": "admin-documents",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The screen has no warning notification.",
+        "danger": "A failed send shows inside the New Document dialog (send-error state)."
       }
     }
   ]
