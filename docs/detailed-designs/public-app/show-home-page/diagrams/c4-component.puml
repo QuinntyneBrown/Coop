@@ -5,7 +5,7 @@ title Components — Show the home page
 
 Container_Boundary(public, "Public application") {
   Component(landing, "LandingComponent", "Angular standalone component", "Renders the OWN home page: header, hero, body blocks, board, notices, footer and phone menu")
-  Component(content, "LANDING_CONTENT", "Plain TypeScript constant", "Default copy, links and the photograph manifest for every block")
+  Component(content, "SiteContentService", "Angular service", "One shared GET site-content, merged over the SITE_DEFAULTS built-in copy")
   Component(vm, "landing-view-model", "Plain TypeScript functions", "Maps CMS JSON, board members and notices to view models")
   Component(jsonContent, "JsonContentService", "Angular service", "GET json-content/{name}")
   Component(apiService, "ApiService", "Angular service", "HttpClient wrapper for the API base URL")
@@ -13,13 +13,16 @@ Container_Boundary(public, "Public application") {
 Container_Boundary(api, "Coop API") {
   Component(bff, "PublicBffController", "ASP.NET Core controller", "api/json-content/{name}, api/board-members (anonymous)")
   Component(notice, "NoticeController", "ASP.NET Core controller", "api/notice/published (anonymous)")
+  Component(site, "SiteContentController", "ASP.NET Core controller", "api/site-content (anonymous read)")
 }
 
-Rel(landing, content, "Reads defaults from")
+Rel(landing, content, "Reads every block's text, links and photos from")
 Rel(landing, vm, "Maps responses with")
-Rel(landing, jsonContent, "Loads Hero and BoardOfDirectors")
+Rel(landing, jsonContent, "Loads BoardOfDirectors")
 Rel(landing, apiService, "Loads notices and board members")
 Rel(jsonContent, apiService, "Calls")
+Rel(content, apiService, "Calls")
 Rel(apiService, bff, "GET", "JSON/HTTPS")
 Rel(apiService, notice, "GET", "JSON/HTTPS")
+Rel(apiService, site, "GET", "JSON/HTTPS")
 @enduml

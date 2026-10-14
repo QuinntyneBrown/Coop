@@ -17,7 +17,12 @@ import { validatePageDraft } from './validate-page-draft';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 
-const emptyDraft = (): WebsitePageDraft => ({ title: '', heroImageUrl: '', body: '' });
+const emptyDraft = (): WebsitePageDraft => ({
+  title: '',
+  heroImageUrl: '',
+  heroImageAlt: '',
+  body: '',
+});
 
 /**
  * The website pages the office manages (L2-REQ-080), drawn in
@@ -77,7 +82,12 @@ export class PagesComponent implements OnInit {
     this.opener = event.currentTarget as HTMLElement;
     this.editing.set(page);
     this.draft = page
-      ? { title: page.title, heroImageUrl: page.heroImageUrl ?? '', body: page.body }
+      ? {
+          title: page.title,
+          heroImageUrl: page.heroImageUrl ?? '',
+          heroImageAlt: page.heroImageAlt ?? '',
+          body: page.body,
+        }
       : emptyDraft();
     this.errors.set({});
     this.saveFailed.set(false);
@@ -100,7 +110,7 @@ export class PagesComponent implements OnInit {
     const editing = this.editing();
     const errors = validatePageDraft(this.draft, this.pages(), editing?.pageId ?? null);
     this.errors.set(errors);
-    if (errors.title || errors.body) return;
+    if (errors.title || errors.heroImageAlt || errors.body) return;
 
     this.saving.set(true);
     this.saveFailed.set(false);

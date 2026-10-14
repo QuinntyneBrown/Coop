@@ -68,6 +68,16 @@ import { AuthService } from '../core/services/auth.service';
           <span>Board</span>
         </a>
         <a
+          routerLink="/website"
+          routerLinkActive="active"
+          class="nav-item"
+          data-testid="sidebar-nav-website"
+          [attr.data-active]="isActive('/website')"
+        >
+          <span class="material-icons">public</span>
+          <span>Website</span>
+        </a>
+        <a
           routerLink="/messages"
           routerLinkActive="active"
           class="nav-item"

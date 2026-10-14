@@ -14,43 +14,57 @@ skinparam class {
 title Class structure — Show the home page
 
 class LandingComponent {
-  +hero: Signal<HeroContent>
+  +content: Signal<SiteContent>
+  +home: Signal<HomeContent>
   +boardMembers: Signal<BoardMemberView[]>
   +notices: Signal<NoticeView[]>
-  +menuOpen: Signal<boolean>
-  +content: LandingContent
-  +toggleMenu(): void
-  +closeMenu(): void
 }
 
-class LandingContent {
+class SiteContentService {
+  +content: Signal<SiteContent>
+}
+
+class SiteContent {
+  +header: SiteHeaderContent
+  +footer: SiteFooterContent
+  +home: HomeContent
+}
+
+class HomeContent {
   +hero: HeroContent
-  +navigation: LandingLink[]
-  +stats: LandingStat[]
-  +values: LandingValue[]
-  +gallery: LandingPhoto[]
-  +features: LandingFeature[]
-  +quote: LandingQuote
-  +visit: LandingVisit
-  +footer: LandingFooter
+  +glance: GlanceContent
+  +about: AboutContent
+  +gallery: GalleryContent
+  +features: FeaturesContent
+  +notices: NoticesContent
+  +board: SectionHead
+  +quote: QuoteContent
+  +visit: VisitContent
 }
 
 class HeroContent {
   +eyebrow: string
   +title: string
-  +subtitle: string
-  +photo: LandingPhoto
+  +lead: string
   +badge: string
+  +primaryAction: SiteLink
+  +secondaryAction: SiteLink
+  +photo: SitePhoto
 }
 
-class LandingPhoto {
+class SitePhoto {
   +src: string
   +alt: string
   +width: number
   +height: number
-  +caption?: string
-  +layout?: 'wide' | 'tall' | 'small'
 }
+
+class SiteLink {
+  +label: string
+  +href: string
+}
+
+class "mergeContent, SITE_DEFAULTS" as Defaults <<functions>>
 
 class BoardMemberView {
   +name: string
@@ -70,7 +84,6 @@ class NoticeView {
 }
 
 class "landing-view-model" as VM <<functions>> {
-  +heroFrom(content, defaults): HeroContent
   +boardMembersFrom(content): BoardMemberView[]
   +boardMembersFromApi(response): BoardMemberView[]
   +noticeViewFrom(notice): NoticeView
@@ -85,14 +98,16 @@ class ApiService {
   +get<T>(path): Observable<T>
 }
 
-LandingComponent --> LandingContent : reads defaults
+LandingComponent ..> SiteContentService : reads the merged content
+SiteContentService ..> Defaults : lays the published content over
+SiteContentService ..> ApiService : GET site-content
+SiteContent *-- HomeContent
+HomeContent *-- HeroContent
+HeroContent --> SitePhoto
+HeroContent --> SiteLink
 LandingComponent ..> VM : maps responses with
-LandingComponent ..> JsonContentService : loads Hero, BoardOfDirectors
+LandingComponent ..> JsonContentService : loads BoardOfDirectors
 LandingComponent ..> ApiService : loads notices, board members
-LandingContent *-- HeroContent
-LandingContent "1" *-- "*" LandingPhoto
-HeroContent --> LandingPhoto
-VM ..> HeroContent : produces
 VM ..> BoardMemberView : produces
 VM ..> NoticeView : produces
 @enduml

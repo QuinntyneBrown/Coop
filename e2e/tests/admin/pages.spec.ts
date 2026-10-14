@@ -1,9 +1,10 @@
 // Acceptance Test
-// Traces to: L2-REQ-080
+// Traces to: L2-REQ-080, L2-REQ-097
 // Description: An office administrator lists, adds, edits and removes the
 // website pages from the admin Pages screen: list, empty and error states,
-// the editor dialog with its validation, duplicate-title check, failed save
-// and prefilled edit, and the remove confirmation.
+// the editor dialog with its validation (including the hero photo's
+// description), duplicate-title check, failed save and prefilled edit, and the
+// remove confirmation.
 
 import { test, expect } from '../../fixtures/admin/api.fixture';
 import { PagesPage } from '../../pages/admin/pages.page';
@@ -88,6 +89,7 @@ test.describe('Pages', () => {
       await pages.fillEditor({
         title: 'About us',
         hero: '/own/lobby.svg',
+        heroAlt: 'The front lobby, with an armchair beside a sunny window.',
         body: '<p>Older women built this place.</p>',
       });
       await pages.save();
@@ -96,6 +98,7 @@ test.describe('Pages', () => {
       await expect(pages.cardAddress('About us')).toHaveText('/pages/about-us');
       const stored = mockApi.store.pages.find((p) => p.slug === 'about-us');
       expect(stored?.heroImageUrl).toBe('/own/lobby.svg');
+      expect(stored?.heroImageAlt).toBe('The front lobby, with an armchair beside a sunny window.');
       expect(stored?.body).toBe('<p>Older women built this place.</p>');
     });
 
@@ -109,6 +112,25 @@ test.describe('Pages', () => {
       await expect(pages.bodyError).toHaveText('Write something for the page');
       await expect(pages.titleInput).toHaveAttribute('aria-invalid', 'true');
       await expect(pages.bodyInput).toHaveAttribute('aria-invalid', 'true');
+      await expect(pages.editorErrors).toBeVisible();
+      expect(mockApi.store.pages).toHaveLength(before);
+    });
+
+    test('asks for a description when the page has a hero photo', async ({ mockApi }) => {
+      const before = mockApi.store.pages.length;
+      await pages.goto();
+      await pages.openEditor();
+      await pages.fillEditor({
+        title: 'Our garden',
+        hero: '/own/garden.svg',
+        body: '<p>Herbs.</p>',
+      });
+      await pages.save();
+      await expect(pages.editor).toBeVisible();
+      await expect(pages.heroAltError).toHaveText(
+        'Describe this photo for people who cannot see it',
+      );
+      await expect(pages.heroAltInput).toHaveAttribute('aria-invalid', 'true');
       await expect(pages.editorErrors).toBeVisible();
       expect(mockApi.store.pages).toHaveLength(before);
     });
@@ -151,6 +173,7 @@ test.describe('Pages', () => {
       await expect(pages.editorHeading).toHaveText('Edit page');
       await expect(pages.titleInput).toHaveValue(seeded.title);
       await expect(pages.heroInput).toHaveValue(seeded.heroImageUrl ?? '');
+      await expect(pages.heroAltInput).toHaveValue(seeded.heroImageAlt ?? '');
       await expect(pages.bodyInput).toHaveValue(seeded.body);
       await pages.fillEditor({ title: 'How to join', body: '<p>One form, one visit.</p>' });
       await pages.save();

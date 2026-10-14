@@ -1,8 +1,8 @@
 // Acceptance Test
-// Traces to: L2-REQ-080, L2-REQ-081
+// Traces to: L2-REQ-080, L2-REQ-081, L2-REQ-097
 // Description: Website pages through the API: anonymous reads, idempotent
-// creation with a derived slug, update, removal, validation, and refusal of
-// members and anonymous callers.
+// creation with a derived slug, update, removal, validation (including the
+// hero photo's description), and refusal of members and anonymous callers.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -16,9 +16,9 @@ public class PagesTests : IClassFixture<CoopApiFactory>
 
     public PagesTests(CoopApiFactory factory) => _factory = factory;
 
-    private static async Task<JsonElement> CreatePageAsync(HttpClient admin, string title, string body = "<p>Some text.</p>", string? heroImageUrl = null)
+    private static async Task<JsonElement> CreatePageAsync(HttpClient admin, string title, string body = "<p>Some text.</p>", string? heroImageUrl = null, string? heroImageAlt = null)
     {
-        var response = await admin.PostAsJsonAsync("/api/pages", new { title, body, heroImageUrl });
+        var response = await admin.PostAsJsonAsync("/api/pages", new { title, body, heroImageUrl, heroImageAlt });
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
         return json.GetProperty("page");
@@ -34,7 +34,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
     public async Task Given_an_admin_creates_a_page_then_visitors_can_list_and_read_it_without_signing_in()
     {
         var admin = await _factory.CreateAdminClientAsync();
-        var created = await CreatePageAsync(admin, "About us", "<h2>Our story</h2><p>In 1997 the doors opened.</p>", "/own/lobby.svg");
+        var created = await CreatePageAsync(admin, "About us", "<h2>Our story</h2><p>In 1997 the doors opened.</p>", "/own/lobby.svg", "The front lobby, with an armchair beside a sunny window.");
 
         Assert.Equal("about-us", created.GetProperty("slug").GetString());
 
@@ -47,6 +47,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
         var page = (await response.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("page");
         Assert.Equal("About us", page.GetProperty("title").GetString());
         Assert.Equal("/own/lobby.svg", page.GetProperty("heroImageUrl").GetString());
+        Assert.Equal("The front lobby, with an armchair beside a sunny window.", page.GetProperty("heroImageAlt").GetString());
         Assert.Contains("Our story", page.GetProperty("body").GetString());
     }
 
@@ -178,6 +179,46 @@ public class PagesTests : IClassFixture<CoopApiFactory>
         var response = await admin.PostAsJsonAsync("/api/pages", new { title, body });
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Theory]
+    [InlineData("/own/lobby.svg", null)]
+    [InlineData("/own/lobby.svg", "   ")]
+    [InlineData("/own/lobby.svg", "long-alt")]
+    public async Task Given_a_hero_photo_without_a_description_or_with_a_long_one_then_the_create_is_rejected(string heroImageUrl, string? heroImageAlt)
+    {
+        var admin = await _factory.CreateAdminClientAsync();
+        if (heroImageAlt == "long-alt") heroImageAlt = new string('a', 251);
+
+        var response = await admin.PostAsJsonAsync("/api/pages", new { title = "Photo rules", body = "<p>Text</p>", heroImageUrl, heroImageAlt });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Given_an_admin_updates_a_page_photo_without_a_description_then_the_update_is_rejected()
+    {
+        var admin = await _factory.CreateAdminClientAsync();
+        var created = await CreatePageAsync(admin, "Garden photo rules");
+
+        var response = await admin.PutAsJsonAsync("/api/pages", new
+        {
+            pageId = created.GetProperty("pageId").GetString(),
+            title = "Garden photo rules",
+            heroImageUrl = "/own/garden.svg",
+            body = "<p>Text</p>",
+        });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Given_a_page_without_a_photo_then_a_description_is_not_kept()
+    {
+        var admin = await _factory.CreateAdminClientAsync();
+        var created = await CreatePageAsync(admin, "No photo here", heroImageAlt: "A description without a photo");
+
+        Assert.Equal(JsonValueKind.Null, created.GetProperty("heroImageAlt").ValueKind);
     }
 
     [Fact]

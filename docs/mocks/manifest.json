@@ -1208,7 +1208,8 @@
       "route": "/pages",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
       "requirements": [
-        "L2-REQ-080"
+        "L2-REQ-080",
+        "L2-REQ-097"
       ],
       "note": "Native dialog for a new or existing page.",
       "opens_from": "admin-pages",
@@ -1341,6 +1342,96 @@
         "info": "The screen has no info notification.",
         "warning": "The screen has no warning notification.",
         "danger": "Failures show inside the editor dialog (failed state), as the page error state, or as an alert after a failed move."
+      }
+    },
+    {
+      "id": "admin-website",
+      "kind": "page",
+      "title": "Admin \u00b7 Website",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "requirements": [
+        "L2-REQ-095",
+        "L2-REQ-096"
+      ],
+      "note": "The header, footer and home page blocks of the public website, each with a summary and an Edit action.",
+      "states": [
+        "default",
+        "loading",
+        "error"
+      ],
+      "not_applicable": {
+        "empty": "The screen always lists the same eleven blocks; a block with no items still has its card and Edit action."
+      }
+    },
+    {
+      "id": "admin-content-editor",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Content Editor",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "requirements": [
+        "L2-REQ-095",
+        "L2-REQ-096",
+        "L2-REQ-097",
+        "L2-REQ-098"
+      ],
+      "note": "Native dialog that edits one block: text fields, links as label and address, photos with their description, and repeatable lists.",
+      "opens_from": "admin-website",
+      "states": [
+        "default",
+        "list",
+        "invalid",
+        "busy",
+        "failed"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-photo-picker",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Photo Picker",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "requirements": [
+        "L2-REQ-097"
+      ],
+      "note": "Second native dialog stacked over the block editor: pick a photo from the Assets library or upload a new one.",
+      "opens_from": "admin-content-editor",
+      "states": [
+        "default",
+        "empty",
+        "uploading",
+        "upload-failed"
+      ],
+      "not_applicable": {
+        "busy": "Picking a photo closes the picker at once; an upload in progress is the uploading state.",
+        "invalid": "The picker has no form to validate; file type and size messages show in the same place as the upload-failed message."
+      }
+    },
+    {
+      "id": "admin-website-saved",
+      "kind": "notification",
+      "title": "Admin \u00b7 Website Saved",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "requirements": [
+        "L2-REQ-095",
+        "L2-REQ-096"
+      ],
+      "note": "Status message after a block is saved.",
+      "opens_from": "admin-website",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The screen has no warning notification.",
+        "danger": "Failures show inside the editor dialog (failed state) or as the page error state."
       }
     },
     {

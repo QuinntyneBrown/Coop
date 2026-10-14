@@ -1,0 +1,37 @@
+@startuml
+title UML sequence behaviour — Show content over defaults, and refuse a member
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as visitor
+actor "Member" as member
+box "Frontend — Public application" #DCFCE7
+  participant "SiteHeader, Landing, SiteFooter" as page
+  participant "SiteContentService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  participant "AuthorizationBehavior" as authz
+  participant "GetSiteContentHandler" as handler
+end box
+visitor -> page : open a public page
+page -> service : content()
+service -> controller : GET api/site-content (shared by every component)
+alt content loads
+  controller -> handler : Send(GetSiteContentRequest)
+  handler --> controller : stored JSON as it is
+  controller --> service : 200 { siteContent }
+  service -> service : mergeContent(SITE_DEFAULTS, published): missing values take the default  [L2-REQ-100 AC3]
+else request fails
+  controller --> service : error
+  service -> service : SITE_DEFAULTS alone  [L2-REQ-100 AC2]
+end
+service --> page : merged content
+page --> visitor : header, blocks and footer; empty lists leave their block out  [L2-REQ-094 AC5]
+member -> controller : PUT api/site-content (member token)
+controller -> authz : Send(SaveSiteContentRequest)
+authz --> controller : UnauthorizedAccessException (Read only on JsonContent)
+controller --> member : 403, content unchanged  [L2-REQ-099 AC3]
+@enduml

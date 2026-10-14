@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage the Public Site Content
+
+Person(admin, "Office administrator", "Edits the header, footer and home page blocks")
+Person(visitor, "Visitor", "Reads the public site")
+System(coop, "Coop", "Cooperative management platform: admin app, public site and API")
+
+Rel(admin, coop, "Publishes text, links and photos in the admin app", "HTTPS")
+Rel(visitor, coop, "Sees the published content on every public page", "HTTPS")
+@enduml

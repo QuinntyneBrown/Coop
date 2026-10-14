@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using Coop.Application.CMS.SiteContent;
 using Coop.Domain.Identity;
 using Coop.Domain.Onboarding;
 using Coop.Domain.Profiles;
@@ -145,15 +146,6 @@ public static class SeedData
             context.JsonContents.AddRange(
                 new Coop.Domain.CMS.JsonContent
                 {
-                    Name = "Hero",
-                    Json = System.Text.Json.JsonSerializer.Serialize(new
-                    {
-                        title = "Welcome to Your Cooperative",
-                        subtitle = "Manage your community, submit requests, and stay connected."
-                    })
-                },
-                new Coop.Domain.CMS.JsonContent
-                {
                     Name = "BoardOfDirectors",
                     Json = System.Text.Json.JsonSerializer.Serialize(new
                     {
@@ -175,6 +167,19 @@ public static class SeedData
                     })
                 }
             );
+            await context.SaveChangesAsync();
+        }
+
+        // Seed the public site content once; an administrator's saved content is kept (L2-REQ-100 AC1)
+        if (!await context.JsonContents.AnyAsync(j => j.Name == SiteContentRules.Name && !j.IsDeleted))
+        {
+            context.JsonContents.Add(new Coop.Domain.CMS.JsonContent
+            {
+                Name = SiteContentRules.Name,
+                Json = System.Text.Json.JsonSerializer.Serialize(
+                    SiteContentSeed.Create(),
+                    new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web))
+            });
             await context.SaveChangesAsync();
         }
     }

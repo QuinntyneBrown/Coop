@@ -61,14 +61,19 @@ test.describe('Home page', () => {
   });
 
   test.describe('Hero', () => {
-    test('renders the title and lead from the Hero CMS content', async ({ mockApi }) => {
-      const hero = mockApi.store.jsonContents.find((j) => j.name === 'Hero')!;
+    test('renders the title and lead from the published site content', async ({ mockApi }) => {
+      const content = mockApi.store.jsonContents.find((j) => j.name === 'SiteContent')!.content;
+      content.home.hero.title = 'A home for retired women, run by its members';
+      content.home.hero.lead =
+        'Submit requests, read notices, and stay in touch with your neighbours.';
       await landing.goto();
-      await expect(landing.heroTitle).toHaveText(String(hero.content['title']));
-      await expect(landing.heroSubtitle).toHaveText(String(hero.content['subtitle']));
+      await expect(landing.heroTitle).toHaveText('A home for retired women, run by its members');
+      await expect(landing.heroSubtitle).toHaveText(
+        'Submit requests, read notices, and stay in touch with your neighbours.',
+      );
     });
 
-    test('falls back to the default copy when the CMS has no Hero', async ({ mockApi }) => {
+    test('falls back to the default copy when there is no site content', async ({ mockApi }) => {
       mockApi.store.jsonContents = [];
       await landing.goto();
       await expect(landing.heroTitle).toHaveText(DEFAULT_HERO_TITLE);

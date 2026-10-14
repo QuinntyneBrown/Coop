@@ -35,6 +35,7 @@ export class PageService {
     return {
       title: draft.title.trim(),
       heroImageUrl: draft.heroImageUrl.trim() || null,
+      heroImageAlt: draft.heroImageUrl.trim() ? draft.heroImageAlt.trim() || null : null,
       body: draft.body,
     };
   }

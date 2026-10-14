@@ -1,0 +1,33 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage the Public Site Content
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(screen, "WebsiteComponent", "Angular standalone component", "Block list and editor dialog at /website")
+  Component(picker, "PhotoPickerComponent", "Angular standalone component", "Choose or upload a photo")
+  Component(blocks, "content-blocks, validateBlock, isSafeLink, readPath, writePath, moveItem", "Plain TypeScript", "Block descriptions and field rules")
+  Component(adminService, "SiteContentService", "Angular service", "GET and PUT /site-content")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "SiteContentController", "ASP.NET Core controller", "api/site-content; reads are anonymous")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "Runs SaveSiteContentValidator")
+  Component(authz, "ResourceOperationAuthorizationBehavior", "MediatR pipeline behavior", "Requires Write on the JsonContent aggregate")
+  Component(handlers, "Site content handlers", "MediatR handlers", "GetSiteContent, SaveSiteContent")
+  ComponentDb(db, "CoopDbContext", "EF Core", "JsonContents DbSet")
+}
+Container_Boundary(publicApp, "Public application") {
+  Component(publicService, "SiteContentService", "Angular service", "One shared GET /site-content, merged over SITE_DEFAULTS")
+  Component(shared, "SiteHeader, SiteFooter, Landing components", "Angular standalone components", "Draw the merged content")
+}
+Rel(screen, blocks, "Uses")
+Rel(screen, picker, "Opens")
+Rel(screen, adminService, "Loads and saves the content with")
+Rel(adminService, controller, "Calls", "JSON/HTTPS")
+Rel(controller, validation, "Sends requests through")
+Rel(validation, authz, "Then")
+Rel(authz, handlers, "Then")
+Rel(handlers, db, "Queries and saves the SiteContent entry", "EF Core")
+Rel(shared, publicService, "Reads the content from")
+Rel(publicService, controller, "Calls", "JSON/HTTPS")
+@enduml

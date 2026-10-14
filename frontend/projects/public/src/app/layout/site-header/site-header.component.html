@@ -5,7 +5,7 @@
     <a
       class="own-brand"
       routerLink="/"
-      [attr.aria-label]="content.siteName + ' home'"
+      [attr.aria-label]="content().header.siteName + ' home'"
       data-testid="site-brand"
     >
       <svg class="own-brand__mark" viewBox="0 0 48 48" aria-hidden="true">
@@ -15,23 +15,21 @@
         <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
       </svg>
       <span class="own-brand__name"
-        >{{ content.siteName }}<span class="own-brand__sub">{{ content.siteSubtitle }}</span></span
+        >{{ content().header.siteName
+        }}<span class="own-brand__sub">{{ content().header.siteSubtitle }}</span></span
       >
     </a>
     <nav class="own-nav" aria-label="Primary" data-testid="site-nav">
       <ul class="own-nav__list">
-        @for (link of content.navigation; track link.label) {
+        @for (link of content().header.menuLinks; track $index) {
           <li>
-            @if (link.route) {
-              <a
-                class="own-nav__link"
-                [routerLink]="link.route"
-                [attr.aria-current]="isHome ? 'page' : null"
-                >{{ link.label }}</a
-              >
-            } @else {
-              <a class="own-nav__link" [href]="link.href">{{ link.label }}</a>
-            }
+            <a
+              class="own-nav__link"
+              [href]="link.href"
+              [appSiteLink]="link"
+              [attr.aria-current]="isHome && link.href === '/' ? 'page' : null"
+              >{{ link.label }}</a
+            >
           </li>
         }
         @for (page of pages(); track page.pageId) {
@@ -51,9 +49,10 @@
     <div class="own-header__actions">
       <a
         class="own-btn own-btn--secondary own-header__signin"
-        routerLink="/login"
+        [href]="content().header.signInLink.href"
+        [appSiteLink]="content().header.signInLink"
         data-testid="site-signin-link"
-        >Member sign in</a
+        >{{ content().header.signInLink.label }}</a
       >
       <button
         #menuButton
@@ -81,26 +80,17 @@
   <div class="own-menu" id="menu" [hidden]="!menuOpen()" data-testid="site-menu">
     <div class="own-container">
       <ul class="own-menu__list">
-        @for (link of content.navigation; track link.label) {
+        @for (link of content().header.menuLinks; track $index) {
           <li>
-            @if (link.route) {
-              <a
-                class="own-menu__link"
-                [routerLink]="link.route"
-                [attr.aria-current]="isHome ? 'page' : null"
-                (click)="closeMenu()"
-                data-testid="site-menu-link"
-                >{{ link.label }}</a
-              >
-            } @else {
-              <a
-                class="own-menu__link"
-                [href]="link.href"
-                (click)="closeMenu()"
-                data-testid="site-menu-link"
-                >{{ link.label }}</a
-              >
-            }
+            <a
+              class="own-menu__link"
+              [href]="link.href"
+              [appSiteLink]="link"
+              [attr.aria-current]="isHome && link.href === '/' ? 'page' : null"
+              (click)="closeMenu()"
+              data-testid="site-menu-link"
+              >{{ link.label }}</a
+            >
           </li>
         }
         @for (page of pages(); track page.pageId) {
@@ -120,12 +110,18 @@
       <div class="own-menu__footer">
         <a
           class="own-btn own-btn--secondary own-btn--block"
-          routerLink="/login"
+          [href]="content().header.signInLink.href"
+          [appSiteLink]="content().header.signInLink"
           data-testid="site-menu-signin-link"
-          >Member sign in</a
+          >{{ content().header.signInLink.label }}</a
         >
-        <a class="own-btn own-btn--primary own-btn--block" href="/#visit" (click)="closeMenu()"
-          >Book a visit</a
+        <a
+          class="own-btn own-btn--primary own-btn--block"
+          [href]="content().header.visitLink.href"
+          [appSiteLink]="content().header.visitLink"
+          (click)="closeMenu()"
+          data-testid="site-menu-visit-link"
+          >{{ content().header.visitLink.label }}</a
         >
       </div>
     </div>

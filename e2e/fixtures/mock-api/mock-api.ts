@@ -17,6 +17,7 @@ import {
   type MockUser,
   slugOf,
 } from './mock-store';
+import { siteContentError } from './site-content-rules';
 
 export const API_ORIGIN = 'http://localhost:5000';
 export const API_BASE = `${API_ORIGIN}/api`;
@@ -411,7 +412,7 @@ export class MockApi {
   // ── Store mutations shared by HTTP handlers and fixtures ─────────
 
   /** Adds a page, or returns the page that already has the title's slug (ADR 0002). */
-  createPage(data: { title: string; body: string; heroImageUrl?: string | null }): MockPage {
+  createPage(data: { title: string; body: string; heroImageUrl?: string | null; heroImageAlt?: string | null }): MockPage {
     const slug = slugOf(data.title);
     const existing = this.store.pages.find((p) => p.slug === slug);
     if (existing) return existing;
@@ -420,6 +421,7 @@ export class MockApi {
       title: data.title.trim(),
       slug,
       heroImageUrl: data.heroImageUrl?.trim() || null,
+      heroImageAlt: (data.heroImageUrl?.trim() && data.heroImageAlt?.trim()) || null,
       body: data.body,
       createdOn: new Date().toISOString(),
     };
@@ -1006,6 +1008,9 @@ export class MockApi {
       else if (!slugOf(title)) errors.push('The title needs at least one letter or number.');
       else if (title.length > 120) errors.push('The title is too long.');
       if (!String(b?.body ?? '')) errors.push('Write something for the page');
+      const alt = String(b?.heroImageAlt ?? '');
+      if (String(b?.heroImageUrl ?? '').trim() && !alt.trim()) errors.push('Describe this photo for people who cannot see it');
+      if (alt.length > 250) errors.push('Keep the description under 250 characters');
       return errors;
     };
     const pagesSorted = () => [...s.pages].sort((a, b) => a.createdOn.localeCompare(b.createdOn));
@@ -1024,7 +1029,7 @@ export class MockApi {
       const errors = pageErrors(ctx.body);
       if (errors.length) return badRequest(errors.join(' '));
       const b = ctx.body;
-      return ok({ page: this.pageView(this.createPage({ title: b.title, body: b.body, heroImageUrl: b.heroImageUrl })) });
+      return ok({ page: this.pageView(this.createPage({ title: b.title, body: b.body, heroImageUrl: b.heroImageUrl, heroImageAlt: b.heroImageAlt })) });
     });
     this.on('PUT', 'pages', (ctx) => {
       if (!PAGE_ROLES.write.includes(ctx.user!.role)) return forbidden();
@@ -1040,6 +1045,7 @@ export class MockApi {
       page.title = String(b.title).trim();
       page.slug = slug;
       page.heroImageUrl = String(b.heroImageUrl ?? '').trim() || null;
+      page.heroImageAlt = (page.heroImageUrl && String(b.heroImageAlt ?? '').trim()) || null;
       page.body = b.body;
       return ok({ page: this.pageView(page) });
     });
@@ -1081,6 +1087,29 @@ export class MockApi {
     this.on('GET', 'json-content/name/:name', (_ctx, [name]) => jsonContentView(name), true);
     this.on('GET', 'json-content/:name', (_ctx, [name]) => jsonContentView(name), true);
     this.on('GET', 'jsoncontent/name/:name', (_ctx, [name]) => jsonContentView(name), true);
+
+    // Site content (L2-REQ-094 to L2-REQ-100), stored as the SiteContent JSON content
+    const siteContent = () => s.jsonContents.find((j) => j.name === 'SiteContent');
+    this.on(
+      'GET',
+      'site-content',
+      () => {
+        const entry = siteContent();
+        return entry ? ok({ siteContent: entry.content }) : notFound();
+      },
+      true,
+    );
+    this.on('PUT', 'site-content', (ctx) => {
+      if (!JSON_CONTENT_WRITE_ROLES.includes(ctx.user!.role)) return forbidden();
+      const content = ctx.body?.siteContent;
+      if (!content || typeof content !== 'object') return badRequest('One or more fields are invalid.');
+      const error = siteContentError(content);
+      if (error) return badRequest(error);
+      const existing = siteContent();
+      if (existing) existing.content = content;
+      else s.jsonContents.push({ jsonContentId: newId(), name: 'SiteContent', content });
+      return ok({ siteContent: content });
+    });
 
     // Board of Directors list (L2-REQ-085, L2-REQ-086), stored as the BoardOfDirectors JSON content
     const boardContent = () => s.jsonContents.find((j) => j.name === 'BoardOfDirectors');
@@ -1270,7 +1299,8 @@ export class MockApi {
       'GET',
       'digitalasset/serve/:id',
       (_ctx, [id]) =>
-        s.profiles.some((p) => p.avatarUrl.endsWith(`/${id}`))
+        s.profiles.some((p) => p.avatarUrl.endsWith(`/${id}`)) ||
+        s.assets.some((a) => a.digitalAssetId === id && a.contentType.startsWith('image/'))
           ? { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' }
           : notFound(),
       true,

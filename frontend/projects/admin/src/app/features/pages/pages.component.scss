@@ -267,6 +267,12 @@
   font-family: ui-monospace, Consolas, monospace;
   font-size: 14px;
 }
+/* Photo description: plain prose, so the page text's monospace look does not apply. */
+.page-dialog__body .form-group textarea.page-photo-alt {
+  min-height: 96px;
+  font-family: inherit;
+  font-size: 15px;
+}
 .page-dialog__body [aria-invalid='true'] {
   border-color: var(--adm-danger);
   box-shadow: 0 0 0 3px var(--adm-danger-soft);
