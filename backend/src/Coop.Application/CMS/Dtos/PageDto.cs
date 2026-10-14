@@ -8,6 +8,7 @@ public class PageDto
     public string Title { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
     public string? HeroImageUrl { get; set; }
+    public string? HeroImageAlt { get; set; }
     public string Body { get; set; } = string.Empty;
     public DateTime CreatedOn { get; set; }
 
@@ -19,6 +20,7 @@ public class PageDto
             Title = page.Title,
             Slug = page.Slug,
             HeroImageUrl = page.HeroImageUrl,
+            HeroImageAlt = page.HeroImageAlt,
             Body = page.Body,
             CreatedOn = page.CreatedOn
         };

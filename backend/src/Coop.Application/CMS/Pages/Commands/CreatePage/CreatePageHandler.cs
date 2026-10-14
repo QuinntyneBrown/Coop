@@ -25,7 +25,7 @@ public class CreatePageHandler : IRequestHandler<CreatePageRequest, CreatePageRe
             return new CreatePageResponse { Page = PageDto.FromPage(existing) };
 
         var page = new Page();
-        page.Update(request.Title, request.HeroImageUrl, request.Body);
+        page.Update(request.Title, request.HeroImageUrl, request.HeroImageAlt, request.Body);
         _context.Pages.Add(page);
         await _context.SaveChangesAsync(cancellationToken);
 

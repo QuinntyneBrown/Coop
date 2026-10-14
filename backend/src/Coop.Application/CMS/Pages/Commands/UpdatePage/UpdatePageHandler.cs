@@ -25,7 +25,7 @@ public class UpdatePageHandler : IRequestHandler<UpdatePageRequest, UpdatePageRe
         if (taken)
             throw new ValidationException(new[] { new ValidationFailure(nameof(request.Title), PageRules.DuplicateTitleMessage) });
 
-        page.Update(request.Title, request.HeroImageUrl, request.Body);
+        page.Update(request.Title, request.HeroImageUrl, request.HeroImageAlt, request.Body);
         await _context.SaveChangesAsync(cancellationToken);
 
         return new UpdatePageResponse { Page = PageDto.FromPage(page) };

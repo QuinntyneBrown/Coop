@@ -5,7 +5,7 @@ namespace Coop.Domain.CMS;
 
 /// <summary>
 /// A website page the office adds to the public site: a title, an optional hero
-/// photograph address and an HTML body, reached at /pages/{Slug}.
+/// photograph address with its description and an HTML body, reached at /pages/{Slug}.
 /// </summary>
 public class Page
 {
@@ -15,15 +15,17 @@ public class Page
     public string Title { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
     public string? HeroImageUrl { get; set; }
+    public string? HeroImageAlt { get; set; }
     public string Body { get; set; } = string.Empty;
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
 
-    public void Update(string title, string? heroImageUrl, string body)
+    public void Update(string title, string? heroImageUrl, string? heroImageAlt, string body)
     {
         Title = title.Trim();
         Slug = SlugFrom(title);
         HeroImageUrl = string.IsNullOrWhiteSpace(heroImageUrl) ? null : heroImageUrl.Trim();
+        HeroImageAlt = HeroImageUrl is null || string.IsNullOrWhiteSpace(heroImageAlt) ? null : heroImageAlt.Trim();
         Body = body;
     }
 
