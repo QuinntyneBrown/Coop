@@ -7,4 +7,4 @@ Narrated videos made from a script, a slide deck and captions. See the
 
 | Video | Topic | Runtime |
 | --- | --- | --- |
-| [01 · A website and a helping hand for OWN](01-own-board-overview/README.md) | Board pitch for the Coop platform | about 3 min 32 s |
+| [01 · A website and a helping hand for OWN](01-own-board-overview/README.md) | Board pitch for the Coop platform | about 3 min 53 s |
