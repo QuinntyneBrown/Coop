@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Narration generator for docs/videos/NN-topic/script.md using free edge-tts.
 //
-//   node tools/video-audio/generate-audio.mjs <folder> [--dry-run] [--engine edge|piper|sapi]
+//   node tools/video-audio/generate-audio.mjs <folder> [--dry-run] [--engine edge|piper|kokoro|sapi]
 //   node tools/video-audio/generate-audio.mjs --say "text" --out file.wav
 //
 // --engine edge (default): free edge-tts neural voices, needs internet.
@@ -14,13 +14,24 @@
 //     into .cache/piper/
 //   then set PIPER_PYTHON=.cache/piper-venv/Scripts/python.exe. On Windows ARM
 //   use Python 3.14; the 3.12 piper-tts wheel lacks its phoneme library.
+// --engine kokoro: offline Kokoro-82M voices (Apache-2.0), warmer and more
+//   natural than Piper. Free, no API key, no internet once downloaded. One-time
+//   setup, with Python 3.10 to 3.12:
+//     python -m pip install kokoro-onnx soundfile
+//     download onnx/model.onnx as model.onnx, and the voices you want from
+//     voices/ (for example af_heart.bin), from
+//     https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX
+//     into .cache/kokoro/ and .cache/kokoro/voices/
+//   then set KOKORO_PYTHON to that Python if it is not the default.
 // --engine sapi: offline Windows voices; lowest quality, no setup.
 // Env: PYTHON (python), FFMPEG_PATH (ffmpeg), FFPROBE_PATH (ffprobe),
 //      EDGE_VOICE (en-US-AndrewMultilingualNeural),
 //      EDGE_VOICE_2 (en-US-AvaMultilingualNeural), EDGE_RATE (-10%),
 //      SAPI_VOICE (Microsoft Zira Desktop), SAPI_VOICE_2 (Microsoft David
 //      Desktop), SAPI_RATE (-2), PIPER_PYTHON, PIPER_MODEL
-//      (.cache/piper/en_US-lessac-high.onnx), PIPER_LENGTH_SCALE (1.3).
+//      (.cache/piper/en_US-lessac-high.onnx), PIPER_LENGTH_SCALE (1.3),
+//      KOKORO_PYTHON (python), KOKORO_DIR (.cache/kokoro), KOKORO_VOICE
+//      (af_heart), KOKORO_SPEED (0.8, below 1 is slower).
 // Output: <folder>/<folder-name>.mp3 and <folder>/.cache/timing.json.
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -37,12 +48,17 @@ const WORDS_PER_MINUTE = 150;
 const args = process.argv.slice(2);
 // "edge" (default, neural voices, needs internet) or "sapi" (offline Windows voices).
 const ENGINE = args.includes('--engine') ? args[args.indexOf('--engine') + 1] : 'edge';
-if (!['edge', 'sapi', 'piper'].includes(ENGINE)) fail(`unknown engine "${ENGINE}" (use edge, sapi or piper)`);
+if (!['edge', 'sapi', 'piper', 'kokoro'].includes(ENGINE)) fail(`unknown engine "${ENGINE}" (use edge, sapi, piper or kokoro)`);
 // Piper: offline neural voices from huggingface.co/rhasspy/piper-voices.
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
 const PIPER_PYTHON = process.env.PIPER_PYTHON || PYTHON; // a Python with piper-tts installed
 const PIPER_MODEL = process.env.PIPER_MODEL || join(REPO_ROOT, '.cache', 'piper', 'en_US-lessac-high.onnx');
 const PIPER_LENGTH_SCALE = process.env.PIPER_LENGTH_SCALE || '1.3'; // above 1 is slower
+// Kokoro: offline voices from huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX.
+const KOKORO_PYTHON = process.env.KOKORO_PYTHON || PYTHON; // a Python with kokoro-onnx and soundfile
+const KOKORO_DIR = process.env.KOKORO_DIR || join(REPO_ROOT, '.cache', 'kokoro');
+const KOKORO_VOICE = process.env.KOKORO_VOICE || 'af_heart';
+const KOKORO_SPEED = process.env.KOKORO_SPEED || '0.8'; // below 1 is slower
 const SAPI_VOICE = process.env.SAPI_VOICE || 'Microsoft Zira Desktop';
 const SAPI_VOICE_2 = process.env.SAPI_VOICE_2 || 'Microsoft David Desktop';
 const SAPI_RATE = process.env.SAPI_RATE || '-2'; // -10 slowest .. 10 fastest
@@ -163,11 +179,23 @@ function synthesizePiper(text, outWav) {
   if (r.status !== 0 || !existsSync(outWav)) fail(`Piper failed: ${(r.stderr || r.error?.message || '').trim().slice(-600)}`);
 }
 
+function synthesizeKokoro(text, outWav) {
+  const input = `${outWav}.txt`;
+  writeFileSync(input, text, 'utf8');
+  const helper = join(import.meta.dirname, 'kokoro-say.py');
+  const r = spawnSync(KOKORO_PYTHON, [helper, KOKORO_DIR, KOKORO_VOICE, KOKORO_SPEED, input, outWav], { encoding: 'utf8' });
+  if (r.status !== 0 || !existsSync(outWav)) fail(`Kokoro failed: ${(r.stderr || r.error?.message || '').trim().slice(-600)}`);
+}
+
 // Writes a 24 kHz mono wav for one paragraph with the selected engine.
 function speak(text, voiceNumber, wav) {
   if (ENGINE === 'piper') {
     const raw = `${wav}.piper.wav`;
     synthesizePiper(text, raw);
+    toWav(raw, wav);
+  } else if (ENGINE === 'kokoro') {
+    const raw = `${wav}.kokoro.wav`;
+    synthesizeKokoro(text, raw);
     toWav(raw, wav);
   } else if (ENGINE === 'sapi') {
     const raw = `${wav}.sapi.wav`;
@@ -255,10 +283,12 @@ for (const s of script.sections) {
       const voice =
         ENGINE === 'piper'
           ? basename(PIPER_MODEL)
-          : ENGINE === 'sapi'
-            ? item.speaker === 2 ? SAPI_VOICE_2 : SAPI_VOICE
-            : item.speaker === 2 ? VOICE_2 : VOICE;
-      const rate = ENGINE === 'piper' ? PIPER_LENGTH_SCALE : ENGINE === 'sapi' ? SAPI_RATE : RATE;
+          : ENGINE === 'kokoro'
+            ? KOKORO_VOICE
+            : ENGINE === 'sapi'
+              ? item.speaker === 2 ? SAPI_VOICE_2 : SAPI_VOICE
+              : item.speaker === 2 ? VOICE_2 : VOICE;
+      const rate = ENGINE === 'piper' ? PIPER_LENGTH_SCALE : ENGINE === 'kokoro' ? KOKORO_SPEED : ENGINE === 'sapi' ? SAPI_RATE : RATE;
       const spoken = applyLexicon(item.text, lexicon);
       const hash = createHash('sha1').update(`${ENGINE}|${voice}|${rate}|${spoken}`).digest('hex').slice(0, 8);
       wav = join(cache, `p${id}-${hash}.wav`);

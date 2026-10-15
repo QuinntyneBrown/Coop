@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 3 min 53 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 4 min 14 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 
@@ -51,16 +51,16 @@ before the real site.
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:17 | Welcome | Title, "a website and a helping hand", for everyone |
-| 00:17-00:30 | Six things | The six items and the two status chips |
-| 00:30-00:47 | 1 Beautiful and easy to read | OWN home page, working today |
-| 00:47-01:24 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list, all working today |
-| 01:24-01:59 | 3 Notices | Working today, including the email or text choice and one-tick sending; a real email and text message service is the step left |
-| 01:59-02:31 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
-| 02:31-02:49 | 5 Bigger words | Up to 400%, working today on every screen |
-| 02:49-03:03 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
-| 03:03-03:30 | In short | All six working today; a real email and text message service coming next |
-| 03:30-03:53 | Our ask | Three small things, thank you |
+| 00:00-00:19 | Welcome | Title, "a website and a helping hand", for everyone |
+| 00:19-00:31 | Six things | The six items and the two status chips |
+| 00:31-00:50 | 1 Beautiful and easy to read | OWN home page, working today |
+| 00:50-01:33 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list, all working today |
+| 01:33-02:12 | 3 Notices | Working today, including the email or text choice and one-tick sending; a real email and text message service is the step left |
+| 02:12-02:46 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
+| 02:46-03:06 | 5 Bigger words | Up to 400%, working today on every screen |
+| 03:06-03:20 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
+| 03:20-03:49 | In short | All six working today; a real email and text message service coming next |
+| 03:49-04:14 | Our ask | Three small things, thank you |
 
 ## Demo commands
 
@@ -69,17 +69,19 @@ From the repository root, in PowerShell:
 ```powershell
 python tools/video-build/capture-mocks.py docs/videos/01-own-board-overview
 node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --dry-run
-$env:PIPER_PYTHON = ".cache/piper-venv/Scripts/python.exe"
-node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --engine piper
+node tools/video-audio/generate-audio.mjs docs/videos/01-own-board-overview --engine kokoro
 node tools/video-build/build-video.mjs docs/videos/01-own-board-overview --check
 node tools/video-build/build-video.mjs docs/videos/01-own-board-overview
 ```
 
-The committed audio uses the Piper voice `en_US-lessac-high` from Hugging Face
-(`rhasspy/piper-voices`), slowed with `PIPER_LENGTH_SCALE` 1.3. The free edge-tts
-service answered 403 from the machine that built it. One-time Piper setup is in the
-header of `tools/video-audio/generate-audio.mjs`. Other engines: drop `--engine piper`
-for the edge-tts neural voices, or use `--engine sapi` for the offline Windows voices.
+The committed audio uses the Kokoro voice `af_heart` (Kokoro-82M, Apache-2.0, from
+`onnx-community/Kokoro-82M-v1.0-ONNX` on Hugging Face), read at speed 0.8 so it is calm
+and unhurried at about 160 words a minute. It runs offline with no API key. One-time
+setup is in the header of `tools/video-audio/generate-audio.mjs`. Other engines: Piper
+(`--engine piper`, the earlier voice, which sounded more synthetic), the free edge-tts
+neural voices (`--engine edge`, which answered 403 from the machine that built this
+video), and the offline Windows voices (`--engine sapi`). `KOKORO_VOICE` and
+`KOKORO_SPEED` change the voice and pace.
 
 ## Pitfalls
 
