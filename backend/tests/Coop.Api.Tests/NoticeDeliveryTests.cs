@@ -1,10 +1,11 @@
 // Acceptance Test
-// Traces to: L2-REQ-092, L2-REQ-093
+// Traces to: L2-REQ-092, L2-REQ-093 (AC11)
 // Description: Members choose on their profile whether new notices reach them
 // by email or text message. The office sends a published notice once to the
 // members who chose it, at the address on their profile; members who did not
 // choose, have no such address or are deleted get nothing. A draft cannot be
-// sent, a member cannot send, and sending again sends nothing.
+// sent, a member cannot send, and sending again sends nothing. When the mail
+// server fails, the notice stays unsent and a later send delivers it.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -183,5 +184,41 @@ public class NoticeDeliveryTests : IClassFixture<CoopApiFactory>
         Assert.Equal(HttpStatusCode.Forbidden, (await SendAsync(member, id)).StatusCode);
 
         Assert.DoesNotContain(_factory.Notices.Emails, e => e.Email == email);
+    }
+
+    [Fact]
+    public async Task Given_the_mail_server_fails_when_the_office_sends_a_notice_then_it_stays_unsent_and_a_later_send_delivers_it()
+    {
+        var email = $"{Unique("ida")}@example.invalid";
+        await ChooseAsync(await CreateMemberAsync(Unique("ida"), email), byEmail: true, byText: false);
+        var admin = await _factory.CreateAdminClientAsync();
+        var id = await CreateNoticeAsync(admin, Unique("Elevator out of service"));
+
+        _factory.Notices.FailEmails = true;
+        try
+        {
+            var failure = await Record.ExceptionAsync(async () =>
+            {
+                var response = await SendAsync(admin, id);
+                Assert.True((int)response.StatusCode >= 500, $"Expected an error status but got {(int)response.StatusCode}.");
+            });
+            Assert.Null(failure);
+        }
+        finally
+        {
+            _factory.Notices.FailEmails = false;
+        }
+
+        var unsent = await admin.GetFromJsonAsync<JsonElement>($"/api/notice/{id}");
+        Assert.Equal(JsonValueKind.Null, unsent.GetProperty("notice").GetProperty("sentOn").ValueKind);
+        Assert.DoesNotContain(_factory.Notices.Emails, e => e.Email == email);
+
+        var sent = await SendOkAsync(admin, id);
+
+        Assert.NotEqual(JsonValueKind.Null, sent.GetProperty("sentOn").ValueKind);
+        Assert.Single(_factory.Notices.Emails, e => e.Email == email);
+        var again = await SendOkAsync(admin, id);
+        Assert.Equal(sent.GetProperty("sentOn").GetDateTime(), again.GetProperty("sentOn").GetDateTime());
+        Assert.Single(_factory.Notices.Emails, e => e.Email == email);
     }
 }
