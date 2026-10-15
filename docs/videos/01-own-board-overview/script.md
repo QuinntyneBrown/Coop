@@ -24,7 +24,9 @@ Today, the office can change the colours, and keep a library of photos. The offi
 
 [pause 2s]
 
-Third, notices that nobody misses. The office writes a notice once. It shows on the front page of the website, and in the documents page for members. This works today. Sending a notice straight to your phone or email is a later step.
+Third, notices that nobody misses. The office writes a notice once. It shows on the front page of the website, and in the documents page for members. This works today.
+
+On her profile, a member can choose to get new notices by email, by text message, or both. When the office publishes a notice, one tick sends it to everyone who asked. This works today too. The one step left is connecting a real email and text message service, so the messages actually go out.
 
 [pause 2s]
 
@@ -44,7 +46,7 @@ Sixth, your own face. A member can add her own profile picture, change it, or ta
 
 ## Today and next
 
-So, in short. All six things work today. The home page, the pages and the board list the office edits, the colours and the photo library, notices, repair requests with photos, bigger text, and profile pictures. Coming next is sending a notice straight to your phone or email.
+So, in short. All six things work today. The home page, the pages and the board list the office edits, the colours and the photo library, notices by email or text, repair requests with photos, bigger text, and profile pictures. Coming next is connecting a real email and text message service, so those notices actually go out.
 
 [pause 2s]
 

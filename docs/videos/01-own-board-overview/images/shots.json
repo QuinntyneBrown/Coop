@@ -12,6 +12,7 @@
   {"name": "admin-pages", "mock": "pages/admin-pages/default.html", "phone": false},
   {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
   {"name": "admin-documents-notices", "mock": "pages/admin-documents/notices.html", "phone": false},
+  {"name": "admin-document-create-send", "mock": "dialogs/admin-document-create/send.html", "phone": false},
   {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
   {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
   {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},

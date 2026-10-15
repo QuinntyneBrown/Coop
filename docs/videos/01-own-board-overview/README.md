@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 3 min 32 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 3 min 53 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 
@@ -22,9 +22,9 @@ By the end, the viewer can:
 
 | Question | What a strong answer includes |
 | --- | --- |
-| What does the platform do for us? | A readable website, office-edited content, notices, repair requests, bigger text, profile photos |
-| What works today? | All six: the home page, website pages the office adds and removes, the board list, colours, photo library, notices, repair requests (send with photos, receive, start and finish), 400% text, profile pictures |
-| What comes next? | Sending a notice straight to a member's phone or email |
+| What does the platform do for us? | A readable website, office-edited content, notices by email or text, repair requests, bigger text, profile photos |
+| What works today? | All six: the home page, website pages the office adds and removes, the board list, colours, photo library, notices (members choose email or text, the office ticks one box to send), repair requests (send with photos, receive, start and finish), 400% text, profile pictures |
+| What comes next? | Connecting a real email and text message service; until then the API writes each message to its log and nothing leaves the system |
 | What do you need from us? | Two members to try it, first three pages, a named admin |
 
 ## Code / assets on screen
@@ -37,6 +37,7 @@ By the end, the viewer can:
 | `images/admin-pages-1280.png` | The admin Pages screen: add, edit and remove website pages (working today) |
 | `images/admin-board-1280.png` | The admin Board screen: add, edit, reorder and remove directors (working today) |
 | `images/admin-documents-notices-1280.png`, `public-documents-notices-360.png` | Notices |
+| `images/public-profile-edit-360.png`, `admin-document-create-send-1280.png` | Notices by email or text: the member's "Send me new notices" choice, and the office's "Also send to members by email and text" box |
 | `images/public-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `admin-maintenance-detail-started-1280.png`, `public-maintenance-detail-photos-360.png` | Repair requests, with photos |
 | `images/public-profile-photo-preview-360.png`, `public-messaging-chat-photo-360.png` | Profile photos: choose and save, then shown beside messages |
 
@@ -54,12 +55,12 @@ before the real site.
 | 00:17-00:30 | Six things | The six items and the two status chips |
 | 00:30-00:47 | 1 Beautiful and easy to read | OWN home page, working today |
 | 00:47-01:24 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list, all working today |
-| 01:24-01:43 | 3 Notices | Working today; phone and email delivery is a later step |
-| 01:43-02:15 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
-| 02:15-02:33 | 5 Bigger words | Up to 400%, working today on every screen |
-| 02:33-02:47 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
-| 02:47-03:09 | In short | All six working today; notices to phone or email coming next |
-| 03:09-03:32 | Our ask | Three small things, thank you |
+| 01:24-01:59 | 3 Notices | Working today, including the email or text choice and one-tick sending; a real email and text message service is the step left |
+| 01:59-02:31 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
+| 02:31-02:49 | 5 Bigger words | Up to 400%, working today on every screen |
+| 02:49-03:03 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
+| 03:03-03:30 | In short | All six working today; a real email and text message service coming next |
+| 03:30-03:53 | Our ask | Three small things, thank you |
 
 ## Demo commands
 
