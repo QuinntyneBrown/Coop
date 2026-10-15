@@ -43,7 +43,17 @@ public static class Dependencies
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<ITokenBuilder, TokenBuilder>();
         services.AddScoped<INotificationService, NotificationService>();
-        services.AddScoped<INoticeSender, LoggingNoticeSender>();
+        // Notice emails go out through SMTP when it is configured; otherwise every message is only logged (ADR 0008).
+        var noticeEmail = configuration.GetSection(NoticeEmailOptions.SectionName).Get<NoticeEmailOptions>() ?? new NoticeEmailOptions();
+        services.AddSingleton(noticeEmail);
+        if (noticeEmail.IsConfigured)
+        {
+            services.AddScoped<INoticeSender, SmtpNoticeSender>();
+        }
+        else
+        {
+            services.AddScoped<INoticeSender, LoggingNoticeSender>();
+        }
 
         // Authorization handler
         services.AddScoped<IAuthorizationHandler, ResourceOperationAuthorizationHandler>();
