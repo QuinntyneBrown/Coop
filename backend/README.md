@@ -64,6 +64,10 @@ Settings live in `backend/src/Coop.Api/appsettings.json` and
 | `Authentication:JwtIssuer`, `JwtAudience` | Token issuer and audience |
 | `Authentication:ExpirationMinutes` | Token lifetime |
 | `Authentication:TokenPath` | Token endpoint, `/api/user/token` |
+| `Notices:Email:Host`, `Port` | SMTP server that sends notice emails, port 587 by default; leave `Host` empty to only log them |
+| `Notices:Email:UserName`, `Password` | SMTP credentials; set with `dotnet user-secrets` or environment variables, never in `appsettings.json` |
+| `Notices:Email:FromAddress`, `FromName` | Sender members see on a notice email |
+| `Notices:Email:PickupDirectory` | Development and tests only: write each email as an `.eml` file in this folder instead of using the network |
 
 The checked-in `JwtKey` is a development value. Supply a real secret through
 environment variables or a secret store for any shared or deployed environment.
@@ -125,7 +129,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/maintenancerequestcomment`, `/api/maintenancerequestdigitalasset` | Comments and photo evidence on a request |
 | `/api/document` | Documents, including publish |
 | `/api/notice`, `/api/bylaw`, `/api/report` | Typed documents; `GET published` is anonymous |
-| `/api/notice/{documentId}/send` | Sends a published notice once to the members who chose email or text message on their profile; requires the Write privilege on the `Notice` aggregate. Messages go through `INoticeSender`; the default `LoggingNoticeSender` writes them to the log and sends nothing outside the system (ADR 0007) |
+| `/api/notice/{documentId}/send` | Sends a published notice once to the members who chose email or text message on their profile; requires the Write privilege on the `Notice` aggregate. Messages go through `INoticeSender`; emails go out through the configured SMTP server (ADR 0008), and text messages and emails without one are written to the log by `LoggingNoticeSender` (ADR 0007) |
 | `/api/conversations`, `/api/messages` | Messaging |
 | `/api/invitationtoken` | Invitation tokens; `GET validate/{value}` is anonymous |
 | `/api/digitalasset` | Upload, avatars, and listing; `serve/{id}` and `by-name/{name}` are anonymous |
