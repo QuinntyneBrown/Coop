@@ -12,8 +12,16 @@ public class RecordingNoticeSender : INoticeSender
 
     public ConcurrentQueue<SentText> Texts { get; } = new();
 
+    /// <summary>When true, every email fails as it does when the mail server refuses or cannot be reached.</summary>
+    public bool FailEmails { get; set; }
+
     public Task SendEmailAsync(string email, string subject, string body, CancellationToken cancellationToken)
     {
+        if (FailEmails)
+        {
+            throw new InvalidOperationException("The mail server could not be reached.");
+        }
+
         Emails.Enqueue(new SentEmail(email, subject, body));
         return Task.CompletedTask;
     }
