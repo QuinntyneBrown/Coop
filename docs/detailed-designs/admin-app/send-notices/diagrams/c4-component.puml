@@ -20,7 +20,8 @@ Container_Boundary(api, "Coop API") {
   Component(pipeline, "Pipeline behaviors", "MediatR", "Write on Notice; SendNoticeValidator: published notice")
   Component(handler, "SendNoticeHandler", "MediatR handler", "Once: recipients by choice, then SentOn")
   Component(sender, "INoticeSender", "Interface", "SendEmailAsync, SendTextAsync")
-  Component(logSender, "LoggingNoticeSender", "Infrastructure", "Writes each message to the API log")
+  Component(logSender, "LoggingNoticeSender", "Infrastructure", "Writes each message to the API log; used when no SMTP server is set")
+  Component(smtpSender, "SmtpNoticeSender", "Infrastructure", "Sends each email through the configured SMTP server; logs texts")
   ComponentDb(db, "CoopDbContext", "EF Core", "Profiles and Documents")
 }
 Rel(documents, messages, "Words its messages with")
@@ -35,5 +36,6 @@ Rel(pipeline, handler, "Then")
 Rel(handler, db, "Reads choices, sets SentOn", "EF Core")
 Rel(handler, sender, "Hands each message to")
 Rel(logSender, sender, "Implements")
+Rel(smtpSender, sender, "Implements")
 Rel(bff, db, "Reads and sets the choice", "EF Core")
 @enduml

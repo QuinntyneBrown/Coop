@@ -8,11 +8,11 @@ message, by both or not at all (L2-REQ-092), and the office can send a
 notice it publishes to those members, once (L2-REQ-093). Nobody is sent
 anything until they choose to.
 
-No email or text message provider is connected yet. Every message goes
-through one sender service, `INoticeSender`. The default sender writes each
-message to the API log and sends nothing outside the system, so connecting a
-real provider later means adding one class and changing one line in
-`Dependencies.cs`.
+Every message goes through one sender service, `INoticeSender`. Emails go
+out through an SMTP server when one is configured (ADR 0008). Without one,
+and always for text messages, the default sender writes each message to the
+API log and sends nothing outside the system. No text message provider is
+connected yet.
 
 The screens are drawn in `docs/mocks/pages/public-profile/` (default, edit,
 notices-invalid), `docs/mocks/dialogs/admin-document-create/` (send,
@@ -65,12 +65,33 @@ phone numbers of those with `NoticeByText`, skipping empty ones, and calls
 - `SendEmailAsync(email, "New notice: {name}", body)`
 - `SendTextAsync(phone, "New notice from the co-op: {name}. {body}")`
 
-Then it sets `SentOn` and saves.
+Then it sets `SentOn` and saves. An exception from the sender stops the
+send before `SentOn` is set, and `ExceptionHandlingMiddleware` answers with
+an error.
 
-`INoticeSender` lives in `Coop.Application/Common/Interfaces/`.
-`LoggingNoticeSender` (`Coop.Infrastructure/Notifications/`) is the default
-implementation, registered in `Dependencies.cs`; it logs the recipient and
-the subject or message with `ILogger` at Information level.
+`INoticeSender` lives in `Coop.Application/Common/Interfaces/`. Two
+implementations live in `Coop.Infrastructure/Notifications/`:
+
+- `LoggingNoticeSender` logs the recipient and the subject or message with
+  `ILogger` at Information level and sends nothing. It is used when no SMTP
+  server is configured.
+- `SmtpNoticeSender` sends each email through the configured SMTP server as
+  plain text from the configured sender address, over STARTTLS with the
+  configured credentials. It logs text messages as `LoggingNoticeSender`
+  does. When the server refuses a message or cannot be reached, it throws,
+  `SentOn` stays empty and the office can send again (ADR 0007).
+
+`Dependencies.cs` registers `SmtpNoticeSender` when `Notices:Email:Host` is
+set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
+`LoggingNoticeSender` otherwise. The settings, bound to
+`NoticeEmailOptions`:
+
+| Setting | Purpose |
+|---------|---------|
+| `Notices:Email:Host`, `Port` | SMTP server, port 587 by default |
+| `Notices:Email:UserName`, `Password` | Credentials; supplied by user secrets or environment variables, never `appsettings.json` |
+| `Notices:Email:FromAddress`, `FromName` | Sender shown to members |
+| `Notices:Email:PickupDirectory` | Development and tests only: write each email as an `.eml` file in this folder instead of using the network |
 
 ### Admin application
 
@@ -111,8 +132,11 @@ the subject or message with `ILogger` at Information level.
 `backend/tests/Coop.Api.Tests/NoticeDeliveryTests.cs` covers the default and
 saved notice choice, sending to members who chose email and text, skipping
 those who did not choose or have no address, sending once, refusing a draft
-and a member. `CoopApiFactory` replaces `INoticeSender` with
-`RecordingNoticeSender`, a test double that keeps the messages. The
+and a member, and a send that fails and is tried again. `CoopApiFactory`
+replaces `INoticeSender` with `RecordingNoticeSender`, a test double that
+keeps the messages and can be told to fail. A separate test points
+`Notices:Email:PickupDirectory` at a temporary folder and reads the `.eml`
+files `SmtpNoticeSender` writes there, so no test uses the network. The
 Playwright mock API serves `POST notice`, `POST notice/{id}/send` and the
 notice choice on `user/profile`; `e2e/tests/admin/documents.spec.ts` and
 `e2e/tests/public/profile.spec.ts` cover the screens.
@@ -123,7 +147,7 @@ notice choice on `user/profile`; `e2e/tests/admin/documents.spec.ts` and
 |-------|--------------|-------------|
 | `L2-REQ-032` | `L1-REQ-006` | A document can be published. |
 | `L2-REQ-092` | `L1-REQ-004`, `L1-REQ-006` | Members choose on their profile whether new notices reach them by email, text message, both or neither. |
-| `L2-REQ-093` | `L1-REQ-006` | The office sends a published notice once to the members who asked for it. |
+| `L2-REQ-093` | `L1-REQ-006` | The office sends a published notice once to the members who asked for it, by email through an SMTP server when one is configured. |
 
 ## Diagrams
 

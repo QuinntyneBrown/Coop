@@ -15,7 +15,7 @@ box "Backend — Coop API" #FEF3C7
   participant "PublicBffController" as bff
   participant "NoticeController\nDocumentController" as controller
   participant "SendNoticeHandler" as handler
-  participant "INoticeSender\n(LoggingNoticeSender)" as sender
+  participant "INoticeSender\n(SmtpNoticeSender or\nLoggingNoticeSender)" as sender
   database "CoopDbContext" as db
 end box
 member -> profile : Edit, tick "By email", "Save Changes"
@@ -34,8 +34,13 @@ alt SentOn already set
   handler --> controller : notice unchanged, nothing sent  [AC8, ADR 0007]
 else first send
   handler -> db : profiles with NoticeByEmail or NoticeByText and an address
-  handler -> sender : SendEmailAsync(email, "New notice: {title}", text)\nSendTextAsync(phone, "New notice from the co-op: …")  [AC5]
-  handler -> db : SentOn = now, SaveChanges
+  handler -> sender : SendEmailAsync(email, "New notice: {title}", text)\nSendTextAsync(phone, "New notice from the co-op: …")  [AC5, AC9, AC10]
+  alt SMTP server refuses or cannot be reached
+    sender --> handler : throws  [AC11, ADR 0008]
+    handler --> controller : error, SentOn stays empty
+  else sent
+    handler -> db : SentOn = now, SaveChanges
+  end
 end
 controller --> documents : 200 { notice: { sentOn } }
 documents --> office : dialog closes, "“{title}” is published and sent to members who asked for notices."  [AC3]
