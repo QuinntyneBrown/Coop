@@ -32,6 +32,9 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     /// <summary>The notices the API sent, kept instead of leaving the system.</summary>
     public RecordingNoticeSender Notices { get; } = new();
 
+    /// <summary>True keeps notices in <see cref="Notices"/>; a test of the real sender turns it off.</summary>
+    protected virtual bool RecordNotices => true;
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
@@ -41,8 +44,11 @@ public class CoopApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<DbContextOptions<CoopDbContext>>();
             services.RemoveAll<DbContextOptions>();
             services.AddDbContext<CoopDbContext>(options => options.UseInMemoryDatabase(_databaseName));
-            services.RemoveAll<INoticeSender>();
-            services.AddSingleton<INoticeSender>(Notices);
+            if (RecordNotices)
+            {
+                services.RemoveAll<INoticeSender>();
+                services.AddSingleton<INoticeSender>(Notices);
+            }
         });
     }
 
