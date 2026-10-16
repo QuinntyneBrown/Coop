@@ -340,7 +340,7 @@ a:hover { color: var(--own-text); }
 .own-page-banner { background: var(--own-surface-tint); padding-block: var(--own-space-7); }
 .own-page-banner h1 { font-size: var(--own-size-h2); max-width: 20em; }
 .own-page__hero { margin-top: calc(-1 * var(--own-space-5)); }
-.own-page__hero img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; border-radius: var(--own-radius-lg); box-shadow: var(--own-shadow-1); background: var(--own-surface); }
+.own-page__hero img { width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; border-radius: var(--own-radius-lg); box-shadow: var(--own-shadow-1); background: var(--own-surface); }
 .own-prose { max-width: 46rem; padding-block: var(--own-space-7) var(--own-space-9); display: grid; gap: var(--own-space-4); }
 .own-prose > * { margin: 0; max-width: none; }
 .own-prose h2 { margin-top: var(--own-space-5); font-size: var(--own-size-h3); font-weight: 600; line-height: 1.3; }
