@@ -2,7 +2,8 @@
 
 Usage: python tools/video-build/capture-mocks.py docs/videos/01-own-board-overview
 
-Writes <name>-1280.png (1280x800 viewport) and, when "phone" is true,
+Writes <name>-1280.png (1280x800 viewport, or 1280x<height> when the shot
+sets "height") and, when "phone" is true,
 <name>-360.png (360x800 viewport) next to shots.json. The review chrome is
 hidden with ?chrome=0. Needs: python -m pip install playwright, and
 python -m playwright install chromium.
@@ -33,6 +34,9 @@ def main() -> int:
                 return 1
             for label in ("1280", "360") if shot.get("phone") else ("1280",):
                 w, h = sizes[label]
+                if label == "1280" and shot.get("height"):
+                    # A taller computer frame, so a whole block fits below the header.
+                    h = int(shot["height"])
                 page = browser.new_page(
                     viewport={"width": w, "height": h}, reduced_motion="reduce"
                 )
