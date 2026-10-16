@@ -23,7 +23,7 @@ By the end, the viewer can:
 | --- | --- |
 | `images/admin-users-1280.png` | The Users list, page 1 |
 | `images/admin-users-page-2-1280.png` | The Users list, page 2 |
-| `images/admin-users-no-results-1280.png` | A search with no matches |
+| `images/admin-users-search-1280.png` | A search for mira, showing only mira.fern |
 | `images/admin-user-create-1280.png` | The Add New User form |
 | `images/admin-user-edit-1280.png` | The Edit User form |
 | `images/admin-user-delete-1280.png` | The Confirm Delete box |

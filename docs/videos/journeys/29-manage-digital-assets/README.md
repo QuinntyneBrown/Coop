@@ -22,6 +22,7 @@ By the end, the viewer can:
 | File | What to show |
 | --- | --- |
 | `images/admin-assets-1280.png` | The Digital Assets page with search, Upload and file cards |
+| `images/admin-assets-search-1280.png` | A search for courtyard, showing only Courtyard plan.pdf |
 | `images/admin-asset-upload-1280.png` | The Upload File dialog |
 | `images/admin-asset-detail-1280.png` | Asset Details for Courtyard plan.pdf |
 | `images/admin-asset-delete-1280.png` | The Confirm Delete dialog |
