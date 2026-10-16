@@ -227,6 +227,12 @@ import { TopbarComponent } from '../../layout/topbar.component';
         color: #1a1918cc;
         border-bottom: 1px solid #e5e4e1;
       }
+      th:first-child {
+        width: 40%;
+      }
+      th:not(:first-child) {
+        width: 20%;
+      }
       td {
         padding: 12px 20px;
         font-size: 14px;
