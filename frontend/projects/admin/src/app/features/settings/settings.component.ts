@@ -224,6 +224,7 @@ import { ThemeService } from '../../core/services/theme.service';
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
+        align-items: start;
       }
       .theme-form {
         padding: 24px;
