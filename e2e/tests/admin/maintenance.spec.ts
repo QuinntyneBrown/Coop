@@ -117,6 +117,20 @@ test.describe('Maintenance Requests', () => {
 
       expect(allCount).toBeGreaterThanOrEqual(newCount);
     });
+
+    test('Given a filter is selected, then the list heading names it', async () => {
+      const headings = {
+        new: 'New Requests',
+        received: 'Received Requests',
+        started: 'Started Requests',
+        completed: 'Completed Requests',
+        all: 'All Requests',
+      } as const;
+      for (const [status, heading] of Object.entries(headings)) {
+        await maintenancePage.filterByStatus(status as keyof typeof headings);
+        await expect(maintenancePage.requestsPanelTitle).toHaveText(heading);
+      }
+    });
   });
 
   test.describe('Request Detail', () => {
