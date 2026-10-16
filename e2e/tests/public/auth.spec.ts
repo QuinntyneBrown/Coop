@@ -200,6 +200,39 @@ test.describe('Authentication', () => {
         await expect(page).toHaveURL(/\/(onboarding|dashboard)/);
       });
 
+      test('should keep the entered values, disabled, while the account is created', async ({
+        page,
+      }) => {
+        let release!: () => void;
+        const held = new Promise<void>((resolve) => (release = resolve));
+        await page.route('**/api/user/register', async (route) => {
+          await held;
+          await route.fallback();
+        });
+
+        await register.register({
+          token: 'valid-invitation-token',
+          username: 'e2e-busyuser',
+          password: 'NewUser123!',
+          confirmPassword: 'NewUser123!',
+          acceptTerms: true,
+        });
+
+        await expect(register.createAccountButton).toHaveText(/Creating account/);
+        await expect(register.invitationTokenInput).toHaveValue('valid-invitation-token');
+        await expect(register.usernameInput).toHaveValue('e2e-busyuser');
+        await expect(register.passwordInput).toHaveValue('NewUser123!');
+        await expect(register.termsCheckbox).toBeChecked();
+        await expect(register.invitationTokenInput).toBeDisabled();
+        await expect(register.usernameInput).toBeDisabled();
+        await expect(register.passwordInput).toBeDisabled();
+        await expect(register.confirmPasswordInput).toBeDisabled();
+        await expect(register.termsCheckbox).toBeDisabled();
+
+        release();
+        await expect(page).toHaveURL(/\/(onboarding|dashboard)/);
+      });
+
       test('should show error for invalid invitation token', async () => {
         await register.register({
           token: 'invalid-token-xyz',
