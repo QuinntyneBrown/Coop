@@ -15,7 +15,7 @@ public static class SiteContentSeed
         Header = new SiteHeaderDto
         {
             SiteName = "OWN Housing Co-op",
-            SiteSubtitle = "Older Women's Network Housing Co-operative",
+            SiteSubtitle = "Oakridge Women's Neighbourhood Housing Co-operative",
             MenuLinks = new()
             {
                 Link("Home", "/"),
@@ -77,7 +77,7 @@ public static class SiteContentSeed
             {
                 Eyebrow = "Who we are",
                 Title = "Older women built this place. We still run it.",
-                Lead = "The Older Women's Network imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.",
+                Lead = "Our founding members imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.",
                 Values = new()
                 {
                     new ValueCardDto { Icon = "members", Title = "Run by members", Text = "Every member has a vote. Our board is elected from our own neighbours." },

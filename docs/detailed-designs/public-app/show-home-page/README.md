@@ -3,7 +3,7 @@
 ## Overview
 
 The home page is the first screen a visitor sees at `/` in the public
-application. It presents Older Women's Network Housing Co-operative (OWN) to
+application. It presents Oakridge Women's Neighbourhood Housing Co-operative (OWN) to
 prospective members, their families and current members in the warm,
 photo-led design drawn in `docs/mocks/pages/public-landing/` (states `default`
 and `menu`). The page is read without signing in.

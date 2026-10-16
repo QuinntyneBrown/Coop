@@ -190,7 +190,7 @@ PROPOSALS=[{
             "L2-REQ-070",
             "L2-REQ-072"
         ],
-        "note": "Public landing page reimagined for Older Women's Network Housing Co-operative Inc.: the CMS-driven home page reimagined with a PAL Toronto-style structure (hero, at a glance, who we are, gallery, building and community, what's on, board, quote, visit, footer). Hand-written HTML on its own stylesheet (assets/own-site.css) with light and dark themes; not a capture of the implemented app.",
+        "note": "Public landing page reimagined for Oakridge Women's Neighbourhood Housing Co-operative Inc.: the CMS-driven home page reimagined with a PAL Toronto-style structure (hero, at a glance, who we are, gallery, building and community, what's on, board, quote, visit, footer). Hand-written HTML on its own stylesheet (assets/own-site.css) with light and dark themes; not a capture of the implemented app.",
         "states": [
             "default",
             "menu"
