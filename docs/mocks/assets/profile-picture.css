@@ -14,5 +14,6 @@
 .photo-notice { color: #2d6b44; font-size: 16px; font-weight: 500; margin: 0; }
 .message-from { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
 .message-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.message-initials { display: flex; align-items: center; justify-content: center; background: #e8f3ec; color: #2d6b44; font-size: 12px; font-weight: 600; }
 .submitted-by { display: flex; align-items: center; gap: 8px; }
 .submitter-photo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }

@@ -88,7 +88,8 @@ answers 404, so a replaced or removed picture is no longer served.
 
 `MessagingComponent` shows `senderAvatarUrl` as a 28 px circle before the
 sender's name when it is set; `MessagingService` maps it with
-`ApiService.assetUrl`.
+`ApiService.assetUrl`. When it is not set, the same circle shows the
+sender's initials (`sender-initials.ts`), so every message has one.
 
 ### Admin application
 

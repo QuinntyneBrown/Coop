@@ -292,7 +292,7 @@ test.describe('Messaging', () => {
       await expect(messaging.messageAvatar.first()).toHaveAttribute('src', /\/api\/digitalasset\/serve\//);
     });
 
-    test('Given a member without a picture, then no picture shows beside their messages', async ({ api, authState }) => {
+    test('Given a member without a picture, then their initials show beside their messages instead', async ({ api, authState }) => {
       await api.createConversation({
         subject: 'E2E: No picture',
         participantIds: [authState.userId],
@@ -304,6 +304,8 @@ test.describe('Messaging', () => {
 
       await expect(messaging.messageBubbles.first()).toBeVisible();
       await expect(messaging.messageAvatar).toHaveCount(0);
+      await expect(messaging.messageInitials.first()).toHaveText(/^[A-Z]{1,2}$/);
+      await expect(messaging.messageInitials).toHaveCount(await messaging.messageBubbles.count());
     });
   });
 });
