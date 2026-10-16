@@ -66,6 +66,14 @@ test.describe('Digital Assets', () => {
       await expect(size).toBeVisible();
     });
 
+    test('should show the file size in plain units on asset cards', async ({ api }) => {
+      await api.uploadAsset('two-kilobytes.txt', Buffer.alloc(2048));
+      await assetsPage.goto();
+
+      await assetsPage.searchAssets('two-kilobytes');
+      await expect(assetsPage.assetCards.first().getByTestId('asset-size')).toHaveText('2 KB');
+    });
+
     test('should display date on asset cards', async ({ api }) => {
       await api.uploadAsset('date-test.txt', Buffer.from('content'));
       await assetsPage.goto();

@@ -9,6 +9,7 @@ public class DigitalAssetDto
     public string ContentType { get; set; } = string.Empty;
     public int? Height { get; set; }
     public int? Width { get; set; }
+    public int Size { get; set; }
     public DateTime CreatedOn { get; set; }
 
     public static DigitalAssetDto FromDigitalAsset(DigitalAsset da)
@@ -20,6 +21,7 @@ public class DigitalAssetDto
             ContentType = da.ContentType,
             Height = da.Height,
             Width = da.Width,
+            Size = da.Bytes.Length,
             CreatedOn = da.CreatedOn
         };
     }

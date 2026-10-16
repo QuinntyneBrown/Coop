@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { TopbarComponent } from '../../layout/topbar.component';
+import { formatFileSize } from './format-file-size';
 
 @Component({
   selector: 'app-assets',
@@ -43,7 +44,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
               <span class="asset-name" data-testid="asset-name">{{ asset.name }}</span>
               <span class="asset-meta">
                 <span data-testid="asset-size">{{
-                  asset.contentLength || asset.size || 'N/A'
+                  formatFileSize(asset.contentLength ?? asset.size)
                 }}</span>
                 &middot;
                 <span data-testid="asset-date">{{ asset.createdOn | date: 'shortDate' }}</span>
@@ -101,7 +102,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
                 <span class="material-icons">insert_drive_file</span>
               </div>
               <p data-testid="asset-detail-name">{{ selectedAsset.name }}</p>
-              <p data-testid="asset-detail-size">{{ selectedAsset.size || 'N/A' }}</p>
+              <p data-testid="asset-detail-size">
+                {{ formatFileSize(selectedAsset.contentLength ?? selectedAsset.size) }}
+              </p>
               <p data-testid="asset-detail-date">{{ selectedAsset.createdOn | date: 'medium' }}</p>
             </div>
             <div class="modal-actions">
@@ -310,6 +313,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
 })
 export class AssetsComponent implements OnInit {
   private assetService = inject(DigitalAssetService);
+  readonly formatFileSize = formatFileSize;
   assets: any[] = [];
   filteredAssets: any[] = [];
   selectedAsset: any = null;
