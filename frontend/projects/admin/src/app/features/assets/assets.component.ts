@@ -93,7 +93,7 @@ import { formatFileSize } from './format-file-size';
       }
 
       <!-- Asset Detail Dialog -->
-      @if (selectedAsset) {
+      @if (selectedAsset && !showDeleteAssetDialog) {
         <div class="modal-overlay" data-testid="asset-detail-dialog">
           <div class="modal-content card">
             <h3>Asset Details</h3>
@@ -142,7 +142,11 @@ import { formatFileSize } from './format-file-size';
             <h3>Confirm Delete</h3>
             <p>Are you sure you want to delete this asset?</p>
             <div class="modal-actions">
-              <button class="btn btn-secondary" (click)="showDeleteAssetDialog = false">
+              <button
+                class="btn btn-secondary"
+                data-testid="asset-delete-cancel"
+                (click)="showDeleteAssetDialog = false"
+              >
                 Cancel
               </button>
               <button

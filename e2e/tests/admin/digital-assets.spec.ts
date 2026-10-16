@@ -195,6 +195,22 @@ test.describe('Digital Assets', () => {
       await expect(assetsPage.deleteDialog).toBeVisible();
     });
 
+    test('should hide Asset Details while confirming and bring it back on cancel', async ({
+      api,
+    }) => {
+      await api.uploadAsset('one-dialog.txt', Buffer.from('content'));
+      await assetsPage.goto();
+
+      await assetsPage.clickAsset(0);
+      await assetsPage.assetDeleteButton.click();
+      await expect(assetsPage.deleteDialog).toBeVisible();
+      await expect(assetsPage.assetDetailDialog).toBeHidden();
+
+      await assetsPage.deleteCancelButton.click();
+      await expect(assetsPage.deleteDialog).toBeHidden();
+      await expect(assetsPage.assetDetailDialog).toBeVisible();
+    });
+
     test('should delete asset after confirmation', async ({ api }) => {
       await api.uploadAsset('confirm-delete.txt', Buffer.from('to delete'));
       await assetsPage.goto();
