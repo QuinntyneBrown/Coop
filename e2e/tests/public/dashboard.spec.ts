@@ -155,6 +155,14 @@ test.describe('Dashboard', () => {
       await dashboard.expectMobileTabBar();
     });
 
+    test('should label the tabs like the sidebar', async ({ authenticatedPage }) => {
+      await authenticatedPage.setViewportSize({ width: 375, height: 812 });
+      dashboard = new DashboardPage(authenticatedPage);
+      await dashboard.goto();
+      await expect(dashboard.tabHome).toHaveText('Home');
+      await expect(dashboard.tabDocs).toHaveText('Documents');
+    });
+
     test('should show metric cards stacked on mobile', async ({ authenticatedPage }) => {
       await authenticatedPage.setViewportSize({ width: 375, height: 812 });
       dashboard = new DashboardPage(authenticatedPage);

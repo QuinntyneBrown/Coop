@@ -32,7 +32,7 @@ Every `.bottom-tab-bar` in `docs/mocks` (101 uses on 27 screens) is one of the c
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `public-onboarding/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `shell="public"`, `label="Main"`, five items | `home` "Home" (/dashboard), `build` "Requests" (/maintenance), `description` "Docs" (/documents), `chat` "Messages" (/messaging), `person` "Profile" (/profile) | one item current (none on onboarding); shown below 1024 px and hidden from 1024 px, where the sidebar docks (D-4) | surface over the canvas |
+| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `public-onboarding/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `shell="public"`, `label="Main"`, five items | `home` "Home" (/dashboard), `build` "Requests" (/maintenance), `description` "Documents" (/documents), `chat` "Messages" (/messaging), `person` "Profile" (/profile) | one item current (none on onboarding); shown below 1024 px and hidden from 1024 px, where the sidebar docks (D-4) | surface over the canvas |
 | admin shell screens that render the `.mobile-only` wrapper: `pages/admin-dashboard/*`, `admin-maintenance/*`, `admin-documents/*`, `admin-messaging/*`, their dialogs and `notifications/admin-dashboard-unread`, `admin-profile-saved` | `shell="admin"`, `label="Main"`, the same five items with `.tab-label` spans | as above; "Profile" links to /profile | one item current; shown at 768 px and below | surface over the canvas |
 | `pages/public-login/*`, `public-register/*`, `public-forgot-password/*`, `pages/admin-login/*`, `admin-register/*` | not rendered (D-5) | — | the mocks render the bar on phones with no current item, linking to pages that need a session | — |
 
@@ -106,7 +106,7 @@ The current item changes colour only; the label and position stay fixed and `ari
 <nav class="bottom-tab-bar" aria-label="Main">
   <a class="tab-item" href="/dashboard"><span class="material-icons" aria-hidden="true">home</span><span class="tab-label">Home</span></a>
   <a class="tab-item active" href="/maintenance" aria-current="page"><span class="material-icons" aria-hidden="true">build</span><span class="tab-label">Requests</span></a>
-  <a class="tab-item" href="/documents"><span class="material-icons" aria-hidden="true">description</span><span class="tab-label">Docs</span></a>
+  <a class="tab-item" href="/documents"><span class="material-icons" aria-hidden="true">description</span><span class="tab-label">Documents</span></a>
   <a class="tab-item" href="/messaging"><span class="material-icons" aria-hidden="true">chat</span><span class="tab-label">Messages</span></a>
   <a class="tab-item" href="/profile"><span class="material-icons" aria-hidden="true">person</span><span class="tab-label">Profile</span></a>
 </nav>
@@ -194,7 +194,7 @@ Only `color` transitions, over `--duration-base`; under `prefers-reduced-motion:
 
 ## Content and internationalisation
 
-- One word per label, matching the page heading where it fits: "Home", "Requests", "Docs", "Messages", "Profile". "Docs" is shortened from "Documents" and "Requests" from "Maintenance Requests" so five fit at 320 px; the page heading keeps the long form.
+- One word per label, matching the page heading where it fits: "Home", "Requests", "Documents", "Messages", "Profile", the same labels as the sidebar. "Requests" is shortened from "Maintenance Requests"; the page heading keeps the long form.
 - Same destination, same icon as the sidebar: `home`, `build`, `description`, `chat`, `person`. Home first, Profile last.
 - Labels are `--text-caption` (12 px), the smallest size on the scale; the mocks' 11 px is drift and nothing may go smaller.
 - Translatable inputs: `label`, `NavLink.label`. Data values: `NavLink.icon`, `NavLink.link`, `NavLink.testId`.
@@ -212,20 +212,20 @@ Only `color` transitions, over `--duration-base`; under `prefers-reduced-motion:
 
 ### Rendering
 
-- **AC-1** Given the five member links, when the bar renders at 375 px, then the DOM holds `<nav class="bottom-tab-bar" aria-label="Main">` with five `.tab-item` links labelled "Home", "Requests", "Docs", "Messages", "Profile" in that order, linking to `/dashboard`, `/maintenance`, `/documents`, `/messaging`, `/profile`. (L2-REQ-053)
+- **AC-1** Given the five member links, when the bar renders at 375 px, then the DOM holds `<nav class="bottom-tab-bar" aria-label="Main">` with five `.tab-item` links labelled "Home", "Requests", "Documents", "Messages", "Profile" in that order, linking to `/dashboard`, `/maintenance`, `/documents`, `/messaging`, `/profile`. (L2-REQ-053)
 - **AC-2** Given the "Requests" item with `icon="build"`, when it renders, then a `.material-icons` span containing "build" with `aria-hidden="true"` sits above a `.tab-label` reading "Requests" in `--text-caption` at `--font-weight-medium`, and the icon is 24 px. (L2-REQ-067)
 - **AC-3** Given `NavLink.testId` is "tab-home", when the "Home" item renders, then its `<a>` has `data-testid="tab-home"`. (L2-REQ-053)
 
 ### States
 
 - **AC-4** Given the route is `/maintenance`, when the bar renders, then only "Requests" has `aria-current="page"` and `.active`, with a `--color-fg-accent` icon and label at a contrast of at least 4.5:1, and the other four items are `--color-fg-muted`. (L2-REQ-053)
-- **AC-5** Given the "Docs" item, when it is hovered, then its icon and label change to `--color-fg-accent` over `--duration-base` and nothing is underlined. (L2-REQ-067)
+- **AC-5** Given the "Documents" item, when it is hovered, then its icon and label change to `--color-fg-accent` over `--duration-base` and nothing is underlined. (L2-REQ-067)
 - **AC-6** Given the "Messages" item, when it receives keyboard focus, then a `--focus-ring-width` solid `--color-focus-ring` ring at `--focus-ring-offset` is visible outside the item and unclipped by the bar. (L2-REQ-067)
 - **AC-7** Given the onboarding route `/onboarding`, when the member bar renders, then no item has `aria-current` or `.active`. (L2-REQ-053)
 
 ### Keyboard and focus
 
-- **AC-8** Given focus on the last link in `<main>`, when <kbd>Tab</kbd> is pressed, then focus moves to "Home", then "Requests", "Docs", "Messages", "Profile" in turn, and <kbd>Enter</kbd> on "Profile" navigates to `/profile`. (L2-REQ-053)
+- **AC-8** Given focus on the last link in `<main>`, when <kbd>Tab</kbd> is pressed, then focus moves to "Home", then "Requests", "Documents", "Messages", "Profile" in turn, and <kbd>Enter</kbd> on "Profile" navigates to `/profile`. (L2-REQ-053)
 
 ### Screen readers
 
@@ -250,7 +250,7 @@ Only `color` transitions, over `--duration-base`; under `prefers-reduced-motion:
 
 ### Performance
 
-- **AC-18** Given the bar, when the route changes from `/dashboard` to `/documents`, then only the `aria-current` and `.active` of "Home" and "Docs" change and no other item re-renders or shifts (`OnPush` with signal inputs). (L2-REQ-053)
+- **AC-18** Given the bar, when the route changes from `/dashboard` to `/documents`, then only the `aria-current` and `.active` of "Home" and "Documents" change and no other item re-renders or shifts (`OnPush` with signal inputs). (L2-REQ-053)
 
 ## Implementation notes
 

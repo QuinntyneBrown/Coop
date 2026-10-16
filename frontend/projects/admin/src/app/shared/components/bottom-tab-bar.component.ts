@@ -22,7 +22,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </a>
       <a routerLink="/documents" routerLinkActive="active" data-testid="tab-docs" class="tab-item">
         <span class="material-icons">description</span>
-        <span class="tab-label">Docs</span>
+        <span class="tab-label">Documents</span>
       </a>
       <a
         routerLink="/messaging"
