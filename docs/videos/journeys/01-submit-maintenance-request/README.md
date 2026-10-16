@@ -23,13 +23,17 @@ By the end, the viewer can:
 | --- | --- |
 | `images/public-maintenance-360.png` | The member's Requests page on a phone |
 | `images/public-maintenance-create-360.png` | The empty Create New Request form |
-| `images/public-maintenance-create-photos-360.png`, `-1280.png` | The form filled in, with a photo |
+| `images/public-maintenance-create-filled-360.png` | The form filled in, before any photo |
+| `images/public-maintenance-create-photos-1280.png` | The form with a photo chosen |
 | `images/public-maintenance-create-sending-1280.png` | The button showing "Sending…" |
-| `images/public-maintenance-new-360.png` | The request on the list, marked New |
-| `images/admin-maintenance-detail-new-1280.png` | The office's view of the new request, with Receive |
+| `images/public-maintenance-new-360.png` | Water under the kitchen sink on the list, marked New |
+| `images/admin-maintenance-detail-new-1280.png` | The office's view of Water under the kitchen sink, with Receive |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+The mocks have no state for a request the member has just sent, so
+`shots.json` adds Water under the kitchen sink to the list and the office
+view with a short script before the screenshot.
 
 ## Run sheet
 

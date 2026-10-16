@@ -4,7 +4,9 @@ Usage: python tools/video-build/capture-mocks.py docs/videos/01-own-board-overvi
 
 Writes <name>-1280.png (1280x800 viewport, or 1280x<height> when the shot
 sets "height") and, when "phone" is true,
-<name>-360.png (360x800 viewport) next to shots.json. The review chrome is
+<name>-360.png (360x800 viewport) next to shots.json. A shot may set "js",
+a script run on the mock before the screenshot, to show a state the mocks
+do not have (for example the request the video has just sent). The review chrome is
 hidden with ?chrome=0. Needs: python -m pip install playwright, and
 python -m playwright install chromium.
 """
@@ -41,6 +43,8 @@ def main() -> int:
                     viewport={"width": w, "height": h}, reduced_motion="reduce"
                 )
                 page.goto(mock.as_uri() + "?chrome=0")
+                if shot.get("js"):
+                    page.evaluate(shot["js"])
                 if shot.get("tags"):
                     # Show the proposal's "Edited in admin" tags, keep review chrome hidden.
                     page.add_style_tag(content=".cms-tag{display:inline-flex !important}")
