@@ -641,21 +641,23 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         border-radius: 8px;
         font-size: 13px;
       }
+      /* Design-system tones; each request status has its own (New warning,
+         Received gray, Started info, Completed success). */
       .badge-success {
-        background: rgba(16, 185, 129, 0.1);
-        color: #059669;
+        background: #d7ecde;
+        color: #245737;
       }
       .badge-warning {
-        background: rgba(245, 158, 11, 0.1);
-        color: #d97706;
+        background: #fef3c7;
+        color: #92400e;
       }
       .badge-info {
-        background: rgba(59, 130, 246, 0.1);
-        color: #3b82f6;
+        background: #dbeafe;
+        color: #1e40af;
       }
       .badge-gray {
-        background: rgba(26, 25, 24, 0.06);
-        color: #1a1918cc;
+        background: #e5e4e1;
+        color: #1a1918;
       }
       .mobile-only {
         display: none;
@@ -846,6 +848,7 @@ export class MaintenanceComponent implements OnInit {
       case 'created':
         return 'badge-warning';
       case 'received':
+        return 'badge-gray';
       case 'started':
       case 'inprogress':
         return 'badge-info';

@@ -2,6 +2,7 @@ import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
 import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { DashboardPage } from '../../pages/public/dashboard.page';
+import { MaintenancePage } from '../../pages/public/maintenance.page';
 
 const test = mergeTests(authTest, apiTest);
 
@@ -115,6 +116,31 @@ test.describe('Dashboard', () => {
       await api.advanceMaintenanceRequest(id, ['receive', 'start', 'complete']);
       await dashboard.goto();
       await dashboard.expectRecentRequestStatus('E2E: Dashboard finished request', 'Done');
+    });
+
+    test('Given requests in every status, when the member compares the dashboard and Requests, then each status has its own colour on both', async ({
+      api,
+      authenticatedPage,
+    }) => {
+      const received = await api.createMaintenanceRequest({ title: 'E2E: Colour received', description: 'Received.' });
+      await api.advanceMaintenanceRequest(received, ['receive']);
+      const started = await api.createMaintenanceRequest({ title: 'E2E: Colour started', description: 'Started.' });
+      await api.advanceMaintenanceRequest(started, ['receive', 'start']);
+      const done = await api.createMaintenanceRequest({ title: 'E2E: Colour done', description: 'Done.' });
+      await api.advanceMaintenanceRequest(done, ['receive', 'start', 'complete']);
+      await api.createMaintenanceRequest({ title: 'E2E: Colour new', description: 'New.' });
+
+      const statuses = ['New', 'Received', 'Started', 'Done'];
+      await dashboard.goto();
+      const onDashboard: string[] = [];
+      for (const status of statuses) onDashboard.push(await dashboard.statusDotColour(status));
+      expect(new Set(onDashboard).size).toBe(statuses.length);
+
+      const maintenance = new MaintenancePage(authenticatedPage);
+      await maintenance.goto();
+      const onRequests: string[] = [];
+      for (const status of statuses) onRequests.push(await maintenance.statusBadgeColour(status));
+      expect(new Set(onRequests).size).toBe(statuses.length);
     });
 
     test('should have a "View all" link to maintenance requests', async () => {

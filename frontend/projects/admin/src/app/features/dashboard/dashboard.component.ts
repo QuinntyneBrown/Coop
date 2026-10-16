@@ -361,21 +361,23 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         text-align: center;
         color: #1a1918cc;
       }
+      /* Design-system tones; each request status has its own (New warning,
+         Received gray, Started info, Completed success). */
       .badge-success {
-        background: rgba(16, 185, 129, 0.1);
-        color: #059669;
+        background: #d7ecde;
+        color: #245737;
       }
       .badge-warning {
-        background: rgba(245, 158, 11, 0.1);
-        color: #d97706;
+        background: #fef3c7;
+        color: #92400e;
       }
       .badge-info {
-        background: rgba(59, 130, 246, 0.1);
-        color: #3b82f6;
+        background: #dbeafe;
+        color: #1e40af;
       }
       .badge-gray {
-        background: rgba(26, 25, 24, 0.06);
-        color: #1a1918cc;
+        background: #e5e4e1;
+        color: #1a1918;
       }
       .search-bar {
         display: flex;
@@ -582,7 +584,7 @@ export class DashboardComponent implements OnInit {
       case 'new':
         return 'badge-warning';
       case 'received':
-        return 'badge-info';
+        return 'badge-gray';
       case 'started':
         return 'badge-info';
       case 'completed':

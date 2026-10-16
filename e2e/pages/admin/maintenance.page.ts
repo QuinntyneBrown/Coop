@@ -149,4 +149,11 @@ export class MaintenancePage {
   async getRequestCount(): Promise<number> {
     return this.requestCards.count();
   }
+
+  /** The fill of the first request card badge showing this status. */
+  async statusBadgeColour(status: string): Promise<string> {
+    const badge = this.requestCards.getByTestId('request-status-badge').filter({ hasText: status }).first();
+    await expect(badge).toBeVisible();
+    return badge.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }
