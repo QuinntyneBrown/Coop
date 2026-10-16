@@ -573,15 +573,36 @@ import { photoFileError } from './photo-file-error';
         }
       }
 
+      /* The footer stays in view while the form scrolls behind it. */
       .modal-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         margin-top: 20px;
+        position: sticky;
+        bottom: -20px;
+        margin-bottom: -20px;
+        padding: 12px 0 20px;
+        background: var(--surface);
 
         .btn {
           flex: 1 1 auto;
           white-space: nowrap;
+        }
+      }
+
+      /* On a phone the dialogs fill the screen instead of partly covering the header. */
+      @media (max-width: 600px) {
+        .modal-overlay {
+          padding: 0;
+        }
+
+        .modal {
+          max-width: none;
+          height: 100%;
+          max-height: none;
+          border: none;
+          border-radius: 0;
         }
       }
 
