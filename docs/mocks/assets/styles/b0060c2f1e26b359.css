@@ -1,5 +1,6 @@
 .maintenance-page[_ngcontent-ng-c1136923231] { padding: 24px 16px; max-width: 900px; margin: 0px auto; }
-.page-header[_ngcontent-ng-c1136923231] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.page-header[_ngcontent-ng-c1136923231] { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.page-header[_ngcontent-ng-c1136923231] .btn[_ngcontent-ng-c1136923231] { white-space: nowrap; }
 .page-header[_ngcontent-ng-c1136923231] h1[_ngcontent-ng-c1136923231] { font-size: 22px; font-weight: 600; }
 .filter-tabs[_ngcontent-ng-c1136923231] { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .filter-tab[_ngcontent-ng-c1136923231] { padding: 8px 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface); font-size: 14px; font-weight: 500; white-space: nowrap; color: var(--text-secondary); transition: 0.2s; }
@@ -34,8 +35,11 @@
 .modal[_ngcontent-ng-c1136923231] .modal-header[_ngcontent-ng-c1136923231] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .modal[_ngcontent-ng-c1136923231] .modal-header[_ngcontent-ng-c1136923231] h2[_ngcontent-ng-c1136923231] { font-size: 18px; font-weight: 600; }
 .modal[_ngcontent-ng-c1136923231] .close-btn[_ngcontent-ng-c1136923231] { background: none; border: none; font-size: 28px; color: var(--text-secondary); line-height: 1; padding: 0px 4px; }
-.modal-actions[_ngcontent-ng-c1136923231] { display: flex; gap: 12px; margin-top: 20px; }
-.modal-actions[_ngcontent-ng-c1136923231] .btn[_ngcontent-ng-c1136923231] { flex: 1 1 0%; }
+.modal-actions[_ngcontent-ng-c1136923231] { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.modal-actions[_ngcontent-ng-c1136923231] .btn[_ngcontent-ng-c1136923231] { flex: 1 1 auto; white-space: nowrap; }
+@media (max-width: 1023px) {
+  .modal-overlay[_ngcontent-ng-c1136923231] { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+}
 .upload-area[_ngcontent-ng-c1136923231] { border: 2px dashed var(--border); border-radius: var(--radius-md); padding: 16px; text-align: center; position: relative; cursor: pointer; }
 .upload-area[_ngcontent-ng-c1136923231] span[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); }
 .upload-area[_ngcontent-ng-c1136923231] input[type="file"][_ngcontent-ng-c1136923231] { position: absolute; inset: 0px; opacity: 0; cursor: pointer; }
