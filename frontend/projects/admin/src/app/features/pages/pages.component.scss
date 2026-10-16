@@ -320,6 +320,9 @@
   padding: 12px 24px 20px;
   border-top: 1px solid var(--adm-border);
 }
+.page-dialog__header + .page-dialog__footer {
+  margin-top: 16px;
+}
 .page-dialog__footer .btn {
   min-height: var(--adm-target);
   font-size: 15px;
