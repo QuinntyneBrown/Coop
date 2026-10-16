@@ -98,6 +98,8 @@ h2 { font-size: 72px; line-height: 1.1; margin: 0 0 20px; font-weight: 700; }
 
 /* ---- layout helpers ---- */
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+/* Steps beside a screenshot: the picture sits next to the list, not at the far edge. */
+.cols-fit { grid-template-columns: auto auto; justify-content: start; gap: 160px; }
 .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
 .center { text-align: center; align-items: center; }
 
@@ -142,6 +144,8 @@ figcaption { margin-top: 18px; font-size: 38px; font-weight: 500; color: var(--i
   box-shadow: var(--shadow);
   background: #fff;
 }
+/* Centre each screenshot under its caption, however long the caption is. */
+.shot { margin-left: auto; margin-right: auto; }
 .h560 { height: 560px; width: auto; }
 .h620 { height: 620px; width: auto; }
 .h680 { height: 680px; width: auto; }
