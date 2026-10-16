@@ -1,6 +1,8 @@
 [
   {"name": "public-profile", "mock": "pages/public-profile/default.html", "phone": true, "scroll": 420},
   {"name": "public-profile-password", "mock": "pages/public-profile/password.html", "phone": true, "scroll": 520},
+  {"name": "public-profile-password-filled", "mock": "pages/public-profile/password.html", "phone": true, "scroll": 520,
+   "js": "document.querySelectorAll('input[type=password]').forEach((i) => { i.value = 'fictional-pass'; });"},
   {"name": "public-profile-password-invalid", "mock": "pages/public-profile/password-invalid.html", "phone": true, "scroll": 520},
   {"name": "public-profile-password-error", "mock": "pages/public-profile/password-error.html", "phone": true, "scroll": 520}
 ]

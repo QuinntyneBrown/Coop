@@ -21,8 +21,9 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
-| `images/public-profile-360.png` | The Change Password button |
+| `images/public-profile-360.png` | The Change Password button, before and after |
 | `images/public-profile-password-360.png` | The three password boxes |
+| `images/public-profile-password-filled-360.png` | The three boxes filled in |
 | `images/public-profile-password-invalid-360.png` | “New passwords do not match” |
 | `images/public-profile-password-error-360.png` | “Failed to change password. Check your current password.” |
 

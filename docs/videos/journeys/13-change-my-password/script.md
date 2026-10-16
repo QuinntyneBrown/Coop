@@ -20,7 +20,7 @@ Three boxes open. In the first, type the password you use now. In the second, ty
 
 [pause 2s]
 
-Then tap Update Password.
+Then tap Update Password. The boxes close, and your new password is ready to use.
 
 [pause 2s]
 
