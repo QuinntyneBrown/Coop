@@ -23,6 +23,9 @@
 .progress-fill[_ngcontent-ng-c1235164448] { height: 100%; background: rgb(61, 138, 90); transition: width 0.3s; }
 .btn-danger[_ngcontent-ng-c1235164448] { background: rgb(220, 53, 69); color: rgb(255, 255, 255); border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
 .asset-detail-info[_ngcontent-ng-c1235164448] { text-align: center; margin-bottom: 16px; }
+.asset-detail-fields[_ngcontent-ng-c1235164448] { display: grid; gap: 12px; margin: 0px; text-align: left; }
+.asset-detail-fields[_ngcontent-ng-c1235164448]   dt[_ngcontent-ng-c1235164448] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
+.asset-detail-fields[_ngcontent-ng-c1235164448]   dd[_ngcontent-ng-c1235164448] { margin: 2px 0px 0px; font-size: 16px; overflow-wrap: anywhere; }
 .asset-preview[_ngcontent-ng-c1235164448] { margin-bottom: 16px; }
 .asset-preview[_ngcontent-ng-c1235164448] .material-icons[_ngcontent-ng-c1235164448] { font-size: 64px; color: rgba(26, 25, 24, 0.8); }
 @media (max-width: 768px) {

@@ -22,6 +22,7 @@ export class DigitalAssetsPage {
 
   // Asset detail dialog
   readonly assetDetailDialog: Locator;
+  readonly assetDetailLabels: Locator;
   readonly assetDetailName: Locator;
   readonly assetDetailSize: Locator;
   readonly assetDetailDate: Locator;
@@ -51,6 +52,7 @@ export class DigitalAssetsPage {
     this.uploadProgress = page.getByTestId('upload-progress');
 
     this.assetDetailDialog = page.getByTestId('asset-detail-dialog');
+    this.assetDetailLabels = this.assetDetailDialog.locator('dt');
     this.assetDetailName = page.getByTestId('asset-detail-name');
     this.assetDetailSize = page.getByTestId('asset-detail-size');
     this.assetDetailDate = page.getByTestId('asset-detail-date');

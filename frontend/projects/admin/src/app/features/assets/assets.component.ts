@@ -101,13 +101,24 @@ import { formatFileSize } from './format-file-size';
               <div data-testid="asset-detail-preview" class="asset-preview">
                 <span class="material-icons">insert_drive_file</span>
               </div>
-              <p data-testid="asset-detail-name">{{ selectedAsset.name }}</p>
-              <p data-testid="asset-detail-size">
-                {{ formatFileSize(selectedAsset.contentLength ?? selectedAsset.size) }}
-              </p>
-              <p data-testid="asset-detail-date">
-                {{ selectedAsset.createdOn | date: 'MMM d, y, h:mm a' }}
-              </p>
+              <dl class="asset-detail-fields">
+                <div>
+                  <dt>File name</dt>
+                  <dd data-testid="asset-detail-name">{{ selectedAsset.name }}</dd>
+                </div>
+                <div>
+                  <dt>Size</dt>
+                  <dd data-testid="asset-detail-size">
+                    {{ formatFileSize(selectedAsset.contentLength ?? selectedAsset.size) }}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Uploaded</dt>
+                  <dd data-testid="asset-detail-date">
+                    {{ selectedAsset.createdOn | date: 'MMM d, y, h:mm a' }}
+                  </dd>
+                </div>
+              </dl>
             </div>
             <div class="modal-actions">
               <button
@@ -285,6 +296,21 @@ import { formatFileSize } from './format-file-size';
       .asset-detail-info {
         text-align: center;
         margin-bottom: 16px;
+      }
+      .asset-detail-fields {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        text-align: left;
+        dt {
+          font-size: 14px;
+          color: #1a1918cc;
+        }
+        dd {
+          margin: 2px 0 0;
+          font-size: 16px;
+          overflow-wrap: anywhere;
+        }
       }
       .asset-preview {
         margin-bottom: 16px;
