@@ -23,9 +23,9 @@ h1[_ngcontent-ng-c2011722024] { font-size: 22px; font-weight: 600; margin-bottom
 .participants[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); }
 .message-list[_ngcontent-ng-c2011722024] { flex: 1 1 0%; display: flex; flex-direction: column; gap: 12px; padding: 8px 0px; overflow-y: auto; min-height: 200px; }
 .message-bubble[_ngcontent-ng-c2011722024] { max-width: 80%; padding: 10px 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); align-self: flex-start; }
-.message-bubble.own[_ngcontent-ng-c2011722024] { align-self: flex-end; background: var(--primary); color: white; border-color: var(--primary); }
-.message-bubble.own[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { color: rgba(255, 255, 255, 0.8); }
-.message-bubble.own[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { color: rgba(255, 255, 255, 0.7); }
+.message-bubble.own[_ngcontent-ng-c2011722024] { align-self: flex-end; background: var(--primary-dark); color: white; border-color: var(--primary-dark); }
+.message-bubble.own[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { color: white; }
+.message-bubble.own[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { color: white; }
 .message-bubble[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { font-size: 14px; font-weight: 500; color: var(--text-secondary); display: block; margin-bottom: 2px; }
 .message-bubble[_ngcontent-ng-c2011722024] p[_ngcontent-ng-c2011722024] { font-size: 14px; line-height: 1.4; }
 .message-bubble[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); display: block; margin-top: 4px; text-align: right; }

@@ -419,10 +419,16 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           border-bottom-left-radius: 4px;
         }
         &.own {
-          background: #3d8a5a;
+          /* The darker green keeps white text at WCAG AA contrast. */
+          background: #2d6b44;
           color: #fff;
           align-self: flex-end;
           border-bottom-right-radius: 4px;
+
+          .msg-sender,
+          .msg-time {
+            opacity: 1;
+          }
         }
       }
       .msg-sender {
@@ -430,13 +436,13 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         font-size: 14px;
         font-weight: 600;
         margin-bottom: 4px;
-        opacity: 0.7;
+        opacity: 0.8;
       }
       .msg-time {
         display: block;
         font-size: 14px;
         margin-top: 4px;
-        opacity: 0.6;
+        opacity: 0.8;
       }
       .message-input-bar {
         display: flex;
