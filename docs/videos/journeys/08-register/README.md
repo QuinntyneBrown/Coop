@@ -22,7 +22,7 @@ By the end, the viewer can:
 | File | What to show |
 | --- | --- |
 | `images/public-register-360.png` | The empty Create account page on a phone |
-| `images/public-register-submitting-1280.png` | The button showing Creating account... |
+| `images/public-register-submitting-360.png` | The filled-in form, its button showing Creating account... |
 | `images/public-register-mismatch-360.png` | Red notes, including Passwords do not match |
 
 All screens are static design mocks under `docs/mocks/`, captured by
