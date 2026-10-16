@@ -387,7 +387,7 @@ export class MockApi {
       lastMessageAt: last?.createdOn ?? c.createdOn,
       updatedOn: last?.createdOn ?? c.createdOn,
       createdOn: c.createdOn,
-      unreadCount: 0,
+      unreadCount: messages.filter((m) => m.read === false).length,
     };
   }
 
@@ -999,6 +999,11 @@ export class MockApi {
       ok({ messages: messagesFor(id) }),
     );
     this.on('GET', 'messages/unread-count/:id', () => ok({ count: 0 }));
+    this.on('POST', 'messages/mark-conversation-read/:id/:profileId', (_ctx, [id]) => {
+      if (!findConversation(id)) return notFound();
+      s.messages.filter((m) => m.conversationId === id).forEach((m) => (m.read = true));
+      return ok({ success: true });
+    });
 
     // Website pages (L2-REQ-080, L2-REQ-081)
     const pageErrors = (b: any): string[] => {

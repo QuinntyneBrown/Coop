@@ -534,6 +534,12 @@ export class MessagingComponent implements OnInit {
   openConversation(conv: any): void {
     this.selectedConversation = conv;
     this.messages = [];
+    if (conv.conversationId && conv.unreadCount > 0) {
+      conv.unreadCount = 0;
+      this.messagingService.markConversationRead(conv.conversationId).subscribe({
+        error: () => {},
+      });
+    }
     if (conv.conversationId) {
       this.messagingService.getMessages(conv.conversationId).subscribe({
         next: (data: any) => {

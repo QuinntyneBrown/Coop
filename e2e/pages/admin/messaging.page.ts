@@ -88,6 +88,11 @@ export class MessagingPage {
     await expect(indicator).toBeVisible();
   }
 
+  async expectNoUnreadIndicator(conversationIndex: number) {
+    const item = this.conversationItems.nth(conversationIndex);
+    await expect(item.getByTestId('unread-indicator')).toHaveCount(0);
+  }
+
   async searchConversations(query: string) {
     await this.conversationSearch.fill(query);
     await this.page.waitForTimeout(300);

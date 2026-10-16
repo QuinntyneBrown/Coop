@@ -26,6 +26,13 @@ export class MessagingService {
     return this.api.post(`/conversations/${data.conversationId}/messages`, { body: data.body });
   }
 
+  markConversationRead(conversationId: string): Observable<any> {
+    return this.api.post(
+      `/messages/mark-conversation-read/${conversationId}/00000000-0000-0000-0000-000000000000`,
+      {},
+    );
+  }
+
   getUnreadCount(): Observable<any> {
     return this.api.get('/messages/unread-count/00000000-0000-0000-0000-000000000000');
   }
