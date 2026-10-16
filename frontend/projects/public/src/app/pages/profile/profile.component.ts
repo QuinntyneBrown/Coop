@@ -163,12 +163,15 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
                 profile?.unit || 'Not assigned'
               }}</span>
             </div>
-            <div class="info-row">
-              <span class="info-label">Member since</span>
-              <span class="info-value" data-testid="profile-member-since">{{
-                $safeNavigationMigration(profile?.memberSince) | date: 'mediumDate'
-              }}</span>
-            </div>
+            @if (profile?.memberSince) {
+              <div class="info-row">
+                <span class="info-label">Member since</span>
+                <!-- A join date, not a moment: show the calendar day it was recorded as. -->
+                <span class="info-value" data-testid="profile-member-since">{{
+                  profile?.memberSince | date: 'mediumDate' : 'UTC'
+                }}</span>
+              </div>
+            }
           </div>
         </div>
       }
@@ -761,13 +764,9 @@ export class ProfileComponent implements OnInit {
     this.noticeError = noticeChoiceError(this.editData);
     if (this.noticeError) return;
     this.userService.updateProfile(this.editData).subscribe({
-      next: (updated) => {
-        this.profile = {
-          ...this.profile!,
-          ...updated,
-          ...this.editData,
-          avatarUrl: this.profile!.avatarUrl,
-        };
+      next: () => {
+        // The save response holds only the edited fields; keep the rest (unit, member since, photo).
+        this.profile = { ...this.profile!, ...this.editData };
         this.successMessage = 'Profile updated successfully!';
         this.editMode = false;
       },

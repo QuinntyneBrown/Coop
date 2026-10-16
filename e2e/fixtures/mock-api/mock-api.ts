@@ -673,7 +673,17 @@ export class MockApi {
       if (b.phone != null) profile.phoneNumber = b.phone;
       if (typeof b.noticeByEmail === 'boolean') profile.noticeByEmail = b.noticeByEmail;
       if (typeof b.noticeByText === 'boolean') profile.noticeByText = b.noticeByText;
-      return ok(this.profileView(profile));
+      // Same shape as the API's PUT api/user/profile: only the editable fields.
+      return ok({
+        id: profile.profileId,
+        username: ctx.user!.username,
+        firstName: profile.firstname,
+        lastName: profile.lastname,
+        email: profile.email,
+        phone: profile.phoneNumber,
+        noticeByEmail: profile.noticeByEmail ?? false,
+        noticeByText: profile.noticeByText ?? false,
+      });
     });
     this.on('GET', 'user/profiles', (ctx) =>
       ok({ profiles: ownProfiles(ctx.user!).map((p) => this.profileView(p)) }),

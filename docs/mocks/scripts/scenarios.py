@@ -2,7 +2,7 @@
 from copy import deepcopy
 
 TODAY = '2026-10-13T12:00:00Z'
-PROFILE = dict(id='profile-mira', profileId='profile-mira', userId='user-mira', username='mira.fern', firstName='Mira', lastName='Fern', firstname='Mira', lastname='Fern', email='mira@example.invalid', phone='555-0101', phoneNumber='555-0101', type=0, profileType='Member', unit='101', unitNumber='101', address='101 Fictional Court', avatarUrl='')
+PROFILE = dict(id='profile-mira', profileId='profile-mira', userId='user-mira', username='mira.fern', firstName='Mira', lastName='Fern', firstname='Mira', lastname='Fern', email='mira@example.invalid', phone='555-0101', phoneNumber='555-0101', type=0, profileType='Member', unit='101', unitNumber='101', address='101 Fictional Court', avatarUrl='', memberSince='2019-03-01T00:00:00Z')
 PROFILES = [PROFILE, dict(PROFILE, id='profile-board', profileId='profile-board', type=1, profileType='BoardMember', boardTitle='Treasurer')]
 # The Board of Directors list, the same one pages/admin-board/ shows.
 DIRECTORS = [dict(name='Rosalind Achebe', title='President'), dict(name='Margit Halvorsen', title='Treasurer'), dict(name='Dolores Quintero', title='Secretary'), dict(name='June Okonkwo-Baptiste', title='Member at large')]

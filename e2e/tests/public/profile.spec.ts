@@ -54,7 +54,17 @@ test.describe('Profile', () => {
 
     test('should display member since date', async () => {
       await profile.goto();
-      await expect(profile.memberSince).toBeVisible();
+      await expect(profile.memberSince).toHaveText('Sep 1, 2021');
+    });
+
+    test('should keep member since and unit after saving the profile', async () => {
+      await profile.goto();
+      await expect(profile.memberSince).toHaveText('Sep 1, 2021');
+      await profile.editProfile({ phone: '555-0199' });
+      await profile.expectEditSuccess();
+      await expect(profile.phone).toHaveText('555-0199');
+      await expect(profile.memberSince).toHaveText('Sep 1, 2021');
+      await expect(profile.unit).toHaveText('204');
     });
   });
 
