@@ -254,7 +254,7 @@ a:hover { color: var(--own-text); }
 /* ---------- Feature rows ---------- */
 .own-feature { display: grid; gap: var(--own-space-6); align-items: center; }
 .own-feature + .own-feature { margin-top: var(--own-space-8); }
-.own-feature__media img { width: 100%; border-radius: var(--own-radius-lg); box-shadow: var(--own-shadow-1); }
+.own-feature__media img { width: 100%; height: auto; border-radius: var(--own-radius-lg); box-shadow: var(--own-shadow-1); }
 .own-feature__text { display: grid; gap: var(--own-space-4); }
 .own-checklist { display: grid; gap: var(--own-space-3); }
 .own-checklist li { display: flex; gap: var(--own-space-3); align-items: flex-start; font-size: var(--own-size-lead); }
@@ -280,14 +280,14 @@ a:hover { color: var(--own-text); }
 /* ---------- People ---------- */
 .own-people { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--own-space-5); }
 .own-person { display: grid; justify-items: center; text-align: center; gap: var(--own-space-2); }
-.own-person img { width: min(100%, 11rem); aspect-ratio: 1; border-radius: var(--own-radius-pill); box-shadow: var(--own-shadow-1); }
+.own-person img { width: min(100%, 11rem); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--own-radius-pill); box-shadow: var(--own-shadow-1); }
 .own-person h3 { font-size: var(--own-size-lead); margin-top: var(--own-space-2); }
 .own-person p { color: var(--own-muted); font-size: var(--own-size-small); }
 @media (min-width: 48rem) { .own-people { grid-template-columns: repeat(4, 1fr); } }
 
 /* ---------- Quote ---------- */
 .own-quote { display: grid; gap: var(--own-space-6); align-items: center; }
-.own-quote__media img { width: min(100%, 22rem); margin-inline: auto; border-radius: var(--own-radius-lg) 6rem var(--own-radius-lg) var(--own-radius-lg); box-shadow: var(--own-shadow-1); }
+.own-quote__media img { width: min(100%, 22rem); height: auto; margin-inline: auto; border-radius: var(--own-radius-lg) 6rem var(--own-radius-lg) var(--own-radius-lg); box-shadow: var(--own-shadow-1); }
 .own-quote blockquote { margin: 0; display: grid; gap: var(--own-space-4); }
 .own-quote blockquote p { font-size: var(--own-size-h2); font-weight: 500; line-height: 1.25; text-wrap: balance; max-width: none; }
 .own-quote blockquote p::before { content: "\201C"; color: var(--own-accent-text); }
