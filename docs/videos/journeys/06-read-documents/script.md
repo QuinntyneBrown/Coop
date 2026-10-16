@@ -6,7 +6,7 @@ Hello. This short video shows how a member finds and reads the co-op's documents
 
 [pause 2s]
 
-By-laws, reports and notices are all kept together, so you never have to search through paper.
+By-Laws, reports and notices are all kept together, so you never have to search through paper.
 
 [pause 2s]
 

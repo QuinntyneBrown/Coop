@@ -12,7 +12,7 @@ A notice might be about a gathering, a repair in the building, or a meeting. You
 
 ## Find the notices
 
-Tap Docs at the bottom of the screen. This is the Documents page. It holds notices, by-laws and reports.
+Tap Docs at the bottom of the screen. This is the Documents page. It holds notices, By-Laws and reports.
 
 [pause 2s]
 
