@@ -279,7 +279,6 @@ public class PublicBffController : ControllerBase
         var result = await _mediator.Send(new CreateMaintenanceRequestRequest
         {
             RequestedByProfileId = profileId,
-            RequestedByName = "Member",
             Title = request.Title,
             Description = request.Description,
             Phone = "N/A",
