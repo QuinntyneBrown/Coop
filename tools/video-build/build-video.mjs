@@ -103,7 +103,7 @@ const srtTime = (t) => {
   return `${p(Math.floor(ms / 3600000), 2)}:${p(Math.floor(ms / 60000) % 60, 2)}:${p(Math.floor(ms / 1000) % 60, 2)},${p(ms % 1000, 3)}`;
 };
 
-function wrap(text, width = 36) {
+function wrap(text, width = 56) {
   const lines = [];
   let line = '';
   for (const word of text.split(' ')) {
@@ -154,12 +154,12 @@ writeFileSync(join(cache, 'frames.txt'), `${concat}\nfile '${lastPng}'\n`);
 
 const style =
   "FontName=Segoe UI,Bold=1,FontSize=15,PrimaryColour=&H00FFFFFF,OutlineColour=&H001D2126," +
-  'BorderStyle=3,Outline=6,Shadow=0,Alignment=2,MarginV=36';
+  'BorderStyle=3,Outline=6,Shadow=0,Alignment=2,MarginV=14';
 const result = spawnSync(
   FFMPEG,
   [
     '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'frames.txt', '-i', `../${name}.mp3`,
-    '-vf', `subtitles=captions.srt:force_style='${style}',format=yuv420p`,
+    '-vf', `fps=30,subtitles=captions.srt:force_style='${style}',format=yuv420p`,
     '-r', '30', '-c:v', 'libx264', '-preset', 'medium', '-crf', '20',
     '-c:a', 'aac', '-b:a', '160k', '-t', manifest.total.toFixed(3), '-movflags', '+faststart', `../${name}.mp4`,
   ],
