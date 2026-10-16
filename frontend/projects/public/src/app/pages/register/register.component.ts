@@ -104,7 +104,7 @@ import { AuthService } from '../../core/services/auth.service';
           >
         </div>
         @if (submitted && !acceptTerms) {
-          <div class="error-message" data-testid="register-terms-error">
+          <div class="error-message terms-error" data-testid="register-terms-error">
             You must accept the terms
           </div>
         }
@@ -190,6 +190,12 @@ import { AuthService } from '../../core/services/auth.service';
           color: var(--text-secondary);
           cursor: pointer;
         }
+      }
+
+      .terms-error {
+        color: var(--error);
+        font-size: 13px;
+        margin-top: 4px;
       }
 
       .register-error {
