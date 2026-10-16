@@ -221,6 +221,13 @@ import { AuthService } from '../../core/services/auth.service';
         height: 48px;
       }
 
+      /* Busy: keep the label at AA contrast instead of fading it. */
+      .create-btn:disabled {
+        opacity: 1;
+        background: var(--primary-dark);
+        cursor: progress;
+      }
+
       .sign-in-row {
         text-align: center;
         margin-top: 20px;
