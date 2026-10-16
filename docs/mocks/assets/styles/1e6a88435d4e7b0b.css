@@ -12,6 +12,7 @@
 .profile-card-type[_ngcontent-ng-c4049321225] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 .active-badge[_ngcontent-ng-c4049321225] { font-size: 14px; background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); padding: 2px 8px; border-radius: 10px; }
 .profile-edit-panel[_ngcontent-ng-c4049321225] { background: rgb(255, 255, 255); border-radius: 14px; border: 1px solid rgb(229, 228, 225); padding: 24px; }
+.profile-edit-panel[_ngcontent-ng-c4049321225]   h2[_ngcontent-ng-c4049321225] { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
 .profile-view-panel[_ngcontent-ng-c4049321225] { background: rgb(255, 255, 255); border-radius: 14px; border: 1px solid rgb(229, 228, 225); padding: 24px; }
 .page-header[_ngcontent-ng-c4049321225] { margin-bottom: 24px; }
 .page-header[_ngcontent-ng-c4049321225] h1[_ngcontent-ng-c4049321225] { font-size: 24px; font-weight: 600; }
