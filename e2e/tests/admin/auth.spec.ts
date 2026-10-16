@@ -2,6 +2,7 @@ import { test, expect } from '../../fixtures/admin/api.fixture';
 import { LoginPage } from '../../pages/admin/login.page';
 import { RegisterPage } from '../../pages/admin/register.page';
 import { ChangePasswordPage } from '../../pages/admin/change-password.page';
+import { SidebarComponent } from '../../pages/admin/sidebar.component';
 
 test.describe('Login Page', () => {
   let loginPage: LoginPage;
@@ -218,6 +219,10 @@ test.describe('Change Password Page', () => {
 
     test('should show lock icon', async () => {
       await expect(changePasswordPage.lockIcon).toBeVisible();
+    });
+
+    test('should use the admin layout with the sidebar', async ({ authenticatedPage }) => {
+      await new SidebarComponent(authenticatedPage).expectVisible();
     });
   });
 
