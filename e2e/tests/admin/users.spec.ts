@@ -1,8 +1,8 @@
-import { test, expect } from "../../fixtures/admin/api.fixture";
-import { UsersPage } from "../../pages/admin/users.page";
-import { SidebarComponent } from "../../pages/admin/sidebar.component";
+import { test, expect } from '../../fixtures/admin/api.fixture';
+import { UsersPage } from '../../pages/admin/users.page';
+import { SidebarComponent } from '../../pages/admin/sidebar.component';
 
-test.describe("Users Management", () => {
+test.describe('Users Management', () => {
   let usersPage: UsersPage;
   let sidebar: SidebarComponent;
 
@@ -12,181 +12,169 @@ test.describe("Users Management", () => {
     await usersPage.goto();
   });
 
-  test.describe("Layout and Elements", () => {
-    test("should display the users page title", async () => {
+  test.describe('Layout and Elements', () => {
+    test('should display the users page title', async () => {
       await usersPage.expectPageLoaded();
     });
 
-    test("should mark users as active in sidebar", async () => {
-      await sidebar.expectActiveLink("users");
+    test('should mark users as active in sidebar', async () => {
+      await sidebar.expectActiveLink('users');
     });
 
-    test("should display the search bar", async () => {
+    test('should display the search bar', async () => {
       await expect(usersPage.searchBar).toBeVisible();
     });
 
-    test("should display the Add User button", async () => {
+    test('should display the Add User button', async () => {
       await expect(usersPage.addUserButton).toBeVisible();
-      await expect(usersPage.addUserButton).toContainText("Add User");
+      await expect(usersPage.addUserButton).toContainText('Add User');
     });
 
-    test("should display table headers", async () => {
+    test('should display table headers', async () => {
       await usersPage.expectTableHeaders();
     });
   });
 
-  test.describe("Table Data", () => {
-    test("should display user rows in the table", async () => {
+  test.describe('Table Data', () => {
+    test('should display user rows in the table', async () => {
       const count = await usersPage.getRowCount();
       expect(count).toBeGreaterThan(0);
     });
 
-    test("should display username, role, and status for each row", async () => {
+    test('should display username, role, and status for each row', async () => {
       const count = await usersPage.getRowCount();
       expect(count).toBeGreaterThan(0);
 
       // Check first row has required columns
       const firstRow = usersPage.tableRows.first();
-      await expect(firstRow.getByTestId("user-username")).toBeVisible();
-      await expect(firstRow.getByTestId("user-role-badge")).toBeVisible();
-      await expect(firstRow.getByTestId("user-status-badge")).toBeVisible();
+      await expect(firstRow.getByTestId('user-username')).toBeVisible();
+      await expect(firstRow.getByTestId('user-role-badge')).toBeVisible();
+      await expect(firstRow.getByTestId('user-status-badge')).toBeVisible();
     });
 
-    test("should display edit and delete action buttons", async () => {
+    test('should display edit and delete action buttons', async () => {
       const firstRow = usersPage.tableRows.first();
-      await expect(firstRow.getByTestId("user-edit-button")).toBeVisible();
-      await expect(firstRow.getByTestId("user-delete-button")).toBeVisible();
+      await expect(firstRow.getByTestId('user-edit-button')).toBeVisible();
+      await expect(firstRow.getByTestId('user-delete-button')).toBeVisible();
     });
 
-    test("should display status badges with correct values", async ({
-      authenticatedPage,
-    }) => {
+    test('should display status badges with correct values', async ({ authenticatedPage }) => {
       const rows = usersPage.tableRows;
       const count = await rows.count();
-      const validStatuses = ["Active", "Disabled"];
+      const validStatuses = ['Active', 'Disabled'];
 
       for (let i = 0; i < Math.min(count, 5); i++) {
-        const badge = rows.nth(i).getByTestId("user-status-badge");
+        const badge = rows.nth(i).getByTestId('user-status-badge');
         const text = await badge.textContent();
         expect(validStatuses).toContain(text?.trim());
       }
     });
 
     test("should show each user's own role", async () => {
-      await usersPage.expectRowContains(0, "admin", "SystemAdministrator", "Active");
-      await usersPage.expectRowContains(1, "member", "Member", "Active");
+      await usersPage.expectRowContains(0, 'admin', 'SystemAdministrator', 'Active');
+      await usersPage.expectRowContains(1, 'member', 'Member', 'Active');
     });
 
     test("should show the signed-in user's role in the sidebar", async () => {
-      await sidebar.expectUserInfo("admin", "SystemAdministrator");
+      await sidebar.expectUserInfo('admin', 'SystemAdministrator');
     });
 
-    test("should display role badges", async ({ authenticatedPage }) => {
+    test('should display role badges', async ({ authenticatedPage }) => {
       const firstRow = usersPage.tableRows.first();
-      const roleBadge = firstRow.getByTestId("user-role-badge");
+      const roleBadge = firstRow.getByTestId('user-role-badge');
       await expect(roleBadge).toBeVisible();
       const text = await roleBadge.textContent();
       expect(text?.trim().length).toBeGreaterThan(0);
     });
   });
 
-  test.describe("Pagination", () => {
-    test("should display pagination controls", async () => {
+  test.describe('Pagination', () => {
+    test('should display pagination controls', async () => {
       await expect(usersPage.pagination).toBeVisible();
     });
 
-    test("should display pagination info text", async () => {
+    test('should display pagination info text', async () => {
       await expect(usersPage.paginationInfo).toBeVisible();
-      await expect(usersPage.paginationInfo).toContainText(
-        /Showing \d+-\d+ of \d+ users/,
-      );
+      await expect(usersPage.paginationInfo).toContainText(/Showing \d+-\d+ of \d+ users/);
     });
 
-    test("should navigate to next page", async () => {
+    test('should navigate to next page', async () => {
       const initialInfo = await usersPage.paginationInfo.textContent();
       await usersPage.paginationNext.click();
       const newInfo = await usersPage.paginationInfo.textContent();
       expect(newInfo).not.toBe(initialInfo);
     });
 
-    test("should navigate to specific page", async () => {
+    test('should navigate to specific page', async () => {
       await usersPage.goToPage(2);
       await expect(usersPage.paginationInfo).toContainText(/Showing \d+-\d+/);
     });
   });
 
-  test.describe("Search", () => {
-    test("should filter users by search query", async () => {
-      await usersPage.searchUsers("admin");
+  test.describe('Search', () => {
+    test('should filter users by search query', async () => {
+      await usersPage.searchUsers('admin');
       const count = await usersPage.getRowCount();
       expect(count).toBeGreaterThan(0);
     });
 
-    test("should show empty state when no results found", async ({
-      authenticatedPage,
-    }) => {
-      await usersPage.searchUsers("zzz_nonexistent_user_zzz");
+    test('should show empty state when no results found', async ({ authenticatedPage }) => {
+      await usersPage.searchUsers('zzz_nonexistent_user_zzz');
       const count = await usersPage.getRowCount();
       expect(count).toBe(0);
-      await expect(usersPage.emptyState).toHaveText("No users found");
-      await expect(usersPage.paginationInfo).toHaveText(
-        "Showing 0-0 of 0 users",
-      );
+      await expect(usersPage.emptyState).toHaveText('No users found');
+      await expect(usersPage.paginationInfo).toHaveText('Showing 0-0 of 0 users');
       await expect(usersPage.paginationPages).toHaveCount(0);
       await expect(usersPage.paginationNext).toHaveCount(0);
     });
 
-    test("should page through search results", async ({ api }) => {
-      await api.createUser("e2e_page_a", "PageMe123!");
-      await api.createUser("e2e_page_b", "PageMe123!");
-      await api.createUser("e2e_page_c", "PageMe123!");
+    test('should page through search results', async ({ api }) => {
+      await api.createUser('e2e_page_a', 'PageMe123!');
+      await api.createUser('e2e_page_b', 'PageMe123!');
+      await api.createUser('e2e_page_c', 'PageMe123!');
       await usersPage.goto();
-      await usersPage.searchUsers("e2e_page_");
-      await expect(usersPage.paginationInfo).toHaveText(
-        "Showing 1-2 of 3 users",
-      );
+      await usersPage.searchUsers('e2e_page_');
+      await expect(usersPage.paginationInfo).toHaveText('Showing 1-2 of 3 users');
       await expect(usersPage.paginationPages).toHaveCount(2);
       await usersPage.paginationNext.click();
-      await expect(usersPage.paginationInfo).toHaveText(
-        "Showing 3-3 of 3 users",
-      );
+      await expect(usersPage.paginationInfo).toHaveText('Showing 3-3 of 3 users');
       await expect(usersPage.tableRows).toHaveCount(1);
     });
 
-    test("should clear search and show all users", async () => {
-      await usersPage.searchUsers("admin");
+    test('should clear search and show all users', async () => {
+      await usersPage.searchUsers('admin');
       const filteredCount = await usersPage.getRowCount();
 
-      await usersPage.searchUsers("");
+      await usersPage.searchUsers('');
       const allCount = await usersPage.getRowCount();
       expect(allCount).toBeGreaterThanOrEqual(filteredCount);
     });
   });
 
-  test.describe("Add User", () => {
-    test("should open add user dialog when clicking Add User", async () => {
+  test.describe('Add User', () => {
+    test('should open add user dialog when clicking Add User', async () => {
       await usersPage.addUserButton.click();
       await expect(usersPage.userDialog).toBeVisible();
       await expect(usersPage.dialogTitle).toContainText(/add|new|create/i);
     });
 
-    test("should close dialog when clicking cancel", async () => {
+    test('should close dialog when clicking cancel', async () => {
       await usersPage.addUserButton.click();
       await expect(usersPage.userDialog).toBeVisible();
       await usersPage.dialogCancelButton.click();
       await expect(usersPage.userDialog).toBeHidden();
     });
 
-    test("should show validation errors for empty fields", async () => {
+    test('should show validation errors for empty fields', async () => {
       await usersPage.addUserButton.click();
       await usersPage.dialogSaveButton.click();
       // Dialog should still be visible with errors
       await expect(usersPage.userDialog).toBeVisible();
     });
 
-    test("should create a new user successfully", async () => {
+    test('should create a new user successfully', async () => {
       const initialCount = await usersPage.getRowCount();
-      await usersPage.addUser("e2e_testuser", "Member", "TestPass123!");
+      await usersPage.addUser('e2e_testuser', 'Member', 'TestPass123!');
       await expect(usersPage.userDialog).toBeHidden();
 
       // Table should update
@@ -195,26 +183,34 @@ test.describe("Users Management", () => {
     });
   });
 
-  test.describe("Edit User", () => {
-    test("should open edit dialog when clicking edit button", async () => {
+  test.describe('Edit User', () => {
+    test('should open edit dialog when clicking edit button', async () => {
       await usersPage.clickEditUser(0);
       await expect(usersPage.userDialog).toBeVisible();
       await expect(usersPage.dialogTitle).toContainText(/edit/i);
     });
 
-    test("should pre-fill user data in edit dialog", async () => {
+    test('should pre-fill user data in edit dialog', async () => {
       await usersPage.clickEditUser(0);
       await expect(usersPage.dialogUsernameInput).not.toBeEmpty();
     });
   });
 
-  test.describe("Delete User", () => {
-    test("should show confirmation dialog when clicking delete", async () => {
+  test.describe('Delete User', () => {
+    test('should show confirmation dialog when clicking delete', async () => {
       await usersPage.clickDeleteUser(0);
       await expect(usersPage.deleteDialog).toBeVisible();
     });
 
-    test("should cancel deletion when clicking cancel", async () => {
+    test('should name the user in the delete confirmation', async () => {
+      const username = await usersPage.tableRows.first().getByTestId('user-username').textContent();
+      await usersPage.clickDeleteUser(0);
+      await expect(usersPage.deleteMessage).toHaveText(
+        `Are you sure you want to delete ${username?.trim()}?`,
+      );
+    });
+
+    test('should cancel deletion when clicking cancel', async () => {
       const initialCount = await usersPage.getRowCount();
       await usersPage.clickDeleteUser(0);
       await usersPage.deleteCancelButton.click();
@@ -223,13 +219,13 @@ test.describe("Users Management", () => {
       expect(count).toBe(initialCount);
     });
 
-    test("should delete user when confirming", async ({ api }) => {
+    test('should delete user when confirming', async ({ api }) => {
       // Seed a user to delete
-      await api.createUser("e2e_delete_me", "DeleteMe123!");
+      await api.createUser('e2e_delete_me', 'DeleteMe123!');
       await usersPage.goto(); // refresh
 
       // Search for the seeded user to find it regardless of pagination
-      await usersPage.searchUsers("e2e_delete_me");
+      await usersPage.searchUsers('e2e_delete_me');
       const count = await usersPage.getRowCount();
       expect(count).toBeGreaterThan(0);
 
