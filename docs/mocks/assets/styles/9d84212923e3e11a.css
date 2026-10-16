@@ -11,6 +11,7 @@
 .form-group[_ngcontent-ng-c3787445096] label[_ngcontent-ng-c3787445096] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
 .form-group[_ngcontent-ng-c3787445096] input[_ngcontent-ng-c3787445096] { width: 100%; padding: 10px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 8px; font-size: 14px; }
 .form-group[_ngcontent-ng-c3787445096] input[_ngcontent-ng-c3787445096]:focus { outline: none; border-color: rgb(61, 138, 90); }
+.form-hint[_ngcontent-ng-c3787445096] { margin: 6px 0px 0px; font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 .modal-overlay[_ngcontent-ng-c3787445096] { position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal-content[_ngcontent-ng-c3787445096] { width: 100%; max-width: 400px; padding: 32px; }
 .modal-content[_ngcontent-ng-c3787445096] h3[_ngcontent-ng-c3787445096] { margin-bottom: 20px; }

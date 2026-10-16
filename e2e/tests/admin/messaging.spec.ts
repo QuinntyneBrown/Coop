@@ -182,6 +182,14 @@ test.describe('Messaging', () => {
       await messagingPage.newConversationButton.click();
       await expect(messagingPage.recipientInput).toBeVisible();
     });
+
+    test('should explain how to choose a recipient', async () => {
+      await messagingPage.newConversationButton.click();
+      await expect(messagingPage.recipientInput).toHaveAttribute('placeholder', "Member's username");
+      await expect(messagingPage.recipientInput).toHaveAccessibleDescription(
+        'Type the username of the member you want to message.',
+      );
+    });
   });
 
   test.describe('Search', () => {

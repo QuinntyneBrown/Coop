@@ -149,12 +149,18 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             <div class="modal-content card">
               <h3>New Conversation</h3>
               <div class="form-group">
-                <label>Recipient</label>
+                <label for="new-conversation-recipient">Recipient</label>
                 <input
+                  id="new-conversation-recipient"
                   type="text"
+                  placeholder="Member's username"
+                  aria-describedby="new-conversation-recipient-hint"
                   data-testid="new-conversation-recipient"
                   [(ngModel)]="newConversationRecipient"
                 />
+                <p id="new-conversation-recipient-hint" class="form-hint">
+                  Type the username of the member you want to message.
+                </p>
               </div>
               <div class="modal-actions">
                 <button
@@ -249,6 +255,11 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             border-color: #3d8a5a;
           }
         }
+      }
+      .form-hint {
+        margin: 6px 0 0;
+        font-size: 14px;
+        color: #1a1918cc;
       }
       .modal-overlay {
         position: fixed;
