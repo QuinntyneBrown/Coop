@@ -486,12 +486,20 @@ import { UserService, UserProfile } from '../core/services/user.service';
 
       /* Desktop layout */
       @media (min-width: 1024px) {
-        :host {
-          flex-direction: row;
+        /* The top bar stays above the main column, beside the docked sidebar,
+           so the bell is available at every width. */
+        .top-bar {
+          margin-left: 260px;
         }
 
-        .top-bar {
-          display: block;
+        .top-bar-inner {
+          justify-content: flex-end;
+        }
+
+        /* The docked sidebar already shows the logo. */
+        .top-bar .logo,
+        .hamburger {
+          display: none;
         }
 
         .sidebar {

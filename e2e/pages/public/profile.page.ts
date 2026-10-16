@@ -5,6 +5,7 @@ export class ProfilePage {
 
   // Header
   readonly pageTitle: Locator;
+  readonly notificationBell: Locator;
 
   // Avatar
   readonly avatar: Locator;
@@ -60,6 +61,7 @@ export class ProfilePage {
     this.page = page;
 
     this.pageTitle = page.locator('[data-testid="profile-page-title"]');
+    this.notificationBell = page.locator('[data-testid="dashboard-notification-bell"]');
 
     this.avatar = page.locator('[data-testid="profile-avatar"]');
     this.avatarUploadButton = page.locator('[data-testid="profile-avatar-upload-btn"]');
@@ -116,6 +118,12 @@ export class ProfilePage {
 
   async goto() {
     await this.page.goto('/profile');
+  }
+
+  /** The header bell is on screen and nothing (such as the sidebar) is drawn over it. */
+  async expectNotificationBellReachable() {
+    await expect(this.notificationBell).toBeVisible();
+    await this.notificationBell.click({ trial: true, timeout: 5000 });
   }
 
   async expectLoaded() {

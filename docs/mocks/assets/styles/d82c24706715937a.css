@@ -21,8 +21,9 @@
 .tab-item[_ngcontent-ng-c451037706]:hover { text-decoration: none; color: var(--primary); }
 .tab-item[_ngcontent-ng-c451037706] svg[_ngcontent-ng-c451037706] { width: 24px; height: 24px; }
 @media (min-width: 1024px) {
-  [_nghost-ng-c451037706] { flex-direction: row; }
-  .top-bar[_ngcontent-ng-c451037706] { display: block; }
+  .top-bar[_ngcontent-ng-c451037706] { margin-left: 260px; }
+  .top-bar-inner[_ngcontent-ng-c451037706] { justify-content: flex-end; }
+  .top-bar[_ngcontent-ng-c451037706] .logo[_ngcontent-ng-c451037706], .hamburger[_ngcontent-ng-c451037706] { display: none; }
   .sidebar[_ngcontent-ng-c451037706] { display: flex; }
   .main-content[_ngcontent-ng-c451037706] { margin-left: 260px; padding-bottom: 0px; flex: 1 1 0%; }
   .bottom-tab-bar[_ngcontent-ng-c451037706] { display: none; }
