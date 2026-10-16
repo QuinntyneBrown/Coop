@@ -15,31 +15,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
   imports: [CommonModule, RouterLink, BottomTabBarComponent],
   template: `
     <div class="dashboard">
-      <!-- Top Bar -->
-      <div class="top-bar" data-testid="dashboard-top-bar">
-        <div class="top-bar-left">
-          <span class="material-icons logo-icon" data-testid="dashboard-logo">apartment</span>
-          <h1 class="logo-text" data-testid="dashboard-page-title">Dashboard</h1>
-        </div>
-        <div class="top-bar-right">
-          <div class="search-bar" data-testid="dashboard-search">
-            <span class="material-icons">search</span>
-            <input type="text" placeholder="Search..." />
-          </div>
-          <button class="icon-btn" data-testid="dashboard-notification-bell">
-            <span class="material-icons">notifications</span>
-            @if (unreadCount > 0) {
-              <span class="notification-badge" data-testid="dashboard-notification-badge">{{
-                unreadCount
-              }}</span>
-            }
-          </button>
-          <button class="icon-btn hamburger" data-testid="dashboard-hamburger-menu">
-            <span class="material-icons">menu</span>
-          </button>
-        </div>
-      </div>
-
       <div class="dashboard-content">
         <!-- Greeting -->
         <div class="greeting-section">
@@ -188,58 +163,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         background: #f5f4f1;
         padding-bottom: 72px;
       }
-      .top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 20px;
-        background: #fff;
-        border-bottom: 1px solid #e5e4e1;
-      }
-      .top-bar-left {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .logo-icon {
-        color: #3d8a5a;
-        font-size: 28px;
-      }
-      .logo-text {
-        font-size: 18px;
-        font-weight: 700;
-      }
-      .top-bar-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .icon-btn {
-        background: none;
-        border: none;
-        padding: 8px;
-        border-radius: 10px;
-        cursor: pointer;
-        position: relative;
-        color: #1a1918;
-        &:hover {
-          background: #f5f4f1;
-        }
-      }
-      .notification-badge {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        background: #dc3545;
-        color: #fff;
-        font-size: 10px;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
       .dashboard-content {
         padding: 24px 20px;
         max-width: 800px;
@@ -384,25 +307,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         background: #e5e4e1;
         color: #1a1918;
       }
-      .search-bar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 14px;
-        background: #f5f4f1;
-        border-radius: 10px;
-        border: 1px solid #e5e4e1;
-        input {
-          border: none;
-          background: transparent;
-          outline: none;
-          font-size: 14px;
-        }
-        .material-icons {
-          font-size: 18px;
-          color: #1a1918cc;
-        }
-      }
       .quick-actions-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -450,22 +354,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         color: #1a1918cc;
       }
       @media (max-width: 768px) {
-        .top-bar {
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-        .top-bar-right {
-          flex: 1 1 100%;
-          min-width: 0;
-        }
-        .search-bar {
-          flex: 1;
-          min-width: 0;
-          input {
-            width: 100%;
-            min-width: 0;
-          }
-        }
         .metric-cards {
           grid-template-columns: 1fr;
         }
@@ -489,7 +377,6 @@ export class DashboardComponent implements OnInit {
   messagesCount = 0;
   documentsCount = 0;
   membersCount = 0;
-  unreadCount = 0;
   recentRequests: any[] = [];
   recentNotices: any[] = [];
 
@@ -530,7 +417,6 @@ export class DashboardComponent implements OnInit {
     this.messagingService.getUnreadCount().subscribe({
       next: (data: any) => {
         this.messagesCount = data?.count ?? data ?? 0;
-        this.unreadCount = this.messagesCount;
       },
       error: () => {
         this.messagesCount = 0;

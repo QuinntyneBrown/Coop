@@ -2,18 +2,16 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
-import { TopbarComponent } from '../../layout/topbar.component';
 import { userRoleNames } from '../../core/user-role-names';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TopbarComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <app-topbar title="Users"></app-topbar>
     <div class="users-page">
       <div class="page-header">
-        <h2 data-testid="users-page-title">Users</h2>
+        <h1 data-testid="users-page-title">Users</h1>
         <div class="page-actions">
           <input
             type="text"
@@ -211,8 +209,8 @@ import { userRoleNames } from '../../core/user-role-names';
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
-        h2 {
-          font-size: 20px;
+        h1 {
+          font-size: 24px;
           font-weight: 600;
         }
       }

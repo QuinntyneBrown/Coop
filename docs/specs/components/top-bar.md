@@ -28,13 +28,13 @@ Out of scope:
 
 ## Usage
 
+> **Admin screens (issues #155, #157):** the admin app no longer has a top bar. Each admin screen starts with its own page heading (one `h1`), so the admin configurations, examples and criteria below (`heading`, the admin search slot, AC-13, AC-20, AC-23, D-6) describe no current screen.
+
 Every `.top-bar`, `.topbar`, `.landing-navbar` and `.navbar` in `docs/mocks` (76 uses on 29 screens) is one of the configurations below.
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
 | every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `title="Coop"`, `notifications`, `menuControls="member-nav"`, `[menuExpanded]` | logo mark + "Coop"; bell "Notifications"; hamburger "Open menu" | menu collapsed on every mock; hamburger shown below 1024 px (the mocks leave it visible at every width: drift) | surface, sticky over the canvas |
-| `pages/admin-dashboard/*`, `notifications/admin-dashboard-unread/info` | `title="Dashboard"`, `heading`, `notifications`, `unreadCount` 2, `notificationsLabel="Notifications, 2 unread"` | logo mark + `<h1>` "Dashboard"; `[slot=actions]` search bar; bell with badge "2" | unread count; the mocks also show a hamburger that opens nothing (D-6) | surface at the top of the main column |
-| `pages/admin-users/*`, `admin-roles/*`, `admin-assets/*`, `admin-invitations/*`, `admin-settings/*` and their dialogs and notifications (`.topbar`) | `title="Users"` etc., `heading`, `logoIcon` null, `notifications` | `<h1>` "Users" / "Roles & Privileges" / "Digital Assets" / "Invitations" / "Settings"; `[slot=actions]` search bar; bell | no count | surface at the top of the main column |
 | `pages/public-landing/default` (`.landing-navbar`), `pages/admin-landing/default` (`.navbar`) | `title="Coop"` | `[slot=actions]`: "Sign In" text link and a primary [button](button.md) link "Get Started" / "Register"; L2-REQ-066 names this button "Member Login" (D-7) | no bell, no hamburger | surface, sticky above the hero |
 
 Every row is buildable with the API below: a title that may be the page heading, an optional logo mark, an optional bell with count, an optional hamburger bound to a drawer, and one projection slot for page-specific actions.

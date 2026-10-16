@@ -2,15 +2,16 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 
 import { RoleService } from '../../core/services/role.service';
 import { PrivilegeService } from '../../core/services/privilege.service';
-import { TopbarComponent } from '../../layout/topbar.component';
 
 @Component({
   selector: 'app-roles',
   standalone: true,
-  imports: [TopbarComponent],
+  imports: [],
   template: `
-    <app-topbar title="Roles & Privileges"></app-topbar>
     <div class="roles-page">
+      <div class="page-header">
+        <h1 data-testid="roles-page-title">Roles &amp; Privileges</h1>
+      </div>
       <div class="roles-layout">
         <!-- Role List -->
         <div class="role-list card" data-testid="roles-panel">
@@ -112,6 +113,13 @@ import { TopbarComponent } from '../../layout/topbar.component';
     `
       .roles-page {
         padding: 24px;
+      }
+      .page-header {
+        margin-bottom: 20px;
+        h1 {
+          font-size: 24px;
+          font-weight: 600;
+        }
       }
       .roles-layout {
         display: grid;

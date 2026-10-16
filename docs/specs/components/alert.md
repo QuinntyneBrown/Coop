@@ -44,7 +44,7 @@ Every `.alert`, standalone `.error-message` and `.success-message` in `docs/mock
 | `pages/admin-change-password/error`, `mismatch` | danger | "Failed to update password"; "Passwords do not match" | shown | change-password card, under the subtitle |
 | `pages/public-profile/password-error` | danger, `form` (the mock's standalone `.error-message`) | "Failed to change password. Check your current password." | shown | public profile password form |
 | any page that needs a dismissable message | any tone, `dismissible` | message + "Dismiss" control | shown, dismissed | card or page |
-| `notifications/admin-dashboard-unread/info` | not an alert | the bell's `.notification-badge` "2" | — | top bar ([icon button](icon-button.md)) |
+| `notifications/admin-dashboard-unread/info` | not an alert | the Unread Messages [metric card](metric-card.md) "2" | — | canvas |
 
 No mock renders a warning or info alert; the tones exist in components.css and the API so a future message needs no API change. Every row is buildable with the API below: four tones, the form block, and an optional dismiss control.
 

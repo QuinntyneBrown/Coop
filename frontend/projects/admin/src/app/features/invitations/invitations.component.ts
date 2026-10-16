@@ -2,17 +2,15 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvitationService } from '../../core/services/invitation.service';
-import { TopbarComponent } from '../../layout/topbar.component';
 
 @Component({
   selector: 'app-invitations',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TopbarComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <app-topbar title="Invitations"></app-topbar>
     <div class="invitations-page">
       <div class="page-header">
-        <h2 data-testid="invitations-page-title">Invitations</h2>
+        <h1 data-testid="invitations-page-title">Invitations</h1>
         <button
           class="btn btn-primary"
           data-testid="invitations-create-button"
@@ -138,8 +136,8 @@ import { TopbarComponent } from '../../layout/topbar.component';
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
-        h2 {
-          font-size: 20px;
+        h1 {
+          font-size: 24px;
           font-weight: 600;
         }
       }

@@ -61,7 +61,7 @@ for app in ['public','admin']:
     if app=='public':
         s=add(app,'dashboard',[9,30,38],dict(firstName='Mira',requestsCount='4',messagesCount='1',membersCount='4',recentRequests=REQUESTS))
     else:
-        s=add(app,'dashboard',[9,30,35,38],dict(displayName='Mira',requestsCount=3,messagesCount=2,documentsCount=3,membersCount=4,unreadCount=2,recentRequests=REQUESTS,recentNotices=DOCS[:1]))
+        s=add(app,'dashboard',[9,30,35,38],dict(displayName='Mira',requestsCount=3,messagesCount=2,documentsCount=3,membersCount=4,recentRequests=REQUESTS,recentNotices=DOCS[:1]))
     state(s); state(s,'empty',dict(recentRequests=[],recentNotices=[],requestsCount=0,messagesCount=0,membersCount=0,documentsCount=0,unreadCount=0))
     state(s,'partial',dict(recentRequests=[],requestsCount=0),note='A failed maintenance request produces an empty section; no error banner is implemented.')
     s=add(app,'documents',[35],dict(documents=DOCS,filteredDocuments=DOCS,loading=False,activeFilter='all',selectedDocument=None))
@@ -126,7 +126,7 @@ s=add('admin','settings',[45,46],note='Content and Account tabs contain only hea
 notice('admin','theme-saved','settings',[45],dict(successMsg='Theme saved successfully'),note='API failures also display success because settings are stored locally.')
 s=add('admin','change-password',[4]); state(s); state(s,'invalid',dict(submitted=True)); state(s,'submitting',dict(loading=True)); state(s,'mismatch',dict(submitted=True,passwordMismatch=True),forms={'form':dict(currentPassword='FictionalPass123!',newPassword='NewFictional123!',confirmNewPassword='OtherFictional123!')}); state(s,'error',dict(errorMsg='Failed to update password'))
 notice('admin','password-saved','change-password',[4],dict(successMsg='Password updated successfully',submitted=True),note='The form resets while submitted stays true, so required-field errors remain visible after success.')
-notice('admin','dashboard-unread','dashboard',[38],dict(unreadCount=2),'info',note='Notification bell has no handler. Badge reflects unread message count.')
+notice('admin','dashboard-unread','dashboard',[38],dict(messagesCount=2),'info',note='The Unread Messages card shows the unread message count.')
 
 DEFAULTS={'page':['default','loading','empty','error'],'dialog':['default','busy','invalid'],'notification':['info','success','warning','danger']}
 NO_FETCH='The component loads no data on entry, so there is no loading presentation.'
