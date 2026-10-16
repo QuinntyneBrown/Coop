@@ -195,6 +195,14 @@ test.describe('Board of Directors', () => {
   });
 
   test.describe('Admin landing page', () => {
+    test('Given a published notice, when the landing page loads, then its date reads like "Oct 13, 2026"', async ({
+      authenticatedPage,
+    }) => {
+      const landing = new AdminLandingPage(authenticatedPage);
+      await landing.goto();
+      await expect(landing.noticeDates.first()).toHaveText(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/);
+    });
+
     test('shows the same directors as the Board list, in the same order', async ({
       authenticatedPage,
     }) => {

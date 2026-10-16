@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { DocumentService } from '../../core/services/document.service';
@@ -9,7 +10,7 @@ import type { Director } from '../../core/models/director';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink],
+  imports: [DatePipe, RouterLink],
   template: `
     <div class="landing-page">
       <!-- Navbar -->
@@ -77,7 +78,9 @@ import type { Director } from '../../core/models/director';
             <div class="notice-card card" data-testid="landing-notice-card">
               <h3>{{ notice.title }}</h3>
               <p>{{ notice.body || notice.description }}</p>
-              <span class="notice-date">{{ notice.publishedOn || notice.date }}</span>
+              <span class="notice-date">{{
+                notice.publishedOn || notice.date || notice.createdOn | date: 'mediumDate'
+              }}</span>
             </div>
           }
         </div>
