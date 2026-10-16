@@ -112,9 +112,8 @@ import { documentTypeLabel } from './document-type-label';
                 <span class="doc-type">{{ formatType(selectedDocument.type) }}</span>
                 <span class="doc-date">{{ selectedDocument.createdAt | date: 'mediumDate' }}</span>
               </div>
-              <div class="viewer-content">
-                {{ selectedDocument.content }}
-              </div>
+              <!-- No whitespace around the text: the box keeps it (pre-wrap). -->
+              <div class="viewer-content">{{ selectedDocument.content }}</div>
             </div>
             <div class="viewer-actions">
               <button
