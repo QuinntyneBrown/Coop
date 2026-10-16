@@ -54,7 +54,17 @@ def main() -> int:
                 if shot.get("scroll"):
                     # Mocks may set smooth scrolling; jump straight to the position.
                     page.add_style_tag(content="html{scroll-behavior:auto !important}")
-                    page.evaluate(f"window.scrollTo(0, {int(shot['scroll'])})")
+                    # The page may scroll, or an inner panel such as the member app's main area.
+                    page.evaluate(
+                        """(y) => {
+                            window.scrollTo(0, y);
+                            for (const e of document.querySelectorAll('*')) {
+                                const o = getComputedStyle(e).overflowY;
+                                if ((o === 'auto' || o === 'scroll') && e.scrollHeight > e.clientHeight) e.scrollTop = y;
+                            }
+                        }""",
+                        int(shot["scroll"]),
+                    )
                 page.wait_for_timeout(300)
                 out = images / f"{shot['name']}-{label}.png"
                 page.screenshot(path=str(out))
