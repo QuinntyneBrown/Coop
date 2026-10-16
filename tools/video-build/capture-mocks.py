@@ -4,7 +4,7 @@ Usage: python tools/video-build/capture-mocks.py docs/videos/01-own-board-overvi
 
 Writes <name>-1280.png (1280x800 viewport, or 1280x<height> when the shot
 sets "height") and, when "phone" is true,
-<name>-360.png (360x800 viewport) next to shots.json. A shot may set "js",
+<name>-360.png (360x800 viewport, or 360x<phone_height>) next to shots.json. A shot may set "js",
 a script run on the mock before the screenshot, to show a state the mocks
 do not have (for example the request the video has just sent). The review chrome is
 hidden with ?chrome=0. Needs: python -m pip install playwright, and
@@ -39,6 +39,9 @@ def main() -> int:
                 if label == "1280" and shot.get("height"):
                     # A taller computer frame, so a whole block fits below the header.
                     h = int(shot["height"])
+                if label == "360" and shot.get("phone_height"):
+                    # A shorter phone frame, so it ends between blocks, not mid-line.
+                    h = int(shot["phone_height"])
                 page = browser.new_page(
                     viewport={"width": w, "height": h}, reduced_motion="reduce"
                 )

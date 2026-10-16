@@ -21,8 +21,9 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
+| `images/public-landing-360.png` | The top of the home page on a phone, with Menu |
 | `images/public-landing-menu-360.png` | The menu open on a phone |
-| `images/public-page-1280.png` | The How to apply page |
+| `images/public-page-360.png` | The How to apply page on a phone |
 | `images/public-page-steps-1280.png` | Who can apply, What happens next, Need a hand |
 | `images/public-page-not-found-1280.png` | We can't find that page |
 
