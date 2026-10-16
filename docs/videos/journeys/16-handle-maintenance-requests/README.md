@@ -25,7 +25,7 @@ By the end, the viewer can:
 | `images/admin-maintenance-new-1280.png` | Filtered by New |
 | `images/admin-maintenance-detail-received-1280.png` | A request's details |
 | `images/admin-maintenance-detail-photos-1280.png` | Attached photos |
-| `images/admin-maintenance-detail-new-1280.png` | Receive Request |
+| `images/admin-maintenance-detail-received-now-1280.png` | Kitchen tap leak after Receive Request: Received, with Start work |
 | `images/admin-maintenance-detail-started-1280.png` | Started, with Finish work |
 | `images/admin-maintenance-detail-completed-1280.png` | Completed, no next step |
 | `images/admin-maintenance-comments-1280.png` | The Comments tab |

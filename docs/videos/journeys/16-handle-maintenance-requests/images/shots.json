@@ -2,6 +2,8 @@
   {"name": "admin-maintenance", "mock": "pages/admin-maintenance/default.html", "phone": false},
   {"name": "admin-maintenance-new", "mock": "pages/admin-maintenance/new.html", "phone": false},
   {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
+  {"name": "admin-maintenance-detail-received-now", "mock": "pages/admin-maintenance/detail-new.html", "phone": false,
+   "js": "document.querySelectorAll('[data-testid=maintenance-request-card].selected [data-testid=request-status-badge], [data-testid=maintenance-detail-status]').forEach((b) => { b.className = 'badge badge-gray'; b.textContent = 'Received'; }); const btn = document.querySelector('[data-testid=maintenance-receive-button]'); btn.textContent = 'Start work';"},
   {"name": "admin-maintenance-comments", "mock": "pages/admin-maintenance/comments.html", "phone": false},
   {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
   {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
