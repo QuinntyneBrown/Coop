@@ -198,10 +198,16 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       .checkbox-label {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 10px;
+        min-height: 44px;
         font-size: 14px;
         cursor: pointer;
         input {
+          width: 24px;
+          height: 24px;
+          margin: 0;
+          flex-shrink: 0;
+          accent-color: #3d8a5a;
           cursor: pointer;
         }
       }

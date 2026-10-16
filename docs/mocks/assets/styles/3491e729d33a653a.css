@@ -15,8 +15,8 @@
 .form-group[_ngcontent-ng-c251577923] input[type="text"].invalid[_ngcontent-ng-c251577923], .form-group[_ngcontent-ng-c251577923] input[type="password"].invalid[_ngcontent-ng-c251577923] { border-color: rgb(220, 53, 69); }
 .form-group[_ngcontent-ng-c251577923] .error-message[_ngcontent-ng-c251577923] { color: rgb(220, 53, 69); font-size: 12px; margin-top: 4px; }
 .form-options[_ngcontent-ng-c251577923] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.checkbox-label[_ngcontent-ng-c251577923] { display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
-.checkbox-label[_ngcontent-ng-c251577923] input[_ngcontent-ng-c251577923] { cursor: pointer; }
+.checkbox-label[_ngcontent-ng-c251577923] { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.checkbox-label[_ngcontent-ng-c251577923] input[_ngcontent-ng-c251577923] { width: 24px; height: 24px; margin: 0px; flex-shrink: 0; accent-color: rgb(61, 138, 90); cursor: pointer; }
 .forgot-link[_ngcontent-ng-c251577923] { font-size: 14px; color: rgb(61, 138, 90); text-decoration: none; }
 .sign-in-btn[_ngcontent-ng-c251577923] { width: 100%; padding: 12px; font-size: 16px; font-weight: 600; border-radius: 12px; }
 .sign-up-text[_ngcontent-ng-c251577923] { text-align: center; margin-top: 24px; font-size: 14px; color: rgba(26, 25, 24, 0.8); }
