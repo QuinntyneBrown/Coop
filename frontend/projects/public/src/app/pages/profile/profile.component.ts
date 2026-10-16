@@ -328,15 +328,16 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
       <!-- Change Password -->
       <div class="password-section">
         <div class="card">
-          <button
-            class="btn btn-outline btn-full"
-            data-testid="profile-change-password-btn"
-            (click)="showPasswordForm = !showPasswordForm"
-          >
-            Change Password
-          </button>
-
-          @if (showPasswordForm) {
+          @if (!showPasswordForm) {
+            <button
+              class="btn btn-outline btn-full"
+              data-testid="profile-change-password-btn"
+              (click)="showPasswordForm = true"
+            >
+              Change Password
+            </button>
+          } @else {
+            <h2 class="password-heading" data-testid="profile-password-heading">Change Password</h2>
             <div class="password-form">
               @if (passwordError) {
                 <div class="error-message" data-testid="profile-password-error">
@@ -378,13 +379,22 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
                   name="confirmNewPassword"
                 />
               </div>
-              <button
-                class="btn btn-primary btn-full"
-                data-testid="profile-update-password-btn"
-                (click)="updatePassword()"
-              >
-                Update Password
-              </button>
+              <div class="password-actions">
+                <button
+                  class="btn btn-outline"
+                  data-testid="profile-password-cancel-btn"
+                  (click)="cancelPassword()"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="btn btn-primary"
+                  data-testid="profile-update-password-btn"
+                  (click)="updatePassword()"
+                >
+                  Update Password
+                </button>
+              </div>
             </div>
           }
         </div>
@@ -657,8 +667,21 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         margin-top: 16px;
       }
 
+      .password-heading {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
       .password-form {
         margin-top: 16px;
+      }
+
+      .password-actions {
+        display: flex;
+        gap: 12px;
+        .btn {
+          flex: 1;
+        }
       }
 
       .error-message {
@@ -808,6 +831,13 @@ export class ProfileComponent implements OnInit {
             'Failed to change password. Check your current password.';
         },
       });
+  }
+
+  cancelPassword() {
+    this.showPasswordForm = false;
+    this.passwordError = '';
+    this.passwordMismatchError = '';
+    this.passwordData = { currentPassword: '', newPassword: '', confirmNewPassword: '' };
   }
 
   switchProfile(p: UserProfile) {

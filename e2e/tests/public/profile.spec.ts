@@ -241,6 +241,23 @@ test.describe('Profile', () => {
       await expect(profile.updatePasswordButton).toBeVisible();
     });
 
+    test('should replace the Change Password button with a heading while the form is open', async () => {
+      await profile.goto();
+      await profile.changePasswordButton.click();
+      await expect(profile.changePasswordButton).toHaveCount(0);
+      await expect(profile.passwordHeading).toHaveText('Change Password');
+      await expect(profile.updatePasswordButton).toBeVisible();
+    });
+
+    test('should close the password form with Cancel', async () => {
+      await profile.goto();
+      await profile.changePasswordButton.click();
+      await profile.cancelPasswordButton.click();
+      await expect(profile.currentPasswordInput).toHaveCount(0);
+      await expect(profile.passwordHeading).toHaveCount(0);
+      await expect(profile.changePasswordButton).toBeVisible();
+    });
+
     test('should reject password change with wrong current password', async () => {
       await profile.goto();
       await profile.changePassword('WrongCurrent!', 'NewPass123!', 'NewPass123!');
