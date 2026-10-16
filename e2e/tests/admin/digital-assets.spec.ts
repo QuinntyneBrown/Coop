@@ -126,6 +126,14 @@ test.describe('Digital Assets', () => {
       await assetsPage.uploadButton.click();
       await expect(assetsPage.fileInput).toBeAttached();
     });
+
+    test('should label the file picker and say what files are accepted', async () => {
+      await assetsPage.uploadButton.click();
+      await expect(assetsPage.fileInput).toHaveAccessibleName('Choose a file');
+      await expect(assetsPage.fileInput).toHaveAccessibleDescription(
+        'Any file, such as a photo or a PDF, up to 28 MB.',
+      );
+    });
   });
 
   test.describe('Asset Detail', () => {
