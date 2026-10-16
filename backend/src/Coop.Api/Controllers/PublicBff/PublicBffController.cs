@@ -189,6 +189,7 @@ public class PublicBffController : ControllerBase
             lastName = p.Lastname,
             email = p.Email ?? "",
             phone = p.PhoneNumber ?? "",
+            profileType = p.Type.ToString(),
         });
         return Ok(profiles);
     }

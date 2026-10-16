@@ -16,6 +16,8 @@ export interface UserProfile {
   /** How new notices reach the member (L2-REQ-092). */
   noticeByEmail?: boolean;
   noticeByText?: boolean;
+  /** Member, BoardMember, StaffMember or OnCall (L2-REQ-018). */
+  profileType?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -99,6 +101,7 @@ export class UserService {
           avatarUrl: this.api.assetUrl(p.avatarUrl),
           memberSince: p.memberSince || '',
           roles: p.roles || [],
+          profileType: p.profileType || '',
         }));
       }),
       catchError(() => of([])),

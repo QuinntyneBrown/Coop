@@ -3,7 +3,7 @@ import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { ProfilePage } from '../../pages/public/profile.page';
 import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
-import { MEMBER_PROFILE_ID, type MockProfile } from '../../fixtures/mock-api/mock-store';
+import { MEMBER_PROFILE_ID, newId, type MockProfile } from '../../fixtures/mock-api/mock-store';
 
 const test = mergeTests(authTest, apiTest);
 
@@ -282,6 +282,19 @@ test.describe('Profile', () => {
   });
 
   test.describe('Profile Switching', () => {
+    test('Given two profiles with the same name, when the switcher opens, then each option names its profile type', async ({
+      mockApi,
+    }) => {
+      const own = mockApi.store.profiles.find((p) => p.profileId === MEMBER_PROFILE_ID)!;
+      mockApi.store.profiles.push({ ...own, profileId: newId(), type: 1, boardTitle: 'Treasurer' });
+      await profile.goto();
+      await profile.profileSwitcher.click();
+      await expect(profile.profileOptions).toHaveText([
+        `${own.firstname} ${own.lastname} · Member`,
+        `${own.firstname} ${own.lastname} · Board member`,
+      ]);
+    });
+
     test('should display profile switcher if multiple profiles exist', async () => {
       await profile.goto();
       // Profile switcher may not be visible if user has only one profile
