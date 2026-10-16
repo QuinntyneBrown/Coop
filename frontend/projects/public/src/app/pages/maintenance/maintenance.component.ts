@@ -772,6 +772,7 @@ import { photoFileError } from './photo-file-error';
 
         input {
           flex: 1;
+          min-width: 0;
           padding: 10px 12px;
           border: 1px solid var(--border);
           border-radius: var(--radius-md);

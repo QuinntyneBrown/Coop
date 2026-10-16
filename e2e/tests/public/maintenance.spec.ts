@@ -262,6 +262,27 @@ test.describe('Maintenance Requests', () => {
       await expect(maintenance.detailComments.first()).toBeVisible();
     });
 
+    for (const width of [360, 320]) {
+      test(`Given a request open at ${width} px, then the Send button keeps the same inner margin as the comment box`, async ({
+        api,
+        authenticatedPage,
+      }) => {
+        await api.createMaintenanceRequest({
+          title: `E2E: Narrow comment row ${width}`,
+          description: 'Checks the comment row on a phone.',
+        });
+        await authenticatedPage.setViewportSize({ width, height: 800 });
+        await maintenance.goto();
+        await maintenance.openRequestByTitle(`E2E: Narrow comment row ${width}`);
+
+        const dialog = (await maintenance.detailDialog.boundingBox())!;
+        const input = (await maintenance.commentInput.boundingBox())!;
+        const send = (await maintenance.addCommentButton.boundingBox())!;
+        const margin = input.x - dialog.x;
+        expect(send.x + send.width).toBeLessThanOrEqual(dialog.x + dialog.width - margin + 0.5);
+      });
+    }
+
     test('should add a new comment to a request', async ({ api }) => {
       await api.createMaintenanceRequest({
         title: 'E2E: Request for commenting',

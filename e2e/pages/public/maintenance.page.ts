@@ -36,6 +36,7 @@ export class MaintenancePage {
 
   // Request detail
   readonly detailPanel: Locator;
+  readonly detailDialog: Locator;
   readonly detailTitle: Locator;
   readonly detailDescription: Locator;
   readonly detailStatus: Locator;
@@ -82,6 +83,7 @@ export class MaintenancePage {
     this.cancelButton = page.locator('[data-testid="maintenance-cancel-btn"]');
 
     this.detailPanel = page.locator('[data-testid="maintenance-detail-panel"]');
+    this.detailDialog = this.detailPanel.locator('.modal');
     this.detailTitle = page.locator('[data-testid="maintenance-detail-title"]');
     this.detailDescription = page.locator('[data-testid="maintenance-detail-description"]');
     this.detailStatus = page.locator('[data-testid="maintenance-detail-status"]');
