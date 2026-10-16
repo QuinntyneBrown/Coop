@@ -1,4 +1,4 @@
-import { type Locator, type Page, expect } from '@playwright/test';
+import { type Locator, type Page, expect } from "@playwright/test";
 
 export class UsersPage {
   readonly page: Page;
@@ -15,6 +15,7 @@ export class UsersPage {
   readonly tableHeaderStatus: Locator;
   readonly tableHeaderActions: Locator;
   readonly tableRows: Locator;
+  readonly emptyState: Locator;
 
   // Pagination
   readonly pagination: Locator;
@@ -40,44 +41,45 @@ export class UsersPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.pageTitle = page.getByTestId('users-page-title');
-    this.searchBar = page.getByTestId('users-search');
-    this.addUserButton = page.getByTestId('users-add-button');
+    this.pageTitle = page.getByTestId("users-page-title");
+    this.searchBar = page.getByTestId("users-search");
+    this.addUserButton = page.getByTestId("users-add-button");
 
-    this.usersTable = page.getByTestId('users-table');
-    this.tableHeaderUsername = page.getByTestId('users-header-username');
-    this.tableHeaderRole = page.getByTestId('users-header-role');
-    this.tableHeaderStatus = page.getByTestId('users-header-status');
-    this.tableHeaderActions = page.getByTestId('users-header-actions');
-    this.tableRows = page.getByTestId('users-table-row');
+    this.usersTable = page.getByTestId("users-table");
+    this.tableHeaderUsername = page.getByTestId("users-header-username");
+    this.tableHeaderRole = page.getByTestId("users-header-role");
+    this.tableHeaderStatus = page.getByTestId("users-header-status");
+    this.tableHeaderActions = page.getByTestId("users-header-actions");
+    this.tableRows = page.getByTestId("users-table-row");
+    this.emptyState = page.getByTestId("users-empty-state");
 
-    this.pagination = page.getByTestId('users-pagination');
-    this.paginationInfo = page.getByTestId('users-pagination-info');
-    this.paginationPrev = page.getByTestId('users-pagination-prev');
-    this.paginationNext = page.getByTestId('users-pagination-next');
-    this.paginationPages = page.getByTestId('users-pagination-page');
+    this.pagination = page.getByTestId("users-pagination");
+    this.paginationInfo = page.getByTestId("users-pagination-info");
+    this.paginationPrev = page.getByTestId("users-pagination-prev");
+    this.paginationNext = page.getByTestId("users-pagination-next");
+    this.paginationPages = page.getByTestId("users-pagination-page");
 
-    this.userDialog = page.getByTestId('user-dialog');
-    this.dialogTitle = page.getByTestId('user-dialog-title');
-    this.dialogUsernameInput = page.getByTestId('user-dialog-username');
-    this.dialogRoleSelect = page.getByTestId('user-dialog-role');
-    this.dialogPasswordInput = page.getByTestId('user-dialog-password');
-    this.dialogCancelButton = page.getByTestId('user-dialog-cancel');
-    this.dialogSaveButton = page.getByTestId('user-dialog-save');
+    this.userDialog = page.getByTestId("user-dialog");
+    this.dialogTitle = page.getByTestId("user-dialog-title");
+    this.dialogUsernameInput = page.getByTestId("user-dialog-username");
+    this.dialogRoleSelect = page.getByTestId("user-dialog-role");
+    this.dialogPasswordInput = page.getByTestId("user-dialog-password");
+    this.dialogCancelButton = page.getByTestId("user-dialog-cancel");
+    this.dialogSaveButton = page.getByTestId("user-dialog-save");
 
-    this.deleteDialog = page.getByTestId('user-delete-dialog');
-    this.deleteConfirmButton = page.getByTestId('user-delete-confirm');
-    this.deleteCancelButton = page.getByTestId('user-delete-cancel');
+    this.deleteDialog = page.getByTestId("user-delete-dialog");
+    this.deleteConfirmButton = page.getByTestId("user-delete-confirm");
+    this.deleteCancelButton = page.getByTestId("user-delete-cancel");
   }
 
   async goto() {
-    await this.page.goto('/users');
+    await this.page.goto("/users");
     // Lists render after the mocked API responds; wait for requests to settle.
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   async expectPageLoaded() {
-    await expect(this.pageTitle).toHaveText('Users');
+    await expect(this.pageTitle).toHaveText("Users");
     await expect(this.usersTable).toBeVisible();
     await expect(this.addUserButton).toBeVisible();
   }
@@ -100,12 +102,12 @@ export class UsersPage {
 
   async clickEditUser(rowIndex: number) {
     const row = this.tableRows.nth(rowIndex);
-    await row.getByTestId('user-edit-button').click();
+    await row.getByTestId("user-edit-button").click();
   }
 
   async clickDeleteUser(rowIndex: number) {
     const row = this.tableRows.nth(rowIndex);
-    await row.getByTestId('user-delete-button').click();
+    await row.getByTestId("user-delete-button").click();
   }
 
   async confirmDelete() {
@@ -122,11 +124,16 @@ export class UsersPage {
     await this.dialogSaveButton.click();
   }
 
-  async expectRowContains(rowIndex: number, username: string, role: string, status: string) {
+  async expectRowContains(
+    rowIndex: number,
+    username: string,
+    role: string,
+    status: string,
+  ) {
     const row = this.tableRows.nth(rowIndex);
-    await expect(row.getByTestId('user-username')).toContainText(username);
-    await expect(row.getByTestId('user-role-badge')).toContainText(role);
-    await expect(row.getByTestId('user-status-badge')).toContainText(status);
+    await expect(row.getByTestId("user-username")).toContainText(username);
+    await expect(row.getByTestId("user-role-badge")).toContainText(role);
+    await expect(row.getByTestId("user-status-badge")).toContainText(status);
   }
 
   async expectPaginationInfo(text: string) {

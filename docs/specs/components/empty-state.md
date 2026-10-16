@@ -45,7 +45,7 @@ Every `.empty-state` in `docs/mocks` is one of the configurations below; the adm
 | `pages/public-dashboard/empty`, `pages/public-dashboard/partial` "Recent Requests" | no icon | "No recent requests" | empty section | inside a card |
 | `pages/public-landing/empty` "Public Notices" | no icon | "No public notices at this time" | empty section | canvas band |
 
-Every row is buildable with the API below: an optional icon, an optional card surface and one projected sentence. The admin users list has no empty state (its table shows "Showing 1-0 of 0 users"); that is [pagination](pagination.md).
+Every row is buildable with the API below: an optional icon, an optional card surface and one projected sentence. The admin users list shows its empty text, "No users found", as a table row; that is [table](table.md), with the "Showing 0-0 of 0 users" summary from [pagination](pagination.md).
 
 ## Anatomy
 
