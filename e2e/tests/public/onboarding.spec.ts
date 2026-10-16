@@ -1,5 +1,6 @@
 import { test as base, expect } from '../../fixtures/public/auth.fixture';
 import { OnboardingPage } from '../../pages/public/onboarding.page';
+import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 
 const test = base;
 
@@ -167,6 +168,31 @@ test.describe('Onboarding', () => {
         // Should advance past optional steps
         await expect(onboarding.page).toHaveURL(/\/(onboarding|dashboard)/);
       }
+    });
+  });
+
+  test.describe('Phone layout', () => {
+    test('Given the profile step at 360 px, when scrolled to the end, then Back, Next and Skip sit above the tab bar', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
+      await onboarding.goto();
+      await onboarding.getStartedButton.click();
+      await onboarding.expectProfileStep();
+      const tabBar = new BottomTabBar(authenticatedPage);
+      await tabBar.expectNotCovering(onboarding.backButton);
+      await tabBar.expectNotCovering(onboarding.nextButton);
+      await tabBar.expectNotCovering(onboarding.skipButton);
+    });
+
+    test('Given the profile step at 360 px, when the member taps a tab, then no step button is drawn over it', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
+      await onboarding.goto();
+      await onboarding.getStartedButton.click();
+      await onboarding.expectProfileStep();
+      await new BottomTabBar(authenticatedPage).openDocuments();
     });
   });
 });

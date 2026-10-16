@@ -370,8 +370,6 @@ import { catchError, of } from 'rxjs';
         gap: 12px;
         margin-top: 24px;
         padding-bottom: 80px;
-        position: relative;
-        z-index: 101;
 
         .btn {
           flex: 1;
