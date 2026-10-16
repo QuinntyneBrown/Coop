@@ -70,7 +70,7 @@ for app in ['public','admin']:
     overlay(app,'document-viewer','documents',[35],dict(selectedDocument=DOCS[0]))
     s=add(app,'maintenance',[21,25,30],dict(requests=REQUESTS,filteredRequests=REQUESTS,loading=False,activeFilter='all',selectedRequest=None))
     state(s); state(s,'loading',dict(requests=[],filteredRequests=[],loading=True)); state(s,'empty',dict(requests=[],filteredRequests=[]),note='Fetch errors display the same empty state.')
-    for f,index in [('new',0),('started',2),('done',3)]+([('received',1)] if app=='admin' else []): state(s,f,dict(activeFilter=f,filteredRequests=[REQUESTS[index]]))
+    for f,index in [('new',0),('started',2),('done',3),('received',1)]: state(s,f,dict(activeFilter=f,filteredRequests=[REQUESTS[index]]))
     state(s,'no-results',dict(activeFilter='done',requests=REQUESTS[:1],filteredRequests=[]))
     c=overlay(app,'maintenance-create','maintenance',[21],dict(showCreateModal=True))
     if app=='public': state(c,'invalid',dict(createSubmitted=True))

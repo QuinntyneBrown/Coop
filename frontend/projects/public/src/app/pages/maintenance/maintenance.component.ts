@@ -61,6 +61,14 @@ import { photoFileError } from './photo-file-error';
         </button>
         <button
           class="filter-tab"
+          [class.active]="activeFilter === 'received'"
+          data-testid="maintenance-filter-received"
+          (click)="filterRequests('received')"
+        >
+          Received
+        </button>
+        <button
+          class="filter-tab"
           [class.active]="activeFilter === 'started'"
           data-testid="maintenance-filter-started"
           (click)="filterRequests('started')"
@@ -376,7 +384,7 @@ import { photoFileError } from './photo-file-error';
         display: flex;
         gap: 8px;
         margin-bottom: 20px;
-        overflow-x: auto;
+        flex-wrap: wrap;
       }
 
       .filter-tab {
@@ -797,6 +805,8 @@ export class MaintenanceComponent implements OnInit {
         switch (this.activeFilter) {
           case 'new':
             return status === 'new' || status === 'open';
+          case 'received':
+            return status === 'received';
           case 'started':
             return status === 'started' || status === 'in-progress' || status === 'inprogress';
           case 'done':

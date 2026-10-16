@@ -274,6 +274,7 @@ test.describe('Maintenance Requests', () => {
       await maintenance.goto();
       await expect(maintenance.filterAll).toBeVisible();
       await expect(maintenance.filterNew).toBeVisible();
+      await expect(maintenance.filterReceived).toBeVisible();
       await expect(maintenance.filterStarted).toBeVisible();
       await expect(maintenance.filterDone).toBeVisible();
     });
@@ -287,6 +288,25 @@ test.describe('Maintenance Requests', () => {
       await maintenance.goto();
       await maintenance.filterByStatus('new');
       await maintenance.expectRequestInList('E2E: New status request');
+    });
+
+    test('Given a received and a new request, when the member picks "Received", then only the received one is listed', async ({
+      api,
+    }) => {
+      const id = await api.createMaintenanceRequest({
+        title: 'E2E: Received status request',
+        description: 'The office has received this one.',
+      });
+      await api.advanceMaintenanceRequest(id, ['receive']);
+      await api.createMaintenanceRequest({
+        title: 'E2E: Still new request',
+        description: 'The office has not looked at this one yet.',
+      });
+
+      await maintenance.goto();
+      await maintenance.filterByStatus('received');
+      await maintenance.expectRequestInList('E2E: Received status request');
+      await maintenance.expectRequestNotInList('E2E: Still new request');
     });
 
     test('should show all requests when "All" filter is selected', async () => {

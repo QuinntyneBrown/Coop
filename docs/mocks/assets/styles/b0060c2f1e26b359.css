@@ -1,7 +1,7 @@
 .maintenance-page[_ngcontent-ng-c1136923231] { padding: 24px 16px; max-width: 900px; margin: 0px auto; }
 .page-header[_ngcontent-ng-c1136923231] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .page-header[_ngcontent-ng-c1136923231] h1[_ngcontent-ng-c1136923231] { font-size: 22px; font-weight: 600; }
-.filter-tabs[_ngcontent-ng-c1136923231] { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; }
+.filter-tabs[_ngcontent-ng-c1136923231] { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .filter-tab[_ngcontent-ng-c1136923231] { padding: 8px 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface); font-size: 14px; font-weight: 500; white-space: nowrap; color: var(--text-secondary); transition: 0.2s; }
 .filter-tab.active[_ngcontent-ng-c1136923231] { background: var(--primary); color: white; border-color: var(--primary); }
 .filter-tab[_ngcontent-ng-c1136923231]:hover:not(.active) { border-color: var(--primary); }

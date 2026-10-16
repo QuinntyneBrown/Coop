@@ -105,6 +105,18 @@ test.describe('Dashboard', () => {
       await dashboard.expectRecentRequestDate(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/);
     });
 
+    test('Given the office finished a request, when the dashboard loads, then it reads "Done" as on the Requests page', async ({
+      api,
+    }) => {
+      const id = await api.createMaintenanceRequest({
+        title: 'E2E: Dashboard finished request',
+        description: 'Seeded for the status name test.',
+      });
+      await api.advanceMaintenanceRequest(id, ['receive', 'start', 'complete']);
+      await dashboard.goto();
+      await dashboard.expectRecentRequestStatus('E2E: Dashboard finished request', 'Done');
+    });
+
     test('should have a "View all" link to maintenance requests', async () => {
       await dashboard.goto();
       await expect(dashboard.viewAllRequestsLink).toBeVisible();

@@ -90,7 +90,10 @@ re-applies the list filter. On failure it leaves the status unchanged and sets
 `MaintenanceComponent` (`frontend/projects/public/src/app/pages/maintenance/`)
 shows the status through `maintenanceStatusLabel`
 (`maintenance-status-label.ts`), which returns "New", "Received", "Started"
-or "Done". The badge colour classes are unchanged.
+or "Done". The dashboard's recent requests (`DashboardComponent`) use the
+same function, and the Requests page offers a filter for each of these
+statuses: All, New, Received, Started and Done. The badge colour classes are
+unchanged.
 
 ### Tests
 

@@ -180,6 +180,7 @@
         "loading",
         "empty",
         "new",
+        "received",
         "started",
         "done",
         "no-results",

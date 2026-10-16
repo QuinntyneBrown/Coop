@@ -31,7 +31,7 @@ def navlinks(s,case):
     if name=='maintenance':
         tid('maintenance-create-btn','maintenance-create')
         for key in ['all','new','started','done','received','completed']:
-            if app=='public' and key in ['received','completed']:continue
+            if app=='public' and key=='completed':continue
             tid('maintenance-filter-'+key,'maintenance','default' if key=='all' else 'done' if key=='completed' else key)
         tid('maintenance-request-card','maintenance-detail' if app=='public' else 'maintenance','default' if app=='public' else 'detail-new')
         if app=='admin':

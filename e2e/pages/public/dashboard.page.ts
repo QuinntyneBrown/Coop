@@ -98,6 +98,11 @@ export class DashboardPage {
     await expect(this.recentRequestItems.first().locator('.request-date')).toHaveText(pattern);
   }
 
+  async expectRecentRequestStatus(title: string, status: string) {
+    const item = this.recentRequestItems.filter({ hasText: title });
+    await expect(item.locator('.request-status')).toHaveText(status);
+  }
+
   async getMetricValue(metric: 'requests' | 'messages' | 'members'): Promise<string> {
     const locator = {
       requests: this.requestsCount,
