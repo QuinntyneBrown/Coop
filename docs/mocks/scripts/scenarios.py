@@ -62,7 +62,7 @@ for app in ['public','admin']:
         s=add(app,'dashboard',[9,30,38],dict(firstName='Mira',requestsCount='4',messagesCount='1',membersCount='4',recentRequests=REQUESTS))
     else:
         s=add(app,'dashboard',[9,30,35,38],dict(displayName='Mira',requestsCount=3,messagesCount=2,documentsCount=3,membersCount=4,recentRequests=REQUESTS,recentNotices=DOCS[:1]))
-    state(s); state(s,'empty',dict(recentRequests=[],recentNotices=[],requestsCount=0,messagesCount=0,membersCount=0,documentsCount=0,unreadCount=0))
+    state(s); state(s,'empty',dict(recentRequests=[],recentNotices=[],requestsCount=0,messagesCount=0,membersCount='1' if app=='public' else 0,documentsCount=0,unreadCount=0))
     state(s,'partial',dict(recentRequests=[],requestsCount=0),note='A failed maintenance request produces an empty section; no error banner is implemented.')
     s=add(app,'documents',[35],dict(documents=DOCS,filteredDocuments=DOCS,loading=False,activeFilter='all',selectedDocument=None))
     state(s); state(s,'loading',dict(documents=[],filteredDocuments=[],loading=True)); state(s,'empty',dict(documents=[],filteredDocuments=[]),note='Fetch failures reach this same empty presentation.')
