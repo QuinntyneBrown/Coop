@@ -1,5 +1,5 @@
 [
   {"name": "public-documents", "mock": "pages/public-documents/default.html", "phone": true},
   {"name": "public-documents-notices", "mock": "pages/public-documents/notices.html", "phone": true},
-  {"name": "public-document-viewer", "mock": "dialogs/public-document-viewer/default.html", "phone": true}
+  {"name": "public-document-viewer", "mock": "dialogs/public-document-viewer/default.html", "phone": true, "js": "document.querySelector('[data-testid=documents-filter-all]').classList.remove('active'); document.querySelector('[data-testid=documents-filter-notices]').classList.add('active'); document.querySelectorAll('[data-testid=document-card]').forEach((c) => { if (c.querySelector('[data-testid=document-card-type]').textContent.trim() !== 'Notice') c.remove(); });"}
 ]
