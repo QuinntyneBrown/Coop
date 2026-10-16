@@ -19,7 +19,7 @@ import { UserService, UserProfile } from '../core/services/user.service';
             <circle cx="31" cy="27" r="8" fill="#F0B35A" />
             <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
           </svg>
-          <span class="logo-text">OWN Housing Co-op</span>
+          <span class="logo-text">OWN Housing <span class="nowrap">Co-op</span></span>
         </div>
         <div class="top-bar-actions">
           <button
@@ -76,7 +76,7 @@ import { UserService, UserProfile } from '../core/services/user.service';
             <circle cx="31" cy="27" r="8" fill="#F0B35A" />
             <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
           </svg>
-          <span class="logo-text">OWN Housing Co-op</span>
+          <span class="logo-text">OWN Housing <span class="nowrap">Co-op</span></span>
         </div>
       </div>
       <nav class="sidebar-nav">
@@ -324,6 +324,11 @@ import { UserService, UserProfile } from '../core/services/user.service';
         font-size: 20px;
         font-weight: 600;
         color: var(--text-primary);
+
+        /* Keep "Co-op" whole when the name wraps on a narrow phone. */
+        .nowrap {
+          white-space: nowrap;
+        }
       }
 
       .top-bar-actions {
