@@ -21,6 +21,7 @@ export class MessagingPage {
   readonly chatParticipants: Locator;
   readonly messageList: Locator;
   readonly messageBubbles: Locator;
+  readonly ownBubbles: Locator;
   readonly messageInput: Locator;
   readonly sendButton: Locator;
   readonly backToListButton: Locator;
@@ -52,6 +53,7 @@ export class MessagingPage {
     this.chatParticipants = page.locator('[data-testid="messaging-chat-participants"]');
     this.messageList = page.locator('[data-testid="messaging-message-list"]');
     this.messageBubbles = page.locator('[data-testid="messaging-message-bubble"]');
+    this.ownBubbles = page.locator('[data-testid="messaging-message-bubble"].own');
     this.messageInput = page.locator('[data-testid="messaging-message-input"]');
     this.sendButton = page.locator('[data-testid="messaging-send-btn"]');
     this.backToListButton = page.locator('[data-testid="messaging-back-to-list"]');

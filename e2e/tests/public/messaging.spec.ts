@@ -2,6 +2,7 @@ import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
 import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { MessagingPage } from '../../pages/public/messaging.page';
+import { textContrast } from '../../pages/contrast';
 
 const test = mergeTests(authTest, apiTest);
 
@@ -198,6 +199,26 @@ test.describe('Messaging', () => {
       await messaging.openConversation(0);
       await messaging.sendMessage('Hello from Playwright E2E!');
       await messaging.expectMessageInChat('Hello from Playwright E2E!');
+    });
+
+    test('Given a message the member sent, then its text, name and time meet WCAG AA contrast on the bubble', async ({
+      api,
+      authState,
+    }) => {
+      await api.createConversation({
+        subject: 'E2E: Contrast',
+        participantIds: [authState.userId],
+        initialMessage: 'Starting conversation.',
+      });
+
+      await messaging.goto();
+      await messaging.openConversation(0);
+      await messaging.sendMessage('Is this easy to read?');
+      const own = messaging.ownBubbles.last();
+      await expect(own).toContainText('Is this easy to read?');
+      for (const part of ['messaging-message-content', 'messaging-message-sender', 'messaging-message-timestamp']) {
+        expect(await textContrast(own.getByTestId(part)), part).toBeGreaterThanOrEqual(4.5);
+      }
     });
 
     test('should clear input after sending', async ({ api, authState }) => {

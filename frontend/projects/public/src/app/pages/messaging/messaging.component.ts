@@ -310,15 +310,14 @@ import { catchError, of } from 'rxjs';
 
         &.own {
           align-self: flex-end;
-          background: var(--primary);
+          /* The darker green keeps white text at WCAG AA contrast. */
+          background: var(--primary-dark);
           color: white;
-          border-color: var(--primary);
+          border-color: var(--primary-dark);
 
-          .message-sender {
-            color: rgba(255, 255, 255, 0.8);
-          }
+          .message-sender,
           .message-time {
-            color: rgba(255, 255, 255, 0.7);
+            color: white;
           }
         }
 
