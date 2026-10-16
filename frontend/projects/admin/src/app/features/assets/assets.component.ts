@@ -66,7 +66,20 @@ import { formatFileSize } from './format-file-size';
         <div class="modal-overlay" data-testid="upload-dialog">
           <div class="modal-content card">
             <h3>Upload File</h3>
-            <input type="file" data-testid="upload-file-input" (change)="onFileSelected($event)" />
+            <div class="upload-field">
+              <label for="asset-upload-file">Choose a file</label>
+              <input
+                id="asset-upload-file"
+                type="file"
+                class="file-input"
+                aria-describedby="asset-upload-help"
+                data-testid="upload-file-input"
+                (change)="onFileSelected($event)"
+              />
+              <span class="upload-help" id="asset-upload-help"
+                >Any file, such as a photo or a PDF, up to 28 MB.</span
+              >
+            </div>
             @if (uploadProgressValue >= 0) {
               <div class="progress-bar" data-testid="upload-progress">
                 <div class="progress-fill" [style.width.%]="uploadProgressValue"></div>
@@ -283,6 +296,46 @@ import { formatFileSize } from './format-file-size';
       }
       .asset-delete-action {
         margin-left: auto;
+      }
+      .upload-field {
+        display: grid;
+        gap: 8px;
+        label {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+      .file-input {
+        width: 100%;
+        min-height: 48px;
+        padding: 6px;
+        border: 1px solid #e5e4e1;
+        border-radius: 12px;
+        font-size: 16px;
+        color: #1a1918;
+        &::file-selector-button {
+          min-height: 44px;
+          margin-right: 12px;
+          padding: 10px 20px;
+          border: 1px solid #e5e4e1;
+          border-radius: 12px;
+          background: #f5f4f1;
+          color: #1a1918;
+          font: inherit;
+          font-weight: 500;
+          cursor: pointer;
+        }
+        &:hover::file-selector-button {
+          background: #e5e4e1;
+        }
+        &:focus-visible {
+          outline: 3px solid #3d8a5a;
+          outline-offset: 2px;
+        }
+      }
+      .upload-help {
+        font-size: 14px;
+        color: #1a1918cc;
       }
       .progress-bar {
         height: 6px;
