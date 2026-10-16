@@ -243,9 +243,9 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         right: 2px;
         background: #dc3545;
         color: #fff;
-        font-size: 10px;
-        width: 16px;
-        height: 16px;
+        font-size: 14px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -322,7 +322,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         font-weight: 700;
       }
       .metric-label {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .card {
@@ -369,7 +369,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         font-weight: 500;
       }
       .request-date {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .empty-state {
@@ -430,7 +430,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         background: #f5f4f1;
         text-decoration: none;
         color: #1a1918;
-        font-size: 13px;
+        font-size: 14px;
         text-align: center;
         transition: background 0.2s;
         &:hover {
@@ -457,7 +457,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         font-weight: 500;
       }
       .notice-date {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       @media (max-width: 768px) {

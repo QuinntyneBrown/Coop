@@ -153,7 +153,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
       th {
         text-align: left;
         padding: 12px 20px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: #1a1918cc;
         border-bottom: 1px solid #e5e4e1;
@@ -165,7 +165,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
       }
       .token-cell {
         font-family: monospace;
-        font-size: 13px;
+        font-size: 14px;
       }
       .modal-overlay {
         position: fixed;

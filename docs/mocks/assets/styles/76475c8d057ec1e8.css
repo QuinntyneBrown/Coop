@@ -13,7 +13,7 @@
 .user-avatar[_ngcontent-ng-c113394371] { width: 36px; height: 36px; border-radius: 50%; background: rgb(61, 138, 90); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
 .user-details[_ngcontent-ng-c113394371] { display: flex; flex-direction: column; }
 .user-name[_ngcontent-ng-c113394371] { font-size: 14px; font-weight: 500; }
-.user-role[_ngcontent-ng-c113394371] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
+.user-role[_ngcontent-ng-c113394371] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 @media (max-width: 768px) {
   .sidebar[_ngcontent-ng-c113394371] { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid rgb(229, 228, 225); }
 }

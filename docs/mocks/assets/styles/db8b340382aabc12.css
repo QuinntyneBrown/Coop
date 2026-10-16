@@ -6,7 +6,7 @@
 .top-bar-right[_ngcontent-ng-c4223793772] { display: flex; align-items: center; gap: 8px; }
 .icon-btn[_ngcontent-ng-c4223793772] { background: none; border: none; padding: 8px; border-radius: 10px; cursor: pointer; position: relative; color: rgb(26, 25, 24); }
 .icon-btn[_ngcontent-ng-c4223793772]:hover { background: rgb(245, 244, 241); }
-.notification-badge[_ngcontent-ng-c4223793772] { position: absolute; top: 2px; right: 2px; background: rgb(220, 53, 69); color: rgb(255, 255, 255); font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.notification-badge[_ngcontent-ng-c4223793772] { position: absolute; top: 2px; right: 2px; background: rgb(220, 53, 69); color: rgb(255, 255, 255); font-size: 14px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .dashboard-content[_ngcontent-ng-c4223793772] { padding: 24px 20px; max-width: 800px; margin: 0px auto; }
 .greeting-section[_ngcontent-ng-c4223793772] { margin-bottom: 24px; }
 .greeting-section[_ngcontent-ng-c4223793772] h1[_ngcontent-ng-c4223793772] { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
@@ -22,7 +22,7 @@
 .metric-icon[_ngcontent-ng-c4223793772] .material-icons[_ngcontent-ng-c4223793772] { font-size: 22px; }
 .metric-info[_ngcontent-ng-c4223793772] { display: flex; flex-direction: column; }
 .metric-count[_ngcontent-ng-c4223793772] { font-size: 24px; font-weight: 700; }
-.metric-label[_ngcontent-ng-c4223793772] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
+.metric-label[_ngcontent-ng-c4223793772] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 .card[_ngcontent-ng-c4223793772] { background: rgb(255, 255, 255); border-radius: 14px; border: 1px solid rgb(229, 228, 225); box-shadow: rgba(26, 25, 24, 0.03) 0px 2px 8px; margin-bottom: 24px; }
 .card-header[_ngcontent-ng-c4223793772] { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgb(229, 228, 225); }
 .card-header[_ngcontent-ng-c4223793772] h3[_ngcontent-ng-c4223793772] { font-size: 16px; font-weight: 600; }
@@ -32,7 +32,7 @@
 .request-item[_ngcontent-ng-c4223793772]:not(:last-child) { border-bottom: 1px solid rgb(245, 244, 241); }
 .request-info[_ngcontent-ng-c4223793772] { display: flex; flex-direction: column; }
 .request-title[_ngcontent-ng-c4223793772] { font-size: 14px; font-weight: 500; }
-.request-date[_ngcontent-ng-c4223793772] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
+.request-date[_ngcontent-ng-c4223793772] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 .empty-state[_ngcontent-ng-c4223793772] { padding: 24px; text-align: center; color: rgba(26, 25, 24, 0.8); }
 .badge-success[_ngcontent-ng-c4223793772] { background: rgb(215, 236, 222); color: rgb(36, 87, 55); }
 .badge-warning[_ngcontent-ng-c4223793772] { background: rgb(254, 243, 199); color: rgb(146, 64, 14); }
@@ -42,14 +42,14 @@
 .search-bar[_ngcontent-ng-c4223793772] input[_ngcontent-ng-c4223793772] { border: none; background: transparent; outline: none; font-size: 14px; }
 .search-bar[_ngcontent-ng-c4223793772] .material-icons[_ngcontent-ng-c4223793772] { font-size: 18px; color: rgba(26, 25, 24, 0.8); }
 .quick-actions-grid[_ngcontent-ng-c4223793772] { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 20px; }
-.quick-action-btn[_ngcontent-ng-c4223793772] { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; border-radius: 10px; background: rgb(245, 244, 241); text-decoration: none; color: rgb(26, 25, 24); font-size: 13px; text-align: center; transition: background 0.2s; }
+.quick-action-btn[_ngcontent-ng-c4223793772] { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; border-radius: 10px; background: rgb(245, 244, 241); text-decoration: none; color: rgb(26, 25, 24); font-size: 14px; text-align: center; transition: background 0.2s; }
 .quick-action-btn[_ngcontent-ng-c4223793772]:hover { background: rgb(229, 228, 225); }
 .quick-action-btn[_ngcontent-ng-c4223793772] .material-icons[_ngcontent-ng-c4223793772] { font-size: 24px; color: rgb(61, 138, 90); }
 .notices-list[_ngcontent-ng-c4223793772] { padding: 8px 0px; }
 .notice-item[_ngcontent-ng-c4223793772] { display: flex; justify-content: space-between; padding: 12px 20px; }
 .notice-item[_ngcontent-ng-c4223793772]:not(:last-child) { border-bottom: 1px solid rgb(245, 244, 241); }
 .notice-title[_ngcontent-ng-c4223793772] { font-size: 14px; font-weight: 500; }
-.notice-date[_ngcontent-ng-c4223793772] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
+.notice-date[_ngcontent-ng-c4223793772] { font-size: 14px; color: rgba(26, 25, 24, 0.8); }
 @media (max-width: 768px) {
   .top-bar[_ngcontent-ng-c4223793772] { flex-wrap: wrap; gap: 8px; }
   .top-bar-right[_ngcontent-ng-c4223793772] { flex: 1 1 100%; min-width: 0px; }

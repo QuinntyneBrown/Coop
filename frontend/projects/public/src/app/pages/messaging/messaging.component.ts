@@ -196,12 +196,12 @@ import { catchError, of } from 'rxjs';
       }
 
       .conv-time {
-        font-size: 12px;
+        font-size: 14px;
         color: var(--text-secondary);
       }
 
       .conv-preview {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
         overflow: hidden;
         text-overflow: ellipsis;
@@ -216,7 +216,7 @@ import { catchError, of } from 'rxjs';
         right: 20px;
         background: var(--primary);
         color: white;
-        font-size: 11px;
+        font-size: 14px;
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -286,7 +286,7 @@ import { catchError, of } from 'rxjs';
       }
 
       .participants {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
       }
 
@@ -338,7 +338,7 @@ import { catchError, of } from 'rxjs';
         }
 
         .message-sender {
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           color: var(--text-secondary);
           display: block;
@@ -350,7 +350,7 @@ import { catchError, of } from 'rxjs';
         }
 
         .message-time {
-          font-size: 11px;
+          font-size: 14px;
           color: var(--text-secondary);
           display: block;
           margin-top: 4px;

@@ -36,7 +36,7 @@
   --font-family-mono: ui-monospace, Consolas, monospace;
   --text-body: 400 1rem / 1.5 var(--font-family-sans);
   --text-body-sm: 400 0.875rem / 1.5 var(--font-family-sans);
-  --text-caption: 400 0.75rem / 1.5 var(--font-family-sans);
+  --text-caption: 400 0.875rem / 1.5 var(--font-family-sans);
   --text-code: 400 0.875rem / 1.5 var(--font-family-mono);
   --text-label: 500 0.875rem / 1.5 var(--font-family-sans);
   --text-h4: 600 1.25rem / 1.35 var(--font-family-sans);

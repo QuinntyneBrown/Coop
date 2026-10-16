@@ -21,4 +21,4 @@ input, select, textarea { font-family: Outfit, sans-serif; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
 .form-group input.ng-invalid.ng-touched, .form-group select.ng-invalid.ng-touched, .form-group textarea.ng-invalid.ng-touched { border-color: var(--error); }
 .form-group textarea { resize: vertical; min-height: 100px; }
-.form-group .error-message { color: var(--error); font-size: 13px; margin-top: 4px; }
+.form-group .error-message { color: var(--error); font-size: 14px; margin-top: 4px; }

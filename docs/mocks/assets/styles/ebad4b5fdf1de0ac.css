@@ -25,8 +25,8 @@
 .doc-icon.default[_ngcontent-ng-c4133025109] { background: rgba(26, 25, 24, 0.06); color: rgba(26, 25, 24, 0.8); }
 .doc-info[_ngcontent-ng-c4133025109] { flex: 1 1 0%; min-width: 0px; }
 .doc-info[_ngcontent-ng-c4133025109] h3[_ngcontent-ng-c4133025109] { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-.doc-info[_ngcontent-ng-c4133025109] .doc-type[_ngcontent-ng-c4133025109] { font-size: 12px; color: rgba(26, 25, 24, 0.8); margin-right: 12px; }
-.doc-info[_ngcontent-ng-c4133025109] .doc-date[_ngcontent-ng-c4133025109] { font-size: 12px; color: rgba(26, 25, 24, 0.8); white-space: nowrap; }
+.doc-info[_ngcontent-ng-c4133025109] .doc-type[_ngcontent-ng-c4133025109] { font-size: 14px; color: rgba(26, 25, 24, 0.8); margin-right: 12px; }
+.doc-info[_ngcontent-ng-c4133025109] .doc-date[_ngcontent-ng-c4133025109] { font-size: 14px; color: rgba(26, 25, 24, 0.8); white-space: nowrap; }
 .empty-state[_ngcontent-ng-c4133025109] { padding: 40px; text-align: center; color: rgba(26, 25, 24, 0.8); }
 .empty-state[_ngcontent-ng-c4133025109] .material-icons[_ngcontent-ng-c4133025109] { font-size: 48px; margin-bottom: 8px; }
 .loading[_ngcontent-ng-c4133025109] { text-align: center; padding: 40px; }

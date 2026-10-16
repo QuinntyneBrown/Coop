@@ -419,12 +419,12 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         font-size: 14px;
       }
       .request-desc {
-        font-size: 13px;
+        font-size: 14px;
         color: #1a1918cc;
         margin-bottom: 8px;
       }
       .request-date {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .detail-panel {
@@ -494,7 +494,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         color: #b42318;
       }
       .no-photos {
-        font-size: 13px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .detail-description {
@@ -518,7 +518,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         display: flex;
         justify-content: space-between;
         margin-bottom: 4px;
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .comment p {
@@ -644,7 +644,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
         padding: 6px 10px;
         background: #f5f4f1;
         border-radius: 8px;
-        font-size: 13px;
+        font-size: 14px;
       }
       /* Design-system tones; each request status has its own (New warning,
          Received gray, Started info, Completed success). */

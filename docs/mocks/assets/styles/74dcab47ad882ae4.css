@@ -19,9 +19,9 @@ input, select, textarea { font-family: Outfit, sans-serif; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: rgb(61, 138, 90); box-shadow: rgba(61, 138, 90, 0.1) 0px 0px 0px 3px; }
 .form-group input.ng-invalid.ng-touched, .form-group select.ng-invalid.ng-touched, .form-group textarea.ng-invalid.ng-touched { border-color: rgb(220, 53, 69); }
 .form-group textarea { resize: vertical; min-height: 80px; }
-.form-group .error-message { color: rgb(220, 53, 69); font-size: 12px; margin-top: 4px; }
+.form-group .error-message { color: rgb(220, 53, 69); font-size: 14px; margin-top: 4px; }
 .card { background: rgb(255, 255, 255); border-radius: 12px; box-shadow: rgba(26, 25, 24, 0.03) 0px 2px 8px; border: 1px solid rgb(229, 228, 225); }
-.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 14px; font-weight: 500; }
 .badge-success { background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); }
 .badge-danger { background: rgba(220, 53, 69, 0.1); color: rgb(220, 53, 69); }
 .badge-warning { background: rgba(245, 158, 11, 0.1); color: rgb(217, 119, 6); }

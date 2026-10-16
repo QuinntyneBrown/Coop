@@ -663,7 +663,7 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
 
       .error-message {
         color: var(--error);
-        font-size: 13px;
+        font-size: 14px;
         margin-bottom: 8px;
         padding: 8px;
         background: #fef2f2;

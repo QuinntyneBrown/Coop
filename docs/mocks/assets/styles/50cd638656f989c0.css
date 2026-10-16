@@ -3,9 +3,9 @@
 .page-header[_ngcontent-ng-c3281818387] h2[_ngcontent-ng-c3281818387] { font-size: 20px; font-weight: 600; }
 .invitations-table[_ngcontent-ng-c3281818387] { overflow-x: auto; }
 table[_ngcontent-ng-c3281818387] { width: 100%; border-collapse: collapse; }
-th[_ngcontent-ng-c3281818387] { text-align: left; padding: 12px 20px; font-size: 13px; font-weight: 600; color: rgba(26, 25, 24, 0.8); border-bottom: 1px solid rgb(229, 228, 225); }
+th[_ngcontent-ng-c3281818387] { text-align: left; padding: 12px 20px; font-size: 14px; font-weight: 600; color: rgba(26, 25, 24, 0.8); border-bottom: 1px solid rgb(229, 228, 225); }
 td[_ngcontent-ng-c3281818387] { padding: 12px 20px; font-size: 14px; border-bottom: 1px solid rgb(245, 244, 241); }
-.token-cell[_ngcontent-ng-c3281818387] { font-family: monospace; font-size: 13px; }
+.token-cell[_ngcontent-ng-c3281818387] { font-family: monospace; font-size: 14px; }
 .modal-overlay[_ngcontent-ng-c3281818387] { position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal-content[_ngcontent-ng-c3281818387] { width: 100%; max-width: 400px; padding: 32px; }
 .modal-content[_ngcontent-ng-c3281818387] h3[_ngcontent-ng-c3281818387] { margin-bottom: 20px; }

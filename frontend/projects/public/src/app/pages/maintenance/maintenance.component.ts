@@ -445,7 +445,7 @@ import { photoFileError } from './photo-file-error';
           line-height: 1.4;
         }
         .request-date {
-          font-size: 12px;
+          font-size: 14px;
           color: var(--text-secondary);
           margin-top: 8px;
           display: block;
@@ -453,7 +453,7 @@ import { photoFileError } from './photo-file-error';
       }
 
       .status-badge {
-        font-size: 12px;
+        font-size: 14px;
         padding: 2px 10px;
         border-radius: 12px;
         font-weight: 500;
@@ -479,7 +479,7 @@ import { photoFileError } from './photo-file-error';
       }
 
       .priority-badge {
-        font-size: 12px;
+        font-size: 14px;
         padding: 2px 10px;
         border-radius: 12px;
         font-weight: 500;
@@ -671,7 +671,7 @@ import { photoFileError } from './photo-file-error';
       }
 
       .photo-placeholder {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
       }
 
@@ -752,7 +752,7 @@ import { photoFileError } from './photo-file-error';
             margin-bottom: 4px;
           }
           .comment-date {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-secondary);
           }
           p {
@@ -785,7 +785,7 @@ import { photoFileError } from './photo-file-error';
       }
 
       .empty-text {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
       }
 
