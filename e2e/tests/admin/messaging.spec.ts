@@ -135,6 +135,15 @@ test.describe('Messaging', () => {
   });
 
   test.describe('Send Message', () => {
+    test('Given a conversation, when the admin sends a message, then every sender shows by display name', async () => {
+      await messagingPage.selectConversation(0);
+      await expect(messagingPage.messageSenders).toHaveText(['Avery Fielding', 'Margaret Okafor']);
+
+      await messagingPage.sendMessage('See you at the courtyard.');
+      await messagingPage.expectMessageVisible('See you at the courtyard.');
+      await expect(messagingPage.messageSenders).toHaveText(['Avery Fielding', 'Margaret Okafor', 'Avery Fielding']);
+    });
+
     test('should send a message in an existing conversation', async () => {
       const count = await messagingPage.getConversationCount();
       if (count > 0) {

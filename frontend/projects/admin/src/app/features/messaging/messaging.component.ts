@@ -587,12 +587,16 @@ export class MessagingComponent implements OnInit {
         body,
       })
       .subscribe({
-        next: () => {
-          this.messages.push({
-            body,
-            createdBy: this.authService.currentUser?.username,
-            createdOn: new Date().toISOString(),
-          });
+        next: (res: any) => {
+          // Show the saved message as the API names its sender, like the others.
+          this.messages.push(
+            res?.message ?? {
+              body,
+              senderId: this.authService.currentUser?.userId,
+              createdBy: this.authService.currentUser?.username,
+              createdOn: new Date().toISOString(),
+            },
+          );
           this.messageInput.reset();
         },
         error: () => {},
@@ -604,6 +608,8 @@ export class MessagingComponent implements OnInit {
   }
 
   isOwnMessage(msg: any): boolean {
+    const user = this.authService.currentUser;
+    if (msg.senderId && user?.userId) return msg.senderId === user.userId;
     return (
       msg.createdBy === this.authService.currentUser?.username ||
       msg.sender === this.authService.currentUser?.username
