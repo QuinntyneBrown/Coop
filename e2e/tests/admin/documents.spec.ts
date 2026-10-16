@@ -56,6 +56,13 @@ test.describe('Documents', () => {
       await expect(documentsPage.tabByLaws).toHaveAttribute('data-active', 'true');
     });
 
+    test('Given a by-law, then its card names the category like the By-Laws tab', async ({ mockApi }) => {
+      mockApi.createDocument({ title: 'E2E: Pets by-law', type: 'ByLaw', content: 'Pets.', published: true });
+      await documentsPage.goto();
+      await documentsPage.switchTab('bylaws');
+      await expect(documentsPage.documentTypes.first()).toHaveText('By-Law');
+    });
+
     test('should switch to Reports tab', async () => {
       await documentsPage.switchTab('reports');
       await expect(documentsPage.tabReports).toHaveAttribute('data-active', 'true');

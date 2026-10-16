@@ -15,6 +15,7 @@ export class DocumentsPage {
 
   // Document cards
   readonly documentCards: Locator;
+  readonly documentTypes: Locator;
 
   // New/Edit document dialog
   readonly documentDialog: Locator;
@@ -50,6 +51,7 @@ export class DocumentsPage {
     this.newDocumentButton = page.getByTestId('documents-new-button');
 
     this.documentCards = page.getByTestId('document-card');
+    this.documentTypes = this.documentCards.getByTestId('document-type');
 
     this.documentDialog = page.getByTestId('document-dialog');
     this.dialogTitle = page.getByTestId('document-dialog-title');
