@@ -21,7 +21,7 @@ import { AuthService } from '../../core/services/auth.service';
         <div class="header-content">
           <span class="material-icons header-icon">apartment</span>
           <h1 data-testid="register-hero-title">Join Your Cooperative</h1>
-          <p>Join your cooperative</p>
+          <p data-testid="register-hero-description">Create your account to get started</p>
         </div>
       </div>
 
