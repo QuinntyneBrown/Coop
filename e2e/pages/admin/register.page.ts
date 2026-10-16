@@ -6,6 +6,7 @@ export class RegisterPage {
   // Hero panel
   readonly heroPanel: Locator;
   readonly heroTitle: Locator;
+  readonly heroDescription: Locator;
 
   // Form panel
   readonly heading: Locator;
@@ -33,6 +34,7 @@ export class RegisterPage {
 
     this.heroPanel = page.getByTestId('register-hero-panel');
     this.heroTitle = page.getByTestId('register-hero-title');
+    this.heroDescription = page.getByTestId('register-hero-description');
 
     this.heading = page.getByTestId('register-heading');
     this.subtitle = page.getByTestId('register-subtitle');
@@ -69,6 +71,7 @@ export class RegisterPage {
   async expectHeroPanelVisible() {
     await expect(this.heroPanel).toBeVisible();
     await expect(this.heroTitle).toHaveText('Join Your Cooperative');
+    await expect(this.heroDescription).toHaveText('Create your account to get started');
   }
 
   async expectFormVisible() {
