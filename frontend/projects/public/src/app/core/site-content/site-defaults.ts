@@ -20,7 +20,7 @@ const photo = (src: string, alt: string, width: number, height: number): SitePho
 export const SITE_DEFAULTS: SiteContent = {
   header: {
     siteName: 'OWN Housing Co-op',
-    siteSubtitle: "Older Women's Network Housing Co-operative",
+    siteSubtitle: "Oakridge Women's Neighbourhood Housing Co-operative",
     menuLinks: [
       link('Home', '/'),
       link('About us', '/#about'),
@@ -79,7 +79,7 @@ export const SITE_DEFAULTS: SiteContent = {
     about: {
       eyebrow: 'Who we are',
       title: 'Older women built this place. We still run it.',
-      lead: "The Older Women's Network imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.",
+      lead: "Our founding members imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.",
       values: [
         {
           icon: 'members',

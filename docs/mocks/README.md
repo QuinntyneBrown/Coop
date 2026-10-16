@@ -114,7 +114,7 @@ completeness. No ATDD or tests for these design artifacts are introduced.
 
 `pages/public-landing/` is the one exception to "current UI only". The earlier
 capture of the implemented landing page was replaced by this hand-written
-proposal, made to show Older Women's Network Housing
+proposal, made to show Oakridge Women's Neighbourhood Housing
 Co-operative Inc. (OWN) what their CMS-driven public home page could be. The
 public app's `LandingComponent` now implements it (see
 `docs/detailed-designs/public-app/show-home-page/`); the mock remains the design
