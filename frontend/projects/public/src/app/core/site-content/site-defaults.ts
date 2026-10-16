@@ -73,7 +73,7 @@ export const SITE_DEFAULTS: SiteContent = {
       figures: [
         { value: '142', label: 'homes, from bachelor to two-bedroom' },
         { value: '1997', label: 'the year we opened our doors' },
-        { value: '1', label: 'rooftop garden, shared by everyone' },
+        { value: '100%', label: 'run by the women who live here' },
       ],
     },
     about: {
