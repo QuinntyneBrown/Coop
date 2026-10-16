@@ -229,6 +229,7 @@
 }
 .own-feature__media img {
   width: 100%;
+  height: auto;
   border-radius: var(--own-radius-lg);
   box-shadow: var(--own-shadow-1);
 }
@@ -352,6 +353,10 @@
   border-radius: var(--own-radius-pill);
   box-shadow: var(--own-shadow-1);
 }
+.own-person img {
+  height: auto;
+  object-fit: cover;
+}
 .own-person__initials {
   display: grid;
   place-items: center;
@@ -382,6 +387,7 @@
 }
 .own-quote__media img {
   width: min(100%, 22rem);
+  height: auto;
   margin-inline: auto;
   border-radius: var(--own-radius-lg) 6rem var(--own-radius-lg) var(--own-radius-lg);
   box-shadow: var(--own-shadow-1);
