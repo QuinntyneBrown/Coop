@@ -1,0 +1,6 @@
+[
+  {"name": "admin-website", "mock": "pages/admin-website/default.html", "phone": false},
+  {"name": "admin-content-editor", "mock": "dialogs/admin-content-editor/default.html", "phone": false},
+  {"name": "admin-content-editor-list", "mock": "dialogs/admin-content-editor/list.html", "phone": false},
+  {"name": "admin-photo-picker", "mock": "dialogs/admin-photo-picker/default.html", "phone": false}
+]

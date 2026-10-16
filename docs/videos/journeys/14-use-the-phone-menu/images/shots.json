@@ -1,0 +1,4 @@
+[
+  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true},
+  {"name": "public-landing-menu", "mock": "pages/public-landing/menu.html", "phone": true}
+]

@@ -1,0 +1,10 @@
+[
+  {"name": "admin-maintenance", "mock": "pages/admin-maintenance/default.html", "phone": false},
+  {"name": "admin-maintenance-new", "mock": "pages/admin-maintenance/new.html", "phone": false},
+  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
+  {"name": "admin-maintenance-comments", "mock": "pages/admin-maintenance/comments.html", "phone": false},
+  {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
+  {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
+  {"name": "admin-maintenance-detail-completed", "mock": "pages/admin-maintenance/detail-completed.html", "phone": false},
+  {"name": "admin-maintenance-detail-photos", "mock": "pages/admin-maintenance/detail-photos.html", "phone": false}
+]

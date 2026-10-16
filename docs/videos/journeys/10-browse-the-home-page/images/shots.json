@@ -1,0 +1,8 @@
+[
+  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true},
+  {"name": "public-landing-about", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 960},
+  {"name": "public-landing-blocks", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 2850},
+  {"name": "public-landing-events", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4140},
+  {"name": "public-landing-board", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4770},
+  {"name": "public-landing-footer", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 6400}
+]

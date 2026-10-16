@@ -1,0 +1,6 @@
+[
+  {"name": "admin-pages", "mock": "pages/admin-pages/default.html", "phone": false},
+  {"name": "admin-page-editor", "mock": "dialogs/admin-page-editor/default.html", "phone": false},
+  {"name": "admin-page-editor-edit", "mock": "dialogs/admin-page-editor/edit.html", "phone": false},
+  {"name": "admin-page-remove", "mock": "dialogs/admin-page-remove/default.html", "phone": false}
+]

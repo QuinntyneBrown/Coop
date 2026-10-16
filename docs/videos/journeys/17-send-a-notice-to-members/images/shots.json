@@ -1,0 +1,7 @@
+[
+  {"name": "admin-documents", "mock": "pages/admin-documents/default.html", "phone": false},
+  {"name": "admin-document-create", "mock": "dialogs/admin-document-create/default.html", "phone": false},
+  {"name": "admin-document-create-send", "mock": "dialogs/admin-document-create/send.html", "phone": false},
+  {"name": "admin-notice-sent", "mock": "notifications/admin-notice-sent/success.html", "phone": false},
+  {"name": "admin-document-create-send-error", "mock": "dialogs/admin-document-create/send-error.html", "phone": false}
+]

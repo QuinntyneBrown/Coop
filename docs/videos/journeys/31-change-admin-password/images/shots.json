@@ -1,0 +1,4 @@
+[
+  {"name": "admin-change-password", "mock": "pages/admin-change-password/default.html", "phone": false},
+  {"name": "admin-change-password-mismatch", "mock": "pages/admin-change-password/mismatch.html", "phone": false}
+]

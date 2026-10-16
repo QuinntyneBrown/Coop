@@ -1,0 +1,5 @@
+[
+  {"name": "public-documents", "mock": "pages/public-documents/default.html", "phone": true},
+  {"name": "public-documents-notices", "mock": "pages/public-documents/notices.html", "phone": true},
+  {"name": "public-document-viewer", "mock": "dialogs/public-document-viewer/default.html", "phone": true}
+]

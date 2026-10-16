@@ -41,6 +41,8 @@ def main() -> int:
                     # Show the proposal's "Edited in admin" tags, keep review chrome hidden.
                     page.add_style_tag(content=".cms-tag{display:inline-flex !important}")
                 if shot.get("scroll"):
+                    # Mocks may set smooth scrolling; jump straight to the position.
+                    page.add_style_tag(content="html{scroll-behavior:auto !important}")
                     page.evaluate(f"window.scrollTo(0, {int(shot['scroll'])})")
                 page.wait_for_timeout(300)
                 out = images / f"{shot['name']}-{label}.png"

@@ -1,0 +1,4 @@
+[
+  {"name": "admin-dashboard", "mock": "pages/admin-dashboard/default.html", "phone": false},
+  {"name": "admin-dashboard-lower", "mock": "pages/admin-dashboard/default.html", "phone": false, "scroll": 420}
+]

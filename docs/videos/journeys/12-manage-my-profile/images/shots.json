@@ -1,0 +1,8 @@
+[
+  {"name": "public-profile", "mock": "pages/public-profile/default.html", "phone": true},
+  {"name": "public-profile-edit", "mock": "pages/public-profile/edit.html", "phone": true},
+  {"name": "public-profile-saved", "mock": "notifications/public-profile-saved/success.html", "phone": true},
+  {"name": "public-profile-photo-preview", "mock": "pages/public-profile/photo-preview.html", "phone": true},
+  {"name": "public-profile-photo", "mock": "pages/public-profile/photo.html", "phone": true},
+  {"name": "public-profile-switcher", "mock": "dialogs/public-profile-switcher/default.html", "phone": true, "scroll": 420}
+]

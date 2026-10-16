@@ -1,0 +1,8 @@
+[
+  {"name": "admin-users", "mock": "pages/admin-users/default.html", "phone": false},
+  {"name": "admin-users-page-2", "mock": "pages/admin-users/page-2.html", "phone": false},
+  {"name": "admin-users-no-results", "mock": "pages/admin-users/no-results.html", "phone": false},
+  {"name": "admin-user-create", "mock": "dialogs/admin-user-create/default.html", "phone": false},
+  {"name": "admin-user-edit", "mock": "dialogs/admin-user-edit/default.html", "phone": false},
+  {"name": "admin-user-delete", "mock": "dialogs/admin-user-delete/default.html", "phone": false}
+]

@@ -1,0 +1,6 @@
+[
+  {"name": "public-documents", "mock": "pages/public-documents/default.html", "phone": true},
+  {"name": "public-documents-bylaws", "mock": "pages/public-documents/bylaws.html", "phone": true},
+  {"name": "public-documents-reports", "mock": "pages/public-documents/reports.html", "phone": true},
+  {"name": "public-document-viewer", "mock": "dialogs/public-document-viewer/default.html", "phone": true}
+]

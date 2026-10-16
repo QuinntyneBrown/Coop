@@ -1,0 +1,6 @@
+[
+  {"name": "public-onboarding", "mock": "pages/public-onboarding/default.html", "phone": true},
+  {"name": "public-onboarding-profile", "mock": "pages/public-onboarding/profile.html", "phone": true},
+  {"name": "public-onboarding-unit-selected", "mock": "pages/public-onboarding/unit-selected.html", "phone": true},
+  {"name": "public-onboarding-success", "mock": "pages/public-onboarding/success.html", "phone": true}
+]

@@ -1,0 +1,6 @@
+[
+  {"name": "public-maintenance", "mock": "pages/public-maintenance/default.html", "phone": true},
+  {"name": "public-maintenance-started", "mock": "pages/public-maintenance/started.html", "phone": true},
+  {"name": "public-maintenance-detail", "mock": "dialogs/public-maintenance-detail/default.html", "phone": true},
+  {"name": "public-maintenance-detail-photos", "mock": "dialogs/public-maintenance-detail/photos.html", "phone": true}
+]

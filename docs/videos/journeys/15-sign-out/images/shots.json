@@ -1,0 +1,4 @@
+[
+  {"name": "public-profile", "mock": "pages/public-profile/default.html", "phone": true, "scroll": 420},
+  {"name": "public-login", "mock": "pages/public-login/default.html", "phone": true}
+]

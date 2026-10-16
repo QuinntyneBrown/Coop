@@ -1,0 +1,5 @@
+[
+  {"name": "admin-messaging", "mock": "pages/admin-messaging/default.html", "phone": false},
+  {"name": "admin-new-conversation", "mock": "dialogs/admin-new-conversation/default.html", "phone": false},
+  {"name": "admin-messaging-chat", "mock": "pages/admin-messaging/chat.html", "phone": false}
+]

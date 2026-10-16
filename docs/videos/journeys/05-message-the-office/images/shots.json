@@ -1,0 +1,5 @@
+[
+  {"name": "public-messaging", "mock": "pages/public-messaging/default.html", "phone": true},
+  {"name": "public-messaging-chat", "mock": "pages/public-messaging/chat.html", "phone": true},
+  {"name": "public-messaging-read", "mock": "pages/public-messaging/read.html", "phone": true}
+]
