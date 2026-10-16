@@ -93,7 +93,7 @@
           <tr><th scope="row">Forgot password</th><td>None. The handler is a stub.</td><td>None</td></tr>
           <tr><th scope="row">Change password (admin)</th><td>Success alert "Password updated successfully"</td><td>Field errors only; no visible request failure</td></tr>
           <tr><th scope="row">Save profile (admin)</th><td>Success alert "Profile updated successfully"</td><td>None: the alert can appear after a failed save</td></tr>
-          <tr><th scope="row">Save profile (public)</th><td>Green line "Profile updated successfully!"</td><td>None: same as admin</td></tr>
+          <tr><th scope="row">Save profile (public)</th><td>Success alert "Profile updated successfully"</td><td>None: same as admin</td></tr>
           <tr><th scope="row">Save theme (admin settings)</th><td>Success alert "Theme saved successfully"</td><td>None: values are stored locally, so it always succeeds</td></tr>
           <tr><th scope="row">Create request, user, document, invitation</th><td>Dialog closes and the list reloads</td><td>None: some dialogs close on failure</td></tr>
           <tr><th scope="row">Delete user, document, asset</th><td>Confirm dialog closes and the list reloads</td><td>None</td></tr>
@@ -211,7 +211,7 @@
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
       <ul>
-        <li><b>Success</b>: "{Thing} {past participle} successfully": "Password updated successfully", "Profile updated successfully", "Theme saved successfully". No exclamation mark (the public profile line has one).</li>
+        <li><b>Success</b>: "{Thing} {past participle} successfully": "Password updated successfully", "Profile updated successfully", "Theme saved successfully". No exclamation mark.</li>
         <li><b>Failure</b>: say what failed in plain words, no codes: "Invalid username or password".</li>
         <li><b>Empty</b>: "No {things} found". The mocks use the same sentence for an empty list and a filter with no match; write a second sentence only when the next step is obvious.</li>
         <li><b>Do not</b> use "Oops", "Whoops" or apologies; do not repeat the same message in a field and in a banner.</li>

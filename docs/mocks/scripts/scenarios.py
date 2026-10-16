@@ -107,7 +107,7 @@ for app in ['public','admin']:
         else:
             state(s,'invalid',dict(editMode=True),action='c.profileForm.markAllAsTouched()')
             state(s,'board-edit',dict(currentProfile=PROFILES[1]),action='c.enterEditMode()')
-        notice(app,name+'-saved',name,[15],dict(successMessage='Profile updated successfully!') if app=='public' else dict(editMode=True,successMessage='Profile updated successfully'),note='The source also shows success after an API save failure.')
+        notice(app,name+'-saved',name,[15],dict(successMessage='Profile updated successfully') if app=='public' else dict(editMode=True,successMessage='Profile updated successfully'),note='The source also shows success after an API save failure.')
 
 s=add('admin','users',[1,2,3,13,57],dict(users=USERS[:2],allUsers=USERS,page=1,pageSize=2,totalCount=4,totalPages=2,pages=[1,2])); state(s)
 state(s,'empty',dict(users=[],allUsers=[],totalCount=0,totalPages=1,pages=[1])); state(s,'no-results',dict(users=[],totalCount=0)); state(s,'page-2',dict(users=USERS[2:],page=2))

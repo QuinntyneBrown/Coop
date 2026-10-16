@@ -106,6 +106,13 @@ test.describe('Profile', () => {
       await profile.expectEditSuccess();
     });
 
+    test('should confirm the save in a polite status message', async () => {
+      await profile.goto();
+      await profile.editProfile({ phone: '555-0177' });
+      await expect(profile.successMessage).toHaveText('Profile updated successfully');
+      await expect(profile.successMessage).toHaveAttribute('role', 'status');
+    });
+
     test('should update displayed name after editing', async () => {
       await profile.goto();
       await profile.editProfile({ firstName: 'TestName' });

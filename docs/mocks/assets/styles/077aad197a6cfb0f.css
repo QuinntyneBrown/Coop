@@ -12,11 +12,11 @@ h1[_ngcontent-ng-c4025603141] { font-size: 22px; font-weight: 600; margin-bottom
 .info-row[_ngcontent-ng-c4025603141] .info-label[_ngcontent-ng-c4025603141] { font-size: 14px; color: var(--text-secondary); }
 .info-row[_ngcontent-ng-c4025603141] .info-value[_ngcontent-ng-c4025603141] { font-size: 14px; font-weight: 500; }
 .btn-sm[_ngcontent-ng-c4025603141] { padding: 6px 16px; font-size: 14px; }
-.success-message[_ngcontent-ng-c4025603141] { background: rgb(220, 252, 231); border: 1px solid rgb(187, 247, 208); color: rgb(22, 101, 52); padding: 10px; border-radius: var(--radius-sm); margin-bottom: 16px; text-align: center; font-size: 14px; }
+.success-message[_ngcontent-ng-c4025603141] { background: rgb(215, 236, 222); border: 1px solid rgb(179, 217, 193); color: rgb(36, 87, 55); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 16px; font-weight: 500; }
 .edit-form[_ngcontent-ng-c4025603141] .card[_ngcontent-ng-c4025603141] { margin-bottom: 16px; }
 .edit-actions[_ngcontent-ng-c4025603141] { display: flex; gap: 12px; margin-top: 16px; }
 .edit-actions[_ngcontent-ng-c4025603141] .btn[_ngcontent-ng-c4025603141] { flex: 1 1 0%; }
-.success-message[_ngcontent-ng-c4025603141] { background: rgb(220, 252, 231); border: 1px solid rgb(187, 247, 208); color: rgb(22, 101, 52); padding: 10px; border-radius: var(--radius-sm); margin-bottom: 16px; text-align: center; font-size: 14px; }
+.success-message[_ngcontent-ng-c4025603141] { background: rgb(215, 236, 222); border: 1px solid rgb(179, 217, 193); color: rgb(36, 87, 55); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 16px; font-weight: 500; }
 .profile-switcher-section[_ngcontent-ng-c4025603141] { margin-top: 16px; }
 .profile-switcher-section[_ngcontent-ng-c4025603141] h3[_ngcontent-ng-c4025603141] { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
 .switcher-trigger[_ngcontent-ng-c4025603141] { display: flex; justify-content: space-between; align-items: center; padding: 10px 0px; cursor: pointer; }

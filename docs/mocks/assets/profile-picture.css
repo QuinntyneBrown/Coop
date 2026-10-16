@@ -11,7 +11,7 @@
 .photo-actions .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
 .photo-hint { font-size: 14px; color: #5f5e5b; margin: 0; }
 .photo-error { color: #b42318; font-size: 15px; margin: 0; }
-.photo-notice { color: #3d8a5a; font-size: 15px; font-weight: 500; margin: 0; }
+.photo-notice { color: #2d6b44; font-size: 16px; font-weight: 500; margin: 0; }
 .message-from { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
 .message-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .submitted-by { display: flex; align-items: center; gap: 8px; }
