@@ -42,7 +42,7 @@ One short video per user journey in [`docs/user-journeys.md`](../user-journeys.m
 | [Journey 25 · Manage website pages](journeys/25-manage-website-pages/README.md) | Create, edit and remove public content pages. | about 1 min 35 s |
 | [Journey 26 · Manage roles and privileges](journeys/26-manage-roles-and-privileges/README.md) | Select a role and toggle its privileges. | about 1 min 27 s |
 | [Journey 27 · Manage the board of directors](journeys/27-manage-the-board-of-directors/README.md) | Add, edit, reorder and remove directors. | about 1 min 35 s |
-| [Journey 28 · Manage profiles](journeys/28-manage-profiles/README.md) | Select a profile, edit it, set a board title. | about 1 min 18 s |
+| [Journey 28 · Manage profiles](journeys/28-manage-profiles/README.md) | Select a profile, edit it, set a board title. | about 1 min 23 s |
 | [Journey 29 · Manage digital assets](journeys/29-manage-digital-assets/README.md) | Upload, search, view and delete images and files. | about 1 min 27 s |
 | [Journey 30 · Customize the theme](journeys/30-customize-the-theme/README.md) | Change, save or reset theme colours by scope. | about 1 min 18 s |
 | [Journey 31 · Change admin password](journeys/31-change-admin-password/README.md) | Update the administrator's password. | about 1 min 24 s |

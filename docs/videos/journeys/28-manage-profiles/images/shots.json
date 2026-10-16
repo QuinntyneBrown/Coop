@@ -1,5 +1,7 @@
 [
   {"name": "admin-profiles", "mock": "pages/admin-profiles/default.html", "phone": false},
   {"name": "admin-profiles-edit", "mock": "pages/admin-profiles/edit.html", "phone": false},
-  {"name": "admin-profiles-board-edit", "mock": "pages/admin-profiles/board-edit.html", "phone": false}
+  {"name": "admin-profiles-edit-saved", "mock": "pages/admin-profiles/edit.html", "phone": false, "js": "const form = document.querySelector('form'); const note = document.createElement('div'); for (const a of form.attributes) { if (a.name.startsWith('_ngcontent')) note.setAttribute(a.name, ''); } note.className = 'alert alert-success'; note.setAttribute('data-testid', 'profile-success-message'); note.textContent = 'Profile updated successfully'; form.after(note);"},
+  {"name": "admin-profiles-board-title", "mock": "pages/admin-profiles/board-edit.html", "phone": false, "js": "const t = document.querySelector('[data-testid=profile-board-title]'); t.value = 'Treasurer'; t.setAttribute('value', 'Treasurer');"},
+  {"name": "admin-profiles-board-saved", "mock": "pages/admin-profiles/board-edit.html", "phone": false, "js": "const t = document.querySelector('[data-testid=profile-board-title]'); t.value = 'Treasurer'; t.setAttribute('value', 'Treasurer'); const form = document.querySelector('form'); const note = document.createElement('div'); for (const a of form.attributes) { if (a.name.startsWith('_ngcontent')) note.setAttribute(a.name, ''); } note.className = 'alert alert-success'; note.setAttribute('data-testid', 'profile-success-message'); note.textContent = 'Profile updated successfully'; form.after(note);"}
 ]

@@ -1,6 +1,6 @@
 # Journey 28 · Manage profiles
 
-> **Runtime:** about 1 min 18 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 23 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [28-manage-profiles.mp4](28-manage-profiles.mp4) · [Slides](slides.html) · **Audio:** [28-manage-profiles.mp3](28-manage-profiles.mp3) · [Transcript](script.md)
 
@@ -23,10 +23,14 @@ By the end, the viewer can:
 | --- | --- |
 | `images/admin-profiles-1280.png` | My Profiles, with the active profile marked |
 | `images/admin-profiles-edit-1280.png` | The Edit Member Profile form |
-| `images/admin-profiles-board-edit-1280.png` | The Edit BoardMember Profile form with Board Title |
+| `images/admin-profiles-edit-saved-1280.png` | The same form after Save Changes, with Profile updated successfully |
+| `images/admin-profiles-board-title-1280.png` | The board member profile with Treasurer in Board Title |
+| `images/admin-profiles-board-saved-1280.png` | The same, saved, with Profile updated successfully |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+The mocks have no typed Board Title or saved note, so `shots.json` adds
+them with a short script before the screenshot.
 
 ## Run sheet
 
@@ -34,8 +38,8 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | --- | --- | --- |
 | 00:00-00:19 | Welcome | Title; one person, more than one profile |
 | 00:19-00:54 | Edit a profile | Profiles, select, Save Changes or Cancel |
-| 00:54-01:05 | Set a board title | The Board Title box |
-| 01:05-01:18 | In short | Summary, thank you |
+| 00:54-01:10 | Set a board title | The Board Title box, saved |
+| 01:10-01:23 | In short | Summary, thank you |
 
 ## Demo commands
 
