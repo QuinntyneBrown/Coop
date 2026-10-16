@@ -229,29 +229,34 @@ import { catchError, of } from 'rxjs';
 
       .step-dots {
         display: flex;
-        gap: 8px;
+        align-items: center;
+        gap: 10px;
       }
 
+      /* Every dot keeps at least 3:1 contrast with the page (WCAG 1.4.11). */
       .step-dot {
-        width: 10px;
-        height: 10px;
+        width: 14px;
+        height: 14px;
         border-radius: 50%;
-        background: var(--border);
+        border: 2px solid var(--text-secondary);
+        background: transparent;
         transition: all 0.3s;
 
         &.active {
-          background: var(--primary);
+          border-color: var(--primary-dark);
+          background: var(--primary-dark);
           transform: scale(1.2);
         }
         &.completed {
+          border-color: var(--primary);
           background: var(--primary);
-          opacity: 0.5;
         }
       }
 
       .step-label {
-        font-size: 13px;
-        color: var(--text-secondary);
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-primary);
       }
 
       .step-content {
