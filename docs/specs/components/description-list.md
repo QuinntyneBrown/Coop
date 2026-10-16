@@ -32,7 +32,7 @@ Every label-and-value group in `docs/mocks` (the `.info-row` on 2 profile states
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| `pages/public-profile/*`, `notifications/public-profile-saved`, `dialogs/public-profile-switcher` | items Username, Email, Phone, Unit, Member since | "mira.fern", "mira@example.invalid", "555-0101", "101", "Oct 13, 2026"; missing phone or unit → "Not provided" (the mocks' blank, "Not set", "Not assigned") | default, missing values (`empty`) | card, dialog |
+| `pages/public-profile/*`, `notifications/public-profile-saved`, `dialogs/public-profile-switcher` | items Username, Email, Phone, Unit, Member since | "mira.fern", "mira@example.invalid", "555-0101", "101", "Mar 1, 2019"; missing phone or unit → "Not provided" (the mocks' blank, "Not set", "Not assigned"); an unknown join date leaves out the Member since row | default, missing values (`empty`) | card, dialog |
 | `dialogs/admin-asset-detail/default` | items Name, Type, Size, Dimensions (images only), Created | "Courtyard plan.pdf", "application/pdf", "2 KB", "1200 × 800 px", "Oct 13, 2026, 8:00 AM" (the mock shows "2048" and seconds) | default | dialog |
 | `pages/admin-maintenance/detail-*`, `dialogs/public-maintenance-detail/*` | items Status (badge), Priority, Submitted, Received, Started, Completed, Completed by, Address, Phone, Unattended entry | badges "New" (warning), "Received" (gray), "Started" (info), "Completed" (success); "High"; "Oct 13, 2026, 8:00 AM"; "Tavi Moss"; "101 Fictional Court, unit 101"; "555-0101"; "No" | default per status | card, dialog |
 
@@ -103,7 +103,7 @@ The design-system page states the list has no hover, selected, editable, loading
     <div class="info-row"><dt class="info-label">Email</dt><dd class="info-value">mira@example.invalid</dd></div>
     <div class="info-row"><dt class="info-label">Phone</dt><dd class="info-value">Not provided</dd></div>
     <div class="info-row"><dt class="info-label">Unit</dt><dd class="info-value">101</dd></div>
-    <div class="info-row"><dt class="info-label">Member since</dt><dd class="info-value">Oct 13, 2026</dd></div>
+    <div class="info-row"><dt class="info-label">Member since</dt><dd class="info-value">Mar 1, 2019</dd></div>
   </dl>
 </coop-description-list>
 ```
