@@ -1,7 +1,7 @@
-.messaging-page[_ngcontent-ng-c3787445096] { min-height: 100vh; background: rgb(245, 244, 241); padding-bottom: 72px; }
+.messaging-page[_ngcontent-ng-c3787445096] { display: flex; flex-direction: column; height: 100vh; background: rgb(245, 244, 241); }
 .page-header[_ngcontent-ng-c3787445096] { padding: 20px 24px; }
 .page-header[_ngcontent-ng-c3787445096] h1[_ngcontent-ng-c3787445096] { font-size: 24px; font-weight: 600; }
-.messaging-layout[_ngcontent-ng-c3787445096] { display: flex; height: calc(-80px + 100vh); }
+.messaging-layout[_ngcontent-ng-c3787445096] { display: flex; flex: 1 1 0%; min-height: 0px; }
 .conversation-list-panel[_ngcontent-ng-c3787445096] { width: 360px; background: rgb(255, 255, 255); border-right: 1px solid rgb(229, 228, 225); overflow-y: auto; flex-shrink: 0; }
 .conversation-list-panel[_ngcontent-ng-c3787445096] h2[_ngcontent-ng-c3787445096] { padding: 16px 20px 0px; font-size: 18px; font-weight: 600; }
 .conv-toolbar[_ngcontent-ng-c3787445096] { display: flex; gap: 8px; padding: 12px 20px; }
@@ -52,6 +52,8 @@
 }
 .mobile-only[_ngcontent-ng-c3787445096] { display: none; }
 @media (max-width: 768px) {
+  .messaging-page[_ngcontent-ng-c3787445096] { display: block; height: auto; min-height: 100vh; padding-bottom: 72px; }
+  .messaging-layout[_ngcontent-ng-c3787445096] { height: calc(-80px + 100vh); }
   .conversation-list-panel[_ngcontent-ng-c3787445096] { width: 100%; }
   .conversation-list-panel.hidden-mobile[_ngcontent-ng-c3787445096] { display: none; }
   .back-btn[_ngcontent-ng-c3787445096] { display: block; }

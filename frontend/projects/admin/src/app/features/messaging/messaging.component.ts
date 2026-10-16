@@ -184,9 +184,10 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
   styles: [
     `
       .messaging-page {
-        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
         background: #f5f4f1;
-        padding-bottom: 72px;
       }
       .page-header {
         padding: 20px 24px;
@@ -197,7 +198,8 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .messaging-layout {
         display: flex;
-        height: calc(100vh - 80px);
+        flex: 1;
+        min-height: 0;
       }
       .conversation-list-panel {
         width: 360px;
@@ -476,6 +478,15 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         display: none;
       }
       @media (max-width: 768px) {
+        .messaging-page {
+          display: block;
+          height: auto;
+          min-height: 100vh;
+          padding-bottom: 72px;
+        }
+        .messaging-layout {
+          height: calc(100vh - 80px);
+        }
         .conversation-list-panel {
           width: 100%;
         }
