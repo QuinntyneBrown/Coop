@@ -4,7 +4,7 @@ h1[_ngcontent-ng-c4025603141] { font-size: 22px; font-weight: 600; margin-bottom
 .avatar-wrapper[_ngcontent-ng-c4025603141] { position: relative; width: 96px; height: 96px; }
 .avatar-img[_ngcontent-ng-c4025603141] { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); }
 .avatar-placeholder[_ngcontent-ng-c4025603141] { width: 96px; height: 96px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; border: 3px solid var(--border); }
-.avatar-upload-btn[_ngcontent-ng-c4025603141] { position: absolute; bottom: 0px; right: 0px; width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; border: 2px solid white; display: flex; align-items: center; justify-content: center; }
+.avatar-upload-btn[_ngcontent-ng-c4025603141] { position: absolute; bottom: -6px; right: -6px; width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; border: 2px solid white; display: flex; align-items: center; justify-content: center; }
 .info-card[_ngcontent-ng-c4025603141] .info-header[_ngcontent-ng-c4025603141] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .info-card[_ngcontent-ng-c4025603141] .info-header[_ngcontent-ng-c4025603141] h2[_ngcontent-ng-c4025603141] { font-size: 20px; font-weight: 600; }
 .info-row[_ngcontent-ng-c4025603141] { display: flex; justify-content: space-between; padding: 10px 0px; border-bottom: 1px solid var(--border); }

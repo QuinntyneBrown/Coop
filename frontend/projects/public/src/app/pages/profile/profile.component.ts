@@ -478,10 +478,11 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         border: 3px solid var(--border);
       }
 
+      /* One size in every state; set just outside the circle so it hides little of the photo. */
       .avatar-upload-btn {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: -6px;
+        right: -6px;
         width: 44px;
         height: 44px;
         border-radius: 50%;
