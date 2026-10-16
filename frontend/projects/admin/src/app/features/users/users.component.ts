@@ -77,39 +77,49 @@ import { TopbarComponent } from '../../layout/topbar.component';
                   </button>
                 </td>
               </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="empty-row" data-testid="users-empty-state">
+                  No users found
+                </td>
+              </tr>
             }
           </tbody>
         </table>
         <div class="pagination" data-testid="users-pagination">
-          <span data-testid="users-pagination-info"
-            >Showing {{ (page - 1) * pageSize + 1 }}-{{ Math.min(page * pageSize, totalCount) }} of
-            {{ totalCount }} users</span
-          >
-          <div class="page-controls">
-            <button
-              (click)="goToPage(page - 1)"
-              [disabled]="page <= 1"
-              data-testid="users-pagination-prev"
-            >
-              &laquo;
-            </button>
-            @for (p of pages; track p) {
+          <span data-testid="users-pagination-info">
+            Showing {{ totalCount ? (page - 1) * pageSize + 1 : 0 }}-{{
+              Math.min(page * pageSize, totalCount)
+            }}
+            of {{ totalCount }} users
+          </span>
+          @if (totalPages > 1) {
+            <div class="page-controls">
               <button
-                [class.active]="p === page"
-                (click)="goToPage(p)"
-                data-testid="users-pagination-page"
+                (click)="goToPage(page - 1)"
+                [disabled]="page <= 1"
+                data-testid="users-pagination-prev"
               >
-                {{ p }}
+                &laquo;
               </button>
-            }
-            <button
-              (click)="goToPage(page + 1)"
-              [disabled]="page >= totalPages"
-              data-testid="users-pagination-next"
-            >
-              &raquo;
-            </button>
-          </div>
+              @for (p of pages; track p) {
+                <button
+                  [class.active]="p === page"
+                  (click)="goToPage(p)"
+                  data-testid="users-pagination-page"
+                >
+                  {{ p }}
+                </button>
+              }
+              <button
+                (click)="goToPage(page + 1)"
+                [disabled]="page >= totalPages"
+                data-testid="users-pagination-next"
+              >
+                &raquo;
+              </button>
+            </div>
+          }
         </div>
       </div>
 
@@ -221,6 +231,12 @@ import { TopbarComponent } from '../../layout/topbar.component';
         padding: 12px 20px;
         font-size: 14px;
         border-bottom: 1px solid #f5f4f1;
+      }
+      .empty-row {
+        padding: 32px 20px;
+        text-align: center;
+        font-size: 15px;
+        color: #1a1918cc;
       }
       .user-cell {
         display: flex;
@@ -414,27 +430,42 @@ export class UsersComponent implements OnInit {
   }
 
   private allUsers: any[] = [];
+  private matchingUsers: any[] = [];
+  private query = '';
 
   private loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data: any) => {
         this.allUsers = Array.isArray(data) ? data : data?.users || [];
-        this.totalCount = this.allUsers.length;
-        this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-        this.users = this.allUsers.slice(
-          (this.page - 1) * this.pageSize,
-          this.page * this.pageSize,
-        );
+        this.applySearch();
       },
       error: () => {},
     });
   }
 
+  /** Filters by the search query, then pages the matches. */
+  private applySearch(): void {
+    this.matchingUsers = this.query
+      ? this.allUsers.filter((u: any) => (u.username || '').toLowerCase().includes(this.query))
+      : this.allUsers;
+    this.totalCount = this.matchingUsers.length;
+    this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.page = Math.min(this.page, this.totalPages);
+    this.showPage();
+  }
+
+  private showPage(): void {
+    this.users = this.matchingUsers.slice(
+      (this.page - 1) * this.pageSize,
+      this.page * this.pageSize,
+    );
+  }
+
   goToPage(p: number): void {
     if (p < 1 || p > this.totalPages) return;
     this.page = p;
-    this.users = this.allUsers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
+    this.showPage();
   }
 
   addUser(): void {
@@ -450,17 +481,9 @@ export class UsersComponent implements OnInit {
   }
 
   onSearch(event: any): void {
-    const query = (event.target.value || '').toLowerCase();
-    if (!query) {
-      this.page = 1;
-      this.totalCount = this.allUsers.length;
-      this.totalPages = Math.ceil(this.totalCount / this.pageSize) || 1;
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-      this.users = this.allUsers.slice(0, this.pageSize);
-      return;
-    }
-    this.users = this.allUsers.filter((u: any) => (u.username || '').toLowerCase().includes(query));
-    this.totalCount = this.users.length;
+    this.query = (event.target.value || '').toLowerCase();
+    this.page = 1;
+    this.applySearch();
   }
 
   openAddDialog(): void {

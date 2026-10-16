@@ -5,6 +5,7 @@
 table[_ngcontent-ng-c2048751704] { width: 100%; border-collapse: collapse; }
 th[_ngcontent-ng-c2048751704] { text-align: left; padding: 12px 20px; font-size: 13px; font-weight: 600; color: rgba(26, 25, 24, 0.8); border-bottom: 1px solid rgb(229, 228, 225); }
 td[_ngcontent-ng-c2048751704] { padding: 12px 20px; font-size: 14px; border-bottom: 1px solid rgb(245, 244, 241); }
+.empty-row[_ngcontent-ng-c2048751704] { padding: 32px 20px; text-align: center; font-size: 15px; color: rgba(26, 25, 24, 0.8); }
 .user-cell[_ngcontent-ng-c2048751704] { display: flex; align-items: center; gap: 10px; }
 .user-avatar[_ngcontent-ng-c2048751704] { width: 32px; height: 32px; border-radius: 50%; color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; }
 .icon-btn[_ngcontent-ng-c2048751704] { background: none; border: none; cursor: pointer; padding: 4px; color: rgba(26, 25, 24, 0.8); }

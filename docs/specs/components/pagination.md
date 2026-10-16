@@ -33,7 +33,7 @@ Every `.pagination` in `docs/mocks` (8 uses on 8 screens, all the admin users li
 |---|---|---|---|---|
 | `pages/admin-users/default`; `dialogs/admin-user-create`, `admin-user-edit`, `admin-user-delete` behind the overlay | `page` 1, `pageSize` 2, `total` 4, `itemLabel` "users" | "Showing 1-2 of 4 users"; pages 1, 2 | previous disabled, page 1 current | table card |
 | `pages/admin-users/page-2` | `page` 2, `pageSize` 2, `total` 4 | "Showing 3-4 of 4 users" | next disabled, page 2 current | table card |
-| `pages/admin-users/empty` | `page` 1, `pageSize` 2, `total` 0 | "Showing 0-0 of 0 users" (the mock's "1-0", D-7); no controls (D-6) | summary only | table card |
+| `pages/admin-users/empty` | `page` 1, `pageSize` 2, `total` 0 | "Showing 0-0 of 0 users" (D-7); no controls (D-6) | summary only | table card |
 | `pages/admin-users/no-results` | `page` 1, `pageSize` 2, `total` 0 after the search filtered the page | "Showing 0-0 of 0 users"; no controls | summary only | table card |
 
 Every row is buildable with the API below: a page index, a page size, a total and the noun for the summary.
