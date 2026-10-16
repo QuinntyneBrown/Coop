@@ -1,10 +1,10 @@
 .onboarding-container[_ngcontent-ng-c2892731918] { max-width: 480px; margin: 0px auto; padding: 24px 16px; min-height: calc(-120px + 100vh); }
 .step-indicator[_ngcontent-ng-c2892731918] { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; }
-.step-dots[_ngcontent-ng-c2892731918] { display: flex; gap: 8px; }
-.step-dot[_ngcontent-ng-c2892731918] { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: 0.3s; }
-.step-dot.active[_ngcontent-ng-c2892731918] { background: var(--primary); transform: scale(1.2); }
-.step-dot.completed[_ngcontent-ng-c2892731918] { background: var(--primary); opacity: 0.5; }
-.step-label[_ngcontent-ng-c2892731918] { font-size: 13px; color: var(--text-secondary); }
+.step-dots[_ngcontent-ng-c2892731918] { display: flex; align-items: center; gap: 10px; }
+.step-dot[_ngcontent-ng-c2892731918] { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--text-secondary); background: transparent; transition: 0.3s; }
+.step-dot.active[_ngcontent-ng-c2892731918] { border-color: var(--primary-dark); background: var(--primary-dark); transform: scale(1.2); }
+.step-dot.completed[_ngcontent-ng-c2892731918] { border-color: var(--primary); background: var(--primary); }
+.step-label[_ngcontent-ng-c2892731918] { font-size: 16px; font-weight: 500; color: var(--text-primary); }
 .step-content[_ngcontent-ng-c2892731918] h2[_ngcontent-ng-c2892731918] { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
 .step-content[_ngcontent-ng-c2892731918] .step-desc[_ngcontent-ng-c2892731918] { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
 .welcome-step[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] { text-align: center; padding: 40px 0px 80px; position: relative; z-index: 101; }
