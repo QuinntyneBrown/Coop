@@ -36,6 +36,34 @@ test.describe('Messaging', () => {
       await messaging.expectConversationInList('E2E: Test Conversation');
     });
 
+    for (const width of [1280, 360]) {
+      test(`Given an unread conversation at ${width} px, then the unread badge leaves the date fully visible`, async ({
+        api,
+        authState,
+        mockApi,
+        authenticatedPage,
+      }) => {
+        await api.createConversation({
+          subject: 'E2E: Unread conversation',
+          participantIds: [authState.userId],
+          initialMessage: 'Please read me.',
+        });
+        mockApi.store.messages[mockApi.store.messages.length - 1].read = false;
+        await authenticatedPage.setViewportSize({ width, height: 800 });
+
+        await messaging.goto();
+        await expect(messaging.unreadBadge.first()).toBeVisible();
+        const badge = (await messaging.unreadBadge.first().boundingBox())!;
+        const date = (await messaging.conversationTimestamp.first().boundingBox())!;
+        const overlaps =
+          badge.x < date.x + date.width &&
+          date.x < badge.x + badge.width &&
+          badge.y < date.y + date.height &&
+          date.y < badge.y + badge.height;
+        expect(overlaps).toBe(false);
+      });
+    }
+
     test('should show conversation subject and preview', async ({ api, authState }) => {
       await api.createConversation({
         subject: 'E2E: Preview Test',

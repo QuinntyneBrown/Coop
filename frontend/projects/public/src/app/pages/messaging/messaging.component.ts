@@ -206,12 +206,14 @@ import { catchError, of } from 'rxjs';
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding-right: 28px;
       }
 
+      /* Bottom right, beside the preview, so the date above stays visible. */
       .unread-badge {
         position: absolute;
-        top: 12px;
-        right: 12px;
+        bottom: 16px;
+        right: 20px;
         background: var(--primary);
         color: white;
         font-size: 11px;
