@@ -1,7 +1,7 @@
 .dashboard[_ngcontent-ng-c4223793772] { min-height: 100vh; background: rgb(245, 244, 241); padding-bottom: 72px; }
 .top-bar[_ngcontent-ng-c4223793772] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(229, 228, 225); }
 .top-bar-left[_ngcontent-ng-c4223793772] { display: flex; align-items: center; gap: 8px; }
-.logo-icon[_ngcontent-ng-c4223793772] { color: rgb(61, 138, 90); font-size: 28px; }
+.logo-icon[_ngcontent-ng-c4223793772] { flex: 0 0 auto; }
 .logo-text[_ngcontent-ng-c4223793772] { font-size: 18px; font-weight: 700; }
 .top-bar-right[_ngcontent-ng-c4223793772] { display: flex; align-items: center; gap: 8px; }
 .icon-btn[_ngcontent-ng-c4223793772] { background: none; border: none; padding: 8px; border-radius: 10px; cursor: pointer; position: relative; color: rgb(26, 25, 24); }

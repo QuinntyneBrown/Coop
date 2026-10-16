@@ -13,8 +13,20 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
     <div class="login-page">
       <div class="login-header" data-testid="login-hero-panel">
         <div class="header-content">
-          <span class="material-icons header-icon" data-testid="login-hero-icon">apartment</span>
-          <h1 data-testid="login-hero-title">Coop Manager</h1>
+          <svg
+            class="header-icon"
+            data-testid="login-hero-icon"
+            width="64"
+            height="64"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
+          </svg>
+          <h1 data-testid="login-hero-title">OWN Housing Co-op</h1>
           <p data-testid="login-hero-description">Cooperative management</p>
         </div>
       </div>
@@ -122,8 +134,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .header-content {
         text-align: center;
-        .material-icons.header-icon {
-          font-size: 64px;
+        .header-icon {
           margin-bottom: 16px;
         }
         h1 {

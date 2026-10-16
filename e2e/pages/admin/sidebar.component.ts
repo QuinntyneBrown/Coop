@@ -58,7 +58,7 @@ export class SidebarComponent {
 
   async expectVisible() {
     await expect(this.sidebar).toBeVisible();
-    await expect(this.appTitle).toHaveText('Coop Manager');
+    await expect(this.appTitle).toHaveText('OWN Housing Co-op');
   }
 
   async expectUserInfo(name: string, role: string) {

@@ -141,7 +141,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
               <h3>Preview</h3>
               <div class="preview-content" [style.background]="themeForm.value.backgroundColor">
                 <div class="preview-header" [style.background]="themeForm.value.primaryColor">
-                  <span style="color: #fff; font-weight: 600;">Coop Manager</span>
+                  <span style="color: #fff; font-weight: 600;">OWN Housing Co-op</span>
                 </div>
                 <div
                   class="preview-card"

@@ -12,8 +12,20 @@ import { userRoleNames } from '../core/user-role-names';
     <aside class="sidebar" data-testid="sidebar">
       <div class="sidebar-header">
         <div class="logo">
-          <span class="material-icons logo-icon" data-testid="sidebar-logo">apartment</span>
-          <span class="logo-text" data-testid="sidebar-app-title">Coop Manager</span>
+          <svg
+            class="logo-icon"
+            data-testid="sidebar-logo"
+            width="28"
+            height="28"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
+          </svg>
+          <span class="logo-text" data-testid="sidebar-app-title">OWN Housing Co-op</span>
         </div>
       </div>
 
@@ -186,8 +198,7 @@ import { userRoleNames } from '../core/user-role-names';
         gap: 10px;
       }
       .logo-icon {
-        color: #3d8a5a;
-        font-size: 28px;
+        flex: none;
       }
       .logo-text {
         font-size: 18px;

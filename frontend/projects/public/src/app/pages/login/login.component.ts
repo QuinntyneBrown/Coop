@@ -11,7 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
   template: `
     <!-- Green header -->
     <div class="login-header" data-testid="login-header">
-      <h1 data-testid="login-header-title">Coop</h1>
+      <h1 data-testid="login-header-title">OWN Housing Co-op</h1>
       <p data-testid="login-header-subtitle">Cooperative management</p>
     </div>
 

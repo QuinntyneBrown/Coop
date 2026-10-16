@@ -45,7 +45,7 @@ import { catchError, of } from 'rxjs';
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
-            <h1 data-testid="onboarding-welcome-title">Welcome to Coop!</h1>
+            <h1 data-testid="onboarding-welcome-title">Welcome to OWN Housing Co-op!</h1>
             <p data-testid="onboarding-welcome-message">
               Let's set up your profile so you can start using your cooperative's management
               platform. This will only take a few minutes.

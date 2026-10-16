@@ -1,7 +1,7 @@
 .login-page[_ngcontent-ng-c251577923] { display: flex; min-height: 100vh; }
 .login-header[_ngcontent-ng-c251577923] { flex: 1 1 0%; background: linear-gradient(135deg, rgb(61, 138, 90) 0%, rgb(45, 107, 68) 100%); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); padding: 40px; }
 .header-content[_ngcontent-ng-c251577923] { text-align: center; }
-.header-content[_ngcontent-ng-c251577923] .material-icons.header-icon[_ngcontent-ng-c251577923] { font-size: 64px; margin-bottom: 16px; }
+.header-content[_ngcontent-ng-c251577923] .header-icon[_ngcontent-ng-c251577923] { margin-bottom: 16px; }
 .header-content[_ngcontent-ng-c251577923] h1[_ngcontent-ng-c251577923] { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
 .header-content[_ngcontent-ng-c251577923] p[_ngcontent-ng-c251577923] { font-size: 18px; opacity: 0.9; }
 .login-form-panel[_ngcontent-ng-c251577923] { flex: 1 1 0%; display: flex; align-items: center; justify-content: center; background: rgb(255, 255, 255); padding: 40px; }

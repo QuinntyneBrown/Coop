@@ -1,7 +1,6 @@
 .landing-page[_ngcontent-ng-c255927587] { min-height: 100vh; background: rgb(245, 244, 241); }
 .navbar[_ngcontent-ng-c255927587] { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(229, 228, 225); }
 .navbar-brand[_ngcontent-ng-c255927587] { display: flex; align-items: center; gap: 8px; }
-.navbar-brand[_ngcontent-ng-c255927587] .material-icons[_ngcontent-ng-c255927587] { color: rgb(61, 138, 90); font-size: 28px; }
 .navbar-brand[_ngcontent-ng-c255927587] .brand-text[_ngcontent-ng-c255927587] { font-size: 20px; font-weight: 700; color: rgb(26, 25, 24); }
 .navbar-actions[_ngcontent-ng-c255927587] { display: flex; align-items: center; gap: 16px; }
 .nav-link[_ngcontent-ng-c255927587] { color: rgb(26, 25, 24); font-weight: 500; text-decoration: none; }
@@ -10,7 +9,7 @@
 .hero-content[_ngcontent-ng-c255927587] h1[_ngcontent-ng-c255927587] { font-size: 42px; font-weight: 700; color: rgb(26, 25, 24); margin-bottom: 16px; line-height: 1.2; }
 .hero-content[_ngcontent-ng-c255927587] p[_ngcontent-ng-c255927587] { font-size: 18px; color: rgba(26, 25, 24, 0.8); margin-bottom: 32px; line-height: 1.6; }
 .hero-image[_ngcontent-ng-c255927587] { flex-shrink: 0; width: 300px; height: 300px; border-radius: 50%; background: linear-gradient(135deg, rgb(61, 138, 90), rgb(76, 167, 109)); display: flex; align-items: center; justify-content: center; }
-.hero-icon[_ngcontent-ng-c255927587] { font-size: 120px; color: rgba(255, 255, 255, 0.9); }
+.hero-icon[_ngcontent-ng-c255927587] { width: 120px; height: 120px; }
 .btn-lg[_ngcontent-ng-c255927587] { padding: 14px 32px; font-size: 16px; }
 .section-title[_ngcontent-ng-c255927587] { font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 32px; color: rgb(26, 25, 24); }
 .board-section[_ngcontent-ng-c255927587], .notices-section[_ngcontent-ng-c255927587] { padding: 60px 40px; max-width: 1200px; margin: 0px auto; }
@@ -27,7 +26,7 @@
 @media (max-width: 768px) {
   .hero[_ngcontent-ng-c255927587] { flex-direction: column; padding: 40px 20px; text-align: center; }
   .hero-image[_ngcontent-ng-c255927587] { width: 200px; height: 200px; }
-  .hero-icon[_ngcontent-ng-c255927587] { font-size: 80px; }
+  .hero-icon[_ngcontent-ng-c255927587] { width: 80px; height: 80px; }
   .hero-content[_ngcontent-ng-c255927587] h1[_ngcontent-ng-c255927587] { font-size: 28px; }
   .board-section[_ngcontent-ng-c255927587], .notices-section[_ngcontent-ng-c255927587] { padding: 40px 20px; }
 }

@@ -68,7 +68,7 @@ export class RegisterPage {
   }
 
   async expectHeaderContent() {
-    await expect(this.headerTitle).toHaveText('Coop');
+    await expect(this.headerTitle).toHaveText('OWN Housing Co-op');
     await expect(this.headerSubtitle).toHaveText('Join your cooperative');
     await expect(this.heading).toHaveText('Create account');
   }
