@@ -1,4 +1,4 @@
-.onboarding-container[_ngcontent-ng-c2892731918] { max-width: 480px; margin: 0px auto; padding: 24px 16px; min-height: calc(-120px + 100vh); }
+.onboarding-container[_ngcontent-ng-c2892731918] { max-width: 480px; margin: 0px; padding: 24px 16px; min-height: calc(-120px + 100vh); }
 .step-indicator[_ngcontent-ng-c2892731918] { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; }
 .step-dots[_ngcontent-ng-c2892731918] { display: flex; align-items: center; gap: 10px; }
 .step-dot[_ngcontent-ng-c2892731918] { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--text-secondary); background: transparent; transition: 0.3s; }

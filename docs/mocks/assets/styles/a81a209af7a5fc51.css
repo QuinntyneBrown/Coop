@@ -1,4 +1,4 @@
-.messaging-page[_ngcontent-ng-c2011722024] { padding: 24px 16px; max-width: 700px; margin: 0px auto; display: flex; flex-direction: column; min-height: calc(-140px + 100vh); }
+.messaging-page[_ngcontent-ng-c2011722024] { padding: 24px 16px; max-width: 700px; margin: 0px; display: flex; flex-direction: column; min-height: calc(-140px + 100vh); }
 h1[_ngcontent-ng-c2011722024] { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
 .conversation-list[_ngcontent-ng-c2011722024] { display: flex; flex-direction: column; gap: 8px; }
 .conversation-item[_ngcontent-ng-c2011722024] { cursor: pointer; transition: box-shadow 0.2s; position: relative; }

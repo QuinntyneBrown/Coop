@@ -163,7 +163,8 @@ import { senderInitials } from './sender-initials';
       .messaging-page {
         padding: 24px 16px;
         max-width: 700px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
         display: flex;
         flex-direction: column;
         min-height: calc(100vh - 140px);

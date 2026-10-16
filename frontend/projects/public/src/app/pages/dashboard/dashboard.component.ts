@@ -136,7 +136,8 @@ import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label'
       .dashboard-content {
         padding: 24px 16px;
         max-width: 900px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
       }
 
       .greeting-section {
@@ -292,12 +293,6 @@ import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label'
       @media (min-width: 640px) {
         .metric-grid {
           grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .dashboard-content {
-          padding: 32px;
         }
       }
     `,

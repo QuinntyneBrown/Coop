@@ -214,7 +214,8 @@ import { catchError, of } from 'rxjs';
     `
       .onboarding-container {
         max-width: 480px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
         padding: 24px 16px;
         min-height: calc(100vh - 120px);
       }
