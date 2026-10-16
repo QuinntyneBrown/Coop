@@ -316,6 +316,10 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .delete-doc-btn {
         flex-shrink: 0;
+        color: #dc3545;
+        &.icon-btn:hover {
+          background: rgba(220, 53, 69, 0.1);
+        }
       }
       .form-group {
         margin-bottom: 16px;
