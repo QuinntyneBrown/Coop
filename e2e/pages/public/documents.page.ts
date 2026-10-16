@@ -27,6 +27,7 @@ export class DocumentsPage {
   readonly documentViewer: Locator;
   readonly documentViewerTitle: Locator;
   readonly documentViewerContent: Locator;
+  readonly documentViewerText: Locator;
   readonly documentViewerClose: Locator;
   readonly downloadButton: Locator;
 
@@ -55,6 +56,7 @@ export class DocumentsPage {
     this.documentViewer = page.locator('[data-testid="document-viewer"]');
     this.documentViewerTitle = page.locator('[data-testid="document-viewer-title"]');
     this.documentViewerContent = page.locator('[data-testid="document-viewer-content"]');
+    this.documentViewerText = this.documentViewerContent.locator('.viewer-content');
     this.documentViewerClose = page.locator('[data-testid="document-viewer-close"]');
     this.downloadButton = page.locator('[data-testid="document-download-btn"]');
 

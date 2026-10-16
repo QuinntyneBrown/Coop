@@ -139,6 +139,19 @@ test.describe('Documents', () => {
       await expect(documents.documentViewerContent).toBeVisible();
     });
 
+    test('Given a notice, when it is opened, then its text starts at the left edge with no stray space', async ({ api }) => {
+      await api.createDocument({
+        title: 'E2E: Courtyard gathering',
+        type: 'notices',
+        content: 'Join your neighbours in the courtyard.',
+        published: true,
+      });
+
+      await documents.goto();
+      await documents.openDocument(0);
+      expect(await documents.documentViewerText.textContent()).toBe('Join your neighbours in the courtyard.');
+    });
+
     test('should close document viewer', async ({ api }) => {
       await api.createDocument({
         title: 'E2E: Closeable Document',
