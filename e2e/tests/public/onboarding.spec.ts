@@ -1,6 +1,5 @@
 import { test as base, expect } from '../../fixtures/public/auth.fixture';
 import { OnboardingPage } from '../../pages/public/onboarding.page';
-import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 
 const test = base;
 
@@ -15,6 +14,15 @@ test.describe('Onboarding', () => {
     test('should load the onboarding page for authenticated users', async () => {
       await onboarding.goto();
       await onboarding.expectWelcomeStep();
+    });
+
+    test('should show a focused layout without the member app navigation', async () => {
+      await onboarding.goto();
+      await onboarding.expectWelcomeStep();
+      await onboarding.expectNoAppNavigation();
+      await onboarding.getStartedButton.click();
+      await onboarding.expectProfileStep();
+      await onboarding.expectNoAppNavigation();
     });
 
     test('should display the step indicator', async () => {
@@ -172,27 +180,17 @@ test.describe('Onboarding', () => {
   });
 
   test.describe('Phone layout', () => {
-    test('Given the profile step at 360 px, when scrolled to the end, then Back, Next and Skip sit above the tab bar', async ({
+    test('Given the profile step at 360 px, then no member tab bar or sidebar is shown, so Back, Next and Skip are never covered', async ({
       authenticatedPage,
     }) => {
       await authenticatedPage.setViewportSize({ width: 360, height: 800 });
       await onboarding.goto();
       await onboarding.getStartedButton.click();
       await onboarding.expectProfileStep();
-      const tabBar = new BottomTabBar(authenticatedPage);
-      await tabBar.expectNotCovering(onboarding.backButton);
-      await tabBar.expectNotCovering(onboarding.nextButton);
-      await tabBar.expectNotCovering(onboarding.skipButton);
-    });
-
-    test('Given the profile step at 360 px, when the member taps a tab, then no step button is drawn over it', async ({
-      authenticatedPage,
-    }) => {
-      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
-      await onboarding.goto();
-      await onboarding.getStartedButton.click();
-      await onboarding.expectProfileStep();
-      await new BottomTabBar(authenticatedPage).openDocuments();
+      await onboarding.expectNoAppNavigation();
+      await expect(onboarding.backButton).toBeVisible();
+      await expect(onboarding.nextButton).toBeVisible();
+      await expect(onboarding.skipButton).toBeVisible();
     });
   });
 });

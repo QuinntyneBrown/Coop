@@ -32,7 +32,7 @@ Every `.bottom-tab-bar` in `docs/mocks` (101 uses on 27 screens) is one of the c
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `public-onboarding/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `shell="public"`, `label="Main"`, five items | `home` "Home" (/dashboard), `build` "Requests" (/maintenance), `description` "Documents" (/documents), `chat` "Messages" (/messaging), `person` "Profile" (/profile) | one item current (none on onboarding); shown below 1024 px and hidden from 1024 px, where the sidebar docks (D-4) | surface over the canvas |
+| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `shell="public"`, `label="Main"`, five items | `home` "Home" (/dashboard), `build` "Requests" (/maintenance), `description` "Documents" (/documents), `chat` "Messages" (/messaging), `person` "Profile" (/profile) | one item current; shown below 1024 px and hidden from 1024 px, where the sidebar docks (D-4) | surface over the canvas |
 | admin shell screens that render the `.mobile-only` wrapper: `pages/admin-dashboard/*`, `admin-maintenance/*`, `admin-documents/*`, `admin-messaging/*`, their dialogs and `notifications/admin-dashboard-unread`, `admin-profile-saved` | `shell="admin"`, `label="Main"`, the same five items with `.tab-label` spans | as above; "Profile" links to /profile | one item current; shown at 768 px and below | surface over the canvas |
 | `pages/public-login/*`, `public-register/*`, `public-forgot-password/*`, `pages/admin-login/*`, `admin-register/*` | not rendered (D-5) | — | the mocks render the bar on phones with no current item, linking to pages that need a session | — |
 
@@ -95,7 +95,7 @@ Width is the viewport; items share it evenly (`justify-content: space-around`) a
 | Item current | `aria-current="page"` (and `.active`) | Icon and label `--color-fg-accent` | "current page" |
 | Shown | public below 1024 px; admin at 768 px and below | Sticky bar at the bottom | Navigation landmark "Main" |
 | Hidden | public from 1024 px; admin above 768 px | `display: none` | Not in the accessibility tree |
-| No current item | no link matches the route (onboarding) | All items default | No `aria-current` |
+| No current item | no link matches the route | All items default | No `aria-current` |
 
 The current item changes colour only; the label and position stay fixed and `aria-current` carries the state, which the design-system page accepts for 1.4.1. No badge, disabled or loading state exists.
 
@@ -221,7 +221,7 @@ Only `color` transitions, over `--duration-base`; under `prefers-reduced-motion:
 - **AC-4** Given the route is `/maintenance`, when the bar renders, then only "Requests" has `aria-current="page"` and `.active`, with a `--color-fg-accent` icon and label at a contrast of at least 4.5:1, and the other four items are `--color-fg-muted`. (L2-REQ-053)
 - **AC-5** Given the "Documents" item, when it is hovered, then its icon and label change to `--color-fg-accent` over `--duration-base` and nothing is underlined. (L2-REQ-067)
 - **AC-6** Given the "Messages" item, when it receives keyboard focus, then a `--focus-ring-width` solid `--color-focus-ring` ring at `--focus-ring-offset` is visible outside the item and unclipped by the bar. (L2-REQ-067)
-- **AC-7** Given the onboarding route `/onboarding`, when the member bar renders, then no item has `aria-current` or `.active`. (L2-REQ-053)
+- **AC-7** Given the onboarding route `/onboarding`, when the page renders, then no member bar is rendered: onboarding is a focused first-run flow outside the member shell. (L2-REQ-053)
 
 ### Keyboard and focus
 

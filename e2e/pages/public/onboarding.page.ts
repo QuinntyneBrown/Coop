@@ -35,6 +35,11 @@ export class OnboardingPage {
   readonly backButton: Locator;
   readonly skipButton: Locator;
 
+  // Member app navigation (absent during onboarding)
+  readonly appTopBar: Locator;
+  readonly appSidebar: Locator;
+  readonly appTabBar: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -63,10 +68,20 @@ export class OnboardingPage {
     this.nextButton = page.locator('[data-testid="onboarding-next-btn"]');
     this.backButton = page.locator('[data-testid="onboarding-back-btn"]');
     this.skipButton = page.locator('[data-testid="onboarding-skip-btn"]');
+
+    this.appTopBar = page.locator('[data-testid="dashboard-top-bar"]');
+    this.appSidebar = page.locator('aside.sidebar');
+    this.appTabBar = page.locator('[data-testid="bottom-tab-bar"]');
   }
 
   async goto() {
     await this.page.goto('/onboarding');
+  }
+
+  async expectNoAppNavigation() {
+    await expect(this.appTopBar).toHaveCount(0);
+    await expect(this.appSidebar).toHaveCount(0);
+    await expect(this.appTabBar).toHaveCount(0);
   }
 
   async expectWelcomeStep() {

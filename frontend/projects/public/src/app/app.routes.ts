@@ -29,6 +29,13 @@ export const routes: Routes = [
         (m) => m.ForgotPasswordComponent,
       ),
   },
+  // Onboarding is a focused first-run wizard, outside the member layout and its navigation.
+  {
+    path: 'onboarding',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
+  },
   {
     path: 'documents',
     component: LayoutComponent,
@@ -49,11 +56,6 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () =>
           import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
-      },
-      {
-        path: 'onboarding',
-        loadComponent: () =>
-          import('./pages/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
       },
       {
         path: 'maintenance',
