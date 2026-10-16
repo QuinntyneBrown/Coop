@@ -14,7 +14,7 @@ By the end, the viewer can:
 
 - Find her requests and read the New, Received, Started and Done labels.
 - Use the All, New, Started and Done buttons to show only some requests.
-- Open a request, read the office's comments, reply, and add a photo.
+- Open a request, read the comments, reply, and add a photo.
 
 ## Code / assets on screen
 
@@ -22,7 +22,7 @@ By the end, the viewer can:
 | --- | --- |
 | `images/public-maintenance-360.png` | The Requests page with four labelled requests |
 | `images/public-maintenance-started-360.png` | The list showing only Started requests |
-| `images/public-maintenance-detail-360.png`, `-1280.png` | An open request with a comment from the office |
+| `images/public-maintenance-detail-360.png`, `-1280.png` | An open request with a comment |
 | `images/public-maintenance-detail-photos-360.png` | The open request with two photos and Add a photo |
 
 All screens are static design mocks under `docs/mocks/`, captured by

@@ -26,7 +26,7 @@ Tap a request to open it. You see its title, its label, and what you wrote.
 
 [pause 2s]
 
-Under Comments, you can read notes from the office. Here they say a visit is scheduled for Thursday morning.
+Under Comments, you and the office can leave notes for each other. Here Mira says it drips most at night.
 
 [pause 2s]
 
