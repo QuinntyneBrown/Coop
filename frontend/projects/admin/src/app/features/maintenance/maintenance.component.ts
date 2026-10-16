@@ -75,7 +75,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
 
       <div class="content-area">
         <div class="request-list" data-testid="maintenance-requests-panel">
-          <h3 data-testid="maintenance-requests-title">All Requests</h3>
+          <h3 data-testid="maintenance-requests-title">{{ listHeadings[activeFilter] }}</h3>
           @for (req of filteredRequests; track req; let i = $index) {
             <div
               class="request-card card"
@@ -683,6 +683,13 @@ export class MaintenanceComponent implements OnInit {
   selectedRequest: any = null;
   comments: any[] = [];
   activeFilter = 'all';
+  readonly listHeadings: Record<string, string> = {
+    all: 'All Requests',
+    new: 'New Requests',
+    received: 'Received Requests',
+    started: 'Started Requests',
+    done: 'Completed Requests',
+  };
   activeTab = 'details';
   loading = true;
   showCreateModal = false;
