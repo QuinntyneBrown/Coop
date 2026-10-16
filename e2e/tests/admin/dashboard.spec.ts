@@ -26,14 +26,6 @@ test.describe('Dashboard', () => {
       await sidebar.expectActiveLink('dashboard');
     });
 
-    test('should display the search bar', async () => {
-      await expect(dashboard.searchBar).toBeVisible();
-    });
-
-    test('should display the notification bell', async () => {
-      await expect(dashboard.notificationBell).toBeVisible();
-    });
-
     test('should display user info in sidebar', async () => {
       await expect(sidebar.userInfo).toBeVisible();
       await expect(sidebar.userName).toBeVisible();

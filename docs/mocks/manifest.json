@@ -1146,7 +1146,7 @@
       "requirements": [
         "L2-REQ-038"
       ],
-      "note": "Notification bell has no handler. Badge reflects unread message count.",
+      "note": "The Unread Messages card shows the unread message count.",
       "opens_from": "admin-dashboard",
       "states": [
         "info"

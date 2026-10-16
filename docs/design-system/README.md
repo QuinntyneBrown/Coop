@@ -84,7 +84,7 @@ themselves stay verbatim.
 | Focus indicator | Inputs set outline: none and change border colour only; a 10% green ring on some. | A 2px solid outline with 2px offset on every control (3.83:1 or better against the page and cards). |
 | Dialogs | No focus trap, inert page, Escape handling or aria-modal in the source. | Documented as requirements on the dialog page. Not implemented in the mocks. |
 | Live regions | Success and error messages have no role=status or role=alert. | Documented as requirements on the alert page. |
-| Document structure | Pages with two h1 elements: admin-dashboard default, empty and partial, and the admin-dashboard-unread notification. | Reported, not fixed (mocks stay verbatim). Page structure requires one h1. |
+| Document structure | Pages with two h1 elements: admin-dashboard default, empty and partial, and the admin-dashboard-unread notification. | Fixed: the admin dashboard top bar was removed (#155), leaving the greeting as the one h1. |
 | User avatars | Initials sit on arbitrary inline colours. White on amber is 2.15:1 and white on blue is 3.68:1. | One accent background for all avatars. |
 | Class names | Standalone .error-message and the field-level .form-group .error-message share a name. | Block form renamed .error-message-block; field form is .field-error. |
 | Dark theme | None implemented (docs/mocks/README.md). | Not specified. Light only. |
@@ -100,7 +100,7 @@ Run on 13 October 2026 from the repository root.
 | `tokens_to_json.py` | 138 tokens exported to `tokens/tokens.json` |
 | Horizontal overflow scan, 360 and 1280 px, all 40 pages | None. Tables and anatomy figures scroll inside their own frames |
 | Screenshot review at 360 and 1280 px | Index, button, dialog, table, color and sidebar reviewed. Fonts, focus rings and dialog demos render correctly |
-| `check_mocks.py docs/mocks` | 4 errors, all existing: a second `h1` on three admin-dashboard states and the admin-dashboard-unread notification. Reported, not fixed |
+| `check_mocks.py docs/mocks` | 4 errors, all existing: a second `h1` on three admin-dashboard states and the admin-dashboard-unread notification. Fixed later by removing the admin dashboard top bar (#155) |
 
 **Not done.** The mocks are not linked to `tokens.css` or `components.css`. They stay verbatim captures of the
 implementation, so the differences between them and the system are the drift table above.

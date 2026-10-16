@@ -2,15 +2,16 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ThemeService } from '../../core/services/theme.service';
-import { TopbarComponent } from '../../layout/topbar.component';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [ReactiveFormsModule, TopbarComponent],
+  imports: [ReactiveFormsModule],
   template: `
-    <app-topbar title="Settings"></app-topbar>
     <div class="settings-page">
+      <div class="page-header">
+        <h1 data-testid="settings-page-title">Settings</h1>
+      </div>
       @if (successMsg) {
         <div class="alert alert-success" data-testid="settings-success-message">
           {{ successMsg }}
@@ -191,6 +192,13 @@ import { TopbarComponent } from '../../layout/topbar.component';
     `
       .settings-page {
         padding: 24px;
+      }
+      .page-header {
+        margin-bottom: 20px;
+        h1 {
+          font-size: 24px;
+          font-weight: 600;
+        }
       }
       .tabs {
         display: flex;

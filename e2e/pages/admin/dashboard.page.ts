@@ -3,10 +3,8 @@ import { type Locator, type Page, expect } from '@playwright/test';
 export class DashboardPage {
   readonly page: Page;
 
-  // Top bar
-  readonly pageTitle: Locator;
-  readonly searchBar: Locator;
-  readonly notificationBell: Locator;
+  // Greeting
+  readonly greeting: Locator;
 
   // Metric cards
   readonly metricCards: Locator;
@@ -33,9 +31,7 @@ export class DashboardPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.pageTitle = page.getByTestId('dashboard-page-title');
-    this.searchBar = page.getByTestId('dashboard-search');
-    this.notificationBell = page.getByTestId('dashboard-notification-bell');
+    this.greeting = page.getByTestId('dashboard-greeting');
 
     this.metricCards = page.getByTestId('dashboard-metric-cards');
     this.openRequestsCard = page.getByTestId('metric-open-requests');
@@ -63,7 +59,7 @@ export class DashboardPage {
   }
 
   async expectPageLoaded() {
-    await expect(this.pageTitle).toHaveText('Dashboard');
+    await expect(this.greeting).toContainText('Hello');
     await expect(this.metricCards).toBeVisible();
   }
 
