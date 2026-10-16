@@ -88,6 +88,15 @@ test.describe('Dashboard', () => {
       const value = await dashboard.getMetricValue('members');
       expect(value).toBeTruthy();
     });
+
+    test('Given the member list cannot be loaded, then Members still counts the signed-in member', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.route('**/api/user/members', (route) => route.fulfill({ status: 500 }));
+      await authenticatedPage.route('**/api/members', (route) => route.fulfill({ status: 500 }));
+      await dashboard.goto();
+      await expect(dashboard.membersCount).toHaveText('1');
+    });
   });
 
   test.describe('Recent Requests', () => {

@@ -7,6 +7,7 @@ import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ApiService } from '../../core/services/api.service';
 import { catchError, of, forkJoin } from 'rxjs';
+import { membersCountLabel } from './members-count-label';
 import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label';
 
 @Component({
@@ -312,7 +313,7 @@ export class DashboardComponent implements OnInit {
   firstName = '';
   requestsCount = '0';
   messagesCount = '0';
-  membersCount = '0';
+  membersCount = membersCountLabel(0);
   recentRequests: MaintenanceRequest[] = [];
   readonly statusLabel = maintenanceStatusLabel;
 
@@ -353,7 +354,7 @@ export class DashboardComponent implements OnInit {
       .pipe(catchError(() => this.api.get<any>('members').pipe(catchError(() => of([])))))
       .subscribe((resp) => {
         const members = Array.isArray(resp) ? resp : (resp?.members ?? []);
-        this.membersCount = String(members.length || '0');
+        this.membersCount = membersCountLabel(members.length);
       });
   }
 
