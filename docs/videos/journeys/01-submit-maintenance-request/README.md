@@ -23,7 +23,7 @@ By the end, the viewer can:
 | --- | --- |
 | `images/public-maintenance-360.png` | The member's Requests page on a phone |
 | `images/public-maintenance-create-360.png` | The empty Create New Request form |
-| `images/public-maintenance-create-photos-360.png`, `-1280.png` | The form filled in, with two photos |
+| `images/public-maintenance-create-photos-360.png`, `-1280.png` | The form filled in, with a photo |
 | `images/public-maintenance-create-sending-1280.png` | The button showing "Sending…" |
 | `images/public-maintenance-new-360.png` | The request on the list, marked New |
 | `images/admin-maintenance-detail-new-1280.png` | The office's view of the new request, with Receive |
