@@ -1,8 +1,11 @@
+using Coop.Domain.Tenancy;
+
 namespace Coop.Domain.Documents;
 
-public class Document
+public class Document : ITenantOwned
 {
     public Guid DocumentId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public string Name { get; set; } = string.Empty;
     public Guid? DigitalAssetId { get; set; }
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;

@@ -93,7 +93,7 @@ public class NoticeEmailTests : IClassFixture<SmtpNoticeApiFactory>, IClassFixtu
     /// <summary>Seeds a fictional member who chose email and text, so a send reaches them.</summary>
     private static async Task SeedMemberAsync(CoopApiFactory factory, string username, string email, string phone)
     {
-        using var scope = factory.Services.CreateScope();
+        using var scope = await factory.CreateCoopScopeAsync();
         var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
         var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
         var salt = RandomNumberGenerator.GetBytes(16);

@@ -1,10 +1,12 @@
 using Coop.Domain.Profiles;
+using Coop.Domain.Tenancy;
 
 namespace Coop.Domain.Identity;
 
-public class User
+public class User : ITenantOwned
 {
     public Guid UserId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public byte[] Salt { get; set; } = Array.Empty<byte>();

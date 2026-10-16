@@ -1,8 +1,11 @@
+using Coop.Domain.Tenancy;
+
 namespace Coop.Domain.Onboarding;
 
-public class InvitationToken
+public class InvitationToken : ITenantOwned
 {
     public Guid InvitationTokenId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public string Value { get; set; } = string.Empty;
     public InvitationTokenType Type { get; set; }
     public DateTime? ExpirationDate { get; set; }

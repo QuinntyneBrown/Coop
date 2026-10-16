@@ -148,7 +148,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     {
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
-        using (var scope = _factory.Services.CreateScope())
+        using (var scope = await _factory.CreateCoopScopeAsync())
         {
             var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
             context.JsonContents.RemoveRange(context.JsonContents.Where(j => j.Name == "SiteContent"));

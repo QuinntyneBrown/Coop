@@ -41,6 +41,6 @@ member -> app : Open a birch record by id
 app -> handler : GET .../{birchId} (through the same steps)
 handler -> db : find by id
 db --> handler : nothing (filtered out)
-handler --> app : 404  [L2-REQ-102 AC2]
+handler --> app : as for a missing id\n(404 for a page slug or asset)  [L2-REQ-102 AC2]
 note over app, resolver : A maple token sent to birch.coop.example:\nResolver finds birch, tenant_id differs → 401  [L2-REQ-103 AC3]
 @enduml

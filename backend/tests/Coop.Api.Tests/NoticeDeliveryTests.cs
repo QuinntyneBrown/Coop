@@ -32,7 +32,7 @@ public class NoticeDeliveryTests : IClassFixture<CoopApiFactory>
     private async Task<HttpClient> CreateMemberAsync(string username, string? email = null, string? phone = null)
     {
         const string password = "Member123!";
-        using (var scope = _factory.Services.CreateScope())
+        using (var scope = await _factory.CreateCoopScopeAsync())
         {
             var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
             var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
@@ -117,7 +117,7 @@ public class NoticeDeliveryTests : IClassFixture<CoopApiFactory>
         await ChooseAsync(await CreateMemberAsync(Unique("fay")), byEmail: true, byText: true);
         var eve = await CreateMemberAsync(Unique("eve"), gone);
         await ChooseAsync(eve, byEmail: true, byText: false);
-        using (var scope = _factory.Services.CreateScope())
+        using (var scope = await _factory.CreateCoopScopeAsync())
         {
             var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
             (await context.Members.SingleAsync(m => m.Email == gone)).IsDeleted = true;

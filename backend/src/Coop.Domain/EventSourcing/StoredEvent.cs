@@ -1,8 +1,11 @@
+using Coop.Domain.Tenancy;
+
 namespace Coop.Domain.EventSourcing;
 
-public class StoredEvent
+public class StoredEvent : ITenantOwned
 {
     public Guid StoredEventId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public string StreamId { get; set; } = string.Empty;
     public string Aggregate { get; set; } = string.Empty;
     public string Data { get; set; } = string.Empty;

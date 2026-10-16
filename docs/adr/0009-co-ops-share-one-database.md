@@ -29,7 +29,8 @@ region, or an account in more than one co-op.
   `SaveChangesAsync` sets `TenantId` on every added entity from
   `ITenantContext`, overwriting anything the request sent. Handlers and
   controllers do not filter by co-op themselves. A record from another co-op
-  looks missing, so the API answers 404 rather than 403.
+  looks missing, so the API answers as it does for a missing record, never
+  403.
 - **The token names its co-op.** Sign-in adds a `tenant_id` claim. After
   authentication, the middleware refuses with 401 any token whose
   `tenant_id` differs from the request's co-op, or has none.

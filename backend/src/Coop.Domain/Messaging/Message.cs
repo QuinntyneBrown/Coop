@@ -1,8 +1,11 @@
+using Coop.Domain.Tenancy;
+
 namespace Coop.Domain.Messaging;
 
-public class Message
+public class Message : ITenantOwned
 {
     public Guid MessageId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public Guid ConversationId { get; set; }
     public Guid FromProfileId { get; set; }
     public Guid? ToProfileId { get; set; }

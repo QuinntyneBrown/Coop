@@ -2,9 +2,11 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Security.Cryptography;
+using Coop.Api.Tenancy;
 using Coop.Application.Common.Interfaces;
 using Coop.Domain.Identity;
 using Coop.Domain.Profiles;
+using Coop.Domain.Tenancy;
 using Coop.Infrastructure.Persistence;
 using Coop.SharedKernel;
 using Microsoft.AspNetCore.Hosting;
@@ -66,9 +68,9 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     public HttpClient CreateClientForCoop(string slug) =>
         CreateClient(new WebApplicationFactoryClientOptions { BaseAddress = new Uri($"http://{slug}.{BaseDomain}") });
 
-    public async Task<HttpClient> CreateClientAsAsync(string username, string password)
+    public async Task<HttpClient> CreateClientAsAsync(string username, string password, string? coop = null)
     {
-        var client = CreateClient();
+        var client = coop is null ? CreateClient() : CreateClientForCoop(coop);
         var response = await client.PostAsJsonAsync("/api/user/token", new { username, password });
         response.EnsureSuccessStatusCode();
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -89,7 +91,7 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     {
         const string username = "neighbour";
         const string password = "Neighbour123!";
-        using (var scope = Services.CreateScope())
+        using (var scope = await CreateCoopScopeAsync())
         {
             var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
             if (!await context.Users.AnyAsync(u => u.Username == username))
@@ -104,5 +106,49 @@ public class CoopApiFactory : WebApplicationFactory<Program>
             }
         }
         return await CreateClientAsAsync(username, password);
+    }
+
+    /// <summary>A service scope whose database reads and writes are inside the seeded co-op.</summary>
+    public async Task<IServiceScope> CreateCoopScopeAsync(string slug = DefaultTenant)
+    {
+        var scope = Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
+        scope.ServiceProvider.GetRequiredService<TenantContext>().Set(await context.Tenants.SingleAsync(t => t.Slug == slug));
+        return scope;
+    }
+
+    /// <summary>
+    /// Adds a second fictional co-op, once, with a SystemAdministrator role and
+    /// one administrator account, all saved inside that co-op.
+    /// </summary>
+    public async Task EnsureCoopAsync(string slug, string adminUsername, string adminPassword)
+    {
+        using var scope = Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
+        var tenant = await context.Tenants.SingleOrDefaultAsync(t => t.Slug == slug);
+        if (tenant is null)
+        {
+            tenant = new Tenant { Slug = slug, Name = $"{slug} Co-op (test)" };
+            context.Tenants.Add(tenant);
+            await context.SaveChangesAsync();
+        }
+        scope.ServiceProvider.GetRequiredService<TenantContext>().Set(tenant);
+        if (await context.Users.AnyAsync(u => u.Username == adminUsername))
+            return;
+
+        var role = await context.Roles.SingleOrDefaultAsync(r => r.Name == Constants.Roles.SystemAdministrator);
+        if (role is null)
+        {
+            role = new Role { Name = Constants.Roles.SystemAdministrator };
+            foreach (var aggregate in Constants.Aggregates.All)
+                role.AddPrivilege(new Privilege { AccessRight = AccessRight.Delete, Aggregate = aggregate });
+            context.Roles.Add(role);
+        }
+        var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+        var salt = RandomNumberGenerator.GetBytes(16);
+        var user = new User { Username = adminUsername, Salt = salt, Password = hasher.HashPassword(salt, adminPassword) };
+        user.Roles.Add(role);
+        context.Users.Add(user);
+        await context.SaveChangesAsync();
     }
 }

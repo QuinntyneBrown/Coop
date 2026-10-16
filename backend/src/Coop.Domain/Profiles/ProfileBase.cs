@@ -1,10 +1,12 @@
 using Coop.Domain.Profiles.ValueObjects;
+using Coop.Domain.Tenancy;
 
 namespace Coop.Domain.Profiles;
 
-public abstract class ProfileBase
+public abstract class ProfileBase : ITenantOwned
 {
     public Guid ProfileId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public Guid? UserId { get; set; }
     public string Firstname { get; set; } = string.Empty;
     public string Lastname { get; set; } = string.Empty;

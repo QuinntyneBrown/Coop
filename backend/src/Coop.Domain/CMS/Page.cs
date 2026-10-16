@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using Coop.Domain.Tenancy;
 
 namespace Coop.Domain.CMS;
 
@@ -7,9 +8,10 @@ namespace Coop.Domain.CMS;
 /// A website page the office adds to the public site: a title, an optional hero
 /// photograph address with its description and an HTML body, reached at /pages/{Slug}.
 /// </summary>
-public class Page
+public class Page : ITenantOwned
 {
     public const int SlugMaxLength = 80;
+    public Guid TenantId { get; set; }
 
     public Guid PageId { get; set; } = Guid.NewGuid();
     public string Title { get; set; } = string.Empty;

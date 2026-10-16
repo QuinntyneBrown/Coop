@@ -10,6 +10,7 @@ using Coop.Domain.Messaging;
 using Coop.Domain.Onboarding;
 using Coop.Domain.Profiles;
 using Coop.Domain.Tenancy;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Infrastructure.Persistence;
@@ -17,14 +18,19 @@ namespace Coop.Infrastructure.Persistence;
 public class CoopDbContext : DbContext, ICoopDbContext
 {
     private readonly INotificationService? _notificationService;
+    private readonly ITenantContext? _tenantContext;
 
     public CoopDbContext(DbContextOptions<CoopDbContext> options) : base(options) { }
 
-    public CoopDbContext(DbContextOptions<CoopDbContext> options, INotificationService notificationService)
+    public CoopDbContext(DbContextOptions<CoopDbContext> options, INotificationService notificationService, ITenantContext tenantContext)
         : base(options)
     {
         _notificationService = notificationService;
+        _tenantContext = tenantContext;
     }
+
+    /// <summary>The current co-op; read by every co-op-owned entity's query filter (ADR 0009).</summary>
+    private Guid CurrentTenantId => _tenantContext?.TenantId ?? Guid.Empty;
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
@@ -54,6 +60,19 @@ public class CoopDbContext : DbContext, ICoopDbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoopDbContext).Assembly);
+
+        // Every co-op-owned entity is read only within the current co-op and indexed by it (L2-REQ-102)
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()
+                     .Where(t => t.BaseType is null && typeof(ITenantOwned).IsAssignableFrom(t.ClrType))
+                     .ToList())
+        {
+            var entity = Expression.Parameter(entityType.ClrType, "e");
+            var sameTenant = Expression.Equal(
+                Expression.Property(entity, nameof(ITenantOwned.TenantId)),
+                Expression.Property(Expression.Constant(this), nameof(CurrentTenantId)));
+            modelBuilder.Entity(entityType.ClrType).HasQueryFilter("Tenant", Expression.Lambda(sameTenant, entity));
+            modelBuilder.Entity(entityType.ClrType).HasIndex(nameof(ITenantOwned.TenantId));
+        }
 
         // TPH for ProfileBase
         modelBuilder.Entity<ProfileBase>()
@@ -111,6 +130,14 @@ public class CoopDbContext : DbContext, ICoopDbContext
         foreach (var ar in aggregateRoots)
         {
             ar.ClearStoredEvents();
+        }
+
+        // New co-op-owned records belong to the current co-op, whatever the request sent (L2-REQ-102 AC3)
+        foreach (var entry in ChangeTracker.Entries<ITenantOwned>().Where(e => e.State == EntityState.Added))
+        {
+            if (CurrentTenantId == Guid.Empty)
+                throw new InvalidOperationException("A co-op-owned record cannot be saved without a current co-op.");
+            entry.Entity.TenantId = CurrentTenantId;
         }
 
         var result = await base.SaveChangesAsync(cancellationToken);

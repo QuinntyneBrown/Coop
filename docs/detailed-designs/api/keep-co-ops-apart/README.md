@@ -110,8 +110,10 @@ UseSerilogRequestLogging → Swagger → UseCors → ExceptionHandlingMiddleware
 ```
 
 Controllers, routes and response bodies do not change. A record in another
-co-op is not found by its handler, which answers 404 as it already does for
-a missing id (L2-REQ-102 AC2, AC4, AC5).
+co-op is not found by its handler, which answers exactly as it already does
+for a missing id: 404 where the endpoint returns `NotFound`, such as a page
+read by its slug or an asset served by its id, and the existing error
+elsewhere (L2-REQ-102 AC2, AC4, AC5).
 
 ### Seed data
 
@@ -148,7 +150,8 @@ reverse-proxy and wildcard DNS and TLS setting: `<TO SUPPLY>`.
 second co-op, `birch`, and its `HttpClient`s set the `Host` header to choose
 the co-op. The tests cover: an unknown or malformed co-op answering 404; the
 default co-op at `localhost`; lists and counts holding only the caller's
-co-op; another co-op's record answering 404 to read, change and delete; a
+co-op; another co-op's record treated as missing on read, change and
+delete; a
 created record belonging to the caller's co-op whatever the body says;
 another co-op's asset and invitation token; sign-in at the wrong co-op;
 a token sent to another co-op, and one with no co-op, answering 401; and the

@@ -1,11 +1,13 @@
 using Coop.Domain.EventSourcing;
 using Newtonsoft.Json;
+using Coop.Domain.Tenancy;
 
 namespace Coop.Domain.Maintenance;
 
-public class MaintenanceRequest
+public class MaintenanceRequest : ITenantOwned
 {
     public Guid MaintenanceRequestId { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
     public Guid RequestedByProfileId { get; set; }
     public Guid? ReceivedByProfileId { get; set; }
     public string RequestedByName { get; set; } = string.Empty;

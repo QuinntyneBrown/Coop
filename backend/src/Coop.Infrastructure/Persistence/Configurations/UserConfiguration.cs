@@ -13,6 +13,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Password).IsRequired();
         builder.HasMany(u => u.Roles).WithMany(r => r.Users);
         builder.HasMany(u => u.Profiles).WithOne().HasForeignKey(p => p.UserId);
-        builder.HasQueryFilter(u => !u.IsDeleted);
+        builder.HasQueryFilter("SoftDelete", u => !u.IsDeleted);
     }
 }
