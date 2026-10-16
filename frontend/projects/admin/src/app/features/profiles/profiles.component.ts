@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
+import { plainName } from '../../core/plain-name';
 
 @Component({
   selector: 'app-profiles',
@@ -50,7 +51,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         @if (editMode) {
           <div class="profile-edit-panel" data-testid="profile-edit-panel">
             <h2 data-testid="profile-edit-title">
-              Edit {{ getProfileTypeLabel(currentProfile) }} Profile
+              Edit {{ getProfileTypeLabel(currentProfile).toLowerCase() }} profile
             </h2>
             <div class="avatar-section" data-testid="profile-avatar">
               <div class="avatar-circle">
@@ -557,6 +558,10 @@ export class ProfilesComponent implements OnInit {
   }
 
   getProfileTypeLabel(profile: any): string {
+    return plainName(this.profileTypeCode(profile));
+  }
+
+  private profileTypeCode(profile: any): string {
     if (profile?.profileType && typeof profile.profileType === 'string') return profile.profileType;
     const typeMap: Record<number, string> = {
       0: 'Member',

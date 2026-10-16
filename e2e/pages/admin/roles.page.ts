@@ -59,10 +59,22 @@ export class RolesPage {
     await card.click();
   }
 
-  async expectRoleSelected(roleName: string) {
-    const card = this.page.getByTestId(`role-card-${roleName.toLowerCase()}`);
-    await expect(card).toHaveAttribute('data-selected', 'true');
-    await expect(this.privilegesPanelTitle).toContainText(roleName);
+  /** The role's card, found by its code name, e.g. "systemadministrator". */
+  roleCard(roleCode: string): Locator {
+    return this.page.getByTestId(`role-card-${roleCode.toLowerCase()}`);
+  }
+
+  /** The area name shown in a privilege row, found by its code name. */
+  privilegeArea(aggregateCode: string): Locator {
+    return this.page
+      .getByTestId(`privilege-row-${aggregateCode.toLowerCase()}`)
+      .getByTestId('privilege-aggregate');
+  }
+
+  /** Selected by code name; the panel title shows the role's plain name. */
+  async expectRoleSelected(roleCode: string, plainName: string) {
+    await expect(this.roleCard(roleCode)).toHaveAttribute('data-selected', 'true');
+    await expect(this.privilegesPanelTitle).toHaveText(`${plainName} privileges`);
   }
 
   async getRoleCount(): Promise<number> {
