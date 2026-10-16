@@ -36,9 +36,6 @@ Every `.icon-btn`, `.notification-btn`, `.back-btn`, `.close-btn` and `.avatar-u
 |---|---|---|---|---|
 | `pages/public-dashboard/*`, `pages/public-maintenance/*`, `pages/public-documents/*`, `pages/public-messaging/*`, `pages/public-profile/*` and their dialogs and notifications, top bar | `icon="notifications"`, `label="Notifications"` | — | default | top bar surface |
 | same screens, top bar | `icon="menu"`, `label="Open menu"`, `expanded` false or true, `controls` = the drawer id | — | default, expanded (the drawer open state the mocks never capture) | top bar surface |
-| `pages/admin-dashboard/*`, `notifications/admin-dashboard-unread/info`, dashboard header | `icon="notifications"`, `label="Notifications"`, `count` 2, `countLabel="2 unread"` | count "2" | default, with count | canvas |
-| `pages/admin-dashboard/*` dashboard header | `icon="menu"`, `label="Open menu"`, `expanded` | — | default | canvas |
-| `pages/admin-users/*`, `pages/admin-assets/*`, `pages/admin-invitations/*`, `pages/admin-roles/*`, `pages/admin-settings/*` and their dialogs and notifications, `.topbar` (`.notification-btn`) | `icon="notifications"`, `label="Notifications"` | — | default | top bar surface |
 | `pages/admin-users/*` table rows | `icon="edit"`, `label="Edit mira.fern"`; `icon="delete"`, `label="Delete mira.fern"` | — | default, hover, focus | card (table) |
 | `pages/admin-documents/*` and the document dialogs, card toolbar (`.delete-doc-btn`) | `icon="delete"`, `label="Delete Autumn courtyard gathering"` | — | default | card |
 | `dialogs/admin-document-viewer/default`, `dialogs/public-document-viewer/default`, `.modal-header` | `icon="close"`, `label="Close"` | — | default | dialog |

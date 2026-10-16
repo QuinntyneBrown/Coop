@@ -1,19 +1,17 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
-import { TopbarComponent } from '../../layout/topbar.component';
 import { formatFileSize } from './format-file-size';
 
 @Component({
   selector: 'app-assets',
   standalone: true,
-  imports: [CommonModule, TopbarComponent],
+  imports: [CommonModule],
   template: `
-    <app-topbar title="Digital Assets"></app-topbar>
     <div class="assets-page">
       <div class="page-header">
         <div>
-          <h2 data-testid="assets-page-title">Digital Assets</h2>
+          <h1 data-testid="assets-page-title">Digital Assets</h1>
           <span class="stats" data-testid="assets-info">{{ assets.length }} assets</span>
         </div>
         <div class="page-actions">
@@ -186,8 +184,8 @@ import { formatFileSize } from './format-file-size';
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
-        h2 {
-          font-size: 20px;
+        h1 {
+          font-size: 24px;
           font-weight: 600;
         }
         .stats {
