@@ -76,6 +76,8 @@ h2 { font-size: 72px; line-height: 1.1; margin: 0 0 20px; font-weight: 700; }
 .lead { font-size: 56px; line-height: 1.25; margin: 0; color: var(--ink-soft); }
 .muted { color: var(--ink-soft); }
 .small { font-size: 36px; }
+/* Balance wrapped lines so no line is left with a single word. */
+h1, h2, .lead, figcaption { text-wrap: balance; }
 
 /* ---- status chips: shape and words, never colour alone ---- */
 .chip {
