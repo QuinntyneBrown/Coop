@@ -5,7 +5,10 @@
 .filter-btn[_ngcontent-ng-c2530530807] { padding: 8px 16px; border: 1px solid rgb(229, 228, 225); border-radius: 20px; background: rgb(255, 255, 255); font-size: 14px; cursor: pointer; transition: 0.2s; }
 .filter-btn.active[_ngcontent-ng-c2530530807] { background: rgb(61, 138, 90); color: rgb(255, 255, 255); border-color: rgb(61, 138, 90); }
 .filter-btn[_ngcontent-ng-c2530530807]:hover { border-color: rgb(61, 138, 90); }
-.content-area[_ngcontent-ng-c2530530807] { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.content-area[_ngcontent-ng-c2530530807] { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+@media (min-width: 769px) {
+  .content-area[_ngcontent-ng-c2530530807]:has(.detail-panel[_ngcontent-ng-c2530530807]) { grid-template-columns: 1fr 1fr; }
+}
 .request-list[_ngcontent-ng-c2530530807] { display: flex; flex-direction: column; gap: 12px; }
 .request-card[_ngcontent-ng-c2530530807] { padding: 16px; cursor: pointer; transition: 0.2s; }
 .request-card[_ngcontent-ng-c2530530807]:hover { border-color: rgb(61, 138, 90); }
