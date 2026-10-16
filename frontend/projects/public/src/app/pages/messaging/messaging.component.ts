@@ -34,7 +34,7 @@ import { catchError, of } from 'rxjs';
                   conv.subject
                 }}</span>
                 <span class="conv-time" data-testid="messaging-conversation-timestamp">{{
-                  conv.lastMessageAt | date: 'shortDate'
+                  conv.lastMessageAt | date: 'mediumDate'
                 }}</span>
               </div>
               <p class="conv-preview" data-testid="messaging-conversation-preview">

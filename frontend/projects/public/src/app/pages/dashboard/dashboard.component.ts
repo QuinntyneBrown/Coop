@@ -118,7 +118,7 @@ import { catchError, of, forkJoin } from 'rxjs';
                   <span class="request-title">{{ req.title }}</span>
                   <span class="request-status">{{ req.status }}</span>
                 </div>
-                <span class="request-date">{{ req.createdAt | date: 'shortDate' }}</span>
+                <span class="request-date">{{ req.createdAt | date: 'mediumDate' }}</span>
               </div>
             }
           </div>

@@ -94,6 +94,17 @@ test.describe('Dashboard', () => {
       expect(count).toBeGreaterThan(0);
     });
 
+    test('Given a recent request, when the dashboard loads, then its date reads like "Oct 13, 2026"', async ({
+      api,
+    }) => {
+      await api.createMaintenanceRequest({
+        title: 'E2E: Dashboard date format',
+        description: 'Seeded for the date format test.',
+      });
+      await dashboard.goto();
+      await dashboard.expectRecentRequestDate(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/);
+    });
+
     test('should have a "View all" link to maintenance requests', async () => {
       await dashboard.goto();
       await expect(dashboard.viewAllRequestsLink).toBeVisible();

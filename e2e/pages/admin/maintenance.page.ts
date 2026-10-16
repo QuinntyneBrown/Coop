@@ -114,6 +114,10 @@ export class MaintenancePage {
     await expect(this.detailStatusBadge).toBeVisible();
   }
 
+  async expectRequestCardDate(index: number, pattern: RegExp) {
+    await expect(this.requestCards.nth(index).locator('.request-date')).toHaveText(pattern);
+  }
+
   async expectRequestCardStatus(index: number, status: string) {
     const card = this.requestCards.nth(index);
     const badge = card.getByTestId('request-status-badge');

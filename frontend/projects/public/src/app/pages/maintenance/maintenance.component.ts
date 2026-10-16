@@ -321,7 +321,9 @@ import { photoFileError } from './photo-file-error';
                   <div class="comment" data-testid="maintenance-detail-comment">
                     <div class="comment-header">
                       <strong>{{ comment.authorName }}</strong>
-                      <span class="comment-date">{{ comment.createdAt | date: 'short' }}</span>
+                      <span class="comment-date">{{
+                        comment.createdAt | date: 'MMM d, y, h:mm a'
+                      }}</span>
                     </div>
                     <p>{{ comment.content }}</p>
                   </div>

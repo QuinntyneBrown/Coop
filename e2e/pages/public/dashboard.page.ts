@@ -94,6 +94,10 @@ export class DashboardPage {
     await expect(this.recentRequestItems.first()).toBeVisible();
   }
 
+  async expectRecentRequestDate(pattern: RegExp) {
+    await expect(this.recentRequestItems.first().locator('.request-date')).toHaveText(pattern);
+  }
+
   async getMetricValue(metric: 'requests' | 'messages' | 'members'): Promise<string> {
     const locator = {
       requests: this.requestsCount,
