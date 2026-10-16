@@ -41,6 +41,11 @@ test.describe('Dashboard', () => {
       // The docked sidebar carries the logo and the links, so no menu button.
       await expect(dashboard.hamburgerMenu).toBeHidden();
     });
+
+    test('Given a member signs in, when the dashboard loads, then the top bar carries the same name as the public website', async () => {
+      await dashboard.goto();
+      await expect(dashboard.logo).toHaveText('OWN Housing Co-op');
+    });
   });
 
   test.describe('Greeting', () => {

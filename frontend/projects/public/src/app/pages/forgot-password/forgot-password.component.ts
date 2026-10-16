@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   imports: [FormsModule, RouterLink],
   template: `
     <div class="header">
-      <h1>Coop</h1>
+      <h1>OWN Housing Co-op</h1>
       <p>Password Recovery</p>
     </div>
     <div class="body">

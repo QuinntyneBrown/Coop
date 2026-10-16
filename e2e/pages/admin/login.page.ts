@@ -68,7 +68,7 @@ export class LoginPage {
 
   async expectHeroPanelVisible() {
     await expect(this.heroPanel).toBeVisible();
-    await expect(this.heroTitle).toHaveText('Coop Manager');
+    await expect(this.heroTitle).toHaveText('OWN Housing Co-op');
     await expect(this.heroDescription).toBeVisible();
     await expect(this.heroIcon).toBeVisible();
   }

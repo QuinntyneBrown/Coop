@@ -12,7 +12,7 @@
 
 ## Purpose and scope
 
-The top bar is the sticky strip across the top of a screen. It names where the person is (the product name "Coop" in the member app and on the marketing site, the page title in the admin app) and holds a few global actions: the notification bell, the menu button that opens the [sidebar](sidebar.md) drawer, and whatever the page projects beside them (the admin search bar, the marketing site's "Sign In" link and "Member Login" button). It is a banner landmark, not navigation: page destinations belong in the [sidebar](sidebar.md) or the [bottom tab bar](bottom-tab-bar.md).
+The top bar is the sticky strip across the top of a screen. It names where the person is (the co-op's name "OWN Housing Co-op" in the member app and on the marketing site, the page title in the admin app) and holds a few global actions: the notification bell, the menu button that opens the [sidebar](sidebar.md) drawer, and whatever the page projects beside them (the admin search bar, the marketing site's "Sign In" link and "Member Login" button). It is a banner landmark, not navigation: page destinations belong in the [sidebar](sidebar.md) or the [bottom tab bar](bottom-tab-bar.md).
 
 Use something else instead when:
 
@@ -32,10 +32,10 @@ Every `.top-bar`, `.topbar`, `.landing-navbar` and `.navbar` in `docs/mocks` (76
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `title="Coop"`, `notifications`, `menuControls="member-nav"`, `[menuExpanded]` | logo mark + "Coop"; bell "Notifications"; hamburger "Open menu" | menu collapsed on every mock; hamburger shown below 1024 px (the mocks leave it visible at every width: drift) | surface, sticky over the canvas |
+| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-*`, `notifications/public-profile-saved` | `title="OWN Housing Co-op"`, `notifications`, `menuControls="member-nav"`, `[menuExpanded]` | logo mark + "OWN Housing Co-op"; bell "Notifications"; hamburger "Open menu" | menu collapsed on every mock; hamburger shown below 1024 px (the mocks leave it visible at every width: drift) | surface, sticky over the canvas |
 | `pages/admin-dashboard/*`, `notifications/admin-dashboard-unread/info` | `title="Dashboard"`, `heading`, `notifications`, `unreadCount` 2, `notificationsLabel="Notifications, 2 unread"` | logo mark + `<h1>` "Dashboard"; `[slot=actions]` search bar; bell with badge "2" | unread count; the mocks also show a hamburger that opens nothing (D-6) | surface at the top of the main column |
 | `pages/admin-users/*`, `admin-roles/*`, `admin-assets/*`, `admin-invitations/*`, `admin-settings/*` and their dialogs and notifications (`.topbar`) | `title="Users"` etc., `heading`, `logoIcon` null, `notifications` | `<h1>` "Users" / "Roles & Privileges" / "Digital Assets" / "Invitations" / "Settings"; `[slot=actions]` search bar; bell | no count | surface at the top of the main column |
-| `pages/public-landing/default` (`.landing-navbar`), `pages/admin-landing/default` (`.navbar`) | `title="Coop"` | `[slot=actions]`: "Sign In" text link and a primary [button](button.md) link "Get Started" / "Register"; L2-REQ-066 names this button "Member Login" (D-7) | no bell, no hamburger | surface, sticky above the hero |
+| `pages/public-landing/default` (`.landing-navbar`), `pages/admin-landing/default` (`.navbar`) | `title="OWN Housing Co-op"` | `[slot=actions]`: "Sign In" text link and a primary [button](button.md) link "Get Started" / "Register"; L2-REQ-066 names this button "Member Login" (D-7) | no bell, no hamburger | surface, sticky above the hero |
 
 Every row is buildable with the API below: a title that may be the page heading, an optional logo mark, an optional bell with count, an optional hamburger bound to a drawer, and one projection slot for page-specific actions.
 
@@ -56,7 +56,7 @@ Host: `coop-top-bar` is `display: contents`; the `<header class="top-bar">` is i
 
 | Input | Type | Default | Required | Rule |
 |---|---|---|---|---|
-| `title` | `string` | — | yes | The `.logo-text`: "Coop" on member and marketing screens, the page title ("Users") on admin screens. |
+| `title` | `string` | — | yes | The `.logo-text`: "OWN Housing Co-op" on member and marketing screens, the page title ("Users") on admin screens. |
 | `heading` | `boolean` | `false` | no | Renders the title as `<h1 class="logo-text">`. Admin screens set it; the page then has no other `h1` (accessibility foundation: one `h1` per page). |
 | `logoIcon` | `string \| null` | `'apartment'` | no | Material Icons ligature inside `.logo-icon`; `null` omits the mark (the admin page bars show the title alone). |
 | `notifications` | `boolean` | `false` | no | Renders the bell. |
@@ -121,7 +121,7 @@ The bar itself has no disabled, loading or error state. The bell's disabled stat
 <!-- rendered: member app bar, below 1024 px -->
 <header class="top-bar">
   <div class="top-bar-inner">
-    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div>
+    <div class="logo"><svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#B4502A"></rect><circle cx="17" cy="27" r="8" fill="#F6A98A"></circle><circle cx="31" cy="27" r="8" fill="#F0B35A"></circle><circle cx="24" cy="17" r="8" fill="#FBF7F0"></circle></svg><span class="logo-text">OWN Housing Co-op</span></div>
     <div class="top-bar-actions">
       <button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button>
       <button class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="member-nav"><span class="material-icons" aria-hidden="true">menu</span></button>
@@ -147,7 +147,7 @@ The bar itself has no disabled, loading or error state. The bell's disabled stat
 <!-- rendered: marketing bar -->
 <header class="top-bar">
   <div class="top-bar-inner">
-    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div>
+    <div class="logo"><svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#B4502A"></rect><circle cx="17" cy="27" r="8" fill="#F6A98A"></circle><circle cx="31" cy="27" r="8" fill="#F0B35A"></circle><circle cx="24" cy="17" r="8" fill="#FBF7F0"></circle></svg><span class="logo-text">OWN Housing Co-op</span></div>
     <div class="top-bar-actions">
       <a href="/login">Sign In</a>
       <a class="btn btn-primary" href="/register">Get Started</a>
@@ -160,11 +160,11 @@ The admin dashboard bar adds the `.logo-icon` mark before its `<h1>`; the expand
 
 ```html
 <!-- consumer -->
-<coop-top-bar title="Coop" notifications menuControls="member-nav" [menuExpanded]="menuOpen()" (menuToggled)="menuOpen.set($event)" (notificationsOpened)="openNotifications()"></coop-top-bar>
+<coop-top-bar title="OWN Housing Co-op" notifications menuControls="member-nav" [menuExpanded]="menuOpen()" (menuToggled)="menuOpen.set($event)" (notificationsOpened)="openNotifications()"></coop-top-bar>
 <coop-top-bar title="Users" heading [logoIcon]="null" notifications [unreadCount]="unread()" [notificationsLabel]="unreadLabel()">
   <coop-search-bar slot="actions" label="Search" placeholder="Search..."></coop-search-bar>
 </coop-top-bar>
-<coop-top-bar title="Coop">
+<coop-top-bar title="OWN Housing Co-op">
   <a slot="actions" routerLink="/login">Sign In</a>
   <coop-button slot="actions" variant="primary" href="/register">Get Started</coop-button>
 </coop-top-bar>
@@ -255,7 +255,7 @@ Only the icon buttons' `background-color` transitions, over `--duration-base`; u
 
 ## Content and internationalisation
 
-- Title: the product name "Coop" in the member app and on the marketing site; the page title in Title Case on admin screens ("Dashboard", "Users", "Roles & Privileges", "Digital Assets", "Invitations", "Settings"), the same words as the sidebar label where one exists.
+- Title: the co-op's name "OWN Housing Co-op" in the member app and on the marketing site; the page title in Title Case on admin screens ("Dashboard", "Users", "Roles & Privileges", "Digital Assets", "Invitations", "Settings"), the same words as the sidebar label where one exists.
 - Action names name the action, not the icon: "Notifications", "Open menu"; never "Bell" or "Hamburger". With a count: "Notifications, 2 unread".
 - The badge shows a bare number ("2"); the consumer caps it ("99+") if ever needed.
 - Marketing actions: "Sign In" as a text link and one primary button; the mocks say "Get Started" / "Register", L2-REQ-066 says "Member Login" (D-7).
@@ -274,9 +274,9 @@ Only the icon buttons' `background-color` transitions, over `--duration-base`; u
 
 ### Rendering
 
-- **AC-1** Given `<coop-top-bar title="Coop" notifications menuControls="member-nav">` at 375 px, when it renders, then the DOM holds `<header class="top-bar">` with a `.top-bar-inner` containing a `.logo` (`.logo-icon` "apartment" mark and `.logo-text` "Coop") and `.top-bar-actions` holding a "Notifications" button and an "Open menu" button, in that order. (L2-REQ-067)
+- **AC-1** Given `<coop-top-bar title="OWN Housing Co-op" notifications menuControls="member-nav">` at 375 px, when it renders, then the DOM holds `<header class="top-bar">` with a `.top-bar-inner` containing a `.logo` (`.logo-icon` three-circle mark and `.logo-text` "OWN Housing Co-op") and `.top-bar-actions` holding a "Notifications" button and an "Open menu" button, in that order. (L2-REQ-067)
 - **AC-2** Given the member bar at 1024 px and at 1440 px, when measured, then the `<header>` spans the main column beside the docked sidebar (it is never drawn under the sidebar, so the bell stays visible and can be pressed), has a `--color-bg-surface` background and a `--color-border-default` bottom border, and `.top-bar-inner` is at most 1440 px wide and horizontally centred. (L2-REQ-066)
-- **AC-3** Given the marketing bar with `title="Coop"`, when it renders, then the `.logo-icon` mark has a `--color-brand` fill and the `.logo-text` reads "Coop" in `--text-h3`. (L2-REQ-066)
+- **AC-3** Given the marketing bar with `title="OWN Housing Co-op"`, when it renders, then the `.logo-icon` is the co-op's three-circle mark and the `.logo-text` reads "OWN Housing Co-op" in `--text-h3`. (L2-REQ-066)
 - **AC-4** Given `title="Users"`, `heading` and `[logoIcon]="null"`, when it renders, then `.logo` contains `<h1 class="logo-text">Users</h1>` and no `.logo-icon`, and the page has exactly one `h1`. (L2-REQ-054)
 - **AC-5** Given a "Sign In" link and a primary "Get Started" button projected into `[slot=actions]` with no `menuControls`, when the marketing bar renders at 1440 px, then both appear inside `.top-bar-actions` at the far right of the bar, the button last. (L2-REQ-066)
 - **AC-6** Given `notifications` and `[unreadCount]="2"` with `notificationsLabel="Notifications, 2 unread"`, when it renders, then the bell shows a `.notification-badge` reading "2" with a `--color-danger-solid` fill and its accessible name is "Notifications, 2 unread". (L2-REQ-038)
@@ -306,7 +306,7 @@ Only the icon buttons' `background-color` transitions, over `--duration-base`; u
 
 ### Responsive
 
-- **AC-18** Given a bar titled "Coop" with `menuControls="member-nav"` and a "Sign In" link projected into `[slot=actions]`, when the viewport is 375, 640 and 768 px, then the bar shows the logo, "Coop" and the hamburger, and the projected "Sign In" is not rendered or focusable. (L2-REQ-067)
+- **AC-18** Given a bar titled "OWN Housing Co-op" with `menuControls="member-nav"` and a "Sign In" link projected into `[slot=actions]`, when the viewport is 375, 640 and 768 px, then the bar shows the logo, "OWN Housing Co-op" and the hamburger, and the projected "Sign In" is not rendered or focusable. (L2-REQ-067)
 - **AC-19** Given the same bar, when the viewport is 1024 px, then the hamburger is not rendered and the projected "Sign In" is visible and focusable. (L2-REQ-066)
 - **AC-20** Given the admin bar titled "Roles & Privileges" with the search bar in the slot at 320 px, when measured, then the actions wrap onto a second row inside `.top-bar-inner`, the title wraps rather than truncates and the page does not scroll horizontally. (L2-REQ-054)
 - **AC-21** Given the member bar at 320 px and 400 % zoom, when measured, then the bell and the hamburger are each at least 40 × 40 CSS px, visible and activatable. (L2-REQ-067)

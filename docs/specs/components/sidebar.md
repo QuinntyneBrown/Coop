@@ -33,8 +33,8 @@ Every `.sidebar` in `docs/mocks` (113 uses on 37 screens) is one of the configur
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| every admin shell screen: `pages/admin-dashboard/*`, `admin-maintenance/*`, `admin-documents/*`, `admin-messaging/*`, `admin-users/*`, `admin-roles/*`, `admin-profiles/*`, `admin-assets/*`, `admin-invitations/*`, `admin-settings/*`, their dialogs (`dialogs/admin-*`) and notifications (`notifications/admin-*-saved`, `admin-dashboard-unread`) | `shell="admin"`, `title="Coop Manager"`, `label="Admin"`, ten items, `user` set | icons `dashboard`, `build`, `description`, `chat`, `people`, `admin_panel_settings`, `badge`, `perm_media`, `mail`, `settings`; labels "Dashboard", "Maintenance", "Documents", "Messages", "Users", "Roles & Privileges", "Profiles", "Assets", "Invitations", "Settings"; footer avatar "M", "mira.fern", "Member" | one item current on every screen; docked above 768 px, hidden at 768 px and below | surface beside the canvas |
-| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-maintenance-create`, `public-maintenance-detail`, `public-document-viewer`, `public-profile-switcher`, `notifications/public-profile-saved` | `shell="public"`, `title="Coop"`, `label="Member"`, five items, no `user`, `id="member-nav"` | icons `home`, `build`, `description`, `chat`, `person`; labels "Home", "Requests", "Documents", "Messages", "Profile" | one item current; docked at 1024 px and wider; drawer closed below (no mock captures the open drawer) | surface beside the canvas; drawer over `--color-bg-backdrop` |
+| every admin shell screen: `pages/admin-dashboard/*`, `admin-maintenance/*`, `admin-documents/*`, `admin-messaging/*`, `admin-users/*`, `admin-roles/*`, `admin-profiles/*`, `admin-assets/*`, `admin-invitations/*`, `admin-settings/*`, their dialogs (`dialogs/admin-*`) and notifications (`notifications/admin-*-saved`, `admin-dashboard-unread`) | `shell="admin"`, `title="OWN Housing Co-op"`, `label="Admin"`, ten items, `user` set | icons `dashboard`, `build`, `description`, `chat`, `people`, `admin_panel_settings`, `badge`, `perm_media`, `mail`, `settings`; labels "Dashboard", "Maintenance", "Documents", "Messages", "Users", "Roles & Privileges", "Profiles", "Assets", "Invitations", "Settings"; footer avatar "M", "mira.fern", "Member" | one item current on every screen; docked above 768 px, hidden at 768 px and below | surface beside the canvas |
+| every member shell screen: `pages/public-dashboard/*`, `public-maintenance/*`, `public-documents/*`, `public-messaging/*`, `public-profile/*`, `dialogs/public-maintenance-create`, `public-maintenance-detail`, `public-document-viewer`, `public-profile-switcher`, `notifications/public-profile-saved` | `shell="public"`, `title="OWN Housing Co-op"`, `label="Member"`, five items, no `user`, `id="member-nav"` | icons `home`, `build`, `description`, `chat`, `person`; labels "Home", "Requests", "Documents", "Messages", "Profile" | one item current; docked at 1024 px and wider; drawer closed below (no mock captures the open drawer) | surface beside the canvas; drawer over `--color-bg-backdrop` |
 
 Every row is buildable with the API below: two shells, a title and logo mark, a link list, an optional signed-in footer and the drawer state.
 
@@ -56,7 +56,7 @@ Host: `coop-sidebar` is `display: contents` and carries no classes. The backdrop
 | Input | Type | Default | Required | Rule |
 |---|---|---|---|---|
 | `shell` | `'admin' \| 'public'` | — | yes | `admin` renders items as `.nav-item`, docks above `--layout-breakpoint-md` (768 px) and hides at 768 px and below with no drawer. `public` renders items as `.sidebar-link`, docks at `--layout-breakpoint-lg` (1024 px) and wider and is a drawer below (D-4). |
-| `title` | `string` | — | yes | The `.logo-text`: "Coop Manager" in the admin shell, "Coop" in the member app. |
+| `title` | `string` | — | yes | The `.logo-text`: "OWN Housing Co-op" in the admin shell, "OWN Housing Co-op" in the member app. |
 | `logoIcon` | `string` | `'apartment'` | no | Material Icons ligature rendered inside `.logo-icon`, `aria-hidden="true"`. |
 | `label` | `string` | — | yes | `aria-label` of the `<aside>` landmark: "Admin" or "Member". |
 | `navLabel` | `string` | `'Primary'` | no | `aria-label` of the `<nav>`; distinct from the tab bar's "Main" so the two public landmarks are told apart. |
@@ -118,7 +118,7 @@ No disabled, loading, collapsed or badge state exists (design-system page).
 <!-- rendered: admin shell, docked, Dashboard current -->
 <aside class="sidebar" aria-label="Admin">
   <div class="sidebar-header">
-    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop Manager</span></div>
+    <div class="logo"><svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#B4502A"></rect><circle cx="17" cy="27" r="8" fill="#F6A98A"></circle><circle cx="31" cy="27" r="8" fill="#F0B35A"></circle><circle cx="24" cy="17" r="8" fill="#FBF7F0"></circle></svg><span class="logo-text">OWN Housing Co-op</span></div>
   </div>
   <nav class="sidebar-nav" aria-label="Primary">
     <a class="nav-item active" href="/dashboard" aria-current="page"><span class="material-icons" aria-hidden="true">dashboard</span><span>Dashboard</span></a>
@@ -139,7 +139,7 @@ No disabled, loading, collapsed or badge state exists (design-system page).
 <div class="sidebar-backdrop"></div>
 <aside class="sidebar open" id="member-nav" aria-label="Member">
   <div class="sidebar-header">
-    <div class="logo"><span class="material-icons logo-icon" aria-hidden="true">apartment</span><span class="logo-text">Coop</span></div>
+    <div class="logo"><svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#B4502A"></rect><circle cx="17" cy="27" r="8" fill="#F6A98A"></circle><circle cx="31" cy="27" r="8" fill="#F0B35A"></circle><circle cx="24" cy="17" r="8" fill="#FBF7F0"></circle></svg><span class="logo-text">OWN Housing Co-op</span></div>
   </div>
   <nav class="sidebar-nav" aria-label="Primary">
     <a class="sidebar-link active" href="/dashboard" aria-current="page"><span class="material-icons" aria-hidden="true">home</span><span>Home</span></a>
@@ -155,8 +155,8 @@ Docked and closed differ from the open drawer only by the absence of `.open` and
 
 ```html
 <!-- consumer -->
-<coop-sidebar shell="admin" title="Coop Manager" label="Admin" [items]="adminLinks" [user]="signedIn()"></coop-sidebar>
-<coop-sidebar shell="public" id="member-nav" title="Coop" label="Member" [items]="memberLinks" [open]="menuOpen()" (openChange)="menuOpen.set($event)"></coop-sidebar>
+<coop-sidebar shell="admin" title="OWN Housing Co-op" label="Admin" [items]="adminLinks" [user]="signedIn()"></coop-sidebar>
+<coop-sidebar shell="public" id="member-nav" title="OWN Housing Co-op" label="Member" [items]="memberLinks" [open]="menuOpen()" (openChange)="menuOpen.set($event)"></coop-sidebar>
 ```
 
 The classes and attributes above are part of the contract: the e2e page objects locate the sidebar by `.sidebar`, the items by `.nav-item` / `.sidebar-link`, `.active` and `aria-current`, and the footer by `.user-name` and `.user-role`.
@@ -252,7 +252,7 @@ The drawer slides in and out and the backdrop fades over `--duration-slow`; item
 ## Content and internationalisation
 
 - Labels are one or two Title Case nouns naming the destination, the same noun as the page title it opens: "Dashboard", "Maintenance", "Documents", "Messages", "Users", "Roles & Privileges", "Profiles", "Assets", "Invitations", "Settings"; member app: "Home", "Requests", "Documents", "Messages", "Profile". Home first, Profile last; admin management items follow the shared items (navigation pattern).
-- Titles: "Coop Manager" (admin), "Coop" (member). Landmark labels: "Admin", "Member", "Primary".
+- Titles: "OWN Housing Co-op" (admin), "OWN Housing Co-op" (member). Landmark labels: "Admin", "Member", "Primary".
 - Footer: the handle and role from the current profile, "mira.fern" and "Member" (L2-REQ-018); the role is the profile type as a single Title Case word.
 - Translatable inputs: `title`, `label`, `navLabel`, `NavLink.label`, `SidebarUser.role`. Data values: `SidebarUser.name`, `SidebarUser.initials`, `logoIcon`, `NavLink.icon`, `NavLink.link`.
 - Long strings: a French label about 30 % longer ("Rôles et privilèges", "Invitations") wraps to a second line inside the 260 px column without clipping; the item grows in height.
@@ -269,8 +269,8 @@ The drawer slides in and out and the backdrop fades over `--duration-slow`; item
 
 ### Rendering
 
-- **AC-1** Given `shell="admin"`, `title="Coop Manager"`, `label="Admin"` and the ten admin links, when it renders above 768 px, then the DOM holds `<aside class="sidebar" aria-label="Admin">` with a `.sidebar-header` logo reading "Coop Manager", a `<nav class="sidebar-nav" aria-label="Primary">` of ten `.nav-item` links in the order Dashboard, Maintenance, Documents, Messages, Users, Roles & Privileges, Profiles, Assets, Invitations, Settings, and a `.sidebar-footer`. (L2-REQ-054)
-- **AC-2** Given `shell="public"`, `title="Coop"`, `label="Member"` and the five member links, when it renders at 1024 px, then the DOM holds five `.sidebar-link` links labelled "Home", "Requests", "Documents", "Messages", "Profile" with the icons `home`, `build`, `description`, `chat`, `person`, and no `.sidebar-footer`. (L2-REQ-066)
+- **AC-1** Given `shell="admin"`, `title="OWN Housing Co-op"`, `label="Admin"` and the ten admin links, when it renders above 768 px, then the DOM holds `<aside class="sidebar" aria-label="Admin">` with a `.sidebar-header` logo reading "OWN Housing Co-op", a `<nav class="sidebar-nav" aria-label="Primary">` of ten `.nav-item` links in the order Dashboard, Maintenance, Documents, Messages, Users, Roles & Privileges, Profiles, Assets, Invitations, Settings, and a `.sidebar-footer`. (L2-REQ-054)
+- **AC-2** Given `shell="public"`, `title="OWN Housing Co-op"`, `label="Member"` and the five member links, when it renders at 1024 px, then the DOM holds five `.sidebar-link` links labelled "Home", "Requests", "Documents", "Messages", "Profile" with the icons `home`, `build`, `description`, `chat`, `person`, and no `.sidebar-footer`. (L2-REQ-066)
 - **AC-3** Given the "Maintenance" link with `icon="build"`, when it renders, then a `.material-icons` span containing "build" with `aria-hidden="true"` precedes the label text and the link's accessible name is exactly "Maintenance". (L2-REQ-066)
 - **AC-4** Given `user` is `{ name: "mira.fern", role: "Member", initials: "M" }`, when the admin sidebar renders, then the footer shows an avatar with "M", `.user-name` reading "mira.fern" and `.user-role` reading "Member" below it. (L2-REQ-018)
 - **AC-5** Given the current profile changes from the Member profile to Mira Fern's BoardMember profile, when `user` updates to `{ role: "BoardMember" }`, then `.user-role` reads "BoardMember" and nothing else in the sidebar re-renders. (L2-REQ-018)
@@ -339,4 +339,4 @@ The drawer slides in and out and the backdrop fades over `--duration-slow`; item
 - **D-8** *How are `.user-info`, `.user-name` and `.user-role` styled?* components.css has no rule for them; the CRD maps the mocks' 14 px/500 name and 12 px muted role to `--text-label` on `--color-fg-default` and `--text-caption` on `--color-fg-muted`, which pass 4.5:1. The design-system stylesheet should add the rule.
 - **D-9** *Why not host the drawer in a CDK Dialog?* The same element is docked beside the page at 1024 px and a drawer below; a dialog would re-parent it into the overlay container and break the sidebar-before-main DOM order the skip link relies on. The CRD uses the CDK `FocusTrap` primitive plus `inert` on the host's siblings, which gives the dialog pattern's focus behaviour in place.
 - **D-10** *How does the drawer find its breakpoint?* `BreakpointObserver` on `(min-width: 64rem)`, the LG token's value, written literally because custom properties cannot be used in media conditions (layout foundation).
-- **D-11** *Which element gets the logo mark?* A `.logo-icon` span with the `apartment` ligature, as the design-system page renders for both shells. The public mocks' inline "C" SVG is drift the design system replaced with Material Icons.
+- **D-11** *Which element gets the logo mark?* A `.logo-icon` inline SVG of the co-op's three-circle mark, the same mark the public website header shows, in both shells, so the website, the member app and the office app carry one name and one logo (issue #149).

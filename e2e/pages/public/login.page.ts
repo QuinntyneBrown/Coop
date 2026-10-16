@@ -58,7 +58,7 @@ export class LoginPage {
   }
 
   async expectHeaderContent() {
-    await expect(this.headerTitle).toHaveText('Coop');
+    await expect(this.headerTitle).toHaveText('OWN Housing Co-op');
     await expect(this.headerSubtitle).toHaveText('Cooperative management');
     await expect(this.welcomeHeading).toHaveText('Welcome back');
   }

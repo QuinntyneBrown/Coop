@@ -13,21 +13,13 @@ import { UserService, UserProfile } from '../core/services/user.service';
     <header class="top-bar" data-testid="dashboard-top-bar">
       <div class="top-bar-inner">
         <div class="logo" data-testid="dashboard-logo">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="8" fill="var(--primary)" />
-            <text
-              x="14"
-              y="19"
-              text-anchor="middle"
-              fill="white"
-              font-size="14"
-              font-weight="600"
-              font-family="Outfit"
-            >
-              C
-            </text>
+          <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
           </svg>
-          <span class="logo-text">Coop</span>
+          <span class="logo-text">OWN Housing Co-op</span>
         </div>
         <div class="top-bar-actions">
           <button
@@ -78,21 +70,13 @@ import { UserService, UserProfile } from '../core/services/user.service';
     <aside class="sidebar" [class.open]="menuOpen">
       <div class="sidebar-header">
         <div class="logo">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="8" fill="var(--primary)" />
-            <text
-              x="14"
-              y="19"
-              text-anchor="middle"
-              fill="white"
-              font-size="14"
-              font-weight="600"
-              font-family="Outfit"
-            >
-              C
-            </text>
+          <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
           </svg>
-          <span class="logo-text">Coop</span>
+          <span class="logo-text">OWN Housing Co-op</span>
         </div>
       </div>
       <nav class="sidebar-nav">

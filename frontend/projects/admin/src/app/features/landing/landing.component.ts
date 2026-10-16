@@ -15,8 +15,13 @@ import type { Director } from '../../core/models/director';
       <!-- Navbar -->
       <nav class="navbar" data-testid="landing-navbar">
         <div class="navbar-brand">
-          <span class="material-icons">apartment</span>
-          <span class="brand-text">Coop</span>
+          <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
+          </svg>
+          <span class="brand-text">OWN Housing Co-op</span>
         </div>
         <div class="navbar-actions">
           <a routerLink="/login" class="nav-link" data-testid="landing-login-link">Sign In</a>
@@ -41,7 +46,12 @@ import type { Director } from '../../core/models/director';
           >
         </div>
         <div class="hero-image">
-          <span class="material-icons hero-icon">apartment</span>
+          <svg class="hero-icon" width="120" height="120" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
+          </svg>
         </div>
       </section>
 
@@ -93,10 +103,6 @@ import type { Director } from '../../core/models/director';
         display: flex;
         align-items: center;
         gap: 8px;
-        .material-icons {
-          color: #3d8a5a;
-          font-size: 28px;
-        }
         .brand-text {
           font-size: 20px;
           font-weight: 700;
@@ -149,8 +155,8 @@ import type { Director } from '../../core/models/director';
         justify-content: center;
       }
       .hero-icon {
-        font-size: 120px;
-        color: rgba(255, 255, 255, 0.9);
+        width: 120px;
+        height: 120px;
       }
       .btn-lg {
         padding: 14px 32px;
@@ -238,7 +244,8 @@ import type { Director } from '../../core/models/director';
           height: 200px;
         }
         .hero-icon {
-          font-size: 80px;
+          width: 80px;
+          height: 80px;
         }
         .hero-content h1 {
           font-size: 28px;

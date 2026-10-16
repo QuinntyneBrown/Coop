@@ -18,7 +18,19 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <!-- Top Bar -->
       <div class="top-bar" data-testid="dashboard-top-bar">
         <div class="top-bar-left">
-          <span class="material-icons logo-icon" data-testid="dashboard-logo">apartment</span>
+          <svg
+            class="logo-icon"
+            data-testid="dashboard-logo"
+            width="28"
+            height="28"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <rect width="48" height="48" rx="14" fill="#B4502A" />
+            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
+            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
+            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
+          </svg>
           <h1 class="logo-text" data-testid="dashboard-page-title">Dashboard</h1>
         </div>
         <div class="top-bar-right">
@@ -202,8 +214,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         gap: 8px;
       }
       .logo-icon {
-        color: #3d8a5a;
-        font-size: 28px;
+        flex: none;
       }
       .logo-text {
         font-size: 18px;
