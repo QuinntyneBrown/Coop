@@ -1,5 +1,5 @@
 [
-  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true},
+  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true, "height": 940},
   {"name": "public-landing-about", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 960},
   {"name": "public-landing-blocks", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 2850},
   {"name": "public-landing-events", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4140},
