@@ -1,6 +1,7 @@
 using Coop.Api.Tenancy;
 using Coop.Application.Common.Interfaces;
 using Coop.Domain.Tenancy;
+using Coop.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Middleware;
@@ -8,7 +9,9 @@ namespace Coop.Api.Middleware;
 /// <summary>
 /// Finds the co-op a request is for from the sub-domain of its host, or the
 /// default co-op for hosts outside the base domain, and answers 404 when there
-/// is none (L2-REQ-101). Runs after authentication and before authorization.
+/// is none (L2-REQ-101). A signed-in caller whose token names another co-op,
+/// or none, is refused with 401 (L2-REQ-103). Runs after authentication and
+/// before authorization.
 /// </summary>
 public class TenantResolutionMiddleware
 {
@@ -32,6 +35,13 @@ public class TenantResolutionMiddleware
         {
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             await context.Response.WriteAsJsonAsync(new { message = "Co-op not found." });
+            return;
+        }
+
+        if (context.User.Identity?.IsAuthenticated == true
+            && context.User.FindFirst(Constants.ClaimTypes.TenantId)?.Value != tenant.TenantId.ToString())
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             return;
         }
 

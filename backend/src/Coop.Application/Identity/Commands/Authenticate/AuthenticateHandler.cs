@@ -12,12 +12,14 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, Authenti
     private readonly ICoopDbContext _context;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenBuilder _tokenBuilder;
+    private readonly ITenantContext _tenantContext;
 
-    public AuthenticateHandler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder)
+    public AuthenticateHandler(ICoopDbContext context, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder, ITenantContext tenantContext)
     {
         _context = context;
         _passwordHasher = passwordHasher;
         _tokenBuilder = tokenBuilder;
+        _tenantContext = tenantContext;
     }
 
     public async Task<AuthenticateResponse> Handle(AuthenticateRequest request, CancellationToken cancellationToken)
@@ -38,6 +40,7 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, Authenti
 
         _tokenBuilder.AddUsername(user.Username);
         _tokenBuilder.AddClaim(new Claim(Constants.ClaimTypes.UserId, user.UserId.ToString()));
+        _tokenBuilder.AddClaim(new Claim(Constants.ClaimTypes.TenantId, _tenantContext.TenantId.ToString()));
 
         if (user.CurrentProfileId.HasValue)
             _tokenBuilder.AddClaim(new Claim("CurrentProfileId", user.CurrentProfileId.Value.ToString()));

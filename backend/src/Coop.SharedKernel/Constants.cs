@@ -8,6 +8,7 @@ public static class Constants
         public const string Username = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
         public const string Privilege = "Privilege";
         public const string Role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+        public const string TenantId = "tenant_id";
     }
 
     public static class Roles
