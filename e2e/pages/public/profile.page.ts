@@ -49,6 +49,8 @@ export class ProfilePage {
 
   // Password change
   readonly changePasswordButton: Locator;
+  readonly passwordHeading: Locator;
+  readonly cancelPasswordButton: Locator;
   readonly currentPasswordInput: Locator;
   readonly newPasswordInput: Locator;
   readonly confirmNewPasswordInput: Locator;
@@ -108,6 +110,8 @@ export class ProfilePage {
     this.profileOptions = page.locator('[data-testid="profile-switcher-option"]');
 
     this.changePasswordButton = page.locator('[data-testid="profile-change-password-btn"]');
+    this.passwordHeading = page.locator('[data-testid="profile-password-heading"]');
+    this.cancelPasswordButton = page.locator('[data-testid="profile-password-cancel-btn"]');
     this.currentPasswordInput = page.locator('[data-testid="profile-current-password"]');
     this.newPasswordInput = page.locator('[data-testid="profile-new-password"]');
     this.confirmNewPasswordInput = page.locator('[data-testid="profile-confirm-new-password"]');
