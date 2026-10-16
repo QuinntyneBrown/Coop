@@ -118,6 +118,10 @@ test.describe('Dashboard', () => {
   });
 
   test.describe('Navigation via Tab Bar', () => {
+    test.beforeEach(async ({ authenticatedPage }) => {
+      await authenticatedPage.setViewportSize({ width: 375, height: 812 });
+    });
+
     test('should navigate to requests page', async () => {
       await dashboard.goto();
       await dashboard.navigateToRequests();
@@ -163,6 +167,16 @@ test.describe('Dashboard', () => {
       dashboard = new DashboardPage(authenticatedPage);
       await dashboard.goto();
       await expect(dashboard.hamburgerMenu).toBeVisible();
+    });
+  });
+
+  test.describe('Desktop Layout (1280px)', () => {
+    test('should hide the bottom tab bar where the sidebar shows', async ({ authenticatedPage }) => {
+      await authenticatedPage.setViewportSize({ width: 1280, height: 800 });
+      dashboard = new DashboardPage(authenticatedPage);
+      await dashboard.goto();
+      await dashboard.expectLoaded();
+      await expect(dashboard.bottomTabBar).toBeHidden();
     });
   });
 
