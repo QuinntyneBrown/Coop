@@ -315,6 +315,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         border-radius: 14px;
         border: 1px solid #e5e4e1;
         box-shadow: 0 2px 8px rgba(26, 25, 24, 0.03);
+        margin-bottom: 24px;
       }
       .card-header {
         display: flex;

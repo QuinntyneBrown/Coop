@@ -23,7 +23,7 @@
 .metric-info[_ngcontent-ng-c4223793772] { display: flex; flex-direction: column; }
 .metric-count[_ngcontent-ng-c4223793772] { font-size: 24px; font-weight: 700; }
 .metric-label[_ngcontent-ng-c4223793772] { font-size: 12px; color: rgba(26, 25, 24, 0.8); }
-.card[_ngcontent-ng-c4223793772] { background: rgb(255, 255, 255); border-radius: 14px; border: 1px solid rgb(229, 228, 225); box-shadow: rgba(26, 25, 24, 0.03) 0px 2px 8px; }
+.card[_ngcontent-ng-c4223793772] { background: rgb(255, 255, 255); border-radius: 14px; border: 1px solid rgb(229, 228, 225); box-shadow: rgba(26, 25, 24, 0.03) 0px 2px 8px; margin-bottom: 24px; }
 .card-header[_ngcontent-ng-c4223793772] { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgb(229, 228, 225); }
 .card-header[_ngcontent-ng-c4223793772] h3[_ngcontent-ng-c4223793772] { font-size: 16px; font-weight: 600; }
 .view-all-link[_ngcontent-ng-c4223793772] { font-size: 14px; color: rgb(61, 138, 90); text-decoration: none; }
