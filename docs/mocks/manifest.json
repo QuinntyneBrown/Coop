@@ -934,7 +934,7 @@
       "requirements": [
         "L2-REQ-042"
       ],
-      "note": "The confirmation is stacked over the still-open detail dialog.",
+      "note": "The detail dialog is hidden while the confirmation is open; Cancel brings it back.",
       "opens_from": "admin-assets",
       "states": [
         "default"

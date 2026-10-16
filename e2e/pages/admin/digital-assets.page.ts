@@ -34,6 +34,7 @@ export class DigitalAssetsPage {
   // Delete dialog
   readonly deleteDialog: Locator;
   readonly deleteConfirmButton: Locator;
+  readonly deleteCancelButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -64,6 +65,7 @@ export class DigitalAssetsPage {
 
     this.deleteDialog = page.getByTestId('asset-delete-dialog');
     this.deleteConfirmButton = page.getByTestId('asset-delete-confirm');
+    this.deleteCancelButton = page.getByTestId('asset-delete-cancel');
   }
 
   async goto() {
