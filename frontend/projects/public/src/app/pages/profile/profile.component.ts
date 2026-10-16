@@ -787,7 +787,7 @@ export class ProfileComponent implements OnInit {
     this.passwordMismatchError = '';
 
     if (this.passwordData.newPassword !== this.passwordData.confirmNewPassword) {
-      this.passwordMismatchError = 'New passwords do not match';
+      this.passwordMismatchError = 'New passwords do not match.';
       return;
     }
 

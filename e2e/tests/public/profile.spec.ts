@@ -241,7 +241,9 @@ test.describe('Profile', () => {
     test('should reject mismatched new passwords', async () => {
       await profile.goto();
       await profile.changePassword('Member123!', 'NewPass123!', 'DifferentPass!');
-      await expect(profile.page.locator('[data-testid="profile-password-mismatch-error"]')).toBeVisible();
+      await expect(
+        profile.page.locator('[data-testid="profile-password-mismatch-error"]'),
+      ).toHaveText('New passwords do not match.');
     });
   });
 
