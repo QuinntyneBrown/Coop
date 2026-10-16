@@ -72,6 +72,15 @@ test.describe("Users Management", () => {
       }
     });
 
+    test("should show each user's own role", async () => {
+      await usersPage.expectRowContains(0, "admin", "SystemAdministrator", "Active");
+      await usersPage.expectRowContains(1, "member", "Member", "Active");
+    });
+
+    test("should show the signed-in user's role in the sidebar", async () => {
+      await sidebar.expectUserInfo("admin", "SystemAdministrator");
+    });
+
     test("should display role badges", async ({ authenticatedPage }) => {
       const firstRow = usersPage.tableRows.first();
       const roleBadge = firstRow.getByTestId("user-role-badge");
