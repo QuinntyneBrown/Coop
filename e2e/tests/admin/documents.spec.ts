@@ -175,6 +175,12 @@ test.describe('Documents', () => {
       await expect(documentsPage.documentDialog).toBeHidden();
     });
 
+    test('should close dialog with the close button in its header', async () => {
+      await documentsPage.newDocumentButton.click();
+      await documentsPage.dialogCloseButton.click();
+      await expect(documentsPage.documentDialog).toBeHidden();
+    });
+
     test('should create a new document', async () => {
       await documentsPage.createDocument(
         'E2E Created Document',
@@ -203,7 +209,9 @@ test.describe('Documents', () => {
       await documentsPage.goto();
 
       // Find the specific card with the published document
-      const card = authenticatedPage.locator('[data-testid="document-card"]:has-text("Published Doc")').first();
+      const card = authenticatedPage
+        .locator('[data-testid="document-card"]:has-text("Published Doc")')
+        .first();
       const badge = card.getByTestId('document-status-badge');
       await expect(badge).toContainText('Published');
     });
@@ -237,6 +245,22 @@ test.describe('Documents', () => {
       const card = documentsPage.documentCards.first();
       await card.getByTestId('document-delete-button').click();
       await expect(documentsPage.deleteDialog).toBeVisible();
+    });
+
+    test('should keep the document when the confirmation is closed', async ({ api }) => {
+      await api.createDocument({
+        title: 'Close Test Doc',
+        type: 'Notice',
+        content: 'Not deleted',
+        status: 'Draft',
+      });
+      await documentsPage.goto();
+      const count = await documentsPage.getDocumentCount();
+
+      await documentsPage.documentCards.first().getByTestId('document-delete-button').click();
+      await documentsPage.deleteCloseButton.click();
+      await expect(documentsPage.deleteDialog).toBeHidden();
+      await expect(documentsPage.documentCards).toHaveCount(count);
     });
 
     test('should delete a document after confirmation', async ({ api }) => {

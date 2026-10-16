@@ -131,69 +131,87 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
       <!-- Create/Edit Document Dialog -->
       @if (showDocumentDialog) {
-        <div class="modal-overlay" data-testid="document-dialog">
-          <div class="modal-content card">
-            <h3 data-testid="document-dialog-title">
-              {{ editingDocument ? 'Edit Document' : 'New Document' }}
-            </h3>
-            <div class="form-group">
-              <label>Title</label>
-              <input
-                type="text"
-                data-testid="document-dialog-title-input"
-                [(ngModel)]="dialogDoc.title"
-              />
-            </div>
-            <div class="form-group">
-              <label>Type</label>
-              <select data-testid="document-dialog-type" [(ngModel)]="dialogDoc.type">
-                <option value="Notice">Notice</option>
-                <option value="ByLaw">By-Law</option>
-                <option value="Report">Report</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Content</label>
-              <textarea
-                data-testid="document-dialog-content"
-                [(ngModel)]="dialogDoc.content"
-              ></textarea>
-            </div>
-            <div class="form-group">
-              <label>Status</label>
-              <select data-testid="document-dialog-status" [(ngModel)]="dialogDoc.status">
-                <option value="Draft">Draft</option>
-                <option value="Published">Published</option>
-              </select>
-            </div>
-            @if (dialogDoc.type === 'Notice' && dialogDoc.status === 'Published') {
-              <div class="notice-send">
-                <label for="notice-send">
-                  <input
-                    id="notice-send"
-                    type="checkbox"
-                    data-testid="document-dialog-send"
-                    aria-describedby="notice-send-hint"
-                    [(ngModel)]="dialogDoc.send"
-                    [disabled]="saving"
-                  />
-                  Also send to members by email and text
-                </label>
-                <p id="notice-send-hint" class="notice-send__hint">
-                  Only members who asked for new notices on their profile get one.
-                </p>
-              </div>
-            }
-            @if (dialogError) {
-              <p
-                class="notice-alert notice-alert--danger"
-                role="alert"
-                data-testid="document-dialog-error"
+        <div class="modal-overlay modal-overlay--top" data-testid="document-dialog">
+          <div
+            class="modal-content card form-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="document-dialog-heading"
+          >
+            <div class="form-dialog__header">
+              <h3 id="document-dialog-heading" data-testid="document-dialog-title">
+                {{ editingDocument ? 'Edit Document' : 'New Document' }}
+              </h3>
+              <button
+                type="button"
+                class="icon-btn form-dialog__close"
+                aria-label="Close"
+                [disabled]="saving"
+                (click)="showDocumentDialog = false"
               >
-                <span class="material-icons" aria-hidden="true">error</span>
-                <span>{{ dialogError }}</span>
-              </p>
-            }
+                <span class="material-icons" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div class="form-dialog__body">
+              <div class="form-group">
+                <label>Title</label>
+                <input
+                  type="text"
+                  data-testid="document-dialog-title-input"
+                  [(ngModel)]="dialogDoc.title"
+                />
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select data-testid="document-dialog-type" [(ngModel)]="dialogDoc.type">
+                  <option value="Notice">Notice</option>
+                  <option value="ByLaw">By-Law</option>
+                  <option value="Report">Report</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Content</label>
+                <textarea
+                  data-testid="document-dialog-content"
+                  [(ngModel)]="dialogDoc.content"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <select data-testid="document-dialog-status" [(ngModel)]="dialogDoc.status">
+                  <option value="Draft">Draft</option>
+                  <option value="Published">Published</option>
+                </select>
+              </div>
+              @if (dialogDoc.type === 'Notice' && dialogDoc.status === 'Published') {
+                <div class="notice-send">
+                  <label for="notice-send">
+                    <input
+                      id="notice-send"
+                      type="checkbox"
+                      data-testid="document-dialog-send"
+                      aria-describedby="notice-send-hint"
+                      [(ngModel)]="dialogDoc.send"
+                      [disabled]="saving"
+                    />
+                    Also send to members by email and text
+                  </label>
+                  <p id="notice-send-hint" class="notice-send__hint">
+                    Only members who asked for new notices on their profile get one.
+                  </p>
+                </div>
+              }
+              @if (dialogError) {
+                <p
+                  class="notice-alert notice-alert--danger"
+                  role="alert"
+                  data-testid="document-dialog-error"
+                >
+                  <span class="material-icons" aria-hidden="true">error</span>
+                  <span>{{ dialogError }}</span>
+                </p>
+              }
+            </div>
             <div class="modal-actions">
               <button
                 class="btn btn-secondary"
@@ -218,10 +236,27 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
 
       <!-- Delete Document Dialog -->
       @if (showDeleteDocDialog) {
-        <div class="modal-overlay" data-testid="document-delete-dialog">
-          <div class="modal-content card">
-            <h3>Confirm Delete</h3>
-            <p>Are you sure you want to delete this document?</p>
+        <div class="modal-overlay modal-overlay--top" data-testid="document-delete-dialog">
+          <div
+            class="modal-content card form-dialog form-dialog--confirm"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="document-delete-heading"
+          >
+            <div class="form-dialog__header">
+              <h3 id="document-delete-heading">Confirm Delete</h3>
+              <button
+                type="button"
+                class="icon-btn form-dialog__close"
+                aria-label="Close"
+                (click)="showDeleteDocDialog = false"
+              >
+                <span class="material-icons" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div class="form-dialog__body">
+              <p>Are you sure you want to delete this document?</p>
+            </div>
             <div class="modal-actions">
               <button class="btn btn-secondary" (click)="showDeleteDocDialog = false">
                 Cancel
@@ -477,6 +512,54 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         max-height: 80vh;
         overflow-y: auto;
       }
+      .modal-overlay--top {
+        align-items: flex-start;
+        padding: 5vh 16px;
+        z-index: 1001;
+      }
+      .form-dialog {
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        overflow: hidden;
+      }
+      .form-dialog--confirm {
+        max-width: 440px;
+      }
+      .form-dialog__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 24px 32px 16px;
+        h3 {
+          font-size: 20px;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+      .form-dialog__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+      }
+      .form-dialog__body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 0 32px;
+        p {
+          margin: 0;
+        }
+      }
+      .form-dialog .modal-actions {
+        flex-wrap: wrap;
+        margin-top: 0;
+        padding: 20px 32px 24px;
+      }
       .viewer-header {
         display: flex;
         justify-content: space-between;
@@ -571,6 +654,15 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         }
         .documents-page {
           padding: 16px;
+        }
+        .form-dialog__header {
+          padding: 16px 20px 12px;
+        }
+        .form-dialog__body {
+          padding: 0 20px;
+        }
+        .form-dialog .modal-actions {
+          padding: 16px 20px 20px;
         }
         .documents-toolbar {
           flex-wrap: wrap;

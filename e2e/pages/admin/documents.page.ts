@@ -25,6 +25,7 @@ export class DocumentsPage {
   readonly dialogStatusSelect: Locator;
   readonly dialogCancelButton: Locator;
   readonly dialogSaveButton: Locator;
+  readonly dialogCloseButton: Locator;
   readonly dialogSendCheckbox: Locator;
   readonly dialogSendHint: Locator;
   readonly dialogError: Locator;
@@ -35,6 +36,7 @@ export class DocumentsPage {
   // Delete dialog
   readonly deleteDialog: Locator;
   readonly deleteConfirmButton: Locator;
+  readonly deleteCloseButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -57,6 +59,7 @@ export class DocumentsPage {
     this.dialogStatusSelect = page.getByTestId('document-dialog-status');
     this.dialogCancelButton = page.getByTestId('document-dialog-cancel');
     this.dialogSaveButton = page.getByTestId('document-dialog-save');
+    this.dialogCloseButton = this.documentDialog.getByRole('button', { name: 'Close' });
     this.dialogSendCheckbox = page.getByRole('checkbox', {
       name: 'Also send to members by email and text',
     });
@@ -69,6 +72,7 @@ export class DocumentsPage {
 
     this.deleteDialog = page.getByTestId('document-delete-dialog');
     this.deleteConfirmButton = page.getByTestId('document-delete-confirm');
+    this.deleteCloseButton = this.deleteDialog.getByRole('button', { name: 'Close' });
   }
 
   async goto() {
