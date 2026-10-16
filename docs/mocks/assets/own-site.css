@@ -320,7 +320,11 @@ a:hover { color: var(--own-text); }
 .cms-tag { position: absolute; z-index: 5; top: var(--own-space-3); right: var(--own-space-3); display: inline-flex; align-items: center; gap: var(--own-space-1); padding: 0.25rem 0.75rem; background: var(--own-plum); color: #ffffff; border-radius: var(--own-radius-pill); font: 600 0.8125rem / 1.4 var(--own-font); letter-spacing: 0.02em; box-shadow: var(--own-shadow-1); pointer-events: none; }
 .cms-tag::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--own-terracotta-300); }
 .has-cms-tag { position: relative; }
-.own-header .cms-tag { top: auto; bottom: -0.875rem; right: var(--own-gutter); }
+/* Tags never cover content: the header's tag sits inside the header above the bar,
+   and a tag on a block with no top padding sits just above that block. */
+.own-header.has-cms-tag { display: flex; flex-direction: column; }
+.own-header .cms-tag { position: static; align-self: flex-end; margin: var(--own-space-2) var(--own-gutter) 0; }
+.cms-tag--above { top: auto; bottom: 100%; margin-bottom: var(--own-space-2); }
 [data-chrome="off"] .cms-tag { display: none; }
 
 /* Compact header between 1024 and 1440 px so the full navigation fits on one line. */
