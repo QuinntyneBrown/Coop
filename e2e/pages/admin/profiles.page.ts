@@ -63,6 +63,10 @@ export class ProfilesPage {
     await this.profileCards.nth(index).click();
   }
 
+  async selectProfileNamed(name: string) {
+    await this.profileCards.filter({ hasText: name }).click();
+  }
+
   async expectProfileCardVisible(index: number, name: string) {
     const card = this.profileCards.nth(index);
     await expect(card).toBeVisible();
