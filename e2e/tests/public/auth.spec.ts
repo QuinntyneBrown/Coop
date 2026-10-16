@@ -1,6 +1,8 @@
 import { test, expect } from '../../fixtures/public/auth.fixture';
 import { LoginPage } from '../../pages/public/login.page';
 import { RegisterPage } from '../../pages/public/register.page';
+import { DocumentsPage } from '../../pages/public/documents.page';
+import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 
 test.describe('Authentication', () => {
   test.describe('Login Page', () => {
@@ -93,22 +95,12 @@ test.describe('Authentication', () => {
     });
 
     test.describe('Mobile Layout', () => {
-      test('should display bottom tab bar on mobile', async ({ page }) => {
-        await page.setViewportSize({ width: 375, height: 812 });
+      test('should not show the member tab bar before sign-in', async ({ page }) => {
+        await page.setViewportSize({ width: 360, height: 800 });
         login = new LoginPage(page);
         await login.goto();
-        await login.expectMobileTabBar();
-      });
-
-      test('bottom tab bar should have all five tabs', async ({ page }) => {
-        await page.setViewportSize({ width: 375, height: 812 });
-        login = new LoginPage(page);
-        await login.goto();
-        await expect(login.tabHome).toBeVisible();
-        await expect(login.tabRequests).toBeVisible();
-        await expect(login.tabDocs).toBeVisible();
-        await expect(login.tabMessages).toBeVisible();
-        await expect(login.tabProfile).toBeVisible();
+        await expect(login.signInButton).toBeVisible();
+        await expect(login.bottomTabBar).toHaveCount(0);
       });
     });
   });
@@ -284,6 +276,16 @@ test.describe('Authentication', () => {
       // Documents may be public or require auth depending on configuration
       // At minimum, the page should not error
       await expect(page.locator('body')).toBeVisible();
+    });
+
+    test('should not show the member tab bar on public documents before sign-in', async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 360, height: 800 });
+      const documents = new DocumentsPage(page);
+      await documents.goto();
+      await expect(documents.pageTitle).toBeVisible();
+      await expect(new BottomTabBar(page).bar).toHaveCount(0);
     });
   });
 });

@@ -203,88 +203,105 @@ import { UserService, UserProfile } from '../core/services/user.service';
       <router-outlet />
     </main>
 
-    <!-- Bottom Tab Bar (mobile) -->
-    <nav class="bottom-tab-bar" data-testid="bottom-tab-bar">
-      <a routerLink="/dashboard" routerLinkActive="active" class="tab-item" data-testid="tab-home">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+    <!-- Bottom Tab Bar (mobile), for signed-in members only -->
+    @if (signedIn) {
+      <nav class="bottom-tab-bar" data-testid="bottom-tab-bar">
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          class="tab-item"
+          data-testid="tab-home"
         >
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        </svg>
-        <span>Home</span>
-      </a>
-      <a
-        routerLink="/maintenance"
-        routerLinkActive="active"
-        class="tab-item"
-        data-testid="tab-requests"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          </svg>
+          <span>Home</span>
+        </a>
+        <a
+          routerLink="/maintenance"
+          routerLinkActive="active"
+          class="tab-item"
+          data-testid="tab-requests"
         >
-          <path
-            d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-          />
-        </svg>
-        <span>Requests</span>
-      </a>
-      <a routerLink="/documents" routerLinkActive="active" class="tab-item" data-testid="tab-docs">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+            />
+          </svg>
+          <span>Requests</span>
+        </a>
+        <a
+          routerLink="/documents"
+          routerLinkActive="active"
+          class="tab-item"
+          data-testid="tab-docs"
         >
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-        </svg>
-        <span>Documents</span>
-      </a>
-      <a
-        routerLink="/messaging"
-        routerLinkActive="active"
-        class="tab-item"
-        data-testid="tab-messages"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          <span>Documents</span>
+        </a>
+        <a
+          routerLink="/messaging"
+          routerLinkActive="active"
+          class="tab-item"
+          data-testid="tab-messages"
         >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
-        <span>Messages</span>
-      </a>
-      <a routerLink="/profile" routerLinkActive="active" class="tab-item" data-testid="tab-profile">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>Messages</span>
+        </a>
+        <a
+          routerLink="/profile"
+          routerLinkActive="active"
+          class="tab-item"
+          data-testid="tab-profile"
         >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span>Profile</span>
-      </a>
-    </nav>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span>Profile</span>
+        </a>
+      </nav>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
@@ -515,6 +532,10 @@ export class LayoutComponent implements OnInit {
   menuOpen = false;
   notificationCount = 0;
   user: UserProfile | null = null;
+
+  get signedIn(): boolean {
+    return this.authService.isAuthenticated;
+  }
 
   ngOnInit() {
     if (this.authService.isAuthenticated) {

@@ -76,79 +76,6 @@ import { AuthService } from '../../core/services/auth.service';
         <a routerLink="/register" data-testid="login-sign-up-link">Sign up</a>
       </div>
     </div>
-
-    <!-- Bottom tab bar -->
-    <nav class="bottom-tab-bar" data-testid="bottom-tab-bar">
-      <a routerLink="/dashboard" class="tab-item" data-testid="tab-home">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        </svg>
-        <span>Home</span>
-      </a>
-      <a routerLink="/maintenance" class="tab-item" data-testid="tab-requests">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-          />
-        </svg>
-        <span>Requests</span>
-      </a>
-      <a routerLink="/documents" class="tab-item" data-testid="tab-docs">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-        </svg>
-        <span>Docs</span>
-      </a>
-      <a routerLink="/messaging" class="tab-item" data-testid="tab-messages">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
-        <span>Messages</span>
-      </a>
-      <a routerLink="/profile" class="tab-item" data-testid="tab-profile">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span>Profile</span>
-      </a>
-    </nav>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
@@ -229,44 +156,6 @@ import { AuthService } from '../../core/services/auth.service';
 
       input.invalid {
         border-color: var(--error);
-      }
-
-      /* Bottom tab bar */
-      .bottom-tab-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--surface);
-        border-top: 1px solid var(--border);
-        display: flex;
-        justify-content: space-around;
-        padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
-        z-index: 100;
-      }
-
-      .tab-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        padding: 4px 12px;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 11px;
-        font-weight: 500;
-        min-width: 56px;
-
-        &:hover {
-          text-decoration: none;
-          color: var(--primary);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .bottom-tab-bar {
-          display: none;
-        }
       }
     `,
   ],

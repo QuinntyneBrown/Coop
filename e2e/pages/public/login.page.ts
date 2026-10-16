@@ -23,11 +23,6 @@ export class LoginPage {
 
   // Mobile tab bar
   readonly bottomTabBar: Locator;
-  readonly tabHome: Locator;
-  readonly tabRequests: Locator;
-  readonly tabDocs: Locator;
-  readonly tabMessages: Locator;
-  readonly tabProfile: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -48,11 +43,6 @@ export class LoginPage {
     this.loginError = page.locator('[data-testid="login-error"]');
 
     this.bottomTabBar = page.locator('[data-testid="bottom-tab-bar"]');
-    this.tabHome = page.locator('[data-testid="tab-home"]');
-    this.tabRequests = page.locator('[data-testid="tab-requests"]');
-    this.tabDocs = page.locator('[data-testid="tab-docs"]');
-    this.tabMessages = page.locator('[data-testid="tab-messages"]');
-    this.tabProfile = page.locator('[data-testid="tab-profile"]');
   }
 
   async goto() {
@@ -97,14 +87,5 @@ export class LoginPage {
   async navigateToForgotPassword() {
     await this.forgotPasswordLink.click();
     await this.page.waitForURL('**/forgot-password');
-  }
-
-  async expectMobileTabBar() {
-    await expect(this.bottomTabBar).toBeVisible();
-    await expect(this.tabHome).toBeVisible();
-    await expect(this.tabRequests).toBeVisible();
-    await expect(this.tabDocs).toBeVisible();
-    await expect(this.tabMessages).toBeVisible();
-    await expect(this.tabProfile).toBeVisible();
   }
 }
