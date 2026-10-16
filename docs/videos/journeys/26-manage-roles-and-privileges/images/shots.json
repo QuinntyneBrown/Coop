@@ -1,0 +1,4 @@
+[
+  {"name": "admin-roles", "mock": "pages/admin-roles/default.html", "phone": false},
+  {"name": "admin-roles-member", "mock": "pages/admin-roles/member.html", "phone": false}
+]

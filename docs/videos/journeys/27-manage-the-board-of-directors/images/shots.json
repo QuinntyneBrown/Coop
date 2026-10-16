@@ -1,0 +1,6 @@
+[
+  {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
+  {"name": "admin-director-add", "mock": "dialogs/admin-director-editor/default.html", "phone": false},
+  {"name": "admin-director-edit", "mock": "dialogs/admin-director-editor/edit.html", "phone": false},
+  {"name": "admin-director-remove", "mock": "dialogs/admin-director-remove/default.html", "phone": false}
+]

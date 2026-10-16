@@ -1,0 +1,5 @@
+[
+  {"name": "admin-invitations", "mock": "pages/admin-invitations/default.html", "phone": false},
+  {"name": "admin-invitation-create", "mock": "dialogs/admin-invitation-create/default.html", "phone": false},
+  {"name": "admin-invitation-created", "mock": "dialogs/admin-invitation-created/default.html", "phone": false}
+]

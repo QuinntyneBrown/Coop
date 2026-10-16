@@ -1,0 +1,8 @@
+[
+  {"name": "public-maintenance", "mock": "pages/public-maintenance/default.html", "phone": true},
+  {"name": "public-maintenance-create", "mock": "dialogs/public-maintenance-create/default.html", "phone": true},
+  {"name": "public-maintenance-create-photos", "mock": "dialogs/public-maintenance-create/photos.html", "phone": true},
+  {"name": "public-maintenance-create-sending", "mock": "dialogs/public-maintenance-create/sending.html", "phone": true},
+  {"name": "public-maintenance-new", "mock": "pages/public-maintenance/new.html", "phone": true},
+  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false}
+]

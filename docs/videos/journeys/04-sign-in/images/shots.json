@@ -1,0 +1,6 @@
+[
+  {"name": "public-login", "mock": "pages/public-login/default.html", "phone": true},
+  {"name": "public-login-submitting", "mock": "pages/public-login/submitting.html", "phone": true},
+  {"name": "public-login-error", "mock": "pages/public-login/error.html", "phone": true},
+  {"name": "public-dashboard", "mock": "pages/public-dashboard/default.html", "phone": true}
+]

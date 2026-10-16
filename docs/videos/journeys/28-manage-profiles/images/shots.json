@@ -1,0 +1,5 @@
+[
+  {"name": "admin-profiles", "mock": "pages/admin-profiles/default.html", "phone": false},
+  {"name": "admin-profiles-edit", "mock": "pages/admin-profiles/edit.html", "phone": false},
+  {"name": "admin-profiles-board-edit", "mock": "pages/admin-profiles/board-edit.html", "phone": false}
+]

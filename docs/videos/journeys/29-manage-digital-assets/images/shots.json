@@ -1,0 +1,6 @@
+[
+  {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false},
+  {"name": "admin-asset-upload", "mock": "dialogs/admin-asset-upload/default.html", "phone": false},
+  {"name": "admin-asset-detail", "mock": "dialogs/admin-asset-detail/default.html", "phone": false},
+  {"name": "admin-asset-delete", "mock": "dialogs/admin-asset-delete/default.html", "phone": false}
+]

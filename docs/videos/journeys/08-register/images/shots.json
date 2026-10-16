@@ -1,0 +1,5 @@
+[
+  {"name": "public-register", "mock": "pages/public-register/default.html", "phone": true},
+  {"name": "public-register-mismatch", "mock": "pages/public-register/mismatch.html", "phone": true},
+  {"name": "public-register-submitting", "mock": "pages/public-register/submitting.html", "phone": true}
+]

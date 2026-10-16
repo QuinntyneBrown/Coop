@@ -1,0 +1,4 @@
+[
+  {"name": "public-dashboard", "mock": "pages/public-dashboard/default.html", "phone": true},
+  {"name": "public-dashboard-empty", "mock": "pages/public-dashboard/empty.html", "phone": true}
+]
