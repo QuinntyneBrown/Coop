@@ -19,12 +19,27 @@ test.describe('Dashboard', () => {
       await dashboard.expectLoaded();
     });
 
-    test('should display the top bar with logo, bell, and menu', async () => {
+    test('should display the top bar with logo, bell, and menu on a phone', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
       await dashboard.goto();
       await expect(dashboard.topBar).toBeVisible();
       await expect(dashboard.logo).toBeVisible();
       await expect(dashboard.notificationBell).toBeVisible();
       await expect(dashboard.hamburgerMenu).toBeVisible();
+    });
+
+    test('should keep the bell in the top bar beside the docked sidebar on a computer', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 1280, height: 800 });
+      await dashboard.goto();
+      await expect(dashboard.topBar).toBeVisible();
+      await expect(dashboard.notificationBell).toBeVisible();
+      await dashboard.notificationBell.click({ trial: true, timeout: 5000 });
+      // The docked sidebar carries the logo and the links, so no menu button.
+      await expect(dashboard.hamburgerMenu).toBeHidden();
     });
   });
 

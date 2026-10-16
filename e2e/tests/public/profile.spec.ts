@@ -383,4 +383,17 @@ test.describe('Profile', () => {
       await new BottomTabBar(authenticatedPage).expectNotCovering(profile.saveButton);
     });
   });
+
+  test.describe('Header', () => {
+    for (const width of [360, 1280]) {
+      test(`Given the profile at ${width} px, then the notification bell is shown and can be pressed`, async ({
+        authenticatedPage,
+      }) => {
+        await authenticatedPage.setViewportSize({ width, height: 800 });
+        await profile.goto();
+        await profile.expectLoaded();
+        await profile.expectNotificationBellReachable();
+      });
+    }
+  });
 });
