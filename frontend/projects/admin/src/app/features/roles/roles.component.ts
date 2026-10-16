@@ -185,8 +185,10 @@ import { plainName } from '../../core/plain-name';
         border-bottom: 1px solid #f5f4f1;
       }
       .privilege-toggle {
-        width: 18px;
-        height: 18px;
+        width: 28px;
+        height: 28px;
+        margin: 0;
+        vertical-align: middle;
         accent-color: #3d8a5a;
         cursor: pointer;
       }
