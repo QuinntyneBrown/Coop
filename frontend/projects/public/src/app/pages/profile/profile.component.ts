@@ -116,7 +116,7 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
 
       <!-- Success message (shown after edit) -->
       @if (successMessage && !editMode) {
-        <div class="success-message" data-testid="profile-success-message">
+        <div class="success-message" role="status" data-testid="profile-success-message">
           {{ successMessage }}
         </div>
       }
@@ -181,7 +181,7 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         <div class="edit-form">
           <div class="card">
             @if (successMessage) {
-              <div class="success-message">
+              <div class="success-message" role="status">
                 {{ successMessage }}
               </div>
             }
@@ -458,8 +458,8 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
       }
 
       .photo-notice {
-        color: var(--primary);
-        font-size: 15px;
+        color: var(--primary-dark);
+        font-size: 16px;
         font-weight: 500;
       }
 
@@ -594,15 +594,16 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         font-size: 14px;
       }
 
+      /* Success alert (design system .alert-success): readable size, AA contrast (about 6.6:1). */
       .success-message {
-        background: #dcfce7;
-        border: 1px solid #bbf7d0;
-        color: #166534;
-        padding: 10px;
+        background: #d7ecde;
+        border: 1px solid #b3d9c1;
+        color: #245737;
+        padding: 12px 16px;
         border-radius: var(--radius-sm);
         margin-bottom: 16px;
-        text-align: center;
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: 500;
       }
 
       .edit-form .card {
@@ -616,17 +617,6 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         .btn {
           flex: 1;
         }
-      }
-
-      .success-message {
-        background: #dcfce7;
-        border: 1px solid #bbf7d0;
-        color: #166534;
-        padding: 10px;
-        border-radius: var(--radius-sm);
-        margin-bottom: 16px;
-        text-align: center;
-        font-size: 14px;
       }
 
       .profile-switcher-section {
@@ -791,11 +781,11 @@ export class ProfileComponent implements OnInit {
       next: () => {
         // The save response holds only the edited fields; keep the rest (unit, member since, photo).
         this.profile = { ...this.profile!, ...this.editData };
-        this.successMessage = 'Profile updated successfully!';
+        this.successMessage = 'Profile updated successfully';
         this.editMode = false;
       },
       error: () => {
-        this.successMessage = 'Profile updated successfully!';
+        this.successMessage = 'Profile updated successfully';
         // Update local profile optimistically
         if (this.profile) {
           this.profile = { ...this.profile, ...this.editData };

@@ -36,7 +36,7 @@ Every `.alert`, standalone `.error-message` and `.success-message` in `docs/mock
 | `notifications/admin-profile-saved/success`, `admin-profiles-saved/success` | success | "Profile updated successfully" | shown (after save) | card, above the edit form's button row |
 | `notifications/admin-password-saved/success` | success | "Password updated successfully" | shown | change-password card, under the subtitle |
 | `notifications/admin-theme-saved/success` | success | "Theme saved successfully" | shown | settings card |
-| `notifications/public-profile-saved/success` | success (the mock's `.success-message`, unified) | "Profile updated successfully" (the mock adds "!") | shown | public profile page, above the info card |
+| `notifications/public-profile-saved/success` | success (the mock's `.success-message`, unified) | "Profile updated successfully" | shown | public profile page, above the info card |
 | `pages/admin-login/error` | danger | "Invalid username or password" | shown | login card, above the form |
 | `pages/public-login/error` | danger, `form` (the mock's `.error-message.login-error`) | "Invalid username or password" | shown | login form, above the submit button |
 | `pages/admin-register/error` | danger | "Registration failed. Please check your invitation token." | shown | register card, above the form |
@@ -254,7 +254,7 @@ None. Only the dismiss control's background transitions over `--duration-base`, 
 
 ## Content and internationalisation
 
-- Success: "{Thing} {past participle} successfully", no exclamation mark: "Profile updated successfully", "Password updated successfully", "Theme saved successfully". The public profile mock's "Profile updated successfully!" is drift (content foundation).
+- Success: "{Thing} {past participle} successfully", no exclamation mark: "Profile updated successfully", "Password updated successfully", "Theme saved successfully".
 - Failure: say what failed and, if possible, what to do, without codes: "Invalid username or password", "Failed to update password", "Passwords do not match", "Registration failed. Please check your invitation token.", "Failed to change password. Check your current password."
 - One or two sentences, no title, no "Oops" or apologies, and never the same message in a field and in the alert.
 - Translatable inputs: `dismissLabel`; the projected message is the consumer's. Data values: none.
