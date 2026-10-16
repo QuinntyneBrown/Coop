@@ -58,7 +58,7 @@ import { ThemeService } from '../../core/services/theme.service';
             <div class="theme-form card">
               <h3 data-testid="theme-heading">Theme Customization</h3>
               <p class="theme-subtitle" data-testid="theme-subtitle">
-                Customize your app appearance using CSS custom properties
+                Choose the colours for the app. The preview shows your changes before you save.
               </p>
               <div class="scope-group">
                 <label>Scope</label>
