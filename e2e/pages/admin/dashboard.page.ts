@@ -18,6 +18,7 @@ export class DashboardPage {
   // Recent maintenance requests
   readonly recentMaintenanceSection: Locator;
   readonly maintenanceRequestItems: Locator;
+  readonly maintenanceRequestDates: Locator;
 
   // Quick actions
   readonly quickActionsPanel: Locator;
@@ -44,6 +45,7 @@ export class DashboardPage {
 
     this.recentMaintenanceSection = page.getByTestId('dashboard-recent-maintenance');
     this.maintenanceRequestItems = page.getByTestId('dashboard-maintenance-item');
+    this.maintenanceRequestDates = page.getByTestId('dashboard-maintenance-date');
 
     this.quickActionsPanel = page.getByTestId('dashboard-quick-actions');
     this.newMaintenanceAction = page.getByTestId('quick-action-maintenance');
@@ -98,7 +100,10 @@ export class DashboardPage {
 
   /** The fill of the first recent-request badge showing this status. */
   async statusBadgeColour(status: string): Promise<string> {
-    const badge = this.maintenanceRequestItems.getByTestId('status-badge').filter({ hasText: status }).first();
+    const badge = this.maintenanceRequestItems
+      .getByTestId('status-badge')
+      .filter({ hasText: status })
+      .first();
     await expect(badge).toBeVisible();
     return badge.evaluate((el) => getComputedStyle(el).backgroundColor);
   }
