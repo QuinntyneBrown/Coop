@@ -4,7 +4,7 @@
 .tabs[_ngcontent-ng-c3161414445] { display: flex; gap: 4px; margin-bottom: 20px; }
 .tab[_ngcontent-ng-c3161414445] { padding: 8px 20px; border: 1px solid rgb(229, 228, 225); border-radius: 10px; background: rgb(255, 255, 255); font-size: 14px; cursor: pointer; }
 .tab.active[_ngcontent-ng-c3161414445] { background: rgb(61, 138, 90); color: rgb(255, 255, 255); border-color: rgb(61, 138, 90); }
-.theme-layout[_ngcontent-ng-c3161414445] { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.theme-layout[_ngcontent-ng-c3161414445] { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
 .theme-form[_ngcontent-ng-c3161414445] { padding: 24px; }
 .theme-form[_ngcontent-ng-c3161414445] h3[_ngcontent-ng-c3161414445] { margin-bottom: 8px; font-size: 16px; }
 .theme-subtitle[_ngcontent-ng-c3161414445] { font-size: 14px; color: rgba(26, 25, 24, 0.8); margin-bottom: 20px; }
