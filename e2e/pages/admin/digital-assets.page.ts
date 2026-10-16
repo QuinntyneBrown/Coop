@@ -29,6 +29,7 @@ export class DigitalAssetsPage {
   readonly assetDetailPreview: Locator;
   readonly assetDeleteButton: Locator;
   readonly assetDownloadButton: Locator;
+  readonly assetDetailActions: Locator;
 
   // Delete dialog
   readonly deleteDialog: Locator;
@@ -59,6 +60,7 @@ export class DigitalAssetsPage {
     this.assetDetailPreview = page.getByTestId('asset-detail-preview');
     this.assetDeleteButton = page.getByTestId('asset-delete-button');
     this.assetDownloadButton = page.getByTestId('asset-download-button');
+    this.assetDetailActions = this.assetDetailDialog.getByRole('button');
 
     this.deleteDialog = page.getByTestId('asset-delete-dialog');
     this.deleteConfirmButton = page.getByTestId('asset-delete-confirm');
