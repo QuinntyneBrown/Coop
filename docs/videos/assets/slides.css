@@ -67,6 +67,8 @@ section {
   padding: 20px 110px 160px;
 }
 section.active { display: flex; }
+/* A heading over a numbered list starts at the same height whatever the list's length. */
+section:has(> h2:first-child + ol.steps) { justify-content: flex-start; padding-top: 228px; }
 
 .kicker { font-size: 36px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--terra); margin: 0 0 12px; }
 h1 { font-size: 112px; line-height: 1.05; margin: 0 0 24px; font-weight: 700; }
