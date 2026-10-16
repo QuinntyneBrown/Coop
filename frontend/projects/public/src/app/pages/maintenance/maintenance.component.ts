@@ -370,9 +370,15 @@ import { photoFileError } from './photo-file-error';
 
       .page-header {
         display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+
+        .btn {
+          white-space: nowrap;
+        }
 
         h1 {
           font-size: 22px;
@@ -569,11 +575,20 @@ import { photoFileError } from './photo-file-error';
 
       .modal-actions {
         display: flex;
+        flex-wrap: wrap;
         gap: 12px;
         margin-top: 20px;
 
         .btn {
-          flex: 1;
+          flex: 1 1 auto;
+          white-space: nowrap;
+        }
+      }
+
+      /* Keep the dialog clear of the bottom tab bar on phones and tablets. */
+      @media (max-width: 1023px) {
+        .modal-overlay {
+          padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
         }
       }
 
