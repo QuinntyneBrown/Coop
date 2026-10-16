@@ -17,6 +17,7 @@
   {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
   {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
   {"name": "admin-settings", "mock": "pages/admin-settings/default.html", "phone": false},
-  {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false},
+  {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false,
+   "js": "const names = ['Rooftop garden.jpg', 'Courtyard tea.jpg']; document.querySelectorAll('[data-testid=asset-name]').forEach((n, i) => { n.textContent = names[i]; });"},
   {"name": "admin-landing", "mock": "pages/admin-landing/default.html", "phone": false}
 ]
