@@ -14,7 +14,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       <div class="login-header" data-testid="login-hero-panel">
         <div class="header-content">
           <span class="material-icons header-icon" data-testid="login-hero-icon">apartment</span>
-          <h1 data-testid="login-hero-title">Coop Management</h1>
+          <h1 data-testid="login-hero-title">Coop Manager</h1>
           <p data-testid="login-hero-description">Cooperative management</p>
         </div>
       </div>
