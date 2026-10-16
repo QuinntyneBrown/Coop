@@ -1,5 +1,6 @@
 [
-  {"name": "public-landing-menu", "mock": "pages/public-landing/menu.html", "phone": true},
+  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true, "phone_height": 636},
+  {"name": "public-landing-menu", "mock": "pages/public-landing/menu.html", "phone": true, "phone_height": 636},
   {"name": "public-page", "mock": "pages/public-page/default.html", "phone": true},
   {"name": "public-page-steps", "mock": "pages/public-page/default.html", "phone": false, "scroll": 860},
   {"name": "public-page-not-found", "mock": "pages/public-page/not-found.html", "phone": false}
