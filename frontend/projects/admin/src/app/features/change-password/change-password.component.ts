@@ -199,7 +199,7 @@ export class ChangePasswordComponent {
     const { currentPassword, newPassword, confirmNewPassword } = this.form.value;
     if (newPassword !== confirmNewPassword) {
       this.passwordMismatch = true;
-      this.errorMsg = 'Passwords do not match';
+      this.errorMsg = '';
       return;
     }
     this.loading = true;
