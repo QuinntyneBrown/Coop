@@ -7,6 +7,7 @@ using Coop.Domain.Maintenance;
 using Coop.Domain.Messaging;
 using Coop.Domain.Onboarding;
 using Coop.Domain.Profiles;
+using Coop.Domain.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Common.Interfaces;
@@ -35,5 +36,6 @@ public interface ICoopDbContext
     DbSet<Page> Pages { get; }
     DbSet<InvitationToken> InvitationTokens { get; }
     DbSet<StoredEvent> StoredEvents { get; }
+    DbSet<Tenant> Tenants { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

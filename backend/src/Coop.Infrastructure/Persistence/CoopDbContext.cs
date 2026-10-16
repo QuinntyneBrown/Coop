@@ -9,6 +9,7 @@ using Coop.Domain.Maintenance;
 using Coop.Domain.Messaging;
 using Coop.Domain.Onboarding;
 using Coop.Domain.Profiles;
+using Coop.Domain.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Infrastructure.Persistence;
@@ -47,6 +48,7 @@ public class CoopDbContext : DbContext, ICoopDbContext
     public DbSet<Page> Pages => Set<Page>();
     public DbSet<InvitationToken> InvitationTokens => Set<InvitationToken>();
     public DbSet<StoredEvent> StoredEvents => Set<StoredEvent>();
+    public DbSet<Tenant> Tenants => Set<Tenant>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

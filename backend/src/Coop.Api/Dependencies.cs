@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using System.Text;
+using Coop.Api.Tenancy;
 using Coop.Application.Behaviors;
 using Coop.Application.Common.Interfaces;
 using Coop.Domain.Authorization;
@@ -26,6 +27,11 @@ public static class Dependencies
             options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<ICoopDbContext>(provider => provider.GetRequiredService<CoopDbContext>());
+
+        // The co-op each request is for, found from its sub-domain (ADR 0009)
+        services.AddSingleton(configuration.GetSection(TenancyOptions.SectionName).Get<TenancyOptions>() ?? new TenancyOptions());
+        services.AddScoped<TenantContext>();
+        services.AddScoped<ITenantContext>(provider => provider.GetRequiredService<TenantContext>());
 
         // MediatR
         services.AddMediatR(cfg =>

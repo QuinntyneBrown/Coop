@@ -35,8 +35,16 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     /// <summary>True keeps notices in <see cref="Notices"/>; a test of the real sender turns it off.</summary>
     protected virtual bool RecordNotices => true;
 
+    /// <summary>The platform's base domain in the tests; each co-op is a sub-domain of it.</summary>
+    public const string BaseDomain = "coop.example";
+
+    /// <summary>The co-op the seed creates, used for hosts outside the base domain.</summary>
+    public const string DefaultTenant = "sunrise";
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.UseSetting("Tenancy:BaseDomain", BaseDomain);
+        builder.UseSetting("Tenancy:DefaultTenant", DefaultTenant);
         builder.ConfigureServices(services =>
         {
             // EF Core keeps the SQLite configuration in IDbContextOptionsConfiguration; drop it with the options.
@@ -53,6 +61,10 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     }
 
     public HttpClient CreateAnonymousClient() => CreateClient();
+
+    /// <summary>An anonymous client whose requests go to the given co-op's sub-domain.</summary>
+    public HttpClient CreateClientForCoop(string slug) =>
+        CreateClient(new WebApplicationFactoryClientOptions { BaseAddress = new Uri($"http://{slug}.{BaseDomain}") });
 
     public async Task<HttpClient> CreateClientAsAsync(string username, string password)
     {

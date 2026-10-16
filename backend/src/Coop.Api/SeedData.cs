@@ -1,8 +1,10 @@
 using System.Security.Cryptography;
+using Coop.Api.Tenancy;
 using Coop.Application.CMS.SiteContent;
 using Coop.Domain.Identity;
 using Coop.Domain.Onboarding;
 using Coop.Domain.Profiles;
+using Coop.Domain.Tenancy;
 using Coop.SharedKernel;
 using Coop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +13,23 @@ namespace Coop.Api;
 
 public static class SeedData
 {
-    public static async Task SeedAsync(CoopDbContext context, IPasswordHasher passwordHasher)
+    /// <summary>The slug of the fictional co-op the seed creates and fills (L2-REQ-105).</summary>
+    public const string TenantSlug = "sunrise";
+
+    public static async Task SeedAsync(CoopDbContext context, IPasswordHasher passwordHasher, TenantContext tenantContext)
     {
         // Ensure database created
         await context.Database.EnsureCreatedAsync();
+
+        // Seed the co-op once; everything below is seeded inside it
+        var tenant = await context.Tenants.SingleOrDefaultAsync(t => t.Slug == TenantSlug);
+        if (tenant is null)
+        {
+            tenant = new Tenant { Slug = TenantSlug, Name = "Sunrise Co-op (sample)" };
+            context.Tenants.Add(tenant);
+            await context.SaveChangesAsync();
+        }
+        tenantContext.Set(tenant);
 
         // Seed Roles if none exist
         if (!await context.Roles.IgnoreQueryFilters().AnyAsync())

@@ -1,5 +1,6 @@
 using Coop.Api;
 using Coop.Api.Middleware;
+using Coop.Api.Tenancy;
 using Coop.Domain.Identity;
 using Coop.Infrastructure.Persistence;
 using Serilog;
@@ -23,7 +24,8 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
     var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
-    await SeedData.SeedAsync(context, passwordHasher);
+    var tenantContext = scope.ServiceProvider.GetRequiredService<TenantContext>();
+    await SeedData.SeedAsync(context, passwordHasher, tenantContext);
 }
 
 app.UseSerilogRequestLogging();
@@ -39,6 +41,7 @@ app.UseCors();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
+app.UseMiddleware<TenantResolutionMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

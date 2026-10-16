@@ -6,6 +6,7 @@
 // safe links and photo addresses, photo descriptions, lengths), refusal of
 // members and anonymous callers, and a re-run seed keeping saved content.
 
+using Coop.Api.Tenancy;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -172,7 +173,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         using (var scope = _factory.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
-            await SeedData.SeedAsync(context, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
+            await SeedData.SeedAsync(context, scope.ServiceProvider.GetRequiredService<IPasswordHasher>(), scope.ServiceProvider.GetRequiredService<TenantContext>());
             Assert.Equal(1, await context.JsonContents.CountAsync(j => j.Name == "SiteContent"));
         }
 
