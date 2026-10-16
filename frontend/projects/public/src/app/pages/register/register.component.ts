@@ -203,7 +203,7 @@ import { AuthService } from '../../core/services/auth.service';
 
       .terms-error {
         color: var(--error);
-        font-size: 13px;
+        font-size: 14px;
         margin-top: 4px;
       }
 

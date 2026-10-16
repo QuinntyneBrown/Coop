@@ -68,7 +68,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         text-align: center;
         color: #1a1918cc;
         text-decoration: none;
-        font-size: 11px;
+        font-size: 14px;
         border-radius: 8px;
         transition: color 0.2s;
       }

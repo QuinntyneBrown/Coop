@@ -459,12 +459,12 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           margin-bottom: 4px;
         }
         .doc-type {
-          font-size: 12px;
+          font-size: 14px;
           color: #1a1918cc;
           margin-right: 12px;
         }
         .doc-date {
-          font-size: 12px;
+          font-size: 14px;
           color: #1a1918cc;
           white-space: nowrap;
         }

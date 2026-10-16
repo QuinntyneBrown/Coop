@@ -165,7 +165,7 @@ import { plainName } from '../../core/plain-name';
       }
       .btn-sm {
         padding: 6px 14px;
-        font-size: 13px;
+        font-size: 14px;
       }
       .privileges-table {
         width: 100%;
@@ -174,7 +174,7 @@ import { plainName } from '../../core/plain-name';
       .privileges-table th {
         text-align: left;
         padding: 10px 16px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: #1a1918cc;
         border-bottom: 1px solid #e5e4e1;

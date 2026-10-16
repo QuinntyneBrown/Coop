@@ -11,7 +11,7 @@
 .terms-row[_ngcontent-ng-c2531882536] { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
 .terms-row[_ngcontent-ng-c2531882536] input[type="checkbox"][_ngcontent-ng-c2531882536] { width: 18px; height: 18px; accent-color: var(--primary); }
 .terms-row[_ngcontent-ng-c2531882536] label[_ngcontent-ng-c2531882536] { font-size: 14px; color: var(--text-secondary); cursor: pointer; }
-.terms-error[_ngcontent-ng-c2531882536] { color: var(--error); font-size: 13px; margin-top: 4px; }
+.terms-error[_ngcontent-ng-c2531882536] { color: var(--error); font-size: 14px; margin-top: 4px; }
 .register-error[_ngcontent-ng-c2531882536] { margin: 12px 0px; padding: 10px; background: rgb(254, 242, 242); border: 1px solid rgb(254, 202, 202); border-radius: var(--radius-sm); text-align: center; }
 .create-btn[_ngcontent-ng-c2531882536] { margin-top: 16px; height: 48px; }
 .create-btn[_ngcontent-ng-c2531882536]:disabled { opacity: 1; background: var(--primary-dark); cursor: progress; }

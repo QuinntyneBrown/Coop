@@ -12,13 +12,13 @@
 .request-card[_ngcontent-ng-c1136923231] .request-card-header[_ngcontent-ng-c1136923231] { display: flex; gap: 8px; margin-bottom: 8px; }
 .request-card[_ngcontent-ng-c1136923231] h3[_ngcontent-ng-c1136923231] { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
 .request-card[_ngcontent-ng-c1136923231] p[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
-.request-card[_ngcontent-ng-c1136923231] .request-date[_ngcontent-ng-c1136923231] { font-size: 12px; color: var(--text-secondary); margin-top: 8px; display: block; }
-.status-badge[_ngcontent-ng-c1136923231] { font-size: 12px; padding: 2px 10px; border-radius: 12px; font-weight: 500; text-transform: capitalize; }
+.request-card[_ngcontent-ng-c1136923231] .request-date[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); margin-top: 8px; display: block; }
+.status-badge[_ngcontent-ng-c1136923231] { font-size: 14px; padding: 2px 10px; border-radius: 12px; font-weight: 500; text-transform: capitalize; }
 .status-badge.new[_ngcontent-ng-c1136923231] { background: rgb(254, 243, 199); color: rgb(146, 64, 14); }
 .status-badge.received[_ngcontent-ng-c1136923231] { background: rgb(229, 228, 225); color: rgb(26, 25, 24); }
 .status-badge.started[_ngcontent-ng-c1136923231] { background: rgb(219, 234, 254); color: rgb(30, 64, 175); }
 .status-badge.done[_ngcontent-ng-c1136923231] { background: rgb(215, 236, 222); color: rgb(36, 87, 55); }
-.priority-badge[_ngcontent-ng-c1136923231] { font-size: 12px; padding: 2px 10px; border-radius: 12px; font-weight: 500; }
+.priority-badge[_ngcontent-ng-c1136923231] { font-size: 14px; padding: 2px 10px; border-radius: 12px; font-weight: 500; }
 .priority-badge.high[_ngcontent-ng-c1136923231], .priority-badge.urgent[_ngcontent-ng-c1136923231] { background: rgb(254, 226, 226); color: rgb(153, 27, 27); }
 .priority-badge.medium[_ngcontent-ng-c1136923231] { background: rgb(254, 243, 199); color: rgb(146, 64, 14); }
 .priority-badge.low[_ngcontent-ng-c1136923231] { background: rgb(224, 231, 255); color: rgb(55, 48, 163); }
@@ -56,10 +56,10 @@
 .comments-section[_ngcontent-ng-c1136923231] h4[_ngcontent-ng-c1136923231] { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
 .comments-section[_ngcontent-ng-c1136923231] .comment[_ngcontent-ng-c1136923231] { padding: 10px 0px; border-bottom: 1px solid var(--border); }
 .comments-section[_ngcontent-ng-c1136923231] .comment[_ngcontent-ng-c1136923231] .comment-header[_ngcontent-ng-c1136923231] { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.comments-section[_ngcontent-ng-c1136923231] .comment[_ngcontent-ng-c1136923231] .comment-date[_ngcontent-ng-c1136923231] { font-size: 12px; color: var(--text-secondary); }
+.comments-section[_ngcontent-ng-c1136923231] .comment[_ngcontent-ng-c1136923231] .comment-date[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); }
 .comments-section[_ngcontent-ng-c1136923231] .comment[_ngcontent-ng-c1136923231] p[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); }
 .add-comment[_ngcontent-ng-c1136923231] { display: flex; gap: 8px; margin-top: 12px; padding-bottom: 16px; position: relative; z-index: 101; }
 .add-comment[_ngcontent-ng-c1136923231] input[_ngcontent-ng-c1136923231] { flex: 1 1 0%; min-width: 0px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; outline: none; }
 .add-comment[_ngcontent-ng-c1136923231] input[_ngcontent-ng-c1136923231]:focus { border-color: var(--primary); }
-.empty-text[_ngcontent-ng-c1136923231] { font-size: 13px; color: var(--text-secondary); }
+.empty-text[_ngcontent-ng-c1136923231] { font-size: 14px; color: var(--text-secondary); }
 input.invalid[_ngcontent-ng-c1136923231], textarea.invalid[_ngcontent-ng-c1136923231] { border-color: var(--error); }

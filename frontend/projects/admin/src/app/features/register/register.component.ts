@@ -231,7 +231,7 @@ import { AuthService } from '../../core/services/auth.service';
         }
         .error-message {
           color: #dc3545;
-          font-size: 12px;
+          font-size: 14px;
           margin-top: 4px;
         }
       }

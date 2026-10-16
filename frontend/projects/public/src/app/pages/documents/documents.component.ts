@@ -219,7 +219,7 @@ import { catchError, of } from 'rxjs';
         padding: 16px 20px;
 
         .doc-type {
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           text-transform: uppercase;
           color: var(--text-secondary);
@@ -233,7 +233,7 @@ import { catchError, of } from 'rxjs';
         }
 
         .doc-date {
-          font-size: 13px;
+          font-size: 14px;
           color: var(--text-secondary);
         }
       }
@@ -307,13 +307,13 @@ import { catchError, of } from 'rxjs';
         gap: 12px;
         margin-bottom: 16px;
         .doc-type {
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           text-transform: uppercase;
           color: var(--primary);
         }
         .doc-date {
-          font-size: 12px;
+          font-size: 14px;
           color: var(--text-secondary);
         }
       }

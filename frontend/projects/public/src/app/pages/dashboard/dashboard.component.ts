@@ -193,7 +193,7 @@ import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label'
       }
 
       .metric-label {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
       }
 
@@ -269,14 +269,14 @@ import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label'
           font-weight: 500;
         }
         .request-status {
-          font-size: 12px;
+          font-size: 14px;
           color: var(--text-secondary);
           text-transform: capitalize;
         }
       }
 
       .request-date {
-        font-size: 12px;
+        font-size: 14px;
         color: var(--text-secondary);
         white-space: nowrap;
       }

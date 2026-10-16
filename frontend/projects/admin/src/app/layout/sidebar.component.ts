@@ -264,7 +264,7 @@ import { userRoleNames } from '../core/user-role-names';
         font-weight: 500;
       }
       .user-role {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       @media (max-width: 768px) {

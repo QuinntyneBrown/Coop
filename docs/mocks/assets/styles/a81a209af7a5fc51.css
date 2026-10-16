@@ -5,9 +5,9 @@ h1[_ngcontent-ng-c2011722024] { font-size: 22px; font-weight: 600; margin-bottom
 .conversation-item[_ngcontent-ng-c2011722024]:hover { box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 8px; }
 .conv-header[_ngcontent-ng-c2011722024] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
 .conv-subject[_ngcontent-ng-c2011722024] { font-size: 15px; font-weight: 500; }
-.conv-time[_ngcontent-ng-c2011722024] { font-size: 12px; color: var(--text-secondary); }
-.conv-preview[_ngcontent-ng-c2011722024] { font-size: 13px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 28px; }
-.unread-badge[_ngcontent-ng-c2011722024] { position: absolute; bottom: 16px; right: 20px; background: var(--primary); color: white; font-size: 11px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.conv-time[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); }
+.conv-preview[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 28px; }
+.unread-badge[_ngcontent-ng-c2011722024] { position: absolute; bottom: 16px; right: 20px; background: var(--primary); color: white; font-size: 14px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .empty-state[_ngcontent-ng-c2011722024] { text-align: center; padding: 48px 20px; color: var(--text-secondary); }
 .empty-state[_ngcontent-ng-c2011722024] svg[_ngcontent-ng-c2011722024] { margin-bottom: 12px; }
 .loading[_ngcontent-ng-c2011722024] { display: flex; justify-content: center; padding: 48px; }
@@ -20,15 +20,15 @@ h1[_ngcontent-ng-c2011722024] { font-size: 22px; font-weight: 600; margin-bottom
 .chat-header[_ngcontent-ng-c2011722024] h2[_ngcontent-ng-c2011722024] { font-size: 18px; font-weight: 600; }
 .back-btn[_ngcontent-ng-c2011722024] { background: none; border: none; padding: 8px; border-radius: 8px; color: var(--text-primary); }
 .back-btn[_ngcontent-ng-c2011722024]:hover { background: var(--primary-light); }
-.participants[_ngcontent-ng-c2011722024] { font-size: 13px; color: var(--text-secondary); }
+.participants[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); }
 .message-list[_ngcontent-ng-c2011722024] { flex: 1 1 0%; display: flex; flex-direction: column; gap: 12px; padding: 8px 0px; overflow-y: auto; min-height: 200px; }
 .message-bubble[_ngcontent-ng-c2011722024] { max-width: 80%; padding: 10px 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); align-self: flex-start; }
 .message-bubble.own[_ngcontent-ng-c2011722024] { align-self: flex-end; background: var(--primary); color: white; border-color: var(--primary); }
 .message-bubble.own[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { color: rgba(255, 255, 255, 0.8); }
 .message-bubble.own[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { color: rgba(255, 255, 255, 0.7); }
-.message-bubble[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { font-size: 12px; font-weight: 500; color: var(--text-secondary); display: block; margin-bottom: 2px; }
+.message-bubble[_ngcontent-ng-c2011722024] .message-sender[_ngcontent-ng-c2011722024] { font-size: 14px; font-weight: 500; color: var(--text-secondary); display: block; margin-bottom: 2px; }
 .message-bubble[_ngcontent-ng-c2011722024] p[_ngcontent-ng-c2011722024] { font-size: 14px; line-height: 1.4; }
-.message-bubble[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 4px; text-align: right; }
+.message-bubble[_ngcontent-ng-c2011722024] .message-time[_ngcontent-ng-c2011722024] { font-size: 14px; color: var(--text-secondary); display: block; margin-top: 4px; text-align: right; }
 .message-input-area[_ngcontent-ng-c2011722024] { display: flex; gap: 8px; margin-top: 16px; padding-top: 16px; padding-bottom: 80px; border-top: 1px solid var(--border); position: relative; z-index: 101; }
 .message-input-area[_ngcontent-ng-c2011722024] input[_ngcontent-ng-c2011722024] { flex: 1 1 0%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 24px; font-size: 14px; outline: none; }
 .message-input-area[_ngcontent-ng-c2011722024] input[_ngcontent-ng-c2011722024]:focus { border-color: var(--primary); }

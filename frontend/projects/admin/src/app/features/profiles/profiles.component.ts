@@ -264,11 +264,11 @@ import { plainName } from '../../core/plain-name';
         font-size: 14px;
       }
       .profile-card-type {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .active-badge {
-        font-size: 11px;
+        font-size: 14px;
         background: rgba(16, 185, 129, 0.1);
         color: #059669;
         padding: 2px 8px;
@@ -376,7 +376,7 @@ import { plainName } from '../../core/plain-name';
       }
       .btn-sm {
         padding: 6px 14px;
-        font-size: 13px;
+        font-size: 14px;
       }
       .profile-switcher-section {
         margin-top: 24px;

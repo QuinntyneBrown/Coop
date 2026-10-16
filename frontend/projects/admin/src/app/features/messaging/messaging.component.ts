@@ -329,7 +329,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .conv-preview {
         display: block;
-        font-size: 13px;
+        font-size: 14px;
         color: #1a1918cc;
         white-space: nowrap;
         overflow: hidden;
@@ -342,7 +342,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         gap: 4px;
       }
       .conv-time {
-        font-size: 11px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .unread-badge {
@@ -351,7 +351,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         border-radius: 50%;
         background: #3d8a5a;
         color: #fff;
-        font-size: 11px;
+        font-size: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -397,7 +397,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .chat-participants {
         display: block;
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .message-list {
@@ -427,14 +427,14 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .msg-sender {
         display: block;
-        font-size: 11px;
+        font-size: 14px;
         font-weight: 600;
         margin-bottom: 4px;
         opacity: 0.7;
       }
       .msg-time {
         display: block;
-        font-size: 10px;
+        font-size: 14px;
         margin-top: 4px;
         opacity: 0.6;
       }

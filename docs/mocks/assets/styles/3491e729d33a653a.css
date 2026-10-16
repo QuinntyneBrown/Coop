@@ -13,7 +13,7 @@
 .form-group[_ngcontent-ng-c251577923] input[type="text"][_ngcontent-ng-c251577923], .form-group[_ngcontent-ng-c251577923] input[type="password"][_ngcontent-ng-c251577923] { width: 100%; padding: 12px 14px; border: 1px solid rgb(229, 228, 225); border-radius: 10px; font-size: 14px; transition: border-color 0.2s; }
 .form-group[_ngcontent-ng-c251577923] input[type="text"][_ngcontent-ng-c251577923]:focus, .form-group[_ngcontent-ng-c251577923] input[type="password"][_ngcontent-ng-c251577923]:focus { outline: none; border-color: rgb(61, 138, 90); box-shadow: rgba(61, 138, 90, 0.1) 0px 0px 0px 3px; }
 .form-group[_ngcontent-ng-c251577923] input[type="text"].invalid[_ngcontent-ng-c251577923], .form-group[_ngcontent-ng-c251577923] input[type="password"].invalid[_ngcontent-ng-c251577923] { border-color: rgb(220, 53, 69); }
-.form-group[_ngcontent-ng-c251577923] .error-message[_ngcontent-ng-c251577923] { color: rgb(220, 53, 69); font-size: 12px; margin-top: 4px; }
+.form-group[_ngcontent-ng-c251577923] .error-message[_ngcontent-ng-c251577923] { color: rgb(220, 53, 69); font-size: 14px; margin-top: 4px; }
 .form-options[_ngcontent-ng-c251577923] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .checkbox-label[_ngcontent-ng-c251577923] { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; cursor: pointer; }
 .checkbox-label[_ngcontent-ng-c251577923] input[_ngcontent-ng-c251577923] { width: 24px; height: 24px; margin: 0px; flex-shrink: 0; accent-color: rgb(61, 138, 90); cursor: pointer; }

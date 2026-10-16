@@ -230,7 +230,7 @@ import type { Director } from '../../core/models/director';
         }
       }
       .notice-date {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       @media (max-width: 768px) {

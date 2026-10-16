@@ -191,7 +191,7 @@ import { formatFileSize } from './format-file-size';
           font-weight: 600;
         }
         .stats {
-          font-size: 13px;
+          font-size: 14px;
           color: #1a1918cc;
         }
       }
@@ -230,7 +230,7 @@ import { formatFileSize } from './format-file-size';
         font-weight: 500;
       }
       .asset-meta {
-        font-size: 12px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .icon-btn {

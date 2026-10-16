@@ -226,7 +226,7 @@ import { userRoleNames } from '../../core/user-role-names';
       th {
         text-align: left;
         padding: 12px 20px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: #1a1918cc;
         border-bottom: 1px solid #e5e4e1;
@@ -262,7 +262,7 @@ import { userRoleNames } from '../../core/user-role-names';
         align-items: center;
         justify-content: center;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 14px;
       }
       .icon-btn {
         background: none;
@@ -279,7 +279,7 @@ import { userRoleNames } from '../../core/user-role-names';
         justify-content: space-between;
         align-items: center;
         padding: 12px 20px;
-        font-size: 13px;
+        font-size: 14px;
         color: #1a1918cc;
       }
       .page-controls {
@@ -291,7 +291,7 @@ import { userRoleNames } from '../../core/user-role-names';
           border-radius: 6px;
           background: #fff;
           cursor: pointer;
-          font-size: 13px;
+          font-size: 14px;
           &.active {
             background: #3d8a5a;
             color: #fff;

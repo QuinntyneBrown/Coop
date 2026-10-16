@@ -90,13 +90,13 @@
 <section class="ds-section" id="scale"><h2><a href="#scale">Role specimens</a></h2>
 
 <p>Each role is a token you can paste into <code>font:</code>. Sizes and line heights are the raw values from the scale below.</p>
-<div class="ds-example"><div class="ds-specimen"><div class="ds-specimen__meta">--text-h1<br>600 · 24px / 1.2</div><div style="font: var(--text-h1);">Page title: Maintenance requests</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h2<br>600 · 20px / 1.2</div><div style="font: var(--text-h2);">Section title: Recent notices</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h3<br>600 · 18px / 1.4</div><div style="font: var(--text-h3);">Card title: Annual general meeting</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body<br>400 · 16px / 1.5</div><div style="font: var(--text-body);">Body text sits at sixteen pixels so it reads comfortably on a phone and respects the user's browser size setting.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body-sm<br>400 · 14px / 1.5</div><div style="font: var(--text-body-sm);">Secondary text, table cells, controls and form values.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-label<br>500 · 14px / 1.5</div><div style="font: var(--text-label);">Field label or navigation item</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-caption<br>400 · 12px / 1.5</div><div style="font: var(--text-caption);">Caption, badge text and timestamps</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-code<br>400 · 14px / 1.5 mono</div><div style="font: var(--text-code);">var(--space-4) .btn-primary</div></div></div>
+<div class="ds-example"><div class="ds-specimen"><div class="ds-specimen__meta">--text-h1<br>600 · 24px / 1.2</div><div style="font: var(--text-h1);">Page title: Maintenance requests</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h2<br>600 · 20px / 1.2</div><div style="font: var(--text-h2);">Section title: Recent notices</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-h3<br>600 · 18px / 1.4</div><div style="font: var(--text-h3);">Card title: Annual general meeting</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body<br>400 · 16px / 1.5</div><div style="font: var(--text-body);">Body text sits at sixteen pixels so it reads comfortably on a phone and respects the user's browser size setting.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-body-sm<br>400 · 14px / 1.5</div><div style="font: var(--text-body-sm);">Secondary text, table cells, controls and form values.</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-label<br>500 · 14px / 1.5</div><div style="font: var(--text-label);">Field label or navigation item</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-caption<br>400 · 14px / 1.5</div><div style="font: var(--text-caption);">Caption, badge text and timestamps</div></div><div class="ds-specimen"><div class="ds-specimen__meta">--text-code<br>400 · 14px / 1.5 mono</div><div style="font: var(--text-code);">var(--space-4) .btn-primary</div></div></div>
 </section>
 <section class="ds-section" id="sizes"><h2><a href="#sizes">Size scale</a></h2>
 
 <p>Sizes are in <code>rem</code> so they follow the browser's base size. The root is 16px.</p>
 <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Size</th><th scope="col">Sample</th><th scope="col">Used by</th></tr></thead><tbody>
-<tr><td><code>--font-size-xs</code></td><td>12px</td><td style="font-size: var(--font-size-xs);">Sample text</td><td>Captions, badges</td></tr>
+<tr><td><code>--font-size-xs</code></td><td>14px</td><td style="font-size: var(--font-size-xs);">Sample text</td><td>Captions, badges, dates, hints, tab labels: the smallest text size</td></tr>
 <tr><td><code>--font-size-sm</code></td><td>14px</td><td style="font-size: var(--font-size-sm);">Sample text</td><td>Secondary text, controls, labels</td></tr>
 <tr><td><code>--font-size-md</code></td><td>16px</td><td style="font-size: var(--font-size-md);">Sample text</td><td>Body, large controls</td></tr>
 <tr><td><code>--font-size-lg</code></td><td>18px</td><td style="font-size: var(--font-size-lg);">Sample text</td><td>Card titles</td></tr>
@@ -123,7 +123,7 @@
 
 <p>The mocks use 21 distinct font sizes (see <code>docs/design-system/.cache/harvest.md</code>). The scale collapses the off-grid ones to the nearest step.</p>
 <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Snapped to</th><th scope="col">Note</th></tr></thead><tbody>
-<tr><td>10px, 11px (12 uses)</td><td><code>--font-size-xs</code> 12px</td><td>Below 12px is hard to read on phones.</td></tr>
+<tr><td>10px, 11px, 12px</td><td><code>--font-size-xs</code> 14px</td><td>Smaller text is too hard to read for the co-op's older members.</td></tr>
 <tr><td>13px (24 uses)</td><td><code>--font-size-sm</code> 14px</td><td>Merged with the 14px already used for controls and secondary text.</td></tr>
 <tr><td>15px (8 uses)</td><td><code>--font-size-md</code> 16px</td><td>One body size.</td></tr>
 <tr><td>22px (8 uses)</td><td><code>--font-size-2xl</code> 24px</td><td>Page titles.</td></tr>
@@ -149,7 +149,7 @@
 <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
 
 <ul>
-<li>Body text is 16px and the smallest text is 12px. Because sizes are in <code>rem</code>, text scales with the browser setting; layouts must survive 200% zoom (WCAG 1.4.4) and 400% reflow at 320px (1.4.10).</li>
+<li>Body text is 16px and the smallest text is 14px (<code>--font-size-xs</code>); nothing is set smaller. Because sizes are in <code>rem</code>, text scales with the browser setting; layouts must survive 200% zoom (WCAG 1.4.4) and 400% reflow at 320px (1.4.10).</li>
 <li>Text spacing must tolerate user overrides: line height 1.5, paragraph spacing 2 times the font size, letter spacing 0.12em, word spacing 0.16em (1.4.12). Do not fix heights on text containers.</li>
 <li>Text colour contrast is verified on the <a href="color.html#accessibility">Color</a> page.</li>
 <li>Outfit loads with <code>font-display: swap</code> so text is visible before the font arrives.</li>
@@ -161,7 +161,7 @@
 <tr><td><code>--font-family-sans</code></td><td data-token="--font-family-sans"></td><td></td></tr>
 <tr><td><code>--font-family-mono</code></td><td data-token="--font-family-mono"></td><td></td></tr>
 <tr><td><code>--font-family-icon</code></td><td data-token="--font-family-icon"></td><td></td></tr>
-<tr><td><code>--font-size-xs</code></td><td data-token="--font-size-xs"></td><td>12px  captions, badges (mocks: 10, 11)</td></tr>
+<tr><td><code>--font-size-xs</code></td><td data-token="--font-size-xs"></td><td>14px  captions, badges, labels: the smallest text size (mocks: 10-13)</td></tr>
 <tr><td><code>--font-size-sm</code></td><td data-token="--font-size-sm"></td><td>14px  secondary text, controls (mocks: 13, 14)</td></tr>
 <tr><td><code>--font-size-md</code></td><td data-token="--font-size-md"></td><td>16px  body, large controls (mocks: 15)</td></tr>
 <tr><td><code>--font-size-lg</code></td><td data-token="--font-size-lg"></td><td>18px  card titles</td></tr>

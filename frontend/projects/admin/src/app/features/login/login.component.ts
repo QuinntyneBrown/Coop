@@ -196,7 +196,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         }
         .error-message {
           color: #dc3545;
-          font-size: 12px;
+          font-size: 14px;
           margin-top: 4px;
         }
       }
