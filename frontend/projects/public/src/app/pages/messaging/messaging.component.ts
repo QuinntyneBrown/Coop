@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MessagingService, Conversation, Message } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
 import { catchError, of } from 'rxjs';
+import { senderInitials } from './sender-initials';
 
 @Component({
   selector: 'app-messaging',
@@ -106,6 +107,13 @@ import { catchError, of } from 'rxjs';
                       alt=""
                       data-testid="messaging-message-avatar"
                     />
+                  } @else {
+                    <span
+                      class="message-avatar message-initials"
+                      aria-hidden="true"
+                      data-testid="messaging-message-initials"
+                      >{{ initialsOf(msg.senderName) }}</span
+                    >
                   }
                   <span class="message-sender" data-testid="messaging-message-sender">{{
                     msg.senderName
@@ -336,6 +344,18 @@ import { catchError, of } from 'rxjs';
           flex-shrink: 0;
         }
 
+        /* Senders without a picture show their initials in the same circle. */
+        .message-initials {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          /* Opaque, so the circle reads the same on light and green bubbles. */
+          background: #e8f3ec;
+          color: var(--primary-dark);
+          font-size: 12px;
+          font-weight: 600;
+        }
+
         .message-sender {
           font-size: 14px;
           font-weight: 500;
@@ -403,6 +423,7 @@ export class MessagingComponent implements OnInit {
   newMessage = '';
   loading = true;
   currentUserId = '';
+  readonly initialsOf = senderInitials;
 
   ngOnInit() {
     this.currentUserId = this.authService.currentUser?.userId || '';
