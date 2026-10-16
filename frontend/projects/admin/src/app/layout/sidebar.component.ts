@@ -1,7 +1,8 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
 
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
+import { userRoleNames } from '../core/user-role-names';
 
 @Component({
   selector: 'app-sidebar',
@@ -154,7 +155,7 @@ import { AuthService } from '../core/services/auth.service';
           <div class="user-avatar" data-testid="sidebar-user-avatar">{{ userInitial }}</div>
           <div class="user-details">
             <span class="user-name" data-testid="sidebar-user-name">{{ username }}</span>
-            <span class="user-role" data-testid="sidebar-user-role">Member</span>
+            <span class="user-role" data-testid="sidebar-user-role">{{ role() }}</span>
           </div>
         </div>
       </div>
@@ -267,9 +268,17 @@ import { AuthService } from '../core/services/auth.service';
     `,
   ],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  readonly role = signal('');
+
+  ngOnInit(): void {
+    this.authService
+      .getCurrentUserFromApi()
+      .subscribe((response) => this.role.set(userRoleNames(response?.user)));
+  }
 
   get username(): string {
     return this.authService.currentUser?.username || 'User';

@@ -241,7 +241,15 @@ export class MockApi {
   // ── Views (response shapes the apps understand) ──────────────────
 
   private userView(u: MockUser) {
-    return { userId: u.userId, id: u.userId, username: u.username, role: u.role, status: u.status };
+    // Roles come back as role objects, the shape of the API's UserDto.
+    const role = this.store.roles.find((r) => r.name === u.role);
+    return {
+      userId: u.userId,
+      id: u.userId,
+      username: u.username,
+      roles: role ? [{ roleId: role.roleId, name: role.name }] : [],
+      status: u.status,
+    };
   }
 
   private profileView(p: MockProfile) {
@@ -645,7 +653,7 @@ export class MockApi {
     this.on('PUT', 'user/password', changePassword);
 
     this.on('GET', 'user/current', (ctx) =>
-      ok({ user: { ...this.userView(ctx.user!), roles: [ctx.user!.role] } }),
+      ok({ user: this.userView(ctx.user!) }),
     );
 
     // Current user's profile (public app)

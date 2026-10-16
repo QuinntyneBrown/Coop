@@ -11,7 +11,8 @@ forms never send requests or save data.
 All sample records are fictional. The reference date is **13 October 2026**.
 Mira Fern (`mira.fern`, `mira@example.invalid`) has Member and BoardMember
 profiles. Tavi Moss and Neri Vale are fellow board members; Oren Reed is a
-member. The invented address is **101 Fictional Court**, unit 101. No real
+member. In the admin app Mira signs in with the SystemAdministrator role,
+Tavi and Neri have BoardMember, and Oren has Member. The invented address is **101 Fictional Court**, unit 101. No real
 cooperative or address is represented.
 
 The shared catalog contains four maintenance requests (kitchen tap, hallway

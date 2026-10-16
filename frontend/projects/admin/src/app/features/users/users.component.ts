@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
 import { TopbarComponent } from '../../layout/topbar.component';
+import { userRoleNames } from '../../core/user-role-names';
 
 @Component({
   selector: 'app-users',
@@ -49,7 +50,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
                   </div>
                 </td>
                 <td>
-                  <span data-testid="user-role-badge">{{ user.role || 'Member' }}</span>
+                  <span data-testid="user-role-badge">{{ roleNames(user) }}</span>
                 </td>
                 <td>
                   <span
@@ -414,6 +415,7 @@ export class UsersComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   Math = Math;
+  roleNames = userRoleNames;
   users: any[] = [];
   page = 1;
   pageSize = 2;
