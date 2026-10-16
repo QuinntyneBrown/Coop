@@ -85,7 +85,24 @@
   border-top: 1px solid var(--adm-border);
 }
 .photo-upload input[type='file'] {
-  padding: 8px;
+  padding: 6px;
+  font-size: 16px;
+}
+.photo-upload input[type='file']::file-selector-button {
+  min-height: var(--adm-target);
+  margin-right: 12px;
+  padding: 10px 20px;
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius);
+  background: var(--adm-bg);
+  color: var(--adm-text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.photo-upload input[type='file']:hover::file-selector-button {
+  background: var(--adm-border);
 }
 .photo-upload__status {
   display: flex;
