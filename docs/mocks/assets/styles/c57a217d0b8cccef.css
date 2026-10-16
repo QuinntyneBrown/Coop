@@ -2,6 +2,7 @@
 .change-password-card[_ngcontent-ng-c234270305] { width: 100%; max-width: 440px; padding: 40px; text-align: center; }
 .change-password-card[_ngcontent-ng-c234270305] h2[_ngcontent-ng-c234270305] { font-size: 24px; margin-bottom: 8px; }
 .change-password-card[_ngcontent-ng-c234270305] .subtitle[_ngcontent-ng-c234270305] { color: rgba(26, 25, 24, 0.8); margin-bottom: 24px; font-size: 14px; }
+.password-hint[_ngcontent-ng-c234270305] { font-size: 14px; color: rgba(26, 25, 24, 0.8); margin-bottom: 16px; }
 .lock-icon[_ngcontent-ng-c234270305] { font-size: 48px; color: rgb(61, 138, 90); margin-bottom: 16px; }
 .form-group[_ngcontent-ng-c234270305] { margin-bottom: 16px; text-align: left; }
 .form-group[_ngcontent-ng-c234270305] label[_ngcontent-ng-c234270305] { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }

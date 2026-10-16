@@ -124,6 +124,11 @@ import { AuthService } from '../../core/services/auth.service';
           font-size: 14px;
         }
       }
+      .password-hint {
+        font-size: 14px;
+        color: #1a1918cc;
+        margin-bottom: 16px;
+      }
       .lock-icon {
         font-size: 48px;
         color: #3d8a5a;
