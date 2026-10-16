@@ -33,4 +33,3 @@ project skills already assume it.
 - `backend/tests/`, `Coop.Cli`, and `Directory.Packages.props` do not exist
   yet and are added when those areas are touched.
 - Mock provenance paths in `docs/mocks` point at `frontend/projects/*`.
-- The Azure Static Web Apps workflow builds only the public app.
