@@ -228,12 +228,10 @@ feature is implemented; architecture decisions go in `docs/adr/`.
 
 ## Deployment
 
-A GitHub Actions workflow, `.github/workflows/azure-static-web-apps-white-bay-0cf53f60f.yml`,
-deploys to Azure Static Web Apps on pushes and pull requests to `main`. It is
-a scaffold that builds only the public Angular app from `frontend/` (output
-`dist/public/browser`). It has not been verified against the Azure resource, and
-it does not build the admin app or host the API. Add those targets before
-relying on it.
+A GitHub Actions workflow, `.github/workflows/ci.yml`, runs on pushes and pull
+requests to `main`. It builds and tests the backend (`dotnet test`) and lints
+and builds the frontend (`npm run lint`, `npm run build`). It does not deploy
+anything.
 
 Before deploying anywhere, replace the development `Authentication:JwtKey` in
 `backend/src/Coop.Api/appsettings.json` with a secret supplied through environment
