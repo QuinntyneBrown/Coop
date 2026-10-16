@@ -95,7 +95,9 @@ import { nextMaintenanceStep } from './next-maintenance-step';
               <p class="request-desc">
                 {{ req.description | slice: 0 : 80 }}{{ req.description?.length > 80 ? '...' : '' }}
               </p>
-              <span class="request-date">{{ req.date || req.createdOn | date: 'short' }}</span>
+              <span class="request-date">{{
+                req.date || req.createdOn | date: 'MMM d, y, h:mm a'
+              }}</span>
             </div>
           }
         </div>
@@ -155,7 +157,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
                     }}</span
                   >
                   <span data-testid="maintenance-detail-date">{{
-                    selectedRequest.date || selectedRequest.createdOn | date: 'medium'
+                    selectedRequest.date || selectedRequest.createdOn | date: 'MMM d, y, h:mm a'
                   }}</span>
                   @if (selectedRequest.priority) {
                     <span data-testid="maintenance-detail-priority"
@@ -242,7 +244,9 @@ import { nextMaintenanceStep } from './next-maintenance-step';
                   <div class="comment" data-testid="maintenance-comment">
                     <div class="comment-header">
                       <span class="comment-author">{{ comment.createdBy || 'User' }}</span>
-                      <span class="comment-date">{{ comment.createdOn | date: 'short' }}</span>
+                      <span class="comment-date">{{
+                        comment.createdOn | date: 'MMM d, y, h:mm a'
+                      }}</span>
                     </div>
                     <p>{{ comment.body }}</p>
                   </div>

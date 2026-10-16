@@ -149,6 +149,21 @@ test.describe('Maintenance Requests', () => {
       await expect(maintenancePage.detailPhone).toBeVisible();
     });
 
+    test('Given a request, when the office views the list and detail, then dates read like "Oct 13, 2026, 8:00 AM"', async ({
+      api,
+    }) => {
+      await api.createMaintenanceRequest({
+        title: 'Date Format Test',
+        description: 'Testing the readable date format',
+      });
+      await maintenancePage.goto();
+
+      const readable = /^[A-Z][a-z]{2} \d{1,2}, \d{4}, \d{1,2}:\d{2} [AP]M$/;
+      await maintenancePage.expectRequestCardDate(0, readable);
+      await maintenancePage.selectRequest(0);
+      await expect(maintenancePage.detailDate).toContainText(/[A-Z][a-z]{2} \d{1,2}, \d{4}, \d{1,2}:\d{2} [AP]M/);
+    });
+
     test('should show submitted by and date info', async ({ api }) => {
       await api.createMaintenanceRequest({
         title: 'Submitter Info Test',

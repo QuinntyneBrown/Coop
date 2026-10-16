@@ -47,7 +47,7 @@ import { formatFileSize } from './format-file-size';
                   formatFileSize(asset.contentLength ?? asset.size)
                 }}</span>
                 &middot;
-                <span data-testid="asset-date">{{ asset.createdOn | date: 'shortDate' }}</span>
+                <span data-testid="asset-date">{{ asset.createdOn | date: 'mediumDate' }}</span>
               </span>
             </div>
           </div>
@@ -105,7 +105,9 @@ import { formatFileSize } from './format-file-size';
               <p data-testid="asset-detail-size">
                 {{ formatFileSize(selectedAsset.contentLength ?? selectedAsset.size) }}
               </p>
-              <p data-testid="asset-detail-date">{{ selectedAsset.createdOn | date: 'medium' }}</p>
+              <p data-testid="asset-detail-date">
+                {{ selectedAsset.createdOn | date: 'MMM d, y, h:mm a' }}
+              </p>
             </div>
             <div class="modal-actions">
               <button
