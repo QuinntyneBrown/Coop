@@ -101,7 +101,7 @@ for app in ['public','admin']:
         state(s); state(s,'empty',dict(profiles=[],profile=None,currentProfile=None))
         state(s,'edit',action='c.enterEditMode()'); state(s,'password',dict(showPasswordForm=True))
         if app=='public':
-            state(s,'password-invalid',dict(showPasswordForm=True,passwordMismatchError='New passwords do not match'))
+            state(s,'password-invalid',dict(showPasswordForm=True,passwordMismatchError='New passwords do not match.'))
             state(s,'password-error',dict(showPasswordForm=True,passwordError='Failed to change password. Check your current password.'))
             overlay(app,'profile-switcher',name,[18],dict(showProfileOptions=True))
         else:
