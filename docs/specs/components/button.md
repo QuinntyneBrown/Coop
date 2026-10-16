@@ -126,7 +126,7 @@ Width comes from the label plus padding; `block` makes it fill the container; in
 | Focus | `:focus-visible` | Shared ring: `--focus-ring-width` solid `--color-focus-ring` at `--focus-ring-offset` | — |
 | Active | `:active` | Fill `--button-bg-active` (falls back to the hover fill) | — |
 | Disabled | `disabled` | Opacity 0.6, `cursor: not-allowed`, no hover change | Not focusable; exposed as disabled |
-| Busy | `busy` → `disabled` + `aria-busy="true"` | As disabled, label replaced by `busyLabel`, `cursor: progress`, width held | Not focusable; busy = true; the form's status region announces the label |
+| Busy | `busy` → `disabled` + `aria-busy="true"` | Full opacity on the dark primary fill so the busy label keeps AA contrast, label replaced by `busyLabel`, `cursor: progress`, width held | Not focusable; busy = true; the form's status region announces the label |
 | Block | `block` | Fills the container width | — |
 | Icon-only | no projected text | Square-ish `md` control with the glyph only | Name from `label` |
 
