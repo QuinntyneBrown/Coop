@@ -31,14 +31,6 @@ export const routes: Routes = [
       import('./features/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
   },
   {
-    path: 'change-password',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/change-password/change-password.component').then(
-        (m) => m.ChangePasswordComponent,
-      ),
-  },
-  {
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () =>
@@ -117,6 +109,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/invitations/invitations.component').then(
             (m) => m.InvitationsComponent,
+          ),
+      },
+      {
+        path: 'change-password',
+        loadComponent: () =>
+          import('./features/change-password/change-password.component').then(
+            (m) => m.ChangePasswordComponent,
           ),
       },
       {
