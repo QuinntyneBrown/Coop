@@ -92,10 +92,16 @@ import { plainName } from '../../core/plain-name';
                 <label>Phone</label>
                 <input type="text" formControlName="phone" data-testid="profile-phone" />
               </div>
-              <div class="form-group">
-                <label>Board Title</label>
-                <input type="text" formControlName="boardTitle" data-testid="profile-board-title" />
-              </div>
+              @if (isBoardMember(currentProfile)) {
+                <div class="form-group">
+                  <label>Board Title</label>
+                  <input
+                    type="text"
+                    formControlName="boardTitle"
+                    data-testid="profile-board-title"
+                  />
+                </div>
+              }
               <div class="btn-row">
                 <button
                   type="button"
@@ -559,6 +565,11 @@ export class ProfilesComponent implements OnInit {
 
   getProfileTypeLabel(profile: any): string {
     return plainName(this.profileTypeCode(profile));
+  }
+
+  /** Only board member profiles carry a board title. */
+  isBoardMember(profile: any): boolean {
+    return this.profileTypeCode(profile) === 'BoardMember';
   }
 
   private profileTypeCode(profile: any): string {

@@ -136,5 +136,14 @@ test.describe('Profile Management', () => {
       // Skip if no board member profile exists
       test.skip();
     });
+
+    test('should show board title only on board member profiles', async () => {
+      await profilesPage.selectProfileNamed('Beatrice Hollis');
+      await expect(profilesPage.boardTitleInput).toBeVisible();
+
+      await profilesPage.selectProfileNamed('Avery Fielding');
+      await expect(profilesPage.editPanelTitle).toContainText('Edit staff member profile');
+      await expect(profilesPage.boardTitleInput).toBeHidden();
+    });
   });
 });
