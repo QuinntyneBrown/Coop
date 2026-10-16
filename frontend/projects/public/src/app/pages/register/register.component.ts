@@ -19,95 +19,97 @@ import { AuthService } from '../../core/services/auth.service';
       <h2 class="heading" data-testid="register-heading">Create account</h2>
 
       <form (ngSubmit)="onSubmit()" novalidate>
-        <div class="form-group">
-          <label for="token">Invitation Token</label>
-          <input
-            id="token"
-            type="text"
-            data-testid="register-invitation-token"
-            [(ngModel)]="token"
-            name="token"
-            placeholder="Enter your invitation token"
-            [class.invalid]="submitted && !token"
-          />
-          @if (submitted && !token) {
-            <div class="error-message" data-testid="register-token-error">
-              Invitation token is required
-            </div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            data-testid="register-username"
-            [(ngModel)]="username"
-            name="username"
-            placeholder="Choose a username"
-            [class.invalid]="submitted && !username"
-          />
-          @if (submitted && !username) {
-            <div class="error-message" data-testid="register-username-error">
-              Username is required
-            </div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            data-testid="register-password"
-            [(ngModel)]="password"
-            name="password"
-            placeholder="Create a password"
-            [class.invalid]="submitted && !password"
-          />
-          @if (submitted && !password) {
-            <div class="error-message" data-testid="register-password-error">
-              Password is required
-            </div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            data-testid="register-confirm-password"
-            [(ngModel)]="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm your password"
-            [class.invalid]="submitted && passwordMismatch"
-          />
-          @if (submitted && passwordMismatch) {
-            <div class="error-message" data-testid="register-confirm-password-error">
-              Passwords do not match
-            </div>
-          }
-        </div>
-
-        <div class="terms-row">
-          <input
-            type="checkbox"
-            id="terms"
-            data-testid="register-terms-checkbox"
-            [(ngModel)]="acceptTerms"
-            name="acceptTerms"
-          />
-          <label for="terms" data-testid="register-terms-label"
-            >I agree to the Terms and Conditions</label
-          >
-        </div>
-        @if (submitted && !acceptTerms) {
-          <div class="error-message terms-error" data-testid="register-terms-error">
-            You must accept the terms
+        <fieldset class="register-fields" [disabled]="loading">
+          <div class="form-group">
+            <label for="token">Invitation Token</label>
+            <input
+              id="token"
+              type="text"
+              data-testid="register-invitation-token"
+              [(ngModel)]="token"
+              name="token"
+              placeholder="Enter your invitation token"
+              [class.invalid]="submitted && !token"
+            />
+            @if (submitted && !token) {
+              <div class="error-message" data-testid="register-token-error">
+                Invitation token is required
+              </div>
+            }
           </div>
-        }
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              data-testid="register-username"
+              [(ngModel)]="username"
+              name="username"
+              placeholder="Choose a username"
+              [class.invalid]="submitted && !username"
+            />
+            @if (submitted && !username) {
+              <div class="error-message" data-testid="register-username-error">
+                Username is required
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              data-testid="register-password"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Create a password"
+              [class.invalid]="submitted && !password"
+            />
+            @if (submitted && !password) {
+              <div class="error-message" data-testid="register-password-error">
+                Password is required
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              data-testid="register-confirm-password"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              [class.invalid]="submitted && passwordMismatch"
+            />
+            @if (submitted && passwordMismatch) {
+              <div class="error-message" data-testid="register-confirm-password-error">
+                Passwords do not match
+              </div>
+            }
+          </div>
+
+          <div class="terms-row">
+            <input
+              type="checkbox"
+              id="terms"
+              data-testid="register-terms-checkbox"
+              [(ngModel)]="acceptTerms"
+              name="acceptTerms"
+            />
+            <label for="terms" data-testid="register-terms-label"
+              >I agree to the Terms and Conditions</label
+            >
+          </div>
+          @if (submitted && !acceptTerms) {
+            <div class="error-message terms-error" data-testid="register-terms-error">
+              You must accept the terms
+            </div>
+          }
+        </fieldset>
 
         @if (registrationError) {
           <div class="error-message register-error" data-testid="register-error">
@@ -171,6 +173,13 @@ import { AuthService } from '../../core/services/auth.service';
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 20px;
+      }
+
+      .register-fields {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
       }
 
       .terms-row {
