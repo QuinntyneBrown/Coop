@@ -151,6 +151,8 @@ figcaption { margin-top: 18px; font-size: 38px; font-weight: 500; color: var(--i
 /* Centre each screenshot under its caption, however long the caption is. */
 .shot { margin-left: auto; margin-right: auto; }
 .h560 { height: 560px; width: auto; }
+/* Two computer screenshots side by side, inside the normal slide margins. */
+.h500 { height: 500px; width: auto; }
 /* A single screenshot fills the room between the heading and the captions. */
 .h640 { height: 640px; width: auto; }
 .h620 { height: 620px; width: auto; }
