@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { DocumentService, CoopDocument } from '../../core/services/document.service';
 import { catchError, of } from 'rxjs';
+import { documentTypeLabel } from './document-type-label';
 
 @Component({
   selector: 'app-documents',
@@ -405,8 +406,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   formatType(type: string): string {
-    if (!type) return 'Document';
-    return type.charAt(0).toUpperCase() + type.slice(1);
+    return documentTypeLabel(type);
   }
 
   getTypeColorClass(type: string): string {

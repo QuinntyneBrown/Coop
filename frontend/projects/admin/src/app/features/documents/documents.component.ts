@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
+import { documentTypeLabel } from './document-type-label';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
@@ -97,7 +98,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <div class="doc-info">
                 <h3 data-testid="document-title">{{ doc.name || doc.title }}</h3>
                 <span class="doc-type" data-testid="document-type">{{
-                  doc.documentType || doc.type || 'Document'
+                  typeLabel(doc.documentType || doc.type)
                 }}</span>
                 <span class="doc-date" data-testid="document-date">{{
                   doc.createdOn | date: 'mediumDate'
@@ -682,6 +683,7 @@ export class DocumentsComponent implements OnInit {
   filteredDocuments: any[] = [];
   selectedDocument: any = null;
   activeFilter = 'all';
+  readonly typeLabel = documentTypeLabel;
   loading = true;
   showDocumentDialog = false;
   showDeleteDocDialog = false;

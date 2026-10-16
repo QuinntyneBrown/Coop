@@ -94,6 +94,14 @@ test.describe('Documents', () => {
       await documents.expectDocumentInList('E2E: Updated Bylaws');
     });
 
+    test('Given a by-law, then its card names the category like the By-Laws filter', async ({ api }) => {
+      await api.createDocument({ title: 'E2E: Pets by-law', type: 'bylaws', published: true });
+
+      await documents.goto();
+      await documents.filterByType('bylaws');
+      await expect(documents.documentType.first()).toHaveText('By-Law');
+    });
+
     test('should filter by reports', async ({ api }) => {
       await api.createDocument({
         title: 'E2E: Financial Report Q1',
