@@ -294,7 +294,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
             border-color: #3d8a5a;
           }
           &:disabled {
-            opacity: 0.4;
+            background: #f5f4f1;
+            color: #6b6a67;
+            border-color: #c9c8c5;
             cursor: not-allowed;
           }
         }

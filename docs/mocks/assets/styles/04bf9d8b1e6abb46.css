@@ -16,7 +16,7 @@ td[_ngcontent-ng-c2048751704] { padding: 12px 20px; font-size: 14px; border-bott
 .page-controls[_ngcontent-ng-c2048751704] { display: flex; gap: 4px; }
 .page-controls[_ngcontent-ng-c2048751704] button[_ngcontent-ng-c2048751704] { padding: 6px 10px; border: 1px solid rgb(229, 228, 225); border-radius: 6px; background: rgb(255, 255, 255); cursor: pointer; font-size: 13px; }
 .page-controls[_ngcontent-ng-c2048751704] button.active[_ngcontent-ng-c2048751704] { background: rgb(61, 138, 90); color: rgb(255, 255, 255); border-color: rgb(61, 138, 90); }
-.page-controls[_ngcontent-ng-c2048751704] button[_ngcontent-ng-c2048751704]:disabled { opacity: 0.4; cursor: not-allowed; }
+.page-controls[_ngcontent-ng-c2048751704] button[_ngcontent-ng-c2048751704]:disabled { background: rgb(245, 244, 241); color: rgb(107, 106, 103); border-color: rgb(201, 200, 197); cursor: not-allowed; }
 .modal-overlay[_ngcontent-ng-c2048751704] { position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal-content[_ngcontent-ng-c2048751704] { width: 100%; max-width: 400px; padding: 32px; }
 .modal-content[_ngcontent-ng-c2048751704] h3[_ngcontent-ng-c2048751704] { margin-bottom: 20px; }
