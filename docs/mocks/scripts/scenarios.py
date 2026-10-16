@@ -4,7 +4,8 @@ from copy import deepcopy
 TODAY = '2026-10-13T12:00:00Z'
 PROFILE = dict(id='profile-mira', profileId='profile-mira', userId='user-mira', username='mira.fern', firstName='Mira', lastName='Fern', firstname='Mira', lastname='Fern', email='mira@example.invalid', phone='555-0101', phoneNumber='555-0101', type=0, profileType='Member', unit='101', unitNumber='101', address='101 Fictional Court', avatarUrl='')
 PROFILES = [PROFILE, dict(PROFILE, id='profile-board', profileId='profile-board', type=1, profileType='BoardMember', boardTitle='Treasurer')]
-BOARD = [dict(name='Mira Fern', title='Treasurer'), dict(name='Tavi Moss', title='President'), dict(name='Neri Vale', title='Secretary')]
+# The Board of Directors list, the same one pages/admin-board/ shows.
+DIRECTORS = [dict(name='Rosalind Achebe', title='President'), dict(name='Margit Halvorsen', title='Treasurer'), dict(name='Dolores Quintero', title='Secretary'), dict(name='June Okonkwo-Baptiste', title='Member at large')]
 COMMENTS = [dict(id='comment-1', body='It drips most at night. I have put a bowl under it for now.', content='It drips most at night. I have put a bowl under it for now.', createdBy='Mira Fern', authorName='Mira Fern', createdOn='2026-10-13T14:20:00Z', createdAt='2026-10-13T14:20:00Z')]
 REQUESTS = [dict(id=f'request-{i}', maintenanceRequestId=f'request-{i}', title=title, description=desc, status=status, priority=priority, category='General', createdAt=when, createdOn=when, dateCreated=when, address='101 Fictional Court', phoneNumber='555-0101', unattendedUnitEntry=True, unitNumber='101', requestedBy='Mira Fern', requestedByName='Mira Fern', comments=COMMENTS, attachments=[], digitalAssets=[], workDetails='Inspection scheduled.') for i, (title, desc, status, priority, when) in enumerate([
     ('Kitchen tap leak', 'The kitchen tap drips after it is closed.', 'New', 'High', '2026-10-13T12:00:00Z'),
@@ -47,7 +48,7 @@ def notice(app,name,parent,req,patch,variant='success',note=''):
 
 for app in ['public','admin']:
     if app=='admin':  # the public landing is the hand-written OWN proposal in pages/public-landing; it is not captured
-        s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=BOARD,notices=DOCS[:1],currentYear=2026))
+        s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=DIRECTORS,notices=DOCS[:1],currentYear=2026))
         state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='Empty CMS collections. No loading or error screen is implemented.')
     s=add(app,'login',[7,76]); state(s); state(s,'invalid',dict(submitted=True))
     state(s,'submitting',dict(loading=True,username='mira.fern',password='FictionalPass123!'),forms={'loginForm':dict(username='mira.fern',password='FictionalPass123!')} if app=='admin' else {})

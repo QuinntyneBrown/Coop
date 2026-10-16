@@ -3,6 +3,8 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { RouterLink } from '@angular/router';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { DocumentService } from '../../core/services/document.service';
+import { BoardService } from '../../core/services/board.service';
+import type { Director } from '../../core/models/director';
 
 @Component({
   selector: 'app-landing',
@@ -252,14 +254,16 @@ import { DocumentService } from '../../core/services/document.service';
 export class LandingComponent implements OnInit {
   private jsonContentService = inject(JsonContentService);
   private documentService = inject(DocumentService);
+  private boardService = inject(BoardService);
 
   heroTitle = '';
   heroSubtitle = '';
-  boardMembers: any[] = [];
+  boardMembers: Director[] = [];
   notices: any[] = [];
 
   ngOnInit(): void {
     this.loadContent();
+    this.loadBoard();
     this.loadNotices();
   }
 
@@ -270,20 +274,20 @@ export class LandingComponent implements OnInit {
           const content = data.json ? JSON.parse(data.json) : data;
           this.heroTitle = content.heroTitle || content.title || 'Welcome to Your Cooperative';
           this.heroSubtitle = content.heroSubtitle || content.subtitle || '';
-          this.boardMembers = content.boardMembers ||
-            content.board || [
-              { name: 'John Smith', title: 'President' },
-              { name: 'Jane Doe', title: 'Vice President' },
-              { name: 'Bob Johnson', title: 'Treasurer' },
-            ];
         }
       },
+      error: () => undefined,
+    });
+  }
+
+  /** The same Board of Directors list the admin Board screen edits (L2-REQ-085). */
+  private loadBoard(): void {
+    this.boardService.getAll().subscribe({
+      next: (directors) => {
+        this.boardMembers = directors;
+      },
       error: () => {
-        this.boardMembers = [
-          { name: 'John Smith', title: 'President' },
-          { name: 'Jane Doe', title: 'Vice President' },
-          { name: 'Bob Johnson', title: 'Treasurer' },
-        ];
+        this.boardMembers = [];
       },
     });
   }

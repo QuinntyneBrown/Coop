@@ -14,6 +14,9 @@ same afternoon.
 The feature belongs to the admin-app subsystem of Coop and to the CMS module
 of the API. It reuses the `BoardOfDirectors` JSON content entry that the home
 page already reads (`L2-REQ-046`), so the public application does not change.
+The admin application's own landing page at `/` lists the same directors
+under "Board of Directors": it reads them through `BoardService.getAll()`
+(`GET api/board-of-directors`), so it never shows a different board.
 
 Terms used in this design:
 
@@ -132,7 +135,8 @@ and resending, validation, and the refusal of members and anonymous callers.
 The Playwright `admin` project covers the screen in
 `e2e/tests/admin/board.spec.ts` with selectors in `e2e/pages/admin/board.page.ts`;
 the add, move and remove tests open the public home page in the same browser
-context to check "Meet the board". The in-process mock API serves
+context to check "Meet the board", and two tests open the admin landing page
+(`e2e/pages/admin/landing.page.ts`) to check it shows the same list. The in-process mock API serves
 `api/board-of-directors` from the same `BoardOfDirectors` entry with the same
 role check.
 
