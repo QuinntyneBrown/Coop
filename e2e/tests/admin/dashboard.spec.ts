@@ -111,7 +111,22 @@ test.describe('Dashboard', () => {
       await expect(badge).toBeVisible();
     });
 
-    test('should show maintenance items with valid status values', async ({ authenticatedPage, api }) => {
+    test('Given a recent request, then its date reads like "Oct 13, 2026"', async ({ api }) => {
+      await api.createMaintenanceRequest({
+        title: 'E2E: Date Test',
+        description: 'Testing the readable date on the dashboard',
+      });
+      await dashboard.goto();
+
+      await expect(dashboard.maintenanceRequestDates.first()).toHaveText(
+        /^[A-Z][a-z]{2} \d{1,2}, \d{4}$/,
+      );
+    });
+
+    test('should show maintenance items with valid status values', async ({
+      authenticatedPage,
+      api,
+    }) => {
       await api.createMaintenanceRequest({
         title: 'E2E: Status Values Test',
         description: 'Testing valid status values on dashboard',

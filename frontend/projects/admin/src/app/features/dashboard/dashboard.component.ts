@@ -105,7 +105,9 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
               <div class="request-item" data-testid="dashboard-maintenance-item">
                 <div class="request-info">
                   <span class="request-title">{{ req.title }}</span>
-                  <span class="request-date">{{ req.date || req.createdOn }}</span>
+                  <span class="request-date" data-testid="dashboard-maintenance-date">{{
+                    req.date || req.createdOn | date: 'mediumDate'
+                  }}</span>
                 </div>
                 <span
                   class="badge"
@@ -163,7 +165,9 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
             @for (notice of recentNotices; track notice) {
               <div class="notice-item">
                 <span class="notice-title">{{ notice.title }}</span>
-                <span class="notice-date">{{ notice.publishedOn || notice.createdOn }}</span>
+                <span class="notice-date">{{
+                  notice.publishedOn || notice.createdOn | date: 'mediumDate'
+                }}</span>
               </div>
             }
             @if (recentNotices.length === 0) {
