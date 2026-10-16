@@ -1,8 +1,12 @@
 [
   {"name": "public-maintenance", "mock": "pages/public-maintenance/default.html", "phone": true},
   {"name": "public-maintenance-create", "mock": "dialogs/public-maintenance-create/default.html", "phone": true},
+  {"name": "public-maintenance-create-filled", "mock": "dialogs/public-maintenance-create/photos.html", "phone": true,
+   "js": "document.querySelector('[data-testid=maintenance-chosen-photos]').remove()"},
   {"name": "public-maintenance-create-photos", "mock": "dialogs/public-maintenance-create/photos.html", "phone": true},
   {"name": "public-maintenance-create-sending", "mock": "dialogs/public-maintenance-create/sending.html", "phone": true},
-  {"name": "public-maintenance-new", "mock": "pages/public-maintenance/new.html", "phone": true},
-  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false}
+  {"name": "public-maintenance-new", "mock": "pages/public-maintenance/new.html", "phone": true,
+   "js": "const old = document.querySelector('[data-testid=maintenance-request-card]'); const card = old.cloneNode(true); card.querySelector('h3').textContent = 'Water under the kitchen sink'; card.querySelector('p').textContent = 'There is a puddle under the sink every morning.'; const p = card.querySelector('.priority-badge'); p.className = 'priority-badge medium'; p.textContent = 'Medium'; card.querySelector('.request-date').textContent = 'Oct 16, 2026'; old.before(card);"},
+  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false,
+   "js": "const old = document.querySelector('[data-testid=maintenance-request-card].selected'); const card = old.cloneNode(true); old.classList.remove('selected'); card.querySelector('.request-title').textContent = 'Water under the kitchen sink'; card.querySelector('.request-desc').textContent = 'There is a puddle under the sink every morning.'; card.querySelector('.request-date').textContent = 'Oct 16, 2026, 9:00 AM'; old.before(card); document.querySelector('[data-testid=maintenance-detail-title]').textContent = 'Water under the kitchen sink'; document.querySelector('[data-testid=maintenance-detail-date]').textContent = 'Oct 16, 2026, 9:00 AM'; document.querySelector('[data-testid=maintenance-detail-priority]').textContent = 'Priority: Medium'; document.querySelector('[data-testid=maintenance-detail-description]').textContent = 'There is a puddle under the sink every morning.';"}
 ]
