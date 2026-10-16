@@ -26,7 +26,7 @@ When you are done, choose Save Changes. Or choose Cancel to leave it as it was.
 
 ## Set a board title
 
-A board member profile has one more box, Board Title. Type the title here, such as Treasurer, and choose Save Changes.
+A board member profile has one more box, Board Title. Type the title here, such as Treasurer, and choose Save Changes. A green note says Profile updated successfully.
 
 [pause 2s]
 
