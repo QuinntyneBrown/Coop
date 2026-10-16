@@ -154,6 +154,17 @@ test.describe('Digital Assets', () => {
       await expect(assetsPage.assetDetailDate).toBeVisible();
     });
 
+    test('should label the name, size and upload date in detail', async ({ api }) => {
+      await api.uploadAsset('labelled-asset.txt', Buffer.alloc(2048));
+      await assetsPage.goto();
+
+      await assetsPage.searchAssets('labelled-asset');
+      await assetsPage.clickAsset(0);
+      await expect(assetsPage.assetDetailLabels).toHaveText(['File name', 'Size', 'Uploaded']);
+      await expect(assetsPage.assetDetailName).toHaveText('labelled-asset.txt');
+      await expect(assetsPage.assetDetailSize).toHaveText('2 KB');
+    });
+
     test('should display download and delete buttons in detail', async ({ api }) => {
       await api.uploadAsset('actions-asset.txt', Buffer.from('content'));
       await assetsPage.goto();
