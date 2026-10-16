@@ -286,6 +286,11 @@ import { plainName } from '../../core/plain-name';
         border: 1px solid #e5e4e1;
         padding: 24px;
       }
+      .profile-edit-panel h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
       .profile-view-panel {
         background: #fff;
         border-radius: 14px;
