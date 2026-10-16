@@ -12,7 +12,7 @@
 
 ## Purpose and scope
 
-The stepper shows where a new member is in the short, linear onboarding flow that creates her profile (L2-REQ-014): a centred row of small dots, one per step, with the text "Step 2 of 4" beneath. Completed dots are faint accent, the current dot is accent and slightly larger, upcoming dots are grey. It is a progress indicator, not a control: people move with the "Back", "Next" and "Skip" buttons on the step, and the dots never respond to clicks.
+The stepper shows where a new member is in the short, linear onboarding flow that creates her profile (L2-REQ-014): a centred row of small dots, one per step, with the text "Step 2 of 4" beneath. Completed dots are solid accent, the current dot is a darker accent and slightly larger, upcoming dots are a dark grey ring; every dot meets 3:1 non-text contrast. It is a progress indicator, not a control: people move with the "Back", "Next" and "Skip" buttons on the step, and the dots never respond to clicks.
 
 Use something else instead when:
 
@@ -44,10 +44,10 @@ Every row is buildable with the API below: a list of step names and a 1-based cu
 ## Anatomy
 
 1. **List** — `.step-indicator`, an `<ol>` named by `aria-label`. Centred flex row, `--space-3` gap, `--space-8` margin below, no list markers.
-2. **Dot** — `.step-dot`, an `<li>`. 0.625rem (10 px) circle (`--radius-full`), `--color-border-strong` fill for an upcoming step. Holds the visually hidden step name (D-4).
-3. **Completed dot** — `.step-dot.completed`: `--color-accent` at 0.5 opacity.
-4. **Current dot** — `.step-dot[aria-current="step"]`: `--color-accent`, scaled 1.2.
-5. **Label** — `.step-label`, a `<p role="status">` reading "Step 2 of 4" in `--text-body-sm` `--color-fg-muted`, centred under the dots (D-5).
+2. **Dot** — `.step-dot`, an `<li>`. 0.875rem (14 px) circle (`--radius-full`); an upcoming step is a 2 px `--color-border-strong` ring with no fill. Holds the visually hidden step name (D-4).
+3. **Completed dot** — `.step-dot.completed`: solid `--color-accent` at full opacity.
+4. **Current dot** — `.step-dot[aria-current="step"]`: solid `--color-accent-hover`, scaled 1.2.
+5. **Label** — `.step-label`, a `<p role="status">` reading "Step 2 of 4" in `--text-body` (16 px) medium weight `--color-fg-default`, centred under the dots (D-5).
 
 Host: `coop-stepper` is `display: block`; the list and the label are rendered inside it and carry the classes.
 
@@ -85,17 +85,17 @@ Booleans: none. All inputs are signal inputs. The English default is overridable
 
 | Size | Modifier | Height | Padding | Type |
 |---|---|---|---|---|
-| One size | — | dots 0.625rem, current scaled 1.2 (0.75rem) | — | label `--text-body-sm` |
+| One size | — | dots 0.875rem, current scaled 1.2 (about 1.05rem) | — | label `--text-body`, medium |
 
-The row is as wide as its dots and gaps (about 78 px for four dots) and is centred by the list.
+The row is as wide as its dots and gaps (about 86 px for four dots) and is centred by the list.
 
 ## States
 
 | State | Trigger | Visual | Assistive technology |
 |---|---|---|---|
-| Upcoming dot | index > `current` | `--color-border-strong` circle | List item with the hidden step name |
-| Current dot | index = `current` | `--color-accent` circle, `transform: scale(1.2)` | `aria-current="step"`; name read with "current step" |
-| Completed dot | index < `current` | `--color-accent` at 0.5 opacity | List item with the hidden step name; its position before the current item conveys completion (D-4) |
+| Upcoming dot | index > `current` | 2 px `--color-border-strong` ring, no fill | List item with the hidden step name |
+| Current dot | index = `current` | `--color-accent-hover` circle, `transform: scale(1.2)` | `aria-current="step"`; name read with "current step" |
+| Completed dot | index < `current` | solid `--color-accent` | List item with the hidden step name; its position before the current item conveys completion (D-4) |
 | Step change | `current` changes | Colour and scale transition over `--duration-slow` | The label's `role="status"` announces "Step 3 of 4" |
 | Hover, focus, active, disabled | — | None; the dots are not interactive and never take focus | — |
 
@@ -133,9 +133,9 @@ The first step differs only in having no completed dot. The e2e onboarding page 
 ## Design
 
 - List: `display: flex`, `align-items: center`, `justify-content: center`, gap `--space-3`, `margin-bottom: --space-8`, `padding: 0`, `list-style: none`.
-- Dot: `width` and `height` 0.625rem, `border-radius: --radius-full`; transitions `background-color` and `transform` over `--duration-slow` with `--ease-standard`.
+- Dot: `width` and `height` 0.875rem, `border-radius: --radius-full`, 2 px solid border in the dot's colour; transitions `background-color` and `transform` over `--duration-slow` with `--ease-standard`.
 - Current: `transform: scale(1.2)`; the row's height is set by the unscaled dots, so the scale overflows the box by 1 px without shifting anything.
-- Label: `--text-body-sm`, `--color-fg-muted`, `text-align: center`, `margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8)` so it sits `--space-3` under the dots and the pair keeps the list's `--space-8` space below (D-5). `.step-label` is not yet in `components.css`; the rendering applies it as a specimen-only style and the first slice adds the rule.
+- Label: `--text-body`, medium weight, `--color-fg-default`, `text-align: center`, `margin: calc(-1 * var(--space-8) + var(--space-3)) 0 var(--space-8)` so it sits `--space-3` under the dots and the pair keeps the list's `--space-8` space below (D-5). `.step-label` is not yet in `components.css`; the rendering applies it as a specimen-only style and the first slice adds the rule.
 - Layer: none; it sits at the top of the onboarding card or page.
 
 Component tokens: none. `.step-indicator` and `.step-dot` consume semantic tokens directly in `components.css`.
@@ -146,10 +146,10 @@ The product ships one light appearance (D-2); the Dark column repeats the light 
 
 | Part | Token | Light | Dark |
 |---|---|---|---|
-| Upcoming dot | `--color-border-strong` | `--palette-gray-500` | `--palette-gray-500` |
-| Current dot | `--color-accent` | `--palette-green-700` | `--palette-green-700` |
-| Completed dot | `--color-accent` at 0.5 opacity | `--palette-green-700` | `--palette-green-700` |
-| Label | `--color-fg-muted` | `--palette-gray-600` | `--palette-gray-600` |
+| Upcoming dot (ring) | `--color-border-strong` | `--palette-gray-500` | `--palette-gray-500` |
+| Current dot | `--color-accent-hover` | `--palette-green-800` | `--palette-green-800` |
+| Completed dot | `--color-accent` | `--palette-green-700` | `--palette-green-700` |
+| Label | `--color-fg-default` | `--palette-gray-900` | `--palette-gray-900` |
 | Card behind (admin) | `--color-bg-surface` | `--palette-white` | `--palette-white` |
 | Page behind (public) | `--color-bg-canvas` | `--palette-gray-50` | `--palette-gray-50` |
 
@@ -159,10 +159,11 @@ The product ships one light appearance (D-2); the Dark column repeats the light 
 | `--color-border-strong` | `--color-bg-canvas` | 3:1 | Upcoming dot on the public page |
 | `--color-accent` | `--color-bg-surface` | 3:1 | Current dot on the card |
 | `--color-accent` | `--color-bg-canvas` | 3:1 | Current dot on the page |
-| `--color-fg-muted` | `--color-bg-surface` | 4.5:1 | Label on the card |
-| `--color-fg-muted` | `--color-bg-canvas` | 4.5:1 | Label on the page |
+| `--color-accent` | `--color-bg-canvas` | 3:1 | Completed dot on the page |
+| `--color-fg-default` | `--color-bg-surface` | 4.5:1 | Label on the card |
+| `--color-fg-default` | `--color-bg-canvas` | 4.5:1 | Label on the page |
 
-The completed dot (accent at 0.5 opacity on white, about 2.2:1) is below the 3:1 non-text minimum; it is acceptable only because the label and the list order carry the information, so the dots are never rendered without the label (design-system page). Under `forced-colors: active` the opacity and scale survive but the colours become `CanvasText`; the component adds a `--border-width-hairline` `CanvasText` edge to every dot and a solid `CanvasText` fill to the current dot under that media query (D-7).
+No dot is faded: every dot meets the 3:1 non-text minimum, and the label and list order still carry the information, so the dots are never rendered without the label (design-system page). Under `forced-colors: active` the scale survives but the colours become `CanvasText`; the component adds a `--border-width-hairline` `CanvasText` edge to every dot and a solid `CanvasText` fill to the current dot under that media query (D-7).
 
 ## Responsive behaviour
 
@@ -214,7 +215,7 @@ The label is `role="status"`: when `current` changes, "Step 3 of 4" is announced
 - Change detection: `OnPush`, signal inputs; the dot states are one `computed` over `steps` and `current`.
 - Perf-test scenario: none; the workspace has no perf-test project (D-3).
 - Composite scenarios: none.
-- Layout stability: the row's height is fixed by the 10 px dots and the label by one line of `--text-body-sm`; the scale transform does not affect layout, so a step change shifts nothing below.
+- Layout stability: the row's height is fixed by the 14 px dots and the label by one line of `--text-body`; the scale transform does not affect layout, so a step change shifts nothing below.
 - Weight: imports `@angular/core` and `@angular/common` only; no CDK.
 
 ## Acceptance criteria
@@ -230,7 +231,7 @@ The label is `role="status"`: when `current` changes, "Step 3 of 4" is announced
 
 ### States
 
-- **AC-7** Given the current dot, when measured, then its fill is `--color-accent` at full opacity and it is scaled 1.2 (12 px) while the upcoming dots are 10 px in `--color-border-strong` and the completed dots are 10 px in `--color-accent` at 0.5 opacity. (L2-REQ-014)
+- **AC-7** Given the current dot, when measured, then its fill is `--color-accent-hover` and it is scaled 1.2 while the upcoming dots are 14 px `--color-border-strong` rings and the completed dots are 14 px solid `--color-accent` at full opacity. (L2-REQ-014)
 - **AC-8** Given `current` changes from 2 to 3 after the profile step is saved, when change detection runs, then the second dot becomes `.completed`, the third gains `aria-current="step"`, the colours and scale transition over `--duration-slow`, and the label reads "Step 3 of 4". (L2-REQ-014)
 - **AC-9** Given `current` 9 with four steps, when it renders, then the fourth dot is current and the label reads "Step 4 of 4". (L2-REQ-014)
 
