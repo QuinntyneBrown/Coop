@@ -372,7 +372,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .documents-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
         gap: 16px;
       }
       .document-card {
@@ -413,6 +413,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
       }
       .doc-info {
         flex: 1;
+        min-width: 0;
         h3 {
           font-size: 15px;
           font-weight: 600;
@@ -426,6 +427,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
         .doc-date {
           font-size: 12px;
           color: #1a1918cc;
+          white-space: nowrap;
         }
       }
       .empty-state {
