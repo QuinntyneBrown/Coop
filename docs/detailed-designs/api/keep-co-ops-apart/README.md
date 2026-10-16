@@ -69,9 +69,12 @@ message (L2-REQ-103 AC2).
   EF Core keeps one filter per entity type;
 - adds an index that starts with `TenantId`.
 
-`UserConfiguration` changes the username index to unique
-`(TenantId, Username)`. `PageConfiguration` changes the slug index to unique
-`(TenantId, Slug)`. `TenantConfiguration` adds a unique index on `Slug`.
+`UserConfiguration` adds the index `(TenantId, Username)` and
+`PageConfiguration` changes its slug index to `(TenantId, Slug)`. Neither is
+unique: a removed (soft-deleted) user or page keeps its name, and the
+handlers look a name up within the current co-op only, so two co-ops can use
+the same username or slug. `TenantConfiguration` adds a unique index on
+`Slug`.
 
 `SaveChangesAsync` sets `TenantId` on every `Added` entry that implements
 `ITenantOwned` to the current co-op, before the existing domain-event
@@ -145,17 +148,20 @@ reverse-proxy and wildcard DNS and TLS setting: `<TO SUPPLY>`.
 
 ### Tests
 
-`backend/tests/Coop.Api.Tests/TenancyTests.cs` covers the API through
-`CoopApiFactory` with an in-memory database (ADR 0003). The factory seeds a
-second co-op, `birch`, and its `HttpClient`s set the `Host` header to choose
-the co-op. The tests cover: an unknown or malformed co-op answering 404; the
-default co-op at `localhost`; lists and counts holding only the caller's
-co-op; another co-op's record treated as missing on read, change and
-delete; a
-created record belonging to the caller's co-op whatever the body says;
-another co-op's asset and invitation token; sign-in at the wrong co-op;
-a token sent to another co-op, and one with no co-op, answering 401; and the
-same username and page slug in two co-ops.
+The acceptance tests run the API through `CoopApiFactory` over an in-memory
+database (ADR 0003). The factory sets `Tenancy:BaseDomain` to
+`coop.example` and `Tenancy:DefaultTenant` to `sunrise`.
+`CreateClientForCoop(slug)` sends requests to `{slug}.coop.example`,
+`EnsureCoopAsync` adds a second fictional co-op, `birch`, with one
+administrator, and `CreateCoopScopeAsync` gives tests that write to the
+database directly a scope inside the seeded co-op.
+
+| Test class | Covers |
+|------------|--------|
+| `TenancyTests` | The seeded co-op at its sub-domain, case ignored; an unknown or malformed co-op answering 404, signed in or not; the default co-op for `localhost` (L2-REQ-101) |
+| `CoopIsolationTests` | Lists and page reads holding only the request's co-op; another co-op's page unchanged by update and removal; another co-op's asset answering 404; another co-op's invitation token refused (L2-REQ-102) |
+| `CoopSignInTests` | The `tenant_id` claim; sign-in at the wrong co-op failing as a wrong password does; a token sent to another co-op, and one with no co-op, answering 401; registration creating the account in its co-op (L2-REQ-103) |
+| `CoopNamesTests` | The same username and page slug in two co-ops; the username check looking only within its co-op (L2-REQ-104) |
 
 ## Requirements
 

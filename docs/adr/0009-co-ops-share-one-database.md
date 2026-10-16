@@ -34,9 +34,11 @@ region, or an account in more than one co-op.
 - **The token names its co-op.** Sign-in adds a `tenant_id` claim. After
   authentication, the middleware refuses with 401 any token whose
   `tenant_id` differs from the request's co-op, or has none.
-- **Uniqueness is per co-op.** Username and page slug indexes become
-  `(TenantId, Username)` and `(TenantId, Slug)`. Every `TenantId` index
-  starts with `TenantId`.
+- **Uniqueness is per co-op.** Usernames and page slugs are looked up
+  within the current co-op only, through the query filter, and indexed as
+  `(TenantId, Username)` and `(TenantId, Slug)`. The indexes are not unique,
+  because removed users and pages keep their names. Every co-op-owned table
+  has an index that starts with `TenantId`.
 
 ## Consequences
 

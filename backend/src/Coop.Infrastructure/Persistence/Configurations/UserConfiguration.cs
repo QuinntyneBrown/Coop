@@ -10,6 +10,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasKey(u => u.UserId);
         builder.Property(u => u.Username).IsRequired().HasMaxLength(256);
+        builder.HasIndex(u => new { u.TenantId, u.Username });
         builder.Property(u => u.Password).IsRequired();
         builder.HasMany(u => u.Roles).WithMany(r => r.Users);
         builder.HasMany(u => u.Profiles).WithOne().HasForeignKey(p => p.UserId);

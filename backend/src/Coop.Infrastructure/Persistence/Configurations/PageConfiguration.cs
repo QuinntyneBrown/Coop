@@ -14,6 +14,6 @@ public class PageConfiguration : IEntityTypeConfiguration<Page>
         builder.Property(p => p.HeroImageUrl).HasMaxLength(2048);
         builder.Property(p => p.HeroImageAlt).HasMaxLength(250);
         builder.Property(p => p.Body).IsRequired();
-        builder.HasIndex(p => p.Slug);
+        builder.HasIndex(p => new { p.TenantId, p.Slug });
     }
 }

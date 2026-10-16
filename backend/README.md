@@ -75,7 +75,8 @@ environment variables or a secret store for any shared or deployed environment.
 ## Seed data
 
 On startup the API ensures the database exists and seeds it when it is empty.
-Seed data is clearly fictional: the five roles (Member, Staff, BoardMember,
+Seed data is clearly fictional and all of it belongs to one sample co-op,
+`sunrise` ("Sunrise Co-op (sample)", ADR 0009): the five roles (Member, Staff, BoardMember,
 SystemAdministrator, Support) with their privileges, three sample board members,
 and two development accounts that the Playwright suites sign in with. Seeding
 is safe to re-run: when a new aggregate such as `Page` is added, the next start

@@ -112,11 +112,14 @@ the API only allows CORS requests from `http://localhost:4200` and
 `http://localhost:4201`, so keep those ports.
 
 On startup the API creates `coop.db` if it is missing and seeds fictional
-development data: roles and privileges, an `admin` user, a `member` user,
+development data inside one sample co-op, `sunrise`: roles and privileges, an `admin` user, a `member` user,
 sample board members, and the public site content the admin Website screen
 edits. The database has no migrations yet, so after an update that adds a
 column (such as the website page photo description) delete `coop.db` and
-restart the API to recreate it. Swagger is available at `http://localhost:5000/swagger`
+restart the API to recreate it. The API serves each co-op at its own
+sub-domain of `Tenancy:BaseDomain` and uses `Tenancy:DefaultTenant` for
+`localhost`, which `appsettings.Development.json` sets to `sunrise`
+([ADR 0009](docs/adr/0009-co-ops-share-one-database.md)). Swagger is available at `http://localhost:5000/swagger`
 in the Development environment. See [backend/README.md](backend/README.md) for the seed
 accounts and the backend layout.
 
