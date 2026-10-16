@@ -42,7 +42,7 @@ Every `.card`, `.card-interactive` and `.quick-action-btn` in `docs/mocks` is on
 | `pages/admin-dashboard/*`, `pages/public-dashboard/*` "Recent Maintenance Requests", "Recent Requests", "Recent Notices", "Quick Actions" | static, `title`, `header` slot (sectioned) | header: "View all" link; body: a list, four tiles, or the empty state "No recent requests" | default | canvas |
 | `pages/admin-dashboard/*` quick actions | `variant="quick-action"`, `icon`, `href` | `build` "New Maintenance", `description` "Create Document", `chat` "New Message", `mail` "Send Invitation" | default, hover, focus | inside the "Quick Actions" card |
 | `pages/public-login/*`, `pages/admin-login/*`, `pages/*-register/*`, `pages/*-forgot-password/*`, `pages/admin-change-password/*`, `pages/public-profile/*`, `pages/admin-settings/*` | static | a form, or a heading, paragraph and form | default | canvas, centred column |
-| `pages/public-onboarding/*` unit options | interactive, `title`, `selected` | title "Unit 101"; body "101" | default, hover, focus, selected | card |
+| `pages/public-onboarding/*` unit options | interactive, `title`, `selected` | title "Unit 101"; no body (the unit is named once) | default, hover, focus, selected | card |
 
 Every row is buildable with the API below: a static card with optional title, header slot and meta line; an interactive card whose title is a button (`activated`) or a link (`href`) and which can be `selected`; and the quick-action tile.
 
