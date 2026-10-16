@@ -114,7 +114,8 @@ test.describe('Profile Management', () => {
       await profilesPage.selectProfile(0);
       await expect(profilesPage.editPanelTitle).toBeVisible();
       const title = await profilesPage.editPanelTitle.textContent();
-      expect(title).toMatch(/Edit .+ Profile/);
+      expect(title).toMatch(/Edit [a-z ]+ profile/);
+      expect(title).not.toMatch(/[a-z][A-Z]/);
     });
   });
 

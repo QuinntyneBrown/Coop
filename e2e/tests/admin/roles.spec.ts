@@ -57,14 +57,20 @@ test.describe('Roles & Privileges', () => {
     });
 
     test('should highlight SystemAdministrator as default selected', async () => {
-      await rolesPage.expectRoleSelected('SystemAdministrator');
+      await rolesPage.expectRoleSelected('SystemAdministrator', 'System administrator');
+    });
+
+    test('should show roles and areas in plain words', async () => {
+      await expect(rolesPage.roleCard('systemadministrator')).toContainText('System administrator');
+      await expect(rolesPage.roleCard('boardmember')).toContainText('Board member');
+      await expect(rolesPage.privilegeArea('maintenancerequest')).toHaveText('Maintenance request');
     });
   });
 
   test.describe('Role Selection', () => {
     test('should update privileges panel when selecting a role', async () => {
       await rolesPage.selectRole('boardmember');
-      await rolesPage.expectRoleSelected('BoardMember');
+      await rolesPage.expectRoleSelected('BoardMember', 'Board member');
     });
 
     test('should show different privileges for different roles', async ({ authenticatedPage }) => {

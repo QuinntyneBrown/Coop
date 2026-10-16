@@ -3,6 +3,7 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { RoleService } from '../../core/services/role.service';
 import { PrivilegeService } from '../../core/services/privilege.service';
 import { TopbarComponent } from '../../layout/topbar.component';
+import { plainName } from '../../core/plain-name';
 
 @Component({
   selector: 'app-roles',
@@ -28,7 +29,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
                 [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
               >
                 <span class="material-icons role-icon" data-testid="role-icon">shield</span>
-                <span>{{ role.name }}</span>
+                <span>{{ plainName(role.name) }}</span>
               </div>
             </div>
           }
@@ -38,7 +39,9 @@ import { TopbarComponent } from '../../layout/topbar.component';
         @if (selectedRole) {
           <div class="privileges-panel card" data-testid="privileges-panel">
             <div class="privileges-header">
-              <h3 data-testid="privileges-panel-title">{{ selectedRole.name }} - Privileges</h3>
+              <h3 data-testid="privileges-panel-title">
+                {{ plainName(selectedRole.name) }} privileges
+              </h3>
               <button class="btn btn-primary btn-sm" data-testid="add-privilege-button">
                 <span class="material-icons">add</span> Add Privilege
               </button>
@@ -61,7 +64,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
                   "
                 >
                   <tr [attr.data-testid]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
-                    <td data-testid="privilege-aggregate">{{ priv.aggregate }}</td>
+                    <td data-testid="privilege-aggregate">{{ plainName(priv.aggregate) }}</td>
                     <td>
                       <input
                         type="checkbox"
@@ -203,6 +206,7 @@ import { TopbarComponent } from '../../layout/topbar.component';
   ],
 })
 export class RolesComponent implements OnInit {
+  readonly plainName = plainName;
   private roleService = inject(RoleService);
   private privilegeService = inject(PrivilegeService);
 
