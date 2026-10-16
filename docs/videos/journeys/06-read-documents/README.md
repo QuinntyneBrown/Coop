@@ -6,7 +6,7 @@
 
 ## Why this video exists
 
-By-laws, reports and notices are kept together on the Documents page. This video shows a member how to find the kind she wants and read it.
+By-Laws, reports and notices are kept together on the Documents page. This video shows a member how to find the kind she wants and read it.
 
 ## Learning objectives
 
