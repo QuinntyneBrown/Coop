@@ -22,6 +22,4 @@
 .unit-option[_ngcontent-ng-c2892731918]:hover { border-color: var(--primary); }
 .unit-option.selected[_ngcontent-ng-c2892731918] { border-color: var(--primary); background: var(--primary-light); }
 .unit-option[_ngcontent-ng-c2892731918] .unit-name[_ngcontent-ng-c2892731918] { font-weight: 500; }
-.step-actions[_ngcontent-ng-c2892731918] { display: flex; gap: 12px; margin-top: 24px; padding-bottom: 80px; position: relative; z-index: 101; }
-.step-actions[_ngcontent-ng-c2892731918] .btn[_ngcontent-ng-c2892731918] { flex: 1 1 0%; }
-.step-actions[_ngcontent-ng-c2892731918] .skip-btn[_ngcontent-ng-c2892731918] { flex: 0 1 0%; white-space: nowrap; }
+.step-actions[_ngcontent-ng-c2892731918] { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0px, 1fr); gap: 12px; margin-top: 24px; padding-bottom: 80px; position: relative; z-index: 101; }
