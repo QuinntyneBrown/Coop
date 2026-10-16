@@ -70,7 +70,7 @@ public static class SiteContentSeed
                 {
                     new FigureDto { Value = "142", Label = "homes, from bachelor to two-bedroom" },
                     new FigureDto { Value = "1997", Label = "the year we opened our doors" },
-                    new FigureDto { Value = "1", Label = "rooftop garden, shared by everyone" },
+                    new FigureDto { Value = "100%", Label = "run by the women who live here" },
                 },
             },
             About = new AboutDto
