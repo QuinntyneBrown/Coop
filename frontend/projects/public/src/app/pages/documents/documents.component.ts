@@ -148,7 +148,8 @@ import { documentTypeLabel } from './document-type-label';
       .documents-page {
         padding: 24px 16px;
         max-width: 900px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
       }
 
       h1 {

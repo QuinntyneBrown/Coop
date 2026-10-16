@@ -1,4 +1,4 @@
-.dashboard-content[_ngcontent-ng-c227045594] { padding: 24px 16px; max-width: 900px; margin: 0px auto; }
+.dashboard-content[_ngcontent-ng-c227045594] { padding: 24px 16px; max-width: 900px; margin: 0px; }
 .greeting-section[_ngcontent-ng-c227045594] { margin-bottom: 24px; }
 .greeting-section[_ngcontent-ng-c227045594] h1[_ngcontent-ng-c227045594] { font-size: 24px; font-weight: 600; }
 .greeting-section[_ngcontent-ng-c227045594] p[_ngcontent-ng-c227045594] { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
@@ -29,7 +29,4 @@
 .empty-text[_ngcontent-ng-c227045594] { text-align: center; color: var(--text-secondary); padding: 16px 0px; font-size: 14px; }
 @media (min-width: 640px) {
   .metric-grid[_ngcontent-ng-c227045594] { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1024px) {
-  .dashboard-content[_ngcontent-ng-c227045594] { padding: 32px; }
 }

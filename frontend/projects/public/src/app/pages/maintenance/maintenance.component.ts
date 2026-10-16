@@ -365,7 +365,8 @@ import { photoFileError } from './photo-file-error';
       .maintenance-page {
         padding: 24px 16px;
         max-width: 900px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
       }
 
       .page-header {

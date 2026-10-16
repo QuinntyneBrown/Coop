@@ -422,7 +422,8 @@ import { profileTypeLabel } from './profile-type-label';
       .profile-page {
         padding: 24px 16px 100px;
         max-width: 500px;
-        margin: 0 auto;
+        /* Start beside the sidebar, at the same edge on every page. */
+        margin: 0;
       }
 
       h1 {
