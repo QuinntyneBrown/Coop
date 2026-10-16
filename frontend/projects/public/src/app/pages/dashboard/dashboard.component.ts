@@ -7,6 +7,7 @@ import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ApiService } from '../../core/services/api.service';
 import { catchError, of, forkJoin } from 'rxjs';
+import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label';
 
 @Component({
   selector: 'app-dashboard',
@@ -116,7 +117,7 @@ import { catchError, of, forkJoin } from 'rxjs';
                 <span class="status-dot" [class]="getStatusClass(req.status)"></span>
                 <div class="request-info">
                   <span class="request-title">{{ req.title }}</span>
-                  <span class="request-status">{{ req.status }}</span>
+                  <span class="request-status">{{ statusLabel(req.status) }}</span>
                 </div>
                 <span class="request-date">{{ req.createdAt | date: 'mediumDate' }}</span>
               </div>
@@ -309,6 +310,7 @@ export class DashboardComponent implements OnInit {
   messagesCount = '0';
   membersCount = '0';
   recentRequests: MaintenanceRequest[] = [];
+  readonly statusLabel = maintenanceStatusLabel;
 
   ngOnInit() {
     // Load user profile

@@ -15,6 +15,7 @@ export class MaintenancePage {
   // Filters
   readonly filterAll: Locator;
   readonly filterNew: Locator;
+  readonly filterReceived: Locator;
   readonly filterStarted: Locator;
   readonly filterDone: Locator;
 
@@ -61,6 +62,7 @@ export class MaintenancePage {
 
     this.filterAll = page.locator('[data-testid="maintenance-filter-all"]');
     this.filterNew = page.locator('[data-testid="maintenance-filter-new"]');
+    this.filterReceived = page.locator('[data-testid="maintenance-filter-received"]');
     this.filterStarted = page.locator('[data-testid="maintenance-filter-started"]');
     this.filterDone = page.locator('[data-testid="maintenance-filter-done"]');
 
@@ -165,10 +167,11 @@ export class MaintenancePage {
     await this.addCommentButton.click();
   }
 
-  async filterByStatus(status: 'all' | 'new' | 'started' | 'done') {
+  async filterByStatus(status: 'all' | 'new' | 'received' | 'started' | 'done') {
     const filters = {
       all: this.filterAll,
       new: this.filterNew,
+      received: this.filterReceived,
       started: this.filterStarted,
       done: this.filterDone,
     };
@@ -181,5 +184,9 @@ export class MaintenancePage {
 
   async expectRequestInList(title: string) {
     await expect(this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`).first()).toBeVisible();
+  }
+
+  async expectRequestNotInList(title: string) {
+    await expect(this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`)).toHaveCount(0);
   }
 }
