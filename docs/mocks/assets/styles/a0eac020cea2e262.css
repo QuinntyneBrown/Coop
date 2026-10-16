@@ -7,7 +7,7 @@
 .step-label[_ngcontent-ng-c2892731918] { font-size: 13px; color: var(--text-secondary); }
 .step-content[_ngcontent-ng-c2892731918] h2[_ngcontent-ng-c2892731918] { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
 .step-content[_ngcontent-ng-c2892731918] .step-desc[_ngcontent-ng-c2892731918] { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
-.welcome-step[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] { text-align: center; padding: 40px 0px 80px; position: relative; z-index: 101; }
+.welcome-step[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] { text-align: center; padding: 40px 0px 80px; }
 .welcome-step[_ngcontent-ng-c2892731918] h1[_ngcontent-ng-c2892731918], .welcome-step[_ngcontent-ng-c2892731918] h2[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] h1[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] h2[_ngcontent-ng-c2892731918] { font-size: 26px; margin: 16px 0px 12px; }
 .welcome-step[_ngcontent-ng-c2892731918] p[_ngcontent-ng-c2892731918], .confirmation-step[_ngcontent-ng-c2892731918] p[_ngcontent-ng-c2892731918] { color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 32px; }
 .welcome-icon[_ngcontent-ng-c2892731918], .confirmation-icon[_ngcontent-ng-c2892731918] { width: 80px; height: 80px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; margin: 0px auto 16px; }
@@ -22,4 +22,4 @@
 .unit-option[_ngcontent-ng-c2892731918]:hover { border-color: var(--primary); }
 .unit-option.selected[_ngcontent-ng-c2892731918] { border-color: var(--primary); background: var(--primary-light); }
 .unit-option[_ngcontent-ng-c2892731918] .unit-name[_ngcontent-ng-c2892731918] { font-weight: 500; }
-.step-actions[_ngcontent-ng-c2892731918] { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0px, 1fr); gap: 12px; margin-top: 24px; padding-bottom: 80px; position: relative; z-index: 101; }
+.step-actions[_ngcontent-ng-c2892731918] { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0px, 1fr); gap: 12px; margin-top: 24px; padding-bottom: 80px; }
