@@ -120,16 +120,16 @@ import { formatFileSize } from './format-file-size';
                 </div>
               </dl>
             </div>
-            <div class="modal-actions">
+            <div class="modal-actions asset-detail-actions">
+              <button class="btn btn-primary" data-testid="asset-download-button">Download</button>
+              <button class="btn btn-secondary" (click)="selectedAsset = null">Close</button>
               <button
-                class="btn btn-danger"
+                class="btn btn-danger asset-delete-action"
                 data-testid="asset-delete-button"
                 (click)="openDeleteAssetDialog()"
               >
                 Delete
               </button>
-              <button class="btn btn-primary" data-testid="asset-download-button">Download</button>
-              <button class="btn btn-secondary" (click)="selectedAsset = null">Close</button>
             </div>
           </div>
         </div>
@@ -272,6 +272,13 @@ import { formatFileSize } from './format-file-size';
         gap: 12px;
         justify-content: flex-end;
         margin-top: 20px;
+      }
+      .asset-detail-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .asset-delete-action {
+        margin-left: auto;
       }
       .progress-bar {
         height: 6px;

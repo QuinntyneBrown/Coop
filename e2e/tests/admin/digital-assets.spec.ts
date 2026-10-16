@@ -175,6 +175,16 @@ test.describe('Digital Assets', () => {
     });
   });
 
+  test.describe('Asset Detail actions', () => {
+    test('should offer the safe actions before the separate Delete action', async ({ api }) => {
+      await api.uploadAsset('ordered-actions.txt', Buffer.from('content'));
+      await assetsPage.goto();
+
+      await assetsPage.clickAsset(0);
+      await expect(assetsPage.assetDetailActions).toHaveText(['Download', 'Close', 'Delete']);
+    });
+  });
+
   test.describe('Delete Asset', () => {
     test('should show delete confirmation dialog', async ({ api }) => {
       await api.uploadAsset('delete-me.txt', Buffer.from('to delete'));
