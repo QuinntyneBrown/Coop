@@ -111,6 +111,8 @@ export interface MockMessage {
   senderUserId: string;
   body: string;
   createdOn: string;
+  /** Unread messages count towards a conversation's unread badge. */
+  read?: boolean;
 }
 
 export interface MockInvitation {

@@ -82,7 +82,9 @@ for app in ['public','admin']:
         state(s,'comments',dict(selectedRequest=REQUESTS[0],activeTab='comments',comments=COMMENTS)); state(s,'comments-empty',dict(selectedRequest=REQUESTS[0],activeTab='comments',comments=[]))
     s=add(app,'messaging',[36,37,38],dict(conversations=CONVERSATIONS,filteredConversations=CONVERSATIONS,messages=[],selectedConversation=None,loading=False,currentUserId='user-mira'),route='/messaging' if app=='public' else '/messages')
     state(s); state(s,'loading',dict(conversations=[],filteredConversations=[],loading=True)); state(s,'empty',dict(conversations=[],filteredConversations=[]),note='Conversation fetch failures display the empty view.')
-    state(s,'chat',dict(selectedConversation=CONVERSATIONS[0],messages=MESSAGES)); state(s,'chat-empty',dict(selectedConversation=CONVERSATIONS[0],messages=[]))
+    # The admin app marks a conversation read when it is opened.
+    opened=dict(conversations=[dict(CONVERSATIONS[0],unreadCount=0)],filteredConversations=[dict(CONVERSATIONS[0],unreadCount=0)]) if app=='admin' else {}
+    state(s,'chat',dict(opened,selectedConversation=CONVERSATIONS[0],messages=MESSAGES)); state(s,'chat-empty',dict(opened,selectedConversation=CONVERSATIONS[0],messages=[]))
     state(s,'read',dict(conversations=[dict(CONVERSATIONS[0],unreadCount=0)],filteredConversations=[dict(CONVERSATIONS[0],unreadCount=0)]))
     if app=='admin':
         state(s,'no-results',dict(filteredConversations=[])); overlay(app,'new-conversation','messaging',[36],dict(showNewConversationDialog=True),note='Start only closes the dialog and clears the recipient; no conversation is created by this handler.')

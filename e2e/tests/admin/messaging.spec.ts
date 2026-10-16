@@ -115,6 +115,25 @@ test.describe('Messaging', () => {
     });
   });
 
+  test.describe('Unread conversations', () => {
+    test('opening an unread conversation marks it read and clears the badge', async ({
+      mockApi,
+    }) => {
+      // Given a conversation with an unread message
+      mockApi.store.messages[mockApi.store.messages.length - 1].read = false;
+      await messagingPage.goto();
+      await messagingPage.expectUnreadIndicator(0);
+
+      // When the admin opens it
+      await messagingPage.selectConversation(0);
+
+      // Then the badge clears, and stays cleared after a reload
+      await messagingPage.expectNoUnreadIndicator(0);
+      await messagingPage.goto();
+      await messagingPage.expectNoUnreadIndicator(0);
+    });
+  });
+
   test.describe('Send Message', () => {
     test('should send a message in an existing conversation', async () => {
       const count = await messagingPage.getConversationCount();
