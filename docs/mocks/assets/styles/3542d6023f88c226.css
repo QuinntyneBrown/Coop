@@ -3,3 +3,6 @@
 .tab-item.active[_ngcontent-ng-c1362238811] { color: rgb(61, 138, 90); }
 .tab-item[_ngcontent-ng-c1362238811] .material-icons[_ngcontent-ng-c1362238811] { font-size: 24px; }
 .tab-label[_ngcontent-ng-c1362238811] { font-weight: 500; }
+@media (min-width: 769px) {
+  .bottom-tab-bar[_ngcontent-ng-c1362238811] { display: none; }
+}

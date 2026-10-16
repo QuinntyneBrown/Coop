@@ -488,7 +488,7 @@ import { UserService, UserProfile } from '../core/services/user.service';
         }
 
         .bottom-tab-bar {
-          display: flex;
+          display: none;
         }
       }
 

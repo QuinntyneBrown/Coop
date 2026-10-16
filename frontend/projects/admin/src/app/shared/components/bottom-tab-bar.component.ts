@@ -77,6 +77,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       .tab-label {
         font-weight: 500;
       }
+      @media (min-width: 769px) {
+        .bottom-tab-bar {
+          display: none;
+        }
+      }
     `,
   ],
 })
