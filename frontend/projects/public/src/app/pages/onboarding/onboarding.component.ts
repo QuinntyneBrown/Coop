@@ -365,21 +365,16 @@ import { catchError, of } from 'rxjs';
         }
       }
 
+      /* Footer buttons share the row in equal columns on every step. */
       .step-actions {
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
         gap: 12px;
         margin-top: 24px;
         padding-bottom: 80px;
         position: relative;
         z-index: 101;
-
-        .btn {
-          flex: 1;
-        }
-        .skip-btn {
-          flex: 0;
-          white-space: nowrap;
-        }
       }
     `,
   ],
