@@ -1,0 +1,46 @@
+@startuml
+title UML sequence behaviour — Requests for co-op maple
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member of maple" as member
+box "Frontend — Public application at maple.coop.example" #E0F2FE
+  participant "AuthService\nApiService" as app
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "JWT authentication" as auth
+  participant "TenantResolution\nMiddleware" as resolver
+  participant "TenantContext" as ctx
+  participant "Controller and\nMediatR handler" as handler
+  database "CoopDbContext" as db
+end box
+member -> app : Sign in
+app -> auth : POST maple.coop.example/api/user/token  [L2-REQ-101 AC5]
+auth -> resolver : anonymous
+resolver -> db : Tenants where Slug = "maple"
+alt no such co-op or bad slug
+  resolver --> app : 404  [L2-REQ-101 AC2, AC4]
+else found
+  resolver -> ctx : Set(maple)
+  resolver -> handler : AuthenticateHandler
+  handler -> db : Users (filtered to maple)  [L2-REQ-103 AC2]
+  handler --> app : token with tenant_id = maple  [L2-REQ-103 AC1]
+end
+member -> app : Open a list
+app -> auth : GET maple.coop.example/api/... + token
+auth -> resolver : authenticated
+resolver -> resolver : tenant_id == maple  [L2-REQ-103 AC3]
+resolver -> ctx : Set(maple)
+resolver -> handler : request
+handler -> db : query
+db --> handler : maple's rows only (TenantId filter)  [L2-REQ-102 AC1]
+handler --> app : 200
+member -> app : Open a birch record by id
+app -> handler : GET .../{birchId} (through the same steps)
+handler -> db : find by id
+db --> handler : nothing (filtered out)
+handler --> app : 404  [L2-REQ-102 AC2]
+note over app, resolver : A maple token sent to birch.coop.example:\nResolver finds birch, tenant_id differs → 401  [L2-REQ-103 AC3]
+@enduml

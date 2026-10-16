@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Keep co-ops apart
+
+Person(member, "Member or office", "Opens maple.coop.example")
+Container_Boundary(apps, "Public and admin applications") {
+  Component(base, "apiBaseUrl", "Plain TypeScript function", "localhost:5000/api on localhost; {origin}/api otherwise")
+  Component(services, "ApiService, AuthService, ThemeService", "Angular services", "Call the API on the app's own host")
+  Component(interceptor, "authInterceptor", "Angular interceptor", "Attaches the token to requests under apiBaseUrl")
+}
+Container_Boundary(api, "Coop API") {
+  Component(auth, "JWT authentication", "ASP.NET Core", "Validates the token")
+  Component(resolver, "TenantResolutionMiddleware", "ASP.NET Core middleware", "Slug from the sub-domain; 404 unknown co-op; 401 token from another co-op")
+  Component(context, "TenantContext", "Scoped service, ITenantContext", "TenantId and Slug of the current co-op")
+  Component(controllers, "Controllers and MediatR handlers", "ASP.NET Core, MediatR", "Unchanged; read and write through ICoopDbContext")
+  Component(authenticate, "AuthenticateHandler", "MediatR handler", "Adds the tenant_id claim")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Query filter on TenantId for every co-op-owned entity; stamps TenantId on save")
+}
+Rel(member, services, "Uses")
+Rel(services, base, "Builds URLs with")
+Rel(interceptor, base, "Matches requests with")
+Rel(services, auth, "Calls", "JSON over HTTPS")
+Rel(auth, resolver, "Then")
+Rel(resolver, db, "Finds the Tenant by slug", "EF Core")
+Rel(resolver, context, "Sets")
+Rel(resolver, controllers, "Then, through authorization")
+Rel(controllers, authenticate, "Signs in with")
+Rel(authenticate, context, "Reads TenantId from")
+Rel(controllers, db, "Reads and writes", "EF Core")
+Rel(db, context, "Filters and stamps with")
+@enduml

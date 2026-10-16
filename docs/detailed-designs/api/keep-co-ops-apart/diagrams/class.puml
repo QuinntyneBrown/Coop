@@ -1,0 +1,73 @@
+@startuml
+title Class diagram — Keep co-ops apart
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Arial
+
+package "Coop.Domain.Tenancy" {
+  class Tenant {
+    +TenantId : Guid
+    +Slug : string
+    +Name : string
+  }
+  interface ITenantOwned {
+    +TenantId : Guid
+  }
+}
+package "Coop.Domain (co-op-owned entities)" {
+  class User
+  class Role
+  class Page
+  class "Document, ProfileBase,\nMaintenanceRequest, ..." as Others
+}
+package "Coop.Application.Common.Interfaces" {
+  interface ITenantContext {
+    +TenantId : Guid
+    +Slug : string
+  }
+  interface ICoopDbContext {
+    +Tenants : DbSet<Tenant>
+  }
+}
+package "Coop.Infrastructure.Persistence" {
+  class CoopDbContext {
+    -_tenantContext : ITenantContext
+    #OnModelCreating(modelBuilder)
+    +SaveChangesAsync(ct) : Task<int>
+  }
+}
+package "Coop.Api" {
+  class TenancyOptions {
+    +BaseDomain : string
+    +DefaultTenant : string?
+  }
+  class TenantContext {
+    +TenantId : Guid
+    +Slug : string
+    +Set(tenant : Tenant)
+  }
+  class TenantResolutionMiddleware {
+    +InvokeAsync(http, tenantContext, db) : Task
+    -SlugFrom(host) : string?
+  }
+}
+package "Coop.Application.Identity" {
+  class AuthenticateHandler {
+    +Handle(request, ct) : Task<AuthenticateResponse>
+  }
+}
+
+User ..|> ITenantOwned
+Role ..|> ITenantOwned
+Page ..|> ITenantOwned
+Others ..|> ITenantOwned
+ITenantOwned --> Tenant : TenantId
+CoopDbContext ..|> ICoopDbContext
+CoopDbContext --> ITenantContext : filters and stamps with
+TenantContext ..|> ITenantContext
+TenantResolutionMiddleware ..> TenancyOptions : reads
+TenantResolutionMiddleware ..> TenantContext : sets
+TenantResolutionMiddleware ..> ICoopDbContext : finds Tenant by slug
+AuthenticateHandler ..> ITenantContext : tenant_id claim
+@enduml
