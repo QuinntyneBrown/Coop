@@ -360,14 +360,19 @@ export class MockApi {
   private messageView(m: MockMessage) {
     const sender = this.store.users.find((u) => u.userId === m.senderUserId);
     const senderProfile = this.store.profiles.find((p) => p.userId === m.senderUserId);
+    // Senders are named the way people know them: their profile name, else the username.
+    const senderName =
+      `${senderProfile?.firstname ?? ''} ${senderProfile?.lastname ?? ''}`.trim() ||
+      sender?.username ||
+      'Member';
     return {
       messageId: m.messageId,
       id: m.messageId,
       conversationId: m.conversationId,
       senderId: m.senderUserId,
-      senderName: sender?.username ?? 'Member',
+      senderName,
       senderAvatarUrl: senderProfile?.avatarUrl ?? '',
-      createdBy: sender?.username ?? 'Member',
+      createdBy: senderName,
       body: m.body,
       content: m.body,
       createdOn: m.createdOn,

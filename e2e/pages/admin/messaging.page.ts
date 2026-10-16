@@ -16,6 +16,7 @@ export class MessagingPage {
   readonly chatHeaderAvatar: Locator;
   readonly chatHeaderName: Locator;
   readonly messageBubbles: Locator;
+  readonly messageSenders: Locator;
   readonly messageInput: Locator;
   readonly messageSendButton: Locator;
 
@@ -42,6 +43,7 @@ export class MessagingPage {
     this.chatHeaderAvatar = page.getByTestId('chat-header-avatar');
     this.chatHeaderName = page.getByTestId('chat-header-name');
     this.messageBubbles = page.getByTestId('message-bubble');
+    this.messageSenders = this.messageBubbles.locator('.msg-sender');
     this.messageInput = page.getByTestId('message-input');
     this.messageSendButton = page.getByTestId('message-send-button');
 
