@@ -55,8 +55,10 @@ test.describe('Settings', () => {
       await expect(settingsPage.themeHeading).toHaveText('Theme Customization');
     });
 
-    test('should display subtitle about CSS custom properties', async () => {
-      await expect(settingsPage.themeSubtitle).toContainText('CSS custom properties');
+    test('should explain the theme in plain words', async () => {
+      await expect(settingsPage.themeSubtitle).toHaveText(
+        'Choose the colours for the app. The preview shows your changes before you save.',
+      );
     });
 
     test('should display scope selector', async () => {

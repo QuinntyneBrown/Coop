@@ -75,7 +75,7 @@ export class SettingsPage {
 
   async expectThemeTabVisible() {
     await expect(this.themeHeading).toHaveText('Theme Customization');
-    await expect(this.themeSubtitle).toContainText('CSS custom properties');
+    await expect(this.themeSubtitle).toHaveText('Choose the colours for the app. The preview shows your changes before you save.');
     await expect(this.primaryColorInput).toBeVisible();
     await expect(this.saveThemeButton).toBeVisible();
     await expect(this.themePreview).toBeVisible();
