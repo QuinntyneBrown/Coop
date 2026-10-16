@@ -110,6 +110,14 @@ reached from the "Pages" sidebar link. It owns these signals: `pages`,
 Escape and make the page behind inert. Closing a dialog returns focus to the
 button that opened it.
 
+The editor never shows the hero photograph's address. It shows the chosen
+photograph as a thumbnail with "Current photo: {file name}" (or "Current
+photo" when the address has no file name, or "No photo chosen yet"), a
+"Choose photo" button that opens the shared `PhotoPickerComponent`
+(`features/website/photo-picker/`, `L2-REQ-097` AC1) and, when a photograph
+is chosen, a "Remove photo" button. Picking a different photograph clears its
+description and moves focus to the description field.
+
 `validatePageDraft` (`validate-page-draft.ts`) is a pure function that
 returns the field errors: "Give the page a title", "Write something for the
 page", "Describe this photo for people who cannot see it" when a hero

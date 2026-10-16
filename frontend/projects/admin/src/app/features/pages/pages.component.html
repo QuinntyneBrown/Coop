@@ -162,20 +162,51 @@
           >
         }
       </div>
-      <div class="form-group">
-        <label for="page-hero-field">Hero photo address (optional)</label>
-        <input
-          id="page-hero-field"
-          name="heroImageUrl"
-          type="url"
-          [(ngModel)]="draft.heroImageUrl"
-          aria-describedby="page-hero-help"
-          data-testid="page-hero-input"
-        />
-        <span class="field-help" id="page-hero-help"
-          >Paste the address of a photo from the Assets library. It shows under the title.</span
-        >
-      </div>
+      <fieldset class="form-group page-photo">
+        <legend>Hero photo (optional)</legend>
+        <div class="page-photo__current">
+          @if (draft.heroImageUrl) {
+            <img
+              class="page-photo__thumb"
+              [src]="previewUrl(draft.heroImageUrl)"
+              width="160"
+              height="120"
+              alt=""
+              data-testid="page-hero-preview"
+            />
+          }
+          <div>
+            <span class="page-photo__name" id="page-hero-name" data-testid="page-hero-name">{{
+              heroName(draft.heroImageUrl)
+            }}</span>
+            <span class="field-help" id="page-hero-help"
+              >Pick a photo from the Assets library. It shows under the title.</span
+            >
+            <div class="page-photo__actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="page-hero-field"
+                aria-describedby="page-hero-name page-hero-help"
+                (click)="choosePhoto()"
+                data-testid="page-hero-choose"
+              >
+                <span class="material-icons" aria-hidden="true">photo_library</span> Choose photo
+              </button>
+              @if (draft.heroImageUrl) {
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="removePhoto()"
+                  data-testid="page-hero-remove"
+                >
+                  Remove photo
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </fieldset>
       <div class="form-group">
         <label for="page-hero-alt-field">Photo description</label>
         <textarea
@@ -250,6 +281,8 @@
     </div>
   </form>
 </dialog>
+
+<app-photo-picker (picked)="onPhotoPicked($event)" />
 
 <dialog
   #removeDialog

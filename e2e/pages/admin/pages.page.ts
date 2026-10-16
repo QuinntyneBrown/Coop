@@ -21,7 +21,12 @@ export class PagesPage {
   readonly editor: Locator;
   readonly editorHeading: Locator;
   readonly titleInput: Locator;
-  readonly heroInput: Locator;
+  readonly heroPreview: Locator;
+  readonly heroName: Locator;
+  readonly heroChooseButton: Locator;
+  readonly heroRemoveButton: Locator;
+  readonly photoPicker: Locator;
+  readonly photoOptions: Locator;
   readonly heroAltInput: Locator;
   readonly heroAltError: Locator;
   readonly bodyInput: Locator;
@@ -53,7 +58,12 @@ export class PagesPage {
     this.editor = page.getByTestId('page-editor');
     this.editorHeading = page.getByTestId('page-editor-heading');
     this.titleInput = page.getByTestId('page-title-input');
-    this.heroInput = page.getByTestId('page-hero-input');
+    this.heroPreview = page.getByTestId('page-hero-preview');
+    this.heroName = page.getByTestId('page-hero-name');
+    this.heroChooseButton = page.getByTestId('page-hero-choose');
+    this.heroRemoveButton = page.getByTestId('page-hero-remove');
+    this.photoPicker = page.getByTestId('photo-picker');
+    this.photoOptions = this.photoPicker.getByTestId('photo-option');
     this.heroAltInput = page.getByTestId('page-hero-alt-input');
     this.heroAltError = page.getByTestId('page-hero-alt-error');
     this.bodyInput = page.getByTestId('page-body-input');
@@ -98,9 +108,17 @@ export class PagesPage {
     await expect(this.editor).toBeVisible();
   }
 
+  /** Picks the hero photo by its name in the Assets library. */
+  async chooseHeroPhoto(name: string) {
+    await this.heroChooseButton.click();
+    await expect(this.photoPicker).toBeVisible();
+    await this.photoOptions.filter({ hasText: name }).click();
+    await expect(this.photoPicker).toBeHidden();
+  }
+
   async fillEditor(fields: { title?: string; hero?: string; heroAlt?: string; body?: string }) {
     if (fields.title !== undefined) await this.titleInput.fill(fields.title);
-    if (fields.hero !== undefined) await this.heroInput.fill(fields.hero);
+    if (fields.hero !== undefined) await this.chooseHeroPhoto(fields.hero);
     if (fields.heroAlt !== undefined) await this.heroAltInput.fill(fields.heroAlt);
     if (fields.body !== undefined) await this.bodyInput.fill(fields.body);
   }
