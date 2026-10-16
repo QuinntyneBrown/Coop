@@ -453,17 +453,22 @@ import { photoFileError } from './photo-file-error';
         font-weight: 500;
         text-transform: capitalize;
 
+        /* One design-system tone per status, as in the office app. */
         &.new {
-          background: #dcfce7;
-          color: #166534;
-        }
-        &.started {
           background: #fef3c7;
           color: #92400e;
         }
+        &.received {
+          background: #e5e4e1;
+          color: #1a1918;
+        }
+        &.started {
+          background: #dbeafe;
+          color: #1e40af;
+        }
         &.done {
-          background: #dcfce7;
-          color: #166534;
+          background: #d7ecde;
+          color: #245737;
         }
       }
 
@@ -938,6 +943,7 @@ export class MaintenanceComponent implements OnInit {
     if (!status) return 'new';
     const s = status.toLowerCase();
     if (s === 'new' || s === 'open') return 'new';
+    if (s === 'received') return 'received';
     if (s === 'started' || s.includes('progress')) return 'started';
     if (s === 'done' || s === 'completed' || s === 'closed') return 'done';
     return 'new';

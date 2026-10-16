@@ -54,10 +54,10 @@
 .attachments[_ngcontent-ng-c2530530807] h4[_ngcontent-ng-c2530530807] { margin-bottom: 8px; }
 .attachment-grid[_ngcontent-ng-c2530530807] { display: flex; gap: 8px; flex-wrap: wrap; }
 .attachment-item[_ngcontent-ng-c2530530807] { display: flex; align-items: center; gap: 4px; padding: 6px 10px; background: rgb(245, 244, 241); border-radius: 8px; font-size: 13px; }
-.badge-success[_ngcontent-ng-c2530530807] { background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); }
-.badge-warning[_ngcontent-ng-c2530530807] { background: rgba(245, 158, 11, 0.1); color: rgb(217, 119, 6); }
-.badge-info[_ngcontent-ng-c2530530807] { background: rgba(59, 130, 246, 0.1); color: rgb(59, 130, 246); }
-.badge-gray[_ngcontent-ng-c2530530807] { background: rgba(26, 25, 24, 0.06); color: rgba(26, 25, 24, 0.8); }
+.badge-success[_ngcontent-ng-c2530530807] { background: rgb(215, 236, 222); color: rgb(36, 87, 55); }
+.badge-warning[_ngcontent-ng-c2530530807] { background: rgb(254, 243, 199); color: rgb(146, 64, 14); }
+.badge-info[_ngcontent-ng-c2530530807] { background: rgb(219, 234, 254); color: rgb(30, 64, 175); }
+.badge-gray[_ngcontent-ng-c2530530807] { background: rgb(229, 228, 225); color: rgb(26, 25, 24); }
 .mobile-only[_ngcontent-ng-c2530530807] { display: none; }
 @media (max-width: 768px) {
   .content-area[_ngcontent-ng-c2530530807] { grid-template-columns: 1fr; }

@@ -33,8 +33,8 @@ Every `.badge`, `.status-badge`, `.priority-badge`, `.active-badge` and `.unread
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| `pages/admin-maintenance/*` request cards and `detail-*` panels, `dialogs/admin-maintenance-create/*` | tone by status | "New" (warning), "Received" (info), "Started" (info), "Completed" (success) | default | card |
-| `pages/public-maintenance/*`, `dialogs/public-maintenance-create/*`, `dialogs/public-maintenance-detail/*` (`.status-badge.new|started|done`) | tone by status | "New", "Received", "Started", "Completed" with the same mapping (the mock draws "New" green; D-5) | default | card |
+| `pages/admin-maintenance/*` request cards and `detail-*` panels, `dialogs/admin-maintenance-create/*` | tone by status | "New" (warning), "Received" (gray), "Started" (info), "Completed" (success) | default | card |
+| `pages/public-maintenance/*`, `dialogs/public-maintenance-create/*`, `dialogs/public-maintenance-detail/*` (`.status-badge.new|received|started|done`) | tone by status | "New", "Received", "Started", "Done" with the same mapping (D-5) | default | card |
 | same public screens (`.priority-badge.low|medium|high`) | tone by priority | "Low" (info), "Medium" (warning), "High" (danger) | default | card |
 | `pages/admin-dashboard/*` recent requests (`.status-badge`) | tone by status | "New", "Started", "Completed" | default | card |
 | `pages/admin-users/*` Status column | `tone="success"` | "Active" | default | card (table) |
@@ -84,19 +84,19 @@ Translation: the label is projected by the consumer and `srText` is an input, so
 |---|---|---|
 | Neutral | — (bare `.badge`) | The default when a value has no mapped meaning. No mock uses it on its own; it exists so an unmapped value still renders readably (D-8). |
 | Success | `.badge-success` | A finished or good state: "Completed", "Published", "Active" (user, profile and invitation). |
-| Info | `.badge-info` | A state in progress or a neutral fact: "Received", "Started", "Low" priority, the unread count. |
+| Info | `.badge-info` | A state in progress or a neutral fact: "Started", "Low" priority, the unread count. |
 | Warning | `.badge-warning` | A state that wants attention: "New", "Draft", "Medium" priority. |
 | Danger | `.badge-danger` | A failed or urgent state: "Expired", "High" priority. |
-| Gray | `.badge-gray` | A spent state: "Used" invitation. |
+| Gray | `.badge-gray` | A waiting or spent state: "Received" request, "Used" invitation. |
 
 Mapping from the product's values (the contract each view model implements, D-4):
 
 | Value | Where | Tone |
 |---|---|---|
 | New | maintenance request status | warning |
-| Received | maintenance request status | info |
+| Received | maintenance request status | gray |
 | Started | maintenance request status | info |
-| Completed | maintenance request status | success |
+| Completed (member app: Done) | maintenance request status | success |
 | Low / Medium / High | maintenance request priority | info / warning / danger |
 | Draft / Published | document status | warning / success |
 | Active | user status, current profile, invitation status | success |
@@ -126,7 +126,7 @@ The badge has no hover, focus, active, disabled, busy or selected state: it is n
 ```html
 <!-- rendered: status words -->
 <span class="badge badge-warning">New</span>
-<span class="badge badge-info">Received</span>
+<span class="badge badge-gray">Received</span>
 <span class="badge badge-info">Started</span>
 <span class="badge badge-success">Completed</span>
 ```
@@ -266,8 +266,8 @@ None. No property transitions; `prefers-reduced-motion` changes nothing.
 
 ### Status mapping
 
-- **AC-8** Given the four requests "Kitchen tap leak" (New), "Hallway light" (Received), "Courtyard gate" (Started) and "Window latch" (Completed), when the admin maintenance list renders, then their badges are `.badge-warning` "New", `.badge-info` "Received", `.badge-info` "Started" and `.badge-success` "Completed". (L2-REQ-025)
-- **AC-9** Given "Kitchen tap leak" shows `.badge-warning` "New", when the request is received, then the badge is replaced in place by `.badge-info` "Received" with no other class and no live announcement. (L2-REQ-025)
+- **AC-8** Given the four requests "Kitchen tap leak" (New), "Hallway light" (Received), "Courtyard gate" (Started) and "Window latch" (Completed), when the admin maintenance list renders, then their badges are `.badge-warning` "New", `.badge-gray` "Received", `.badge-info` "Started" and `.badge-success` "Completed". (L2-REQ-025)
+- **AC-9** Given "Kitchen tap leak" shows `.badge-warning` "New", when the request is received, then the badge is replaced in place by `.badge-gray` "Received" with no other class and no live announcement. (L2-REQ-025)
 - **AC-10** Given the public maintenance list, whose mock draws "New" in green, when it renders with this component, then "New" is `.badge-warning` exactly as on the admin list. (L2-REQ-025)
 - **AC-11** Given the priorities "High" on "Kitchen tap leak", "Medium" on "Hallway light" and "Low" on "Courtyard gate", when the public list renders, then they are `.badge-danger`, `.badge-warning` and `.badge-info` and each shows its word. (L2-REQ-062)
 - **AC-12** Given the published notice "Autumn courtyard gathering" and the draft "September maintenance report", when the documents page renders, then their badges are `.badge-success` "Published" and `.badge-warning` "Draft". (L2-REQ-032)

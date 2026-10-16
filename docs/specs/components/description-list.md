@@ -34,7 +34,7 @@ Every label-and-value group in `docs/mocks` (the `.info-row` on 2 profile states
 |---|---|---|---|---|
 | `pages/public-profile/*`, `notifications/public-profile-saved`, `dialogs/public-profile-switcher` | items Username, Email, Phone, Unit, Member since | "mira.fern", "mira@example.invalid", "555-0101", "101", "Oct 13, 2026"; missing phone or unit → "Not provided" (the mocks' blank, "Not set", "Not assigned") | default, missing values (`empty`) | card, dialog |
 | `dialogs/admin-asset-detail/default` | items Name, Type, Size, Dimensions (images only), Created | "Courtyard plan.pdf", "application/pdf", "2 KB", "1200 × 800 px", "Oct 13, 2026, 8:00 AM" (the mock shows "2048" and seconds) | default | dialog |
-| `pages/admin-maintenance/detail-*`, `dialogs/public-maintenance-detail/*` | items Status (badge), Priority, Submitted, Received, Started, Completed, Completed by, Address, Phone, Unattended entry | badges "New" (warning), "Received" (info), "Started" (info), "Completed" (success); "High"; "Oct 13, 2026, 8:00 AM"; "Tavi Moss"; "101 Fictional Court, unit 101"; "555-0101"; "No" | default per status | card, dialog |
+| `pages/admin-maintenance/detail-*`, `dialogs/public-maintenance-detail/*` | items Status (badge), Priority, Submitted, Received, Started, Completed, Completed by, Address, Phone, Unattended entry | badges "New" (warning), "Received" (gray), "Started" (info), "Completed" (success); "High"; "Oct 13, 2026, 8:00 AM"; "Tavi Moss"; "101 Fictional Court, unit 101"; "555-0101"; "No" | default per status | card, dialog |
 
 Every row is buildable with the API below: an ordered list of items, each a label with a text value, a missing value or a badge value.
 
@@ -111,7 +111,7 @@ The design-system page states the list has no hover, selected, editable, loading
 ```html
 <!-- rendered: maintenance request with a badge value -->
 <dl class="info-list">
-  <div class="info-row"><dt class="info-label">Status</dt><dd class="info-value"><span class="badge badge-info">Received</span></dd></div>
+  <div class="info-row"><dt class="info-label">Status</dt><dd class="info-value"><span class="badge badge-gray">Received</span></dd></div>
   <div class="info-row"><dt class="info-label">Submitted</dt><dd class="info-value">Oct 13, 2026, 8:00 AM</dd></div>
   <div class="info-row"><dt class="info-label">Received</dt><dd class="info-value">Oct 14, 2026, 9:30 AM</dd></div>
   <div class="info-row"><dt class="info-label">Address</dt><dd class="info-value">101 Fictional Court, unit 101</dd></div>

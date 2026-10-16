@@ -17,9 +17,10 @@
 .request-item[_ngcontent-ng-c227045594] { display: flex; align-items: center; gap: 12px; padding: 12px 0px; border-bottom: 1px solid var(--border); }
 .request-item[_ngcontent-ng-c227045594]:last-child { border-bottom: none; }
 .status-dot[_ngcontent-ng-c227045594] { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.status-dot.new[_ngcontent-ng-c227045594] { background: var(--success); }
-.status-dot.started[_ngcontent-ng-c227045594], .status-dot.in-progress[_ngcontent-ng-c227045594] { background: var(--warning); }
-.status-dot.done[_ngcontent-ng-c227045594], .status-dot.completed[_ngcontent-ng-c227045594] { background: var(--success); }
+.status-dot.new[_ngcontent-ng-c227045594] { background: rgb(180, 83, 9); }
+.status-dot.received[_ngcontent-ng-c227045594] { background: rgb(107, 105, 99); }
+.status-dot.started[_ngcontent-ng-c227045594], .status-dot.in-progress[_ngcontent-ng-c227045594] { background: rgb(37, 99, 235); }
+.status-dot.done[_ngcontent-ng-c227045594], .status-dot.completed[_ngcontent-ng-c227045594] { background: rgb(61, 138, 90); }
 .status-dot.cancelled[_ngcontent-ng-c227045594] { background: var(--error); }
 .request-info[_ngcontent-ng-c227045594] { flex: 1 1 0%; display: flex; flex-direction: column; }
 .request-info[_ngcontent-ng-c227045594] .request-title[_ngcontent-ng-c227045594] { font-size: 14px; font-weight: 500; }

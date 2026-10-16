@@ -145,4 +145,14 @@ export class DashboardPage {
     await expect(this.tabMessages).toBeVisible();
     await expect(this.tabProfile).toBeVisible();
   }
+
+  /** The colour of the dot beside the first recent request showing this status. */
+  async statusDotColour(status: string): Promise<string> {
+    const item = this.recentRequestItems.filter({
+      has: this.page.locator('.request-status', { hasText: status }),
+    });
+    const dot = item.first().locator('.status-dot');
+    await expect(dot).toBeVisible();
+    return dot.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

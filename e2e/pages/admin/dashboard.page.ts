@@ -95,4 +95,11 @@ export class DashboardPage {
     const badge = item.getByTestId('status-badge');
     await expect(badge).toContainText(status);
   }
+
+  /** The fill of the first recent-request badge showing this status. */
+  async statusBadgeColour(status: string): Promise<string> {
+    const badge = this.maintenanceRequestItems.getByTestId('status-badge').filter({ hasText: status }).first();
+    await expect(badge).toBeVisible();
+    return badge.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

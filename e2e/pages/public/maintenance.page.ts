@@ -189,4 +189,11 @@ export class MaintenancePage {
   async expectRequestNotInList(title: string) {
     await expect(this.page.locator(`[data-testid="maintenance-request-card"]:has-text("${title}")`)).toHaveCount(0);
   }
+
+  /** The text colour of the first request card badge showing this status. */
+  async statusBadgeColour(status: string): Promise<string> {
+    const badge = this.requestCards.locator('.status-badge').filter({ hasText: status }).first();
+    await expect(badge).toBeVisible();
+    return badge.evaluate((el) => getComputedStyle(el).color);
+  }
 }

@@ -239,16 +239,20 @@ import { maintenanceStatusLabel } from '../maintenance/maintenance-status-label'
         border-radius: 50%;
         flex-shrink: 0;
 
+        /* The icon colour of each status badge's tone on the Requests page. */
         &.new {
-          background: var(--success);
+          background: #b45309;
+        }
+        &.received {
+          background: #6b6963;
         }
         &.started,
         &.in-progress {
-          background: var(--warning);
+          background: #2563eb;
         }
         &.done,
         &.completed {
-          background: var(--success);
+          background: #3d8a5a;
         }
         &.cancelled {
           background: var(--error);
@@ -357,6 +361,7 @@ export class DashboardComponent implements OnInit {
     if (!status) return 'new';
     const s = status.toLowerCase();
     if (s === 'new' || s === 'open') return 'new';
+    if (s === 'received') return 'received';
     if (s === 'started' || s === 'in-progress' || s === 'inprogress') return 'started';
     if (s === 'done' || s === 'completed' || s === 'closed') return 'done';
     if (s === 'cancelled') return 'cancelled';

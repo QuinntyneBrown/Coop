@@ -1,6 +1,7 @@
 import { test, expect } from '../../fixtures/admin/api.fixture';
 import { DashboardPage } from '../../pages/admin/dashboard.page';
 import { SidebarComponent } from '../../pages/admin/sidebar.component';
+import { MaintenancePage } from '../../pages/admin/maintenance.page';
 
 test.describe('Dashboard', () => {
   let dashboard: DashboardPage;
@@ -72,6 +73,21 @@ test.describe('Dashboard', () => {
   });
 
   test.describe('Recent Maintenance Requests', () => {
+    test('Given requests in every status, when the office compares the dashboard and Maintenance, then each status has its own colour, the same on both', async ({
+      authenticatedPage,
+    }) => {
+      const statuses = ['New', 'Received', 'Started', 'Completed'];
+      const onDashboard: string[] = [];
+      for (const status of statuses) onDashboard.push(await dashboard.statusBadgeColour(status));
+      expect(new Set(onDashboard).size).toBe(statuses.length);
+
+      const maintenance = new MaintenancePage(authenticatedPage);
+      await maintenance.goto();
+      for (const [i, status] of statuses.entries()) {
+        expect(await maintenance.statusBadgeColour(status), status).toBe(onDashboard[i]);
+      }
+    });
+
     test('should display recent maintenance section', async () => {
       await dashboard.expectRecentMaintenanceVisible();
     });
