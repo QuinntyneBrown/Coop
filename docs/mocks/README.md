@@ -161,8 +161,9 @@ every page" and "Home page" in home page order, each with a short summary and
 Edit; the editor shows links as a label and an address, photos with a "Choose
 photo" button and a required photo description, and lists with Move up, Move
 down, Remove and Add; the photo picker is a second dialog stacked over the
-editor. The website page editor gains a "Photo description" field after the
-hero photo address (`L2-REQ-097`), and every captured admin sidebar carries the
+editor. The website page editor shows its hero photo as a thumbnail with
+"Choose photo" (the same photo picker) and "Remove photo", followed by a
+"Photo description" field (`L2-REQ-097`), and every captured admin sidebar carries the
 "Website" link. The sample values are the public site's built-in default
 content, which the seed publishes (`L2-REQ-100`).
 

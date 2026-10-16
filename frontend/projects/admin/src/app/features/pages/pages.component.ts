@@ -11,7 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import type { WebsitePageDraft } from '../../core/models/website-page-draft';
+import { PUBLIC_SITE_URL } from '../../core/public-site-url';
 import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
+import { PhotoPickerComponent } from '../website/photo-picker/photo-picker.component';
+import type { PickedPhoto } from '../website/photo-picker/picked-photo';
 import type { PageFormErrors } from './page-form-errors';
 import { validatePageDraft } from './validate-page-draft';
 
@@ -34,7 +37,7 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, BottomTabBarComponent],
+  imports: [FormsModule, BottomTabBarComponent, PhotoPickerComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,6 +46,7 @@ export class PagesComponent implements OnInit {
   private readonly pageService = inject(PageService);
   private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
   private readonly removeDialog = viewChild<ElementRef<HTMLDialogElement>>('removeDialog');
+  private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly pages = signal<WebsitePage[]>([]);
   readonly status = signal<ListStatus>('loading');
@@ -128,6 +132,35 @@ export class PagesComponent implements OnInit {
         this.saveFailed.set(true);
       },
     });
+  }
+
+  /** Seeded photos are paths on the public site; library photos are full addresses. */
+  previewUrl(src: string): string {
+    return src.startsWith('/') && !src.startsWith('//') ? `${PUBLIC_SITE_URL}${src}` : src;
+  }
+
+  /** Names the chosen photo by its file name when the address has one. */
+  heroName(src: string): string {
+    if (!src) return 'No photo chosen yet';
+    const last = src.split('/').pop() ?? '';
+    return last.includes('.') ? `Current photo: ${last}` : 'Current photo';
+  }
+
+  choosePhoto(): void {
+    this.picker()?.open(this.draft.heroImageUrl);
+  }
+
+  onPhotoPicked(photo: PickedPhoto): void {
+    if (photo.src !== this.draft.heroImageUrl) {
+      // A new photo needs its own description.
+      this.draft = { ...this.draft, heroImageUrl: photo.src, heroImageAlt: '' };
+    }
+    setTimeout(() => document.getElementById('page-hero-alt-field')?.focus());
+  }
+
+  removePhoto(): void {
+    this.draft = { ...this.draft, heroImageUrl: '' };
+    setTimeout(() => document.getElementById('page-hero-field')?.focus());
   }
 
   confirmRemove(page: WebsitePage, event: Event): void {

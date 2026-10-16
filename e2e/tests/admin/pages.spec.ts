@@ -88,7 +88,7 @@ test.describe('Pages', () => {
       await pages.openEditor();
       await pages.fillEditor({
         title: 'About us',
-        hero: '/own/lobby.svg',
+        hero: 'courtyard-plan.png',
         heroAlt: 'The front lobby, with an armchair beside a sunny window.',
         body: '<p>Older women built this place.</p>',
       });
@@ -97,7 +97,8 @@ test.describe('Pages', () => {
       await expect(pages.notice).toHaveText('“About us” is now on the website.');
       await expect(pages.cardAddress('About us')).toHaveText('/pages/about-us');
       const stored = mockApi.store.pages.find((p) => p.slug === 'about-us');
-      expect(stored?.heroImageUrl).toBe('/own/lobby.svg');
+      const photo = mockApi.store.assets.find((a) => a.name === 'courtyard-plan.png');
+      expect(stored?.heroImageUrl).toMatch(new RegExp(`/digitalasset/serve/${photo?.digitalAssetId}$`));
       expect(stored?.heroImageAlt).toBe('The front lobby, with an armchair beside a sunny window.');
       expect(stored?.body).toBe('<p>Older women built this place.</p>');
     });
@@ -122,7 +123,7 @@ test.describe('Pages', () => {
       await pages.openEditor();
       await pages.fillEditor({
         title: 'Our garden',
-        hero: '/own/garden.svg',
+        hero: 'courtyard-plan.png',
         body: '<p>Herbs.</p>',
       });
       await pages.save();
@@ -172,7 +173,9 @@ test.describe('Pages', () => {
       await pages.openEditorFor(seeded.title);
       await expect(pages.editorHeading).toHaveText('Edit page');
       await expect(pages.titleInput).toHaveValue(seeded.title);
-      await expect(pages.heroInput).toHaveValue(seeded.heroImageUrl ?? '');
+      await expect(pages.heroPreview).toHaveAttribute('src', /\/own\/garden\.svg$/);
+      await expect(pages.heroName).toHaveText('Current photo: garden.svg');
+      await expect(pages.editor).not.toContainText('/own/garden.svg');
       await expect(pages.heroAltInput).toHaveValue(seeded.heroImageAlt ?? '');
       await expect(pages.bodyInput).toHaveValue(seeded.body);
       await pages.fillEditor({ title: 'How to join', body: '<p>One form, one visit.</p>' });
@@ -181,6 +184,18 @@ test.describe('Pages', () => {
       await expect(pages.notice).toHaveText('“How to join” is now on the website.');
       await expect(pages.cardAddress('How to join')).toHaveText('/pages/how-to-join');
       expect(mockApi.store.pages[0].body).toBe('<p>One form, one visit.</p>');
+    });
+
+    test('removes the hero photo', async ({ mockApi }) => {
+      const seeded = mockApi.store.pages[0];
+      await pages.goto();
+      await pages.openEditorFor(seeded.title);
+      await pages.heroRemoveButton.click();
+      await expect(pages.heroPreview).toBeHidden();
+      await expect(pages.heroName).toHaveText('No photo chosen yet');
+      await pages.save();
+      await expect(pages.editor).toBeHidden();
+      expect(mockApi.store.pages[0].heroImageUrl ?? '').toBe('');
     });
   });
 

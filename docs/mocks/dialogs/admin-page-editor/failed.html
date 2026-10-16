@@ -78,11 +78,20 @@
         <label for="page-title-field">Page title</label>
         <input id="page-title-field" name="title" type="text" value="About us" required autofocus>
       </div>
-      <div class="form-group">
-        <label for="page-hero-field">Hero photo address (optional)</label>
-        <input id="page-hero-field" name="heroImageUrl" type="url" value="../../assets/own/lobby.svg" aria-describedby="page-hero-help">
-        <span class="field-help" id="page-hero-help">Paste the address of a photo from the Assets library. It shows under the title.</span>
-      </div>
+      <fieldset class="form-group page-photo">
+        <legend>Hero photo (optional)</legend>
+        <div class="page-photo__current">
+          <img class="page-photo__thumb" src="../../assets/own/lobby.svg" width="160" height="120" alt="">
+          <div>
+            <span class="page-photo__name" id="page-hero-name">Current photo: lobby.svg</span>
+            <span class="field-help" id="page-hero-help">Pick a photo from the Assets library. It shows under the title.</span>
+            <div class="page-photo__actions">
+              <button type="button" class="btn btn-secondary" id="page-hero-field" aria-describedby="page-hero-name page-hero-help" data-mock-href="../admin-photo-picker/default.html"><span class="material-icons" aria-hidden="true">photo_library</span> Choose photo</button>
+              <button type="button" class="btn btn-secondary">Remove photo</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
       <div class="form-group">
         <label for="page-hero-alt-field">Photo description</label>
         <textarea id="page-hero-alt-field" class="page-photo-alt" name="heroImageAlt" rows="3" aria-describedby="page-hero-alt-help">A sunny lobby with a tall arched window, a plum armchair, a lamp and a noticeboard full of colourful notices.</textarea>
