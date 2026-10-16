@@ -231,13 +231,21 @@ import { AuthService } from '../../core/services/auth.service';
           margin-top: 4px;
         }
       }
-      .checkbox-label {
+      .form-group .checkbox-label {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        min-height: 44px;
+        margin-bottom: 0;
         font-size: 14px;
         cursor: pointer;
         input {
+          width: 24px;
+          height: 24px;
+          padding: 0;
+          margin: 0;
+          flex-shrink: 0;
+          accent-color: #3d8a5a;
           cursor: pointer;
         }
       }
