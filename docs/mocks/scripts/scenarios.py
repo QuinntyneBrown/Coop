@@ -5,12 +5,12 @@ TODAY = '2026-10-13T12:00:00Z'
 PROFILE = dict(id='profile-mira', profileId='profile-mira', userId='user-mira', username='mira.fern', firstName='Mira', lastName='Fern', firstname='Mira', lastname='Fern', email='mira@example.invalid', phone='555-0101', phoneNumber='555-0101', type=0, profileType='Member', unit='101', unitNumber='101', address='101 Fictional Court', avatarUrl='')
 PROFILES = [PROFILE, dict(PROFILE, id='profile-board', profileId='profile-board', type=1, profileType='BoardMember', boardTitle='Treasurer')]
 BOARD = [dict(name='Mira Fern', title='Treasurer'), dict(name='Tavi Moss', title='President'), dict(name='Neri Vale', title='Secretary')]
-COMMENTS = [dict(id='comment-1', body='It drips most at night. I have put a bowl under it for now.', content='It drips most at night. I have put a bowl under it for now.', createdBy='Mira Fern', authorName='Mira Fern', createdOn=TODAY, createdAt=TODAY)]
-REQUESTS = [dict(id=f'request-{i}', maintenanceRequestId=f'request-{i}', title=title, description=desc, status=status, priority=priority, category='General', createdAt=TODAY, createdOn=TODAY, dateCreated=TODAY, address='101 Fictional Court', phoneNumber='555-0101', unattendedUnitEntry=True, unitNumber='101', requestedBy='Mira Fern', requestedByName='Mira Fern', comments=COMMENTS, attachments=[], digitalAssets=[], workDetails='Inspection scheduled.') for i, (title, desc, status, priority) in enumerate([
-    ('Kitchen tap leak', 'The kitchen tap drips after it is closed.', 'New', 'High'),
-    ('Hallway light', 'The light outside unit 101 flickers.', 'Received', 'Medium'),
-    ('Courtyard gate', 'The courtyard gate needs its hinges adjusted.', 'Started', 'Low'),
-    ('Window latch', 'The bedroom window latch has been repaired.', 'Completed', 'Low')])]
+COMMENTS = [dict(id='comment-1', body='It drips most at night. I have put a bowl under it for now.', content='It drips most at night. I have put a bowl under it for now.', createdBy='Mira Fern', authorName='Mira Fern', createdOn='2026-10-13T14:20:00Z', createdAt='2026-10-13T14:20:00Z')]
+REQUESTS = [dict(id=f'request-{i}', maintenanceRequestId=f'request-{i}', title=title, description=desc, status=status, priority=priority, category='General', createdAt=when, createdOn=when, dateCreated=when, address='101 Fictional Court', phoneNumber='555-0101', unattendedUnitEntry=True, unitNumber='101', requestedBy='Mira Fern', requestedByName='Mira Fern', comments=COMMENTS, attachments=[], digitalAssets=[], workDetails='Inspection scheduled.') for i, (title, desc, status, priority, when) in enumerate([
+    ('Kitchen tap leak', 'The kitchen tap drips after it is closed.', 'New', 'High', '2026-10-13T12:00:00Z'),
+    ('Hallway light', 'The light outside unit 101 flickers.', 'Received', 'Medium', '2026-10-09T14:30:00Z'),
+    ('Courtyard gate', 'The courtyard gate needs its hinges adjusted.', 'Started', 'Low', '2026-10-02T17:15:00Z'),
+    ('Window latch', 'The bedroom window latch has been repaired.', 'Completed', 'Low', '2026-09-22T13:45:00Z')])]
 DOCS = [dict(id=f'document-{i}', documentId=f'document-{i}', title=title, name=title, type=kind, documentType=kind, content=body, body=body, description=body, status=status, published=status=='Published', createdAt=TODAY, createdOn=TODAY, publishedOn=TODAY, fileUrl='', fileName='') for i, (title, kind, status, body) in enumerate([
     ('Autumn courtyard gathering', 'Notice', 'Published', 'Join your neighbours in the courtyard on Saturday at 2 pm. Bring a mug and a story to share.'),
     ('Shared spaces bylaw', 'ByLaw', 'Published', 'Keep shared entrances clear and return community equipment after use.'),
