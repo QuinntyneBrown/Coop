@@ -115,7 +115,9 @@
 .photo-empty { display: grid; justify-items: center; gap: 8px; margin: 0 0 20px; padding: 32px 16px; text-align: center; border: 1px dashed var(--adm-border-strong); border-radius: var(--adm-radius); color: var(--adm-text-soft); font-size: 16px; }
 .photo-empty .material-icons { font-size: 40px; color: var(--adm-primary-dark); }
 .photo-upload { padding-top: 16px; border-top: 1px solid var(--adm-border); }
-.photo-upload input[type="file"] { padding: 8px; }
+.photo-upload input[type="file"] { padding: 6px; font-size: 16px; }
+.photo-upload input[type="file"]::file-selector-button { min-height: var(--adm-target); margin-right: 12px; padding: 10px 20px; border: 1px solid var(--adm-border); border-radius: var(--adm-radius); background: var(--adm-bg); color: var(--adm-text); font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
+.photo-upload input[type="file"]:hover::file-selector-button { background: var(--adm-border); }
 .photo-upload__status { display: flex; align-items: center; gap: 10px; margin: 8px 0 0; font-size: 16px; color: var(--adm-text); }
 .photo-upload__status .website-spinner { width: 20px; height: 20px; border-width: 3px; }
 
