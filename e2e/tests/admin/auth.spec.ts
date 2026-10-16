@@ -230,7 +230,9 @@ test.describe('Change Password Page', () => {
 
     test('should show error when new passwords do not match', async () => {
       await changePasswordPage.changePassword('Admin123!', 'NewPass123!', 'DifferentPass!');
-      await expect(changePasswordPage.confirmPasswordError).toBeVisible();
+      await expect(changePasswordPage.confirmPasswordError).toHaveText('Passwords do not match');
+      // The mismatch is shown once, beside the field, not again in a banner.
+      await expect(changePasswordPage.formError).toBeHidden();
     });
 
     test('should show error when new password is too short', async () => {
