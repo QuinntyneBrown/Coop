@@ -513,7 +513,7 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           accent-color: #2d6b44;
         }
         input[type='checkbox']:focus-visible {
-          outline: 3px solid #6b3f60;
+          outline: 3px solid #3d8a5a;
           outline-offset: 2px;
         }
       }

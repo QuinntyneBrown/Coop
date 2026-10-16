@@ -7,7 +7,7 @@
 .notice-send { display: grid; gap: 4px; margin-bottom: 16px; }
 .notice-send label, .notice-choice label { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; cursor: pointer; }
 .notice-send input[type="checkbox"], .notice-choice input[type="checkbox"] { width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: #2d6b44; }
-.notice-send input[type="checkbox"]:focus-visible, .notice-choice input[type="checkbox"]:focus-visible { outline: 3px solid #6b3f60; outline-offset: 2px; }
+.notice-send input[type="checkbox"]:focus-visible, .notice-choice input[type="checkbox"]:focus-visible { outline: 3px solid #3d8a5a; outline-offset: 2px; }
 .notice-send__hint, .notice-choice__hint { font-size: 14px; color: #5f5e5b; margin: 0; }
 .notice-alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 8px; font-size: 15px; margin: 0 0 16px; }
 .notice-alert .material-icons { font-size: 22px; }
