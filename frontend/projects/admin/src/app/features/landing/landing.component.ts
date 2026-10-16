@@ -35,7 +35,9 @@ import type { Director } from '../../core/models/director';
       <!-- Hero -->
       <section class="hero" data-testid="landing-hero">
         <div class="hero-content">
-          <h1 data-testid="landing-hero-title">{{ heroTitle || 'Welcome to Your Cooperative' }}</h1>
+          <h1 data-testid="landing-hero-title">
+            {{ heroTitle || 'Welcome to OWN Housing Co-op' }}
+          </h1>
           <p data-testid="landing-hero-subtitle">
             {{
               heroSubtitle ||
@@ -282,7 +284,7 @@ export class LandingComponent implements OnInit {
       next: (data: any) => {
         if (data) {
           const content = data.json ? JSON.parse(data.json) : data;
-          this.heroTitle = content.heroTitle || content.title || 'Welcome to Your Cooperative';
+          this.heroTitle = content.heroTitle || content.title || 'Welcome to OWN Housing Co-op';
           this.heroSubtitle = content.heroSubtitle || content.subtitle || '';
         }
       },
