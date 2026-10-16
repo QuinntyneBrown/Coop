@@ -105,6 +105,13 @@ test.describe('Onboarding', () => {
       expect(optionCount).toBeGreaterThan(0);
     });
 
+    test('should name each unit once', async () => {
+      await onboarding.goto();
+      await onboarding.getStartedButton.click();
+      await onboarding.nextButton.click();
+      await expect(onboarding.unitOptions.first()).toHaveText('Unit 101');
+    });
+
     test('should allow selecting a unit', async () => {
       await onboarding.goto();
       await onboarding.getStartedButton.click();

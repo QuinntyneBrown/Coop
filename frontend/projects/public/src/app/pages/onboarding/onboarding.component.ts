@@ -161,9 +161,6 @@ import { catchError, of } from 'rxjs';
                 (click)="selectUnit(i)"
               >
                 <span class="unit-name">{{ unit.name || unit.number || 'Unit ' + (i + 1) }}</span>
-                @if (unit.number) {
-                  <span class="unit-number">{{ unit.number }}</span>
-                }
               </div>
             }
           </div>
@@ -365,10 +362,6 @@ import { catchError, of } from 'rxjs';
 
         .unit-name {
           font-weight: 500;
-        }
-        .unit-number {
-          font-size: 13px;
-          color: var(--text-secondary);
         }
       }
 
