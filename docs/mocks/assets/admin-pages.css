@@ -72,6 +72,7 @@
 .page-dialog__body [aria-invalid="true"] { border-color: var(--adm-danger); box-shadow: 0 0 0 3px var(--adm-danger-soft); }
 .field-help { display: block; margin-top: 6px; font-size: 13px; color: var(--adm-text-soft); }
 .field-help code { font-size: 12px; background: var(--adm-bg); padding: 1px 4px; border-radius: 4px; }
+.field-help__tags { display: block; margin-top: 4px; text-wrap: pretty; }
 .field-error { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 14px; color: var(--adm-danger); }
 .field-error .material-icons { font-size: 18px; }
 .page-dialog__errors { margin: 0 0 16px; padding: 12px 14px; border-radius: var(--adm-radius-sm); background: var(--adm-danger-soft); color: var(--adm-danger); font-size: 14px; }

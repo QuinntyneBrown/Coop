@@ -286,6 +286,11 @@
   padding: 1px 4px;
   border-radius: 4px;
 }
+.field-help__tags {
+  display: block;
+  margin-top: 4px;
+  text-wrap: pretty;
+}
 .field-error {
   display: flex;
   align-items: center;
