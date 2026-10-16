@@ -21,10 +21,15 @@ By the end, the viewer can:
 | File | What to show |
 | --- | --- |
 | `images/admin-change-password-1280.png` | The Change Password page with its three boxes |
+| `images/admin-change-password-two-1280.png` | Current and new password typed |
+| `images/admin-change-password-three-1280.png` | All three boxes typed |
+| `images/admin-change-password-updated-1280.png` | Password updated successfully |
 | `images/admin-change-password-mismatch-1280.png` | The page showing Passwords do not match |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+The mocks have no typed passwords, changed colours or saved notes, so
+`shots.json` adds them with a short script before the screenshot.
 
 ## Run sheet
 

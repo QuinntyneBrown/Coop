@@ -42,8 +42,13 @@ def main() -> int:
                 if label == "360" and shot.get("phone_height"):
                     # A shorter phone frame, so it ends between blocks, not mid-line.
                     h = int(shot["phone_height"])
+                # A "clip" [x, y, width, height] zooms in on one part, drawn at twice the
+                # resolution so it stays sharp when the slide enlarges it.
+                clip = shot.get("clip") if label == "1280" else None
                 page = browser.new_page(
-                    viewport={"width": w, "height": h}, reduced_motion="reduce"
+                    viewport={"width": w, "height": h},
+                    reduced_motion="reduce",
+                    device_scale_factor=2 if clip else 1,
                 )
                 page.goto(mock.as_uri() + "?chrome=0")
                 if shot.get("js"):
@@ -67,7 +72,11 @@ def main() -> int:
                     )
                 page.wait_for_timeout(300)
                 out = images / f"{shot['name']}-{label}.png"
-                page.screenshot(path=str(out))
+                if clip:
+                    x, y, cw, ch = clip
+                    page.screenshot(path=str(out), clip={"x": x, "y": y, "width": cw, "height": ch})
+                else:
+                    page.screenshot(path=str(out))
                 page.close()
                 print(f"wrote {out.relative_to(ROOT)}")
         browser.close()

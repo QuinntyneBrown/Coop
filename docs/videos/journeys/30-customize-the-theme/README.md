@@ -22,9 +22,14 @@ By the end, the viewer can:
 | File | What to show |
 | --- | --- |
 | `images/admin-settings-theme-1280.png` | The Theme tab: Scope, four colours, Preview, Reset to Default and Save Theme |
+| `images/admin-settings-theme-changed-1280.png` | Primary Color changed to plum, #6B3F60 |
+| `images/admin-settings-theme-preview-1280.png` | A close-up of the Preview with the plum header |
+| `images/admin-settings-theme-saved-1280.png` | Theme saved successfully |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+The mocks have no typed passwords, changed colours or saved notes, so
+`shots.json` adds them with a short script before the screenshot.
 
 ## Run sheet
 
