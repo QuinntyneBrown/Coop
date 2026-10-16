@@ -24,6 +24,7 @@ h1[_ngcontent-ng-c4025603141] { font-size: 22px; font-weight: 600; margin-bottom
 .profile-option[_ngcontent-ng-c4025603141] { padding: 10px 0px; cursor: pointer; border-bottom: 1px solid var(--border); }
 .profile-option[_ngcontent-ng-c4025603141]:hover { color: var(--primary); }
 .profile-option[_ngcontent-ng-c4025603141]:last-child { border-bottom: none; }
+.profile-option-type[_ngcontent-ng-c4025603141] { color: var(--text-secondary); }
 .password-section[_ngcontent-ng-c4025603141] { margin-top: 16px; }
 .password-heading[_ngcontent-ng-c4025603141] { font-size: 20px; font-weight: 600; }
 .password-actions[_ngcontent-ng-c4025603141] { display: flex; gap: 12px; }

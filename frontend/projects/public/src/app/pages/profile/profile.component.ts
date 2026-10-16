@@ -7,6 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { catchError, of } from 'rxjs';
 import { photoFileError } from '../maintenance/photo-file-error';
 import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
+import { profileTypeLabel } from './profile-type-label';
 
 @Component({
   selector: 'app-profile',
@@ -317,6 +318,9 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
                     (click)="switchProfile(p)"
                   >
                     {{ p.firstName }} {{ p.lastName }}
+                    @if (profileTypeLabel(p.profileType); as type) {
+                      <span class="profile-option-type"> · {{ type }}</span>
+                    }
                   </div>
                 }
               </div>
@@ -653,6 +657,10 @@ import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
         }
       }
 
+      .profile-option-type {
+        color: var(--text-secondary);
+      }
+
       .password-section {
         margin-top: 16px;
       }
@@ -716,6 +724,7 @@ export class ProfileComponent implements OnInit {
   };
   noticeError = '';
   readonly noticeChoiceLabel = noticeChoiceLabel;
+  readonly profileTypeLabel = profileTypeLabel;
   successMessage = '';
   showPasswordForm = false;
   showProfileOptions = false;
