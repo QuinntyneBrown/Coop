@@ -2,6 +2,7 @@ import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
 import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { ProfilePage } from '../../pages/public/profile.page';
+import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 import { MEMBER_PROFILE_ID, type MockProfile } from '../../fixtures/mock-api/mock-store';
 
 const test = mergeTests(authTest, apiTest);
@@ -368,6 +369,16 @@ test.describe('Profile', () => {
       profile = new ProfilePage(authenticatedPage);
       await profile.goto();
       await expect(profile.avatar).toBeVisible();
+    });
+
+    test('Given the edit form at 360 px, when scrolled to the end, then Save sits above the tab bar', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
+      profile = new ProfilePage(authenticatedPage);
+      await profile.goto();
+      await profile.enterEditMode();
+      await new BottomTabBar(authenticatedPage).expectNotCovering(profile.saveButton);
     });
   });
 });

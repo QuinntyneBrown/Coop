@@ -276,8 +276,6 @@ import { catchError, of } from 'rxjs';
       .confirmation-step {
         text-align: center;
         padding: 40px 0 80px;
-        position: relative;
-        z-index: 101;
 
         h1,
         h2 {
@@ -378,8 +376,6 @@ import { catchError, of } from 'rxjs';
         gap: 12px;
         margin-top: 24px;
         padding-bottom: 80px;
-        position: relative;
-        z-index: 101;
       }
     `,
   ],
