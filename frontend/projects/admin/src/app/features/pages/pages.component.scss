@@ -107,15 +107,12 @@
   flex-wrap: wrap;
   gap: 6px 14px;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--adm-text-soft);
 }
 .page-card__address {
-  font-family: ui-monospace, Consolas, monospace;
-  font-size: 13px;
-  background: var(--adm-bg);
-  padding: 2px 8px;
-  border-radius: 6px;
+  color: var(--adm-text);
+  overflow-wrap: anywhere;
 }
 .page-card__link {
   color: var(--adm-primary);

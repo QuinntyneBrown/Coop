@@ -46,8 +46,9 @@
             <li class="page-card" data-testid="page-card">
               <h2 data-testid="page-card-title">{{ page.title }}</h2>
               <div class="page-card__meta">
-                <span class="page-card__address" data-testid="page-card-address"
-                  >/pages/{{ page.slug }}</span
+                <span class="page-card__address"
+                  >Web address:
+                  <span data-testid="page-card-address">/pages/{{ page.slug }}</span></span
                 >
                 <span>{{ page.heroImageUrl ? 'With a hero photo' : 'No hero photo' }}</span>
               </div>
