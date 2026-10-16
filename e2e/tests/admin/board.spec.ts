@@ -3,10 +3,12 @@
 // Description: An office administrator keeps the Board of Directors list the
 // home page shows: list, empty and error states, the editor dialog with its
 // validation, failed save and prefilled edit, reordering, the remove
-// confirmation, and the public home page reflecting the saved list.
+// confirmation, the public home page reflecting the saved list, and the admin
+// landing page showing the same list.
 
 import { test, expect } from '../../fixtures/admin/api.fixture';
 import { BoardPage } from '../../pages/admin/board.page';
+import { AdminLandingPage } from '../../pages/admin/landing.page';
 import { SidebarComponent } from '../../pages/admin/sidebar.component';
 
 const SEEDED = ['Beatrice Hollis', 'Rosalind Petrov', 'Harriet Lindqvist'];
@@ -189,6 +191,30 @@ test.describe('Board of Directors', () => {
       await expect(board.removeDialog).toBeHidden();
       await expect(board.names).toHaveText(SEEDED);
       await expect(board.card('Rosalind Petrov').getByTestId('director-remove')).toBeFocused();
+    });
+  });
+
+  test.describe('Admin landing page', () => {
+    test('shows the same directors as the Board list, in the same order', async ({
+      authenticatedPage,
+    }) => {
+      const landing = new AdminLandingPage(authenticatedPage);
+      await board.goto();
+      await expect(board.names).toHaveText(SEEDED);
+      await landing.goto();
+      await expect(landing.boardMemberNames).toHaveText(SEEDED);
+      await expect(landing.boardMember('Rosalind Petrov')).toContainText('Treasurer');
+    });
+
+    test('shows a director added on the Board screen', async ({ authenticatedPage }) => {
+      const landing = new AdminLandingPage(authenticatedPage);
+      await board.goto();
+      await board.openEditor();
+      await board.fillEditor({ name: 'Agnes Whitlow', title: 'Member at large' });
+      await board.save();
+      await expect(board.names).toHaveText([...SEEDED, 'Agnes Whitlow']);
+      await landing.goto();
+      await expect(landing.boardMemberNames).toHaveText([...SEEDED, 'Agnes Whitlow']);
     });
   });
 
