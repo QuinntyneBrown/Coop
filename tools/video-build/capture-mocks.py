@@ -59,13 +59,14 @@ def main() -> int:
                 if shot.get("scroll"):
                     # Mocks may set smooth scrolling; jump straight to the position.
                     page.add_style_tag(content="html{scroll-behavior:auto !important}")
-                    # The page may scroll, or an inner panel such as the member app's main area.
+                    # The page may scroll, or an inner panel such as the member app's main area
+                    # (never the side menu).
                     page.evaluate(
                         """(y) => {
                             window.scrollTo(0, y);
                             for (const e of document.querySelectorAll('*')) {
                                 const o = getComputedStyle(e).overflowY;
-                                if ((o === 'auto' || o === 'scroll') && e.scrollHeight > e.clientHeight) e.scrollTop = y;
+                                if ((o === 'auto' || o === 'scroll') && e.scrollHeight > e.clientHeight && !e.closest('nav, aside')) e.scrollTop = y;
                             }
                         }""",
                         int(shot["scroll"]),
