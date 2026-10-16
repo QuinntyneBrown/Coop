@@ -33,7 +33,7 @@ Every `.modal-overlay` in `docs/mocks` (18 overlays on 17 dialog screens; the as
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| `dialogs/admin-user-delete/default` | confirm, sm | title "Confirm Delete"; body "Are you sure you want to delete this user?"; actions "Cancel" (secondary) + "Delete" (danger) | default | scrim over the admin users table |
+| `dialogs/admin-user-delete/default` | confirm, sm | title "Confirm Delete"; body "Are you sure you want to delete **mira.fern**?" (names the user); actions "Cancel" (secondary) + "Delete" (danger) | default | scrim over the admin users table |
 | `dialogs/admin-document-delete/default` | confirm, sm | "Confirm Delete"; "Are you sure you want to delete this document?"; "Cancel" + "Delete" | default | scrim over admin documents |
 | `dialogs/admin-asset-delete/default` | confirm, sm, stacked over the asset detail viewer | "Confirm Delete"; "Are you sure you want to delete this asset?"; "Cancel" + "Delete" | default, stacked | second scrim over the asset detail dialog |
 | `dialogs/admin-user-create/default`, `invalid` | form, sm | "Add New User"; fields Username, Role, Password; "Cancel" + "Create" (submit) | default, invalid | scrim over admin users |

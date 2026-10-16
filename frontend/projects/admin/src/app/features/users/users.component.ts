@@ -175,7 +175,10 @@ import { userRoleNames } from '../../core/user-role-names';
         <div class="modal-overlay" data-testid="user-delete-dialog">
           <div class="modal-content card">
             <h3>Confirm Delete</h3>
-            <p>Are you sure you want to delete this user?</p>
+            <p data-testid="user-delete-message">
+              Are you sure you want to delete <strong>{{ deletingUser?.username }}</strong
+              >?
+            </p>
             <div class="modal-actions">
               <button
                 class="btn btn-secondary"
