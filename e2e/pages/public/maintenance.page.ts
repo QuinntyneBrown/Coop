@@ -21,6 +21,7 @@ export class MaintenancePage {
 
   // Create request form / modal
   readonly createModal: Locator;
+  readonly createDialog: Locator;
   readonly titleInput: Locator;
   readonly descriptionInput: Locator;
   readonly prioritySelect: Locator;
@@ -67,6 +68,7 @@ export class MaintenancePage {
     this.filterDone = page.locator('[data-testid="maintenance-filter-done"]');
 
     this.createModal = page.locator('[data-testid="maintenance-create-modal"]');
+    this.createDialog = this.createModal.locator('.modal');
     this.titleInput = page.locator('[data-testid="maintenance-title-input"]');
     this.descriptionInput = page.locator('[data-testid="maintenance-description-input"]');
     this.prioritySelect = page.locator('[data-testid="maintenance-priority-select"]');

@@ -128,6 +128,34 @@ test.describe('Maintenance Requests', () => {
       await expect(maintenance.detailPhotos.first()).toHaveAttribute('alt', 'Photo 1 of E2E: Water under the sink');
     });
 
+    for (const width of [1280, 360]) {
+      test(`Given photos chosen at ${width} px, then Cancel and Submit stay in view without scrolling`, async ({
+        authenticatedPage,
+      }) => {
+        await authenticatedPage.setViewportSize({ width, height: 800 });
+        await maintenance.goto();
+        await maintenance.openCreateForm();
+        await maintenance.fillCreateForm({
+          title: 'E2E: Water under the sink',
+          description: 'There is a puddle under the kitchen sink.',
+        });
+        await maintenance.choosePhotos([png('under-sink.png'), png('sink-pipe.png')]);
+        await expect(maintenance.chosenPhotos).toHaveCount(2);
+        await expect(maintenance.cancelButton).toBeInViewport({ ratio: 1 });
+        await expect(maintenance.submitButton).toBeInViewport({ ratio: 1 });
+      });
+    }
+
+    test('Given a phone, when the create form opens, then it fills the screen rather than partly covering the header', async ({
+      authenticatedPage,
+    }) => {
+      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
+      await maintenance.goto();
+      await maintenance.openCreateForm();
+      const box = await maintenance.createDialog.boundingBox();
+      expect(box).toMatchObject({ x: 0, y: 0, width: 360 });
+    });
+
     test('Given a file that is not a photo or is too large, then it is refused with a plain message', async () => {
       await maintenance.goto();
       await maintenance.openCreateForm();

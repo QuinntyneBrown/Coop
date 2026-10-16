@@ -35,8 +35,12 @@
 .modal[_ngcontent-ng-c1136923231] .modal-header[_ngcontent-ng-c1136923231] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .modal[_ngcontent-ng-c1136923231] .modal-header[_ngcontent-ng-c1136923231] h2[_ngcontent-ng-c1136923231] { font-size: 18px; font-weight: 600; }
 .modal[_ngcontent-ng-c1136923231] .close-btn[_ngcontent-ng-c1136923231] { background: none; border: none; font-size: 28px; color: var(--text-secondary); line-height: 1; padding: 0px 4px; }
-.modal-actions[_ngcontent-ng-c1136923231] { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.modal-actions[_ngcontent-ng-c1136923231] { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; position: sticky; bottom: -20px; margin-bottom: -20px; padding: 12px 0px 20px; background: var(--surface); }
 .modal-actions[_ngcontent-ng-c1136923231] .btn[_ngcontent-ng-c1136923231] { flex: 1 1 auto; white-space: nowrap; }
+@media (max-width: 600px) {
+  .modal-overlay[_ngcontent-ng-c1136923231] { padding: 0px; }
+  .modal[_ngcontent-ng-c1136923231] { max-width: none; height: 100%; max-height: none; border: none; border-radius: 0px; }
+}
 @media (max-width: 1023px) {
   .modal-overlay[_ngcontent-ng-c1136923231] { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 }
