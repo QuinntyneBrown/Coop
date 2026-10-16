@@ -6,8 +6,8 @@ h1[_ngcontent-ng-c2011722024] { font-size: 22px; font-weight: 600; margin-bottom
 .conv-header[_ngcontent-ng-c2011722024] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
 .conv-subject[_ngcontent-ng-c2011722024] { font-size: 15px; font-weight: 500; }
 .conv-time[_ngcontent-ng-c2011722024] { font-size: 12px; color: var(--text-secondary); }
-.conv-preview[_ngcontent-ng-c2011722024] { font-size: 13px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.unread-badge[_ngcontent-ng-c2011722024] { position: absolute; top: 12px; right: 12px; background: var(--primary); color: white; font-size: 11px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.conv-preview[_ngcontent-ng-c2011722024] { font-size: 13px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 28px; }
+.unread-badge[_ngcontent-ng-c2011722024] { position: absolute; bottom: 16px; right: 20px; background: var(--primary); color: white; font-size: 11px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .empty-state[_ngcontent-ng-c2011722024] { text-align: center; padding: 48px 20px; color: var(--text-secondary); }
 .empty-state[_ngcontent-ng-c2011722024] svg[_ngcontent-ng-c2011722024] { margin-bottom: 12px; }
 .loading[_ngcontent-ng-c2011722024] { display: flex; justify-content: center; padding: 48px; }
