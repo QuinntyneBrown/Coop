@@ -23,7 +23,7 @@ By the end, the viewer can:
 | --- | --- |
 | `images/admin-documents-1280.png` | The Documents page |
 | `images/admin-documents-bylaws-1280.png` | The By-Laws tab |
-| `images/admin-documents-no-results-1280.png` | No documents found |
+| `images/admin-documents-search-1280.png` | A search for courtyard, showing only Autumn courtyard gathering |
 | `images/admin-document-create-1280.png` | The New Document form |
 | `images/admin-document-delete-1280.png` | The Confirm Delete box |
 
