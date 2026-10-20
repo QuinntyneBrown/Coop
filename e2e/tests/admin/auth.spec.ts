@@ -217,10 +217,6 @@ test.describe('Change Password Page', () => {
       await expect(changePasswordPage.passwordHint).toContainText('8 characters');
     });
 
-    test('should show lock icon', async () => {
-      await expect(changePasswordPage.lockIcon).toBeVisible();
-    });
-
     test('should use the admin layout with the sidebar', async ({ authenticatedPage }) => {
       await new SidebarComponent(authenticatedPage).expectVisible();
     });

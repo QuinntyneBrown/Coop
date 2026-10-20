@@ -7,12 +7,11 @@ import { MessagingService } from '../../core/services/messaging.service';
 import { UserService } from '../../core/services/user.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { DocumentService } from '../../core/services/document.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, BottomTabBarComponent],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="dashboard">
       <div class="dashboard-content">
@@ -151,8 +150,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           </div>
         </div>
       </div>
-
-      <app-bottom-tab-bar></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,

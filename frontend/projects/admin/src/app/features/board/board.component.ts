@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
 import type { DirectorDraft } from '../../core/models/director-draft';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import type { DirectorFormErrors } from './director-form-errors';
 import { directorFromDraft } from './director-from-draft';
 import { initialsOf } from './initials-of';
@@ -36,7 +35,7 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [FormsModule, BottomTabBarComponent],
+  imports: [FormsModule],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

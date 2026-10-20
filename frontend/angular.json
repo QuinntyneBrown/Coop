@@ -170,7 +170,11 @@
                 "input": "projects/admin/public"
               }
             ],
-            "styles": ["projects/admin/src/styles.scss"],
+            "styles": [
+              "../docs/design-system/tokens/tokens.css",
+              "../docs/design-system/assets/components.css",
+              "projects/admin/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

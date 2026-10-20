@@ -10,13 +10,12 @@ import {
 import { Router } from '@angular/router';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import { plainName } from '../../core/plain-name';
 
 @Component({
   selector: 'app-profiles',
   standalone: true,
-  imports: [ReactiveFormsModule, BottomTabBarComponent],
+  imports: [ReactiveFormsModule],
   template: `
     <div class="profiles-page">
       <div class="profiles-layout">
@@ -204,8 +203,6 @@ import { plainName } from '../../core/plain-name';
           </button>
         </div>
       }
-
-      <app-bottom-tab-bar></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,

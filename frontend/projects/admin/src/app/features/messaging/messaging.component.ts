@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-messaging',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, BottomTabBarComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   template: `
     <div class="messaging-page">
       <div class="page-header">
@@ -182,8 +181,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           </div>
         }
       </div>
-
-      <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,

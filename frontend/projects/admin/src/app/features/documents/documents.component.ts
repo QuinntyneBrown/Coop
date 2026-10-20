@@ -5,12 +5,11 @@ import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { documentTypeLabel } from './document-type-label';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [CommonModule, FormsModule, BottomTabBarComponent],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="documents-page">
       <div class="page-header">
@@ -308,8 +307,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           </div>
         </div>
       }
-
-      <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,

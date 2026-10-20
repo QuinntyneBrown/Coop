@@ -12,7 +12,6 @@ import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import type { WebsitePageDraft } from '../../core/models/website-page-draft';
 import { PUBLIC_SITE_URL } from '../../core/public-site-url';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import { PhotoPickerComponent } from '../website/photo-picker/photo-picker.component';
 import type { PickedPhoto } from '../website/photo-picker/picked-photo';
 import type { PageFormErrors } from './page-form-errors';
@@ -37,7 +36,7 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, BottomTabBarComponent, PhotoPickerComponent],
+  imports: [FormsModule, PhotoPickerComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

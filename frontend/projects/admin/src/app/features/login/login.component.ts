@@ -3,12 +3,11 @@ import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, BottomTabBarComponent],
+  imports: [ReactiveFormsModule, RouterLink],
   template: `
     <div class="login-page">
       <div class="login-header" data-testid="login-hero-panel">
@@ -112,8 +111,6 @@ import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.co
           </p>
         </div>
       </div>
-
-      <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,

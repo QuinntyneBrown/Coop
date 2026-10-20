@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import { MaintenanceStep } from './maintenance-step';
 import { nextMaintenanceStep } from './next-maintenance-step';
 
 @Component({
   selector: 'app-maintenance',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BottomTabBarComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="maintenance-page">
       <div class="page-header">
@@ -335,8 +334,6 @@ import { nextMaintenanceStep } from './next-maintenance-step';
           </div>
         </div>
       }
-
-      <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
