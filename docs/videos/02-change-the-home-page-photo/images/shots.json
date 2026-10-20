@@ -1,0 +1,18 @@
+[
+  {"name": "public-hero", "mock": "pages/public-landing/default.html", "js": "const e = document.querySelector('.own-hero__media img'); e.style.outline = '8px solid #B4502A'; e.style.outlineOffset = '6px';"},
+  {"name": "admin-website", "mock": "pages/admin-website/default.html"},
+  {"name": "admin-website-hero", "mock": "pages/admin-website/default.html", "js": "for (const s of ['[aria-label=\"Edit Hero\"]']) { const e = document.querySelector(s); e.style.outline = '5px solid #B4502A'; e.style.outlineOffset = '4px'; e.closest('li').style.boxShadow = '0 0 0 4px #B4502A'; }"},
+  {"name": "editor-hero", "mock": "dialogs/admin-content-editor/default.html"},
+  {"name": "editor-photo", "mock": "dialogs/admin-content-editor/default.html", "height": 1400, "clip": [280, 890, 720, 345], "js": "const b = [...document.querySelectorAll('.photo-field__current button')][0]; b.style.outline = '5px solid #B4502A'; b.style.outlineOffset = '4px';"},
+  {"name": "picker", "mock": "dialogs/admin-photo-picker/default.html"},
+  {"name": "picker-garden", "mock": "dialogs/admin-photo-picker/default.html", "js": "const b = [...document.querySelectorAll('.photo-option')].find((e) => e.textContent.includes('garden')); b.style.outline = '6px solid #B4502A'; b.style.outlineOffset = '3px';"},
+  {"name": "editor-picked", "mock": "dialogs/admin-content-editor/default.html", "height": 1400, "clip": [280, 890, 720, 345], "js": "const t = document.querySelector('.photo-field__thumb'); t.src = t.src.replace('hero.svg', 'garden.svg'); document.querySelector('.photo-field__name').textContent = 'Current photo: garden.svg'; const a = document.querySelector('#hero-photo-alt-field'); a.value = ''; a.textContent = ''; a.style.outline = '5px solid #B4502A'; a.style.outlineOffset = '2px';"},
+  {"name": "picker-upload", "mock": "dialogs/admin-photo-picker/default.html", "js": "const e = document.querySelector('.photo-upload'); e.style.outline = '6px solid #B4502A'; e.style.outlineOffset = '6px'; e.style.borderRadius = '8px';"},
+  {"name": "picker-uploading", "mock": "dialogs/admin-photo-picker/uploading.html"},
+  {"name": "picker-failed", "mock": "dialogs/admin-photo-picker/upload-failed.html"},
+  {"name": "editor-described", "mock": "dialogs/admin-content-editor/default.html", "height": 1400, "clip": [280, 890, 720, 440], "js": "const t = document.querySelector('.photo-field__thumb'); t.src = t.src.replace('hero.svg', 'garden.svg'); document.querySelector('.photo-field__name').textContent = 'Current photo: garden.svg'; const a = document.querySelector('#hero-photo-alt-field'); a.value = 'A woman in a sun hat waters the flowers in our rooftop garden, with the city behind her.'; const s = document.querySelector('.content-dialog__footer .btn-primary'); s.style.outline = '5px solid #B4502A'; s.style.outlineOffset = '4px';"},
+  {"name": "editor-invalid", "mock": "dialogs/admin-content-editor/invalid.html"},
+  {"name": "saved", "mock": "notifications/admin-website-saved/success.html", "js": "const t = document.querySelector('.block-card__thumb'); t.src = t.src.replace('hero.svg', 'garden.svg');"},
+  {"name": "public-hero-after", "mock": "pages/public-landing/default.html", "js": "const e = document.querySelector('.own-hero__media img'); e.src = e.src.replace('hero.svg', 'garden.svg'); e.alt = 'A woman in a sun hat waters the flowers in our rooftop garden, with the city behind her.';"},
+  {"name": "admin-website-photos", "mock": "pages/admin-website/default.html", "js": "for (const s of ['[aria-label=\"Edit A look around\"]', '[aria-label=\"Edit Our building and community\"]', '[aria-label=\"Edit A word from a member\"]']) { document.querySelector(s).closest('li').style.boxShadow = '0 0 0 4px #B4502A'; }"}
+]

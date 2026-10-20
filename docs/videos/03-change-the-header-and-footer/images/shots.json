@@ -1,0 +1,15 @@
+[
+  {"name": "public-header", "mock": "pages/public-landing/default.html", "js": "const e = document.querySelector('header'); e.style.boxShadow = 'inset 0 0 0 6px #B4502A';"},
+  {"name": "public-footer", "mock": "pages/public-landing/default.html", "scroll": 5982, "height": 473},
+  {"name": "footer-contact", "mock": "pages/public-landing/default.html", "scroll": 5982, "height": 473, "clip": [60, 40, 420, 260]},
+  {"name": "footer-links", "mock": "pages/public-landing/default.html", "scroll": 5982, "height": 473, "clip": [480, 40, 740, 280]},
+  {"name": "footer-small-print", "mock": "pages/public-landing/default.html", "scroll": 5982, "height": 473, "clip": [60, 365, 1000, 90]},
+  {"name": "admin-website-every-page", "mock": "pages/admin-website/default.html", "js": "for (const s of ['[aria-label=\"Edit Header\"]', '[aria-label=\"Edit Footer\"]']) { document.querySelector(s).closest('li').style.boxShadow = '0 0 0 4px #B4502A'; }"},
+  {"name": "header-name", "mock": "dialogs/admin-content-editor/list.html", "js": "for (const id of ['Site name', 'Subtitle']) { const l = [...document.querySelectorAll('label')].find((e) => e.textContent.startsWith(id)); const g = l.closest('.form-group'); g.style.outline = '5px solid #B4502A'; g.style.outlineOffset = '6px'; g.style.borderRadius = '6px'; }"},
+  {"name": "header-links", "mock": "dialogs/admin-content-editor/list.html", "scroll": 330, "js": "const f = [...document.querySelectorAll('legend')].find((e) => e.textContent === 'Menu link 2').closest('fieldset'); f.style.outline = '5px solid #B4502A'; f.style.outlineOffset = '2px';"},
+  {"name": "header-add", "mock": "dialogs/admin-content-editor/list.html", "scroll": 1006, "js": "const b = [...document.querySelectorAll('button')].find((e) => e.textContent.includes('Add menu link')); b.style.outline = '5px solid #B4502A'; b.style.outlineOffset = '4px';"},
+  {"name": "header-bad-address", "mock": "dialogs/admin-content-editor/list.html", "scroll": 1006, "js": "const i = [...document.querySelectorAll('input')].find((e) => e.value === '/#contact'); i.value = 'www.ownhousing.example'; i.setAttribute('aria-invalid', 'true'); i.insertAdjacentHTML('afterend', '<span class=\"field-error\"><span class=\"material-icons\" aria-hidden=\"true\">error_outline</span><span>Use a page on this site, a web address, an e-mail address or a phone number.</span></span>');"},
+  {"name": "header-buttons", "mock": "dialogs/admin-content-editor/list.html", "scroll": 1006, "js": "for (const t of ['Sign-in button', 'Visit button in the phone menu']) { const f = [...document.querySelectorAll('legend')].find((e) => e.textContent === t).closest('fieldset'); f.style.outline = '5px solid #B4502A'; f.style.outlineOffset = '2px'; }"},
+  {"name": "phone-menu", "mock": "pages/public-landing/menu.html", "phone": true, "phone_height": 640},
+  {"name": "saved", "mock": "notifications/admin-website-saved/success.html"}
+]

@@ -8,6 +8,10 @@ Narrated videos made from a script, a slide deck and captions. See the
 | Video | Topic | Runtime |
 | --- | --- | --- |
 | [01 · A website and a helping hand for OWN](01-own-board-overview/README.md) | Board pitch for the Coop platform | about 4 min 14 s |
+| [02 · Change the home page photo](02-change-the-home-page-photo/README.md) | Swap the Hero photo, and every other home page photo, step by step | about 5 min 39 s |
+| [03 · Change the header and footer](03-change-the-header-and-footer/README.md) | Site name, menu links, buttons, contact details, footer links | about 5 min 3 s |
+| [04 · Change the home page, block by block](04-change-the-home-page-block-by-block/README.md) | Where each part of the home page is changed | about 5 min 41 s |
+| [05 · Add pages and update the board](05-add-pages-and-update-the-board/README.md) | Website pages in the menu, and the board of directors | about 4 min 30 s |
 
 ## Journeys
 

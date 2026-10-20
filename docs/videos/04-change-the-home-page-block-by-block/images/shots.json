@@ -1,0 +1,13 @@
+[
+  {"name": "admin-website-home", "mock": "pages/admin-website/default.html", "js": "document.querySelector('#website-group-2').closest('section').style.boxShadow = '0 0 0 4px #B4502A'; document.querySelector('#website-group-2').closest('section').style.borderRadius = '12px';"},
+  {"name": "public-hero", "mock": "pages/public-landing/default.html", "scroll": 81, "height": 660},
+  {"name": "editor-hero", "mock": "dialogs/admin-content-editor/default.html"},
+  {"name": "public-glance", "mock": "pages/public-landing/default.html", "scroll": 700, "height": 230},
+  {"name": "public-about", "mock": "pages/public-landing/default.html", "scroll": 906, "height": 705},
+  {"name": "public-gallery", "mock": "pages/public-landing/default.html", "scroll": 1611, "height": 1023},
+  {"name": "public-features", "mock": "pages/public-landing/default.html", "scroll": 2634, "height": 1036},
+  {"name": "public-events", "mock": "pages/public-landing/default.html", "scroll": 3670, "height": 626},
+  {"name": "public-board", "mock": "pages/public-landing/default.html", "scroll": 4296, "height": 574},
+  {"name": "public-quote", "mock": "pages/public-landing/default.html", "scroll": 4870, "height": 544},
+  {"name": "public-visit", "mock": "pages/public-landing/default.html", "scroll": 5414, "height": 569}
+]

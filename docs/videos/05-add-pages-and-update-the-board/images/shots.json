@@ -1,0 +1,17 @@
+[
+  {"name": "public-page", "mock": "pages/public-page/default.html", "js": "const a = [...document.querySelectorAll('header a')].find((e) => e.textContent.trim() === 'How to apply'); a.style.outline = '5px solid #B4502A'; a.style.outlineOffset = '4px';"},
+  {"name": "admin-pages", "mock": "pages/admin-pages/default.html"},
+  {"name": "page-new", "mock": "dialogs/admin-page-editor/default.html"},
+  {"name": "page-new-photo", "mock": "dialogs/admin-page-editor/default.html", "js": "const b = [...document.querySelectorAll('button')].find((e) => e.textContent.includes('Choose photo')); b.style.outline = '5px solid #B4502A'; b.style.outlineOffset = '4px';"},
+  {"name": "page-text", "mock": "dialogs/admin-page-editor/edit.html", "height": 1300, "clip": [330, 700, 620, 290]},
+  {"name": "page-saved", "mock": "notifications/admin-page-saved/success.html"},
+  {"name": "page-edit", "mock": "dialogs/admin-page-editor/edit.html", "height": 1300, "clip": [320, 224, 640, 852], "js": "const b = [...document.querySelectorAll('button')].find((e) => e.textContent.includes('Remove photo')); b.style.outline = '5px solid #B4502A'; b.style.outlineOffset = '4px';"},
+  {"name": "page-remove", "mock": "dialogs/admin-page-remove/default.html"},
+  {"name": "public-board", "mock": "pages/public-landing/default.html", "scroll": 4296, "height": 574},
+  {"name": "admin-board", "mock": "pages/admin-board/default.html"},
+  {"name": "director-add", "mock": "dialogs/admin-director-editor/default.html"},
+  {"name": "board-saved", "mock": "notifications/admin-board-saved/success.html"},
+  {"name": "board-order", "mock": "pages/admin-board/default.html", "js": "const row = [...document.querySelectorAll('li, article, .director-card, div')].filter((e) => e.textContent.includes('Margit Halvorsen') && e.querySelector('button')).pop(); for (const b of row.querySelectorAll('button')) { if (/Move (up|down)/.test(b.textContent)) { b.style.outline = '5px solid #B4502A'; b.style.outlineOffset = '3px'; } }"},
+  {"name": "director-edit", "mock": "dialogs/admin-director-editor/edit.html"},
+  {"name": "director-remove", "mock": "dialogs/admin-director-remove/default.html"}
+]
