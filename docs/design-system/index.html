@@ -214,7 +214,7 @@
         <li>Theme with <code>data-theme="light|dark"</code> on <code>&lt;html&gt;</code>; with neither, the OS preference applies.</li>
         <li>Need a value in TypeScript? Read <code>tokens/tokens.json</code> (W3C DTCG format; dark values under <code>$extensions</code>).</li>
       </ol>
-      <p>The admin app does not use this system yet. It still renders its own green, Outfit-based styles, and <a href="../mocks/index.html">docs/mocks</a> capture that implemented look. Moving the app onto this system is a separate production change; the README's drift log lists every difference it would close.</p>
+      <p>The admin app does not use this system yet. It still renders its own green, Outfit-based styles. The admin mocks in <a href="../mocks/index.html">docs/mocks</a> are built on this system and show the target design. Moving the app onto this system is a separate production change; the README's drift log lists every difference it would close.</p>
       <h3>Changing the system</h3>
       <p>Change a brand hue in the primitives, a meaning in the semantic tier, a component look in its component tokens. After any colour change run <code>check_contrast.py</code>; after any page change run <code>check_design_system.py</code>. Both live in <code>.claude/skills/extracting-design-systems/scripts/</code>.</p>
       <pre><code>python .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system/tokens/tokens.css

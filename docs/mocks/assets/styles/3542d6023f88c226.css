@@ -1,8 +1,0 @@
-.bottom-tab-bar[_ngcontent-ng-c1362238811] { position: fixed; bottom: 0px; left: 0px; right: 0px; display: flex; justify-content: space-around; align-items: center; background: rgb(255, 255, 255); border-top: 1px solid rgb(229, 228, 225); padding-top: 8px; padding-right: 0px; padding-left: 0px; padding-bottom: env(safe-area-inset-bottom, 8px); z-index: 1000; }
-.tab-item[_ngcontent-ng-c1362238811] { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1 1 0px; min-width: 0px; min-height: 44px; padding: 4px 2px; text-align: center; color: rgba(26, 25, 24, 0.8); text-decoration: none; font-size: 14px; border-radius: 8px; transition: color 0.2s; }
-.tab-item.active[_ngcontent-ng-c1362238811] { color: rgb(61, 138, 90); }
-.tab-item[_ngcontent-ng-c1362238811] .material-icons[_ngcontent-ng-c1362238811] { font-size: 24px; }
-.tab-label[_ngcontent-ng-c1362238811] { font-weight: 500; }
-@media (min-width: 769px) {
-  .bottom-tab-bar[_ngcontent-ng-c1362238811] { display: none; }
-}

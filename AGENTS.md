@@ -39,6 +39,8 @@ significantly add complexity beyond what is implemented now.
   "improve" code next to the change unless the task requires it.
 - Documentation, specs, designs, and mocks describe what is implemented. Do
   not use them to plan or introduce new behavior the user has not asked for.
+  Exception: the admin mocks follow `docs/design-system` and are ahead of the
+  Angular admin, which does not use the design system yet.
 - If a task seems to need broader scope or a significant jump in complexity,
   stop and ask the user before going ahead.
 

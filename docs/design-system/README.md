@@ -4,7 +4,7 @@ The design system for the **Coop admin site**, the back office where staff and b
 
 On 20 October 2026 this system replaced Coop's earlier one, which was extracted from both apps' mocks, used green and Outfit, and had a light theme only. The visual language (violet accent, rounded system fonts, 24–32px radii, pill buttons, stroke icons, light and dark themes) is **adopted as-is from the Shelfie design system**. Its components, examples, copy and sources were rewritten from the Coop admin mocks in [docs/mocks](../mocks/README.md) (20 pages, 19 dialogs, 9 notifications) using the `extracting-design-systems` method. The public app is out of scope.
 
-The mocks capture the running Angular admin, which still uses its own green, Outfit-based styles, so **neither the mocks nor the app load this system yet**. Every difference is recorded in the [drift log](#drift-from-the-implemented-admin) below. Moving the app onto this system is a separate production change.
+The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 and load its `tokens.css` and `components.css`; they show the target design. The running Angular admin still uses its own green, Outfit-based styles and **does not load this system yet**. Every difference is recorded in the [drift log](#drift-from-the-implemented-admin) below. Moving the app onto this system is a separate production change.
 
 ## Foundations
 
@@ -102,7 +102,7 @@ The mocks capture the running Angular admin, which still uses its own green, Out
 
 ## Drift from the implemented admin
 
-Each row records where the implemented admin, as captured in `docs/mocks`, differs from this system. The mocks have not been changed. The full per-component lists are in each page's **Sources** section.
+Each row records where the implemented Angular admin (as captured in `docs/mocks` before 20 October 2026) differs from this system. The admin mocks now show the resolutions; the app does not yet. The full per-component lists are in each page's **Sources** section.
 
 | # | Mock | Issue | Resolution in this system |
 |---|---|---|---|
@@ -138,7 +138,6 @@ Each row records where the implemented admin, as captured in `docs/mocks`, diffe
 ### Open questions
 
 - **Type size for this audience.** The system keeps Shelfie's scale as-is: 16px body, 14px labels and table cells, 12px captions. The co-op's users are older, so the scale may need to grow. The typography and accessibility foundations discuss this.
-- **Mocks do not link the system.** The mocks are verbatim captures of the implemented app, so linking `tokens.css` and `components.css` would repaint them and they would no longer match the app. They will follow when the app does.
 - **Tab bar labels at 320px.** At a 320 CSS px viewport (400% zoom) the five 12px tab labels nearly touch ("Documents", "Messages"). Nothing overflows, but shorter labels or larger, two-line tabs may read better for this audience.
 - **Content decisions** in the drift log, such as role names, "Heating and cooling" for "HVAC" and date formats, need product sign-off before the app changes.
 - **Out-of-scope behaviour bugs** found while reading the mocks: onboarding never saves the chosen unit; the asset Download button does nothing; the public-site theme editor allows any colour. These are recorded only.
@@ -154,9 +153,11 @@ Run on 2026-10-20 from the repository root.
 | Structure | `python .claude/skills/extracting-design-systems/scripts/check_design_system.py docs/design-system` | 66 pages (12 foundations, 44 components, 9 patterns, index), 0 errors, 0 warnings |
 | Leftover Shelfie content | `grep` for child-app words across the folder | No child-app content. "Shelfie" appears only in footers, provenance lines, drift notes and this README |
 | Reflow and screenshots | Chromium (Playwright) at 320, 360 and 1280px, both themes | All 66 pages loaded in Chromium at 320 and 1280px in both themes, plus the review set at 360px: no horizontal page scroll and no script errors. Reviewed by eye: index, color, button, table, sidebar, tab bar and the navigation pattern. Fixed: privilege heading wording, and role keys in the sidebar examples |
+| Admin mocks on the system | `check_mocks.py docs/mocks`; Chromium at 320, 768 and 1280px, both themes | 144 admin mocks rebuilt on `tokens.css` and `components.css`; checker at its baseline (1 public error, 43 warnings); no overflow, no script errors, every `data-mock-href` resolves |
 
 Not verified by tooling: a screen-reader pass, `forced-colors` rendering, and real 400% browser zoom. Reflow was checked as a 320 CSS px viewport. The accessibility foundation lists these as manual checks to run when the components exist in Angular.
 
 ## Changelog
 
+- **2026-10-20**: Rebuilt the 144 admin mocks in `docs/mocks` on this system (light and dark); removed their captured stylesheets.
 - **2026-10-20**: Replaced the earlier Coop design system (light only, extracted from both apps' mocks) with the Shelfie design system, adopted as-is visually and rewritten for the Coop admin site. Removed Shelfie-only tokens, CSS, pages and assets. Added sidebar navigation, tabs, pagination, checkbox, select, search field, icon button, spinner, description list, tooltip, divider and metric card. Added a dark-theme focus-ring offset, a hoverable tooltip, row-header table cells, `a.avatar`, tab bar buttons, and the phone top bar inside the app shell.
