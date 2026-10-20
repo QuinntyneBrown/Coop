@@ -40,7 +40,8 @@ significantly add complexity beyond what is implemented now.
 - Documentation, specs, designs, and mocks describe what is implemented. Do
   not use them to plan or introduce new behavior the user has not asked for.
   Exception: the admin mocks follow `docs/design-system` and are ahead of the
-  Angular admin, which does not use the design system yet.
+  Angular admin on the behaviour and copy items still open in the design
+  system's drift log.
 - If a task seems to need broader scope or a significant jump in complexity,
   stop and ask the user before going ahead.
 
@@ -75,7 +76,8 @@ these locations and move existing files here as areas are touched:
 - `docs/detailed-designs/` — detailed designs
 - `docs/mocks/` — static design reference
 - `docs/design-system/` — tokens, component styles, and pages for the admin
-  site, adopted from the Shelfie design system
+  site, adopted from the Shelfie design system; the admin app loads its
+  `tokens.css` and `components.css` directly (ADR 0009)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing
   the areas they cover
 - `docs/videos/` — narrated videos (script, slides, captions, MP3/MP4)

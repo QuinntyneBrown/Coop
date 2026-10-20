@@ -4,7 +4,7 @@ The design system for the **Coop admin site**, the back office where staff and b
 
 On 20 October 2026 this system replaced Coop's earlier one, which was extracted from both apps' mocks, used green and Outfit, and had a light theme only. The visual language (violet accent, rounded system fonts, 24–32px radii, pill buttons, stroke icons, light and dark themes) is **adopted as-is from the Shelfie design system**. Its components, examples, copy and sources were rewritten from the Coop admin mocks in [docs/mocks](../mocks/README.md) (20 pages, 19 dialogs, 9 notifications) using the `extracting-design-systems` method. The public app is out of scope.
 
-The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 and load its `tokens.css` and `components.css`; they show the target design. The running Angular admin still uses its own green, Outfit-based styles and **does not load this system yet**. Every difference is recorded in the [drift log](#drift-from-the-implemented-admin) below. Moving the app onto this system is a separate production change.
+The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 and load its `tokens.css` and `components.css`; they show the target design. Since 20 October 2026 the running Angular admin loads `tokens.css` and `components.css` directly and uses these classes, icons and dialog structure ([ADR 0009](../adr/0009-admin-loads-the-design-system.md)). The move covered visual design and accessibility semantics; the behaviour and copy items in the [drift log](#drift-from-the-implemented-admin) are still open.
 
 ## Foundations
 
@@ -102,7 +102,7 @@ The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 a
 
 ## Drift from the implemented admin
 
-Each row records where the implemented Angular admin (as captured in `docs/mocks` before 20 October 2026) differs from this system. The admin mocks now show the resolutions; the app does not yet. The full per-component lists are in each page's **Sources** section.
+Each row records where the implemented Angular admin (as captured in `docs/mocks` before 20 October 2026) differs from this system. The admin mocks now show the resolutions; [Status in the app](#status-in-the-app) says which the app has reached. The full per-component lists are in each page's **Sources** section.
 
 | # | Mock | Issue | Resolution in this system |
 |---|---|---|---|
@@ -135,6 +135,21 @@ Each row records where the implemented Angular admin (as captured in `docs/mocks
 | D27 | admin-settings | "Theme Customization" edits the *public website's* colours, with no contrast check | Treated as website content; this system's themes must pass `check_contrast.py` |
 | D28 | admin-maintenance | Maintenance statuses are New, Received, Started and Completed; the code also accepts "Complete" and "Done" | These four words everywhere: New (warning), Received (neutral), Started (info), Completed (success) |
 
+### Status in the app
+
+On 20 October 2026 the admin moved onto this system without changing behaviour or copy.
+
+- **Resolved:** D1, D2, D3 (classes, pill corners, `aria-busy`), D4, D5, D8 (labels, linked errors, `aria-invalid`), D11, D12, D13, D17, D18 (alert dialogs, focus on the safe button), D19, D20 (progress bar role and value), D25 (named buttons), D26.
+- **Partly resolved:**
+  - D6 and D7: the tab bar is drawn once by the layout, marks the current item with `aria-current` and is gone from sign-in. Its destinations, names and the More dialog are still open, so the sidebar stays in flow above the page below 768px.
+  - D10: searches are labelled and typed; the clear button and the separate no-results state are open.
+  - D14: pagination is a named `nav` with `aria-current`; words and hiding at one page are open.
+  - D16: privileges are named switches; reverting a failed save is open.
+  - D21: success messages sit in a live region; showing them only after the server confirms is open.
+  - D22: empty states use `.empty`; the separate first-use and no-results states are open.
+  - D24: the unit choice is a radio group; the `h1` and moving focus are open.
+- **Open:** D9 (error and confirmation wording), D15 (plain role names, Title Case labels), D23 (metric links, loading and "Not available"), D27, D28 (status words), and the sentence-case labels in D3.
+
 ### Open questions
 
 - **Type size for this audience.** The system keeps Shelfie's scale as-is: 16px body, 14px labels and table cells, 12px captions. The co-op's users are older, so the scale may need to grow. The typography and accessibility foundations discuss this.
@@ -159,5 +174,6 @@ Not verified by tooling: a screen-reader pass, `forced-colors` rendering, and re
 
 ## Changelog
 
+- **2026-10-20**: The Angular admin now loads this system (ADR 0009). Added the status of each drift item in the app.
 - **2026-10-20**: Rebuilt the 144 admin mocks in `docs/mocks` on this system (light and dark); removed their captured stylesheets.
 - **2026-10-20**: Replaced the earlier Coop design system (light only, extracted from both apps' mocks) with the Shelfie design system, adopted as-is visually and rewritten for the Coop admin site. Removed Shelfie-only tokens, CSS, pages and assets. Added sidebar navigation, tabs, pagination, checkbox, select, search field, icon button, spinner, description list, tooltip, divider and metric card. Added a dark-theme focus-ring offset, a hoverable tooltip, row-header table cells, `a.avatar`, tab bar buttons, and the phone top bar inside the app shell.
