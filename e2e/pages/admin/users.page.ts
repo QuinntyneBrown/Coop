@@ -133,6 +133,18 @@ export class UsersPage {
     await expect(row.getByTestId('user-status-badge')).toContainText(status);
   }
 
+  async expectDialogNamed(name: string) {
+    await expect(this.page.getByRole('dialog', { name })).toBeVisible();
+  }
+
+  async expectDeleteAlertDialogNamed(name: string) {
+    await expect(this.page.getByRole('alertdialog', { name })).toBeVisible();
+  }
+
+  rowAction(action: 'Edit' | 'Delete', username: string): Locator {
+    return this.page.getByRole('button', { name: `${action} ${username}`, exact: true });
+  }
+
   async expectPaginationInfo(text: string) {
     await expect(this.paginationInfo).toContainText(text);
   }

@@ -43,7 +43,7 @@ export class MessagingPage {
     this.chatHeaderAvatar = page.getByTestId('chat-header-avatar');
     this.chatHeaderName = page.getByTestId('chat-header-name');
     this.messageBubbles = page.getByTestId('message-bubble');
-    this.messageSenders = this.messageBubbles.locator('.msg-sender');
+    this.messageSenders = this.messageBubbles.getByTestId('message-sender');
     this.messageInput = page.getByTestId('message-input');
     this.messageSendButton = page.getByTestId('message-send-button');
 
@@ -106,6 +106,14 @@ export class MessagingPage {
     await this.recipientInput.fill(recipient);
     await this.dialogStartButton.click();
     await this.sendMessage(firstMessage);
+  }
+
+  async expectDialogNamed(name: string) {
+    await expect(this.page.getByRole('dialog', { name })).toBeVisible();
+  }
+
+  async closeDialogWithEscape() {
+    await this.page.keyboard.press('Escape');
   }
 
   async getConversationCount(): Promise<number> {

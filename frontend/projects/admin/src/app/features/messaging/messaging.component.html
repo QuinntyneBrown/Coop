@@ -1,0 +1,241 @@
+<div class="page-header">
+  <div>
+    <h1 data-testid="messaging-page-title">Messages</h1>
+  </div>
+</div>
+
+@if (loading) {
+  <div class="loading" role="status" data-testid="messaging-loading">
+    <span class="spinner" aria-hidden="true"></span>Loading conversations…
+  </div>
+}
+
+<div class="grid messaging-layout">
+  <!-- Conversation List -->
+  <section
+    class="card card--flush span-4 conversation-list-panel"
+    aria-labelledby="conversation-list-title"
+    [class.hidden-mobile]="selectedConversation"
+    data-testid="conversation-list"
+  >
+    <div class="stack conversation-list-panel__head">
+      <div class="cluster cluster--between conversation-list-panel__title-row">
+        <h2 class="card__title" id="conversation-list-title" data-testid="conversation-list-title">
+          Messages
+        </h2>
+        <button
+          class="btn btn--icon"
+          type="button"
+          aria-label="New conversation"
+          aria-haspopup="dialog"
+          data-testid="new-conversation-button"
+          (click)="openNewConversationDialog()"
+        >
+          <svg appIcon="add"></svg>
+        </button>
+      </div>
+      <div class="search" role="search">
+        <label class="visually-hidden" for="conversation-search">Search conversations</label>
+        <svg appIcon="search"></svg>
+        <input
+          class="input"
+          id="conversation-search"
+          type="search"
+          placeholder="Search conversations..."
+          autocomplete="off"
+          data-testid="conversation-search"
+          (input)="onSearchConversations($event)"
+        />
+      </div>
+    </div>
+
+    <ul class="list conversation-list">
+      @for (conv of filteredConversations; track conv; let i = $index) {
+        <li class="conversation-list__row">
+          <button
+            type="button"
+            class="list__item conversation-item"
+            data-testid="conversation-item"
+            [attr.aria-current]="
+              selectedConversation?.conversationId === conv.conversationId ? 'true' : null
+            "
+            (click)="openConversation(conv)"
+          >
+            <span class="avatar" aria-hidden="true">{{ getInitial(conv) }}</span>
+            <span class="list__body">
+              <span class="list__title" data-testid="conversation-name">{{
+                conv.subject || conv.title || 'Conversation'
+              }}</span>
+              <span
+                class="list__meta conversation-item__preview"
+                data-testid="conversation-preview"
+                >{{ conv.lastMessage?.body || conv.preview || '' }}</span
+              >
+            </span>
+            <span class="conversation-item__meta">
+              <span class="list__meta" data-testid="conversation-time">{{
+                conv.lastMessage?.createdOn || conv.updatedOn | date: 'shortTime'
+              }}</span>
+              @if (conv.unreadCount > 0) {
+                <span class="badge badge--count" data-testid="unread-indicator"
+                  >{{ conv.unreadCount }}<span class="visually-hidden"> unread</span></span
+                >
+              }
+            </span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    @if (!loading && filteredConversations.length === 0) {
+      <div class="empty empty--compact">
+        <div class="empty__icon"><svg appIcon="messages"></svg></div>
+        <p class="empty__text">No conversations yet</p>
+      </div>
+    }
+  </section>
+
+  <!-- Empty State when no conversation selected -->
+  @if (!selectedConversation) {
+    <section
+      class="card span-8 empty-chat"
+      aria-label="Conversation"
+      data-testid="chat-empty-state"
+    >
+      <div class="empty">
+        <div class="empty__icon"><svg appIcon="messages"></svg></div>
+        <p class="empty__text">Select a conversation to start chatting</p>
+      </div>
+    </section>
+  }
+
+  <!-- Chat Panel -->
+  @if (selectedConversation) {
+    <section
+      class="card card--flush span-8 chat-panel"
+      aria-labelledby="chat-heading"
+      data-testid="chat-panel"
+    >
+      <div class="cluster chat-header" data-testid="chat-header">
+        <button
+          class="btn btn--ghost btn--icon back-btn"
+          type="button"
+          aria-label="Back to messages"
+          (click)="backToList()"
+        >
+          <svg appIcon="back"></svg>
+        </button>
+        <span class="avatar" aria-hidden="true" data-testid="chat-header-avatar">{{
+          getInitial(selectedConversation)
+        }}</span>
+        <div class="chat-header__info">
+          <h2 class="card__title" id="chat-heading" data-testid="chat-header-name">
+            {{ selectedConversation.subject || 'Conversation' }}
+          </h2>
+          <p class="text-caption">{{ getParticipants(selectedConversation) }}</p>
+        </div>
+      </div>
+      <ul
+        class="list message-list"
+        [attr.aria-label]="'Messages in ' + (selectedConversation.subject || 'Conversation')"
+      >
+        @for (msg of messages; track msg) {
+          <li
+            class="list__item message-bubble"
+            data-testid="message-bubble"
+            [class.own]="isOwnMessage(msg)"
+          >
+            <div class="list__body">
+              <div class="list__title" data-testid="message-sender">
+                {{ msg.createdBy || msg.sender || 'User' }}
+              </div>
+              <p>{{ msg.body || msg.content }}</p>
+              <div class="list__meta">{{ msg.createdOn | date: 'shortTime' }}</div>
+            </div>
+          </li>
+        }
+      </ul>
+      <div class="cluster message-input-bar">
+        <label class="visually-hidden" for="message-input">Message</label>
+        <input
+          class="input"
+          id="message-input"
+          type="text"
+          autocomplete="off"
+          [formControl]="messageInput"
+          placeholder="Type a message..."
+          data-testid="message-input"
+          (keyup.enter)="sendMessage()"
+        />
+        <button
+          class="btn btn--primary"
+          type="button"
+          data-testid="message-send-button"
+          (click)="sendMessage()"
+        >
+          <svg appIcon="send"></svg>Send
+        </button>
+      </div>
+    </section>
+  }
+</div>
+
+<!-- New Conversation Dialog -->
+<dialog
+  #newConversationDialog
+  class="dialog"
+  aria-labelledby="new-conversation-title"
+  data-testid="new-conversation-dialog"
+  (close)="showNewConversationDialog = false"
+>
+  <div class="dialog__panel">
+    <div class="dialog__header">
+      <h2 class="dialog__title" id="new-conversation-title">New Conversation</h2>
+      <button
+        class="btn btn--ghost btn--icon"
+        type="button"
+        aria-label="Close"
+        (click)="closeNewConversationDialog()"
+      >
+        <svg appIcon="close"></svg>
+      </button>
+    </div>
+    <div class="dialog__body stack">
+      <div class="field">
+        <label class="field__label" for="new-conversation-recipient">Recipient</label>
+        <p id="new-conversation-recipient-hint" class="field__help">
+          Type the username of the member you want to message.
+        </p>
+        <input
+          class="input"
+          id="new-conversation-recipient"
+          type="text"
+          placeholder="Member's username"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="new-conversation-recipient-hint"
+          data-testid="new-conversation-recipient"
+          [(ngModel)]="newConversationRecipient"
+        />
+      </div>
+    </div>
+    <div class="dialog__footer">
+      <button
+        class="btn"
+        type="button"
+        data-testid="new-conversation-cancel"
+        (click)="closeNewConversationDialog()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn--primary"
+        type="button"
+        data-testid="new-conversation-start"
+        (click)="startNewConversation()"
+      >
+        Start
+      </button>
+    </div>
+  </div>
+</dialog>
