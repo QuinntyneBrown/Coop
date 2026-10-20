@@ -21,7 +21,7 @@ export class AdminLandingPage {
     this.heroSubtitle = page.getByTestId('landing-hero-subtitle');
     this.boardMembers = page.getByTestId('landing-board-member');
     this.boardMemberNames = this.boardMembers.getByRole('heading');
-    this.noticeDates = page.getByTestId('landing-notice-card').locator('.notice-date');
+    this.noticeDates = page.getByTestId('landing-notice-date');
   }
 
   async goto() {

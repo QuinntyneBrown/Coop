@@ -105,9 +105,9 @@ test.describe('Login Page', () => {
       await expect(loginPage.formPanel).toBeVisible();
     });
 
-    test('should hide hero panel on mobile', async ({ page }) => {
+    test('should keep the branding above the form on mobile', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await expect(loginPage.heroPanel).toBeHidden();
+      await expect(loginPage.heroPanel).toBeVisible();
       await expect(loginPage.formPanel).toBeVisible();
     });
 

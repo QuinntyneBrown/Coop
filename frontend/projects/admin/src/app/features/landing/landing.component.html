@@ -1,0 +1,84 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar landing-topbar" data-testid="landing-navbar">
+  <span class="topbar__brand">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <rect width="48" height="48" rx="14" style="fill: var(--color-accent)" />
+        <circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle)" />
+        <circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover)" />
+        <circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface)" />
+      </svg>
+    </span>
+    OWN Housing Co-op
+  </span>
+  <span class="topbar__spacer"></span>
+  <a routerLink="/login" class="nav-link" data-testid="landing-login-link">Sign In</a>
+  <a routerLink="/register" class="btn btn--primary" data-testid="landing-register-link"
+    >Register</a
+  >
+</header>
+
+<main id="main" class="container">
+  <section class="section stack" aria-labelledby="landing-title" data-testid="landing-hero">
+    <h1 id="landing-title" data-testid="landing-hero-title">
+      {{ heroTitle || 'Welcome to OWN Housing Co-op' }}
+    </h1>
+    <p class="text-muted" data-testid="landing-hero-subtitle">
+      {{
+        heroSubtitle ||
+          'Manage your community, maintenance requests, documents, and more - all in one place.'
+      }}
+    </p>
+    <div class="cluster">
+      <a routerLink="/register" class="btn btn--primary btn--lg" data-testid="landing-hero-cta"
+        >Get Started</a
+      >
+    </div>
+  </section>
+
+  <section
+    class="section stack"
+    aria-labelledby="landing-board"
+    data-testid="landing-board-section"
+  >
+    <h2 id="landing-board">Board of Directors</h2>
+    <div class="card card--flush">
+      <ul class="list">
+        @for (member of boardMembers; track member) {
+          <li class="list__item" data-testid="landing-board-member">
+            <span class="avatar" aria-hidden="true">{{ getInitials(member.name) }}</span>
+            <div class="list__body">
+              <h3 class="list__title">{{ member.name }}</h3>
+              <p class="list__meta">{{ member.title }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class="section stack"
+    aria-labelledby="landing-news"
+    data-testid="landing-notices-section"
+  >
+    <h2 id="landing-news">Announcements</h2>
+    <div class="card card--flush">
+      <ul class="list">
+        @for (notice of notices; track notice) {
+          <li class="list__item" data-testid="landing-notice-card">
+            <div class="list__body stack landing-notice">
+              <h3 class="list__title">{{ notice.title }}</h3>
+              <p>{{ notice.body || notice.description }}</p>
+              <p
+                class="list__meta"
+                data-testid="landing-notice-date"
+                [textContent]="noticeDate(notice) | date: 'mediumDate'"
+              ></p>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+</main>

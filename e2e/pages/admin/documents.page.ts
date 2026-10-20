@@ -138,8 +138,20 @@ export class DocumentsPage {
     await this.dialogSaveButton.click();
   }
 
+  selectedFilter(name: string): Locator {
+    return this.page.getByRole('tab', { name, selected: true });
+  }
+
+  async expectDeleteAlertDialogNamed(name: string) {
+    await expect(this.page.getByRole('alertdialog', { name })).toBeVisible();
+  }
+
+  deleteButtonFor(title: string): Locator {
+    return this.page.getByRole('button', { name: `Delete ${title}`, exact: true });
+  }
+
   async clickDocumentCard(index: number) {
-    await this.documentCards.nth(index).click();
+    await this.documentCards.nth(index).getByTestId('document-title').getByRole('button').click();
   }
 
   async deleteDocument(index: number) {
