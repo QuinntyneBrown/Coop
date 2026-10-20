@@ -18,6 +18,7 @@ import { directorFromDraft } from './director-from-draft';
 import { initialsOf } from './initials-of';
 import { moveDirector } from './move-director';
 import { validateDirectorDraft } from './validate-director-draft';
+import { IconComponent } from '../../shared/components/icon.component';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 
@@ -35,7 +36,7 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, IconComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

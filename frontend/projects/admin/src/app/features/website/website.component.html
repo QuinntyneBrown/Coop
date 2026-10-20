@@ -1,68 +1,75 @@
-<div class="website-page">
-  <div class="website-header">
+<div class="page-header">
+  <div>
     <h1 data-testid="website-title">Website</h1>
-    <p>
+    <p class="subtitle">
       Everything visitors read and see on the public website. Changes are live as soon as you save.
     </p>
   </div>
+</div>
 
+<div class="stack">
   <div role="status" aria-live="polite">
     @if (notice()) {
-      <div class="website-alert website-alert--success">
-        <span class="material-icons" aria-hidden="true">check_circle</span>
-        <span data-testid="website-notice">{{ notice() }}</span>
+      <div class="alert alert--success">
+        <svg appIcon="success"></svg>
+        <div class="alert__body" data-testid="website-notice">{{ notice() }}</div>
       </div>
     }
   </div>
 
   @switch (status()) {
     @case ('loading') {
-      <div class="website-loading" role="status" aria-live="polite" data-testid="website-loading">
-        <span class="website-spinner" aria-hidden="true"></span>Loading the website content…
+      <div class="card card--flush">
+        <div class="loading" role="status" aria-live="polite" data-testid="website-loading">
+          <span class="spinner" aria-hidden="true"></span>Loading the website content…
+        </div>
       </div>
     }
     @case ('error') {
-      <div class="website-alert website-alert--danger" role="alert" data-testid="website-error">
-        <span class="material-icons" aria-hidden="true">error_outline</span>
-        <span>We couldn't load the website content. Check your connection and try again.</span>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="load()"
-          data-testid="website-retry"
-        >
-          Try again
-        </button>
+      <div class="alert alert--danger" role="alert" data-testid="website-error">
+        <svg appIcon="error"></svg>
+        <div class="alert__body">
+          <span>We couldn't load the website content. Check your connection and try again.</span>
+          <div class="alert__actions">
+            <button type="button" class="btn btn--sm" (click)="load()" data-testid="website-retry">
+              <svg appIcon="try-again"></svg>Try again
+            </button>
+          </div>
+        </div>
       </div>
     }
     @case ('ready') {
       @for (group of groups; track group.id) {
-        <section class="website-group" [attr.aria-labelledby]="'website-group-' + group.id">
+        <section class="section stack" [attr.aria-labelledby]="'website-group-' + group.id">
           <h2 [id]="'website-group-' + group.id">{{ group.name }}</h2>
-          <ul class="website-blocks">
+          <ul class="list website-blocks">
             @for (block of group.blocks; track block.id) {
               @let value = blockValue(block);
               @let photo = block.photo?.(value);
-              <li class="block-card" [class.block-card--photo]="photo" data-testid="website-block">
-                @if (photo) {
-                  <img
-                    class="block-card__thumb"
-                    [src]="previewUrl(photo)"
-                    width="72"
-                    height="54"
-                    alt=""
-                  />
-                }
-                <h3>{{ block.name }}</h3>
-                <p class="block-card__summary">{{ block.summary(value) }}</p>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  [attr.aria-label]="'Edit ' + block.name"
-                  (click)="openEditor(block, $event)"
-                >
-                  Edit
-                </button>
+              <li data-testid="website-block">
+                <article class="card">
+                  <div class="cluster cluster--between">
+                    <div class="cluster block-card__identity">
+                      @if (photo) {
+                        <div class="picture-list__thumb block-card__thumb">
+                          <img [src]="previewUrl(photo)" width="160" height="120" alt="" />
+                        </div>
+                      }
+                      <div class="block-card__text">
+                        <h3 class="card__title">{{ block.name }}</h3>
+                        <p class="text-muted block-card__summary">{{ block.summary(value) }}</p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn"
+                      [attr.aria-label]="'Edit ' + block.name"
+                      (click)="openEditor(block, $event)"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                </article>
               </li>
             }
           </ul>
@@ -74,36 +81,52 @@
 
 <dialog
   #editorDialog
-  class="content-dialog"
+  class="dialog"
   aria-labelledby="content-editor-title"
   aria-describedby="content-editor-intro"
   (close)="onEditorClosed()"
   data-testid="content-editor"
 >
   @if (editing(); as block) {
-    <form (submit)="save($event)" novalidate>
-      <div class="content-dialog__header">
-        <h2 id="content-editor-title" data-testid="content-editor-heading">
-          Edit {{ block.name }}
-        </h2>
-        <p id="content-editor-intro">Changes show on the website as soon as you save.</p>
+    <form class="dialog__panel" (submit)="save($event)" novalidate>
+      <div class="dialog__header">
+        <div class="dialog-heading">
+          <h2 class="dialog__title" id="content-editor-title" data-testid="content-editor-heading">
+            Edit {{ block.name }}
+          </h2>
+          <p class="text-muted dialog-intro" id="content-editor-intro">
+            Changes show on the website as soon as you save.
+          </p>
+        </div>
       </div>
-      <div class="content-dialog__body">
+      <div class="dialog__body stack">
         @if (errorList().length > 0) {
-          <div class="content-dialog__errors" role="alert" data-testid="content-editor-errors">
-            <strong>Something needs attention before your changes can be saved.</strong>
-            <ul>
-              @for (error of errorList(); track error.id) {
-                <li>
-                  <a [href]="'#' + error.id">{{ error.message }}</a>
-                </li>
-              }
-            </ul>
+          <div
+            class="alert alert--danger form-summary"
+            role="alert"
+            data-testid="content-editor-errors"
+          >
+            <svg appIcon="error"></svg>
+            <div class="alert__body">
+              <p class="alert__title">
+                Something needs attention before your changes can be saved.
+              </p>
+              <ol>
+                @for (error of errorList(); track error.id) {
+                  <li>
+                    <a [href]="'#' + error.id">{{ error.message }}</a>
+                  </li>
+                }
+              </ol>
+            </div>
           </div>
         }
         @if (saveFailed()) {
-          <div class="content-dialog__errors" role="alert" data-testid="content-editor-failed">
-            We couldn't save your changes. Try again.
+          <div class="alert alert--danger" role="alert">
+            <svg appIcon="error"></svg>
+            <div class="alert__body" data-testid="content-editor-failed">
+              We couldn't save your changes. Try again.
+            </div>
           </div>
         }
         @for (field of block.fields; track field.key) {
@@ -115,10 +138,10 @@
           />
         }
       </div>
-      <div class="content-dialog__footer">
+      <div class="dialog__footer">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn"
           [disabled]="saving()"
           (click)="closeEditor()"
           data-testid="content-editor-cancel"
@@ -127,7 +150,7 @@
         </button>
         <button
           type="submit"
-          class="btn btn-primary"
+          class="btn btn--primary"
           [disabled]="saving()"
           [attr.aria-busy]="saving() ? 'true' : null"
           data-testid="content-editor-save"
@@ -149,9 +172,9 @@
     ((field.help ? id + '-help ' : '') + (error ? id + '-error' : '')).trim() || null;
   @switch (field.kind) {
     @case ('group') {
-      <fieldset class="content-fieldset">
+      <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <div [class.content-fieldset__row]="field.columns">
+        <div class="stack" [class.content-fieldset__row]="field.columns">
           @for (sub of field.fields; track sub.key) {
             <ng-container
               *ngTemplateOutlet="
@@ -164,9 +187,9 @@
       </fieldset>
     }
     @case ('list') {
-      <fieldset class="content-list">
+      <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <ol class="content-list__items">
+        <ol class="list content-list__items">
           @for (
             item of target[field.key];
             track $index;
@@ -175,9 +198,9 @@
             @let legend = itemLegend(field, i);
             @let name = legend.toLowerCase();
             <li [attr.data-item]="path + '.' + i">
-              <fieldset class="content-fieldset">
+              <fieldset class="card stack">
                 <legend>{{ legend }}</legend>
-                <div [class.content-fieldset__row]="field.columns">
+                <div class="stack" [class.content-fieldset__row]="field.columns">
                   @for (sub of field.fields; track sub.key) {
                     <ng-container
                       *ngTemplateOutlet="
@@ -191,30 +214,30 @@
                     />
                   }
                 </div>
-                <div class="content-list__actions">
+                <div class="cluster">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn--sm"
                     [attr.aria-label]="'Move ' + name + ' up'"
                     [attr.data-move]="path + '.' + i + '.up'"
                     [disabled]="first"
                     (click)="moveItem(target, field, path, i, -1)"
                   >
-                    <span class="material-icons" aria-hidden="true">arrow_upward</span> Move up
+                    <svg appIcon="move-up"></svg>Move up
                   </button>
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn--sm"
                     [attr.aria-label]="'Move ' + name + ' down'"
                     [attr.data-move]="path + '.' + i + '.down'"
                     [disabled]="last"
                     (click)="moveItem(target, field, path, i, 1)"
                   >
-                    <span class="material-icons" aria-hidden="true">arrow_downward</span> Move down
+                    <svg appIcon="move-down"></svg>Move down
                   </button>
                   <button
                     type="button"
-                    class="btn btn-danger-outline"
+                    class="btn btn--danger btn--sm"
                     [attr.aria-label]="'Remove ' + name"
                     (click)="removeItem(target, field, path, i)"
                   >
@@ -227,11 +250,11 @@
         </ol>
         <button
           type="button"
-          class="btn btn-secondary content-list__add"
+          class="btn content-list__add"
           [attr.data-add]="path"
           (click)="addItem(target, field, path)"
         >
-          <span class="material-icons" aria-hidden="true">add</span> Add {{ field.itemName }}
+          <svg appIcon="add"></svg>Add {{ field.itemName }}
         </button>
       </fieldset>
     }
@@ -240,42 +263,43 @@
       @let srcError = errors()[path + '.src'];
       @let altId = fieldId(path + '.alt');
       @let altError = errors()[path + '.alt'];
-      <fieldset class="content-fieldset">
+      <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <div class="photo-field__current">
+        <div class="photo-picker">
           @if (photo.src) {
-            <img
-              class="photo-field__thumb"
-              [src]="previewUrl(photo.src)"
-              width="160"
-              height="120"
-              alt=""
-            />
+            <div class="picture-list__thumb photo-field__thumb">
+              <img [src]="previewUrl(photo.src)" width="160" height="120" alt="" />
+            </div>
           }
-          <div>
-            <span class="photo-field__name" [id]="id + '-name'">{{
-              photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet'
-            }}</span>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              [id]="fieldId(path + '.src')"
-              [attr.aria-describedby]="srcError ? id + '-name ' + id + '-src-error' : id + '-name'"
-              (click)="choosePhoto(photo, path)"
-            >
-              <span class="material-icons" aria-hidden="true">photo_library</span> Choose photo
-            </button>
-            @if (srcError) {
-              <span class="field-error" [id]="id + '-src-error'"
-                ><span class="material-icons" aria-hidden="true">error_outline</span
-                ><span data-testid="field-error">{{ srcError }}</span></span
+          <div class="photo-picker__body">
+            <p class="list__title" [id]="id + '-name'">
+              {{ photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet' }}
+            </p>
+            <div class="photo-picker__actions">
+              <button
+                type="button"
+                class="btn btn--primary"
+                aria-haspopup="dialog"
+                [id]="fieldId(path + '.src')"
+                [attr.aria-describedby]="
+                  srcError ? id + '-name ' + id + '-src-error' : id + '-name'
+                "
+                (click)="choosePhoto(photo, path)"
               >
+                <svg appIcon="photo"></svg>Choose photo
+              </button>
+            </div>
+            @if (srcError) {
+              <p class="field__error" [id]="id + '-src-error'">
+                <span data-testid="field-error">{{ srcError }}</span>
+              </p>
             }
           </div>
         </div>
-        <div class="form-group">
-          <label [for]="altId">Photo description</label>
+        <div class="field">
+          <label class="field__label" [for]="altId">Photo description</label>
           <textarea
+            class="textarea"
             [id]="altId"
             rows="3"
             [(ngModel)]="photo.alt"
@@ -283,24 +307,24 @@
             [attr.aria-invalid]="altError ? 'true' : null"
             [attr.aria-describedby]="altId + '-help' + (altError ? ' ' + altId + '-error' : '')"
           ></textarea>
-          <span class="field-help" [id]="altId + '-help'"
-            >Describe the photo for people who cannot see it.</span
-          >
+          <p class="field__help" [id]="altId + '-help'">
+            Describe the photo for people who cannot see it.
+          </p>
           @if (altError) {
-            <span class="field-error" [id]="altId + '-error'"
-              ><span class="material-icons" aria-hidden="true">error_outline</span
-              ><span data-testid="field-error">{{ altError }}</span></span
-            >
+            <p class="field__error" [id]="altId + '-error'">
+              <span data-testid="field-error">{{ altError }}</span>
+            </p>
           }
         </div>
       </fieldset>
     }
     @default {
-      <div class="form-group">
-        <label [for]="id">{{ field.label }}</label>
+      <div class="field">
+        <label class="field__label" [for]="id">{{ field.label }}</label>
         @switch (field.kind) {
           @case ('choice') {
             <select
+              class="select"
               [id]="id"
               [(ngModel)]="target[field.key]"
               [ngModelOptions]="{ standalone: true }"
@@ -313,6 +337,7 @@
           }
           @case ('textarea') {
             <textarea
+              class="textarea"
               [id]="id"
               rows="3"
               [(ngModel)]="target[field.key]"
@@ -323,6 +348,7 @@
           }
           @case ('lines') {
             <textarea
+              class="textarea"
               [id]="id"
               rows="4"
               [(ngModel)]="target[field.key]"
@@ -333,6 +359,7 @@
           }
           @case ('address') {
             <input
+              class="input"
               [id]="id"
               type="text"
               inputmode="url"
@@ -346,6 +373,7 @@
           }
           @default {
             <input
+              class="input"
               [id]="id"
               type="text"
               autocomplete="off"
@@ -357,13 +385,12 @@
           }
         }
         @if (field.help) {
-          <span class="field-help" [id]="id + '-help'">{{ field.help }}</span>
+          <p class="field__help" [id]="id + '-help'">{{ field.help }}</p>
         }
         @if (error) {
-          <span class="field-error" [id]="id + '-error'"
-            ><span class="material-icons" aria-hidden="true">error_outline</span
-            ><span data-testid="field-error">{{ error }}</span></span
-          >
+          <p class="field__error" [id]="id + '-error'">
+            <span data-testid="field-error">{{ error }}</span>
+          </p>
         }
       </div>
     }

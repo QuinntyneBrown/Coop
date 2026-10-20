@@ -16,6 +16,7 @@ import { PhotoPickerComponent } from '../website/photo-picker/photo-picker.compo
 import type { PickedPhoto } from '../website/photo-picker/picked-photo';
 import type { PageFormErrors } from './page-form-errors';
 import { validatePageDraft } from './validate-page-draft';
+import { IconComponent } from '../../shared/components/icon.component';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 
@@ -36,7 +37,7 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, PhotoPickerComponent],
+  imports: [FormsModule, PhotoPickerComponent, IconComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

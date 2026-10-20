@@ -23,6 +23,7 @@ import { readPath, writePath } from './content-path';
 import { moveItem } from './move-item';
 import type { PickedPhoto } from './photo-picker/picked-photo';
 import { PhotoPickerComponent } from './photo-picker/photo-picker.component';
+import { IconComponent } from '../../shared/components/icon.component';
 import { validateBlock } from './validate-block';
 
 type LoadStatus = 'loading' | 'ready' | 'error';
@@ -39,7 +40,7 @@ type LoadStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-website',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent],
+  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

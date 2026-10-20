@@ -1,120 +1,23 @@
-@use '../content-dialog';
+/* Photo picker (docs/mocks/dialogs/admin-photo-picker/): a second dialog
+   stacked over the editor. Components come from docs/design-system. */
 
-:host {
-  @include content-dialog.tokens;
+.photo-option--current {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 var(--border-width-thick) var(--color-accent);
 }
 
-/* Photo picker: a second dialog stacked over the editor. */
-.photo-dialog {
-  width: min(760px, calc(100vw - 32px));
-}
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr));
-  gap: 12px;
-  list-style: none;
-  margin: 0 0 20px;
-  padding: 0;
-}
-.photo-option {
-  display: grid;
-  gap: 6px;
-  width: 100%;
-  min-height: var(--adm-target);
-  padding: 8px;
-  border: 2px solid var(--adm-border);
-  border-radius: var(--adm-radius-sm);
-  background: var(--adm-surface);
-  color: var(--adm-text);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.photo-option:hover {
-  border-color: var(--adm-border-strong);
-}
-.photo-option img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 6px;
-  background: var(--adm-primary-soft);
-}
 .photo-option__name {
-  font-size: 15px;
+  max-width: 100%;
   overflow-wrap: anywhere;
 }
-.photo-option[aria-pressed='true'] {
-  border-color: var(--adm-primary-dark);
-  box-shadow: 0 0 0 3px var(--adm-primary-soft);
-}
+
 .photo-option__tag {
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: var(--adm-primary-dark);
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
+  gap: var(--space-1);
+  color: var(--color-fg-accent);
+  font: var(--text-label);
 }
-.photo-option__tag .material-icons {
-  font-size: 16px;
-}
-.photo-empty {
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-  margin: 0 0 20px;
-  padding: 32px 16px;
-  text-align: center;
-  border: 1px dashed var(--adm-border-strong);
-  border-radius: var(--adm-radius);
-  color: var(--adm-text-soft);
-  font-size: 16px;
-}
-.photo-empty .material-icons {
-  font-size: 40px;
-  color: var(--adm-primary-dark);
-}
-.photo-upload {
-  padding-top: 16px;
-  border-top: 1px solid var(--adm-border);
-}
-.photo-upload input[type='file'] {
-  padding: 6px;
-  font-size: 16px;
-}
-.photo-upload input[type='file']::file-selector-button {
-  min-height: var(--adm-target);
-  margin-right: 12px;
-  padding: 10px 20px;
-  border: 1px solid var(--adm-border);
-  border-radius: var(--adm-radius);
-  background: var(--adm-bg);
-  color: var(--adm-text);
-  font: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.photo-upload input[type='file']:hover::file-selector-button {
-  background: var(--adm-border);
-}
-.photo-upload__status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 8px 0 0;
-  font-size: 16px;
-  color: var(--adm-text);
-}
-.photo-upload__status .website-spinner {
-  width: 20px;
-  height: 20px;
-  border-width: 3px;
+
+.picture-list__add .btn[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
 }

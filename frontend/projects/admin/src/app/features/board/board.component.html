@@ -1,134 +1,151 @@
-<div class="board-page">
-  <div class="board-header">
-    <div>
-      <h1 data-testid="board-title">Board of Directors</h1>
-      <p>
-        The directors the home page shows under "Meet the board", in this order. Changes are live on
-        the website as soon as you save.
-      </p>
-    </div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="openEditor(null, $event)"
-      data-testid="board-add-button"
-    >
-      <span class="material-icons" aria-hidden="true">person_add</span> Add director
-    </button>
+<div class="page-header">
+  <div>
+    <h1 data-testid="board-title">Board of Directors</h1>
+    <p class="subtitle">
+      The directors the home page shows under "Meet the board", in this order. Changes are live on
+      the website as soon as you save.
+    </p>
   </div>
+  <button
+    type="button"
+    class="btn btn--primary"
+    (click)="openEditor(null, $event)"
+    data-testid="board-add-button"
+  >
+    <svg appIcon="person-add"></svg>Add director
+  </button>
+</div>
 
+<div class="stack">
   <div role="status" aria-live="polite">
     @if (notice()) {
-      <div class="board-alert board-alert--success">
-        <span class="material-icons" aria-hidden="true">check_circle</span>
-        <span data-testid="board-notice">{{ notice() }}</span>
+      <div class="alert alert--success">
+        <svg appIcon="success"></svg>
+        <div class="alert__body" data-testid="board-notice">{{ notice() }}</div>
       </div>
     }
   </div>
 
   @if (listError()) {
-    <div class="board-alert board-alert--danger" role="alert">
-      <span class="material-icons" aria-hidden="true">error_outline</span>
-      <span data-testid="board-save-error">{{ listError() }}</span>
+    <div class="alert alert--danger" role="alert">
+      <svg appIcon="error"></svg>
+      <div class="alert__body" data-testid="board-save-error">{{ listError() }}</div>
     </div>
   }
 
   @switch (status()) {
     @case ('loading') {
-      <div class="board-loading" role="status" aria-live="polite" data-testid="board-loading">
-        <span class="board-spinner" aria-hidden="true"></span>Loading the board list…
+      <div class="card card--flush">
+        <div class="loading" role="status" aria-live="polite" data-testid="board-loading">
+          <span class="spinner" aria-hidden="true"></span>Loading the board list…
+        </div>
       </div>
     }
     @case ('error') {
-      <div class="board-alert board-alert--danger" role="alert" data-testid="board-error">
-        <span class="material-icons" aria-hidden="true">error_outline</span>
-        <span>We couldn't load the board list. Check your connection and try again.</span>
-        <button type="button" class="btn btn-secondary" (click)="load()" data-testid="board-retry">
-          Try again
-        </button>
+      <div class="alert alert--danger" role="alert" data-testid="board-error">
+        <svg appIcon="error"></svg>
+        <div class="alert__body">
+          <span>We couldn't load the board list. Check your connection and try again.</span>
+          <div class="alert__actions">
+            <button type="button" class="btn btn--sm" (click)="load()" data-testid="board-retry">
+              <svg appIcon="try-again"></svg>Try again
+            </button>
+          </div>
+        </div>
       </div>
     }
     @case ('ready') {
       @if (directors().length > 0) {
-        <ol class="board-list" aria-label="Board of Directors" data-testid="board-list">
+        <ol class="stack board-list" aria-label="Board of Directors" data-testid="board-list">
           @for (
             director of directors();
             track $index;
             let i = $index, first = $first, last = $last
           ) {
-            <li class="director-card" data-testid="director-card">
-              @if (director.photoUrl) {
-                <img
-                  class="director-card__photo"
-                  [src]="director.photoUrl"
-                  width="56"
-                  height="56"
-                  alt=""
-                />
-              } @else {
-                <span class="director-card__photo" aria-hidden="true">{{
-                  initialsOf(director.name)
-                }}</span>
-              }
-              <h2 data-testid="director-card-name">{{ director.name }}</h2>
-              <div class="director-card__meta">
-                <span data-testid="director-card-title">{{ director.title }}</span>
-                <span>{{ director.photoUrl ? 'With a photo' : 'No photo' }}</span>
-              </div>
-              <div class="director-card__actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  [attr.aria-label]="'Move ' + director.name + ' up'"
-                  [disabled]="first || moving()"
-                  (click)="move(i, -1)"
-                  data-testid="director-move-up"
-                >
-                  <span class="material-icons" aria-hidden="true">arrow_upward</span> Move up
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  [attr.aria-label]="'Move ' + director.name + ' down'"
-                  [disabled]="last || moving()"
-                  (click)="move(i, 1)"
-                  data-testid="director-move-down"
-                >
-                  <span class="material-icons" aria-hidden="true">arrow_downward</span> Move down
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  [attr.aria-label]="'Edit ' + director.name"
-                  (click)="openEditor(i, $event)"
-                  data-testid="director-edit"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger-outline"
-                  [attr.aria-label]="'Remove ' + director.name"
-                  (click)="confirmRemove(i, $event)"
-                  data-testid="director-remove"
-                >
-                  Remove
-                </button>
-              </div>
+            <li data-testid="director-card">
+              <article class="card stack" [attr.aria-labelledby]="'director-' + i">
+                <div class="cluster director-card__identity">
+                  <span class="avatar avatar--lg" aria-hidden="true"
+                    >{{ initialsOf(director.name) }}
+                    @if (director.photoUrl) {
+                      <img
+                        class="avatar__img"
+                        [src]="director.photoUrl"
+                        width="56"
+                        height="56"
+                        alt=""
+                      />
+                    }
+                  </span>
+                  <div class="director-card__text">
+                    <h2 class="card__title" [id]="'director-' + i" data-testid="director-card-name">
+                      {{ director.name }}
+                    </h2>
+                    <p class="text-muted">
+                      <span data-testid="director-card-title">{{ director.title }}</span> ·
+                      <span>{{ director.photoUrl ? 'With a photo' : 'No photo' }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="cluster">
+                  <button
+                    type="button"
+                    class="btn"
+                    [attr.aria-label]="'Move ' + director.name + ' up'"
+                    [disabled]="first || moving()"
+                    (click)="move(i, -1)"
+                    data-testid="director-move-up"
+                  >
+                    <svg appIcon="move-up"></svg>Move up
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    [attr.aria-label]="'Move ' + director.name + ' down'"
+                    [disabled]="last || moving()"
+                    (click)="move(i, 1)"
+                    data-testid="director-move-down"
+                  >
+                    <svg appIcon="move-down"></svg>Move down
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    [attr.aria-label]="'Edit ' + director.name"
+                    (click)="openEditor(i, $event)"
+                    data-testid="director-edit"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn--danger"
+                    [attr.aria-label]="'Remove ' + director.name"
+                    (click)="confirmRemove(i, $event)"
+                    data-testid="director-remove"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </article>
             </li>
           }
         </ol>
       } @else {
-        <div class="board-empty" data-testid="board-empty">
-          <span class="material-icons" aria-hidden="true">groups</span>
-          <h2>No directors listed yet</h2>
-          <p>
+        <div class="card empty" data-testid="board-empty">
+          <div class="empty__icon" aria-hidden="true">
+            <svg appIcon="board" class="icon--lg"></svg>
+          </div>
+          <h2 class="empty__title">No directors listed yet</h2>
+          <p class="empty__text">
             Until you add the directors here, the home page shows the board member profiles. Add
             each director with their role, such as President or Treasurer.
           </p>
-          <button type="button" class="btn btn-primary" (click)="openEditor(null, $event)">
-            <span class="material-icons" aria-hidden="true">person_add</span> Add director
-          </button>
+          <div class="empty__actions">
+            <button type="button" class="btn btn--primary" (click)="openEditor(null, $event)">
+              <svg appIcon="person-add"></svg>Add director
+            </button>
+          </div>
         </div>
       }
     }
@@ -137,17 +154,19 @@
 
 <dialog
   #editorDialog
-  class="director-dialog"
+  class="dialog"
   aria-labelledby="director-editor-title"
   aria-describedby="director-editor-intro"
   (close)="onEditorClosed()"
   data-testid="director-editor"
 >
-  <form (submit)="save($event)" novalidate>
-    <div class="director-dialog__header">
-      <h2 id="director-editor-title" data-testid="director-editor-heading">
+  <form class="dialog__panel" (submit)="save($event)" novalidate>
+    <div class="dialog__header">
+      <h2 class="dialog__title" id="director-editor-title" data-testid="director-editor-heading">
         {{ editingIndex() === null ? 'Add director' : 'Edit director' }}
       </h2>
+    </div>
+    <div class="dialog__body stack">
       <p id="director-editor-intro">
         {{
           editingIndex() === null
@@ -155,33 +174,42 @@
             : 'Changes show on the website as soon as you save.'
         }}
       </p>
-    </div>
-    <div class="director-dialog__body">
       @if (errors().name || errors().title) {
-        <div class="director-dialog__errors" role="alert" data-testid="director-editor-errors">
-          <strong>Something needs attention before the director can be saved.</strong>
-          <ul>
-            @if (errors().name) {
-              <li>
-                <a href="#director-name-field">{{ errors().name }}</a>
-              </li>
-            }
-            @if (errors().title) {
-              <li>
-                <a href="#director-title-field">{{ errors().title }}</a>
-              </li>
-            }
-          </ul>
+        <div
+          class="alert alert--danger form-summary"
+          role="alert"
+          data-testid="director-editor-errors"
+        >
+          <svg appIcon="error"></svg>
+          <div class="alert__body">
+            <p class="alert__title">Something needs attention before the director can be saved.</p>
+            <ol>
+              @if (errors().name) {
+                <li>
+                  <a href="#director-name-field">{{ errors().name }}</a>
+                </li>
+              }
+              @if (errors().title) {
+                <li>
+                  <a href="#director-title-field">{{ errors().title }}</a>
+                </li>
+              }
+            </ol>
+          </div>
         </div>
       }
       @if (saveFailed()) {
-        <div class="director-dialog__errors" role="alert" data-testid="director-editor-failed">
-          We couldn't save the board list. Try again.
+        <div class="alert alert--danger" role="alert">
+          <svg appIcon="error"></svg>
+          <div class="alert__body" data-testid="director-editor-failed">
+            We couldn't save the board list. Try again.
+          </div>
         </div>
       }
-      <div class="form-group">
-        <label for="director-name-field">Name</label>
+      <div class="field">
+        <label class="field__label" for="director-name-field">Name</label>
         <input
+          class="input"
           id="director-name-field"
           name="name"
           type="text"
@@ -193,15 +221,15 @@
           data-testid="director-name-input"
         />
         @if (errors().name) {
-          <span class="field-error" id="director-name-error"
-            ><span class="material-icons" aria-hidden="true">error_outline</span
-            ><span data-testid="director-name-error">{{ errors().name }}</span></span
-          >
+          <p class="field__error" id="director-name-error">
+            <span data-testid="director-name-error">{{ errors().name }}</span>
+          </p>
         }
       </div>
-      <div class="form-group">
-        <label for="director-title-field">Role on the board</label>
+      <div class="field">
+        <label class="field__label" for="director-title-field">Role on the board</label>
         <input
+          class="input"
           id="director-title-field"
           name="title"
           type="text"
@@ -213,19 +241,21 @@
           "
           data-testid="director-title-input"
         />
-        <span class="field-help" id="director-title-help"
-          >For example President, Treasurer, Secretary or Member at large.</span
-        >
+        <p class="field__help" id="director-title-help">
+          For example President, Treasurer, Secretary or Member at large.
+        </p>
         @if (errors().title) {
-          <span class="field-error" id="director-title-error"
-            ><span class="material-icons" aria-hidden="true">error_outline</span
-            ><span data-testid="director-title-error">{{ errors().title }}</span></span
-          >
+          <p class="field__error" id="director-title-error">
+            <span data-testid="director-title-error">{{ errors().title }}</span>
+          </p>
         }
       </div>
-      <div class="form-group">
-        <label for="director-photo-field">Photo address (optional)</label>
+      <div class="field">
+        <label class="field__label" for="director-photo-field"
+          >Photo address <span class="optional">(optional)</span></label
+        >
         <input
+          class="input"
           id="director-photo-field"
           name="photoUrl"
           type="url"
@@ -233,16 +263,16 @@
           aria-describedby="director-photo-help"
           data-testid="director-photo-input"
         />
-        <span class="field-help" id="director-photo-help"
-          >Paste the address of a portrait from the Assets library. Without one, the website shows
-          the director's initials.</span
-        >
+        <p class="field__help" id="director-photo-help">
+          Paste the address of a portrait from the Assets library. Without one, the website shows
+          the director's initials.
+        </p>
       </div>
     </div>
-    <div class="director-dialog__footer">
+    <div class="dialog__footer">
       <button
         type="button"
-        class="btn btn-secondary"
+        class="btn"
         [disabled]="saving()"
         (click)="closeEditor()"
         data-testid="director-editor-cancel"
@@ -251,7 +281,7 @@
       </button>
       <button
         type="submit"
-        class="btn btn-primary"
+        class="btn btn--primary"
         [disabled]="saving()"
         [attr.aria-busy]="saving() ? 'true' : null"
         data-testid="director-editor-save"
@@ -264,32 +294,37 @@
 
 <dialog
   #removeDialog
-  class="director-dialog"
+  class="dialog"
+  role="alertdialog"
   aria-labelledby="director-remove-title"
   aria-describedby="director-remove-intro"
   (close)="onRemoveClosed()"
   data-testid="director-remove-dialog"
 >
-  <div class="director-dialog__inner">
-    <div class="director-dialog__header">
-      <h2 id="director-remove-title" data-testid="director-remove-heading">
+  <div class="dialog__panel">
+    <div class="dialog__header">
+      <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
+        <svg appIcon="delete"></svg>
+      </div>
+      <h2 class="dialog__title" id="director-remove-title" data-testid="director-remove-heading">
         Remove “{{ removingName() }}” from the board list?
       </h2>
+    </div>
+    <div class="dialog__body stack">
       <p id="director-remove-intro">
         They leave the home page straight away. You can add them again later.
       </p>
-    </div>
-    @if (removeFailed()) {
-      <div class="director-dialog__body">
-        <div class="director-dialog__errors" role="alert">
-          We couldn't save the board list. Try again.
+      @if (removeFailed()) {
+        <div class="alert alert--danger" role="alert">
+          <svg appIcon="error"></svg>
+          <div class="alert__body">We couldn't save the board list. Try again.</div>
         </div>
-      </div>
-    }
-    <div class="director-dialog__footer">
+      }
+    </div>
+    <div class="dialog__footer">
       <button
         type="button"
-        class="btn btn-secondary"
+        class="btn"
         autofocus
         [disabled]="removeBusy()"
         (click)="closeRemove()"
@@ -299,7 +334,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-danger"
+        class="btn btn--danger"
         [disabled]="removeBusy()"
         [attr.aria-busy]="removeBusy() ? 'true' : null"
         (click)="remove()"
