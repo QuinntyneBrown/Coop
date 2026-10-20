@@ -8,6 +8,7 @@ Narrated videos made from a script, a slide deck and captions. See the
 | Video | Topic | Runtime |
 | --- | --- | --- |
 | [01 · A website and a helping hand for OWN](01-own-board-overview/README.md) | Board pitch for the Coop platform | about 4 min 14 s |
+| [02 · The admin desk, on the Shelfie design](02-admin-design-update/README.md) | Update: the admin on the new design system (media not built yet) | about 3 min (estimated) |
 
 ## Journeys
 
