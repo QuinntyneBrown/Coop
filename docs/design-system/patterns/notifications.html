@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notifications — Coop design system</title>
+<meta name="description" content="How the Coop admin confirms saves and sends with an inline message in a live region, shows waiting work as a dashboard count, and why it does not use toasts.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Feedback</p>
+      <h1>Notifications</h1>
+      <p class="ds-lead">The admin tells staff that a change worked with a short message at the top of the screen they changed, and shows work that is waiting as a count on the dashboard. Messages stay put until the next change, so nobody has to read quickly.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#example">Composed example</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The admin has two notification surfaces. Neither floats, moves or times out.</p>
+      <ul>
+        <li><b>Saved message</b>: a success <a href="../components/alert.html">alert</a> (<code>.alert.alert--success</code>) inside a polite live region, placed under the page header and above the content it reports on. It confirms a save or a send in one sentence that names the thing and says where it now is: "“About us” is now on the website."; "“Autumn courtyard gathering” is published and sent to members who asked for notices." It stays until the next change on that screen replaces or clears it, or the person leaves the screen.</li>
+        <li><b>Waiting count</b>: a <a href="../components/metric-card.html">metric card</a> on the dashboard that counts what needs attention, such as "2 Unread messages", and opens the list it counts.</li>
+      </ul>
+      <p>The system also has a <a href="../components/toast.html">toast</a> and a page <a href="../components/alert.html">banner</a>. They are core options the admin does not use: every admin result belongs to the screen where it happened, and a message that disappears on a timer is easy to miss for anyone who reads slowly or looks away from the screen. The admin has no push notifications, notification centre or e-mail digest.</p>
+      <p>Failures are not notifications. A save that did not work is reported where the person can fix it, inside the form or dialog (see <a href="forms.html">forms</a> and <a href="feedback-and-loading.html">feedback and loading</a>).</p>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Situation</th><th scope="col">Use</th><th scope="col">Admin example</th></tr></thead>
+        <tbody>
+          <tr><td>A change on this screen was saved</td><td>Saved message</td><td>Board, Pages, Website, Settings → Theme, Profile, Change password</td></tr>
+          <tr><td>Something was sent to members</td><td>Saved message that says who received it</td><td>Documents, after a notice is published and sent</td></tr>
+          <tr><td>Work is waiting for staff</td><td>Waiting count on the dashboard</td><td>Unread messages, open maintenance requests</td></tr>
+          <tr><td>A save or send failed</td><td>Danger alert inside the form or dialog, with the values kept</td><td>New document dialog: the notice was published but not sent</td></tr>
+          <tr><td>Something just happened elsewhere, or will vanish on its own</td><td>Toast: not used in the admin</td><td>–</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Rules</h3>
+      <ul>
+        <li><b>One message per screen.</b> A new save replaces the old message; starting another change clears it. Messages never stack.</li>
+        <li><b>No timers.</b> A saved message never dismisses itself, so there is nothing to catch before it goes (WCAG 2.2.1). It also has no close button; the next action clears it.</li>
+        <li><b>Only after the server says yes.</b> A saved message appears when the save has been confirmed, never in advance and never after a failure.</li>
+        <li><b>Counts are read when the dashboard loads.</b> They are not live tickers and do not change while someone is reading the page.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>Saved message</h3>
+      <p>The live region is in the page from the start and stays empty until there is something to say; the alert is placed inside it. An icon and the word "is now", "is published" or "is saved" carry the meaning, so it is never colour alone.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div role="status" aria-live="polite" style="width: 100%;">
+            <div class="alert alert--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“About us” is now on the website.</div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>notifications/admin-page-saved/success. One sentence, no title, no close button.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="page-header"&gt;&lt;h1&gt;Pages&lt;/h1&gt;…&lt;/div&gt;
+&lt;div role="status" aria-live="polite"&gt;
+  &lt;!-- empty until a save is confirmed --&gt;
+  &lt;div class="alert alert--success"&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+    &lt;div class="alert__body"&gt;“About us” is now on the website.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;…the pages…&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Waiting count</h3>
+      <p>A metric card is a link to the list it counts. The number comes first, so a screen reader hears "2 Unread messages".</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="metric-grid" style="width: 100%;">
+            <a class="card metric-card" href="../../mocks/pages/admin-maintenance/default.html"><span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M15 4a5 5 0 0 0-5 6.3L4 16.3V20h3.7l6-6A5 5 0 0 0 20 9l-3 1-3-3 1-3z"/></svg></span><span class="stat"><span class="stat__value">3</span><span class="stat__label">Open requests</span></span></a>
+            <a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>notifications/admin-dashboard-unread/info. The unread count is the admin's only "you have something waiting" signal.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="example"><h2><a href="#example">Composed example</a></h2>
+      <p>The Documents screen just after Mira published the "Autumn courtyard gathering" notice and chose to send it. The message sits between the header and the filters, so it is the first thing read after the heading, and the notice itself is right below it.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack" style="width: 100%;">
+            <div class="page-header" style="margin-block: 0;">
+              <h3 style="font: var(--text-h2);">Documents</h3>
+              <a class="btn btn--primary" href="../../mocks/dialogs/admin-document-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New document</a>
+            </div>
+            <div role="status" aria-live="polite">
+              <div class="alert alert--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“Autumn courtyard gathering” is published and sent to members who asked for notices.</div></div>
+            </div>
+            <div class="tabs tabs--pill" role="tablist" aria-label="Document type">
+              <button class="tabs__tab" type="button" role="tab" id="nt-tab-all" aria-selected="true" aria-controls="nt-panel">All documents</button>
+              <button class="tabs__tab" type="button" role="tab" id="nt-tab-notices" aria-selected="false" aria-controls="nt-panel" tabindex="-1">Notices</button>
+              <button class="tabs__tab" type="button" role="tab" id="nt-tab-bylaws" aria-selected="false" aria-controls="nt-panel" tabindex="-1">Bylaws</button>
+              <button class="tabs__tab" type="button" role="tab" id="nt-tab-reports" aria-selected="false" aria-controls="nt-panel" tabindex="-1">Reports</button>
+            </div>
+            <div class="card card--flush" role="tabpanel" id="nt-panel" aria-labelledby="nt-tab-all">
+              <ul class="list">
+                <li class="list__item"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M3 10v4h4l8 5V5L7 10H3zM18 9a4 4 0 0 1 0 6"/></svg></span><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Autumn courtyard gathering</a><div class="list__meta">Notice · Oct 13, 2026</div></div><span class="badge badge--success">Published</span></li>
+                <li class="list__item"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3zM14 3v4h4M9 12h6M9 16h6"/></svg></span><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Shared spaces bylaw</a><div class="list__meta">Bylaw · Oct 13, 2026</div></div><span class="badge badge--success">Published</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>notifications/admin-notice-sent/success composed from page header, saved message, pill tabs and list.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">Saved message</th><th scope="col">Waiting count</th></tr></thead>
+        <tbody>
+          <tr><td>Nothing to say</td><td>The live region is present and empty; nothing shows.</td><td>The card shows 0 and still opens its list.</td></tr>
+          <tr><td>Shown</td><td>One success alert under the page header.</td><td>The number and its label.</td></tr>
+          <tr><td>Replaced</td><td>A second save on the same screen swaps the sentence in place; the region announces the new one.</td><td>–</td></tr>
+          <tr><td>Cleared</td><td>Starting another change, or leaving the screen, empties the region. Nothing is announced.</td><td>Updated the next time the dashboard loads.</td></tr>
+          <tr><td>Failed</td><td>No saved message. A danger alert appears inside the form or dialog, with the values kept: “Autumn courtyard gathering” is published, but it was not sent to members. Press Save to try again.</td><td>–</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Saved messages across the admin</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="alert alert--success" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“June Okonkwo-Baptiste” is now on the board list.</div></div>
+          <div class="alert alert--success" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your changes are now on the website.</div></div>
+          <div class="alert alert--success" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your theme is saved.</div></div>
+          <div class="alert alert--success" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your profile is saved.</div></div>
+          <div class="alert alert--success" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your password is changed. Use it the next time you sign in.</div></div>
+          <div class="alert alert--danger" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body">“Autumn courtyard gathering” is published, but it was not sent to members. Press Save to try again.</div></div>
+        </div>
+        <div class="ds-example__caption"><span>Board, Website, Theme, Profile and Change password saved messages, and the send failure from dialogs/admin-document-create/send-error (shown in its dialog, not on the page). Theme, profile and password wording is the system's; see Drift.</span></div>
+      </div>
+      <h3>Interactive parts</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Waiting count</th>
+            <td><a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a></td>
+            <td><a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html" data-state="hover"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a></td>
+            <td><a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html" data-state="focus"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a></td></tr>
+          <tr><th scope="row">Saved message</th><td colspan="3"><span class="text-caption">Not interactive: no close button, no link, no hover or focus state.</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack">
+          <div class="alert alert--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“About us” is now on the website.</div></div>
+          <a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a>
+        </div></div>
+        <div data-theme="dark"><div class="stack">
+          <div class="alert alert--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“About us” is now on the website.</div></div>
+          <a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__value">2</span><span class="stat__label">Unread messages</span></span></a>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Saved messages</b> are in the page flow, full width of the content column, at every size. The sentence wraps; nothing is cut off at 320px (400% zoom), and because the message is not fixed it never covers a field, a button or the phone tab bar.</li>
+        <li><b>Metric cards</b> fill <code>.metric-grid</code>: one per row on phones, as many 14rem columns as fit above that. The number and label stay together.</li>
+        <li>Neither surface changes position or size with the theme.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The saved message follows the status-message rule of WCAG 4.1.3: a <code>role="status"</code> container with <code>aria-live="polite"</code> that is in the page before anything is written into it. There is no WAI-ARIA APG pattern for it. A failure inside a dialog uses <code>role="alert"</code>. The waiting count is a plain link built from <a href="../components/metric-card.html">metric card</a>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips the saved message, which holds no controls; reaches each metric card on the dashboard.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>On a metric card, opens the list it counts.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>A saved message never takes focus. After a dialog saves and closes, focus returns to the control that opened it; the message is announced on its own. Focus never moves to the top of the page to show a message.</p>
+      <h3>Labelling</h3>
+      <p>Icons are <code>aria-hidden</code>; the sentence carries the meaning. The sentence names the item in quotation marks so it makes sense out of context. The metric card's name is its own text, number first: "2 Unread messages".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Saved message text</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Saved message icon</span><span class="ds-pair__ratio" data-contrast="--color-success-icon|--color-success-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Failure text in dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Metric value</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Metric label</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Unread icon</span><span class="ds-pair__ratio" data-contrast="--color-info-fg|--color-info-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Open requests icon</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Nothing animates. The message appears and disappears in place; the metric card's hover shadow changes over <code>--duration-fast</code> and is instant under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>The whole metric card is the target, far larger than 44px. The saved message has no targets, so it cannot be tapped by mistake.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Name the thing, then say where it is now</b>: "“About us” is now on the website."; "“June Okonkwo-Baptiste” is now on the board list."</li>
+        <li><b>Say who received it</b> when something was sent: "…is published and sent to members who asked for notices."</li>
+        <li><b>A failure says what did happen, what did not, and what to do</b>: "“Autumn courtyard gathering” is published, but it was not sent to members. Press Save to try again."</li>
+        <li><b>No "successfully"</b>, no exclamation marks, no "Success!" title. The sentence is the message.</li>
+        <li><b>One sentence, full stop at the end.</b> Add a second only when the person must do something next: "Use it the next time you sign in."</li>
+        <li><b>Count labels are plural nouns in sentence case</b>: "Unread messages", "Open requests".</li>
+      </ul>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <caption class="visually-hidden">Saved messages, as implemented and as the system writes them</caption>
+        <thead><tr><th scope="col">Screen</th><th scope="col">Implemented</th><th scope="col">System</th></tr></thead>
+        <tbody>
+          <tr><td>Board</td><td>“June Okonkwo-Baptiste” is now on the board list.</td><td>Same</td></tr>
+          <tr><td>Pages</td><td>“About us” is now on the website.</td><td>Same</td></tr>
+          <tr><td>Website</td><td>Your changes are now on the website.</td><td>Same</td></tr>
+          <tr><td>Documents</td><td>“Autumn courtyard gathering” is published and sent to members who asked for notices.</td><td>Same</td></tr>
+          <tr><td>Settings → Theme</td><td>Theme saved successfully</td><td>Your theme is saved.</td></tr>
+          <tr><td>Profile, Profiles</td><td>Profile updated successfully</td><td>Your profile is saved.</td></tr>
+          <tr><td>Change password</td><td>Password updated successfully</td><td>Your password is changed. Use it the next time you sign in.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="alert alert--success" role="note" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your theme is saved. <span class="text-caption">(inside a polite status region)</span></div></div></div><figcaption>Put every saved message inside a <code>role="status"</code> region that is already on the page.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="alert alert--success" role="note" style="width: 100%;"><div class="alert__body">Theme saved successfully <span class="text-caption">(a plain div, no live region)</span></div></div></div><figcaption>Insert a bare success box. Screen readers never hear it, as on the Theme, Profile and Change password screens.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="alert alert--danger" role="note" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body">Your profile was not saved. Check your connection and try again.</div></div></div><figcaption>Show "saved" only once the server confirms it; otherwise say it was not saved.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="alert alert--success" role="note" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Profile updated successfully</div></div></div><figcaption>Show a success message after a failed save. The profile and theme screens do this today.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="alert alert--success" role="note" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">“About us” is now on the website.</div></div></div><figcaption>Leave the message in the page until the next change, so it can be read at any pace.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast toast--success" role="note" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Saved!</div></div><span class="toast__progress" style="--value: 40%;" aria-hidden="true"></span></div></div><figcaption>Use a floating toast with a timer for admin results. It is gone before a slow reader reaches it.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><div class="alert alert--success" role="note"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body">Your password is changed.</div></div><div class="field"><label class="field__label" for="nt-do-pw">Current password</label><input class="input" id="nt-do-pw" type="password" autocomplete="current-password"></div></div><figcaption>Clear the form and its errors when the save succeeds.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><div class="alert alert--success" role="note"><div class="alert__body">Password updated successfully</div></div><div class="field"><label class="field__label" for="nt-dont-pw">Current password</label><input class="input" id="nt-dont-pw" type="password" aria-invalid="true" aria-describedby="nt-dont-pw-err" autocomplete="current-password"><p class="field__error" id="nt-dont-pw-err">Current password is required</p></div></div><figcaption>Leave "required" errors on screen next to a success message, as Change password does.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li>Saved messages in a live region: <a href="../../mocks/notifications/admin-board-saved/success.html">admin-board-saved/success</a>, <a href="../../mocks/notifications/admin-page-saved/success.html">admin-page-saved/success</a>, <a href="../../mocks/notifications/admin-website-saved/success.html">admin-website-saved/success</a>, <a href="../../mocks/notifications/admin-notice-sent/success.html">admin-notice-sent/success</a></li>
+        <li>Saved messages without a live region: <a href="../../mocks/notifications/admin-theme-saved/success.html">admin-theme-saved/success</a>, <a href="../../mocks/notifications/admin-profile-saved/success.html">admin-profile-saved/success</a>, <a href="../../mocks/notifications/admin-profiles-saved/success.html">admin-profiles-saved/success</a>, <a href="../../mocks/notifications/admin-password-saved/success.html">admin-password-saved/success</a></li>
+        <li>Waiting count: <a href="../../mocks/notifications/admin-dashboard-unread/info.html">admin-dashboard-unread/info</a>, <a href="../../mocks/pages/admin-dashboard/default.html">admin-dashboard/default</a>, <a href="../../mocks/pages/admin-dashboard/empty.html">admin-dashboard/empty</a> (counts of 0)</li>
+        <li>Send failure: <a href="../../mocks/dialogs/admin-document-create/send-error.html">admin-document-create/send-error</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Visual language.</b> The admin draws its messages in green with a Material Icons <code>check_circle</code> glyph and the Outfit font, light theme only. This system uses <code>.alert.alert--success</code> on the success tokens, an inline stroke SVG icon and both themes.</li>
+        <li><b>Four copies of one alert.</b> Board, Pages, Website and Documents each style their own message: <code>.board-alert--success</code>, <code>.pages-alert--success</code>, <code>.website-alert--success</code> and <code>.notice-alert--success</code>. They behave correctly (a polite <code>role="status"</code> region present before the message). The system uses one <code>.alert.alert--success</code> for all of them.</li>
+        <li><b>Messages that are never announced.</b> Theme, Profile, Profiles and Change password use the older <code>.alert.alert-success</code> with no live region, so screen-reader users get no confirmation.</li>
+        <li><b>Success after a failure.</b> The Profile and Profiles screens show "Profile updated successfully" even when the API save fails, and Theme shows "Theme saved successfully" when the API fails because the theme is also stored locally (mock notes). The system shows a saved message only after the server confirms.</li>
+        <li><b>Errors left beside success.</b> After Change password succeeds, the form resets but its "Current password is required" errors stay visible under the success message.</li>
+        <li><b>Wording.</b> The older screens say "… saved successfully" or "… updated successfully" in a fragment without a full stop. The system writes a full sentence that names what changed, as the newer screens already do.</li>
+        <li><b>The unread count is not a link.</b> The dashboard's <code>.metric-card .metric-icon .metric-count .metric-label</code> is a plain <code>div</code>; the count reads "Unread Messages" in Title Case. The system's metric card is an <code>&lt;a&gt;</code> to the Messages screen with the label in sentence case.</li>
+        <li><b>No toasts or push.</b> The admin uses neither, and this system keeps it that way; toast and banner remain documented as core components only.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

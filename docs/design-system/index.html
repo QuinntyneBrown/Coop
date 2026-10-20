@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Coop design system</title>
-<meta name="description" content="Tokens, components and patterns extracted from the implemented Coop UI mocks.">
+<meta name="description" content="The Coop admin design system: tokens, foundations, components and patterns for the housing co-op admin site, in light and dark themes.">
 <link rel="stylesheet" href="tokens/tokens.css">
-<link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/components.css">
 <link rel="stylesheet" href="assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
   <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="index.html">Coop design system</a></div>
+    <div class="ds-nav__brand"><a href="index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="foundations/color.html">Color</a></li>
       <li><a href="foundations/typography.html">Typography</a></li>
@@ -32,122 +31,202 @@
     <details open><summary>Components</summary><ul>
       <li><a href="components/button.html">Button</a></li>
       <li><a href="components/icon-button.html">Icon button</a></li>
+      <li><a href="components/link.html">Link</a></li>
+      <li><a href="components/menu.html">Menu</a></li>
       <li><a href="components/form-field.html">Form field</a></li>
+      <li><a href="components/text-field.html">Text field</a></li>
+      <li><a href="components/search-field.html">Search field</a></li>
+      <li><a href="components/textarea.html">Textarea</a></li>
+      <li><a href="components/select.html">Select</a></li>
       <li><a href="components/checkbox.html">Checkbox</a></li>
-      <li><a href="components/search-bar.html">Search bar</a></li>
+      <li><a href="components/radio-group.html">Radio group</a></li>
+      <li><a href="components/switch.html">Switch</a></li>
+      <li><a href="components/form-layout.html">Form layout</a></li>
+      <li><a href="components/photo-picker.html">Photo picker</a></li>
       <li><a href="components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="components/top-bar.html">Top bar</a></li>
-      <li><a href="components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="components/tab-bar.html">Tab bar</a></li>
       <li><a href="components/tabs.html">Tabs</a></li>
-      <li><a href="components/filter-chips.html">Filter chips</a></li>
+      <li><a href="components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="components/pagination.html">Pagination</a></li>
-      <li><a href="components/stepper.html">Stepper</a></li>
+      <li><a href="components/step-indicator.html">Step indicator</a></li>
+      <li><a href="components/skip-link.html">Skip link</a></li>
+      <li><a href="components/layout.html">Layout primitives</a></li>
+      <li><a href="components/divider.html">Divider</a></li>
       <li><a href="components/card.html">Card</a></li>
       <li><a href="components/dialog.html">Dialog</a></li>
+      <li><a href="components/tooltip.html">Tooltip</a></li>
       <li><a href="components/table.html">Table</a></li>
-      <li><a href="components/list-item.html">List item</a></li>
+      <li><a href="components/list.html">List</a></li>
       <li><a href="components/description-list.html">Description list</a></li>
       <li><a href="components/avatar.html">Avatar</a></li>
+      <li><a href="components/logo-mark.html">Logo mark</a></li>
       <li><a href="components/badge.html">Badge</a></li>
+      <li><a href="components/chip.html">Chip</a></li>
       <li><a href="components/metric-card.html">Metric card</a></li>
-      <li><a href="components/alert.html">Alert</a></li>
-      <li><a href="components/empty-state.html">Empty state</a></li>
+      <li><a href="components/picture-list.html">Picture list</a></li>
+      <li><a href="components/toast.html">Toast</a></li>
+      <li><a href="components/alert.html">Alert and banner</a></li>
+      <li><a href="components/inline-message.html">Inline message</a></li>
+      <li><a href="components/progress.html">Progress</a></li>
       <li><a href="components/spinner.html">Spinner</a></li>
+      <li><a href="components/skeleton.html">Skeleton</a></li>
+      <li><a href="components/empty-state.html">Empty state</a></li>
+      <li><a href="components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="patterns/forms.html">Forms</a></li>
-      <li><a href="patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="patterns/notifications.html">Notifications</a></li>
+      <li><a href="patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Design system</p>
       <h1>Coop design system</h1>
-      <p class="ds-lead">The visual language of the implemented Coop apps, written down once: tokens, components and patterns for the public member app and the admin app.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Extracted 13 October 2026</span></div>
+      <p class="ds-lead">The Coop admin site is where staff and board members of a housing co-operative for retired women look after maintenance requests, documents, members, the board and the co-op's public website. This system writes down every visual and interaction decision for that site once, so each screen is consistent, calm and accessible in both themes.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA, light and dark</span><span class="ds-pill">12 foundations</span><span class="ds-pill">44 components</span><span class="ds-pill">9 patterns</span><span class="ds-pill">Admin site only</span></div>
+      <ul class="ds-toc"><li><a href="#start">Start here</a></li><li><a href="#foundations">Foundations</a></li><li><a href="#components">Components</a></li><li><a href="#patterns">Patterns</a></li><li><a href="#use">How to use</a></li><li><a href="#provenance">Provenance</a></li></ul>
     </header>
 
     <section class="ds-section" id="start"><h2><a href="#start">Start here</a></h2>
-      <div class="ds-cards">
-    <a class="ds-card" href="foundations/color.html"><b>Color</b><span>Palette and contrast</span></a>
-    <a class="ds-card" href="foundations/typography.html"><b>Typography</b><span>Outfit and the scale</span></a>
-    <a class="ds-card" href="foundations/layout.html"><b>Layout</b><span>Breakpoints and shells</span></a>
-    <a class="ds-card" href="components/button.html"><b>Button</b><span>The main action</span></a>
-    <a class="ds-card" href="components/form-field.html"><b>Form field</b><span>Label, input and error</span></a>
-    <a class="ds-card" href="components/dialog.html"><b>Dialog</b><span>Confirm and form overlays</span></a>
-      </div>
+    <div class="ds-cards">
+      <a class="ds-card" href="foundations/color.html"><b>Color</b><span>Palette ramps, semantic roles, both themes, every contrast pair live.</span></a>
+      <a class="ds-card" href="foundations/typography.html"><b>Typography</b><span>Rounded system sans, nine sizes, role shorthands.</span></a>
+      <a class="ds-card" href="components/sidebar.html"><b>Sidebar navigation</b><span>The admin shell: thirteen sections and who is signed in.</span></a>
+      <a class="ds-card" href="components/button.html"><b>Button</b><span>Primary, secondary, ghost, danger; three sizes; busy.</span></a>
+      <a class="ds-card" href="components/form-field.html"><b>Form field</b><span>Label, help and error around every control.</span></a>
+      <a class="ds-card" href="components/dialog.html"><b>Dialog</b><span>Create, edit and remove; a bottom sheet on phones.</span></a>
+    </div>
     </section>
 
     <section class="ds-section" id="foundations"><h2><a href="#foundations">Foundations</a></h2>
-      <div class="ds-cards">
-    <a class="ds-card" href="foundations/color.html"><b>Color</b><span>Palette, semantic roles, status colours and every checked contrast pair.</span></a>
-    <a class="ds-card" href="foundations/typography.html"><b>Typography</b><span>Outfit, the size scale, weights and text roles.</span></a>
-    <a class="ds-card" href="foundations/spacing.html"><b>Spacing</b><span>The 4px scale and the inside and between rules.</span></a>
-    <a class="ds-card" href="foundations/layout.html"><b>Layout</b><span>Breakpoints, sidebar and dialog widths, and the app shells.</span></a>
-    <a class="ds-card" href="foundations/elevation.html"><b>Elevation</b><span>Three shadows and the z-order layers.</span></a>
-    <a class="ds-card" href="foundations/shape.html"><b>Shape</b><span>Radii and border widths.</span></a>
-    <a class="ds-card" href="foundations/motion.html"><b>Motion</b><span>Durations, easing and the spinner.</span></a>
-    <a class="ds-card" href="foundations/iconography.html"><b>Iconography</b><span>The Material Icons the product uses and how to label them.</span></a>
-    <a class="ds-card" href="foundations/theming.html"><b>Theming</b><span>Token tiers, component tokens and tokens.json. Light only.</span></a>
-    <a class="ds-card" href="foundations/responsive.html"><b>Responsive</b><span>What the product does at 640, 768 and 1024 pixels.</span></a>
-    <a class="ds-card" href="foundations/accessibility.html"><b>Accessibility</b><span>WCAG 2.2 AA commitments and the gaps found in the mocks.</span></a>
-    <a class="ds-card" href="foundations/content.html"><b>Content</b><span>Voice, casing and the product&#x27;s real microcopy.</span></a>
-      </div>
+    <p>The decisions everything else is built from. Each token appears on exactly one of these pages, with its light and dark value.</p>
+    <div class="ds-cards">
+      <a class="ds-card" href="foundations/color.html"><b>Color</b><span>Palette ramps, semantic roles, both themes, every contrast pair live.</span></a>
+      <a class="ds-card" href="foundations/typography.html"><b>Typography</b><span>Rounded system sans, nine sizes, role shorthands.</span></a>
+      <a class="ds-card" href="foundations/spacing.html"><b>Spacing</b><span>The 4px scale and the inside/between rule.</span></a>
+      <a class="ds-card" href="foundations/layout.html"><b>Layout</b><span>Breakpoints, columns, gutters, the admin shell.</span></a>
+      <a class="ds-card" href="foundations/elevation.html"><b>Elevation</b><span>Four shadows, surface hierarchy, z-order.</span></a>
+      <a class="ds-card" href="foundations/shape.html"><b>Shape</b><span>Radii, border widths and component sizes.</span></a>
+      <a class="ds-card" href="foundations/motion.html"><b>Motion</b><span>Durations, easings and reduced motion.</span></a>
+      <a class="ds-card" href="foundations/iconography.html"><b>Iconography</b><span>The 2px-stroke icon set for every admin section.</span></a>
+      <a class="ds-card" href="foundations/theming.html"><b>Theming</b><span>Light, dark, OS preference and the three token tiers.</span></a>
+      <a class="ds-card" href="foundations/responsive.html"><b>Responsive</b><span>Mobile first, reflow at 320px, the 768px shell switch.</span></a>
+      <a class="ds-card" href="foundations/accessibility.html"><b>Accessibility</b><span>The WCAG 2.2 AA commitments every component keeps.</span></a>
+      <a class="ds-card" href="foundations/content.html"><b>Content</b><span>A plain, warm admin voice; formulas and microcopy.</span></a>
+    </div>
     </section>
 
     <section class="ds-section" id="components"><h2><a href="#components">Components</a></h2>
-      <div class="ds-cards">
-    <a class="ds-card" href="components/button.html"><b>Button</b><span>Primary, secondary, outline, danger, sign out; small, default, large, block</span></a>
-    <a class="ds-card" href="components/icon-button.html"><b>Icon button</b><span>Icon only</span></a>
-    <a class="ds-card" href="components/form-field.html"><b>Form field</b><span>Text, password, select, textarea; hint; row</span></a>
-    <a class="ds-card" href="components/checkbox.html"><b>Checkbox</b><span>Labelled checkbox, role privilege toggle</span></a>
-    <a class="ds-card" href="components/search-bar.html"><b>Search bar</b><span>Search bar with icon</span></a>
-    <a class="ds-card" href="components/sidebar.html"><b>Sidebar navigation</b><span>Admin sidebar, public drawer</span></a>
-    <a class="ds-card" href="components/top-bar.html"><b>Top bar</b><span>Admin top bar, public top bar</span></a>
-    <a class="ds-card" href="components/bottom-tab-bar.html"><b>Bottom tab bar</b><span>Phone navigation</span></a>
-    <a class="ds-card" href="components/tabs.html"><b>Tabs</b><span>Segmented tab buttons</span></a>
-    <a class="ds-card" href="components/filter-chips.html"><b>Filter chips</b><span>Filter buttons, filter tabs</span></a>
-    <a class="ds-card" href="components/pagination.html"><b>Pagination</b><span>Page buttons with count</span></a>
-    <a class="ds-card" href="components/stepper.html"><b>Stepper</b><span>Step dots</span></a>
-    <a class="ds-card" href="components/card.html"><b>Card</b><span>Static, interactive, quick action</span></a>
-    <a class="ds-card" href="components/dialog.html"><b>Dialog</b><span>Confirm, form, viewer, detail</span></a>
-    <a class="ds-card" href="components/table.html"><b>Table</b><span>Table card with header row</span></a>
-    <a class="ds-card" href="components/list-item.html"><b>List item</b><span>Conversation, profile, notice, asset</span></a>
-    <a class="ds-card" href="components/description-list.html"><b>Description list</b><span>Label and value rows</span></a>
-    <a class="ds-card" href="components/avatar.html"><b>Avatar</b><span>Initials; small and large</span></a>
-    <a class="ds-card" href="components/badge.html"><b>Badge</b><span>Neutral, success, info, warning, danger</span></a>
-    <a class="ds-card" href="components/metric-card.html"><b>Metric card</b><span>Icon, label and count</span></a>
-    <a class="ds-card" href="components/alert.html"><b>Alert</b><span>Success, danger, form error</span></a>
-    <a class="ds-card" href="components/empty-state.html"><b>Empty state</b><span>Icon and message</span></a>
-    <a class="ds-card" href="components/spinner.html"><b>Spinner</b><span>Page spinner</span></a>
-      </div>
+    <p>Every component the admin mocks use, plus the core set every product needs. Each page has anatomy, variants, sizes, every state in both themes, responsive rules, accessibility, content guidance, do and don't, tokens, code and the admin mocks it comes from. Components that only served the Shelfie reading app are left out on purpose; see the README.</p>
+    <h3>Actions</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/button.html"><b>Button</b><span>Primary, secondary, ghost, danger; three sizes; busy.</span></a>
+      <a class="ds-card" href="components/icon-button.html"><b>Icon button</b><span>Edit and delete in a row; always named.</span></a>
+      <a class="ds-card" href="components/link.html"><b>Link</b><span>Underlined, inline and standalone.</span></a>
+      <a class="ds-card" href="components/menu.html"><b>Menu</b><span>A short list of actions behind one button.</span></a>
+    </div>
+    <h3>Inputs</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/form-field.html"><b>Form field</b><span>Label, help and error around every control.</span></a>
+      <a class="ds-card" href="components/text-field.html"><b>Text field</b><span>Username, e-mail, password, title.</span></a>
+      <a class="ds-card" href="components/search-field.html"><b>Search field</b><span>Find a user, a document or a conversation.</span></a>
+      <a class="ds-card" href="components/textarea.html"><b>Textarea</b><span>Request details, page content, notices.</span></a>
+      <a class="ds-card" href="components/select.html"><b>Select</b><span>Role, unit, document type, priority.</span></a>
+      <a class="ds-card" href="components/checkbox.html"><b>Checkbox</b><span>Remember me, terms, privileges.</span></a>
+      <a class="ds-card" href="components/radio-group.html"><b>Radio group</b><span>One choice from a short list.</span></a>
+      <a class="ds-card" href="components/switch.html"><b>Switch</b><span>A role's privilege on or off.</span></a>
+      <a class="ds-card" href="components/form-layout.html"><b>Form layout</b><span>Actions bar, error summary, danger zone.</span></a>
+      <a class="ds-card" href="components/photo-picker.html"><b>Photo picker</b><span>Choose, replace or remove a photo.</span></a>
+    </div>
+    <h3>Navigation</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/sidebar.html"><b>Sidebar navigation</b><span>The admin's sections, from 768px.</span></a>
+      <a class="ds-card" href="components/top-bar.html"><b>Top bar</b><span>Brand and actions across the top.</span></a>
+      <a class="ds-card" href="components/tab-bar.html"><b>Tab bar</b><span>The admin's phone navigation.</span></a>
+      <a class="ds-card" href="components/tabs.html"><b>Tabs</b><span>Settings sections and status filters.</span></a>
+      <a class="ds-card" href="components/breadcrumb.html"><b>Breadcrumb</b><span>Where a page sits.</span></a>
+      <a class="ds-card" href="components/pagination.html"><b>Pagination</b><span>Pages of users.</span></a>
+      <a class="ds-card" href="components/step-indicator.html"><b>Step indicator</b><span>Step N of M in onboarding.</span></a>
+      <a class="ds-card" href="components/skip-link.html"><b>Skip link</b><span>Jump straight to the content.</span></a>
+    </div>
+    <h3>Containers and overlays</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/layout.html"><b>Layout primitives</b><span>App shell, page header, container, stack, cluster, grid.</span></a>
+      <a class="ds-card" href="components/divider.html"><b>Divider</b><span>A rule, plain or labelled.</span></a>
+      <a class="ds-card" href="components/card.html"><b>Card</b><span>Requests, documents, profiles, pages, directors.</span></a>
+      <a class="ds-card" href="components/dialog.html"><b>Dialog</b><span>Create, edit and remove; a bottom sheet on phones.</span></a>
+      <a class="ds-card" href="components/tooltip.html"><b>Tooltip</b><span>A short description on hover and focus.</span></a>
+    </div>
+    <h3>Data display</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/table.html"><b>Table</b><span>Users, invitations, privileges.</span></a>
+      <a class="ds-card" href="components/list.html"><b>List</b><span>Recent requests, notices, conversations.</span></a>
+      <a class="ds-card" href="components/description-list.html"><b>Description list</b><span>Label and value pairs in detail views.</span></a>
+      <a class="ds-card" href="components/avatar.html"><b>Avatar</b><span>A person's photo, or their initial.</span></a>
+      <a class="ds-card" href="components/logo-mark.html"><b>Logo mark</b><span>The co-op's mark in the sidebar and on sign-in.</span></a>
+      <a class="ds-card" href="components/badge.html"><b>Badge</b><span>New, Received, Started, Completed; Active.</span></a>
+      <a class="ds-card" href="components/chip.html"><b>Chip</b><span>Filter by document type.</span></a>
+      <a class="ds-card" href="components/metric-card.html"><b>Metric card</b><span>Dashboard counts that open their list.</span></a>
+      <a class="ds-card" href="components/picture-list.html"><b>Picture list</b><span>The assets library and photo choices.</span></a>
+    </div>
+    <h3>Feedback</h3>
+    <div class="ds-cards">
+      <a class="ds-card" href="components/toast.html"><b>Toast</b><span>Brief confirmation, with undo.</span></a>
+      <a class="ds-card" href="components/alert.html"><b>Alert and banner</b><span>Saved, failed and page-wide messages.</span></a>
+      <a class="ds-card" href="components/inline-message.html"><b>Inline message</b><span>Field errors and help.</span></a>
+      <a class="ds-card" href="components/progress.html"><b>Progress</b><span>Uploading an asset.</span></a>
+      <a class="ds-card" href="components/spinner.html"><b>Spinner</b><span>Loading the board, pages and website.</span></a>
+      <a class="ds-card" href="components/skeleton.html"><b>Skeleton</b><span>Shape of the page while it loads.</span></a>
+      <a class="ds-card" href="components/empty-state.html"><b>Empty state</b><span>Nothing here yet, and what to do.</span></a>
+      <a class="ds-card" href="components/error-page.html"><b>Error page</b><span>404, 403, 500 and offline.</span></a>
+    </div>
     </section>
 
     <section class="ds-section" id="patterns"><h2><a href="#patterns">Patterns</a></h2>
-      <div class="ds-cards">
-    <a class="ds-card" href="patterns/forms.html"><b>Forms</b><span>Label above field, errors under the field, button row.</span></a>
-    <a class="ds-card" href="patterns/dialogs.html"><b>Dialogs</b><span>When to open a dialog, confirm and form shapes, stacked overlays.</span></a>
-    <a class="ds-card" href="patterns/navigation.html"><b>Navigation and app shell</b><span>Admin and public app shells, drawer and tab bar.</span></a>
-    <a class="ds-card" href="patterns/feedback.html"><b>Feedback and empty states</b><span>Success alerts, field errors, empty states and loading.</span></a>
-      </div>
+    <p>How components combine to do a job, and the rules that span them.</p>
+    <div class="ds-cards">
+      <a class="ds-card" href="patterns/forms.html"><b>Forms</b><span>Labels, validation timing, error summary, busy submit.</span></a>
+      <a class="ds-card" href="patterns/feedback-and-loading.html"><b>Feedback and loading</b><span>Which feedback for which action.</span></a>
+      <a class="ds-card" href="patterns/empty-and-error-states.html"><b>Empty and error states</b><span>Copy formulas and recovery.</span></a>
+      <a class="ds-card" href="patterns/navigation.html"><b>Navigation and page structure</b><span>The admin shell: sidebar, tab bar, page header.</span></a>
+      <a class="ds-card" href="patterns/dialogs-and-overlays.html"><b>Dialogs and overlays</b><span>Dialog, menu or page; sheets on phones.</span></a>
+      <a class="ds-card" href="patterns/lists-and-tables.html"><b>Lists and tables</b><span>Search, filter, paginate; tables that reflow.</span></a>
+      <a class="ds-card" href="patterns/notifications.html"><b>Notifications</b><span>Saved and sent messages; when to use a toast.</span></a>
+      <a class="ds-card" href="patterns/content-and-tone.html"><b>Content and tone</b><span>Plain, warm and respectful.</span></a>
+      <a class="ds-card" href="patterns/wizard-step.html"><b>Wizard step</b><span>Onboarding, one step at a time.</span></a>
+    </div>
     </section>
 
-    <section class="ds-section" id="how-to-use"><h2><a href="#how-to-use">How to use</a></h2>
+    <section class="ds-section" id="use"><h2><a href="#use">How to use</a></h2>
+      <h3>In the Angular admin app</h3>
       <ol>
-        <li>Link <code>tokens/tokens.css</code>, then <code>assets/fonts.css</code>, then <code>assets/components.css</code>.</li>
-        <li>Use the class names shown on each component page. They match the implemented apps.</li>
-        <li>Read colours, spacing, radii and durations through tokens. Never type a raw value.</li>
-        <li>Engineers can generate platform constants from <code>tokens/tokens.json</code>.</li>
+        <li>Load <code>tokens/tokens.css</code> first, then <code>assets/components.css</code>. Do not copy values out of them.</li>
+        <li>Use the class names and attributes from each component page. States come from real attributes (<code>disabled</code>, <code>aria-invalid</code>, <code>aria-pressed</code>, <code>aria-selected</code>, <code>aria-current</code>, <code>aria-busy</code>); <code>data-state</code> exists only so these pages can show a state without a pointer.</li>
+        <li>Theme with <code>data-theme="light|dark"</code> on <code>&lt;html&gt;</code>; with neither, the OS preference applies.</li>
+        <li>Need a value in TypeScript? Read <code>tokens/tokens.json</code> (W3C DTCG format; dark values under <code>$extensions</code>).</li>
       </ol>
+      <p>The admin app does not use this system yet. It still renders its own green, Outfit-based styles, and <a href="../mocks/index.html">docs/mocks</a> capture that implemented look. Moving the app onto this system is a separate production change; the README's drift log lists every difference it would close.</p>
+      <h3>Changing the system</h3>
+      <p>Change a brand hue in the primitives, a meaning in the semantic tier, a component look in its component tokens. After any colour change run <code>check_contrast.py</code>; after any page change run <code>check_design_system.py</code>. Both live in <code>.claude/skills/extracting-design-systems/scripts/</code>.</p>
+      <pre><code>python .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system/tokens/tokens.css
+python .claude/skills/extracting-design-systems/scripts/tokens_to_json.py docs/design-system/tokens/tokens.css
+python .claude/skills/extracting-design-systems/scripts/check_design_system.py docs/design-system</code></pre>
     </section>
 
     <section class="ds-section" id="provenance"><h2><a href="#provenance">Provenance</a></h2>
-      <p>Extracted from the implemented screens in <a href="../mocks/index.html">docs/mocks</a>. Only what the mocks show is documented. Where the mocks fall short of WCAG 2.2 AA, the page says what the system requires and lists the difference as drift in the <a href="README.md">README</a>.</p>
+      <p>On 20 October 2026 this system replaced Coop's earlier design system. Its visual language (violet accent, rounded system fonts, soft radii, pill buttons, light and dark themes) is adopted as-is from the Shelfie design system. Its components, examples, copy and sources are rewritten from the Coop admin mocks in <a href="../mocks/index.html">docs/mocks</a>: 20 pages, 19 dialogs and 9 notifications. The public app is out of scope. The <a href="README.md">README</a> records what was kept, what was left out and every difference from the implemented admin.</p>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="assets/ds.js"></script>

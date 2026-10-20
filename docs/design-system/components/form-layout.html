@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form layout — Coop design system</title>
+<meta name="description" content="How Coop admin forms are put together: one column of fields, the actions row at the end, the error summary at the top, a form beside its preview, and what everything does while it saves.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Form layout</h1>
+      <p class="ds-lead">The parts that hold an admin form together: one column of fields, the row of actions at the end, the error summary at the top, and what everything does while the form saves.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;form&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Form layout is a few small classes and one rule for the saving state. Field order, validation timing and how forms sit in pages and dialogs are in the <a href="../patterns/forms.html">forms pattern</a>.</p>
+      <ul>
+        <li><b><code>form.stack</code></b> spaces the <a href="form-field.html">form fields</a> evenly in one column (<code>--space-4</code> apart).</li>
+        <li><b><code>.form-actions</code></b> ends a form on a page: an end-aligned, wrapping row with the primary button last. In a <a href="dialog.html">dialog</a> the same buttons sit in <code>.dialog__footer</code>.</li>
+        <li><b><code>.form-summary</code></b> is a danger <a href="alert.html">alert</a> at the top of a form that could not be sent. It counts the problems and links each one to its field.</li>
+        <li><b><code>.grid</code> with <code>.span-7</code> and <code>.span-5</code></b> puts a form beside its preview, as on the Theme tab of Settings.</li>
+        <li><b>Saving</b>: the pressed button gets <code>aria-busy="true"</code>, text fields become <code>readonly</code>, and selects, checkboxes and the other buttons become <code>disabled</code>.</li>
+      </ul>
+      <p>The admin's forms: Sign in, Create account, Forgot password and Change password on their own pages; Add New User, Edit User, Create Invitation, New Maintenance Request and New Document in dialogs; and the theme form in Settings. <code>.danger-zone</code> also exists, for a destructive action that belongs to a whole record; no admin screen uses it, because deleting starts from a row action and a confirmation dialog.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <form class="card stack" style="width: 100%; max-width: 26rem;" action="../../mocks/pages/admin-dashboard/default.html" method="get" novalidate aria-labelledby="fl-anat-title">
+            <h3 id="fl-anat-title" class="card__title">Welcome back</h3>
+            <div class="alert alert--danger form-summary" role="alert" tabindex="-1"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">One thing to fix</div><ol><li><a href="#fl-anat-password">Enter your password</a></li></ol></div></div>
+            <div class="field"><label class="field__label" for="fl-anat-username">Username</label><input class="input" id="fl-anat-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" value="mira.fern"></div>
+            <div class="field"><label class="field__label" for="fl-anat-password">Password</label><input class="input" id="fl-anat-password" name="password" type="password" autocomplete="current-password" aria-invalid="true" aria-describedby="fl-anat-password-error"><div class="field__error" id="fl-anat-password-error">Enter your password.</div></div>
+            <div class="cluster cluster--between"><label class="checkbox"><input type="checkbox" name="remember" value="1"><span class="checkbox__text">Remember me</span></label><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></div>
+            <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+          </form>
+          <span class="ds-callout" style="left: 4%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 4%; top: 46%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 4%; top: 74%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 4%; top: 86%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Error summary</b><small><code>.alert.alert--danger.form-summary</code>, <code>role="alert"</code>, <code>tabindex="-1"</code>; an <code>&lt;ol&gt;</code> of links, one per problem, indented by <code>--space-5</code>.</small></div></li>
+          <li><div><b>Fields</b><small>One column of <code>.field</code>s, <code>--space-4</code> apart from <code>.stack</code>. Each error sits under its field.</small></div></li>
+          <li><div><b>Options row</b><small>A wrapping <code>.cluster.cluster--between</code>: "Remember me" at the start, "Forgot password?" at the end.</small></div></li>
+          <li><div><b>Primary action</b><small>On sign-in pages, one full-width <code>.btn--primary.btn--block</code>. Elsewhere, a <code>.form-actions</code> row.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Single column with an actions row</h3>
+      <p>Most admin forms: fields one under another, then Cancel and the primary action at the end. The primary says what saving does.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <form class="card stack" style="width: 100%;" action="../../mocks/pages/admin-users/default.html" method="get" novalidate aria-labelledby="fl-var-user-title">
+            <h3 id="fl-var-user-title" class="card__title">Add new user</h3>
+            <div class="field"><label class="field__label" for="fl-var-username">Username</label><input class="input" id="fl-var-username" name="username" type="text" autocapitalize="none" spellcheck="false" value="neri.vale"></div>
+            <div class="field"><label class="field__label" for="fl-var-role">Role</label><select class="select" id="fl-var-role" name="role"><option value="Member" selected>Member</option><option value="BoardMember">Board member</option><option value="SystemAdministrator">System administrator</option></select></div>
+            <div class="field"><label class="field__label" for="fl-var-password">Password</label><input class="input" id="fl-var-password" name="password" type="password" autocomplete="new-password" aria-describedby="fl-var-password-help"><span class="field__help" id="fl-var-password-help">At least 8 characters.</span></div>
+            <div class="form-actions"><a class="btn" href="../../mocks/pages/admin-users/default.html">Cancel</a><button class="btn btn--primary" type="submit">Create user</button></div>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>The Add New User fields. In the real dialog the two buttons sit in <code>.dialog__footer</code>, which uses the same order.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;form class="stack" novalidate&gt;
+  &lt;div class="field"&gt;…Username…&lt;/div&gt;
+  &lt;div class="field"&gt;…Role…&lt;/div&gt;
+  &lt;div class="field"&gt;…Password…&lt;/div&gt;
+  &lt;div class="form-actions"&gt;
+    &lt;a class="btn" href="/users"&gt;Cancel&lt;/a&gt;
+    &lt;button class="btn btn--primary" type="submit"&gt;Create user&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre></details>
+      </div>
+
+      <h3>Sign-in page</h3>
+      <p>Sign in and Create account end with one full-width primary, then a line that leads to the other page. A checkbox and a link can share an options row above the button.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <form class="stack" style="width: 100%; max-width: 26rem;" action="../../mocks/pages/admin-dashboard/default.html" method="get" novalidate aria-label="Sign in">
+            <div class="field"><label class="field__label" for="fl-var-si-username">Username</label><input class="input" id="fl-var-si-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+            <div class="field"><label class="field__label" for="fl-var-si-password">Password</label><input class="input" id="fl-var-si-password" name="password" type="password" autocomplete="current-password"></div>
+            <div class="cluster cluster--between"><label class="checkbox"><input type="checkbox" name="remember" value="1"><span class="checkbox__text">Remember me</span></label><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></div>
+            <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+            <p class="text-muted">New to the admin? <a href="../../mocks/pages/admin-register/default.html">Create an account</a></p>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Sign in. The options row wraps at narrow widths, so "Forgot password?" drops under the checkbox.</span></div>
+      </div>
+
+      <h3>Form beside a preview</h3>
+      <p>When a form changes how something looks, show the result next to it. The Theme tab of Settings puts the form in <code>.span-7</code> and the preview in <code>.span-5</code>; under 1024px the preview drops below the form.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="grid" style="width: 100%;">
+            <form class="card stack span-7" action="../../mocks/notifications/admin-theme-saved/success.html" method="get" novalidate aria-labelledby="fl-var-theme-title">
+              <h3 id="fl-var-theme-title" class="card__title">Theme</h3>
+              <p class="text-muted">Choose the colours for the app. The preview shows your changes before you save.</p>
+              <div class="field"><label class="field__label" for="fl-var-scope">Scope</label><select class="select" id="fl-var-scope" name="scope" style="max-width: 16rem;"><option value="Global" selected>Global</option><option value="Default">Default</option></select></div>
+              <div class="form-actions" style="justify-content: space-between;"><button class="btn btn--ghost" type="button">Reset to default</button><button class="btn btn--primary" type="submit">Save theme</button></div>
+            </form>
+            <section class="card stack span-5" aria-labelledby="fl-var-preview-title">
+              <h3 id="fl-var-preview-title" class="card__title">Preview</h3>
+              <div class="stack" style="gap: var(--space-3); padding: var(--space-4); background: var(--color-bg-canvas); border-radius: var(--radius-md);">
+                <p style="font: var(--text-label); color: var(--color-fg-on-accent); background: var(--color-accent); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);">OWN Housing Co-op</p>
+                <p>Sample content</p>
+                <span class="btn btn--primary btn--sm" aria-hidden="true" style="align-self: flex-start;">Button</span>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Settings, Theme tab. Scope and the actions sit inside the form; the preview is a separate section.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="grid"&gt;
+  &lt;form class="card stack span-7" novalidate&gt;…fields…
+    &lt;div class="form-actions" style="justify-content: space-between;"&gt;
+      &lt;button class="btn btn--ghost" type="button"&gt;Reset to default&lt;/button&gt;
+      &lt;button class="btn btn--primary" type="submit"&gt;Save theme&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+  &lt;section class="card stack span-5" aria-labelledby="preview-title"&gt;…&lt;/section&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Error summary</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="alert alert--danger form-summary" role="alert" tabindex="-1" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">Two things to fix</div><ol><li><a href="#fl-var-new">New password needs at least 8 characters</a></li><li><a href="#fl-var-confirm">The new passwords don't match</a></li></ol></div></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="fl-var-new">New password</label><input class="input" id="fl-var-new" name="new-password" type="password" autocomplete="new-password" aria-invalid="true" aria-describedby="fl-var-new-error"><div class="field__error" id="fl-var-new-error">Use at least 8 characters.</div></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="fl-var-confirm">Type the new password again</label><input class="input" id="fl-var-confirm" name="confirm-password" type="password" autocomplete="new-password" aria-invalid="true" aria-describedby="fl-var-confirm-error"><div class="field__error" id="fl-var-confirm-error">These don't match. Type the same password in both boxes.</div></div>
+        </div>
+        <div class="ds-example__caption"><span>Change password with two problems. The title counts them; each link moves focus to its field.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="alert alert--danger form-summary" role="alert" tabindex="-1"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+  &lt;div class="alert__body"&gt;
+    &lt;div class="alert__title"&gt;Two things to fix&lt;/div&gt;
+    &lt;ol&gt;&lt;li&gt;&lt;a href="#new-password"&gt;New password needs at least 8 characters&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#confirm-password"&gt;The new passwords don't match&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Form layout has no sizes; buttons and fields inside it carry their own."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Form layout has no sizes; buttons and fields inside it carry their own.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A form moves through four states. The same Sign in form in each:</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Form</th><th scope="col">Default</th><th scope="col">Invalid</th><th scope="col">Saving</th><th scope="col">Failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Sign in</th>
+            <td><div class="stack" style="min-width: 15rem;"><div class="field"><label class="field__label" for="fl-st-default-user">Username</label><input class="input" id="fl-st-default-user" type="text" value="mira.fern"></div><label class="checkbox"><input type="checkbox" name="fl-st-default-remember"><span class="checkbox__text">Remember me</span></label><button class="btn btn--primary btn--block" type="button">Sign in</button></div></td>
+            <td><div class="stack" style="min-width: 15rem;"><div class="alert alert--danger form-summary" role="alert" tabindex="-1"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">One thing to fix</div><ol><li><a href="#fl-st-invalid-user">Enter your username</a></li></ol></div></div><div class="field"><label class="field__label" for="fl-st-invalid-user">Username</label><input class="input" id="fl-st-invalid-user" type="text" value="" aria-invalid="true" aria-describedby="fl-st-invalid-user-error"><div class="field__error" id="fl-st-invalid-user-error">Enter your username.</div></div><label class="checkbox"><input type="checkbox" name="fl-st-invalid-remember"><span class="checkbox__text">Remember me</span></label><button class="btn btn--primary btn--block" type="button">Sign in</button></div></td>
+            <td><div class="stack" style="min-width: 15rem;"><div class="field"><label class="field__label" for="fl-st-busy-user">Username</label><input class="input" id="fl-st-busy-user" type="text" value="mira.fern" readonly></div><label class="checkbox"><input type="checkbox" name="fl-st-busy-remember" disabled><span class="checkbox__text">Remember me</span></label><button class="btn btn--primary btn--block" type="button" disabled aria-busy="true">Sign in</button></div></td>
+            <td><div class="stack" style="min-width: 15rem;"><div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't sign you in</div><div>Check your username and password, then try again.</div></div></div><div class="field"><label class="field__label" for="fl-st-failed-user">Username</label><input class="input" id="fl-st-failed-user" type="text" value="mira.fern"></div><label class="checkbox"><input type="checkbox" name="fl-st-failed-remember"><span class="checkbox__text">Remember me</span></label><button class="btn btn--primary btn--block" type="button">Sign in</button></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="alert alert--danger form-summary" role="alert" tabindex="-1" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">One thing to fix</div><ol><li><a href="#fl-st-invalid-user">Enter your username</a></li></ol></div></div><div class="form-actions" style="width: 100%;"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Create user</button></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="alert alert--danger form-summary" role="alert" tabindex="-1" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">One thing to fix</div><ol><li><a href="#fl-st-invalid-user">Enter your username</a></li></ol></div></div><div class="form-actions" style="width: 100%;"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Create user</button></div></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b>: the browser bubbles are off (<code>novalidate</code>). On submit the form checks itself; the summary appears at the top and takes focus, and each field shows its own error. What was typed stays.</li>
+        <li><b>Saving</b>: the pressed button is <code>disabled aria-busy="true"</code> and keeps its label; the spinner replaces the text visually. Text fields and textareas become <code>readonly</code>; selects, checkboxes, Cancel and the dialog's close button become <code>disabled</code>. Nothing moves, so there is no layout shift.</li>
+        <li><b>Failed</b> (the server said no, or could not be reached) is not a summary: it is a danger <a href="alert.html">alert</a> with <code>role="alert"</code> above the fields, and the form returns to its default state with the values kept. New Document's "published, but not sent to members" message is this state.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Forms are one column at every width, so they reflow at 320px and at 400% zoom without sideways scrolling. Fields are full width; short ones such as Scope may be capped with an inline <code>max-width</code>.</li>
+        <li><code>.form-actions</code> wraps. At 320px Cancel and Create user still share a line; if they ever do not fit, the primary wraps below and stays at the end.</li>
+        <li>The options row on Sign in is a wrapping <code>.cluster</code>; "Forgot password?" moves under the checkbox when space runs out.</li>
+        <li><code>.span-7</code> and <code>.span-5</code> are full width until 1024px, so the theme preview sits under its form on phones and tablets.</li>
+        <li>The error summary is always the first thing in the form, so it is in view when focus moves to it on any screen.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The summary uses the danger alert's tokens (<code>--color-danger-bg</code>, <code>--color-danger-fg</code>, <code>--color-danger-icon</code>, <code>--color-danger-border</code>) with a <code>--space-1</code> wide left edge. Everything else comes from the fields and buttons inside, so a form follows both themes with no overrides.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A native <code>&lt;form&gt;</code> named by its heading (<code>aria-labelledby</code>) with <code>novalidate</code>, so the system's own messages replace the browser bubbles. The summary is <code>role="alert"</code> with <code>tabindex="-1"</code>: it is announced and receives focus after a failed submit (WCAG 3.3.1, 3.3.3). A server failure is a separate <code>role="alert"</code> message.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Enter</kbd> in a text field</td><td>Submits the form. This only works when the fields and the submit button are inside one <code>&lt;form&gt;</code>.</td></tr>
+        <tr><td><kbd>Tab</kbd> after a failed submit</td><td>Focus is on the summary; Tab reaches its first link.</td></tr>
+        <tr><td><kbd>Enter</kbd> on a summary link</td><td>Moves focus to that field, scrolled into view.</td></tr>
+        <tr><td><kbd>Esc</kbd> in a dialog form</td><td>Closes the dialog, as Cancel does. Not while it is saving.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>In a dialog, focus starts on the first field. After a failed submit it moves to the summary. While saving it stays put: read-only fields keep it, and when the request ends focus goes to the result (the toast, the summary, the failure alert or the next page).</p>
+      <h3>Labelling</h3>
+      <p>Every field has a visible label tied with <code>for</code>. Help that applies to one field, such as "At least 8 characters", sits under that field and joins it with <code>aria-describedby</code>, not in a paragraph above the form. The summary title counts the problems; each link names the problem. A busy button keeps its name and adds <code>aria-busy="true"</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Summary text</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Summary icon</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Field error on card</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Field error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Help text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Primary button label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>None of its own. The summary appears without animation; the busy button's spinner follows the <a href="button.html">button</a> rules and stops under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>Summary links are text links in a list whose line height gives each row at least 24px. Buttons are 44px tall; the sign-in primary spans the form.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Summary titles are short and calm: "One thing to fix", "Two things to fix".</li>
+        <li>Summary links name the problem ("Enter your username"); the field error says how to fix it.</li>
+        <li>A failure says what happened and what to do: "We couldn't sign you in. Check your username and password, then try again."</li>
+        <li>Primary labels say what saving does, in sentence case: "Create user", "Save theme", "Sign in". Not "Submit".</li>
+        <li>Labels and headings are sentence case: "Confirm new password", not "Confirm New Password".</li>
+        <li>No placeholders as hints; put a hint under the field where it stays visible.</li>
+        <li>While saving, the button keeps its words. Do not change them to "Signing in...".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field" style="width: 100%;"><label class="field__label" for="fl-do-title">Title</label><input class="input" id="fl-do-title" name="title" type="text" value="" aria-invalid="true" aria-describedby="fl-do-title-error"><div class="field__error" id="fl-do-title-error">Give the request a short title, such as "Kitchen tap leak".</div></div></div><figcaption>Every invalid field says what is wrong, in words joined to the field.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field" style="width: 100%;"><label class="field__label" for="fl-dont-title">Title</label><input class="input" id="fl-dont-title" name="title" type="text" value="" aria-invalid="true"></div></div><figcaption>A red border and nothing else, as in New Maintenance Request: no words, and colour alone carries the message.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field" style="width: 100%;"><label class="field__label" for="fl-do-busy">Username</label><input class="input" id="fl-do-busy" type="text" value="mira.fern" readonly></div><button class="btn btn--primary btn--block" type="button" disabled aria-busy="true">Sign in</button></div><figcaption>While saving, the field is read-only and the button is busy but keeps its name.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field" style="width: 100%;"><label class="field__label" for="fl-dont-busy">Username</label><input class="input" id="fl-dont-busy" type="text" value="mira.fern"></div><button class="btn btn--primary btn--block" type="button" disabled>Signing in...</button></div><figcaption>The fields stay editable while the request runs and the button's name changes under the reader.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="form-actions" style="width: 100%;"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Update password</button></div></div><figcaption>The actions sit inside the form, so Enter submits and the buttons are found with the fields.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><span class="text-muted" style="text-decoration: underline;">Reset to Default</span><button class="btn btn--primary" type="button">Save Theme</button></div><figcaption>A "Reset to Default" link with no <code>href</code> and a Save button outside the form, as on Settings: the link cannot be reached by keyboard and Enter does nothing.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Summary background</td><td><code>--color-danger-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td></tr>
+          <tr><td>Summary and error text</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Summary icon</td><td><code>--color-danger-icon</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td></tr>
+          <tr><td>Summary border</td><td><code>--color-danger-border</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-border" data-swatch></i><span data-token="--color-danger-border"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-border" data-swatch></i><span data-token="--color-danger-border"></span></span></td></tr>
+          <tr><td>Summary edge width</td><td><code>--space-1</code></td><td><span data-token="--space-1"></span></td><td><span data-theme="dark" data-token="--space-1"></span></td></tr>
+          <tr><td>Summary list indent</td><td><code>--space-5</code></td><td><span data-token="--space-5"></span></td><td><span data-theme="dark" data-token="--space-5"></span></td></tr>
+          <tr><td>Field spacing (<code>.stack</code>)</td><td><code>--space-4</code></td><td><span data-token="--space-4"></span></td><td><span data-theme="dark" data-token="--space-4"></span></td></tr>
+          <tr><td>Actions gap / top padding</td><td><code>--space-3</code> / <code>--space-4</code></td><td><span data-token="--space-3"></span> / <span data-token="--space-4"></span></td><td><span data-theme="dark"><span data-token="--space-3"></span> / <span data-token="--space-4"></span></span></td></tr>
+          <tr><td>Columns / gutter (form beside preview)</td><td><code>--layout-columns</code> / <code>--layout-gutter</code></td><td><span data-token="--layout-columns"></span> / <span data-token="--layout-gutter"></span></td><td><span data-theme="dark"><span data-token="--layout-columns"></span> / <span data-token="--layout-gutter"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;form class="card stack" action="/users" method="post" novalidate aria-labelledby="new-user-title"&gt;
+  &lt;h2 id="new-user-title" class="card__title"&gt;Add new user&lt;/h2&gt;
+  &lt;!-- .form-summary here after a failed submit --&gt;
+  &lt;div class="field"&gt;…&lt;/div&gt;
+  &lt;div class="form-actions"&gt;
+    &lt;a class="btn" href="/users"&gt;Cancel&lt;/a&gt;
+    &lt;button class="btn btn--primary" type="submit"&gt;Create user&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>form.stack</code></td><td>One column of fields, <code>--space-4</code> apart.</td></tr>
+        <tr><td><code>.form-actions</code></td><td>End-aligned, wrapping action row with top padding. In dialogs use <code>.dialog__footer</code>.</td></tr>
+        <tr><td><code>.alert.alert--danger.form-summary</code></td><td>Error summary: danger alert with a thick left edge; its <code>ol</code> is indented by <code>--space-5</code>.</td></tr>
+        <tr><td><code>role="alert"</code> <code>tabindex="-1"</code></td><td>Announced, and focusable by script after a failed submit.</td></tr>
+        <tr><td><code>.cluster.cluster--between</code></td><td>Wrapping options row (checkbox and link).</td></tr>
+        <tr><td><code>.btn--block</code></td><td>Full-width primary on sign-in pages.</td></tr>
+        <tr><td><code>.grid</code> + <code>.span-7</code> / <code>.span-5</code></td><td>Form beside a preview from 1024px; stacked below.</td></tr>
+        <tr><td><code>.danger-zone</code></td><td>Bordered row for one destructive action on a whole record. Not used by the admin.</td></tr>
+        <tr><td><code>aria-busy="true"</code> + <code>disabled</code> on the submit</td><td>Saving; pair with <code>readonly</code> fields and <code>disabled</code> choices.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a>, <a href="../../mocks/pages/admin-login/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-login/submitting.html">submitting</a> and <a href="../../mocks/pages/admin-login/error.html">error</a> (options row, full-width primary, all four states)</li>
+        <li><a href="../../mocks/pages/admin-register/invalid.html">pages/admin-register/invalid</a>, <a href="../../mocks/pages/admin-register/mismatch.html">mismatch</a>, <a href="../../mocks/pages/admin-register/submitting.html">submitting</a> and <a href="../../mocks/pages/admin-register/error.html">error</a> (field errors, failure alert)</li>
+        <li><a href="../../mocks/pages/admin-change-password/invalid.html">pages/admin-change-password/invalid</a>, <a href="../../mocks/pages/admin-change-password/mismatch.html">mismatch</a> and <a href="../../mocks/pages/admin-change-password/submitting.html">submitting</a> (password hint, Cancel and Update password)</li>
+        <li><a href="../../mocks/dialogs/admin-user-create/default.html">dialogs/admin-user-create/default</a> and <a href="../../mocks/dialogs/admin-maintenance-create/invalid.html">dialogs/admin-maintenance-create/invalid</a> (dialog forms, errors without words)</li>
+        <li><a href="../../mocks/dialogs/admin-document-create/busy.html">dialogs/admin-document-create/busy</a> and <a href="../../mocks/dialogs/admin-document-create/send-error.html">send-error</a> (saving, failure inside a dialog)</li>
+        <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> (form beside a preview)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Spacing and actions.</b> The admin spaces fields with <code>.form-group</code> (16px bottom margin) and ends forms with <code>.modal-actions</code> in dialogs, <code>.btn-row</code> on Change password and <code>.theme-actions</code> on Settings. The system uses <code>form.stack</code>, <code>.form-actions</code> on pages and <code>.dialog__footer</code> in dialogs.</li>
+        <li><b>No error summary.</b> No admin form has one. Sign in, Create account and Change password show <code>.error-message</code> text under each field, not joined with <code>aria-describedby</code> and with no <code>aria-invalid</code>; only text and password inputs get the red <code>.invalid</code> border.</li>
+        <li><b>Errors without words.</b> New Maintenance Request and Add New User show touched fields with a red border only (<code>.ng-invalid.ng-touched</code>), with no message.</li>
+        <li><b>Failure alert.</b> Sign in and Create account show <code>.alert.alert-danger</code> ("Invalid username or password") above the form without <code>role="alert"</code>, so it is not announced. New Document's <code>.notice-alert--danger</code> does use <code>role="alert"</code>, which is the system's rule.</li>
+        <li><b>Saving.</b> Sign in and Create account change the button to "Signing in..." and "Creating...", and leave every field and "Remember me" editable. New Document disables Cancel, Close and the checkbox but leaves Title, Type, Content and Status editable. The system keeps the label, adds <code>aria-busy</code>, makes text fields read-only and disables the rest.</li>
+        <li><b>Form boundaries.</b> New Document's fields and buttons sit in a <code>div</code>, not a <code>&lt;form&gt;</code>, and its buttons have no <code>type</code>. On Settings, Scope and the Save Theme button sit outside the form, and "Reset to Default" is an <code>&lt;a&gt;</code> with no <code>href</code>, which a keyboard cannot reach.</li>
+        <li><b>Labels and hints.</b> Dialog labels have no <code>for</code> and repeat their name in <code>aria-label</code>. Auth pages use placeholders such as "Enter your username" as hints. Change password puts "Password must be at least 8 characters long" in a paragraph above the form. Labels and buttons are title case ("Confirm New Password", "Save Theme").</li>
+        <li><b>Look.</b> Green 8px-radius buttons (<code>.btn-primary</code>, <code>.btn-secondary</code>, <code>.btn-block</code>) and Outfit text; the system uses violet pill buttons, rounded system fonts and both themes.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tab bar — Coop design system</title>
+<meta name="description" content="The Coop admin's navigation on phones: Dashboard, Requests, Documents and Messages, plus a More tab that opens every section, in a bar fixed to the bottom of the screen. Hidden from 768px, where the sidebar takes over.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Tab bar</h1>
+      <p class="ds-lead">The admin's main navigation on a phone: the four busiest sections and a More tab, in a bar along the bottom of the screen where a thumb can reach them. More opens the full list of thirteen sections. From 768px the bar hides and the sidebar takes over.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;nav&gt;</code> of links</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use the tab bar on every signed-in admin page below 768px, in the same place and with the same five tabs every time: Dashboard, Requests (Maintenance), Documents, Messages and More. The first four are the sections staff open most from a phone: checking a leaking tap, sharing meeting notes, answering a member. <b>More</b> opens a dialog listing all thirteen sections, the same list as the <a href="sidebar.html">sidebar</a>, so Board, Users, Settings and the rest are reachable on a phone and at 400% zoom. The <a href="top-bar.html">top bar</a> sits at the top of the same screens and links the avatar to My profile, where Sign out lives.</p>
+      <ul>
+        <li>The four section tabs are links, not ARIA tabs: each one goes to a different page. More is a button that opens a <a href="dialog.html">dialog</a>. For views inside one page, use <a href="tabs.html">tabs</a>.</li>
+        <li>Put it in the app shell once, not inside each page, so it is never missing from a page.</li>
+        <li>The page wrapper gets <code>.has-tabbar</code> so the last card and its buttons are not hidden behind the bar.</li>
+        <li>Never show it on sign-in, registration or forgotten-password pages; there is nowhere to go until you are signed in.</li>
+        <li>In these pages, <code>.tabbar--static</code> shows the bar in the flow of the page at every width.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-10) var(--space-2);">
+          <div style="width: 100%;"><nav class="tabbar tabbar--static" aria-label="Admin, phone (anatomy)"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages<span class="badge badge--count" aria-label="2 unread">2</span></a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div>
+          <span class="ds-callout" style="left: 2%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 8%; top: 42%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 8%; top: 64%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 68%; top: 14%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 88%; top: 14%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Bar</b><small><code>nav.tabbar</code>, fixed to the bottom, <code>--layout-tabbar-height</code> (64px) plus the safe-area inset, surface background, hairline top edge.</small></div></li>
+          <li><div><b>Icon</b><small>24px (<code>--size-icon-lg</code>) stroke icon, the same icon the sidebar uses for that section; <code>aria-hidden</code>.</small></div></li>
+          <li><div><b>Label</b><small>One word in <code>--text-caption</code>, medium weight; the accessible name. The current tab is accent coloured.</small></div></li>
+          <li><div><b>Count badge (optional)</b><small><code>.badge--count</code> pinned to the icon's top right, only on Messages and only when something is unread.</small></div></li>
+          <li><div><b>More</b><small>A <code>&lt;button aria-haspopup="dialog"&gt;</code> in the last place, with a three-dot icon. Opens the All sections dialog.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>One variant: four section tabs and More. What changes is which tab is current, whether Messages shows a count, and whether the More dialog is open. The admin does not show a count today; the badge is there for when it does.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas" style="padding: var(--space-4) 0;">
+          <nav class="tabbar tabbar--static" aria-label="Admin, phone (Requests current)"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav>
+          <nav class="tabbar tabbar--static" aria-label="Admin, phone (Messages current, with a count)"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages<span class="badge badge--count" aria-label="2 unread">2</span></a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav>
+        </div>
+        <div class="ds-example__caption"><span>Top: on a maintenance request, Requests is current. Bottom: on Messages with two unread messages.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;nav class="tabbar" aria-label="Admin, phone"&gt;
+  &lt;a href="/dashboard"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Dashboard&lt;/a&gt;
+  &lt;a href="/maintenance" aria-current="page"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Requests&lt;/a&gt;
+  &lt;a href="/documents"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Documents&lt;/a&gt;
+  &lt;a href="/messages"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Messages
+    &lt;span class="badge badge--count" aria-label="2 unread"&gt;2&lt;/span&gt;&lt;/a&gt;
+  &lt;button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sections-dialog"&gt;
+    &lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;More&lt;/button&gt;
+&lt;/nav&gt;</code></pre></details>
+      </div>
+      <h3>More: every section in a dialog</h3>
+      <p>More opens a <a href="dialog.html">dialog</a> titled "All sections". Its body reuses <code>.sidebar__nav</code> with the same thirteen <code>.nav-link</code>s, icons and order as the sidebar, then My profile under a "Your account" heading (<code>.sidebar__group</code>); the current page carries <code>aria-current="page"</code>. Choosing a link goes to that page and closes the dialog. On a phone the dialog rises from the bottom as a sheet; from 640px it is centred.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas" style="padding: var(--space-4) 0;">
+          <div class="dialog dialog--static" id="more-dialog" role="dialog" aria-labelledby="more-title">
+      <div class="dialog__panel" style="margin-inline: auto;">
+        <div class="dialog__header"><h3 class="dialog__title" id="more-title">All sections</h3><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+        <div class="dialog__body"><nav class="sidebar__nav" aria-label="All admin sections">
+          <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
+          <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
+          <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
+          <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+          <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
+          <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
+          <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
+          <a class="nav-link" href="../../mocks/pages/admin-users/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg>Users</a>
+          <a class="nav-link" href="../../mocks/pages/admin-roles/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>Roles &amp; Privileges</a>
+          <a class="nav-link" href="../../mocks/pages/admin-profiles/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 10h3M15 14h3"/></svg>Profiles</a>
+          <a class="nav-link" href="../../mocks/pages/admin-assets/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>Assets</a>
+          <a class="nav-link" href="../../mocks/pages/admin-invitations/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Invitations</a>
+          <a class="nav-link" href="../../mocks/pages/admin-settings/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3.9a7 7 0 0 0-1.7-1L14.5 3h-5l-.4 2.4a7 7 0 0 0-1.7 1L5.1 5.5l-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 1.7 1l.4 2.4h5l.4-2.4a7 7 0 0 0 1.7-1l2.3.9 2-3.4-2-1.5c.1-.3.1-.7.1-1z"/></svg>Settings</a>
+          <p class="sidebar__group">Your account</p>
+          <a class="nav-link" href="../../mocks/pages/admin-profile/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>My profile</a>
+        </nav></div>
+      </div>
+    </div>
+          <nav class="tabbar tabbar--static" aria-label="Admin, phone (More open)"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="more-dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav>
+        </div>
+        <div class="ds-example__caption"><span>Mira Fern on Users, which has no tab of its own, with More open. Users is current in the list. Shown in flow (<code>.dialog--static</code>); in the product a <code>.backdrop</code> covers the page.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" id="sections-dialog" role="dialog" aria-modal="true" aria-labelledby="sections-title"&gt;
+  &lt;div class="dialog__panel"&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;h2 class="dialog__title" id="sections-title"&gt;All sections&lt;/h2&gt;
+      &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__body"&gt;
+      &lt;nav class="sidebar__nav" aria-label="All admin sections"&gt;
+        &lt;a class="nav-link" href="/dashboard"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Dashboard&lt;/a&gt;
+        …
+        &lt;a class="nav-link" href="/users" aria-current="page"&gt;…Users&lt;/a&gt;
+        …
+        &lt;a class="nav-link" href="/settings"&gt;…Settings&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="one size"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One height, <code>--layout-tabbar-height</code> (64px) plus <code>env(safe-area-inset-bottom)</code>; the five tabs share the width equally.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; current uses the real <code>aria-current="page"</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Theme</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Light</th>
+            <td data-theme="light"><nav class="tabbar tabbar--static" aria-label="Default, light"><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="light"><nav class="tabbar tabbar--static" aria-label="Hover, light"><a href="../../mocks/pages/admin-documents/default.html" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="light"><nav class="tabbar tabbar--static" aria-label="Focus, light"><a href="../../mocks/pages/admin-documents/default.html" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="light"><nav class="tabbar tabbar--static" aria-label="Current, light"><a href="../../mocks/pages/admin-documents/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td></tr>
+          <tr><th scope="row">Dark</th>
+            <td data-theme="dark"><nav class="tabbar tabbar--static" aria-label="Default, dark"><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="dark"><nav class="tabbar tabbar--static" aria-label="Hover, dark"><a href="../../mocks/pages/admin-documents/default.html" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="dark"><nav class="tabbar tabbar--static" aria-label="Focus, dark"><a href="../../mocks/pages/admin-documents/default.html" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td>
+            <td data-theme="dark"><nav class="tabbar tabbar--static" aria-label="Current, dark"><a href="../../mocks/pages/admin-documents/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes, full bar</h3>
+      <div class="ds-themes">
+        <div data-theme="light" style="padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Admin, phone, light theme"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div>
+        <div data-theme="dark" style="padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Admin, phone, dark theme"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div>
+      </div>
+      <ul>
+        <li><b>Current</b> turns the icon and label <code>--color-fg-accent</code> and sets <code>aria-current="page"</code>. A page inside a section keeps that section's tab current: one maintenance request keeps Requests current, a conversation keeps Messages current.</li>
+        <li><b>No current tab</b>: on a page without its own tab (Users, Settings and the other seven), no tab is current. The page heading says where you are, and the More dialog marks that section current.</li>
+        <li><b>More open</b>: <code>aria-expanded="true"</code> on the More button while the dialog shows; the button turns <code>--color-fg-accent</code>. The More button never takes <code>aria-current</code>; it is not a page.</li>
+        <li><b>Count</b>: shows on Messages only while something is unread, and never shows "0".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Base (phones, up to 767px)</b>: fixed to the bottom at <code>--z-sticky</code>, full width, five equal tabs. Padding includes <code>env(safe-area-inset-bottom)</code> so it clears the phone's home indicator.</li>
+        <li><code>.has-tabbar</code> on the page wrapper adds bottom padding of <code>--layout-tabbar-height</code> + <code>--space-6</code>, so the last card, its buttons and any focused field stay above the bar.</li>
+        <li><b>From 768px</b> (<code>--layout-breakpoint-md</code>) the bar is <code>display: none</code>, <code>.has-tabbar</code> drops its padding and the <a href="sidebar.html">sidebar</a> appears. <code>.tabbar--static</code> is exempt so these pages can show it.</li>
+        <li><b>At 320px</b> (a phone, or 400% zoom) each tab is 64px wide, enough for "Dashboard" or "Documents" on one line. Labels never truncate; a sixth tab would not fit.</li>
+        <li><b>Every section at every width</b>: the four tabs cover the busiest sections and More reaches all thirteen, so nothing the sidebar offers on a wide screen is lost on a phone or at 400% zoom. The More dialog is a bottom sheet below 640px and scrolls inside itself when the list is taller than the screen.</li>
+        <li>Toasts sit above the bar on phones (the <a href="toast.html">toast</a> region moves up by the bar's height).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The bar is <code>--color-bg-surface</code> with a hairline top edge in <code>--color-border-default</code>. Tabs read <code>--color-fg-muted</code>, <code>--color-fg-default</code> on hover and <code>--color-fg-accent</code> when current; the count badge reads the danger-solid pair. The dark theme swaps only those tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A native <code>&lt;nav aria-label="Admin, phone"&gt;</code> of links with <code>aria-current="page"</code>, following the APG <a href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/">landmark regions</a> guidance. Not the APG Tabs pattern: these change the page, so they are links and use plain Tab navigation. More is a <code>&lt;button aria-haspopup="dialog" aria-expanded aria-controls&gt;</code> that opens an APG <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">modal dialog</a> holding a second, labelled <code>&lt;nav aria-label="All admin sections"&gt;</code>. Only one admin navigation is visible at a time (the sidebar is <code>display: none</code> on phones), so screen readers meet one navigation landmark.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through Dashboard, Requests, Documents, Messages and More. The bar comes last in DOM order, after the page content. While the dialog is open, focus stays inside it.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows a tab link, or a section link in the dialog.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd> on More</td><td>Opens the All sections dialog and moves focus to the current section's link, or to the first link if no section is current.</td></tr>
+        <tr><td><kbd>Esc</kbd> in the dialog</td><td>Closes it and returns focus to More. The Close button does the same.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring around the whole tab. Because the bar is fixed, <code>.has-tabbar</code> padding keeps focused fields and buttons above it (WCAG 2.4.11, focus not obscured).</p>
+      <h3>Labelling</h3>
+      <p>The visible word is the name, including "More"; icons are <code>aria-hidden</code>. The dialog is named by its title, "All sections", and its close button by <code>aria-label="Close"</code>. The count badge has its own <code>aria-label</code> ("2 unread"), so the link reads "Messages, 2 unread, current page".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Tab label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current tab on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hovered tab on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Count badge</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Section link in the dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current section in the dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring in the dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The bar does not slide away or hide on scroll; it is always where people left it. The More dialog slides up over <code>--duration-slow</code>; reduced motion zeroes it.</p>
+      <h3>Touch</h3>
+      <p>Each tab is a fifth of the screen wide (64px at 320px) and at least 44px (<code>--target-comfortable</code>) of the 64px bar tall, with no gaps between tabs to miss.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Five words, in this order: Dashboard, Requests, Documents, Messages, More.</li>
+        <li>Labels use the sidebar's section name wherever it fits a fifth of a phone. "Maintenance" does not, so its tab says "Requests", from the page heading "Maintenance Requests". The icon is always the sidebar's icon for that section, so the two are recognisably the same place.</li>
+        <li>One word per tab; a label that wraps at 320px is too long.</li>
+        <li>The badge shows a number only; its spoken label says what the number counts.</li>
+        <li>The dialog title is "All sections"; its links use exactly the sidebar's words.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;div class="app-shell__main has-tabbar"&gt; … &lt;nav class="tabbar"&gt;</code></div><figcaption>Render the bar once in the app shell and pad the page with <code>.has-tabbar</code>, so every page has it and nothing hides behind it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;app-bottom-tab-bar&gt;</code> inside each page</div><figcaption>Adding the bar page by page. In the admin it is missing from Users, Roles, Assets, Invitations and Settings, and each page pads its own bottom by a fixed amount.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas" style="display: block; padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Do example: Messages current"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div><figcaption>Point the tab and the sidebar at the same address, so the right tab is current on Messages.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="display: block; padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Don't example: nothing current on Messages"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div><figcaption>The admin's Messages tab goes to <code>/messaging</code> while the sidebar uses <code>/messages</code>, so on the Messages page no tab is current.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas" style="display: block; padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Do example: four tabs and More"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div><figcaption>Four busy sections and More, so every section is at most two taps away on a phone.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><span class="nav-link"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</span><span class="nav-link"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</span><span class="text-muted">… eleven more links, then the page, then a tab bar</span></div><figcaption>The admin on a phone: the whole sidebar stacked above the page and a tab bar below it, two navigations that disagree.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="text-muted">Sign in page: no tab bar</span></div><figcaption>Leave the bar off signed-out pages.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="display: block; padding-inline: 0;"><nav class="tabbar tabbar--static" aria-label="Don't example: tab bar on sign in"><a href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a><a href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a><button type="button" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button></nav></div><figcaption>The admin shows the tab bar under the sign-in form on phones, offering sections a signed-out person cannot open.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Bar background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Top edge</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Tab</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Tab, hover</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Tab, current</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Badge</td><td><code>--color-danger-solid</code> / <code>--color-fg-on-danger</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Bar height</td><td><code>--layout-tabbar-height</code></td><td colspan="2"><span data-token="--layout-tabbar-height"></span></td></tr>
+          <tr><td>Tab minimum height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Icon</td><td><code>--size-icon-lg</code></td><td colspan="2"><span data-token="--size-icon-lg"></span></td></tr>
+          <tr><td>Label font</td><td><code>--text-caption</code>, <code>--font-weight-medium</code></td><td colspan="2"><span data-token="--text-caption"></span></td></tr>
+          <tr><td>Stacking</td><td><code>--z-sticky</code></td><td colspan="2"><span data-token="--z-sticky"></span></td></tr>
+          <tr><td>Page padding (<code>.has-tabbar</code>)</td><td><code>--layout-tabbar-height</code> + <code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span> extra</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="app-shell"&gt;
+  &lt;header class="sidebar"&gt;…&lt;/header&gt;
+  &lt;div class="app-shell__main has-tabbar"&gt;
+    &lt;header class="topbar"&gt;…&lt;/header&gt;
+    &lt;main id="main"&gt;…&lt;/main&gt;
+    &lt;nav class="tabbar" aria-label="Admin, phone"&gt;
+      &lt;a href="/dashboard" aria-current="page"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Dashboard&lt;/a&gt;
+      &lt;a href="/maintenance"&gt;…Requests&lt;/a&gt;
+      &lt;a href="/documents"&gt;…Documents&lt;/a&gt;
+      &lt;a href="/messages"&gt;…Messages&lt;/a&gt;
+      &lt;button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sections-dialog"&gt;…More&lt;/button&gt;
+    &lt;/nav&gt;
+    &lt;div class="dialog" id="sections-dialog" role="dialog" aria-modal="true" aria-labelledby="sections-title" hidden&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.tabbar</code></td><td>Fixed bottom bar; hidden from 768px.</td></tr>
+        <tr><td><code>.tabbar--static</code></td><td>Documentation only: in flow and visible at every width.</td></tr>
+        <tr><td><code>.has-tabbar</code></td><td>On the page wrapper: bottom padding for the bar on phones.</td></tr>
+        <tr><td><code>.badge--count</code></td><td>Number badge, pinned to the tab icon.</td></tr>
+        <tr><td><code>aria-current="page"</code></td><td>Current tab, and the current section in the More dialog.</td></tr>
+        <tr><td><code>button[aria-haspopup="dialog"]</code></td><td>The More tab: <code>.tabbar button</code> has the same look as the links, and <code>aria-expanded="true"</code> turns it accent while the dialog is open.</td></tr>
+        <tr><td><code>.dialog</code> + <code>.sidebar__nav</code> + <code>.nav-link</code></td><td>The All sections dialog, reusing the sidebar's list.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Adapted from the Shelfie design system's tab bar, and grounded in the admin's <code>.bottom-tab-bar</code> in these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (Dashboard current)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/default.html">pages/admin-maintenance/default</a> and <a href="../../mocks/pages/admin-maintenance/detail-new.html">detail-new</a> (Requests current)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (Documents current)</li>
+        <li><a href="../../mocks/pages/admin-messaging/default.html">pages/admin-messaging/default</a> (Messages page with no tab current)</li>
+        <li><a href="../../mocks/pages/admin-profile/default.html">pages/admin-profile/default</a> (the admin's Profile tab) and <a href="../../mocks/pages/admin-profiles/default.html">pages/admin-profiles/default</a> (Profiles page with no tab current)</li>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a> (tab bar under the sign-in form)</li>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> and <a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> (pages with no tab bar)</li>
+        <li><a href="../../mocks/notifications/admin-dashboard-unread/info.html">notifications/admin-dashboard-unread/info</a> (unread messages, the count the optional badge would show)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Classes</b>: the admin renders <code>nav.bottom-tab-bar</code> of <code>a.tab-item</code> with a Material Icons glyph and <code>.tab-label</code>, wrapped in <code>.mobile-only</code> on some pages. The system uses <code>nav.tabbar</code> with stroke SVG icons and <code>.has-tabbar</code>.</li>
+        <li><b>Current page</b>: the admin marks it with <code>.tab-item.active</code> (green text) and no <code>aria-current</code>; the nav has no accessible name. The system uses <code>aria-current="page"</code> and <code>aria-label="Admin, phone"</code>.</li>
+        <li><b>Placement</b>: the admin adds the bar inside each page component, so it is missing from Users, Roles, Assets, Invitations, Settings, Change password and Onboarding, and it appears under the sign-in form. The system renders it once in the app shell for signed-in pages only.</li>
+        <li><b>Routes</b>: Messages goes to <code>/messaging</code> and Profile to <code>/profile</code>, while the sidebar uses <code>/messages</code> and <code>/profiles</code>, so on the Messages and Profiles pages no tab is current. The system points both at the same address.</li>
+        <li><b>Clearance</b>: pages pad their own bottom by a fixed 72px or 80px; the bar has a stacking order of 1000. The system uses <code>.has-tabbar</code> and <code>--z-sticky</code>.</li>
+        <li><b>Breakpoint</b>: the admin hides the bar from 769px (<code>max-width: 768px</code> elsewhere); the system hides it with <code>min-width: 48rem</code>.</li>
+        <li><b>Label size</b>: the admin's labels are 14px; the system's <code>--text-caption</code> is 12px. Larger text is kinder to older eyes, so this is a gap in <code>components.css</code> to settle rather than a fix.</li>
+        <li><b>Theme</b>: the admin is light only. The system adds the dark theme.</li>
+        <li><b>Phone navigation</b>: at 768px and below the admin stacks the whole sidebar (brand, thirteen links, user) above the page and also shows the bottom tab bar, so a phone has two navigations and the page heading starts a long scroll down. The system hides the sidebar below 768px and reaches every section from the tab bar: four section tabs plus More, which opens the full list in a dialog.</li>
+        <li><b>Tabs</b>: the admin's five tabs are Home, Requests, Documents, Messages and Profile. The system renames Home to Dashboard to match the sidebar, and replaces Profile with More. My profile is reached from the avatar in the <a href="top-bar.html">top bar</a> and from the More dialog; Sign out stays on the Profile page.</li>
+        <li>The More button uses the shared <code>.tabbar button</code> rule; its open state is <code>aria-expanded="true"</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

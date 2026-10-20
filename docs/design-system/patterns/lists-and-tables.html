@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lists and tables — Coop design system</title>
+<meta name="description" content="How the Coop admin shows collections: the Users table with search and pagination, the Documents and Maintenance lists with filter tabs, and their loading, empty and no-results states.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Data display</p>
+      <h1>Lists and tables</h1>
+      <p class="ds-lead">The admin shows co-op records in three shapes: a table for the people who can sign in, a list for documents and maintenance requests, and a short list on the dashboard. A search field or a row of filters sits above each one, and long tables are split into pages.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#example">Composed example</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Staff and board members use these screens to find one record and act on it: a member who needs a new role, a notice to take down, a leaking tap to follow up. Every collection follows the same order from top to bottom, so a person who has learned one screen has learned them all:</p>
+      <ol>
+        <li><b>Page header</b>: the screen's title on the left and its one primary action on the right ("Add user", "New document", "New request").</li>
+        <li><b>Find</b>: a labelled <a href="../components/search-field.html">search field</a>, a row of <a href="../components/tabs.html">pill tabs</a> that filter by type or status, or both.</li>
+        <li><b>The collection</b>: a <a href="../components/table.html">table</a> in a flush <a href="../components/card.html">card</a> (Users), or a <a href="../components/list.html">list</a> (Documents, Maintenance, the dashboard's recent requests). Each row carries a <a href="../components/badge.html">status badge</a> and at most two <a href="../components/icon-button.html">icon buttons</a>.</li>
+        <li><b><a href="../components/pagination.html">Pagination</a></b>, only where the collection is split into pages (Users), with a summary of what is showing.</li>
+      </ol>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Use</th><th scope="col">When</th><th scope="col">Admin example</th></tr></thead>
+        <tbody>
+          <tr><td>Table</td><td>Several short facts per record that people compare down a column, and actions on each row.</td><td>Users: username, role, status, actions</td></tr>
+          <tr><td>List</td><td>A title, one or two lines of detail and a status. Reads on a phone without scrolling sideways.</td><td>Documents; Maintenance requests; Recent maintenance requests on the dashboard</td></tr>
+          <tr><td>Search</td><td>The collection can grow past what fits on one screen and people know the name they want.</td><td>Search users; Search documents</td></tr>
+          <tr><td>Pill tabs as filters</td><td>A small, fixed set of types or statuses, each worth seeing on its own.</td><td>Documents: All documents, Notices, Bylaws, Reports. Maintenance: All, New, Received, Started, Completed</td></tr>
+          <tr><td>Pagination</td><td>A table that is longer than a screen. Lists in the admin stay whole.</td><td>Users</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Newest first.</b> Maintenance requests are ordered by the date they were sent, newest at the top.</li>
+        <li><b>The selected tab and the results agree.</b> If a search runs across every type, no single tab stays selected while it shows.</li>
+        <li><b>Say what the search covers.</b> Users are found by username; documents by title. The placeholder says so.</li>
+        <li><b>No bulk selection, sorting or infinite scroll.</b> None of the admin collections has them.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>Documents list</h3>
+      <p>Pill tabs filter by type; the search finds a document by its title. Each row is a list item whose title is the one link that opens the document. The delete button is a separate control beside it, never inside the link.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack" style="width: 100%;">
+            <div class="tabs tabs--pill" role="tablist" aria-label="Document type">
+              <button class="tabs__tab" type="button" role="tab" id="lt-doc-tab-all" aria-selected="true" aria-controls="lt-doc-panel">All documents</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-doc-tab-notices" aria-selected="false" aria-controls="lt-doc-panel" tabindex="-1">Notices</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-doc-tab-bylaws" aria-selected="false" aria-controls="lt-doc-panel" tabindex="-1">Bylaws</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-doc-tab-reports" aria-selected="false" aria-controls="lt-doc-panel" tabindex="-1">Reports</button>
+            </div>
+            <div class="field">
+              <label class="field__label" for="lt-doc-search">Search documents</label>
+              <div class="search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="input" id="lt-doc-search" type="search" placeholder="Part of a title" autocomplete="off"><button class="btn btn--ghost btn--icon search__clear" type="button" aria-label="Clear search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            </div>
+            <div class="card card--flush" role="tabpanel" id="lt-doc-panel" aria-labelledby="lt-doc-tab-all">
+              <ul class="list">
+                <li class="list__item"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M3 10v4h4l8 5V5L7 10H3zM18 9a4 4 0 0 1 0 6"/></svg></span><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Autumn courtyard gathering</a><div class="list__meta">Notice · Oct 13, 2026</div></div><span class="badge badge--success">Published</span><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Autumn courtyard gathering"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></li>
+                <li class="list__item"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3zM14 3v4h4M9 12h6M9 16h6"/></svg></span><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Shared spaces bylaw</a><div class="list__meta">Bylaw · Oct 13, 2026</div></div><span class="badge badge--success">Published</span><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Shared spaces bylaw"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></li>
+                <li class="list__item"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M2 20h20"/></svg></span><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Meeting notes.pdf</a><div class="list__meta">Report · Oct 13, 2026</div></div><span class="badge badge--warning">Draft</span><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Meeting notes.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-documents/default, rebuilt with pill tabs, a labelled search and a real link per row.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="tabs tabs--pill" role="tablist" aria-label="Document type"&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" aria-selected="true" aria-controls="doc-panel"&gt;All documents&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="doc-panel" tabindex="-1"&gt;Notices&lt;/button&gt;
+  …
+&lt;/div&gt;
+&lt;div class="field"&gt;
+  &lt;label class="field__label" for="doc-search"&gt;Search documents&lt;/label&gt;
+  &lt;div class="search"&gt;…&lt;input class="input" id="doc-search" type="search" placeholder="Part of a title"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="card card--flush" role="tabpanel" id="doc-panel"&gt;
+  &lt;ul class="list"&gt;
+    &lt;li class="list__item"&gt;
+      &lt;span class="avatar" aria-hidden="true"&gt;&lt;svg class="icon"&gt;…&lt;/svg&gt;&lt;/span&gt;
+      &lt;div class="list__body"&gt;
+        &lt;a class="list__title" href="…"&gt;Autumn courtyard gathering&lt;/a&gt;
+        &lt;div class="list__meta"&gt;Notice · Oct 13, 2026&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span class="badge badge--success"&gt;Published&lt;/span&gt;
+      &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Autumn courtyard gathering"&gt;…&lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Maintenance requests</h3>
+      <p>Each request shows its title as the link to the request, what is wrong in one line, when it was sent and its status. The status badge pairs a tone with its word, so it never relies on colour.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack" style="width: 100%;">
+            <div class="tabs tabs--pill" role="tablist" aria-label="Request status">
+              <button class="tabs__tab" type="button" role="tab" id="lt-req-tab-all" aria-selected="true" aria-controls="lt-req-panel">All</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-req-tab-new" aria-selected="false" aria-controls="lt-req-panel" tabindex="-1">New</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-req-tab-received" aria-selected="false" aria-controls="lt-req-panel" tabindex="-1">Received</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-req-tab-started" aria-selected="false" aria-controls="lt-req-panel" tabindex="-1">Started</button>
+              <button class="tabs__tab" type="button" role="tab" id="lt-req-tab-done" aria-selected="false" aria-controls="lt-req-panel" tabindex="-1">Completed</button>
+            </div>
+            <section class="card card--flush" role="tabpanel" id="lt-req-panel" aria-labelledby="lt-req-tab-all">
+              <ul class="list">
+                <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a><div class="list__meta">The kitchen tap drips after it is closed.</div><div class="list__meta">Oct 13, 2026, 8:00 AM</div></div><span class="badge badge--warning">New</span></li>
+                <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-received.html">Hallway light</a><div class="list__meta">The light outside unit 101 flickers.</div><div class="list__meta">Oct 9, 2026, 10:30 AM</div></div><span class="badge badge--neutral">Received</span></li>
+                <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-started.html">Courtyard gate</a><div class="list__meta">The courtyard gate needs its hinges adjusted.</div><div class="list__meta">Oct 2, 2026, 1:15 PM</div></div><span class="badge badge--info">Started</span></li>
+                <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-completed.html">Window latch</a><div class="list__meta">The bedroom window latch has been repaired.</div><div class="list__meta">Sep 22, 2026, 9:45 AM</div></div><span class="badge badge--success">Completed</span></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-maintenance/default. Status tones: New warning, Received neutral, Started info, Completed success.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="example"><h2><a href="#example">Composed example</a></h2>
+      <p>The Users screen put together: header with its one action, a labelled search, the table in a flush card, row actions named for their row, and pagination with a summary. Resize the window to see the header wrap and the table scroll inside its card.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack" style="width: 100%;">
+            <div class="page-header" style="margin-block: 0;">
+              <h3 style="font: var(--text-h2);">Users</h3>
+              <a class="btn btn--primary" href="../../mocks/dialogs/admin-user-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add user</a>
+            </div>
+            <div class="field" style="max-width: 24rem;">
+              <label class="field__label" for="lt-user-search">Search users</label>
+              <div class="search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="input" id="lt-user-search" type="search" placeholder="Part of a username" autocomplete="off"><button class="btn btn--ghost btn--icon search__clear" type="button" aria-label="Clear search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            </div>
+            <section class="card card--flush" aria-labelledby="lt-users-title">
+              <h4 class="visually-hidden" id="lt-users-title">All users</h4>
+              <div class="table-wrap table-wrap--flush"><table class="table">
+                <caption class="visually-hidden">Users, page 1 of 2</caption>
+                <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+                <tbody>
+                  <tr><td><span class="cluster" style="flex-wrap: nowrap; gap: var(--space-2);"><span class="avatar avatar--sm" aria-hidden="true">MF</span>mira.fern</span></td><td>System administrator</td><td><span class="badge badge--success">Active</span></td><td><span class="cluster" style="flex-wrap: nowrap; gap: var(--space-1);"><a class="btn btn--ghost btn--icon" href="../../mocks/dialogs/admin-user-edit/default.html" aria-label="Edit mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></a><a class="btn btn--ghost btn--icon" href="../../mocks/dialogs/admin-user-delete/default.html" aria-label="Delete mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></a></span></td></tr>
+                  <tr><td><span class="cluster" style="flex-wrap: nowrap; gap: var(--space-2);"><span class="avatar avatar--sm" aria-hidden="true">TM</span>tavi.moss</span></td><td>Board member</td><td><span class="badge badge--success">Active</span></td><td><span class="cluster" style="flex-wrap: nowrap; gap: var(--space-1);"><a class="btn btn--ghost btn--icon" href="../../mocks/dialogs/admin-user-edit/default.html" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></a><a class="btn btn--ghost btn--icon" href="../../mocks/dialogs/admin-user-delete/default.html" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></a></span></td></tr>
+                </tbody>
+              </table></div>
+              <nav class="pagination" aria-label="Users pages">
+                <p role="status" style="margin: 0;">Showing 1 to 2 of 4 users</p>
+                <ul class="pagination__list">
+                  <li><a class="pagination__link" role="link" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg><span class="visually-hidden">Previous page</span></a></li>
+                  <li><a class="pagination__link" href="../../mocks/pages/admin-users/default.html" aria-current="page"><span class="visually-hidden">Page </span>1</a></li>
+                  <li><a class="pagination__link" href="../../mocks/pages/admin-users/page-2.html"><span class="visually-hidden">Page </span>2</a></li>
+                  <li><a class="pagination__link" href="../../mocks/pages/admin-users/page-2.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg><span class="visually-hidden">Next page</span></a></li>
+                </ul>
+              </nav>
+            </section>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-users/default composed from page header, search field, table, avatar, badge, icon button and pagination.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="page-header"&gt;
+  &lt;h1&gt;Users&lt;/h1&gt;
+  &lt;a class="btn btn--primary" href="…"&gt;&lt;svg class="icon" aria-hidden="true"&gt;…&lt;/svg&gt;Add user&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="field"&gt;
+  &lt;label class="field__label" for="user-search"&gt;Search users&lt;/label&gt;
+  &lt;div class="search"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+&lt;section class="card card--flush" aria-labelledby="users-title"&gt;
+  &lt;h2 class="visually-hidden" id="users-title"&gt;All users&lt;/h2&gt;
+  &lt;div class="table-wrap table-wrap--flush"&gt;
+    &lt;table class="table"&gt;
+      &lt;caption class="visually-hidden"&gt;Users, page 1 of 2&lt;/caption&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Username&lt;/th&gt;…&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;span class="avatar avatar--sm" aria-hidden="true"&gt;MF&lt;/span&gt;mira.fern&lt;/td&gt;
+          …
+          &lt;td&gt;&lt;a class="btn btn--ghost btn--icon" href="…" aria-label="Edit mira.fern"&gt;…&lt;/a&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+  &lt;nav class="pagination" aria-label="Users pages"&gt;
+    &lt;p role="status"&gt;Showing 1 to 2 of 4 users&lt;/p&gt;
+    &lt;ul class="pagination__list"&gt;
+      &lt;li&gt;&lt;a class="pagination__link" role="link" aria-disabled="true"&gt;…Previous page&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a class="pagination__link" href="…" aria-current="page"&gt;1&lt;/a&gt;&lt;/li&gt;
+      …
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/section&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Loading</td><td>The header, search and filters render at once; a <a href="../components/spinner.html">spinner</a> with words takes the collection's place.</td><td><a href="../../mocks/pages/admin-documents/loading.html">admin-documents/loading</a>, <a href="../../mocks/pages/admin-maintenance/loading.html">admin-maintenance/loading</a></td></tr>
+          <tr><td>Empty</td><td>An <a href="../components/empty-state.html">empty state</a> in place of the collection, with the screen's primary action. No table headers, no "Showing 0 to 0".</td><td><a href="../../mocks/pages/admin-users/empty.html">admin-users/empty</a>, <a href="../../mocks/pages/admin-documents/empty.html">admin-documents/empty</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">admin-maintenance/empty</a></td></tr>
+          <tr><td>No results</td><td>A different empty state that names the search or filter and offers to clear it.</td><td><a href="../../mocks/pages/admin-users/no-results.html">admin-users/no-results</a>, <a href="../../mocks/pages/admin-documents/no-results.html">admin-documents/no-results</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">admin-maintenance/no-results</a></td></tr>
+          <tr><td>Filtered</td><td>The selected pill tab is accent-tinted; the list shows only that type or status.</td><td><a href="../../mocks/pages/admin-documents/notices.html">admin-documents/notices</a>, <a href="../../mocks/pages/admin-maintenance/started.html">admin-maintenance/started</a></td></tr>
+          <tr><td>Later page</td><td>The current page link is filled; Next is disabled on the last page.</td><td><a href="../../mocks/pages/admin-users/page-2.html">admin-users/page-2</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Loading, empty and no results</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="card card--flush" style="flex: 1; min-width: min(100%, 14rem);"><div class="loading" role="status"><span class="spinner" aria-hidden="true"></span>Loading documents…</div></div>
+          <div class="card card--flush" style="flex: 1; min-width: min(100%, 14rem);"><div class="empty"><span class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" viewBox="0 0 24 24"><path d="M3 13h5l1 3h6l1-3h5M5 5h14l2 8v6H3v-6l2-8z"/></svg></span><p class="empty__title">No requests yet</p><p class="empty__text">When a member reports a problem, it appears here.</p><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/dialogs/admin-maintenance-create/default.html">New request</a></div></div></div>
+          <div class="card card--flush" style="flex: 1; min-width: min(100%, 14rem);"><div class="empty"><span class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><p class="empty__title">No users match “zed”</p><p class="empty__text">Check the spelling, or clear the search to see everyone.</p><div class="empty__actions"><button class="btn" type="button">Clear search</button></div></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Loading with words, a first-use empty state with the screen's action, and no results with a way back.</span></div>
+      </div>
+      <h3>Interactive parts</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected or current</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Filter tab</th>
+            <td><span class="tabs tabs--pill" role="tablist" aria-label="Default tab example"><button class="tabs__tab" type="button" role="tab" aria-selected="false">New</button></span></td>
+            <td><span class="tabs tabs--pill" role="tablist" aria-label="Hover tab example"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="hover">New</button></span></td>
+            <td><span class="tabs tabs--pill" role="tablist" aria-label="Focus tab example"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="focus">New</button></span></td>
+            <td><span class="tabs tabs--pill" role="tablist" aria-label="Selected tab example"><button class="tabs__tab" type="button" role="tab" aria-selected="true">All</button></span></td>
+            <td><span class="text-caption">Not used</span></td></tr>
+          <tr><th scope="row">Row action</th>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit oren.reed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" data-state="hover" aria-label="Edit oren.reed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" data-state="focus" aria-label="Edit oren.reed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button></td>
+            <td><span class="text-caption">–</span></td>
+            <td><span class="text-caption">Not used</span></td></tr>
+          <tr><th scope="row">Page link</th>
+            <td><a class="pagination__link" href="../../mocks/pages/admin-users/page-2.html"><span class="visually-hidden">Page </span>2</a></td>
+            <td><a class="pagination__link" href="../../mocks/pages/admin-users/page-2.html" data-state="hover"><span class="visually-hidden">Page </span>2</a></td>
+            <td><a class="pagination__link" href="../../mocks/pages/admin-users/page-2.html" data-state="focus"><span class="visually-hidden">Page </span>2</a></td>
+            <td><a class="pagination__link" href="../../mocks/pages/admin-users/default.html" aria-current="page"><span class="visually-hidden">Page </span>1</a></td>
+            <td><a class="pagination__link" role="link" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg><span class="visually-hidden">Next page</span></a></td></tr>
+          <tr><th scope="row">Table row</th>
+            <td colspan="2"><div class="table-wrap"><table class="table"><caption class="visually-hidden">Row states</caption><tbody><tr><td>neri.vale</td><td>Board member</td></tr><tr data-state="hover"><td>oren.reed (hover)</td><td>Member</td></tr></tbody></table></div></td>
+            <td colspan="3"><span class="text-caption">Rows are not focusable; their links and buttons are.</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="card card--flush"><ul class="list">
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a><div class="list__meta">Oct 13, 2026, 8:00 AM</div></div><span class="badge badge--warning">New</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-received.html">Hallway light</a><div class="list__meta">Oct 9, 2026, 10:30 AM</div></div><span class="badge badge--neutral">Received</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-started.html">Courtyard gate</a><div class="list__meta">Oct 2, 2026, 1:15 PM</div></div><span class="badge badge--info">Started</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-completed.html">Window latch</a><div class="list__meta">Sep 22, 2026, 9:45 AM</div></div><span class="badge badge--success">Completed</span></li>
+        </ul></div></div>
+        <div data-theme="dark"><div class="card card--flush"><ul class="list">
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a><div class="list__meta">Oct 13, 2026, 8:00 AM</div></div><span class="badge badge--warning">New</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-received.html">Hallway light</a><div class="list__meta">Oct 9, 2026, 10:30 AM</div></div><span class="badge badge--neutral">Received</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-started.html">Courtyard gate</a><div class="list__meta">Oct 2, 2026, 1:15 PM</div></div><span class="badge badge--info">Started</span></li>
+          <li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/pages/admin-maintenance/detail-completed.html">Window latch</a><div class="list__meta">Sep 22, 2026, 9:45 AM</div></div><span class="badge badge--success">Completed</span></li>
+        </ul></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Page header</b>: the primary action sits beside the title from 640px and wraps under it below that.</li>
+        <li><b>Search</b> is full width on phones and capped at 24rem above that, so the text stays close to its label.</li>
+        <li><b>Pill tabs</b> wrap onto a second line rather than scrolling, so no filter is hidden off-screen.</li>
+        <li><b>Lists</b> keep one row per record at every width. The title and meta wrap inside <code>.list__body</code>; the badge and icon button keep their size. At 320px (400% zoom) nothing scrolls sideways.</li>
+        <li><b>The Users table</b> scrolls sideways inside its <code>.table-wrap</code> when it does not fit, never the page. WCAG 1.4.10 allows this for data tables. Keep it to four columns so at most one scrolls out of view.</li>
+        <li><b>Pagination</b>: the summary and the page links wrap onto separate lines on narrow screens; every link stays at least 44px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Lists are <code>&lt;ul&gt;</code>; each row has one link, its title. The Users table is a native <code>&lt;table&gt;</code> with a visually hidden <code>&lt;caption&gt;</code> and <code>scope="col"</code> headers. Filters follow the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">WAI-ARIA tabs pattern</a> with manual activation (see <a href="../components/tabs.html">tabs</a>). Pagination is a <code>&lt;nav&gt;</code> with its own label and <code>aria-current="page"</code>. The search field is a native <code>type="search"</code> input with a visible label.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves through the primary action, the search, the selected filter tab, each row's title link and row actions, then the page links.</td></tr>
+        <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>Moves between filter tabs; <kbd>Enter</kbd> or <kbd>Space</kbd> applies the one in focus.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the document or request, follows a page link, or runs a row action.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>In the search field, clears the text.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring draws around links, tabs and icon buttons. Choosing a filter tab or a page link leaves focus where it is; the status summary announces the new range. When a delete dialog closes, focus returns to the list, never to the top of the page (see <a href="dialogs-and-overlays.html">dialogs and overlays</a>).</p>
+      <h3>Labelling</h3>
+      <p>Every row action is named for its row: "Edit mira.fern", "Delete Autumn courtyard gathering". Avatars and type icons are <code>aria-hidden</code> because the name or type is written beside them. The pagination summary is a polite status, so searching or changing page announces "Showing 1 to 2 of 4 users".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Row meta on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Table header on sunken</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Row text on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected filter tab</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current page</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>New badge</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Received badge</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Started badge</span><span class="ds-pair__ratio" data-contrast="--color-info-fg|--color-info-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Completed badge</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Search border on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Row hover and tab selection tint over <code>--duration-fast</code>; the loading spinner turns. Under reduced motion the tints are instant and the spinner stops after one turn; the words "Loading documents…" still say what is happening.</p>
+      <h3>Touch</h3>
+      <p>Filter tabs and page links are at least 44px tall. Icon buttons are 40px square with a 4px gap, above the 24px minimum, and sit at the end of the row away from the title link. Nothing depends on hover.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Column headers and tabs are short nouns in sentence case</b>: "Username", "Role", "Status"; "All documents", "Notices", "Bylaws", "Reports".</li>
+        <li><b>Role names read as words</b>: "System administrator", "Board member", "Member", not the stored values <code>SystemAdministrator</code> and <code>BoardMember</code>.</li>
+        <li><b>Statuses are one word</b> and always the same word for the same state: "Active"; "Published", "Draft"; "New", "Received", "Started", "Completed".</li>
+        <li><b>Dates</b> as the admin writes them: "Oct 13, 2026"; with a time, "Oct 13, 2026, 8:00 AM".</li>
+        <li><b>The summary uses "to"</b>, not a dash: "Showing 1 to 2 of 4 users". A screen reader can read "1-2" as "one minus two".</li>
+        <li><b>Empty and no results say different things</b>: "No requests yet" with the screen's action; "No users match “zed”" with "Clear search". See <a href="content-and-tone.html">content and tone</a>.</li>
+        <li><b>Search placeholders are hints, not labels</b>: the label says "Search users"; the placeholder says what to type, "Part of a username".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>Name each row action for its row: "Edit tavi.moss", "Delete tavi.moss".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--ghost" type="button">edit</button><button class="btn btn--ghost" type="button">delete</button></div><figcaption>Let an icon font's ligature text ("edit", "delete") be the button's only name. A screen reader hears the same two words on every row.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="card card--flush" style="width: 100%;"><ul class="list"><li class="list__item"><div class="list__body"><a class="list__title" href="../../mocks/dialogs/admin-document-viewer/default.html">Courtyard plan.pdf</a><div class="list__meta">Report · Oct 13, 2026</div></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Courtyard plan.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></li></ul></div></div><figcaption>Make the title the row's link and put the delete button beside it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="width: 100%;"><b>Courtyard plan.pdf</b><div class="text-caption">role="link" tabindex="0" on the whole card, with a delete button inside it</div></div></div><figcaption>Make the whole card a fake link with a button nested inside it. The two controls fight over every click and key press.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p class="empty__title" style="font: var(--text-h4);">No users match “zed”</p><button class="btn btn--sm" type="button">Clear search</button></div><figcaption>Say what was searched for and offer the way back.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p>No users found</p><p class="text-caption">Showing 0-0 of 0 users</p></div><figcaption>Show the same "No users found" row for an empty co-op and for a search that missed.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li>Users table, search and pagination: <a href="../../mocks/pages/admin-users/default.html">admin-users/default</a>, <a href="../../mocks/pages/admin-users/page-2.html">page-2</a>, <a href="../../mocks/pages/admin-users/empty.html">empty</a>, <a href="../../mocks/pages/admin-users/no-results.html">no-results</a></li>
+        <li>Documents list and filters: <a href="../../mocks/pages/admin-documents/default.html">admin-documents/default</a>, <a href="../../mocks/pages/admin-documents/notices.html">notices</a>, <a href="../../mocks/pages/admin-documents/bylaws.html">bylaws</a>, <a href="../../mocks/pages/admin-documents/reports.html">reports</a>, <a href="../../mocks/pages/admin-documents/loading.html">loading</a>, <a href="../../mocks/pages/admin-documents/empty.html">empty</a>, <a href="../../mocks/pages/admin-documents/no-results.html">no-results</a></li>
+        <li>Maintenance requests: <a href="../../mocks/pages/admin-maintenance/default.html">admin-maintenance/default</a>, <a href="../../mocks/pages/admin-maintenance/new.html">new</a>, <a href="../../mocks/pages/admin-maintenance/received.html">received</a>, <a href="../../mocks/pages/admin-maintenance/started.html">started</a>, <a href="../../mocks/pages/admin-maintenance/done.html">done</a>, <a href="../../mocks/pages/admin-maintenance/loading.html">loading</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">empty</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">no-results</a></li>
+        <li>Recent requests: <a href="../../mocks/pages/admin-dashboard/default.html">admin-dashboard/default</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Visual language.</b> The admin draws these screens in green with Outfit and Material Icons, light theme only: <code>.btn .btn-primary</code>, <code>.card</code> with a 12 to 16px radius, <code>.badge .badge-success/-warning/-info/-gray</code>. This system uses the violet accent, rounded system fonts, inline stroke SVG icons, <code>.btn--primary</code>, <code>.badge--neutral</code> for Received, and both themes.</li>
+        <li><b>Search has no visible label.</b> <code>.search-input</code> on Users and Documents is a plain <code>type="text"</code> whose only name is <code>aria-label</code> copied from the placeholder ("Search users..."). The system uses <code>.search</code> with a visible <code>&lt;label&gt;</code>, <code>type="search"</code> and a clear button.</li>
+        <li><b>Search ignores the selected tab.</b> On Documents, typing in the search shows matches of every type while the selected filter tab stays highlighted, so the tab and the results disagree. User search matches usernames only, though nothing on screen says so.</li>
+        <li><b>Filters are not exposed as a group.</b> <code>.filter-tabs .filter-btn</code> (Documents) and <code>.filters .filter-btn</code> (Maintenance) are plain buttons whose only selected cue is the <code>.active</code> class. The system uses <code>.tabs.tabs--pill</code> with <code>role="tab"</code> and <code>aria-selected</code>. The Documents tab says "By-Laws" and the type says "By-Law"; the system writes "Bylaws" and "Bylaw".</li>
+        <li><b>Row actions are named by ligature text.</b> <code>.icon-btn</code> buttons hold only a Material Icons span, so their names are "edit" and "delete" on every row. The system uses <code>.btn.btn--ghost.btn--icon</code> with an <code>aria-label</code> naming the row.</li>
+        <li><b>Cards are fake links with nested buttons.</b> <code>.document-card</code> and <code>.request-card</code> are <code>div role="link" tabindex="0"</code>; the document card also holds the delete <code>.icon-btn</code>. The system makes the title a real <code>&lt;a&gt;</code> inside a <code>.list__item</code>.</li>
+        <li><b>Empty and no results are the same.</b> Users shows a table row "No users found" with "Showing 0-0 of 0 users" in both <a href="../../mocks/pages/admin-users/empty.html">empty</a> and <a href="../../mocks/pages/admin-users/no-results.html">no-results</a>; Documents and Maintenance show one <code>.empty-state</code> text for both. The system uses <code>.empty</code> with different copy and actions for each.</li>
+        <li><b>Loading has no words.</b> <code>.loading</code> holds only a spinning Material Icons glyph (<code>.spin</code>). The system's <code>.loading</code> pairs <code>.spinner</code> with text in a <code>role="status"</code>.</li>
+        <li><b>Pagination.</b> <code>.pagination .page-controls</code> uses « and » characters as the only names of Previous and Next, marks the current page with <code>.active</code> only, and pages two users at a time. The system uses <code>nav.pagination</code> with <code>aria-current="page"</code>, named Previous and Next links, a status summary that says "1 to 2", and leaves page size to the screen.</li>
+        <li><b>Role names and avatars.</b> The table prints stored role values (<code>SystemAdministrator</code>, <code>BoardMember</code>) and gives each <code>.user-avatar</code> a random inline background colour. The system writes role names as words and uses <code>.avatar</code> on its accent tokens.</li>
+        <li><b>Headings.</b> Collections are titled with <code>&lt;h3&gt;</code> under the page <code>&lt;h1&gt;</code> ("All Requests"), skipping a level, in Title Case. The system uses the next level down, in sentence case.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

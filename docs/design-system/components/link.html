@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Link — Coop design system</title>
+<meta name="description" content="Links in the Coop admin: inline, standalone, with a trailing icon and opening a new tab, always underlined, with drift from the implemented admin.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Link</h1>
+      <p class="ds-lead">Links take people somewhere: to the forgot-password page, to the full list of maintenance requests, to a page as members see it, to the field that needs fixing. They are plain, underlined anchors with no class.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;a href&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A link goes to another page or another place on the page. If activating it changes data (saves, sends, resets, removes), use a <a href="button.html">button</a> instead. Links are styled by the bare <code>a</code> selector, so any anchor in running text looks right with no class.</p>
+      <ul>
+        <li><b>Inline</b> links sit inside a sentence: "Don't have an account? Sign up."</li>
+        <li><b>Standalone</b> links stand on their own line or in a card header: "Forgot password?", "Back to sign in", "View all maintenance requests".</li>
+        <li><b>With a trailing icon</b>: "Open on the website" on each page card, where the icon says the link leaves the admin for the public site.</li>
+        <li><b>New tab</b>: a maintenance photo opens full size in a new tab, and says so.</li>
+      </ul>
+      <p><b>Visited links are not styled separately.</b> Staff return to the same screens every day; a visited colour would turn most dashboard and sidebar links a different colour for no useful reason. <code>:visited</code> keeps the default link colour.</p>
+      <p>Links with their own look have their own pages: the <a href="sidebar.html">sidebar navigation</a>, the <a href="tab-bar.html">tab bar</a>, <a href="pagination.html">pagination</a> and <a href="metric-card.html">metric cards</a>, menu items in <a href="menu.html">menu</a>, and anchors given <code>.btn</code> in <a href="button.html">button</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <p style="font: var(--text-body-lg);"><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></p>
+          <span class="ds-callout" style="left: 40%; top: 18%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 62%; top: 74%;" aria-hidden="true">2</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Text</b><small>Says where the link goes; it is the accessible name. <code>--color-fg-link</code>, inherits the surrounding font.</small></div></li>
+          <li><div><b>Underline</b><small>Always on. <code>--border-width-hairline</code> thick, offset 0.15em; thickens to <code>--border-width-thick</code> on hover.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>All variants use the same styles; they differ in where they sit and how much the text has to carry.</p>
+      <h3>Inline</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="text-muted">Don't have an account? <a href="../../mocks/pages/admin-register/default.html">Sign up</a></p>
+          <p class="text-muted">Already have an account? <a href="../../mocks/pages/admin-login/default.html">Sign in</a></p>
+        </div>
+        <div class="ds-example__caption"><span>Part of a sentence, in the sentence's own size and weight.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="text-muted"&gt;Don't have an account? &lt;a href="/register"&gt;Sign up&lt;/a&gt;&lt;/p&gt;</code></pre></details>
+      </div>
+      <h3>Standalone</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></p>
+          <p><a href="../../mocks/pages/admin-login/default.html">Back to sign in</a></p>
+          <div class="card" style="width: 100%; max-width: 28rem;">
+            <div class="cluster cluster--between"><h3 class="card__title" style="margin: 0;">Recent maintenance requests</h3><a href="../../mocks/pages/admin-maintenance/default.html">View all<span class="visually-hidden"> maintenance requests</span></a></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>On its own line under a form, or in a card header. The text must make sense out of context; a short visible "View all" carries the rest in a hidden span.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p&gt;&lt;a href="/forgot-password"&gt;Forgot password?&lt;/a&gt;&lt;/p&gt;
+&lt;a href="/maintenance"&gt;View all&lt;span class="visually-hidden"&gt; maintenance requests&lt;/span&gt;&lt;/a&gt;</code></pre></details>
+      </div>
+      <h3>With a trailing icon</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p><a href="../../mocks/pages/admin-pages/default.html" style="display: inline-flex; align-items: center; gap: var(--space-1);">Open<span class="visually-hidden"> About us</span> on the website<svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></p>
+        </div>
+        <div class="ds-example__caption"><span>The icon follows the words, is <code>aria-hidden</code>, and inherits the link colour. Every page card has this link, so a hidden span adds the page name: it reads "Open About us on the website". It means "this leaves the admin"; the link still opens in the same tab, so Back returns.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;a href="/pages/about-us"&gt;Open&lt;span class="visually-hidden"&gt; About us&lt;/span&gt; on the website&lt;svg class="icon icon--sm" aria-hidden="true" …&gt;&lt;/svg&gt;&lt;/a&gt;</code></pre></details>
+      </div>
+      <h3>Opens in a new tab</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a href="../../mocks/assets/photos/tap.svg" target="_blank" rel="noopener" style="display: block; width: 6rem;"><img src="../../mocks/assets/photos/tap.svg" alt="Photo 1 of Kitchen tap leak, opens in a new tab" style="border-radius: var(--radius-md);"></a>
+          <a href="../../mocks/assets/photos/sink.svg" target="_blank" rel="noopener" style="display: block; width: 6rem;"><img src="../../mocks/assets/photos/sink.svg" alt="Photo 2 of Kitchen tap leak, opens in a new tab" style="border-radius: var(--radius-md);"></a>
+        </div>
+        <div class="ds-example__caption"><span>Photo links on a maintenance request open the full photo in a new tab. The image's <code>alt</code> is the link's name, so it ends with "opens in a new tab". Use a new tab only for files like these, never for admin pages.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;a href="/photos/tap.jpg" target="_blank" rel="noopener"&gt;
+  &lt;img src="/photos/tap.jpg" alt="Photo 1 of Kitchen tap leak, opens in a new tab"&gt;
+&lt;/a&gt;</code></pre></details>
+      </div>
+      <h3>Error summary</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="alert alert--danger" role="alert" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><div class="alert__body"><p class="alert__title">Two things need fixing</p><ul class="alert__actions" style="margin: 0; padding-left: var(--space-4);"><li><a href="#link-demo-title">Give the page a title</a></li><li><a href="#link-demo-body">Write something for the page</a></li></ul></div></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="link-demo-title">Title</label><input class="input" id="link-demo-title" type="text" aria-invalid="true"></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="link-demo-body">Page text</label><textarea class="textarea" id="link-demo-body" rows="2" aria-invalid="true"></textarea></div>
+        </div>
+        <div class="ds-example__caption"><span>Each link's <code>href</code> is its field's <code>#id</code>, so following it moves focus to the field. Links in an alert take the alert's colour.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Links take the size of the text around them; there is no size modifier."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Links take the size of the text around them; there is no size modifier.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; real pages get them from <code>:hover</code> and <code>:focus-visible</code>. Visited and active look the same as default on purpose. Links are never disabled: if a destination is not available to this person's role, do not render the link.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Visited</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Inline</th><td><p>No account? <a href="../../mocks/pages/admin-register/default.html">Sign up</a></p></td><td><p>No account? <a href="../../mocks/pages/admin-register/default.html" data-state="hover">Sign up</a></p></td><td><p>No account? <a href="../../mocks/pages/admin-register/default.html" data-state="focus">Sign up</a></p></td><td><p>No account? <a href="../../mocks/pages/admin-register/default.html">Sign up</a></p></td></tr>
+          <tr><th scope="row">Standalone</th><td><a href="../../mocks/pages/admin-login/default.html">Back to sign in</a></td><td><a href="../../mocks/pages/admin-login/default.html" data-state="hover">Back to sign in</a></td><td><a href="../../mocks/pages/admin-login/default.html" data-state="focus">Back to sign in</a></td><td><a href="../../mocks/pages/admin-login/default.html">Back to sign in</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><p>Don't have an account? <a href="../../mocks/pages/admin-register/default.html">Sign up</a></p><p><a href="../../mocks/pages/admin-forgot-password/default.html" data-state="hover">Forgot password?</a></p></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><p>Don't have an account? <a href="../../mocks/pages/admin-register/default.html">Sign up</a></p><p><a href="../../mocks/pages/admin-forgot-password/default.html" data-state="hover">Forgot password?</a></p></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Links wrap with their text and never truncate. A long document name in a link wraps onto a second line at 320px and at 400% zoom.</li>
+        <li>Standalone links under the sign-in, register and forgot-password forms stay centred at every width.</li>
+        <li>A card header's "View all" link sits beside the heading and wraps beneath it when the row is too narrow (<code>.cluster</code> wraps).</li>
+        <li>Link text never shows a raw web address; "Web address: /pages/about-us" on page cards is plain text, not a link.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Links read two semantic tokens: <code>--color-fg-link</code> and <code>--color-fg-link-hover</code>. In light they are deep violets on a pale page; in dark they switch to <code>--palette-violet-300</code> and <code>--palette-violet-200</code> so they stay readable on the dark surfaces. Underline thickness comes from the border-width tokens, so a theme never needs to touch it.</p>
+      <pre><code>a { color: var(--color-fg-link); text-decoration-thickness: var(--border-width-hairline); }
+a:hover { color: var(--color-fg-link-hover); text-decoration-thickness: var(--border-width-thick); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;a href&gt;</code> (the WAI-ARIA APG Link pattern is satisfied by the native element). Never an <code>&lt;a&gt;</code> without <code>href</code>, never a <code>&lt;div role="link" tabindex="0"&gt;</code>, and never a link wrapped around another control.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves focus to and from the link.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the link. Space scrolls the page, as with every native link.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared focus ring (<code>--color-focus-ring</code>, offset <code>--focus-ring-offset</code>) on <code>:focus-visible</code>. Error-summary links move focus to their field because each <code>href</code> is the field's <code>#id</code>.</p>
+      <h3>Labelling</h3>
+      <p>The link text is the accessible name and must make sense alone (WCAG 2.4.4). Repeated short links add hidden context: "View all<span class="visually-hidden"> maintenance requests</span>" reads as "View all maintenance requests". A link that opens a new tab says so in its name. Never "click here".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Link on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Link on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hovered link on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-link-hover|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error-summary link</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>The underline is always present, so a link never relies on colour alone (WCAG 1.4.1).</p>
+      <h3>Motion</h3>
+      <p>None. Hover changes colour and underline thickness instantly.</p>
+      <h3>Touch</h3>
+      <p>Inline links are exempt from the 24px target rule (WCAG 2.5.8 inline exception). Standalone links sit alone on a line of body text, so their line box and spacing give at least a 24px target; nothing else is tappable within 24px of them.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Say where the link goes: "Back to sign in", "View all maintenance requests", "Open About us on the website". A short question is fine when it is what the person is asking themselves ("Forgot password?").</li>
+        <li>Sentence case: "Back to sign in", not "Back to Sign In". No trailing full stop inside the link text.</li>
+        <li>Link the words that describe the destination, not the whole sentence: "Don't have an account? <u>Sign up</u>".</li>
+        <li>Error-summary links say what to do, in the same words as the field's error: "Give the page a title".</li>
+        <li>If the link opens a new tab, its name ends with "opens in a new tab".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><p><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></p></div><figcaption>Keep the underline; it is how a link is told apart from text.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p><a href="../../mocks/pages/admin-forgot-password/default.html" style="text-decoration: none;">Forgot password?</a></p></div><figcaption>"Forgot password?" and "View all" as implemented: no underline, so colour is the only cue, which fails WCAG 1.4.1.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-pages/default.html">Open<span class="visually-hidden"> About us</span> on the website</a><a href="../../mocks/pages/admin-pages/default.html">Open<span class="visually-hidden"> Our garden</span> on the website</a></div><figcaption>Repeated links carry the page name in a hidden span, so a screen reader's link list says where each goes.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-pages/default.html">Open on the website</a><a href="../../mocks/pages/admin-pages/default.html">Open on the website</a></div><figcaption>Three identical "Open on the website" links on Pages: out of context they are indistinguishable. A bare "View all" on the dashboard has the same problem.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost" type="button">Reset to default</button></div><figcaption>Resetting the theme changes data, so it is a button.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p><a class="text-muted">Reset to Default</a></p></div><figcaption>An <code>&lt;a&gt;</code> with no <code>href</code>, as on Settings: it looks like a link, but the keyboard cannot reach it and it is not announced as anything.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Text</td><td><code>--color-fg-link</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td></tr>
+          <tr><td>Text, hover</td><td><code>--color-fg-link-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Underline / hover underline</td><td><code>--border-width-hairline</code> / <code>--border-width-thick</code></td><td><span data-token="--border-width-hairline"></span> / <span data-token="--border-width-thick"></span></td><td><span data-theme="dark"><span data-token="--border-width-hairline"></span> / <span data-token="--border-width-thick"></span></span></td></tr>
+          <tr><td>Trailing icon</td><td><code>--size-icon-sm</code></td><td><span data-token="--size-icon-sm"></span></td><td><span data-theme="dark" data-token="--size-icon-sm"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;p&gt;&lt;a href="/forgot-password"&gt;Forgot password?&lt;/a&gt;&lt;/p&gt;
+&lt;a href="/maintenance"&gt;View all&lt;span class="visually-hidden"&gt; maintenance requests&lt;/span&gt;&lt;/a&gt;
+&lt;a href="/pages/about-us"&gt;Open&lt;span class="visually-hidden"&gt; About us&lt;/span&gt; on the website&lt;svg class="icon icon--sm" aria-hidden="true" …&gt;&lt;/svg&gt;&lt;/a&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>a</code> (no class)</td><td>Link colour and underline.</td></tr>
+        <tr><td><code>.visually-hidden</code> on a child span</td><td>Adds context for screen readers without changing the visible text.</td></tr>
+        <tr><td><code>.icon.icon--sm</code> after the text</td><td>Trailing icon, <code>aria-hidden="true"</code>.</td></tr>
+        <tr><td><code>target="_blank" rel="noopener"</code></td><td>New tab; only with "opens in a new tab" in the name.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a> ("Forgot password?", "Sign up")</li>
+        <li><a href="../../mocks/pages/admin-register/default.html">pages/admin-register/default</a> and <a href="../../mocks/pages/admin-forgot-password/default.html">pages/admin-forgot-password/default</a> ("Sign in", "Back to Sign In")</li>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> ("View all" in the Recent maintenance requests card)</li>
+        <li><a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> ("Open on the website" with a trailing icon)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/detail-photos.html">pages/admin-maintenance/detail-photos</a> (photo links that open a new tab)</li>
+        <li><a href="../../mocks/dialogs/admin-page-editor/invalid.html">dialogs/admin-page-editor/invalid</a> (error-summary links to fields)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (document cards as <code>role="link"</code>)</li>
+        <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> ("Reset to Default" without <code>href</code>)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Colour and underline.</b> Admin links are green (<code>#3d8a5a</code>) in the Outfit font, and <code>.forgot-link</code> and <code>.view-all-link</code> remove the underline. The system's links are <code>--color-fg-link</code> (violet) and always underlined.</li>
+        <li><b>Links without context.</b> The dashboard's Recent maintenance requests card links a bare "View all", and every page card on Pages repeats "Open on the website". The system adds hidden context: "View all maintenance requests", "Open About us on the website".</li>
+        <li><b>New tab not announced.</b> Maintenance photo links open a new tab but their <code>alt</code> ("Photo 1 of Kitchen tap leak") does not say so. The system ends the name with "opens in a new tab".</li>
+        <li><b>Link without <code>href</code>.</b> Settings' "Reset to Default" is <code>&lt;a class="reset-link"&gt;</code> with no <code>href</code>. It changes data, so it is a <code>.btn--ghost</code> button here.</li>
+        <li><b>Card as a link.</b> Each document card is <code>&lt;div role="link" tabindex="0"&gt;</code> wrapping its Delete button. The system puts a real <code>&lt;a href&gt;</code> on the document title and keeps Delete beside it, not inside it.</li>
+        <li><b>Casing.</b> "Back to Sign In" becomes "Back to sign in".</li>
+        <li><b>Icon font.</b> "Open on the website" uses the Material Icons <code>open_in_new</code> glyph (correctly hidden). The system uses the stroke SVG above.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -48,7 +48,7 @@ cd frontend; npm run start:admin     # http://localhost:4200
 | `e2e/` | Playwright projects for the public and admin applications: `tests/`, `pages/`, `fixtures/` |
 | `docs/specs/` | L1 and L2 requirements with acceptance criteria |
 | `docs/mocks/` | Static HTML references of both applications |
-| `docs/design-system/` | Design tokens, component styles and documentation pages extracted from the mocks |
+| `docs/design-system/` | Design tokens, component styles and documentation pages for the admin site, adopted from the Shelfie design system |
 
 [AGENTS.md](AGENTS.md) describes the `backend/`, `frontend/`, and `e2e/` layout
 the repository follows. Place new files in those locations.

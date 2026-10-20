@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty and error states — Coop design system</title>
+<meta name="description" content="How Coop admin lists say there is nothing yet, nothing matches, or something went wrong: one icon, a plain heading, a sentence that says what to do, and one action.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Feedback</p>
+      <h1>Empty and error states</h1>
+      <p class="ds-lead">When an admin list has nothing to show, it says why and what to do next: there is nothing yet, nothing matches the search or filter, or something went wrong. Each case gets one icon, a plain heading, one sentence and one action.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#example">Live example</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A blank list worries people. Is the co-op's list really empty, did the search hide everything, or did the page fail to load? The admin answers that question in words, in the same place the list would be, and offers the one thing that moves the person forward.</p>
+      <ul>
+        <li><b>First use</b>: nothing exists yet. Explain what the list is for and offer the action that adds the first item ("New page", "Add director", "Upload file").</li>
+        <li><b>No results</b>: items exist, but the search or filter hides them all. Name the search and offer "Clear search" or "Show all".</li>
+        <li><b>Error</b>: the list could not be loaded. Say so, say the person's data is safe, and offer "Try again".</li>
+        <li><b>Inside a card</b>: a dashboard card with nothing to show keeps its heading and says so in one muted line ("No maintenance requests yet."), with a link to the full list.</li>
+      </ul>
+      <p>Built from <a href="../components/empty-state.html">empty state</a>, <a href="../components/alert.html">alert</a>, <a href="../components/button.html">button</a> and <a href="../components/card.html">card</a>. Whole-page failures (a missing page, no permission) use the <a href="../components/error-page.html">error page</a>.</p>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Situation</th><th scope="col">Use</th><th scope="col">Action</th><th scope="col">Admin example</th></tr></thead>
+        <tbody>
+          <tr><td>Nothing has been added yet</td><td>Full empty state in place of the list</td><td>The primary action that adds one</td><td>Pages, Board, Assets, Documents, Invitations, Maintenance</td></tr>
+          <tr><td>A search or filter hides everything</td><td>Compact empty state in place of the list; the search and filters stay</td><td>"Clear search" or "Show all"</td><td>Users search, Documents search, Maintenance "Completed" filter</td></tr>
+          <tr><td>The list failed to load</td><td>Danger alert in place of the list, <code>role="alert"</code></td><td>"Try again"</td><td>Pages, Board, Website</td></tr>
+          <tr><td>A dashboard card has nothing to show</td><td>One muted line inside the card</td><td>A link to the full list</td><td>Recent maintenance requests, recent notices</td></tr>
+          <tr><td>A two-pane screen has nothing selected</td><td>A muted line in the empty pane</td><td>None; the list is the action</td><td>Messages: "Choose a conversation to read it."</td></tr>
+          <tr><td>The whole page cannot be shown</td><td><a href="../components/error-page.html">Error page</a> inside the admin shell</td><td>"Go to the dashboard"</td><td>A link to a removed page</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>First use</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="card empty">
+            <div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div>
+            <h3 class="empty__title">No pages yet</h3>
+            <p class="empty__text">The website menu shows the home page sections only. Add a page such as “About us” or “How to apply” and visitors will see it in the menu.</p>
+            <div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</button></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-pages/empty: icon, heading, one sentence that explains the list, one primary action.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card empty"&gt;
+  &lt;div class="empty__icon" aria-hidden="true"&gt;&lt;svg class="icon icon--lg" aria-hidden="true"&gt;…&lt;/svg&gt;&lt;/div&gt;
+  &lt;h2 class="empty__title"&gt;No pages yet&lt;/h2&gt;
+  &lt;p class="empty__text"&gt;The website menu shows the home page sections only. Add a page …&lt;/p&gt;
+  &lt;div class="empty__actions"&gt;&lt;button class="btn btn--primary" type="button"&gt;New page&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>No results</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="card empty" style="padding-block: var(--space-8);">
+            <div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div>
+            <h3 class="empty__title">No users match “nora”</h3>
+            <p class="empty__text">Check the spelling, or search by part of the username, such as “fern”.</p>
+            <div class="empty__actions"><button class="btn" type="button">Clear search</button></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-users/no-results, rebuilt: the search term is named and one step clears it.</span></div>
+      </div>
+
+      <h3>Error</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't load the board list</div><span>Nothing has been changed. Check your connection and try again.</span><div class="alert__actions"><button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>Try again</button></div></div></div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-board/error. The alert replaces the list; the page header and its actions stay.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="alert alert--danger" role="alert"&gt;
+  &lt;svg class="icon" aria-hidden="true"&gt;…&lt;/svg&gt;
+  &lt;div class="alert__body"&gt;
+    &lt;div class="alert__title"&gt;We couldn't load the board list&lt;/div&gt;
+    &lt;span&gt;Nothing has been changed. Check your connection and try again.&lt;/span&gt;
+    &lt;div class="alert__actions"&gt;&lt;button class="btn btn--sm" type="button"&gt;Try again&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Inside a dashboard card</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <section class="card" aria-labelledby="ee-recent-title">
+            <div class="cluster cluster--between"><h3 class="card__title" id="ee-recent-title" style="margin: 0;">Recent maintenance requests</h3><a href="../../mocks/pages/admin-maintenance/default.html">See all requests</a></div>
+            <p class="text-muted" style="margin-top: var(--space-3);">No maintenance requests yet.</p>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-dashboard/empty. The card keeps its heading so the dashboard's layout does not shift.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="example"><h2><a href="#example">Live example: the Documents list</a></h2>
+      <p>One list, four outcomes. Choose a state to see how the same place on the page changes. The page header, search and filters stay put in every state, so nobody loses their bearings.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="cluster" role="group" aria-label="Show the Documents list as">
+            <button class="chip" type="button" aria-pressed="true" data-ee="list">Has documents</button>
+            <button class="chip" type="button" aria-pressed="false" data-ee="empty">First use</button>
+            <button class="chip" type="button" aria-pressed="false" data-ee="none">No results</button>
+            <button class="chip" type="button" aria-pressed="false" data-ee="error">Could not load</button>
+          </div>
+          <div class="stack">
+            <div class="page-header" style="margin: 0;">
+              <div><h3 style="font: var(--text-h2);">Documents</h3><p class="subtitle">Notices, bylaws and reports for members.</p></div>
+              <button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New document</button>
+            </div>
+            <div class="search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input" id="ee-search" type="search" placeholder=" " aria-label="Search documents" value=""><button class="btn btn--ghost btn--icon search__clear" type="button" aria-label="Clear search" data-ee="list"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <div id="ee-region" aria-live="polite">
+              <div data-ee-view="list">
+                <ul class="list card card--flush" aria-label="Documents">
+                  <li class="list__item"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><div class="list__body"><div class="list__title">Autumn courtyard gathering</div><div class="list__meta">Notice · 13 October 2026</div></div><span class="badge badge--success">Published</span></li>
+                  <li class="list__item"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><div class="list__body"><div class="list__title">Meeting notes.pdf</div><div class="list__meta">Report · 2 October 2026</div></div><span class="badge badge--success">Published</span></li>
+                  <li class="list__item"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><div class="list__body"><div class="list__title">Occupancy bylaw</div><div class="list__meta">Bylaw · 22 September 2026</div></div><span class="badge badge--neutral">Draft</span></li>
+                </ul>
+              </div>
+              <div data-ee-view="empty" hidden>
+                <div class="card empty">
+                  <div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg></div>
+                  <h4 class="empty__title">No documents yet</h4>
+                  <p class="empty__text">Notices, bylaws and reports you add here are shared with members. Start with the next meeting’s notice.</p>
+                  <div class="empty__actions"><button class="btn btn--primary" type="button">New document</button></div>
+                </div>
+              </div>
+              <div data-ee-view="none" hidden>
+                <div class="card empty" style="padding-block: var(--space-8);">
+                  <div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div>
+                  <h4 class="empty__title">No documents match “garden plan”</h4>
+                  <p class="empty__text">Try a shorter word, such as “courtyard”, or clear the search to see every document.</p>
+                  <div class="empty__actions"><button class="btn" type="button" data-ee="list">Clear search</button></div>
+                </div>
+              </div>
+              <div data-ee-view="error" hidden>
+                <div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't load the documents</div><span>Nothing has been changed. Check your connection and try again.</span><div class="alert__actions"><button class="btn btn--sm" type="button" data-ee="list">Try again</button></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-documents/default, empty and no-results, plus the error state the Documents screen does not have yet.</span></div>
+      </div>
+      <script>
+      (function () {
+        var region = document.getElementById("ee-region");
+        if (!region) return;
+        var search = document.getElementById("ee-search");
+        var chips = document.querySelectorAll('.chip[data-ee]');
+        function show(view) {
+          region.querySelectorAll("[data-ee-view]").forEach(function (el) { el.hidden = el.getAttribute("data-ee-view") !== view; });
+          chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c.getAttribute("data-ee") === view)); });
+          search.value = view === "none" ? "garden plan" : "";
+        }
+        document.querySelectorAll("[data-ee]").forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-ee")); }); });
+      })();
+      </script>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mocks</th></tr></thead>
+        <tbody>
+          <tr><td>First use</td><td>Icon, "No [things] yet", one sentence on what the list is for, the primary action.</td><td><a href="../../mocks/pages/admin-pages/empty.html">admin-pages/empty</a>, <a href="../../mocks/pages/admin-board/empty.html">admin-board/empty</a>, <a href="../../mocks/pages/admin-assets/empty.html">admin-assets/empty</a>, <a href="../../mocks/pages/admin-documents/empty.html">admin-documents/empty</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-invitations/empty.html">admin-invitations/empty</a></td></tr>
+          <tr><td>No results</td><td>Search icon, "No [things] match “term”", a hint, "Clear search" or "Show all".</td><td><a href="../../mocks/pages/admin-users/no-results.html">admin-users/no-results</a>, <a href="../../mocks/pages/admin-documents/no-results.html">admin-documents/no-results</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">admin-maintenance/no-results</a>, <a href="../../mocks/pages/admin-assets/no-results.html">admin-assets/no-results</a>, <a href="../../mocks/pages/admin-messaging/no-results.html">admin-messaging/no-results</a></td></tr>
+          <tr><td>Error</td><td>Danger alert in place of the list, with "Try again".</td><td><a href="../../mocks/pages/admin-pages/error.html">admin-pages/error</a>, <a href="../../mocks/pages/admin-board/error.html">admin-board/error</a>, <a href="../../mocks/pages/admin-website/error.html">admin-website/error</a></td></tr>
+          <tr><td>Empty card</td><td>The card's heading and one muted line, with a link to the list.</td><td><a href="../../mocks/pages/admin-dashboard/empty.html">admin-dashboard/empty</a>, <a href="../../mocks/pages/admin-dashboard/partial.html">admin-dashboard/partial</a></td></tr>
+          <tr><td>Nothing selected</td><td>A muted line in the reading pane.</td><td><a href="../../mocks/pages/admin-messaging/default.html">admin-messaging/default</a>, <a href="../../mocks/pages/admin-messaging/empty.html">admin-messaging/empty</a></td></tr>
+          <tr><td>Partly empty</td><td>A role with no privileges, a request with no comments: one line where the list would be.</td><td><a href="../../mocks/pages/admin-roles/no-privileges.html">admin-roles/no-privileges</a>, <a href="../../mocks/pages/admin-maintenance/comments-empty.html">admin-maintenance/comments-empty</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack">
+          <div class="card empty" style="padding-block: var(--space-8);"><div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div><p class="empty__title">No files yet</p><p class="empty__text">Photos and PDFs you upload here can be used on the website and in documents.</p><div class="empty__actions"><button class="btn btn--primary" type="button">Upload file</button></div></div>
+          <div class="card empty empty--error" style="padding-block: var(--space-8);"><div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><p class="empty__title">We couldn't load the files</p><p class="empty__text">Nothing has been changed. Check your connection and try again.</p><div class="empty__actions"><button class="btn" type="button">Try again</button></div></div>
+        </div></div>
+        <div data-theme="dark"><div class="stack">
+          <div class="card empty" style="padding-block: var(--space-8);"><div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div><p class="empty__title">No files yet</p><p class="empty__text">Photos and PDFs you upload here can be used on the website and in documents.</p><div class="empty__actions"><button class="btn btn--primary" type="button">Upload file</button></div></div>
+          <div class="card empty empty--error" style="padding-block: var(--space-8);"><div class="empty__icon" aria-hidden="true"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><p class="empty__title">We couldn't load the files</p><p class="empty__text">Nothing has been changed. Check your connection and try again.</p><div class="empty__actions"><button class="btn" type="button">Try again</button></div></div>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The empty state fills the width of the list it replaces and centres its content. Its text is capped at about 36 characters a line so it reads as a short note, not a paragraph.</li>
+        <li>Padding drops from <code>--space-12</code> to <code>--space-8</code> for no-results, so the search box and the message stay on one phone screen together.</li>
+        <li>Actions wrap and centre; on a 320px screen a long label ("Clear search") takes its own line rather than shrinking.</li>
+        <li>An error alert spans the column; its "Try again" button wraps under the text on narrow screens.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>An empty state is ordinary content: a heading at the right level for the page (usually <code>&lt;h2&gt;</code>), a paragraph and a button. An error that replaces a list after a request fails is a <code>role="alert"</code>. A list region whose contents change after a search uses <code>aria-live="polite"</code> on its container so "No users match “nora”" is announced.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Reaches the empty state's action, after the page header and search.</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Runs the action ("New page", "Clear search", "Try again").</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>"Clear search" puts focus back in the search field. "Try again" keeps focus on itself while the list reloads, then moves to the list's heading. An empty state never takes focus on its own.</p>
+      <h3>Labelling</h3>
+      <p>The icon is decorative (<code>aria-hidden="true"</code>). The heading says what is missing in words, so the message does not depend on the icon or its colour.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Empty text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Empty icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error alert text</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error alert icon</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Empty and error states appear without animation. The swap from spinner to empty state is instant, so nothing moves while someone is reading.</p>
+      <h3>Touch</h3>
+      <p>The action is a full 44px button, centred, with space around it. "Try again" inside an alert is at least 36px tall (<code>.btn--sm</code>) and sits apart from the text.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <h3>Copy formulas</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">Heading</th><th scope="col">Sentence</th><th scope="col">Action</th></tr></thead>
+        <tbody>
+          <tr><td>First use</td><td>No [things] yet</td><td>What the list is for and what happens when something is added.</td><td>The verb that adds one: "New page", "Add director", "Upload file", "Create invitation"</td></tr>
+          <tr><td>No results</td><td>No [things] match “[term]”</td><td>A way to find it: a shorter word, a different filter.</td><td>"Clear search" or "Show all requests"</td></tr>
+          <tr><td>Filter with nothing in it</td><td>No [status] requests</td><td>Reassurance when that is good news: "Nothing is waiting to be started."</td><td>"Show all requests"</td></tr>
+          <tr><td>Error</td><td>We couldn't load the [things]</td><td>"Nothing has been changed. Check your connection and try again."</td><td>"Try again"</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Say "yet" for first use; it tells the person the list is meant to fill up.</li>
+        <li>Use the same word for the thing as the page title and the sidebar: "pages", "directors", "documents", "maintenance requests".</li>
+        <li>Never blame the person, and never show error codes on screen.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="empty" style="padding: var(--space-4); width: 100%;"><p class="empty__title">No maintenance requests yet</p><p class="empty__text">When a member reports a problem, it shows here for the team to pick up.</p></div></div><figcaption>First use explains what the list is for.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="empty" style="padding: var(--space-4); width: 100%;"><p class="empty__text">No maintenance requests found</p></div></div><figcaption>The same line for "none yet" and "none match", as on Maintenance, Documents, Assets and Messages today. Nobody can tell whether the filter hid everything.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="empty" style="padding: var(--space-4); width: 100%;"><p class="empty__title">No users match “nora”</p><div class="empty__actions"><button class="btn" type="button">Clear search</button></div></div></div><figcaption>Replace the table with a message and a way back.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="table-wrap" style="width: 100%;"><table class="table"><caption class="visually-hidden">Users (example of an empty row)</caption><thead><tr><th scope="col">Username</th><th scope="col">Role</th></tr></thead><tbody><tr><td colspan="2">No users found</td></tr></tbody></table></div></div><figcaption>An empty table row and "Showing 0-0 of 0 users", as on the Users screen. The headings promise data that is not there.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-pages/empty.html">pages/admin-pages/empty</a>, <a href="../../mocks/pages/admin-pages/error.html">error</a>; <a href="../../mocks/pages/admin-board/empty.html">pages/admin-board/empty</a>, <a href="../../mocks/pages/admin-board/error.html">error</a>; <a href="../../mocks/pages/admin-website/error.html">pages/admin-website/error</a></li>
+        <li><a href="../../mocks/pages/admin-maintenance/empty.html">pages/admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">no-results</a>, <a href="../../mocks/pages/admin-maintenance/comments-empty.html">comments-empty</a></li>
+        <li><a href="../../mocks/pages/admin-documents/empty.html">pages/admin-documents/empty</a>, <a href="../../mocks/pages/admin-documents/no-results.html">no-results</a>; <a href="../../mocks/pages/admin-assets/empty.html">pages/admin-assets/empty</a>, <a href="../../mocks/pages/admin-assets/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-users/empty.html">pages/admin-users/empty</a>, <a href="../../mocks/pages/admin-users/no-results.html">no-results</a>; <a href="../../mocks/pages/admin-invitations/empty.html">pages/admin-invitations/empty</a>; <a href="../../mocks/pages/admin-roles/empty.html">pages/admin-roles/empty</a>, <a href="../../mocks/pages/admin-roles/no-privileges.html">no-privileges</a></li>
+        <li><a href="../../mocks/pages/admin-dashboard/empty.html">pages/admin-dashboard/empty</a>, <a href="../../mocks/pages/admin-dashboard/partial.html">partial</a>; <a href="../../mocks/pages/admin-messaging/empty.html">pages/admin-messaging/empty</a>, <a href="../../mocks/pages/admin-messaging/no-results.html">no-results</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>One line for every empty case.</b> Maintenance ("No maintenance requests found"), Documents ("No documents found"), Assets ("No assets uploaded yet") and Messages ("No conversations yet") use <code>.empty-state.card</code> with a Material Icons glyph and one paragraph, and show the same text for first use and for no results. The system separates the two and adds a heading and an action, as <code>.pages-empty</code> and <code>.board-empty</code> already do.</li>
+        <li><b>Empty table rows.</b> Users shows <code>td.empty-row</code> "No users found" inside the table, with "Showing 0-0 of 0 users" below. The system replaces the table and pagination with an empty state.</li>
+        <li><b>Decorative icons read aloud.</b> The <code>.empty-state</code> icons are Material Icons ligatures without <code>aria-hidden</code>, so "inbox" or "description" is read before the message. The system's icons are stroke SVGs with <code>aria-hidden="true"</code>.</li>
+        <li><b>Missing error states.</b> Only Pages, Board and Website have a load-failure state (<code>.pages-alert--danger</code> and its copies, <code>role="alert"</code>, "Try again"). Maintenance, Documents, Users, Assets, Invitations and Messages have none captured; the system's error alert applies to all of them. Recorded, not added to the mocks.</li>
+        <li><b>Dashboard cards.</b> "No recent requests" and "No recent notices" are bare <code>.empty-state</code> text; the system keeps them as one muted line but adds a link to the full list.</li>
+        <li><b>Messages.</b> "Select a conversation to start chatting" becomes "Choose a conversation to read it."</li>
+        <li><b>Visual language.</b> Green, Outfit and Material Icons give way to the system's violet icon circle (<code>.empty__icon</code>), stroke icons and token colours in both themes.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

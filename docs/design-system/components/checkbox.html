@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Checkbox — Coop design system</title>
-<meta name="description" content="A native checkbox for a yes or no choice: the remember-me option on sign in and the privilege toggles in role management.">
+<meta name="description" content="A native checkbox for yes-or-no choices that are saved with a form in the Coop admin: remember me, accepting the terms, sending a notice to members. Single, with a description, grouped in a fieldset, and indeterminate.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,59 +31,334 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Inputs</p>
       <h1>Checkbox</h1>
-      <p class="ds-lead">A native checkbox for a yes or no choice: the remember-me option on sign in and the privilege toggles in role management.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;input type=&quot;checkbox&quot;&gt;</code></span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+      <p class="ds-lead">A yes-or-no choice that is saved when the form is sent: "Remember me" when signing in, agreeing to the terms when registering, sending a new notice to members. A native checkbox in a full-width label.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;input type="checkbox"&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
     </header>
-<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2><p>Use a checkbox for an independent on or off choice. The product uses it in two places.</p><ul><li><b>Labelled checkbox</b> (<code>.checkbox-label</code>): a visible label beside the box, for "Remember me".</li><li><b>Privilege toggle</b> (<code>.privilege-toggle</code>): a bare checkbox in a roles table cell, named by the column and row.</li></ul></section>
-<section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2><div class="ds-anatomy"><figure class="ds-anatomy__figure"><label class="checkbox-label"><input type="checkbox" checked>Remember me</label></figure><ol class="ds-anatomy__list"><li><div><b>Box</b><small>Native checkbox, 1.125rem square, tinted with <code>--color-accent</code>.</small></div></li><li><div><b>Label</b><small><code>--text-body-sm</code>, beside the box with <code>--space-2</code> gap; clicking it toggles the box.</small></div></li><li><div><b>Accessible name</b><small>The wrapping label, or an <code>aria-label</code> for a bare privilege toggle.</small></div></li></ol></div></section>
-<section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2><div class="ds-example"><div class="ds-example__canvas "><label class="checkbox-label"><input type="checkbox">Remember me</label><input class="privilege-toggle" type="checkbox" checked aria-label="Read privilege for Board member"></div><div class="ds-example__caption"><span>Left: labelled checkbox. Right: privilege toggle in a table cell.</span></div><details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;label class="checkbox-label"&gt;&lt;input type="checkbox"&gt;Remember me&lt;/label&gt;
-&lt;input class="privilege-toggle" type="checkbox" aria-label="Read privilege for Board member"&gt;</code></pre></details></div></section>
-<section class="ds-section" id="sizes" data-na="The mocks show one checkbox size."><h2><a href="#sizes">Sizes</a></h2><p>There is a single size, 1.125rem square.</p></section>
-<section class="ds-section" id="states"><h2><a href="#states">States</a></h2><p>Native states; focus forced with <code>data-state</code>.</p><div class="ds-matrix"><table><thead><tr><th scope="col">Unchecked</th><th scope="col">Checked</th><th scope="col">Focus</th><th scope="col">Disabled</th></tr></thead><tbody><tr><td><label class="checkbox-label"><input type="checkbox">Option</label></td><td><label class="checkbox-label"><input type="checkbox" checked>Option</label></td><td><label class="checkbox-label"><input type="checkbox" data-state="focus">Option</label></td><td><label class="checkbox-label"><input type="checkbox" checked disabled>Option</label></td></tr></tbody></table></div><p>An indeterminate state is not implemented.</p></section>
-<section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2><p>The mocks define no <code>@media</code> rule for this component, so it does not change at the 640, 768 or 1024 breakpoints. The label wraps naturally; the box stays 1.125rem.</p></section>
-<section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2><p>The product ships one light appearance, so this component has no theme variants. It reads semantic tokens only; see the tokens section.</p></section>
-<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2><h3>Role and pattern</h3><p>Native <code>&lt;input type="checkbox"&gt;</code>: the WAI-ARIA Checkbox pattern with built-in semantics.</p><h3>Keyboard</h3><div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd></td><td>Moves focus to the checkbox.</td></tr><tr><td><kbd>Space</kbd></td><td>Toggles the checked state.</td></tr></tbody></table></div><h3>Focus</h3><p>One shared ring: <code>--focus-ring-width</code> solid <code>--color-focus-ring</code> at <code>--focus-ring-offset</code>, shown on <code>:focus-visible</code>. The mocks removed the browser outline (<code>outline: none</code>) and relied on a border-colour change; the design system restores a visible ring.</p><h3>Labelling</h3><p>Labelled checkboxes are wrapped in a <code>label</code>. Privilege toggles have no visible label; they need a specific <code>aria-label</code> naming role and privilege. The mocks use values like "privilege-read", which is a test id; the system requires "Read privilege for &lt;role&gt;".</p><h3>Contrast</h3><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-pair"><span>Label text</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Checked box on surface</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div><div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div></div><h3>Motion</h3><p>None.</p><h3>Touch</h3><p>The 1.125rem box meets the 24px minimum only through its label; the labelled variant makes the whole row clickable. Privilege toggles sit in table cells with surrounding padding. Requirement: give toggles at least 24px of target.</p></section>
-<section class="ds-section" id="content"><h2><a href="#content">Content</a></h2><ul><li>Labels are positive statements: "Remember me".</li><li>Bare toggles are named with their row and column: "Write privilege for Treasurer".</li></ul></section>
-<section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><label class="checkbox-label"><input type="checkbox">Remember me</label></div><figcaption>Wrap the box and its text in one label.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><input class="privilege-toggle" type="checkbox" aria-label="privilege-read"></div><figcaption>A test id as the accessible name. Name the role and privilege.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><input class="privilege-toggle" type="checkbox" checked aria-label="Read privilege for Board member"></div><figcaption>Toggle named by role and privilege.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><span class="checkbox-label"><input type="checkbox" aria-label="Remember me">Remember me</span></div><figcaption>A span instead of a label: the text is not clickable and the name is duplicated. Use one label element.</figcaption></figure></div></section>
-<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody><tr><td>Box tint</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr><tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr><tr><td>Label text</td><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span></td></tr><tr><td>Label gap</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span></td></tr></tbody></table></div></section>
-<section class="ds-section" id="code"><h2><a href="#code">Code</a></h2><pre><code>&lt;label class="checkbox-label"&gt;&lt;input type="checkbox"&gt;Remember me&lt;/label&gt;
-&lt;input class="privilege-toggle" type="checkbox" aria-label="Read privilege for Board member"&gt;</code></pre><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody><tr><td><code>.checkbox-label</code></td><td>Flex label wrapping box and text.</td></tr><tr><td><code>.privilege-toggle</code></td><td>Bare checkbox in a table cell; needs <code>aria-label</code>.</td></tr></tbody></table></div></section>
-<section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2><p>Extracted from these mocks:</p><ul><li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a> (remember me)</li><li><a href="../../mocks/pages/admin-roles/default.html">pages/admin-roles/default</a> (privilege toggles)</li></ul><h3>Drift</h3><ul><li>Gap between box and label was 6px in one stylesheet and 8px in another; the system uses <code>--space-2</code>.</li><li>Privilege toggles were named with test ids; the system requires role and privilege.</li><li>The mocks gave the checkbox no custom focus ring; the system adds the shared ring.</li></ul></section>
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A checkbox is a <code>&lt;label class="checkbox"&gt;</code> that wraps an <code>&lt;input type="checkbox"&gt;</code> and a <code>.checkbox__text</code>. The text can carry a one-line description in <code>&lt;small&gt;</code>. Because the label wraps the input, the whole row is the click target.</p>
+      <p>The admin has three checkboxes, each saved with its form:</p>
+      <ul>
+        <li><b>Remember me</b> on Sign in.</li>
+        <li><b>I agree to the terms and conditions</b> on Create account, which must be ticked.</li>
+        <li><b>Also send to members by email and text</b> in the New Document dialog, shown when a Notice is Published, with a one-line hint.</li>
+      </ul>
+      <p>Roles &amp; Privileges also draws its access rights (Read, Write, Create, Delete) as checkboxes today, but each one saves the moment it is clicked. A choice that takes effect at once is a <a href="switch.html">switch</a>; that is how the system draws the privilege grid.</p>
+      <p>Use a checkbox when the person can say yes or no and nothing happens until they press the form's button. Group related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>. To pick exactly one of a few options, use a <a href="radio-group.html">radio group</a> or a <a href="select.html">select</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <label class="checkbox" style="width: 100%; max-width: 26rem;"><input type="checkbox" name="send-anatomy" value="1" checked><span class="checkbox__text">Also send to members by email and text<small>Only members who asked for new notices on their profile get one.</small></span></label>
+          <span class="ds-callout" style="left: 2%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 56%; top: 6%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 52%; top: 84%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Box</b><small><code>--size-icon-md</code> square, <code>appearance: none</code>, <code>--radius-sm</code>, hairline <code>--color-border-strong</code>. Checked: <code>--color-accent</code> fill with a <code>--color-fg-on-accent</code> tick.</small></div></li>
+          <li><div><b>Label</b><small><code>.checkbox__text</code> in <code>--text-body</code>; clicking it ticks the box.</small></div></li>
+          <li><div><b>Description (optional)</b><small><code>&lt;small&gt;</code> in <code>--color-fg-muted</code>, one short line.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Single</h3>
+      <p>One choice with a short label. On Sign in it sits on a row with the "Forgot password?" link.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="cluster cluster--between" style="width: 100%;"><label class="checkbox"><input type="checkbox" name="remember" value="1"><span class="checkbox__text">Remember me</span></label><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></div>
+        </div>
+        <div class="ds-example__caption"><span>Sign in: the checkbox and the link share a row, and wrap onto two lines when there is no room.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="cluster cluster--between"&gt;
+  &lt;label class="checkbox"&gt;&lt;input type="checkbox" name="remember" value="1"&gt;
+    &lt;span class="checkbox__text"&gt;Remember me&lt;/span&gt;&lt;/label&gt;
+  &lt;a href="/forgot-password"&gt;Forgot password?&lt;/a&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>With a description</h3>
+      <p>Add a <code>&lt;small&gt;</code> line when the label needs one more fact to decide. New Document uses it to say who will receive the notice.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <label class="checkbox"><input type="checkbox" name="send" value="1"><span class="checkbox__text">Also send to members by email and text<small>Only members who asked for new notices on their profile get one.</small></span></label>
+        </div>
+        <div class="ds-example__caption"><span>New Document, when the type is Notice and the status is Published. It starts unticked.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;label class="checkbox"&gt;&lt;input type="checkbox" name="send" value="1"&gt;
+  &lt;span class="checkbox__text"&gt;Also send to members by email and text
+    &lt;small&gt;Only members who asked for new notices on their profile get one.&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;</code></pre></details>
+      </div>
+
+      <h3>Required</h3>
+      <p>A box that must be ticked before the form can be sent. It carries <code>required</code>, and a <code>.field__error</code> below it when it was left empty.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="checkbox"><input type="checkbox" name="terms" value="1" required aria-invalid="true" aria-describedby="cb-var-terms-error"><span class="checkbox__text">I agree to the terms and conditions</span></label><div class="field__error" id="cb-var-terms-error">Tick this box to agree to the terms and conditions.</div></div>
+        </div>
+        <div class="ds-example__caption"><span>Create account, after pressing the button with the box empty.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="checkbox"&gt;&lt;input type="checkbox" name="terms" value="1" required
+      aria-invalid="true" aria-describedby="terms-error"&gt;
+    &lt;span class="checkbox__text"&gt;I agree to the terms and conditions&lt;/span&gt;&lt;/label&gt;
+  &lt;div class="field__error" id="terms-error"&gt;Tick this box to agree to the terms and conditions.&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Group in a fieldset, with an indeterminate "all" box</h3>
+      <p>Related choices that are saved together go in a <code>&lt;fieldset&gt;</code> whose <code>&lt;legend&gt;</code> asks the question. An "all" box can tick or clear the whole group; when only some are ticked it shows a dash (indeterminate). No admin form has a checkbox group today. This example reuses the four access rights to show the shape, with a Member's maintenance request rights (Read and Create) as the data; on Roles &amp; Privileges itself these rights save at once and are <a href="switch.html">switches</a>.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <fieldset style="width: 100%;"><legend>What can members do with maintenance requests?</legend>
+            <label class="checkbox"><input type="checkbox" name="maint-all" data-state="indeterminate" aria-controls="cb-var-group"><span class="checkbox__text">All four</span></label>
+            <div id="cb-var-group" style="padding-left: var(--space-8);">
+              <label class="checkbox"><input type="checkbox" name="maint" value="Read" checked><span class="checkbox__text">Read</span></label>
+              <label class="checkbox"><input type="checkbox" name="maint" value="Write"><span class="checkbox__text">Write</span></label>
+              <label class="checkbox"><input type="checkbox" name="maint" value="Create" checked><span class="checkbox__text">Create</span></label>
+              <label class="checkbox"><input type="checkbox" name="maint" value="Delete"><span class="checkbox__text">Delete</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Two of four ticked, so "All four" is indeterminate. The four rights are indented by <code>--space-8</code> under it.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;fieldset&gt;&lt;legend&gt;What can members do with maintenance requests?&lt;/legend&gt;
+  &lt;label class="checkbox"&gt;&lt;input type="checkbox" id="maint-all" aria-controls="maint-rights"&gt;
+    &lt;span class="checkbox__text"&gt;All four&lt;/span&gt;&lt;/label&gt;
+  &lt;div id="maint-rights" style="padding-left: var(--space-8);"&gt;
+    &lt;label class="checkbox"&gt;&lt;input type="checkbox" name="maint" value="Read" checked&gt;&lt;span class="checkbox__text"&gt;Read&lt;/span&gt;&lt;/label&gt;
+    …
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+&lt;script&gt;
+  // Indeterminate is a property, not an attribute: set it from script.
+  document.getElementById('maint-all').indeterminate = true;
+&lt;/script&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size: a 20px box in a row at least --target-min tall."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size: a 20px box (<code>--size-icon-md</code>) in a row at least <code>--target-min</code> tall.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover, focus and indeterminate are forced on the input with <code>data-state</code>; checked, invalid and disabled use the real attributes.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Value</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Unchecked</th>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-1"><span class="checkbox__text">Remember me</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-2" data-state="hover"><span class="checkbox__text">Remember me</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-3" data-state="focus"><span class="checkbox__text">Remember me</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-4" aria-invalid="true"><span class="checkbox__text">I agree to the terms</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-5" disabled><span class="checkbox__text">Remember me</span></label></td></tr>
+          <tr><th scope="row">Checked</th>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-6" checked><span class="checkbox__text">Remember me</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-7" checked data-state="hover"><span class="checkbox__text">Remember me</span></label></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-8" checked data-state="focus"><span class="checkbox__text">Remember me</span></label></td>
+            <td><span class="text-muted">Not used</span></td>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-9" checked disabled><span class="checkbox__text">Remember me</span></label></td></tr>
+          <tr><th scope="row">Indeterminate</th>
+            <td><label class="checkbox"><input type="checkbox" name="cb-st-10" data-state="indeterminate"><span class="checkbox__text">All four</span></label></td>
+            <td><span class="text-muted">As checked</span></td>
+            <td><span class="text-muted">As checked</span></td>
+            <td><span class="text-muted">Not used</span></td>
+            <td><span class="text-muted">Not used</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-1);"><label class="checkbox"><input type="checkbox" name="cb-th-l1"><span class="checkbox__text">Remember me</span></label><label class="checkbox"><input type="checkbox" name="cb-th-l2" checked data-state="focus"><span class="checkbox__text">Also send to members by email and text<small>Only members who asked for new notices on their profile get one.</small></span></label><label class="checkbox"><input type="checkbox" name="cb-th-l3" data-state="indeterminate"><span class="checkbox__text">All four</span></label><label class="checkbox"><input type="checkbox" name="cb-th-l4" aria-invalid="true"><span class="checkbox__text">I agree to the terms and conditions</span></label><label class="checkbox"><input type="checkbox" name="cb-th-l5" checked disabled><span class="checkbox__text">Remember me</span></label></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-1);"><label class="checkbox"><input type="checkbox" name="cb-th-d1"><span class="checkbox__text">Remember me</span></label><label class="checkbox"><input type="checkbox" name="cb-th-d2" checked data-state="focus"><span class="checkbox__text">Also send to members by email and text<small>Only members who asked for new notices on their profile get one.</small></span></label><label class="checkbox"><input type="checkbox" name="cb-th-d3" data-state="indeterminate"><span class="checkbox__text">All four</span></label><label class="checkbox"><input type="checkbox" name="cb-th-d4" aria-invalid="true"><span class="checkbox__text">I agree to the terms and conditions</span></label><label class="checkbox"><input type="checkbox" name="cb-th-d5" checked disabled><span class="checkbox__text">Remember me</span></label></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b> only applies to a required box left empty. The edge turns <code>--color-danger-solid</code> and a <code>.field__error</code> below says what to do.</li>
+        <li><b>Disabled</b> is the saving state: while Sign in or New Document is sending, the checkbox is disabled so it cannot change under the request, and the label turns <code>--color-fg-disabled</code>.</li>
+        <li><b>Indeterminate</b> only appears on an "all" box. Pressing it ticks every box in the group; pressing again clears them.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Each checkbox is its own row at every width; a group never sits side by side.</li>
+        <li>A long label wraps under its own first word, not under the box, because the row is a flex container with the box aligned to the top.</li>
+        <li>On Sign in, the "Remember me" and "Forgot password?" row is a wrapping <code>.cluster</code>, so at 320px or 400% zoom the link drops below the checkbox instead of overflowing.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The box reads <code>--color-bg-surface</code> and <code>--color-border-strong</code> when empty, <code>--color-fg-muted</code> for the hover edge, <code>--color-accent</code> with a <code>--color-fg-on-accent</code> tick or dash when checked or indeterminate, and <code>--color-bg-subtle</code> with <code>--color-border-default</code> when disabled. In dark the fill becomes the light violet and the tick turns dark, so the mark keeps its contrast.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;input type="checkbox"&gt;</code>, which gives the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/">WAI-ARIA APG Checkbox</a> pattern: dual-state for a single box, tri-state for an "all" box. Its mixed state comes from the <code>indeterminate</code> property, which the browser announces as "mixed" or "partially checked".</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to the next or previous checkbox. Each box is its own tab stop; disabled ones are skipped.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Ticks or clears the focused box. On an indeterminate "all" box, ticks every box in the group.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Does not tick. In a form it submits, as the browser does.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring is drawn around the 20px box on <code>:focus-visible</code>, offset by <code>--focus-ring-offset</code>. After a failed submit, focus goes to the error summary, whose link leads back to the box.</p>
+      <h3>Labelling</h3>
+      <p>The wrapping label names the box; no <code>aria-label</code> is needed. The <code>&lt;small&gt;</code> description is part of that name, so keep it to one line. A group's legend names the question and is read when focus enters the group. An error joins with <code>aria-describedby</code>, and the box gets <code>aria-invalid="true"</code> while it shows.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Empty edge on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Empty edge in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Checked fill on card</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Tick on checked fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Description on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Invalid edge on card</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Fill and edge colours fade over <code>--duration-fast</code>; reduced motion sets it to zero. The tick does not animate.</p>
+      <h3>Touch</h3>
+      <p>The whole label row is the target: at least <code>--target-min</code> (24px) tall with <code>--space-1</code> above and below, and as wide as the text. Clicking the words ticks the box.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Write the label as what will be true when it is ticked: "Remember me", "Also send to members by email and text".</li>
+        <li>Sentence case, no full stop: "I agree to the terms and conditions", not "I agree to the Terms and Conditions".</li>
+        <li>Never use a negative label ("Don't send"): ticking a box to say no is confusing.</li>
+        <li>An error says what to do: "Tick this box to agree to the terms and conditions." It does not say "You must".</li>
+        <li>When a person is asked to agree to something, put a link to it next to the box, outside the label.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><label class="checkbox"><input type="checkbox" name="cb-do-name" checked><span class="checkbox__text">Also send to members by email and text</span></label></div><figcaption>The label wraps the box, so its words are its name and its click target.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><label class="checkbox"><input type="checkbox" name="cb-dont-name" checked aria-label="privilege-read"></label></div><figcaption>A bare box named "privilege-read", as on Roles &amp; Privileges: every row sounds the same, and the name is a test id.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="checkbox"><input type="checkbox" name="cb-do-terms" required aria-invalid="true" aria-describedby="cb-do-terms-error"><span class="checkbox__text">I agree to the terms and conditions</span></label><div class="field__error" id="cb-do-terms-error">Tick this box to agree to the terms and conditions.</div></div></div><figcaption>The box is marked invalid and the error is joined to it, so a screen reader reads both.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stack" style="gap: var(--space-1);"><label class="checkbox"><input type="checkbox" name="cb-dont-terms"><span class="checkbox__text">I agree to the Terms and Conditions</span></label><p class="text-muted">You must accept the terms and conditions</p></div></div><figcaption>An error that is only nearby text, as on Create account: the box is not marked and the message is never read with it.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><label class="checkbox"><input type="checkbox" name="cb-do-form"><span class="checkbox__text">Remember me</span></label></div><figcaption>A checkbox for a choice that waits for the form's button.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><label class="checkbox"><input type="checkbox" name="cb-dont-form" checked><span class="checkbox__text">Read maintenance requests</span></label></div><figcaption>A checkbox that saves the moment it is clicked, like the privilege grid. Nothing tells the person it already happened; use a switch.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Box background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Box edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Box edge, hover; description</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Checked and indeterminate fill</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Tick and dash</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+          <tr><td>Invalid edge</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Disabled fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Disabled label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Box size / radius</td><td><code>--size-icon-md</code> / <code>--radius-sm</code></td><td><span data-token="--size-icon-md"></span> / <span data-token="--radius-sm"></span></td><td><span data-theme="dark"><span data-token="--size-icon-md"></span> / <span data-token="--radius-sm"></span></span></td></tr>
+          <tr><td>Tick stroke</td><td><code>--border-width-thick</code></td><td><span data-token="--border-width-thick"></span></td><td><span data-theme="dark" data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Row minimum height / gap</td><td><code>--target-min</code> / <code>--space-3</code></td><td><span data-token="--target-min"></span> / <span data-token="--space-3"></span></td><td><span data-theme="dark"><span data-token="--target-min"></span> / <span data-token="--space-3"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" name="remember" value="1"&gt;
+  &lt;span class="checkbox__text"&gt;Remember me&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.checkbox</code></td><td>The row: a <code>&lt;label&gt;</code> wrapping the box and its text.</td></tr>
+        <tr><td><code>.checkbox__text</code> (+ <code>&lt;small&gt;</code>)</td><td>Label and optional one-line description.</td></tr>
+        <tr><td><code>fieldset</code> + <code>legend</code></td><td>Groups related boxes and names the question.</td></tr>
+        <tr><td><code>checked</code>, <code>disabled</code>, <code>required</code></td><td>Real states.</td></tr>
+        <tr><td><code>input.indeterminate = true</code></td><td>Mixed state for an "all" box; set from script.</td></tr>
+        <tr><td><code>aria-invalid="true"</code></td><td>Danger edge; pair with a <code>.field__error</code> joined by <code>aria-describedby</code>.</td></tr>
+        <tr><td><code>data-state="hover|focus|checked|indeterminate|disabled"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a>, <a href="../../mocks/pages/admin-login/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-login/submitting.html">submitting</a> and <a href="../../mocks/pages/admin-login/error.html">error</a> (Remember me)</li>
+        <li><a href="../../mocks/pages/admin-register/default.html">pages/admin-register/default</a>, <a href="../../mocks/pages/admin-register/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-register/mismatch.html">mismatch</a>, <a href="../../mocks/pages/admin-register/submitting.html">submitting</a> and <a href="../../mocks/pages/admin-register/error.html">error</a> (terms, required, with error)</li>
+        <li><a href="../../mocks/dialogs/admin-document-create/send.html">dialogs/admin-document-create/send</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">busy</a> and <a href="../../mocks/dialogs/admin-document-create/send-error.html">send-error</a> (send to members, with hint, disabled while saving)</li>
+        <li><a href="../../mocks/pages/admin-roles/default.html">pages/admin-roles/default</a> and <a href="../../mocks/pages/admin-roles/member.html">member</a> (privilege checkboxes, drawn as switches by the system)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Look.</b> The admin draws browser checkboxes tinted green with <code>accent-color</code>: 24px in <code>.checkbox-label</code> on Sign in and Create account, 22px in <code>.notice-send</code>, 28px in <code>.privilege-toggle</code>. The system draws one 20px box with <code>appearance: none</code>, a <code>--radius-sm</code> corner, a violet fill and a token tick, in both themes.</li>
+        <li><b>Row height.</b> The admin's <code>.checkbox-label</code> and <code>.notice-send</code> rows are at least 44px tall with 14px or 15px text. The system's <code>.checkbox</code> row is at least <code>--target-min</code> (24px) with 16px text: larger words, smaller row.</li>
+        <li><b>Errors.</b> On Create account the terms error is a separate <code>.error-message</code> ("You must accept the terms and conditions") that is not joined to the box, and the box has no <code>aria-invalid</code>. The system joins it with <code>aria-describedby</code> and rewrites it as an instruction.</li>
+        <li><b>Terms.</b> The label says "Terms and Conditions" in title case, and the page never links to them. The system uses sentence case and asks for a link beside the box.</li>
+        <li><b>Saving.</b> While Sign in submits, "Remember me" stays enabled. New Document does disable its checkbox while saving, which is the system's rule for both.</li>
+        <li><b>Hint.</b> New Document keeps its hint outside the label and joins it with <code>aria-describedby</code>, which is also accessible. The system puts a one-line hint inside the label as <code>&lt;small&gt;</code>, so the whole row is the target.</li>
+        <li><b>Privileges.</b> The <code>.privilege-toggle</code> boxes are named <code>privilege-read</code>, <code>privilege-write</code> and so on, the same in every row, and save the moment they change. The system draws them as <a href="switch.html">switches</a> named by their row and column.</li>
+        <li><b>Focus.</b> <code>.notice-send</code> draws a 3px green outline; the other admin checkboxes rely on the browser default. The system uses the shared 2px <code>--color-focus-ring</code> everywhere.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skeleton — Coop design system</title>
+<meta name="description" content="Placeholder shapes for loading regions whose layout is known, such as the Coop admin&#x27;s metric cards and tables: variants, states and accessibility.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Skeleton</h1>
+      <p class="ds-lead">Soft grey shapes laid out like the content that is coming, with a gentle shimmer. They show where things will be, so the page does not jump when the data arrives.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: core, not yet used by the admin</span><span class="ds-pill"><code>aria-busy</code> on the container</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Coop admin shows a <a href="spinner.html">spinner</a> with words for every load today. The skeleton is a core part of the system for when the layout is known in advance and a spinner would make the page jump: the four metric cards on the Dashboard, a row of the Users table, or a request in the Maintenance list.</p>
+      <ul>
+        <li>Keep the real page chrome (sidebar, page title, Add User, the search field) and swap only the data for skeletons.</li>
+        <li>Choose one loading treatment per region: a skeleton or a spinner, never both.</li>
+        <li>For an action in progress (saving, uploading), use a busy <a href="button.html">button</a>, a <a href="spinner.html">spinner</a> or a <a href="progress.html">progress bar</a>, not a skeleton.</li>
+        <li>If loading fails, replace the skeletons with a danger <a href="alert.html">alert</a> or an error <a href="empty-state.html">empty state</a> that offers Try again.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="card metric-card" aria-busy="true" aria-label="Loading open requests" style="width: 100%; max-width: 20rem;"><span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><div class="stat"><span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div>
+          <span class="ds-callout" style="left: 10%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 46%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 70%; top: 72%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 22%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Circle</b><small>A <code>.skeleton</code> at the icon's exact size, fully rounded (the metric-card icon is 56px).</small></div></li>
+          <li><div><b>Title bar</b><small><code>.skeleton--title</code>: 1.5em tall; here narrowed to a number's width.</small></div></li>
+          <li><div><b>Text line</b><small><code>.skeleton--text</code>: 1em tall; the last line in a group is 60% wide.</small></div></li>
+          <li><div><b>Busy container</b><small>The real card with <code>aria-busy="true"</code> and an <code>aria-label</code> that says what is loading.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Pick the shape that matches what will replace it: a line of text, a heading, a circle for an avatar or icon, or a block for anything else.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" aria-busy="true" aria-label="Skeleton shapes">
+          <span class="skeleton skeleton--title" aria-hidden="true"></span>
+          <div><span class="skeleton skeleton--text" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div>
+          <div class="cluster"><span class="skeleton" style="width: var(--size-avatar-md); height: var(--size-avatar-md); border-radius: var(--radius-full);" aria-hidden="true"></span><span class="skeleton skeleton--rect" style="height: 6rem; flex: 1;" aria-hidden="true"></span></div>
+        </div>
+        <div class="ds-example__caption"><span>Title, text lines, circle (an avatar) and block (a notice preview).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="skeleton skeleton--title" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;span class="skeleton skeleton--text" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;span class="skeleton" style="width: var(--size-avatar-md); height: var(--size-avatar-md);
+      border-radius: var(--radius-full);" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;span class="skeleton skeleton--rect" style="height: 6rem;" aria-hidden="true"&gt;&lt;/span&gt;</code></pre></details>
+      </div>
+      <h3>Composed</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="table-wrap" aria-busy="true" aria-label="Loading users"><table class="table">
+            <caption class="visually-hidden">Users</caption>
+            <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cluster" style="flex-wrap: nowrap;"><span class="skeleton" style="width: var(--size-avatar-sm); height: var(--size-avatar-sm); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><span class="skeleton skeleton--text" style="width: 6rem;" aria-hidden="true"></span></div></td><td><span class="skeleton skeleton--text" style="width: 7rem;" aria-hidden="true"></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+              <tr><td><div class="cluster" style="flex-wrap: nowrap;"><span class="skeleton" style="width: var(--size-avatar-sm); height: var(--size-avatar-sm); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><span class="skeleton skeleton--text" style="width: 6rem;" aria-hidden="true"></span></div></td><td><span class="skeleton skeleton--text" style="width: 7rem;" aria-hidden="true"></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="ds-example__caption"><span>Users table rows: the real header stays, only the cells are placeholders.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Text and title skeletons are sized in <code>em</code>, so they follow the font size of where they sit and grow when someone zooms in. Circles and blocks take the size of the real thing, set with tokens: <code>--size-avatar-sm</code> for a table avatar, <code>--size-avatar-lg</code> for a metric-card icon. Widths of single lines can be narrowed to the expected text (a number, a username).</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A skeleton has one state, loading. The container moves from loading to loaded, or to failed.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Container</th><th scope="col">Loading</th><th scope="col">Loaded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Metric card</th>
+            <td><div class="card metric-card" aria-busy="true" aria-label="Loading open requests"><span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><div class="stat"><span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div></td>
+            <td><div class="card metric-card"><span class="metric-card__icon metric-card__icon--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></span><div class="stat"><span class="stat__value">3</span><span class="stat__label">Open requests</span></div></div></td>
+          </tr>
+          <tr><th scope="row">Request row</th>
+            <td><div class="card card--flush" aria-busy="true" aria-label="Loading maintenance requests"><div class="list__item"><div class="list__body"><span class="skeleton skeleton--title" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div></div></td>
+            <td><div class="card card--flush"><div class="list__item"><div class="list__body"><div class="list__title">Kitchen tap leak</div><div class="list__meta">The kitchen tap drips after it is closed.</div></div><span class="badge badge--warning">New</span></div></div></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="card metric-card" aria-busy="true" aria-label="Loading documents count"><span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><div class="stat"><span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div></div>
+        <div data-theme="dark"><div class="card metric-card" aria-busy="true" aria-label="Loading documents count"><span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><div class="stat"><span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Loaded</b>: remove <code>aria-busy</code> and the busy <code>aria-label</code>, and swap skeletons for content in one paint, so screen readers read the finished section once.</li>
+        <li><b>Failed</b>: replace the whole region with a danger alert that says what did not load and offers Try again ("We couldn't load the users list. Check your connection and try again.").</li>
+        <li><b>Empty</b>: if the data comes back empty, replace the skeletons with an <a href="empty-state.html">empty state</a>, not with zeroes in placeholder shapes.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Skeletons live inside the real layout (the metric grid, the table, the list), so they reflow exactly as the content will.</li>
+        <li>Draw only what fills the first screen: four metric cards, or about five table rows. Do not draw a whole list.</li>
+        <li>Fixed widths stay well under 320px (a username line is 6rem) so nothing overflows a phone; a table of skeleton rows scrolls inside its <code>.table-wrap</code> like the real table.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The shimmer is a gradient between <code>--color-bg-subtle</code> and <code>--color-bg-subtle-hover</code>, both tuned per theme, so skeletons are a quiet grey on light cards and a lifted grey on dark ones. Nothing in the component changes between themes.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Every skeleton is <code>aria-hidden="true"</code>. The region that is loading carries <code>aria-busy="true"</code> and an <code>aria-label</code> ("Loading users", "Loading maintenance requests"), so assistive technology knows it is not ready and does not read half a page. There is no WAI-ARIA widget pattern; this is the <code>aria-busy</code> state on a region.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips skeletons. Real controls in the chrome (sidebar, search, Add User) stay reachable while the data loads.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Skeletons never take focus. When content arrives, focus stays where it was.</p>
+      <h3>Labelling</h3>
+      <p>The busy region says what is loading in words. Keep the page <code>&lt;h1&gt;</code> real ("Users", "Dashboard") so the page is identified from the start. A table keeps its real header row and caption.</p>
+      <h3>Contrast</h3>
+      <p>Skeletons are decorative placeholders and are exempt from 1.4.11. The content that replaces them uses the normal pairs:</p>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Loaded text on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Loaded secondary text on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The shimmer runs once per <code>--duration-loop</code> (1.4 s) and is soft, never flashing. Under <code>prefers-reduced-motion</code> the animation is removed and the skeleton is a flat grey shape.</p>
+      <h3>Touch</h3>
+      <p>No targets.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The busy label is "Loading" plus the thing, in the page's words: "Loading users", "Loading maintenance requests", "Loading the dashboard".</li>
+        <li>Never put text inside a skeleton or show "Loading…" over it; the shapes are the visual message and the label is the spoken one.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="card metric-card" aria-busy="true" aria-label="Loading unread messages"><span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg); border-radius: var(--radius-full); flex: none;" aria-hidden="true"></span><div class="stat"><span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div></div><figcaption>Mirror the real card: icon, number, label.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><span class="skeleton skeleton--rect" style="height: 8rem;" aria-hidden="true"></span></div><figcaption>One big grey block that looks nothing like what will load.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="stack" aria-busy="true" aria-label="Loading maintenance requests"><span class="skeleton skeleton--title" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></div></div><figcaption>Hide skeletons and label the busy region.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="loading" style="padding: 0;"><span class="spinner" aria-hidden="true"></span></div><div class="stack"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></div></div><figcaption>A spinner and skeletons together, unlabelled, as the Maintenance loading mock does with its spinner above the empty list frame.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Base</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Shimmer highlight</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Radius, text / block / circle</td><td><code>--radius-sm</code> / <code>--radius-md</code> / <code>--radius-full</code></td><td colspan="2"><span data-token="--radius-sm"></span> / <span data-token="--radius-md"></span> / <span data-token="--radius-full"></span></td></tr>
+          <tr><td>Circle sizes</td><td><code>--size-avatar-sm</code> / <code>--size-avatar-md</code> / <code>--size-avatar-lg</code></td><td colspan="2"><span data-token="--size-avatar-sm"></span> / <span data-token="--size-avatar-md"></span> / <span data-token="--size-avatar-lg"></span></td></tr>
+          <tr><td>Shimmer cycle</td><td><code>--duration-loop</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-loop"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="metric-grid" aria-busy="true" aria-label="Loading the dashboard"&gt;
+  &lt;div class="card metric-card"&gt;
+    &lt;span class="skeleton" style="width: var(--size-avatar-lg); height: var(--size-avatar-lg);
+          border-radius: var(--radius-full); flex: none;" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;div class="stat"&gt;
+      &lt;span class="skeleton skeleton--title" style="width: 3rem;" aria-hidden="true"&gt;&lt;/span&gt;
+      &lt;span class="skeleton skeleton--text" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- three more cards --&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.skeleton</code></td><td>Shimmering block, at least 1em tall.</td></tr>
+        <tr><td><code>.skeleton--text</code></td><td>One line; the last in a group is 60% wide.</td></tr>
+        <tr><td><code>.skeleton--title</code></td><td>Heading bar, 1.5em × 40%.</td></tr>
+        <tr><td><code>.skeleton--rect</code></td><td>Block with a medium radius; set its height.</td></tr>
+        <tr><td><code>.skeleton</code> + size tokens + <code>--radius-full</code></td><td>Circle for an avatar or icon (no modifier class yet).</td></tr>
+        <tr><td><code>aria-busy="true"</code> + <code>aria-label</code></td><td>On the loading region.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>The admin has no skeletons. These mocks show the loads a skeleton could serve:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (the metric cards a skeleton would mirror)</li>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (the Users table)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/loading.html">pages/admin-maintenance/loading</a>, <a href="../../mocks/pages/admin-documents/loading.html">pages/admin-documents/loading</a>, <a href="../../mocks/pages/admin-messaging/loading.html">pages/admin-messaging/loading</a></li>
+        <li><a href="../../mocks/pages/admin-board/loading.html">pages/admin-board/loading</a>, <a href="../../mocks/pages/admin-pages/loading.html">pages/admin-pages/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">pages/admin-website/loading</a></li>
+      </ul>
+      <p>Adopted from the Shelfie design system and rewritten for the Coop admin.</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>No skeletons</b>: every admin load uses a spinner (<code>.loading</code> with <code>.spin</code>, or a per-screen spinner class). This is not a defect; the skeleton is documented as the system's option for known layouts, and the <a href="spinner.html">spinner</a> page covers what the admin does today.</li>
+        <li><b>Maintenance and Messages loading</b>: the spinner sits above the list panel, which renders empty (with its "All Requests" or conversation heading) at the same time, so the page shows two loading signals. The system uses one treatment per region.</li>
+        <li><b>Dashboard</b>: there is no loading mock; while counts load the implemented cards are not marked busy. The system marks the metric grid <code>aria-busy</code>.</li>
+        <li><b>CSS gap</b>: <code>components.css</code> has no circle modifier, so circles are a <code>.skeleton</code> sized with tokens inline.</li>
+      </ul>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

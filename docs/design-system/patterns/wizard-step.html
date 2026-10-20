@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wizard step — Coop design system</title>
+<meta name="description" content="Admin onboarding, one step at a time: the auth card with the co-op logo, a step indicator, one heading, a few fields or one choice, one primary action and a quiet Back.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Flows</p>
+      <h1>Wizard step</h1>
+      <p class="ds-lead">One purpose per screen: where you are, one heading, a few related fields or one choice, one primary action and a quiet Back. Admin onboarding, which a new staff or board member sees once after registering, is three of these in a row.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#example">Composed example</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A wizard step is a full screen, not a dialog. It sits in the <a href="../components/layout.html">auth layout</a> (a centred card under the co-op's <a href="../components/logo-mark.html">logo mark</a>) like sign-in and registration, so someone who has just made an account stays in the same calm place. There is no sidebar and no tab bar: the only ways on or back are the step's own actions.</p>
+      <ul>
+        <li><b><a href="../components/step-indicator.html">Step indicator</a></b> (<code>p.steps</code>) at the top of the card: dots for the eye, "Step 2 of 3" in words for everyone.</li>
+        <li><b>One heading</b> as the screen's <code>h1</code>, and at most one line under it.</li>
+        <li><b>The step's content</b>: nothing on the welcome step, a few related fields on the profile step, one <a href="../components/radio-group.html">radio group</a> on the unit step.</li>
+        <li><b>Actions</b> (<code>.wizard__actions</code>): one primary block button, a ghost Back under it, and "Skip for now" as a link under the card on steps that can be skipped.</li>
+        <li><b>No illustration.</b> <code>.wizard__art</code> exists in the system, but the admin onboarding uses none; the logo mark is the only picture.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Need</th><th scope="col">Use</th><th scope="col">Admin example</th></tr></thead>
+        <tbody>
+          <tr><td>A short, linear set-up that happens once</td><td>Wizard steps</td><td>Onboarding after registration: welcome, profile, unit</td></tr>
+          <tr><td>The same values changed later, any time</td><td>A screen with a form</td><td>Profile, Settings → Account</td></tr>
+          <tr><td>One decision on top of the current screen</td><td><a href="dialogs-and-overlays.html">Dialog</a></td><td>Delete a user, New request</td></tr>
+          <tr><td>A long form with many unrelated fields</td><td>A screen with a <a href="../components/form-layout.html">form layout</a></td><td>Settings → Theme</td></tr>
+        </tbody>
+      </table></div>
+      <p>Keep a wizard to three or four steps. If it needs more, the person is better served by a normal screen they can return to.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>Every step is the auth card with a <code>.card.stack.wizard</code> inside it. The welcome step has no form; the profile and unit steps have one each.</p>
+      <h3>The welcome step</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="align-items: center;">
+          <div class="auth-card stack">
+            <div class="logo"><span class="logo-mark"><svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false" style="width: 100%; height: 100%;"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle); opacity: 0.7;"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span></div>
+            <div class="card stack wizard">
+              <p class="steps"><span class="steps__dots" aria-hidden="true"><span class="steps__dot steps__dot--current"></span><span class="steps__dot"></span><span class="steps__dot"></span></span><span>Step 1 of 3</span></p>
+              <h4 style="font: var(--text-h2);">Welcome to OWN Housing Co-op</h4>
+              <p class="text-muted">Let’s set up your profile so you can start looking after the co-op.</p>
+              <div class="wizard__actions"><a class="btn btn--primary btn--lg btn--block" href="#structure">Get started</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-onboarding/default. No fields, one action, no Back.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="auth-layout"&gt;&lt;div class="auth-card stack"&gt;
+  &lt;div class="logo"&gt;&lt;span class="logo-mark"&gt;&lt;svg viewBox="0 0 48 48" aria-hidden="true"&gt;…&lt;/svg&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card stack wizard"&gt;
+    &lt;p class="steps"&gt;
+      &lt;span class="steps__dots" aria-hidden="true"&gt;…&lt;/span&gt;
+      &lt;span&gt;Step 1 of 3&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;h1 tabindex="-1"&gt;Welcome to OWN Housing Co-op&lt;/h1&gt;
+    &lt;p class="text-muted"&gt;Let’s set up your profile so you can start looking after the co-op.&lt;/p&gt;
+    &lt;div class="wizard__actions"&gt;
+      &lt;button class="btn btn--primary btn--lg btn--block" type="button"&gt;Get started&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>The unit step</h3>
+      <p>A choice of one is a radio group in a <code>fieldset</code>, never a set of clickable boxes. Nothing claims the person is finished until they have chosen.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="align-items: center;">
+          <div class="auth-card stack">
+            <div class="card stack wizard">
+              <p class="steps"><span class="steps__dots" aria-hidden="true"><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--current"></span></span><span>Step 3 of 3</span></p>
+              <h4 style="font: var(--text-h2);">Select your unit</h4>
+              <form class="stack" novalidate onsubmit="return false">
+                <fieldset class="stack" style="border: 0; margin: 0; padding: 0; gap: var(--space-2);">
+                  <legend class="field__label" style="margin-bottom: var(--space-2);">Your unit</legend>
+                  <label class="choice"><input type="radio" name="ws-unit" value="101" checked><span class="choice__text">Unit 101</span></label>
+                  <label class="choice"><input type="radio" name="ws-unit" value="102"><span class="choice__text">Unit 102</span></label>
+                  <label class="choice"><input type="radio" name="ws-unit" value="201"><span class="choice__text">Unit 201</span></label>
+                  <label class="choice"><input type="radio" name="ws-unit" value="202"><span class="choice__text">Unit 202</span></label>
+                  <label class="choice"><input type="radio" name="ws-unit" value="301"><span class="choice__text">Unit 301</span></label>
+                </fieldset>
+                <div class="wizard__actions"><button class="btn btn--primary btn--lg btn--block" type="submit">Go to dashboard</button><a class="btn btn--ghost" href="#example">Back</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-onboarding/unit-selected, with Unit 101 chosen.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="example"><h2><a href="#example">Composed example</a></h2>
+      <p>The profile step put together: logo, step indicator, heading, one line of reassurance, the fields, the actions and "Skip for now" under the card.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="align-items: center;">
+          <div class="auth-card stack">
+            <div class="logo"><span class="logo-mark"><svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false" style="width: 100%; height: 100%;"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle); opacity: 0.7;"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span></div>
+            <div class="card stack wizard">
+              <p class="steps"><span class="steps__dots" aria-hidden="true"><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--current"></span><span class="steps__dot"></span></span><span>Step 2 of 3</span></p>
+              <h3 style="font: var(--text-h2);">Set up your profile</h3>
+              <p class="text-muted">You can change these later in your profile.</p>
+              <form class="stack" novalidate onsubmit="return false">
+                <div class="field"><label class="field__label" for="ws-first">First name</label><input class="input" id="ws-first" type="text" autocomplete="given-name" value="Mira"></div>
+                <div class="field"><label class="field__label" for="ws-last">Last name</label><input class="input" id="ws-last" type="text" autocomplete="family-name" value="Fern"></div>
+                <div class="field"><label class="field__label" for="ws-email">Email <span class="optional">(optional)</span></label><input class="input" id="ws-email" type="email" autocomplete="email" value=""></div>
+                <div class="field"><label class="field__label" for="ws-phone">Phone <span class="optional">(optional)</span></label><input class="input" id="ws-phone" type="tel" autocomplete="tel" value=""></div>
+                <div class="field"><label class="field__label" for="ws-photo">Photo <span class="optional">(optional)</span></label><input class="input" id="ws-photo" type="file" accept="image/*" aria-describedby="ws-photo-help"><p class="field__help" id="ws-photo-help">A photo helps members recognise you.</p></div>
+                <div class="wizard__actions"><button class="btn btn--primary btn--lg btn--block" type="submit">Next</button><a class="btn btn--ghost" href="#structure">Back</a></div>
+              </form>
+            </div>
+            <p class="text-caption" style="text-align: center;"><a href="#example">Skip for now</a></p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-onboarding/profile composed from the auth layout, logo mark, step indicator, form fields and buttons.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card stack wizard"&gt;
+  &lt;p class="steps"&gt;…&lt;span&gt;Step 2 of 3&lt;/span&gt;&lt;/p&gt;
+  &lt;h1 tabindex="-1"&gt;Set up your profile&lt;/h1&gt;
+  &lt;p class="text-muted"&gt;You can change these later in your profile.&lt;/p&gt;
+  &lt;form class="stack" novalidate&gt;
+    &lt;div class="field"&gt;
+      &lt;label class="field__label" for="first"&gt;First name&lt;/label&gt;
+      &lt;input class="input" id="first" type="text" autocomplete="given-name"&gt;
+    &lt;/div&gt;
+    …
+    &lt;div class="wizard__actions"&gt;
+      &lt;button class="btn btn--primary btn--lg btn--block" type="submit"&gt;Next&lt;/button&gt;
+      &lt;button class="btn btn--ghost" type="button"&gt;Back&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;p class="text-caption"&gt;&lt;a href="…"&gt;Skip for now&lt;/a&gt;&lt;/p&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Welcome</td><td>Step 1 of 3, the welcome heading, one line and Get started.</td><td><a href="../../mocks/pages/admin-onboarding/default.html">default</a></td></tr>
+          <tr><td>Profile</td><td>Step 2 of 3, the profile fields, Next and Back, Skip for now under the card.</td><td><a href="../../mocks/pages/admin-onboarding/profile.html">profile</a></td></tr>
+          <tr><td>Unit, nothing chosen</td><td>Step 3 of 3, the five units with none selected, Go to dashboard and Back.</td><td><a href="../../mocks/pages/admin-onboarding/unit.html">unit</a></td></tr>
+          <tr><td>Unit chosen</td><td>The chosen radio is filled; nothing else changes.</td><td><a href="../../mocks/pages/admin-onboarding/unit-selected.html">unit-selected</a></td></tr>
+          <tr><td>Invalid, submitting, failed</td><td>Not in the admin: its onboarding has no blocking validation, busy state or failure screen (mock note). If they are added, they follow the <a href="forms.html">forms</a> and <a href="feedback-and-loading.html">feedback and loading</a> patterns.</td><td>–</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Choices and actions</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Unit</th>
+            <td><label class="choice"><input type="radio" name="ws-m1" value="1"><span class="choice__text">Unit 102</span></label></td>
+            <td><label class="choice"><input type="radio" name="ws-m2" value="1" data-state="hover"><span class="choice__text">Unit 102</span></label></td>
+            <td><label class="choice"><input type="radio" name="ws-m3" value="1" data-state="focus"><span class="choice__text">Unit 102</span></label></td>
+            <td><label class="choice"><input type="radio" name="ws-m4" value="1" checked><span class="choice__text">Unit 101</span></label></td></tr>
+          <tr><th scope="row">Primary</th>
+            <td><button class="btn btn--primary" type="button">Next</button></td>
+            <td><button class="btn btn--primary" type="button" data-state="hover">Next</button></td>
+            <td><button class="btn btn--primary" type="button" data-state="focus">Next</button></td>
+            <td><span class="text-caption">–</span></td></tr>
+          <tr><th scope="row">Back</th>
+            <td><button class="btn btn--ghost" type="button">Back</button></td>
+            <td><button class="btn btn--ghost" type="button" data-state="hover">Back</button></td>
+            <td><button class="btn btn--ghost" type="button" data-state="focus">Back</button></td>
+            <td><span class="text-caption">–</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="card stack wizard">
+          <p class="steps"><span class="steps__dots" aria-hidden="true"><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--current"></span></span><span>Step 3 of 3</span></p>
+          <p style="font: var(--text-h3);">Select your unit</p>
+          <label class="choice"><input type="radio" name="ws-light" value="101" checked><span class="choice__text">Unit 101</span></label>
+          <a class="btn btn--primary btn--block" href="#states">Go to dashboard</a>
+        </div></div>
+        <div data-theme="dark"><div class="card stack wizard">
+          <p class="steps"><span class="steps__dots" aria-hidden="true"><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--done"></span><span class="steps__dot steps__dot--current"></span></span><span>Step 3 of 3</span></p>
+          <p style="font: var(--text-h3);">Select your unit</p>
+          <label class="choice"><input type="radio" name="ws-dark" value="101" checked><span class="choice__text">Unit 101</span></label>
+          <a class="btn btn--primary btn--block" href="#states">Go to dashboard</a>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The auth card is 26rem wide at most and full width below that, with the layout margin as gutter. At 320px (400% zoom) every field and button is full width and nothing scrolls sideways.</li>
+        <li>Actions stack at every width: the block primary, then the ghost Back centred under it. There is never a row of three equal buttons.</li>
+        <li>Fields stay in one column at every width, first name above last name, so the reading order never changes.</li>
+        <li>On a phone the welcome and unit steps fit on one screen; the profile step scrolls, and the primary action follows the last field.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Each step is one view with one <code>h1</code>. Fields are native inputs with <code>&lt;label for&gt;</code>; the unit choice is native radios in a <code>fieldset</code> with a <code>legend</code> (see <a href="../components/radio-group.html">radio group</a> and the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA radio group pattern</a>). The step indicator is plain text; its dots are <code>aria-hidden</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Fields or the unit group, then the primary action, then Back, then Skip for now.</td></tr>
+        <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>In the unit group, moves the choice between units.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>In a field, goes to the next step.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The steps change in place, so focus moves to the new step's <code>h1</code> (with <code>tabindex="-1"</code>) and a screen reader reads "Step 2 of 3" and the heading. Back returns to the previous step with its values kept.</p>
+      <h3>Labelling</h3>
+      <p>Optional fields say "(optional)" in the label; required fields carry no marker because they are the norm. The photo field's help text is joined with <code>aria-describedby</code>. The logo mark is decorative here, because the heading names the co-op.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Step text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current step dot on card</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Radio border on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Primary button label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The card enters like every auth screen (see <a href="../foundations/motion.html#choreography">motion choreography</a>). The current dot widens over <code>--duration-base</code> when the step changes. Under reduced motion it changes at once; the words "Step 3 of 3" carry the information either way.</p>
+      <h3>Touch</h3>
+      <p>Each unit row is at least 24px tall with the whole label as its target; the primary button is 48px tall and full width. Back and Skip for now sit apart from the primary action so they are not pressed by mistake.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The heading names the step in sentence case: "Welcome to OWN Housing Co-op", "Set up your profile", "Select your unit". No exclamation marks.</li>
+        <li>One line under the heading at most, and only when it reassures or explains: "You can change these later in your profile."</li>
+        <li>Buttons are verbs: Get started, Next, Go to dashboard. Never Continue, Submit or OK.</li>
+        <li>"Skip for now" is always the same words, always a link, always under the card.</li>
+        <li>Never say "click"; say what to choose. Never say "You’re all set" until the person has finished the last choice.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><fieldset class="stack" style="border: 0; margin: 0; padding: 0; gap: var(--space-2);"><legend class="field__label">Your unit</legend><label class="choice"><input type="radio" name="ws-do" value="101" checked><span class="choice__text">Unit 101</span></label><label class="choice"><input type="radio" name="ws-do" value="102"><span class="choice__text">Unit 102</span></label></fieldset></div><figcaption>Offer units as a radio group a keyboard and screen reader understand.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><div class="card" style="padding: var(--space-3);">Unit 101</div><div class="card" style="padding: var(--space-3);">Unit 102</div></div><figcaption>Use clickable boxes. They cannot be reached with Tab and are not announced as choices.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><div class="wizard__actions"><button class="btn btn--primary btn--block" type="button">Next</button><button class="btn btn--ghost" type="button">Back</button></div><p class="text-caption" style="text-align: center;"><a href="#do-dont">Skip for now</a></p></div><figcaption>One primary action, a quiet Back and a Skip link apart from them.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn" type="button">Back</button><button class="btn" type="button">Skip</button><button class="btn btn--primary" type="button">Next</button></div><figcaption>Put Back, Skip and Next in a row of buttons the same size. Skip is easy to press by mistake.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><p style="font: var(--text-h4);">Select your unit</p><a class="btn btn--primary btn--block" href="#do-dont">Go to dashboard</a></div><figcaption>Let the button say what happens next.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack" style="align-items: stretch;"><p style="font: var(--text-h4);">Select your unit</p><p>You're all set! Click below to go to your dashboard.</p></div><figcaption>Say "You're all set!" before anything is chosen, and ask people to click.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-onboarding/default.html">pages/admin-onboarding/default</a> (welcome)</li>
+        <li><a href="../../mocks/pages/admin-onboarding/profile.html">pages/admin-onboarding/profile</a></li>
+        <li><a href="../../mocks/pages/admin-onboarding/unit.html">pages/admin-onboarding/unit</a> and <a href="../../mocks/pages/admin-onboarding/unit-selected.html">unit-selected</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Visual language.</b> The admin draws onboarding in green with Outfit, an <code>.onboarding-card.card</code>, <code>.btn .btn-primary/.btn-secondary</code> with an 8px radius, light theme only, and no logo. This system uses the auth layout with the logo mark, <code>.wizard</code>, pill <code>.btn--primary</code> and <code>.btn--ghost</code>, and both themes.</li>
+        <li><b>Step indicator.</b> <code>.step-indicator .step-dot.active.current</code> plus a separate "Step 1 of 3" <code>div</code>; the dots carry no hidden text. The system uses one <code>p.steps</code> with the dots <code>aria-hidden</code> and the words beside them.</li>
+        <li><b>No <code>h1</code>.</b> Each step's heading is an <code>h2</code> ("Welcome to Your Cooperative!", "Set Up Your Profile", "Select Your Unit") and nothing moves focus when the step changes. The system makes the heading the <code>h1</code> and moves focus to it.</li>
+        <li><b>Labels not tied to fields.</b> The profile form's <code>.form-group</code> labels have no <code>for</code>; the inputs are named only by <code>aria-label</code>, Phone is <code>type="text"</code>, and nothing has <code>autocomplete</code>. The system uses <code>&lt;label for&gt;</code>, <code>type="tel"</code> and <code>autocomplete</code>, and marks optional fields.</li>
+        <li><b>Unit options.</b> <code>.unit-option</code> is a <code>div</code> with a click handler and a <code>.selected</code> class: it cannot be reached by keyboard and is not announced as a choice (the mock capture marks it <code>role="link"</code>). The system uses a radio group.</li>
+        <li><b>Three equal buttons.</b> The profile step's <code>.btn-row</code> holds Back, Skip and Next side by side. The system stacks one primary and a ghost Back, with "Skip for now" as a link under the card.</li>
+        <li><b>Copy.</b> Title Case headings, "Get Started", exclamation marks, and "You're all set! Click below to go to your dashboard." shown before a unit is chosen. See <a href="content-and-tone.html">content and tone</a>.</li>
+        <li><b>Missing states.</b> No validation, busy or failure state; Go to dashboard leaves even when saving the profile fails (mock note and source).</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

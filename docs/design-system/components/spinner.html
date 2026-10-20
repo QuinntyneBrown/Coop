@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spinner — Coop design system</title>
-<meta name="description" content="A rotating ring that shows a list or section is loading, announced as a status.">
+<meta name="description" content="The spinner and loading row the Coop admin shows while lists, pages and uploads load: sizes, states, both themes and accessibility.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,159 +31,271 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Feedback</p>
       <h1>Spinner</h1>
-      <p class="ds-lead">The spinner shows that data is on its way: a centred ring with a hidden label, slowed under reduced motion.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">role=status</span><span class="ds-pill">One size</span></div>
+      <p class="ds-lead">A small turning ring that says "please wait", always with words beside it: "Loading the board list…", "Uploading…". It is how the admin shows that a list or a page is on its way.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>role="status"</code></span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
       </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-      <p>The spinner shows that a list or page section is loading. It is a centred ring that rotates, shown while the documents, maintenance and messaging lists fetch data, then replaced by the list or the empty state.</p>
-      <ul><li><code>.loading</code> centres the spinner in the area being loaded.</li><li>There is no spinner inside buttons and no progress bar in the mocks; neither is documented.</li></ul>
+      <p>Use a spinner when something is loading and nobody can say how long it will take: the Board, Pages and Website lists on first load, the Documents, Maintenance and Messages lists, and a photo uploading in the photo picker.</p>
+      <ul>
+        <li><b>Loading row</b> (<code>.loading</code>): a spinner and a sentence, centred where the content will appear. The page title and its main button (Add director, Add page) stay on screen and keep working.</li>
+        <li><b>Inline</b> (<code>.inline-status</code> with <code>.spinner--sm</code>): a small spinner beside a short status line, under the control it is about, such as "Uploading…" under Upload a new photo.</li>
+        <li><b>In a button</b>: a button that is saving shows its own spinner through <code>aria-busy="true"</code>; see <a href="button.html">button</a>. Do not put a <code>.spinner</code> inside a button.</li>
+      </ul>
+      <p>When the progress is known, use a <a href="progress.html">progress bar</a>. When the layout is known and the wait is short, a <a href="skeleton.html">skeleton</a> also works. If loading fails, replace the spinner with an <a href="alert.html">alert</a> that offers Try again.</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
-        <figure class="ds-anatomy__figure" style="display: block;"><div class="loading" role="status"><div class="spinner" aria-hidden="true"></div><span class="visually-hidden">Loading</span></div><span class="ds-callout" style="left: 54%; top: 30%;" aria-hidden="true">1</span><span class="ds-callout" style="left: 70%; top: 78%;" aria-hidden="true">2</span></figure>
+        <figure class="ds-anatomy__figure">
+          <div class="loading" style="width: 100%;"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading the board list…</div>
+          <span class="ds-callout" style="left: 14%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 24%; top: 72%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 70%; top: 30%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 72%;" aria-hidden="true">4</span>
+        </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>Ring</b><small>2rem circle, track in <code>--color-border-default</code>, arc in <code>--color-accent</code>, <code>--border-width-thick</code> stroke.</small></div></li>
-          <li><div><b>Hidden label</b><small>"Loading" in <code>.visually-hidden</code>, read by assistive technology. Required; the mocks have none.</small></div></li>
+          <li><div><b>Arc</b><small>The top border in <code>--color-accent</code>; turns once every 700ms (<code>--duration-loop</code> ÷ 2).</small></div></li>
+          <li><div><b>Track</b><small>The rest of the 2px ring in <code>--color-bg-subtle-hover</code>, so the arc reads against any surface.</small></div></li>
+          <li><div><b>Text</b><small>What is loading, in muted body text. It is the message; the ring is decoration.</small></div></li>
+          <li><div><b>Loading row</b><small><code>.loading</code>: centred flex row, 12px gap, 32px above and below, <code>role="status"</code>.</small></div></li>
         </ol>
       </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <p>One variant. The mocks use two implementations: a bordered <code>.spinner</code> ring on the public lists and a rotating <code>sync</code> Material icon (<code>.spin</code>) on the admin lists. The design system uses the ring everywhere.</p>
+      <p>Pick by where the wait is: a whole list or page body, one control, or one button.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas"><div class="loading" role="status"><div class="spinner" aria-hidden="true"></div><span class="visually-hidden">Loading</span></div></div>
-        <div class="ds-example__caption"><span>The loading block as it appears in a list area.</span></div>
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="card card--flush"><div class="loading" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading pages…</div></div>
+          <div class="field"><label class="field__label" for="sp-var-file">Upload a new photo</label><input class="input" id="sp-var-file" type="file" disabled aria-describedby="sp-var-file-help"><div class="field__help" id="sp-var-file-help">JPEG, PNG or WebP, up to 10 MB.</div><p class="inline-status" role="status" style="margin: 0;"><span class="spinner spinner--sm" aria-hidden="true"></span>Uploading…</p></div>
+          <div class="cluster"><button class="btn btn--primary" type="button" aria-busy="true">Save changes</button><span class="text-caption">Busy button: spinner drawn by the button itself</span></div>
+        </div>
+        <div class="ds-example__caption"><span>Loading row (Pages), inline status (photo picker), busy button (content editor).</span></div>
         <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="loading" role="status"&gt;
-  &lt;div class="spinner" aria-hidden="true"&gt;&lt;/div&gt;
-  &lt;span class="visually-hidden"&gt;Loading&lt;/span&gt;
-&lt;/div&gt;</code></pre></details>
+  &lt;span class="spinner spinner--lg" aria-hidden="true"&gt;&lt;/span&gt;Loading pages…
+&lt;/div&gt;
+
+&lt;p class="inline-status" role="status"&gt;
+  &lt;span class="spinner spinner--sm" aria-hidden="true"&gt;&lt;/span&gt;Uploading…
+&lt;/p&gt;
+
+&lt;button class="btn btn--primary" type="button" aria-busy="true"&gt;Save changes&lt;/button&gt;</code></pre></details>
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="The mocks show a single spinner size."><h2><a href="#sizes">Sizes</a></h2>
-      <p>One size: 2rem (32px), as in the mocks.</p>
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Three sizes. Large (40px) for a loading row that stands in for a list or page body. Medium (20px) beside body text. Small (16px) beside small text, such as an inline status.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="cluster"><span class="spinner spinner--sm" aria-hidden="true"></span><span class="text-caption">Small · <code>--size-icon-sm</code></span></div>
+          <div class="cluster"><span class="spinner" aria-hidden="true"></span><span class="text-caption">Medium · <code>--size-icon-md</code></span></div>
+          <div class="cluster"><span class="spinner spinner--lg" aria-hidden="true"></span><span class="text-caption">Large · <code>--size-avatar-md</code></span></div>
+        </div>
+        <div class="ds-example__caption"><span><code>.spinner--sm</code>, <code>.spinner</code>, <code>.spinner--lg</code>. The ring is 2px (<code>--border-width-thick</code>) at every size.</span></div>
+      </div>
     </section>
 
-    <section class="ds-section" id="states" data-na="A single spinning state with no interactive states."><h2><a href="#states">States</a></h2>
-      <p>The spinner has one state: spinning. It is present while loading and removed when data arrives; it never pauses, is not interactive and has no hover or focus state.</p>
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A spinner has one state, spinning. What changes is the region around it: loading, then loaded, empty or failed.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Region</th><th scope="col">Loading</th><th scope="col">Loaded</th><th scope="col">Failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Board list</th>
+            <td><div class="loading" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading the board list…</div></td>
+            <td><div class="card card--flush"><div class="list__item"><span class="avatar" aria-hidden="true">N</span><div class="list__body"><div class="list__title">neri.vale</div><div class="list__meta">President</div></div></div></div></td>
+            <td><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div>We couldn't load the board list. Check your connection and try again.</div><div class="alert__actions"><button type="button">Try again</button></div></div></div></td>
+          </tr>
+          <tr><th scope="row">Photo upload</th>
+            <td><p class="inline-status" role="status" style="margin: 0;"><span class="spinner spinner--sm" aria-hidden="true"></span>Uploading…</p></td>
+            <td><p class="inline-status inline-status--success" style="margin: 0;"><span aria-hidden="true">✓</span> Uploaded</p></td>
+            <td><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div>We couldn't upload the photo. Try again.</div></div></div></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack"><div class="loading" style="padding: var(--space-4);"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading the website content…</div><div class="card card--flush"><div class="loading"><span class="spinner" aria-hidden="true"></span>Loading documents…</div></div></div></div>
+        <div data-theme="dark"><div class="stack"><div class="loading" style="padding: var(--space-4);"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading the website content…</div><div class="card card--flush"><div class="loading"><span class="spinner" aria-hidden="true"></span>Loading documents…</div></div></div></div>
+      </div>
+      <ul>
+        <li><b>Loaded</b>: the loading row is removed and the list takes its place in one paint. Do not announce "Loaded"; the content speaks for itself.</li>
+        <li><b>Empty</b>: if the list comes back with nothing in it, show an <a href="empty-state.html">empty state</a> in place of the spinner.</li>
+        <li><b>Failed</b>: a danger alert with Try again replaces the spinner, as on Board, Pages and Website.</li>
+        <li><b>Slow</b>: if loading takes longer than about ten seconds, keep the spinner and add a second sentence, such as "This is taking longer than usual."</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="responsive" data-na="The mocks have no breakpoint rules for the spinner."><h2><a href="#responsive">Responsive behaviour</a></h2>
-      <p>No breakpoint rules apply. The ring stays 2rem and centres horizontally in the loading area at every width.</p>
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The loading row is centred in the space the content will fill, at every width.</li>
+        <li>The text wraps under its own start on narrow screens and at 400% zoom; the spinner stays beside the first line and never shrinks (<code>flex: none</code>).</li>
+        <li>Spinner sizes are in <code>rem</code>, so they grow with the person's text size.</li>
+        <li>On phones the bottom tab bar stays visible below a loading row, so people can leave the page while it loads.</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p>The product ships one light appearance; there are no theme variants. It reads border and accent tokens only.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The arc reads <code>--color-accent</code>, the track <code>--color-bg-subtle-hover</code>, and the text <code>--color-fg-muted</code>. All three are theme tokens, so the spinner needs no dark-mode rules. To re-theme one spinner, override <code>--spinner-size</code> for size only; colours come from the theme.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <h3>Role and pattern</h3>
-      <p>Requirement: the <code>.loading</code> container has <code>role="status"</code> and a visually hidden "Loading" text so the state is announced politely; the ring is <code>aria-hidden</code>. WAI-ARIA has no spinner widget; the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">status</a> live region is the nearest pattern. The mocks add no role and no text, so loading is silent.</p>
+      <p>The loading row or inline status is a <code>role="status"</code> live region (WCAG 4.1.3) whose text says what is loading. The ring itself is <code>aria-hidden="true"</code>. If a spinner ever has to stand alone, give it visually hidden text: <code>&lt;span class="visually-hidden"&gt;Loading documents&lt;/span&gt;</code>. While a region loads, its container may also carry <code>aria-busy="true"</code>.</p>
       <h3>Keyboard</h3>
-      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td>Not applicable</td><td>The spinner is not focusable.</td></tr></tbody></table></div>
-      <h3>Focus</h3><p>None. Do not move focus to the spinner; keep it where the user was.</p>
-      <h3>Labelling</h3><p>The hidden text names the activity. Use "Loading" by default; a more specific name ("Loading documents") is allowed when two areas load at once.</p>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Not a stop. The page's real controls (sidebar, Add director) stay reachable while the list loads.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The spinner never takes focus. When the content arrives, focus stays where it was. After a busy button finishes, focus stays on that button or moves where the action leads (a closed dialog returns focus to its opener).</p>
+      <h3>Labelling</h3>
+      <p>Say what is loading, not just "Loading". Insert the status element with its text already in it, or keep an empty status element on the page and fill it, so screen readers announce it once.</p>
       <h3>Contrast</h3>
       <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
-        <div class="ds-pair"><span>Spinner arc on page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Arc on a card</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Arc on the page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Arc on its track</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-subtle-hover" data-min="3"></span></div>
+        <div class="ds-pair"><span>Text on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
       </div>
-      <p>The arc is a non-text graphic, so 3:1 applies.</p>
       <h3>Motion</h3>
-      <p>The ring rotates once per <code>--duration-spin</code> (1s, linear, infinite); the mocks use 1s for the icon and 0.6s for the ring. Under <code>prefers-reduced-motion: reduce</code> the token becomes 2s, so the ring turns more slowly but still shows that work is in progress. It is a status indicator, not decoration, so it is not removed.</p>
-      <h3>Touch</h3><p>Not a target.</p>
+      <p>The ring turns continuously with a linear easing, once per 700ms. It does not flash. Under <code>prefers-reduced-motion</code> the duration token is zeroed and every loop stops after one pass, so the ring rests as a still arc and the words carry the message.</p>
+      <h3>Touch</h3>
+      <p>No targets.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
-      <ul><li>Hidden text is a single word or short phrase: "Loading".</li><li>Do not add visible text or percentages; the mocks have none.</li><li>If loading fails, replace the spinner with an error message in an <a href="alert.html">alert</a>.</li></ul>
+      <ul>
+        <li>"Loading" plus the thing, in the page's own words: "Loading the board list…", "Loading pages…", "Loading the website content…", "Loading documents…", "Loading maintenance requests…", "Loading conversations…".</li>
+        <li>For an action, the verb in progress: "Uploading…", "Saving…".</li>
+        <li>End with the ellipsis character (…), not three full stops.</li>
+        <li>No percentages or time guesses; if you know the percentage, use a <a href="progress.html">progress bar</a>.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
       <div class="ds-dodont">
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="loading" role="status"><div class="spinner" aria-hidden="true"></div><span class="visually-hidden">Loading</span></div></div><figcaption>Ring hidden from assistive technology, "Loading" text announced through <code>role="status"</code>.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="loading"><div class="spinner"></div></div></div><figcaption>A bare ring with no role or text, as in the mocks: nothing is announced.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="loading" role="status"><div class="spinner" aria-hidden="true"></div><span class="visually-hidden">Loading</span></div></div><figcaption>One ring for all list loading states.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="loading"><span class="material-icons" aria-hidden="true">sync</span></div></div><figcaption>The admin lists use a rotating sync icon with a different speed and look. Use the same ring everywhere.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="loading" role="status" style="padding: 0;"><span class="spinner spinner--lg" aria-hidden="true"></span>Loading documents…</div></div><figcaption>A spinner with words in a status region.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><span class="spinner spinner--lg"></span></div><figcaption>A lone turning icon with no text and no status role, as on Documents, Maintenance and Messages.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="spinner" aria-hidden="true"></span><span class="spinner spinner--sm" aria-hidden="true"></span><span class="spinner spinner--lg" aria-hidden="true"></span></div><figcaption>One <code>.spinner</code> with size modifiers, everywhere.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p class="text-caption" style="margin: 0;"><code>.board-spinner</code>, <code>.pages-spinner</code>, <code>.website-spinner</code>, <code>.material-icons.spin</code></p></div><figcaption>A new spinner class and keyframes per screen, as the admin has today.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button" aria-busy="true">Save changes</button></div><figcaption>Let a busy button draw its own spinner.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--primary" type="button"><span class="spinner spinner--sm" aria-hidden="true"></span>Save changes</button></div><figcaption>A spinner pasted into a button that still looks clickable and is not marked busy.</figcaption></figure>
       </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
       <div class="ds-table-wrap"><table class="ds-table">
-        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
         <tbody>
-          <tr><td data-token="--color-accent">Arc</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span> </td></tr>
-          <tr><td data-token="--color-border-default">Track</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span> </td></tr>
-          <tr><td data-token="--border-width-thick">Stroke</td><td><code>--border-width-thick</code></td><td><span data-token="--border-width-thick"></span> </td></tr>
-          <tr><td data-token="--duration-spin">Rotation</td><td><code>--duration-spin</code></td><td><span data-token="--duration-spin"></span> </td></tr>
-          <tr><td data-token="--space-12">Area padding</td><td><code>--space-12</code></td><td><span data-token="--space-12"></span> </td></tr>
+          <tr><td>Arc</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Track</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Size small / medium / large</td><td><code>--size-icon-sm</code> / <code>--size-icon-md</code> / <code>--size-avatar-md</code></td><td colspan="2"><span data-token="--size-icon-sm"></span> / <span data-token="--size-icon-md"></span> / <span data-token="--size-avatar-md"></span></td></tr>
+          <tr><td>Ring width</td><td><code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Turn</td><td><code>--duration-loop</code> ÷ 2, linear</td><td colspan="2"><span data-token="--duration-loop"></span></td></tr>
+          <tr><td>Loading row gap / padding</td><td><code>--space-3</code> / <code>--space-8</code> <code>--space-4</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-8"></span> <span data-token="--space-4"></span></td></tr>
+          <tr><td>Loading row font</td><td><code>--text-body</code></td><td colspan="2"><span data-token="--text-body"></span></td></tr>
         </tbody>
       </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
       <pre><code>&lt;div class="loading" role="status"&gt;
-  &lt;div class="spinner" aria-hidden="true"&gt;&lt;/div&gt;
-  &lt;span class="visually-hidden"&gt;Loading&lt;/span&gt;
+  &lt;span class="spinner spinner--lg" aria-hidden="true"&gt;&lt;/span&gt;Loading the board list…
 &lt;/div&gt;</code></pre>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody><tr><td><code>.loading</code></td><td>Centres the spinner with <code>--space-12</code> padding.</td></tr><tr><td><code>.spinner</code></td><td>The rotating ring.</td></tr><tr><td><code>.visually-hidden</code></td><td>Accessible label text.</td></tr><tr><td><code>role="status"</code></td><td>Required live region on <code>.loading</code>.</td></tr></tbody></table></div>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.spinner</code></td><td>20px ring with an accent arc, turning.</td></tr>
+        <tr><td><code>.spinner--sm</code> / <code>.spinner--lg</code></td><td>16px / 40px, through <code>--spinner-size</code>.</td></tr>
+        <tr><td><code>.loading</code></td><td>Centred row of spinner and muted text, 32px above and below.</td></tr>
+        <tr><td><code>.inline-status</code> + <code>.spinner--sm</code></td><td>Small inline status under a control.</td></tr>
+        <tr><td><code>role="status"</code></td><td>On the loading row or inline status, so its text is announced.</td></tr>
+        <tr><td><code>aria-hidden="true"</code></td><td>On the spinner itself.</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-      <p>Extracted from these mocks:</p>
+      <p>Extracted from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/public-documents/loading.html">pages/public-documents/loading</a> (.spinner 0.6s)</li>
-        <li><a href="../../mocks/pages/public-maintenance/loading.html">pages/public-maintenance/loading</a> (.spinner)</li>
-        <li><a href="../../mocks/pages/public-messaging/loading.html">pages/public-messaging/loading</a> (.spinner)</li>
-        <li><a href="../../mocks/pages/admin-documents/loading.html">pages/admin-documents/loading</a> (.spin sync icon 1s)</li>
-        <li><a href="../../mocks/pages/admin-messaging/loading.html">pages/admin-messaging/loading</a> (.spin sync icon)</li>
+        <li><a href="../../mocks/pages/admin-board/loading.html">pages/admin-board/loading</a>, <a href="../../mocks/pages/admin-pages/loading.html">pages/admin-pages/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">pages/admin-website/loading</a></li>
+        <li><a href="../../mocks/dialogs/admin-photo-picker/uploading.html">dialogs/admin-photo-picker/uploading</a></li>
+        <li><a href="../../mocks/pages/admin-documents/loading.html">pages/admin-documents/loading</a>, <a href="../../mocks/pages/admin-maintenance/loading.html">pages/admin-maintenance/loading</a>, <a href="../../mocks/pages/admin-messaging/loading.html">pages/admin-messaging/loading</a></li>
+        <li><a href="../../mocks/pages/admin-board/error.html">pages/admin-board/error</a>, <a href="../../mocks/pages/admin-website/error.html">pages/admin-website/error</a> (what replaces a spinner on failure)</li>
       </ul>
-      <h3>Drift</h3>
+      <p>Adopted from the Shelfie design system and rewritten for the Coop admin.</p>
+      <h3>Drift from the implemented admin</h3>
       <ul>
-        <li>Mocks: two implementations. Public lists use <code>.spinner</code> rotating in 0.6s; admin lists use the <code>sync</code> icon with <code>.spin</code> rotating in 1s. Resolved to the ring at <code>--duration-spin</code> (1s).</li>
-        <li>Mocks: padding is 40px or 48px; resolved to 48px.</li>
-        <li>Mocks: no <code>role="status"</code> and no text. Requirement: both, with the ring <code>aria-hidden</code>.</li>
-        <li>Mocks: no reduced-motion rule. The design system slows the ring to 2s under <code>prefers-reduced-motion</code>.</li>
+        <li><b>One spinner per screen</b>: Board, Pages and Website each define their own class and keyframes (<code>.board-spinner</code>, <code>.pages-spinner</code>, <code>.website-spinner</code>), and the photo picker reuses <code>.website-spinner</code> at 20px. The system has one <code>.spinner</code> with <code>--sm</code> and <code>--lg</code>.</li>
+        <li><b>Silent spinners</b>: Documents, Maintenance and Messages show <code>.loading</code> with a spinning Material Icons <code>sync</code> glyph (<code>.spin</code>), with no text and no <code>role="status"</code>, so screen readers hear nothing. The system always pairs the ring with words in a status region.</li>
+        <li><b>Look</b>: implemented rings are 36px with a 4px green-on-grey border, turning once per second, with the text stacked under the ring (<code>display: grid</code>). The system uses 40px (<code>--size-avatar-md</code>) with a 2px violet arc, turns every 700ms, and sets the text beside the ring in one row.</li>
+        <li><b>Reduced motion</b>: Board, Pages and Website already stop their spinner under reduced motion; the <code>sync</code> glyph keeps turning. The system stops every loop after one pass.</li>
+        <li><b>Copy</b>: "Loading the board list…", "Loading pages…", "Loading the website content…" and "Uploading…" are kept as they are.</li>
       </ul>
     </section>
-
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

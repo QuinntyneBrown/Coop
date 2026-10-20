@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialogs and overlays — Coop design system</title>
+<meta name="description" content="When the Coop admin uses a dialog, a stacked dialog or a full page; how the add-user, log-a-request, invite and remove-a-page dialogs are built; bottom sheets under 640px.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+<style>
+  /* Live example: a native modal dialog element holding the system's panel. It gives the page inertness,
+     Esc and the top layer for free; the panel brings the look. A bottom sheet under 640px. */
+  dialog.dg-live { padding: 0; border: 0; background: none; color: inherit; width: 100%; max-width: 100%; max-height: calc(100dvh - var(--space-12)); margin: auto auto 0; }
+  dialog.dg-live::backdrop { background: var(--color-bg-backdrop); }
+  @media (min-width: 40rem) { dialog.dg-live { margin: auto; width: calc(100% - 2 * var(--space-6)); max-width: 32rem; } dialog.dg-live .dialog__panel { border-radius: var(--radius-lg); } }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Overlays</p>
+      <h1>Dialogs and overlays</h1>
+      <p class="ds-lead">The Coop admin does most of its adding and editing in dialogs over the list they change: add a user, invite a member, log a maintenance request, upload a file, edit a page. Removing anything asks first, in a small dialog that starts on the safe button. On phones every dialog rises from the bottom as a sheet.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#example">Live example</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A dialog keeps the list in view behind it, so the person never loses their place. Every admin dialog is built from the same <a href="../components/dialog.html">dialog</a> parts: a header with the title and a close button, a body, and a footer with the way out first and the action last.</p>
+      <ul>
+        <li><b>Form dialog</b>: a few fields that add to or change the list behind it. Add a user, invite a member, log a maintenance request, new document, upload a file, new page, add a director, edit a website block.</li>
+        <li><b>Confirmation dialog</b>: before anything is removed. It names the thing, says what happens next, and starts on the safe button. Remove a page, delete a user, delete a document or file, remove a director.</li>
+        <li><b>Result dialog</b>: shows something the person needs to copy or keep before going on. The invitation code after an invitation is created.</li>
+        <li><b>Viewer dialog</b>: reads one item without leaving the list. A document, a file's details.</li>
+        <li><b>Stacked dialog</b>: a second dialog that picks something for the first. The photo picker over the website block editor.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Need</th><th scope="col">Use</th><th scope="col">Admin example</th></tr></thead>
+        <tbody>
+          <tr><td>Add or change one item in a list, in a handful of fields</td><td>Form dialog</td><td>Add a user, invite a member, log a maintenance request, upload a file, new document, new page</td></tr>
+          <tr><td>Remove something, or do anything that cannot be undone</td><td>Confirmation dialog with a danger button</td><td>Remove a page, delete a user, delete a document, remove a director</td></tr>
+          <tr><td>Show a code or link to copy before going on</td><td>Result dialog with a copy button</td><td>Invitation created</td></tr>
+          <tr><td>Read one item without losing the list</td><td>Viewer dialog</td><td>Document viewer, file details</td></tr>
+          <tr><td>Pick something for the dialog already open</td><td>Stacked dialog, at most one deep</td><td>Choose a photo for a website block or a page</td></tr>
+          <tr><td>A long form, or something people link to or come back to</td><td>A page, not a dialog</td><td>Change password, profile, settings</td></tr>
+          <tr><td>Tell someone something happened</td><td>A status alert on the page, never a dialog</td><td>See <a href="feedback-and-loading.html">feedback and loading</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Stacking</h3>
+      <ul>
+        <li>One dialog at a time, with two exceptions: a picker that fills a field in the dialog below (the photo picker), and a confirmation for removing the item the dialog below shows (delete a file from its details). Never more than two deep.</li>
+        <li>The lower dialog stays open and inert behind its own backdrop. Closing the upper one returns focus to the button in the lower one that opened it.</li>
+        <li>Toasts (<code>--z-toast</code>) sit above dialogs (<code>--z-modal</code>) and the backdrop (<code>--z-overlay</code>); menus (<code>--z-dropdown</code>) sit below the backdrop.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>Invite a member (form dialog)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="dialog dialog--static" role="dialog" aria-modal="false" aria-labelledby="dg-inv-title" aria-describedby="dg-inv-intro">
+            <form class="dialog__panel" action="#structure" novalidate>
+              <div class="dialog__header">
+                <div style="flex: 1;"><h4 class="dialog__title" id="dg-inv-title">Invite a member</h4><p class="text-muted" id="dg-inv-intro">You get a code to send them. They use it once to make their account.</p></div>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__body stack">
+                <div class="field"><label class="field__label" for="dg-inv-type">They are joining as</label><select class="select" id="dg-inv-type"><option selected>Member</option><option>Board member</option><option>Staff</option></select></div>
+                <div class="field"><label class="field__label" for="dg-inv-exp">Code stops working on <span class="optional">(optional)</span></label><div class="field__help" id="dg-inv-exp-help">Leave it empty and the code works until it is used.</div><input class="input" id="dg-inv-exp" type="date" aria-describedby="dg-inv-exp-help" style="max-width: 14rem;"></div>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="submit">Create invitation</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>dialogs/admin-invitation-create/default. Title and one line of purpose, close button, fields, footer.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="inv-title" aria-describedby="inv-intro"&gt;
+  &lt;form class="dialog__panel" novalidate&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div&gt;&lt;h2 class="dialog__title" id="inv-title"&gt;Invite a member&lt;/h2&gt;&lt;p id="inv-intro"&gt;…&lt;/p&gt;&lt;/div&gt;
+      &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__body stack"&gt;…fields…&lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button"&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--primary" type="submit"&gt;Create invitation&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Invitation created (result dialog)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="dialog dialog--static" role="dialog" aria-modal="false" aria-labelledby="dg-code-title">
+            <div class="dialog__panel">
+              <div class="dialog__header"><h4 class="dialog__title" id="dg-code-title">Invitation created</h4></div>
+              <div class="dialog__body stack">
+                <p>Send this code to the new member. It works once.</p>
+                <div class="field"><label class="field__label" for="dg-code">Invitation code</label><div class="input-group"><input class="input" id="dg-code" type="text" readonly value="fictional-invite-mira" style="font-family: var(--font-family-mono);"><button class="btn btn--ghost btn--icon input-group__btn" type="button" aria-label="Copy the invitation code"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg></button></div></div>
+                <p class="inline-status inline-status--success" role="status">✓ Copied</p>
+              </div>
+              <div class="dialog__footer"><button class="btn btn--primary" type="button">Done</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>dialogs/admin-invitation-created/default. The code is in a labelled read-only field; copying is announced.</span></div>
+      </div>
+
+      <h3>Delete a user (confirmation)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="dialog dialog--static" role="alertdialog" aria-modal="false" aria-labelledby="dg-del-title" aria-describedby="dg-del-desc">
+            <div class="dialog__panel">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <h4 class="dialog__title" id="dg-del-title">Delete the user tavi.moss?</h4>
+              </div>
+              <div class="dialog__body"><p id="dg-del-desc">tavi.moss will not be able to sign in to the admin. Their profile and messages stay.</p></div>
+              <div class="dialog__footer"><button class="btn" type="button" data-state="focus">Keep the user</button><button class="btn btn--danger" type="button">Delete user</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>dialogs/admin-user-delete/default. Focus starts on "Keep the user", shown with the focus ring. No close button: the two choices are the only ways out, plus <kbd>Esc</kbd>.</span></div>
+      </div>
+
+      <h3>Choose a photo (stacked dialog)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="dialog dialog--static" role="dialog" aria-modal="false" aria-labelledby="dg-pick-title" aria-describedby="dg-pick-intro">
+            <div class="dialog__panel">
+              <div class="dialog__header">
+                <div style="flex: 1;"><h4 class="dialog__title" id="dg-pick-title">Choose a photo</h4><p class="text-muted" id="dg-pick-intro">Pick a photo from the Assets library, or upload a new one.</p></div>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__body stack">
+                <ul class="picture-list__library" aria-label="Photos in the Assets library">
+                  <li><button class="picture-list__choice" type="button" aria-pressed="true"><img src="../../mocks/assets/own/hero.svg" width="88" height="88" alt="Our brick building with balconies and a rooftop garden">hero.svg</button></li>
+                  <li><button class="picture-list__choice" type="button" aria-pressed="false"><img src="../../mocks/assets/own/lobby.svg" width="88" height="88" alt="A sunny lobby with a tall arched window and a noticeboard">lobby.svg</button></li>
+                  <li><button class="picture-list__choice" type="button" aria-pressed="false"><img src="../../mocks/assets/own/garden.svg" width="88" height="88" alt="The co-op garden with raised beds">garden.svg</button></li>
+                </ul>
+                <div class="picture-list__add"><label class="btn"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Upload a new photo<input class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="dg-pick-help"></label></div>
+                <p class="field__help" id="dg-pick-help">JPEG, PNG or WebP, up to 10 MB.</p>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Use this photo</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>dialogs/admin-photo-picker/default, which opens over dialogs/admin-content-editor/default. Shown alone here; in the product the block editor waits behind a second backdrop.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="example"><h2><a href="#example">Live example: remove a page</a></h2>
+      <p>The Pages list with working confirmations. Press "Remove" on a page: a modal dialog opens on "Keep the page", the rest of the page goes inert, <kbd>Esc</kbd> closes it and focus returns to the button you pressed. Confirm, and the danger button turns busy, the page leaves the list, a status alert says so, and focus moves to the list's heading.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="stack" id="dg-pages">
+            <div class="page-header" style="margin: 0;"><div><h3 id="dg-pages-title" tabindex="-1" style="font: var(--text-h2);">Pages</h3><p class="subtitle">Pages visitors reach from the website menu.</p></div></div>
+            <div id="dg-status" role="status"></div>
+            <ul class="list card card--flush" aria-labelledby="dg-pages-title">
+              <li class="list__item"><div class="list__body"><div class="list__title">About us</div><div class="list__meta">Web address: /pages/about-us</div></div><button class="btn btn--sm" type="button" data-dg-remove="About us">Remove<span class="visually-hidden"> About us</span></button></li>
+              <li class="list__item"><div class="list__body"><div class="list__title">How to apply</div><div class="list__meta">Web address: /pages/how-to-apply</div></div><button class="btn btn--sm" type="button" data-dg-remove="How to apply">Remove<span class="visually-hidden"> How to apply</span></button></li>
+              <li class="list__item"><div class="list__body"><div class="list__title">Our garden</div><div class="list__meta">Web address: /pages/our-garden</div></div><button class="btn btn--sm" type="button" data-dg-remove="Our garden">Remove<span class="visually-hidden"> Our garden</span></button></li>
+            </ul>
+          </div>
+          <dialog class="dg-live" id="dg-confirm" role="alertdialog" aria-labelledby="dg-confirm-title" aria-describedby="dg-confirm-desc">
+            <div class="dialog__panel">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <h4 class="dialog__title" id="dg-confirm-title">Remove this page?</h4>
+              </div>
+              <div class="dialog__body"><p id="dg-confirm-desc">It leaves the website menu straight away. You can add it again later.</p></div>
+              <div class="dialog__footer"><button class="btn" type="button" id="dg-keep">Keep the page</button><button class="btn btn--danger" type="button" id="dg-go">Remove page</button></div>
+            </div>
+          </dialog>
+        </div>
+        <div class="ds-example__caption"><span>pages/admin-pages/default → dialogs/admin-page-remove/default and busy → notifications/admin-page-saved/success. Nothing is removed from the real site.</span></div>
+      </div>
+      <script>
+      (function () {
+        var dlg = document.getElementById("dg-confirm");
+        if (!dlg || typeof dlg.showModal !== "function") return;
+        var keep = document.getElementById("dg-keep"), go = document.getElementById("dg-go");
+        var title = document.getElementById("dg-confirm-title"), status = document.getElementById("dg-status");
+        var heading = document.getElementById("dg-pages-title");
+        var opener = null, busy = false, removed = false;
+        document.querySelectorAll("[data-dg-remove]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            opener = btn; removed = false;
+            title.textContent = "Remove “" + btn.getAttribute("data-dg-remove") + "”?";
+            dlg.showModal(); keep.focus();
+          });
+        });
+        keep.addEventListener("click", function () { dlg.close(); });
+        dlg.addEventListener("cancel", function (e) { if (busy) e.preventDefault(); });
+        dlg.addEventListener("close", function () {
+          if (removed) { heading.focus(); } else if (opener) { opener.focus(); }
+        });
+        go.addEventListener("click", function () {
+          busy = true; go.disabled = true; keep.disabled = true; go.setAttribute("aria-busy", "true");
+          setTimeout(function () {
+            var name = opener.getAttribute("data-dg-remove");
+            opener.closest("li").remove();
+            busy = false; go.disabled = false; keep.disabled = false; go.removeAttribute("aria-busy");
+            removed = true; dlg.close();
+            status.innerHTML = '<div class="alert alert--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><div class="alert__body"><span>“' + name + '” is no longer on the website.</span></div></div>';
+          }, 900);
+        });
+      })();
+      </script>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mocks</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>Title, purpose line, fields or message, footer. Focus on the first field, or on the safe button in a confirmation.</td><td><a href="../../mocks/dialogs/admin-user-create/default.html">admin-user-create/default</a>, <a href="../../mocks/dialogs/admin-maintenance-create/default.html">admin-maintenance-create/default</a>, <a href="../../mocks/dialogs/admin-page-remove/default.html">admin-page-remove/default</a></td></tr>
+          <tr><td>Invalid</td><td>Error summary at the top of the body, fields marked; the dialog stays open. See <a href="forms.html">forms</a>.</td><td><a href="../../mocks/dialogs/admin-page-editor/invalid.html">admin-page-editor/invalid</a>, <a href="../../mocks/dialogs/admin-director-editor/invalid.html">admin-director-editor/invalid</a>, <a href="../../mocks/dialogs/admin-content-editor/invalid.html">admin-content-editor/invalid</a></td></tr>
+          <tr><td>Busy</td><td>The action button busy; every footer button and the close button disabled; <kbd>Esc</kbd> does nothing until it ends.</td><td><a href="../../mocks/dialogs/admin-page-editor/busy.html">admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-page-remove/busy.html">admin-page-remove/busy</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">admin-document-create/busy</a></td></tr>
+          <tr><td>Failed</td><td>A danger alert at the top of the body; values kept; the action button ready to try again.</td><td><a href="../../mocks/dialogs/admin-page-editor/failed.html">admin-page-editor/failed</a>, <a href="../../mocks/dialogs/admin-director-editor/failed.html">admin-director-editor/failed</a>, <a href="../../mocks/dialogs/admin-content-editor/failed.html">admin-content-editor/failed</a></td></tr>
+          <tr><td>Stacked</td><td>A second dialog over the first, each with its own backdrop; the lower one inert.</td><td><a href="../../mocks/dialogs/admin-photo-picker/default.html">admin-photo-picker/default</a>, <a href="../../mocks/dialogs/admin-photo-picker/uploading.html">uploading</a>, <a href="../../mocks/dialogs/admin-asset-delete/default.html">admin-asset-delete/default</a></td></tr>
+          <tr><td>Result</td><td>The thing to keep, with a copy button and a "Done" button.</td><td><a href="../../mocks/dialogs/admin-invitation-created/default.html">admin-invitation-created/default</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Busy and failed, both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light">
+          <div class="dialog dialog--static" role="dialog" aria-modal="false" aria-labelledby="dg-th-l-title"><div class="dialog__panel">
+            <div class="dialog__header"><h4 class="dialog__title" id="dg-th-l-title">New page</h4><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <div class="dialog__body stack"><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><span>We couldn't save the page. Try again.</span></div></div><div class="field"><label class="field__label" for="dg-th-l-f">Page title</label><input class="input" id="dg-th-l-f" type="text" readonly value="About us"></div></div>
+            <div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true" disabled>Save page</button></div>
+          </div></div>
+        </div>
+        <div data-theme="dark">
+          <div class="dialog dialog--static" role="dialog" aria-modal="false" aria-labelledby="dg-th-d-title"><div class="dialog__panel">
+            <div class="dialog__header"><h4 class="dialog__title" id="dg-th-d-title">New page</h4><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <div class="dialog__body stack"><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><span>We couldn't save the page. Try again.</span></div></div><div class="field"><label class="field__label" for="dg-th-d-f">Page title</label><input class="input" id="dg-th-d-f" type="text" readonly value="About us"></div></div>
+            <div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true" disabled>Save page</button></div>
+          </div></div>
+        </div>
+      </div>
+      <p class="text-caption">The failed alert and the busy button are shown together only to compare both themes; in use the alert appears after the busy state ends.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Under 640px</b> a dialog is a bottom sheet: full width, rounded top corners (<code>--radius-xl</code>), rising from the bottom over <code>--duration-slow</code>. The footer is sticky so the action is always in reach, and the body scrolls on its own.</li>
+        <li><b>From 640px</b> it is centred, up to 32rem wide, with <code>--radius-lg</code> corners, and scales in over <code>--duration-slow</code>.</li>
+        <li>The panel's height is capped at the window minus 48px, so the backdrop always shows and nothing is cut off at 400% zoom.</li>
+        <li>The footer wraps; the primary or danger button stays last, landing on its own line on a narrow phone.</li>
+        <li>Two short fields may sit side by side inside a dialog from 768px of window width (a link's label and address); below that they stack.</li>
+        <li>A stacked dialog on a phone sits fully over the lower sheet; closing it shows the lower sheet again where it was.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Form, result and viewer dialogs follow the WAI-ARIA APG Dialog (Modal) pattern: <code>role="dialog"</code>, <code>aria-modal="true"</code>, <code>aria-labelledby</code> pointing at the title and <code>aria-describedby</code> at the purpose line. Confirmations follow the Alert Dialog pattern (<code>role="alertdialog"</code>). The native <code>&lt;dialog&gt;</code> element opened with <code>showModal()</code> is the preferred build: it makes the page behind inert and handles <kbd>Esc</kbd>. With a <code>div</code>, set <code>inert</code> on everything outside the dialog yourself.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the dialog's controls only; focus does not leave it while it is open.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the dialog as if "Cancel" was pressed. Does nothing while the dialog is busy. In a stacked dialog, closes only the top one.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>In a form dialog's single-line field, submits. On a focused button, presses it.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Presses the focused button; picks a photo in the photo picker.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>On open, focus moves to the first field of a form dialog, the safe button of a confirmation, or the title of a viewer. On close, focus returns to the button that opened the dialog. When that button is gone (the item was removed), focus goes to the list's heading and the status alert says what happened.</p>
+      <h3>Labelling</h3>
+      <p>Every dialog has a visible title that names its job and the thing ("Remove “Our garden”?"). The close button is an icon button named "Close". The danger icon is decorative; the title and the button label carry the meaning.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Body text in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Purpose line in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Field border in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Danger button label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Danger icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The backdrop fades in over <code>--duration-base</code>; the sheet slides up, or the centred panel scales in, over <code>--duration-slow</code>. Under <code>prefers-reduced-motion</code> both appear at once.</p>
+      <h3>Touch</h3>
+      <p>Footer buttons are 44px tall with 12px between them; the close button is a 44px icon button. On phones the footer is sticky at the bottom of the sheet, where thumbs reach. Tapping the backdrop closes a form dialog only when nothing has been typed; a confirmation never closes from the backdrop.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Titles say the job in sentence case</b>: "Add a user", "Invite a member", "New maintenance request", "Upload a file", "Choose a photo".</li>
+        <li><b>A purpose line under the title</b> says what happens after saving: "The page appears in the website menu as soon as you save."</li>
+        <li><b>Confirmations ask a question that names the thing</b> ("Delete the user tavi.moss?"), say what happens and what stays, and use outcome buttons: "Keep the user" and "Delete user".</li>
+        <li><b>The action button names the result</b>: "Create invitation", "Send request", "Upload file", "Save page", "Remove page". "Cancel" is the way out of a form; "Done" closes a result.</li>
+        <li><b>No "Are you sure?"</b> The question in the title already asks.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p style="font: var(--text-h4);">Delete “Courtyard plan.pdf”?</p><p class="text-muted">Pages and notices that show it will lose the link.</p><div class="cluster"><button class="btn" type="button">Keep the file</button><button class="btn btn--danger" type="button">Delete file</button></div></div><figcaption>Name the thing in the title and say what changes.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p style="font: var(--text-h4);">Confirm Delete</p><p class="text-muted">Are you sure you want to delete this asset?</p><div class="cluster"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete</button></div></div><figcaption>"Confirm Delete" and "this asset", as in the asset, document and user dialogs. Which file?</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="cluster cluster--between"><p style="font: var(--text-h4);">New document</p><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><p class="text-caption">role="dialog" aria-modal="true" aria-labelledby="…"</p></div><figcaption>A real dialog: role, modal, labelled by its title, with a named close button.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p style="font: var(--text-h4);">Add New User</p><p class="text-caption">div.modal-overlay &gt; div.modal-content</p></div><figcaption>A plain <code>div</code> over the page with no role and no label, as in the add-user, maintenance, invitation and asset dialogs. A screen reader does not know a dialog opened, and focus can wander behind it.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/admin-user-create/default.html">dialogs/admin-user-create/default</a>; <a href="../../mocks/dialogs/admin-user-edit/default.html">dialogs/admin-user-edit/default</a>; <a href="../../mocks/dialogs/admin-user-delete/default.html">dialogs/admin-user-delete/default</a></li>
+        <li><a href="../../mocks/dialogs/admin-invitation-create/default.html">dialogs/admin-invitation-create/default</a>; <a href="../../mocks/dialogs/admin-invitation-created/default.html">dialogs/admin-invitation-created/default</a></li>
+        <li><a href="../../mocks/dialogs/admin-maintenance-create/default.html">dialogs/admin-maintenance-create/default</a>; <a href="../../mocks/dialogs/admin-document-create/default.html">dialogs/admin-document-create/default</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">busy</a>; <a href="../../mocks/dialogs/admin-document-delete/default.html">dialogs/admin-document-delete/default</a>; <a href="../../mocks/dialogs/admin-document-viewer/default.html">dialogs/admin-document-viewer/default</a></li>
+        <li><a href="../../mocks/dialogs/admin-asset-upload/default.html">dialogs/admin-asset-upload/default</a>; <a href="../../mocks/dialogs/admin-asset-detail/default.html">dialogs/admin-asset-detail/default</a>; <a href="../../mocks/dialogs/admin-asset-delete/default.html">dialogs/admin-asset-delete/default</a></li>
+        <li><a href="../../mocks/dialogs/admin-page-editor/default.html">dialogs/admin-page-editor/default</a>, <a href="../../mocks/dialogs/admin-page-editor/busy.html">busy</a>, <a href="../../mocks/dialogs/admin-page-editor/failed.html">failed</a>; <a href="../../mocks/dialogs/admin-page-remove/default.html">dialogs/admin-page-remove/default</a>, <a href="../../mocks/dialogs/admin-page-remove/busy.html">busy</a></li>
+        <li><a href="../../mocks/dialogs/admin-director-editor/default.html">dialogs/admin-director-editor/default</a>; <a href="../../mocks/dialogs/admin-director-remove/default.html">dialogs/admin-director-remove/default</a>; <a href="../../mocks/dialogs/admin-content-editor/default.html">dialogs/admin-content-editor/default</a>; <a href="../../mocks/dialogs/admin-photo-picker/default.html">dialogs/admin-photo-picker/default</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Five dialog families.</b> <code>.modal-overlay .modal-content .modal-actions</code>, <code>.form-dialog</code> (documents), <code>.page-dialog</code>, <code>.director-dialog</code>, <code>.content-dialog</code> and <code>.photo-dialog</code> each style the same thing. The system has one: <code>.backdrop</code>, <code>.dialog</code>, <code>.dialog__panel</code>, <code>__header</code>, <code>__title</code>, <code>__body</code>, <code>__footer</code>, <code>__icon</code>.</li>
+        <li><b>Dialogs that are not dialogs.</b> The <code>.modal-overlay</code> dialogs (add user, edit user, delete user, maintenance request, invitation, invitation created, asset upload, details and delete, document viewer) have no <code>role</code>, no <code>aria-modal</code> and no label, and nothing keeps focus inside. The document dialogs add <code>role="dialog"</code>, <code>aria-modal</code> and <code>aria-labelledby</code>; the hand-written pages, board and website dialogs use a native <code>&lt;dialog&gt;</code>. The system follows the native-dialog model.</li>
+        <li><b>No close button, or an unnamed one.</b> Most <code>.modal-content</code> dialogs have no close button; the document viewer's <code>.icon-btn</code> shows the Material Icons ligature "close" with no <code>aria-label</code>. The system gives every form, result and viewer dialog a "Close" icon button.</li>
+        <li><b>Confirmations that do not name the thing.</b> "Confirm Delete" with "Are you sure you want to delete this document?" or "this asset", and a bare "Delete". Only page remove ("Remove “Our garden”?", "Remove page", focus on Cancel) names it; the system follows it everywhere and starts every confirmation on the safe button.</li>
+        <li><b>Stacking.</b> The asset delete confirmation hides the details dialog instead of stacking over it, and Cancel brings it back. The photo picker stacks correctly over the block editor with its own backdrop. The system allows exactly these two kinds of stacking and returns focus to the lower dialog.</li>
+        <li><b>Result dialog.</b> The invitation code sits in a <code>p.token-display</code> with no label, "Copy" gives no feedback, and the way out is a primary "Close". The system labels the code, announces "Copied", and closes with "Done".</li>
+        <li><b>Viewer actions.</b> The asset details' Download button does nothing. Recorded; the system does not show actions that do not work.</li>
+        <li><b>Phones.</b> The implemented dialogs stay centred cards at every width; the system turns them into bottom sheets under 640px with a sticky footer.</li>
+        <li><b>Visual language.</b> Green 8px-radius buttons and 12 to 16px card corners in Outfit become the system's raised surface (<code>--color-bg-surface-raised</code>, <code>--shadow-4</code>), <code>--radius-lg</code> panels and pill buttons, in light and dark.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Description list — Coop design system</title>
-<meta name="description" content="Label and value pairs separated by hairlines, for the details of one record such as a profile, document or maintenance request.">
+<meta name="description" content="Description lists show labelled facts about one thing in the Coop admin, such as an asset's file name, size and upload date, or a maintenance request's address and phone.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,40 +31,67 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Data display</p>
       <h1>Description list</h1>
-      <p class="ds-lead">A description list shows the attributes of one thing as label and value pairs: a muted label on the left, a medium-weight value on the right, a hairline between rows. In the mocks it is the <code>.info-row</code>.</p>
+      <p class="ds-lead">A description list pairs a label with a value for the facts of one thing: an asset's file name, size and upload date, a member's username, e-mail and phone, or where a maintenance request is and who sent it.</p>
       <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;dl&gt;</code></span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
@@ -73,169 +99,215 @@
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-      <p>Use a description list for the facts about a single record, shown once and read in order: the public profile page (username, email, phone, unit), which is also reused in the profile-switcher screen. Use a <a href="table.html">table</a> to compare the same facts across many records, and a <a href="form-field.html">form</a> when the values are editable.</p>
-      <p>The mocks build it from <code>div.info-row</code> with two <code>span</code>s. The design system requires a real <code>&lt;dl&gt;</code> with <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code>, so the relationship between each label and value is exposed to assistive technology.</p>
+      <p>Use a description list to show what is known about one thing, read-only, where every value needs its label to make sense: "555-0101" means little until it says "Phone". It is the read view of a form; the form's labels and the list's labels match word for word.</p>
+      <ul>
+        <li><b>Asset details</b> dialog: file name, size and when it was uploaded.</li>
+        <li><b>Profile</b>: username, e-mail, phone and address.</li>
+        <li><b>Maintenance request</b> details: who sent it and when, priority, address, phone and whether staff may enter when no one is home.</li>
+      </ul>
+      <p>Do not use it for many things with the same fields; that is a <a href="table.html">table</a> or a <a href="list.html">list</a>. Do not use it for things people edit in place; editing opens a <a href="dialog.html">dialog</a> or a form.</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
         <figure class="ds-anatomy__figure">
-          <dl class="info-list" style="width: 100%; max-width: 22rem;">
-            <div class="info-row"><dt class="info-label">Username</dt><dd class="info-value">mira.fern</dd></div>
-            <div class="info-row"><dt class="info-label">Unit</dt><dd class="info-value">4B</dd></div>
+          <dl class="dl dl--horizontal" style="width: 100%;">
+            <dt>File name</dt><dd>Courtyard plan.pdf</dd>
+            <dt>Size</dt><dd>2 KB</dd>
           </dl>
+          <span class="ds-callout" style="left: 6%; top: 25%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 50%; top: 25%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 50%; top: 92%;" aria-hidden="true">3</span>
         </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>List</b><small>A <code>&lt;dl&gt;</code> with no browser margins.</small></div></li>
-          <li><div><b>Row</b><small><code>.info-row</code>: a <code>&lt;div&gt;</code> grouping one <code>dt</code> and its <code>dd</code>; flex, label and value pushed apart, 12px vertical padding, hairline below (none on the last row).</small></div></li>
-          <li><div><b>Label</b><small><code>&lt;dt class="info-label"&gt;</code>: <code>--text-body-sm</code>, <code>--color-fg-muted</code>.</small></div></li>
-          <li><div><b>Value</b><small><code>&lt;dd class="info-value"&gt;</code>: <code>--text-label</code> (medium weight), right-aligned.</small></div></li>
+          <li><div><b>Term</b><small><code>&lt;dt&gt;</code>, <code>--text-label</code> in <code>--color-fg-muted</code>. The label, in the same words as the form field.</small></div></li>
+          <li><div><b>Value</b><small><code>&lt;dd&gt;</code>, <code>--text-body</code> in <code>--color-fg-default</code>. Wraps anywhere, so a long e-mail address never pushes the page sideways.</small></div></li>
+          <li><div><b>Rule (horizontal only)</b><small>A hairline <code>--color-border-default</code> under each pair from 640px, with 8px above and below.</small></div></li>
         </ol>
       </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <p>There is one form. In the mocks it sits inside a <a href="card.html">card</a>.</p>
+      <p>Two layouts of the same markup. Choose by the space the list lives in, not by the data.</p>
+      <h3>Vertical (<code>.dl</code>)</h3>
+      <p>The label sits above its value at every width. Use it in dialogs and narrow panels, where a label column would squeeze the values.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <div class="card" style="width: 100%; max-width: 26rem;">
-            <h3>Profile</h3>
-            <dl class="info-list">
-              <div class="info-row"><dt class="info-label">Username</dt><dd class="info-value">mira.fern</dd></div>
-              <div class="info-row"><dt class="info-label">Email</dt><dd class="info-value">mira@example.invalid</dd></div>
-              <div class="info-row"><dt class="info-label">Phone</dt><dd class="info-value">555-0101</dd></div>
-              <div class="info-row"><dt class="info-label">Unit</dt><dd class="info-value">4B</dd></div>
-            </dl>
-          </div>
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="dialog dialog--static"><div class="dialog__panel" style="max-width: 26rem;">
+            <div class="dialog__header"><h4 class="dialog__title" id="ex-asset-title">Asset details</h4></div>
+            <div class="dialog__body">
+              <dl class="dl">
+                <dt>File name</dt><dd>Courtyard plan.pdf</dd>
+                <dt>Size</dt><dd>2 KB</dd>
+                <dt>Uploaded</dt><dd>Tue 13 Oct, 8:00 am</dd>
+              </dl>
+            </div>
+            <div class="dialog__footer"><button class="btn btn--danger" type="button">Delete</button><button class="btn" type="button">Close</button><button class="btn btn--primary" type="button">Download</button></div>
+          </div></div>
         </div>
-        <div class="ds-example__caption"><span>As on the public profile page. Values that can be missing show "Not provided", never a blank.</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;dl class="info-list"&gt;
-  &lt;div class="info-row"&gt;
-    &lt;dt class="info-label"&gt;Username&lt;/dt&gt;
-    &lt;dd class="info-value"&gt;mira.fern&lt;/dd&gt;
-  &lt;/div&gt;
+        <div class="ds-example__caption"><span>From the Asset details dialog.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;dl class="dl"&gt;
+  &lt;dt&gt;File name&lt;/dt&gt;&lt;dd&gt;Courtyard plan.pdf&lt;/dd&gt;
+  &lt;dt&gt;Size&lt;/dt&gt;&lt;dd&gt;2 KB&lt;/dd&gt;
+  &lt;dt&gt;Uploaded&lt;/dt&gt;&lt;dd&gt;Tue 13 Oct, 8:00 am&lt;/dd&gt;
 &lt;/dl&gt;</code></pre></details>
       </div>
-      <h3>With a badge value</h3>
+
+      <h3>Horizontal (<code>.dl--horizontal</code>)</h3>
+      <p>From 640px the labels form a column and the values line up beside them, with a rule under each pair. Below 640px it stacks exactly like the vertical list. Use it on pages and wide panels.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <div class="card" style="width: 100%; max-width: 26rem;">
-            <h3>Courtyard lighting</h3>
-            <dl class="info-list">
-              <div class="info-row"><dt class="info-label">Status</dt><dd class="info-value"><span class="badge badge-warning">Open</span></dd></div>
-              <div class="info-row"><dt class="info-label">Priority</dt><dd class="info-value"><span class="badge badge-info">Normal</span></dd></div>
-              <div class="info-row"><dt class="info-label">Submitted</dt><dd class="info-value">Oct 13, 2026</dd></div>
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="card" aria-labelledby="ex-req-title">
+            <h4 class="card__title" id="ex-req-title">Kitchen tap leak</h4>
+            <dl class="dl dl--horizontal">
+              <dt>Sent by</dt><dd>Mira Fern</dd>
+              <dt>Sent</dt><dd>Tue 13 Oct, 8:00 am</dd>
+              <dt>Priority</dt><dd>High</dd>
+              <dt>Address</dt><dd>Unit 101</dd>
+              <dt>Phone</dt><dd><a href="tel:555-0101">555-0101</a></dd>
+              <dt>Entry when no one is home</dt><dd>No</dd>
             </dl>
-          </div>
+          </section>
         </div>
-        <div class="ds-example__caption"><span>Illustrative: a <a href="badge.html">badge</a> may be a value; the badge text remains the information. The mocks only show text values.</span></div>
+        <div class="ds-example__caption"><span>From a maintenance request's details. The phone number is a link, so a tap on a phone calls it.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;dl class="dl dl--horizontal"&gt;
+  &lt;dt&gt;Sent by&lt;/dt&gt;&lt;dd&gt;Mira Fern&lt;/dd&gt;
+  &lt;dt&gt;Priority&lt;/dt&gt;&lt;dd&gt;High&lt;/dd&gt;
+  &lt;dt&gt;Phone&lt;/dt&gt;&lt;dd&gt;&lt;a href="tel:555-0101"&gt;555-0101&lt;/a&gt;&lt;/dd&gt;
+&lt;/dl&gt;</code></pre></details>
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="The description list has one size."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">The implemented description list has no size variants.</p>
+    <section class="ds-section" id="sizes" data-na="One size: labels use --text-label and values --text-body."><h2><a href="#sizes">Sizes</a></h2>
+      <p>One size. Labels are 14px medium, values 16px regular, so the value is always the bigger, easier read.</p>
     </section>
 
-    <section class="ds-section" id="states" data-na="A description list is static content with no interactive states."><h2><a href="#states">States</a></h2>
-      <p class="ds-na">The mocks show no hover, selected or editable state for these rows; a value that is not available is shown as "Not provided" text.</p>
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A description list is not interactive, so it has no hover, focus or disabled state. A link inside a value has its own (see <a href="link.html">link</a>). The list's states are about its values.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Value given</th><td><dl class="dl dl--horizontal"><dt>Phone</dt><dd>555-0101</dd></dl></td></tr>
+          <tr><th scope="row">Value missing</th><td><dl class="dl dl--horizontal"><dt>Address</dt><dd class="text-muted">Not given</dd></dl></td></tr>
+          <tr><th scope="row">Long value</th><td><div style="max-width: 16rem;"><dl class="dl"><dt>E-mail</dt><dd>mira.fern.housing.committee@example.invalid</dd></dl></div></td></tr>
+          <tr><th scope="row">Value with a link</th><td><dl class="dl dl--horizontal"><dt>E-mail</dt><dd><a href="mailto:mira@example.invalid">mira@example.invalid</a></dd></dl></td></tr>
+          <tr><th scope="row">Loading</th><td><div class="loading" role="status"><span class="spinner" aria-hidden="true"></span>Loading profile…</div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="card"><dl class="dl dl--horizontal"><dt>Username</dt><dd>mira.fern</dd><dt>E-mail</dt><dd><a href="mailto:mira@example.invalid">mira@example.invalid</a></dd><dt>Phone</dt><dd>555-0101</dd><dt>Address</dt><dd>101 Fictional Court</dd></dl></div></div>
+        <div data-theme="dark"><div class="card"><dl class="dl dl--horizontal"><dt>Username</dt><dd>mira.fern</dd><dt>E-mail</dt><dd><a href="mailto:mira@example.invalid">mira@example.invalid</a></dd><dt>Phone</dt><dd>555-0101</dd><dt>Address</dt><dd>101 Fictional Court</dd></dl></div></div>
+      </div>
+      <ul>
+        <li><b>Missing</b> values keep their label and say "Not given" in <code>--color-fg-muted</code>. Never leave a blank line or drop the row: a blank looks like a fault, and a dropped row hides that something is missing.</li>
+        <li><b>Loading</b> shows one <a href="spinner.html">spinner</a> row with a sentence in <code>role="status"</code> in place of the list, never empty labels.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
-        <li>The mocks have no <code>@media</code> rule for the row. Label and value share one line with a 16px gap (<code>--space-4</code>) at every width.</li>
-        <li>A long value wraps inside its own half and stays right-aligned. Email addresses and file names are the long values in the mocks; allow them to break (<code>overflow-wrap: anywhere</code>) so a 360px viewport does not scroll sideways. This is a requirement; the mock does not set it.</li>
+        <li><code>.dl</code> is one column at every width: label, then value, then 12px before the next label.</li>
+        <li><code>.dl--horizontal</code> is the same one column below 640px (<code>40rem</code>). From 640px it becomes two columns: labels at least 8rem and as wide as the longest label, values in the rest.</li>
+        <li>Because the breakpoint is in <code>rem</code>, zooming to 400% brings back the one-column layout. Values wrap anywhere, so nothing scrolls sideways at 320 CSS px.</li>
       </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p class="ds-na">The row uses semantic text and border tokens only.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The list reads <code>--color-fg-muted</code> for labels, <code>--color-fg-default</code> for values and <code>--color-border-default</code> for the horizontal rules. It has no background of its own, so it takes the surface it sits on: a card, a dialog panel (<code>--color-bg-surface-raised</code>) or the page.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <h3>Role and pattern</h3>
-      <p>A native <code>&lt;dl&gt;</code> with <code>&lt;dt&gt;</code> terms and <code>&lt;dd&gt;</code> descriptions. Grouping a pair in a <code>&lt;div&gt;</code> inside the <code>&lt;dl&gt;</code> is valid HTML and lets the row carry the divider. No ARIA is needed. The source mocks used <code>div</code> and <code>span</code> elements, which expose no relationship; the system requires the <code>&lt;dl&gt;</code>. Do not recreate the structure with <code>role="term"</code> or <code>role="definition"</code>.</p>
+      <p>A native <code>&lt;dl&gt;</code> with <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pairs as its direct children. Screen readers announce a description list and read each term with its value. No ARIA role. Keep each pair together and in order: one <code>&lt;dt&gt;</code>, then its <code>&lt;dd&gt;</code>.</p>
       <h3>Keyboard</h3>
-      <p>No interaction. The list is read in document order; it contains no focusable elements unless a value is a link or button.</p>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Passes over the list, stopping only on links inside values (an e-mail or phone link).</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the focused link.</td></tr>
+      </tbody></table>
       <h3>Focus</h3>
-      <p>A link inside a value gets the shared focus ring (<code>2px --color-focus-ring</code>). The rows themselves never take focus.</p>
+      <p>Nothing in the list takes focus except links, which show the shared ring.</p>
       <h3>Labelling</h3>
-      <p>Each value is described by its <code>dt</code>, so there is no need for <code>aria-label</code>. Give the list a heading nearby (the card or dialog title); name it with <code>aria-labelledby</code> only when several lists share a page.</p>
+      <p>Put a heading before the list that names the thing it describes ("Kitchen tap leak", "Asset details"). Labels are words, not icons, and carry no trailing colon; the layout already shows the pairing.</p>
       <h3>Contrast</h3>
-      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
-        <div class="ds-pair"><span>Label (muted) on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Value on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Link value on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-surface" data-min="4.5"></span></div>
-      </div>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Label in dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div><div class="ds-pair"><span>Value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Value in dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div><div class="ds-pair"><span>Link value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-surface" data-min="4.5"></span></div></div></div><div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Label in dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div><div class="ds-pair"><span>Value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Value in dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div><div class="ds-pair"><span>Link value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-surface" data-min="4.5"></span></div></div></div></div>
+      <p>The horizontal rules are decorative grouping; 1.4.11 does not apply.</p>
       <h3>Motion</h3>
       <p>None.</p>
       <h3>Touch</h3>
-      <p>Not interactive, so target size does not apply. Rows are at least 44px tall.</p>
+      <p>Only links in values are targets. A phone or e-mail link is a full line of 16px text; keep one per value so neighbouring links are a whole row apart.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
       <ul>
-        <li>Labels are single nouns in sentence case without a colon: "Username", "Unit".</li>
-        <li>Values are plain text. Keep dates in one format and units on numbers.</li>
-        <li>Order rows by importance: identity first, then contact, then status.</li>
-        <li>For a missing value write "Not provided" rather than leaving the row empty.</li>
+        <li>Labels in sentence case and plain words, the same as the form that sets the value: "File name", "Uploaded", "Phone", "Entry when no one is home".</li>
+        <li>No colon after a label, and no label repeated in the value ("Phone: 555-0101" is wrong in a value).</li>
+        <li>Values as people would say them: "2 KB", "Tue 13 Oct, 8:00 am", "Unit 101", "No".</li>
+        <li>A missing value says "Not given". A value that cannot be shown to this person is left out with its label, never shown as "Hidden".</li>
       </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
       <div class="ds-dodont">
-        <figure class="ds-do"><div class="ds-example__canvas"><dl class="info-list" style="width: 100%;"><div class="info-row"><dt class="info-label">Unit</dt><dd class="info-value">4B</dd></div></dl></div><figcaption>Use <code>dl</code>, <code>dt</code> and <code>dd</code> so the label is tied to its value.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div style="width: 100%;"><div class="info-row"><span class="info-label">Unit</span><span class="info-value">4B</span></div></div></div><figcaption>The mock's <code>div.info-row</code> with two <code>span</code>s. It looks identical but a screen reader hears two unrelated strings.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas"><dl class="info-list" style="width: 100%;"><div class="info-row"><dt class="info-label">Phone</dt><dd class="info-value">Not provided</dd></div></dl></div><figcaption>Say "Not provided" when a value is missing.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><dl class="info-list" style="width: 100%;"><div class="info-row"><dt class="info-label">Phone</dt><dd class="info-value"></dd></div></dl></div><figcaption>An empty value leaves the label hanging; people cannot tell if it is loading or absent.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><dl class="dl dl--horizontal"><dt>Username</dt><dd>mira.fern</dd><dt>E-mail</dt><dd>mira@example.invalid</dd><dt>Phone</dt><dd>555-0101</dd></dl></div><figcaption>Label every value, so "555-0101" is clearly a phone number.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="stack" style="gap: var(--space-1);"><p>mira.fern</p><p>mira@example.invalid</p><p>555-0101</p></div></div><figcaption>Unlabelled lines, as the Profiles view shows them. A screen reader user hears three bare values.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><dl class="dl dl--horizontal"><dt>Address</dt><dd>Unit 101</dd><dt>Entry when no one is home</dt><dd>No</dd></dl></div><figcaption>A real <code>&lt;dl&gt;</code> with plain-language labels.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="stack" style="gap: var(--space-1);"><div><strong>Address:</strong> 101</div><div><strong>Unattended Entry:</strong> No</div></div></div><figcaption>Bold labels with colons in plain <code>div</code>s, as the maintenance details do: no list semantics and title-case jargon.</figcaption></figure>
       </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
       <div class="ds-table-wrap"><table class="ds-table">
-        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
         <tbody>
-          <tr><td>Label colour</td><td data-token="--color-fg-muted"></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
-          <tr><td>Value colour</td><td data-token="--color-fg-default"></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
-          <tr><td>Divider</td><td data-token="--color-border-default"></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
-          <tr><td>Row padding</td><td data-token="--space-3"></td><td><span data-token="--space-3"></span></td></tr>
-          <tr><td>Label to value gap</td><td data-token="--space-4"></td><td><span data-token="--space-4"></span></td></tr>
-          <tr><td>Label style</td><td data-token="--text-body-sm"></td><td><span data-token="--text-body-sm"></span></td></tr>
-          <tr><td>Value style</td><td data-token="--text-label"></td><td><span data-token="--text-label"></span></td></tr>
+          <tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Value</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Rule (horizontal)</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Label font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Label to value</td><td><code>--space-1</code></td><td colspan="2"><span data-token="--space-1"></span></td></tr>
+          <tr><td>Between pairs (vertical)</td><td><code>--space-3</code></td><td colspan="2"><span data-token="--space-3"></span></td></tr>
+          <tr><td>Column gap</td><td><code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span></td></tr>
+          <tr><td>Row padding (horizontal)</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Rule width</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
         </tbody>
       </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-      <pre><code>&lt;dl class="info-list"&gt;
-  &lt;div class="info-row"&gt;
-    &lt;dt class="info-label"&gt;Email&lt;/dt&gt;
-    &lt;dd class="info-value"&gt;mira@example.invalid&lt;/dd&gt;
-  &lt;/div&gt;
+      <pre><code>&lt;h2&gt;Mira Fern&lt;/h2&gt;
+&lt;dl class="dl dl--horizontal"&gt;
+  &lt;dt&gt;Username&lt;/dt&gt;&lt;dd&gt;mira.fern&lt;/dd&gt;
+  &lt;dt&gt;E-mail&lt;/dt&gt;&lt;dd&gt;&lt;a href="mailto:mira@example.invalid"&gt;mira@example.invalid&lt;/a&gt;&lt;/dd&gt;
+  &lt;dt&gt;Phone&lt;/dt&gt;&lt;dd&gt;555-0101&lt;/dd&gt;
+  &lt;dt&gt;Address&lt;/dt&gt;&lt;dd class="text-muted"&gt;Not given&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / element</th><th scope="col">Effect</th></tr></thead><tbody>
-        <tr><td><code>dl.info-list</code></td><td>The list; removes default margins (requested in <code>components.css</code>).</td></tr>
-        <tr><td><code>.info-row</code></td><td>One label and value pair with a divider.</td></tr>
-        <tr><td><code>dt.info-label</code></td><td>Muted label.</td></tr>
-        <tr><td><code>dd.info-value</code></td><td>Medium-weight, right-aligned value; reset the default <code>dd</code> margin.</td></tr>
-      </tbody></table></div>
+      <table class="ds-table"><thead><tr><th scope="col">Class / element</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.dl</code></td><td>On a <code>&lt;dl&gt;</code>: one-column grid, muted labels, values with 12px after each.</td></tr>
+        <tr><td><code>.dl--horizontal</code></td><td>From 640px: a label column and a value column, with a hairline rule under each pair.</td></tr>
+        <tr><td><code>&lt;dt&gt;</code> / <code>&lt;dd&gt;</code></td><td>Direct children of the list, in pairs. Do not wrap pairs in <code>&lt;div&gt;</code>: a wrapper becomes one grid cell and breaks the columns.</td></tr>
+        <tr><td><code>.text-muted</code> on <code>&lt;dd&gt;</code></td><td>For "Not given".</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-      <p>Extracted from these mocks:</p>
+      <p>Extracted from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/public-profile/default.html">pages/public-profile/default</a> (username, email, phone, unit)</li>
-        <li><a href="../../mocks/pages/public-profile/empty.html">pages/public-profile/empty</a></li>
-        <li><a href="../../mocks/dialogs/public-profile-switcher/default.html">dialogs/public-profile-switcher/default</a> (the same rows on the profile card)</li>
+        <li><a href="../../mocks/dialogs/admin-asset-detail/default.html">dialogs/admin-asset-detail/default</a> (file name, size, uploaded)</li>
+        <li><a href="../../mocks/pages/admin-profile/default.html">pages/admin-profile/default</a>, <a href="../../mocks/pages/admin-profiles/default.html">pages/admin-profiles/default</a> and <a href="../../mocks/pages/admin-profiles/empty.html">empty</a> (profile details)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/detail-new.html">pages/admin-maintenance/detail-new</a>, <a href="../../mocks/pages/admin-maintenance/detail-received.html">detail-received</a> and <a href="../../mocks/pages/admin-maintenance/detail-completed.html">detail-completed</a> (request meta and info grid)</li>
       </ul>
-      <h3>Drift</h3>
+      <h3>Drift from the implemented admin</h3>
       <ul>
-        <li>The mocks used <code>div.info-row</code> with two <code>span</code>s (no semantics); the system requires <code>dl</code>/<code>dt</code>/<code>dd</code>.</li>
-        <li>Row padding differed between screens (10px in some, 12px elsewhere); the system uses <code>--space-3</code>.</li>
-        <li>Empty values rendered as a blank; the system shows "Not provided".</li>
+        <li>Asset details use a real <code>&lt;dl class="asset-detail-fields"&gt;</code> but wrap each pair in a <code>&lt;div&gt;</code> and pad values with spaces. The system uses <code>.dl</code> with bare pairs.</li>
+        <li>The profile view (<code>.profile-info</code>) shows username, e-mail, phone and address as unlabelled <code>&lt;p&gt;</code> lines; the empty profile shows blank lines and an empty heading. The system labels every value and says "Not given".</li>
+        <li>Maintenance details split the facts between <code>.detail-meta</code> spans ("Submitted by: Mira Fern", "Priority: High") and <code>.detail-info-grid</code> <code>div</code>s with <code>&lt;strong&gt;Address:&lt;/strong&gt;</code>. The system puts them in one <code>.dl--horizontal</code>, labels without colons.</li>
+        <li>Labels are title case and jargon ("Unattended Entry"); the system uses sentence case and plain words ("Entry when no one is home"). The address shows a bare "101"; the system says "Unit 101".</li>
+        <li>Dates read "Oct 13, 2026, 8:00 AM"; the system writes "Tue 13 Oct, 8:00 am".</li>
+        <li>Global: the implemented admin uses Outfit, Material Icons and a light theme only.</li>
       </ul>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

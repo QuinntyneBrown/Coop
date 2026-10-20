@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout primitives — Coop design system</title>
+<meta name="description" content="How Coop admin pages are put together: the app shell with its sidebar, the page header, stacks, clusters, the column grid with spans, the sticky aside and the centred sign-in card.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Layout</p>
+      <h1>Layout primitives</h1>
+      <p class="ds-lead">The classes that place everything else in the admin: the app shell (sidebar beside the page), the page header, vertical stacks, wrapping rows, the 4, 8 and 12-column grid with its spans, the sticky aside, and the centred card for sign in and onboarding.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">CSS only, no ARIA</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Build every admin page from these primitives instead of writing page-level layout CSS. They read the layout tokens (<code>--layout-columns</code>, <code>--layout-gutter</code>, <code>--layout-margin</code>, <code>--layout-sidebar-width</code>), which change at 768px and 1024px, so pages respond without media queries of their own.</p>
+      <ul>
+        <li><b><code>.app-shell</code></b>: the frame of every signed-in page. On phones it is one column and the <a href="tab-bar.html">tab bar</a> is fixed to the bottom; from 768px the <a href="sidebar.html">sidebar</a> sits beside the page in a 16rem column, full height and sticky.</li>
+        <li><b><code>.app-shell__main</code></b>: on the page's <code>&lt;main id="main"&gt;</code>. It sets the side margins (<code>--layout-margin</code>) and leaves <code>--space-12</code> at the bottom.</li>
+        <li><b><code>.page-header</code></b>: the page's <code>&lt;h1&gt;</code>, an optional <code>.subtitle</code>, and the page's actions (search, the main button). It wraps on phones.</li>
+        <li><b><code>.section</code></b>: <code>--space-8</code> between the blocks of a page.</li>
+        <li><b><code>.stack</code></b>: children in a column, 16px apart (cards, forms, dialog bodies). <b><code>.cluster</code></b>: children in a wrapping row, 12px apart (buttons, filters). <b><code>.cluster--between</code></b> pushes the ends apart.</li>
+        <li><b><code>.grid</code></b> with <b><code>.span-4/5/7/8/full</code></b>: the column grid; spans are full width until 1024px. <b><code>.grid--auto</code></b> fills with 18rem cards. <b><code>.sticky-aside</code></b> keeps a side column in view from 1024px.</li>
+        <li><b><code>.auth-layout</code></b> + <b><code>.auth-card</code></b>: the centred 26rem column on sign in, register, forgot password and onboarding, with the <a href="logo-mark.html">logo mark</a> above the card.</li>
+        <li><b><code>.container</code></b>: a centred, 1280px-wide column with side margins, for a page outside the shell. Inside <code>.app-shell__main</code> do not add it; the margins are already set.</li>
+      </ul>
+      <p>Related: the dashboard's counts use <code>.metric-grid</code> (see <a href="metric-card.html">metric card</a>), and lines between blocks are <a href="divider.html">dividers</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <p>The Users page, the shape most admin pages share.</p>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-8) var(--space-4); place-items: stretch;">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr); gap: var(--space-3); min-height: 14rem;">
+            <div class="card" style="padding: var(--space-3); box-shadow: none; overflow-wrap: anywhere;"><span class="text-caption">Sidebar</span></div>
+            <div class="stack" style="gap: var(--space-3); padding: var(--space-3); border: var(--border-width-hairline) dashed var(--color-border-strong); border-radius: var(--radius-md);">
+              <div class="page-header" style="margin-block: 0; align-items: center;"><p style="font: var(--text-h3);">Users</p><button class="btn btn--primary btn--sm" type="button">Add user</button></div>
+              <div class="card" style="padding: var(--space-3); flex: 1;"><span class="text-caption">Content: .stack, .grid, a table card</span></div>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 94%; top: 12%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 26%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 80%; top: 26%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 60%; top: 66%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Sidebar</b><small>The shell's first column from 768px: <code>--layout-sidebar-width</code> (16rem) wide, full height, sticky. Hidden on phones, where the tab bar takes over.</small></div></li>
+          <li><div><b>Main</b><small><code>main#main.app-shell__main</code>: side padding <code>--layout-margin</code>, bottom padding <code>--space-12</code>, on <code>--color-bg-canvas</code>.</small></div></li>
+          <li><div><b>Page header</b><small><code>.page-header</code>: the <code>&lt;h1&gt;</code> (and a <code>.subtitle</code> when there is one) on the left, <code>--space-6</code> above and below.</small></div></li>
+          <li><div><b>Page actions</b><small>On the right of the header: the search field and the one primary button. They drop under the title when space runs out.</small></div></li>
+          <li><div><b>Content</b><small>Stacks, grids and cards. Sections are <code>--space-8</code> apart (<code>.section</code>).</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>App shell</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="padding: 0; display: block;">
+          <div class="app-shell" style="min-height: 0;">
+            <nav class="sidebar" aria-label="Admin, app shell example" style="position: static; height: auto;">
+              <a class="sidebar__brand" href="../../mocks/pages/admin-dashboard/default.html"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" width="48" height="48" style="width: 100%; height: 100%;"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span>OWN Housing Co-op</a>
+              <div class="sidebar__nav">
+                <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</a>
+                <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>Maintenance</a>
+                <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Documents</a>
+                <a class="nav-link" href="../../mocks/pages/admin-users/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>Users</a>
+              </div>
+              <div class="sidebar__footer"><span class="avatar avatar--sm" aria-hidden="true">M</span><div class="sidebar__user"><span class="sidebar__user-name">Mira Fern</span><span class="sidebar__user-role">System administrator</span></div></div>
+            </nav>
+            <div class="app-shell__main" style="padding-bottom: var(--space-6);">
+              <div class="page-header"><p style="font: var(--text-h1);">Users</p><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add user</button></div>
+              <div class="table-wrap">
+                <table class="table">
+                  <caption class="visually-hidden">Users (example)</caption>
+                  <thead><tr><th scope="col">Username</th><th scope="col">Role</th></tr></thead>
+                  <tbody><tr><td>mira.fern</td><td>System administrator</td></tr><tr><td>tavi.moss</td><td>Board member</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Abridged: four of the thirteen sidebar links. Below 768px the sidebar is hidden and only the page shows, as on a phone. On a real page the right-hand column is <code>&lt;main id="main" class="app-shell__main"&gt;</code> and the shell fills the screen's height.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;body&gt;
+  &lt;a class="skip-link" href="#main"&gt;Skip to content&lt;/a&gt;
+  &lt;div class="app-shell has-tabbar"&gt;
+    &lt;nav class="sidebar" aria-label="Admin"&gt; … &lt;/nav&gt;
+    &lt;main id="main" class="app-shell__main"&gt;
+      &lt;div class="page-header"&gt; … &lt;/div&gt;
+      …
+    &lt;/main&gt;
+    &lt;nav class="tabbar" aria-label="Admin, phone"&gt; … &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre></details>
+      </div>
+
+      <h3>Page header</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="page-header" style="margin-block: 0;">
+            <p style="font: var(--text-h1);">Users</p>
+            <div class="cluster" style="align-items: flex-end;">
+              <div class="field"><label class="field__label" for="lay-search">Search users</label><div class="search"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="input" id="lay-search" type="search" autocomplete="off"></div></div>
+              <button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add user</button>
+            </div>
+          </div>
+          <div class="page-header" style="margin-block: 0;">
+            <div><p style="font: var(--text-h1);">Digital assets</p><p class="subtitle">2 assets</p></div>
+            <button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 17v3h16v-3"/></svg>Upload</button>
+          </div>
+          <div class="page-header" style="margin-block: 0;">
+            <p style="font: var(--text-h1);">Settings</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Title with search and the main action (Users); title, <code>.subtitle</code> and action (Assets); title only (Settings). The header holds the page's only <code>&lt;h1&gt;</code>; the examples use paragraphs so this page keeps one.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="page-header"&gt;
+  &lt;div&gt;&lt;h1&gt;Digital assets&lt;/h1&gt;&lt;p class="subtitle"&gt;2 assets&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="cluster"&gt;
+    &lt;div class="field"&gt;&lt;label class="field__label" for="asset-search"&gt;Search assets&lt;/label&gt;…&lt;/div&gt;
+    &lt;button class="btn btn--primary" type="button"&gt;…Upload&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Stack and cluster</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack">
+            <div class="card" style="padding: var(--space-3);">.stack child · Recent maintenance requests</div>
+            <div class="card" style="padding: var(--space-3);">.stack child · Recent notices</div>
+          </div>
+          <div class="cluster"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Save changes</button></div>
+          <div class="cluster cluster--between"><span class="list__title">Autumn courtyard gathering</span><span class="text-muted">Oct 13, 2026</span></div>
+        </div>
+        <div class="ds-example__caption"><span><code>.stack</code> (16px), <code>.cluster</code> (12px, wraps) and <code>.cluster--between</code> (ends apart, as in a dashboard notice row).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="stack"&gt; … &lt;/div&gt;
+&lt;div class="cluster"&gt;&lt;button class="btn" type="button"&gt;Cancel&lt;/button&gt;&lt;button class="btn btn--primary" type="button"&gt;Save changes&lt;/button&gt;&lt;/div&gt;
+&lt;div class="cluster cluster--between"&gt; … &lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Grid with spans and a sticky aside</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="grid" style="align-items: start;">
+            <section class="card card--flush span-5" aria-label="All requests (example)">
+              <p class="card__title">All requests</p>
+              <ul class="list">
+                <li class="list__item"><div class="list__body"><p class="list__title">Kitchen tap leak</p><p class="list__meta">Oct 13, 2026</p></div><span class="badge badge--warning">New</span></li>
+                <li class="list__item"><div class="list__body"><p class="list__title">Hallway light</p><p class="list__meta">Oct 9, 2026</p></div><span class="badge badge--info">Started</span></li>
+                <li class="list__item"><div class="list__body"><p class="list__title">Window latch</p><p class="list__meta">Oct 2, 2026</p></div><span class="badge badge--success">Completed</span></li>
+              </ul>
+            </section>
+            <section class="card stack span-7 sticky-aside" aria-label="Kitchen tap leak (example)">
+              <p class="card__title">Kitchen tap leak</p>
+              <dl class="dl dl--horizontal"><dt>Status</dt><dd>New</dd><dt>Reported</dt><dd>Oct 13, 2026</dd><dt>Reported by</dt><dd>neri.vale</dd></dl>
+            </section>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Maintenance: the request list (<code>.span-5</code>) and the open request (<code>.span-7 .sticky-aside</code>). Below 1024px both go full width, the request under the list.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="grid" style="align-items: start;"&gt;
+  &lt;section class="card card--flush span-5" aria-labelledby="requests-title"&gt; … &lt;/section&gt;
+  &lt;section class="card stack span-7 sticky-aside" aria-labelledby="request-title"&gt; … &lt;/section&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Auto grid</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="grid grid--auto">
+            <div class="card stack" style="gap: var(--space-2);"><p class="list__title">Meeting notes.pdf</p><p class="list__meta">Board · Oct 13, 2026</p></div>
+            <div class="card stack" style="gap: var(--space-2);"><p class="list__title">Courtyard plan.pdf</p><p class="list__meta">Notices · Oct 9, 2026</p></div>
+            <div class="card stack" style="gap: var(--space-2);"><p class="list__title">Bylaws</p><p class="list__meta">Bylaws · Sep 30, 2026</p></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span><code>.grid--auto</code>: as many 18rem columns as fit, one on a phone. For cards that are all alike, such as documents or board members.</span></div>
+      </div>
+
+      <h3>Auth layout</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="padding: 0; display: block;">
+          <div class="auth-layout" style="min-height: auto;">
+            <div class="auth-card stack">
+              <div class="logo" aria-hidden="true"><span class="logo-mark"><svg viewBox="0 0 48 48" width="48" height="48" style="width: 100%; height: 100%;"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span></div>
+              <div class="card stack">
+                <p style="font: var(--text-h2); text-align: center;">Welcome back</p>
+                <p class="text-muted" style="text-align: center; margin-inline: auto;">Sign in to your account to continue.</p>
+                <div class="field"><label class="field__label" for="lay-user">Username</label><input class="input" id="lay-user" type="text" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+                <div class="field"><label class="field__label" for="lay-pass">Password</label><input class="input" id="lay-pass" type="password" autocomplete="current-password"></div>
+                <button class="btn btn--primary btn--lg btn--block" type="button">Sign in</button>
+                <a href="../../mocks/pages/admin-forgot-password/default.html" style="align-self: center;">Forgot password?</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span><code>main.auth-layout</code> centres a 26rem <code>.auth-card</code> with the logo mark above it (<code>min-height</code> is shortened here). Sign in, register, forgot password and the onboarding steps all use it.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;main id="main" class="auth-layout"&gt;
+  &lt;div class="auth-card stack"&gt;
+    &lt;div class="logo" aria-hidden="true"&gt;&lt;span class="logo-mark"&gt;…&lt;/span&gt;&lt;/div&gt;
+    &lt;form class="card stack"&gt;&lt;h1&gt;Welcome back&lt;/h1&gt; … &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="sizes come from layout tokens"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Primitives have no size modifiers; gaps and widths come from the spacing and layout tokens listed below.</p>
+    </section>
+
+    <section class="ds-section" id="states" data-na="no interactive states"><h2><a href="#states">States</a></h2>
+      <p class="ds-na">Layout primitives are not interactive and have no states; the only change is responsive (see below).</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Width</th><th scope="col">Shell</th><th scope="col">Columns</th><th scope="col">Gutter</th><th scope="col">Margin</th><th scope="col">Spans</th></tr></thead>
+        <tbody>
+          <tr><td>Base (phones)</td><td>One column; sidebar hidden; tab bar fixed to the bottom, with room kept for it by <code>.has-tabbar</code>.</td><td>4</td><td><code>--space-4</code> (16px)</td><td><code>--space-4</code> (16px)</td><td>All full width; the aside goes under the main column.</td></tr>
+          <tr><td>768px (<code>--layout-breakpoint-md</code>)</td><td>Sidebar (16rem) beside main, full height and sticky; tab bar hidden.</td><td>8</td><td><code>--space-6</code> (24px)</td><td><code>--space-8</code> (32px)</td><td>Still full width.</td></tr>
+          <tr><td>1024px (<code>--layout-breakpoint-lg</code>)</td><td>As at 768px.</td><td>12</td><td><code>--space-8</code> (32px)</td><td><code>--space-12</code> (48px)</td><td><code>.span-4/5/7/8</code> take their columns; <code>.sticky-aside</code> sticks.</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Mobile first: base styles target phones and only <code>min-width</code> queries in rem (48rem, 64rem) add space, so the breakpoints move with the person's text size.</li>
+        <li><code>.page-header</code> and <code>.cluster</code> wrap: on a phone the search and the main button drop under the title. Nothing scrolls sideways at 320px CSS width or at 400% zoom; only a wide table scrolls, inside its <code>.table-wrap</code>.</li>
+        <li><code>.auth-layout</code> keeps <code>--layout-margin</code> around the card, so the card never touches the screen edge.</li>
+        <li>Put <code>.has-tabbar</code> on <code>.app-shell</code>, not on <code>main</code>: <code>.app-shell__main</code>'s own bottom padding would win on the same element and the tab bar would cover the last row.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Most primitives draw no colour; layout tokens change by breakpoint, not by theme. The shell's colours come from semantic tokens: the page on <code>--color-bg-canvas</code>, the sidebar on <code>--color-bg-surface</code> with a <code>--color-border-default</code> edge, the subtitle in <code>--color-fg-muted</code>. Both themes come with them.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>No roles of their own; they go on the right native elements, following the APG <a href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/">landmark regions</a> practice. The <a href="skip-link.html">skip link</a> comes first; the sidebar is a <code>&lt;nav aria-label="Admin"&gt;</code>; <code>.app-shell__main</code> and <code>.auth-layout</code> go on <code>&lt;main id="main"&gt;</code>; a <code>.sticky-aside</code> goes on a <code>&lt;section&gt;</code> or <code>&lt;aside&gt;</code> named by its heading.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Follows DOM order: skip link, sidebar, page header, content. Primitives add no tab stops. Never reorder columns visually with <code>order</code> or <code>grid-row</code>, so focus order matches reading order (list before the open request).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The admin has no sticky top bar, so nothing covers focused content at the top. On phones, <code>.has-tabbar</code> keeps the last controls clear of the fixed tab bar.</p>
+      <h3>Labelling</h3>
+      <p>The page header holds the page's only <code>&lt;h1&gt;</code>, named as the sidebar item ("Users", "Maintenance"). Sections and asides are named by their visible heading through <code>aria-labelledby</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Page title on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Subtitle on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Sidebar text on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <p>The sidebar's edge and the card borders are decorative; the change from surface to canvas and the content itself show where one area ends.</p>
+      <h3>Motion</h3>
+      <p>None. <code>html</code> scrolls smoothly to in-page links, and that is turned off under <code>prefers-reduced-motion</code>.</p>
+      <h3>Touch</h3>
+      <p><code>.cluster</code> puts 12px between neighbours, more than the spacing 24px targets need. Content reflows at 320px CSS width (WCAG 1.4.10), and the sidebar's links and the tab bar's items are 44px tall.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The page title is the section's name as the sidebar says it: "Users", "Maintenance", "Digital assets". The dashboard may greet instead: "Hello, Mira".</li>
+        <li>The subtitle, when there is one, says what is here in a few words: "2 assets", "Here's your overview".</li>
+        <li>One primary action in the page header at most; it is the page's main job ("Add user", "New request", "Upload").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;div class="app-shell"&gt;&lt;nav class="sidebar"&gt;…&lt;/nav&gt;&lt;main id="main" class="app-shell__main"&gt;</code></div><figcaption>Let the shell's grid place the sidebar and the page side by side.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>.sidebar { position: fixed; width: 260px; }</code> <code>.layout-main { margin-left: 260px; }</code></div><figcaption>A fixed sidebar with a matching margin on <code>main</code>, as the admin layout does today: two numbers that must always agree.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;div class="page-header"&gt;</code> from the system on every page</div><figcaption>One page header, so every title sits in the same place with the same space around it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>.users-page .page-header { margin-bottom: 20px; }</code> <code>.profiles-page .page-header { margin-bottom: 24px; }</code></div><figcaption>Each feature declaring its own page header and page padding. Titles shift by a few pixels from page to page.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><code>@media (min-width: 48rem) { … }</code></div><figcaption>Start from the phone and add space as the screen grows.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>@media (max-width: 768px) { .sidebar { position: static; } }</code></div><figcaption>Desktop-first patches. On a phone this stacks all thirteen sidebar links above the page, and some pages add the tab bar as well.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Sidebar width</td><td><code>--layout-sidebar-width</code></td><td colspan="2"><span data-token="--layout-sidebar-width"></span></td></tr>
+          <tr><td>Tab bar height (phones)</td><td><code>--layout-tabbar-height</code></td><td colspan="2"><span data-token="--layout-tabbar-height"></span></td></tr>
+          <tr><td>Columns (current width)</td><td><code>--layout-columns</code></td><td colspan="2"><span data-token="--layout-columns"></span></td></tr>
+          <tr><td>Gutter (current width)</td><td><code>--layout-gutter</code></td><td colspan="2"><span data-token="--layout-gutter"></span></td></tr>
+          <tr><td>Margin (current width)</td><td><code>--layout-margin</code></td><td colspan="2"><span data-token="--layout-margin"></span></td></tr>
+          <tr><td>Breakpoints md / lg</td><td><code>--layout-breakpoint-md</code> / <code>--layout-breakpoint-lg</code></td><td colspan="2"><span data-token="--layout-breakpoint-md"></span> / <span data-token="--layout-breakpoint-lg"></span></td></tr>
+          <tr><td>Container max</td><td><code>--layout-container-max</code></td><td colspan="2"><span data-token="--layout-container-max"></span></td></tr>
+          <tr><td>Measure (prose)</td><td><code>--layout-measure</code></td><td colspan="2"><span data-token="--layout-measure"></span></td></tr>
+          <tr><td>Main bottom padding</td><td><code>--space-12</code></td><td colspan="2"><span data-token="--space-12"></span></td></tr>
+          <tr><td>Stack gap / cluster gap</td><td><code>--space-4</code> / <code>--space-3</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Page header margin / section margin</td><td><code>--space-6</code> / <code>--space-8</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-8"></span></td></tr>
+          <tr><td>Sticky aside offset</td><td><code>--layout-topbar-height</code> + <code>--space-4</code></td><td colspan="2"><span data-token="--layout-topbar-height"></span> + <span data-token="--space-4"></span></td></tr>
+          <tr><td>Page background</td><td><code>--color-bg-canvas</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+          <tr><td>Sidebar background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Sidebar edge</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Subtitle</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;body&gt;
+  &lt;a class="skip-link" href="#main"&gt;Skip to content&lt;/a&gt;
+  &lt;div class="app-shell has-tabbar"&gt;
+    &lt;nav class="sidebar" aria-label="Admin"&gt; … &lt;/nav&gt;
+    &lt;main id="main" class="app-shell__main"&gt;
+      &lt;div class="page-header"&gt;
+        &lt;h1&gt;Maintenance&lt;/h1&gt;
+        &lt;button class="btn btn--primary" type="button"&gt;…New request&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="grid" style="align-items: start;"&gt;
+        &lt;section class="card card--flush span-5" aria-labelledby="requests-title"&gt; … &lt;/section&gt;
+        &lt;section class="card stack span-7 sticky-aside" aria-labelledby="request-title"&gt; … &lt;/section&gt;
+      &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;nav class="tabbar" aria-label="Admin, phone"&gt; … &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.app-shell</code></td><td>Full-height frame; from 768px a grid of the sidebar width and the rest, with the sidebar sticky.</td></tr>
+        <tr><td><code>.app-shell__main</code></td><td>On <code>&lt;main&gt;</code>: side padding <code>--layout-margin</code>, bottom padding <code>--space-12</code>, never wider than its column.</td></tr>
+        <tr><td><code>.has-tabbar</code></td><td>On <code>.app-shell</code>: room at the bottom for the phone tab bar; removed from 768px.</td></tr>
+        <tr><td><code>.page-header</code> (+ <code>.subtitle</code>)</td><td>Title block and actions, ends apart, wraps.</td></tr>
+        <tr><td><code>.section</code></td><td><code>--space-8</code> above and below.</td></tr>
+        <tr><td><code>.stack</code></td><td>Column, 16px gap.</td></tr>
+        <tr><td><code>.cluster</code> / <code>.cluster--between</code></td><td>Wrapping row, 12px gap / ends apart.</td></tr>
+        <tr><td><code>.grid</code> / <code>.grid--auto</code></td><td>Token column grid / as many 18rem columns as fit.</td></tr>
+        <tr><td><code>.span-4</code> <code>.span-5</code> <code>.span-7</code> <code>.span-8</code> <code>.span-full</code></td><td>Full width until 1024px, then the named span of 12.</td></tr>
+        <tr><td><code>.sticky-aside</code></td><td>Sticky from 1024px.</td></tr>
+        <tr><td><code>.auth-layout</code> / <code>.auth-card</code> (+ <code>.logo</code>)</td><td>Full-height centring / 26rem column with the logo mark above.</td></tr>
+        <tr><td><code>.container</code></td><td>Centred 1280px column with side margins, for pages outside the shell only.</td></tr>
+      </tbody></table>
+      <p>Gap: <code>.sticky-aside</code> sticks <code>--layout-topbar-height</code> plus <code>--space-4</code> (72px) from the top, a value made for a top bar the admin does not have. It works, with a larger gap than needed; a later change could make the offset <code>--space-4</code> inside the shell.</p>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (sidebar and main, page header with search and Add user, table card)</li>
+        <li><a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (page header with a count under the title, search and Upload)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/detail-new.html">pages/admin-maintenance/detail-new</a> (request list and the open request side by side)</li>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (greeting, metric cards, two-column cards, phone tab bar)</li>
+        <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> (title-only page header)</li>
+        <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a> and <a href="../../mocks/pages/admin-onboarding/default.html">pages/admin-onboarding/default</a> (signed-out and set-up pages)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Shell.</b> The admin layout is <code>div.layout</code> (flex) with a fixed 260px <code>.sidebar</code> and <code>.layout-main { margin-left: 260px }</code>. The system uses <code>.app-shell</code>, a grid with a 16rem (256px) sticky sidebar column, and <code>.app-shell__main</code>.</li>
+        <li><b>Phones.</b> At 768px and below the admin sidebar turns static and stacks above the page with all thirteen links, and the Dashboard, Maintenance, Documents and other pages also show <code>.bottom-tab-bar</code>, so both navigations appear. The system hides the sidebar below 768px and shows only the tab bar.</li>
+        <li><b>Page header.</b> Each feature declares its own <code>.page-header</code> (flex, space-between, 20px or 24px below, 24px semibold title) and its own page padding (16px on phones, 24px from 769px, sometimes 80px or 100px at the bottom). The system has one <code>.page-header</code> and sets margins once in <code>.app-shell__main</code>.</li>
+        <li><b>Grids.</b> Each feature writes its own grid: the maintenance <code>.content-area</code> (two equal columns when a request is open), the dashboard's four and two-column grids, and auto-fill grids of 220px to 420px. The system uses <code>.grid</code> with spans, <code>.grid--auto</code> and <code>.metric-grid</code>.</li>
+        <li><b>Breakpoints.</b> Desktop-first queries in px: <code>max-width</code> 768px (16 times), 600px, 640px and 1023px. The system uses mobile-first <code>min-width</code> queries in rem.</li>
+        <li><b>Background.</b> The admin repeats a warm off-white page background and <code>min-height: 100vh</code> in several feature styles, in light only. The system uses <code>--color-bg-canvas</code> once, in both themes.</li>
+        <li><b>Sign in and onboarding.</b> Sign in is a two-panel page (<code>.login-page</code>, a coloured hero beside <code>.login-form-panel</code>) that also shows the phone tab bar to someone not yet signed in; onboarding is <code>.onboarding-page</code> with a 560px <code>.onboarding-card</code> and 40px padding. Neither has a <code>&lt;main&gt;</code>. The system uses <code>main.auth-layout</code> with a 26rem <code>.auth-card</code> and no tab bar.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

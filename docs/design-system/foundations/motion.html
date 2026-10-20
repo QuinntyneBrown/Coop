@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Motion — Coop design system</title>
-<meta name="description" content="The few transitions the Coop product implements, their durations and how reduced motion is handled by tokens.">
+<meta name="description" content="Coop admin motion: duration and easing tokens with replayable demos, loading loops, choreography and reduced motion.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,105 +31,184 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
-      <p class="ds-kicker">Foundation</p>
+      <p class="ds-kicker">Foundation · Motion</p>
       <h1>Motion</h1>
-      <p class="ds-lead">A 200ms colour transition, a 300ms step dot and a 1s spinner. Reduced motion is handled by the tokens themselves.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#demos">Replayable demos</a></li><li><a href="#inventory">What animates</a></li><li><a href="#accessibility">Accessibility and reduced motion</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+      <p class="ds-lead">Short, calm motion that shows what changed and never makes anyone wait, and none at all when the device asks for reduced motion.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#durations">Durations</a></li><li><a href="#easing">Easing</a></li><li><a href="#loops">Loading loops</a></li><li><a href="#choreography">Choreography</a></li><li><a href="#accessibility">Reduced motion</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources and drift</a></li>
+      </ul>
     </header>
+
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-
-<p>Motion in Coop is minimal and functional. The mocks use one short colour transition on interactive controls, one slightly slower transition on the onboarding step dots, and a looping spinner. Nothing slides, fades in, expands or bounces, and the product defines no easing curve (the browser default <code>ease</code> applies). This page documents only those transitions.</p>
-
+      <p>Motion in the Coop admin explains a change: a dialog rises from where it will sit, a saved message slides into its corner, a switch slides to its new position. Many of the people who use the admin are older, and some find movement distracting or unsettling, so motion here is short, small and quiet. It never decorates, never loops except to show that something is loading, and switches off completely when the device asks for reduced motion.</p>
+      <ul>
+        <li>Use a duration token and an easing token together; never a raw <code>ms</code> or <code>s</code> value or a named CSS easing.</li>
+        <li>Nothing animates when a page loads, apart from a loading indicator while content is on its way.</li>
+        <li>Animate <code>opacity</code>, <code>translate</code>, <code>scale</code> and <code>rotate</code>; do not animate layout properties such as <code>width</code> or <code>height</code>.</li>
+      </ul>
     </section>
-    <section class="ds-section" id="demos"><h2><a href="#demos">Replayable demos</a></h2>
 
-<p>Select a replay button to run each transition. Each demo moves a dot using the named duration token; the real product applies the same durations to colour, border and background changes.</p>
-<div class="ds-example">
-<div class="ds-example__canvas ds-example__canvas--stack">
-<div class="ds-motion-demo" style="--demo-duration: var(--duration-base);"><button type="button" class="btn btn-secondary" data-motion-run>Replay base</button><div class="dot" aria-hidden="true"></div></div>
-<div class="ds-motion-demo" style="--demo-duration: var(--duration-slow);"><button type="button" class="btn btn-secondary" data-motion-run>Replay slow</button><div class="dot" aria-hidden="true"></div></div>
-<div class="ds-motion-demo"><span class="spinner" role="status" aria-label="Loading"></span><span>Spinner: one full turn per <code>--duration-spin</code>, linear, infinite</span></div>
-</div>
-<div class="ds-example__caption"><span>Base 200ms, slow 300ms, spin 1s</span><span>Components: <a href="../components/spinner.html">Spinner</a>, <a href="../components/stepper.html">Stepper</a></span></div>
-</div>
-
+    <section class="ds-section" id="durations"><h2><a href="#durations">Durations</a></h2>
+      <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-motion-demo"><div class="ds-motion-demo" style="--demo-duration: var(--duration-fast); --demo-ease: var(--ease-standard); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play fast</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-base); --demo-ease: var(--ease-standard); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play base</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-slow); --demo-ease: var(--ease-standard); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play slow</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-deliberate); --demo-ease: var(--ease-standard); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play deliberate</button><span class="dot" aria-hidden="true"></span></div></div></div><div class="ds-example__caption"><span>Each dot travels the same distance with <code>--ease-standard</code>; only the duration changes. Under reduced motion they jump.</span></div></div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Use in the admin</th></tr></thead>
+        <tbody>
+          <tr><td><code>--duration-instant</code></td><td>State changes that must not animate: the selected tab, the current page in pagination, a checked checkbox</td></tr>
+          <tr><td><code>--duration-fast</code></td><td>Hover and colour changes on buttons, sidebar links, table rows, tabs and metric cards; the tooltip fade</td></tr>
+          <tr><td><code>--duration-base</code></td><td>The switch thumb, a saved message entering and leaving, the dialog backdrop fade</td></tr>
+          <tr><td><code>--duration-slow</code></td><td>A dialog or bottom sheet entering, such as "New page" or "Add director"</td></tr>
+          <tr><td><code>--duration-deliberate</code></td><td>Progress fills, such as a file upload in the Assets library</td></tr>
+          <tr><td><code>--duration-loop</code></td><td>One cycle of a looping indicator; the spinner turns once every half cycle</td></tr>
+        </tbody>
+      </table></div>
     </section>
-    <section class="ds-section" id="inventory"><h2><a href="#inventory">What animates</a></h2>
 
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Transition</th><th scope="col">Property</th><th scope="col">Duration</th><th scope="col">Where</th></tr></thead><tbody>
-<tr><td>Colour change</td><td>background, border colour, text colour, box-shadow</td><td>0.2s (<code>--duration-base</code>)</td><td>Buttons, icon buttons, form inputs, nav items, tab items, interactive cards, document and request cards</td></tr>
-<tr><td>Step dot</td><td>background, scale</td><td>0.3s (<code>--duration-slow</code>)</td><td>Onboarding step indicator</td></tr>
-<tr><td>Spinner</td><td>rotation (360 degrees)</td><td>0.6s for the <code>.spinner</code> ring and 1s for the <code>sync</code> icon (<code>material-icons spin</code>), linear, infinite. <code>--duration-spin</code> is 1s</td><td>Loading states on lists (ring) and the sync icon</td></tr>
-</tbody></table></div>
-<p>The mocks write the colour transition as the shorthand <code>transition: 0.2s</code>, which animates every property. The system narrows it to the properties listed above.</p>
-
+    <section class="ds-section" id="easing"><h2><a href="#easing">Easing</a></h2>
+      <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-motion-demo"><div class="ds-motion-demo" style="--demo-duration: var(--duration-slow); --demo-ease: var(--ease-standard); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play standard</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-slow); --demo-ease: var(--ease-enter); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play enter</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-slow); --demo-ease: var(--ease-exit); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play exit</button><span class="dot" aria-hidden="true"></span></div><div class="ds-motion-demo" style="--demo-duration: var(--duration-slow); --demo-ease: var(--ease-spring); flex: 1 1 100%; align-items: center;"><button class="btn btn--sm" type="button" data-motion-run>Play spring</button><span class="dot" aria-hidden="true"></span></div></div></div><div class="ds-example__caption"><span>The same 320ms with four curves. Spring overshoots a little and settles.</span></div></div>
+      <ul>
+        <li><b>Standard</b> for things that change in place: hover colours, progress fills, the switch track colour.</li>
+        <li><b>Enter</b> (decelerate) for things arriving: dialogs, bottom sheets, menus, saved messages.</li>
+        <li><b>Exit</b> (accelerate) for things leaving: a dismissed message.</li>
+        <li><b>Spring</b> for one thing only: the switch thumb, so turning a setting on feels like a physical switch. It overshoots by a few pixels over 200ms; nothing else in the admin uses it.</li>
+      </ul>
+      <div class="ds-example"><div class="ds-example__canvas">
+        <label class="switch"><input type="checkbox" role="switch" checked><span class="switch__text">Board members can edit maintenance requests</span></label>
+      </div><div class="ds-example__caption"><span>The switch thumb moves with <code>--duration-base</code> and <code>--ease-spring</code>. Turn it off and on to feel the settle.</span></div></div>
     </section>
-    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility and reduced motion</a></h2>
 
-<ul>
-<li><code>tokens.css</code> sets <code>--duration-base</code> and <code>--duration-slow</code> to <code>0.01ms</code> and <code>--duration-spin</code> to <code>2s</code> under <code>@media (prefers-reduced-motion: reduce)</code>. Every component that uses the tokens follows automatically; do not write literal durations.</li>
-<li>The spinner keeps turning, more slowly, because it is the only signal that work is in progress. It is always paired with text or an accessible name.</li>
-<li>No animation lasts longer than 300ms except the looping spinner, and nothing flashes (WCAG 2.3.1).</li>
-<li>Do not start a transition on <code>mousedown</code>; state changes run on hover, focus and activation only.</li>
-</ul>
-
+    <section class="ds-section" id="loops"><h2><a href="#loops">Loading loops</a></h2>
+      <div class="ds-example"><div class="ds-example__canvas">
+        <button class="btn btn--primary" type="button" aria-busy="true">Save page</button>
+        <div class="loading" role="status"><span class="spinner" aria-hidden="true"></span>Loading the board list…</div>
+        <span class="skeleton skeleton--text" style="width: 12rem;" aria-hidden="true"></span>
+      </div><div class="ds-example__caption"><span>Loops share <code>--duration-loop</code> (1400ms). The skeleton shimmer runs one cycle per loop; the spinner, inside a busy button or beside a loading message, turns twice as fast.</span></div></div>
+      <p>A loop always sits beside words that say what is loading ("Loading the board list…") or inside a button whose label stays readable to assistive technology. A loop on its own tells nobody anything.</p>
     </section>
+
+    <section class="ds-section" id="choreography"><h2><a href="#choreography">Choreography</a></h2>
+      <ul>
+        <li><b>Dialogs</b> fade the backdrop (base) and slide the panel up from the bottom on phones, or scale it in from 96% from 640px (slow, enter). Closing is instant; nobody waits to get back to the page.</li>
+        <li><b>Saved messages</b> ("“About us” is now on the website.") slide up 16px into place (base, enter) and fade and drop 8px as they leave (base, exit).</li>
+        <li><b>Menus and tooltips</b> fade in (fast). A tooltip waits 300ms before showing so it does not flicker as the pointer passes.</li>
+        <li><b>Sidebar links, tabs and rows</b> change colour on hover (fast, standard). They never move or grow.</li>
+        <li><b>Sign-in:</b> <code>.stagger</code> in <code>components.css</code> lets the sign-in fields rise in one after another (slow, enter, a third of fast between each). It is the only motion on page load that the system allows, it is optional, and reduced motion removes it.</li>
+        <li>Once a page has settled nothing moves on its own except a loading indicator.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Reduced motion</a></h2>
+      <p>Under <code>prefers-reduced-motion: reduce</code>, <code>tokens.css</code> sets every duration to 0.01ms, so transitions and entrances become instant without any change to a component. <code>components.css</code> also stops every loop after one pass and turns the skeleton shimmer off. The spinner still shows, as a still ring, because it tells the person that something is happening.</p>
+      <ul>
+        <li>Nothing flashes more than three times a second (2.3.1).</li>
+        <li>Smooth scrolling is turned off too.</li>
+        <li>Nothing carries meaning through motion alone: a saved message is also text in a live region, and a busy button also has <code>aria-busy="true"</code>.</li>
+        <li>Test it in Chrome DevTools: Rendering, then "Emulate CSS media feature <code>prefers-reduced-motion</code>".</li>
+      </ul>
+    </section>
+
     <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
-
-<ul>
-<li>Write <code>transition: background-color var(--duration-base) var(--ease-standard)</code> with the specific properties that change, not <code>all</code>.</li>
-<li>Use the slow token only for the step indicator. Do not introduce new durations; ask for a token first.</li>
-<li>The product has no toasts, drawers that animate, accordions or skeleton shimmer, so there are no motion tokens for them.</li>
-</ul>
-<h3>Drift</h3>
-<ul>
-<li>The mocks turn the ring spinner in 0.6s and the sync icon in 1s. The system uses a single 1s token.</li>
-<li>The mocks never set an easing function. The system names the browser default as <code>--ease-standard</code> so it can be changed in one place.</li>
-</ul>
-
+      <ul>
+        <li>If a motion does not explain a change, remove it.</li>
+        <li>Never hold input behind an animation; a dialog's buttons work while it is still easing in.</li>
+        <li>Keep motion small. Nothing slides across the whole screen, and nothing bounces except the switch thumb.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button" aria-busy="true">Save director</button><span class="text-muted">Saving…</span></div><figcaption>Show work in progress with the spinner and words, both tokenised and both stopped by reduced motion.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>transition: 0.2s;</code> <code>animation: spin 1s linear infinite;</code></div><figcaption>Raw timings, as the implemented admin uses, ignore reduced motion and drift apart from each other.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Members can read documents</span></label></div><figcaption>Use spring only on the switch thumb, where the overshoot reads as a physical switch.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="text-muted">A metric card that bounces in, a sidebar that slides open, a list whose rows stagger in one by one</span></div><figcaption>Decorative entrances slow staff down and can unsettle people who are sensitive to movement.</figcaption></figure>
+      </div>
     </section>
+
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-<p>This page owns every <code>--duration-*</code> and <code>--ease-*</code> token.</p>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Role</th></tr></thead><tbody>
-<tr><td><code>--duration-base</code></td><td data-token="--duration-base"></td><td>Hover, focus and colour changes (0.2s in the mocks). Reduced motion: 0.01ms.</td></tr>
-<tr><td><code>--duration-slow</code></td><td data-token="--duration-slow"></td><td>Step dot changes (0.3s in the mocks). Reduced motion: 0.01ms.</td></tr>
-<tr><td><code>--duration-spin</code></td><td data-token="--duration-spin"></td><td>One spinner rotation (1s). Reduced motion: 2s, still moving.</td></tr>
-<tr><td><code>--ease-standard</code></td><td data-token="--ease-standard"></td><td>Easing for every transition; the browser default.</td></tr>
-</tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table"><caption class="visually-hidden">Motion tokens</caption>
+        <thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>No animation</td><td><code>--duration-instant</code></td><td colspan="2"><span data-token="--duration-instant"></span></td></tr>
+          <tr><td>Hover, colour changes</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+          <tr><td>Switch thumb, saved messages, backdrop</td><td><code>--duration-base</code></td><td colspan="2"><span data-token="--duration-base"></span></td></tr>
+          <tr><td>Dialogs and sheets</td><td><code>--duration-slow</code></td><td colspan="2"><span data-token="--duration-slow"></span></td></tr>
+          <tr><td>Progress fills</td><td><code>--duration-deliberate</code></td><td colspan="2"><span data-token="--duration-deliberate"></span></td></tr>
+          <tr><td>One cycle of a looping indicator: shimmer, spinner (x0.5)</td><td><code>--duration-loop</code></td><td colspan="2"><span data-token="--duration-loop"></span></td></tr>
+          <tr><td>Changing in place</td><td><code>--ease-standard</code></td><td colspan="2"><span data-token="--ease-standard"></span></td></tr>
+          <tr><td>Arriving (decelerate)</td><td><code>--ease-enter</code></td><td colspan="2"><span data-token="--ease-enter"></span></td></tr>
+          <tr><td>Leaving (accelerate)</td><td><code>--ease-exit</code></td><td colspan="2"><span data-token="--ease-exit"></span></td></tr>
+          <tr><td>Switch thumb overshoot</td><td><code>--ease-spring</code></td><td colspan="2"><span data-token="--ease-spring"></span></td></tr>
+        </tbody>
+      </table></div>
     </section>
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources and drift</a></h2>
+      <p>Motion values are adopted from the Shelfie design system. The admin screens that move are the dialogs, saved messages and loading states: <a href="../../mocks/dialogs/admin-page-editor/default.html">dialogs/admin-page-editor/default</a>, <a href="../../mocks/dialogs/admin-page-editor/busy.html">dialogs/admin-page-editor/busy</a>, <a href="../../mocks/pages/admin-board/loading.html">pages/admin-board/loading</a>, <a href="../../mocks/pages/admin-documents/loading.html">pages/admin-documents/loading</a>, <a href="../../mocks/notifications/admin-page-saved/success.html">notifications/admin-page-saved/success</a> and <a href="../../mocks/pages/admin-roles/default.html">pages/admin-roles/default</a> (the privilege toggles, which the system draws as switches).</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li>Transitions are raw values: <code>transition: 0.2s</code> on <code>.nav-item</code>, <code>border-color 0.2s</code> on form fields, <code>color 0.2s</code> on <code>.tab-item</code>, and <code>width 0.3s</code> on a progress bar. The system uses <code>--duration-fast</code> or <code>--duration-base</code> with an easing token.</li>
+        <li>The <code>.spin</code> loading icon turns once a second (<code>1s linear infinite</code>); the system spinner turns every 700ms (half of <code>--duration-loop</code>).</li>
+        <li>The implemented admin has no <code>prefers-reduced-motion</code> rule, so its spinners and transitions keep running for people who asked for less motion. The system zeroes every duration in <code>tokens.css</code>.</li>
+        <li>The Shelfie celebration, confetti, sticker and animated sign-in background effects were removed; the admin has no use for them.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

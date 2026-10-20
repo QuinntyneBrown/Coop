@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select — Coop design system</title>
+<meta name="description" content="A native select for choosing one value from a known list in the Coop admin: a person's role, a document's type and status, a maintenance request's priority. Two sizes and every state, in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Select</h1>
+      <p class="ds-lead">Choose one value from a list the admin already knows: the role for a new user, the type of a document, the priority of a maintenance request. A native <code>&lt;select&gt;</code> with the system's border, chevron and states.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;select&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Put <code>.select</code> on a native <code>&lt;select&gt;</code> and wrap it in a <a href="form-field.html">form field</a> for its label, help and error. The browser draws the open list, so it works with every keyboard, screen reader and phone picker without extra code.</p>
+      <p>Six admin screens use a select:</p>
+      <ul>
+        <li><b>Role</b> in the Add New User and Edit User dialogs.</li>
+        <li><b>Type</b> in the Create Invitation dialog (Member, Board member, Staff).</li>
+        <li><b>Priority</b> and <b>Category</b> in the New Maintenance Request dialog, each starting on an empty "choose" option.</li>
+        <li><b>Type</b> (Notice, By-law, Report) and <b>Status</b> (Draft, Published) in the New Document dialog.</li>
+        <li><b>Scope</b> (Global, Default) on the Theme tab of Settings.</li>
+      </ul>
+      <p>Use a select when there is one answer from five or more options, or when space is tight. With two to four options that people should compare, a <a href="radio-group.html">radio group</a> shows them all at once. Never use a select to navigate or to run an action; use a <a href="menu.html">menu</a> or <a href="tabs.html">tabs</a>. Changing a select never submits or moves the page by itself.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: 100%; max-width: 22rem;"><label class="field__label" for="sel-anatomy">Role</label><select class="select" id="sel-anatomy" name="role"><option value="Member">Member</option><option value="BoardMember" selected>Board member</option><option value="SystemAdministrator">System administrator</option></select></div>
+          <span class="ds-callout" style="left: 6%; top: 8%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 36%; top: 66%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 84%; top: 66%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 30%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small>From the <a href="form-field.html">form field</a>; always visible and tied with <code>for</code>.</small></div></li>
+          <li><div><b>Value</b><small>The chosen option, <code>--text-body</code> (16px) in <code>--color-fg-default</code>.</small></div></li>
+          <li><div><b>Chevron</b><small>Two small triangles drawn in <code>currentColor</code> behind the text, so it always matches the value colour. The right padding keeps room for it.</small></div></li>
+          <li><div><b>Container</b><small><code>--field-bg</code> and <code>--field-border</code>, <code>--radius-md</code>, hairline border, <code>--control-height-md</code> tall.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>With a value chosen</h3>
+      <p>Most admin selects open on a sensible default: a new user is a Member, a new document is a Draft Notice. Pre-select the option most people need, and the person only changes it when they mean to.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-var-role">Role</label><select class="select" id="sel-var-role" name="role"><option value="Member" selected>Member</option><option value="BoardMember">Board member</option><option value="SystemAdministrator">System administrator</option></select></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-var-type">Type</label><select class="select" id="sel-var-type" name="type"><option value="Notice" selected>Notice</option><option value="ByLaw">By-law</option><option value="Report">Report</option></select></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-var-status">Status</label><select class="select" id="sel-var-status" name="status" aria-describedby="sel-var-status-help"><option value="Draft" selected>Draft</option><option value="Published">Published</option></select><span class="field__help" id="sel-var-status-help">Published documents show on the home page and the members' documents page.</span></div>
+        </div>
+        <div class="ds-example__caption"><span>Role from Add New User; Type and Status from New Document. Help text is joined with <code>aria-describedby</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="role"&gt;Role&lt;/label&gt;
+  &lt;select class="select" id="role" name="role"&gt;
+    &lt;option value="Member" selected&gt;Member&lt;/option&gt;
+    &lt;option value="BoardMember"&gt;Board member&lt;/option&gt;
+    &lt;option value="SystemAdministrator"&gt;System administrator&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>With a "choose" option</h3>
+      <p>When there is no safe default, start on an empty first option that says what to do, and mark the select <code>required</code>. The empty <code>value=""</code> means "nothing chosen", so the form can say so in plain words. New Maintenance Request does this for Priority and Category.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-var-priority">Priority</label><select class="select" id="sel-var-priority" name="priority" required><option value="" selected>Choose a priority</option><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option><option value="Urgent">Urgent</option></select></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-var-category">Category</label><select class="select" id="sel-var-category" name="category" required><option value="" selected>Choose a category</option><option value="Plumbing">Plumbing</option><option value="Electrical">Electrical</option><option value="HVAC">Heating and cooling</option><option value="General">General</option></select></div>
+        </div>
+        <div class="ds-example__caption"><span>Priority keeps its natural order, lowest to most urgent. The Category value stays <code>HVAC</code> for the server while the text says what it means.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;select class="select" id="priority" name="priority" required&gt;
+  &lt;option value="" selected&gt;Choose a priority&lt;/option&gt;
+  &lt;option value="Low"&gt;Low&lt;/option&gt;
+  &lt;option value="Medium"&gt;Medium&lt;/option&gt;
+  &lt;option value="High"&gt;High&lt;/option&gt;
+  &lt;option value="Urgent"&gt;Urgent&lt;/option&gt;
+&lt;/select&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Medium is the default and the only size the admin forms need. Small (<code>.select--sm</code>) fits a select into a toolbar or table header beside small buttons; no admin screen uses it today. There is no large select.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-size-sm">Scope</label><select class="select select--sm" id="sel-size-sm" name="scope-sm" style="max-width: 12rem;"><option value="Global" selected>Global</option><option value="Default">Default</option></select></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="sel-size-md">Scope</label><select class="select" id="sel-size-md" name="scope-md"><option value="Global" selected>Global</option><option value="Default">Default</option></select></div>
+        </div>
+        <div class="ds-example__caption"><span>Small 36px (<code>.select--sm</code>, <code>--font-size-sm</code>) and medium 44px (<code>--control-height-md</code>, 16px text).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; invalid and disabled use the real attributes. A select has no read-only state: browsers ignore <code>readonly</code> on it.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Size</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Medium</th>
+            <td><select class="select" aria-label="Priority, default"><option>Medium</option></select></td>
+            <td><select class="select" aria-label="Priority, hover" data-state="hover"><option>Medium</option></select></td>
+            <td><select class="select" aria-label="Priority, focus" data-state="focus"><option>Medium</option></select></td>
+            <td><select class="select" aria-label="Priority, invalid" aria-invalid="true"><option value="">Choose a priority</option></select></td>
+            <td><select class="select" aria-label="Priority, disabled" disabled><option>Medium</option></select></td></tr>
+          <tr><th scope="row">Small</th>
+            <td><select class="select select--sm" aria-label="Scope, small, default"><option>Global</option></select></td>
+            <td><select class="select select--sm" aria-label="Scope, small, hover" data-state="hover"><option>Global</option></select></td>
+            <td><select class="select select--sm" aria-label="Scope, small, focus" data-state="focus"><option>Global</option></select></td>
+            <td><select class="select select--sm" aria-label="Scope, small, invalid" aria-invalid="true"><option value="">Choose a scope</option></select></td>
+            <td><select class="select select--sm" aria-label="Scope, small, disabled" disabled><option>Global</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><select class="select" aria-label="Role, light, default"><option>Board member</option></select><select class="select" aria-label="Role, light, focus" data-state="focus"><option>Board member</option></select><select class="select" aria-label="Role, light, invalid" aria-invalid="true"><option value="">Choose a role</option></select><select class="select" aria-label="Role, light, disabled" disabled><option>Board member</option></select></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><select class="select" aria-label="Role, dark, default"><option>Board member</option></select><select class="select" aria-label="Role, dark, focus" data-state="focus"><option>Board member</option></select><select class="select" aria-label="Role, dark, invalid" aria-invalid="true"><option value="">Choose a role</option></select><select class="select" aria-label="Role, dark, disabled" disabled><option>Board member</option></select></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b> adds a <code>--color-danger-solid</code> border plus an inset ring, so the edge reads as 2px without moving anything. It always comes with a <code>.field__error</code> such as "Choose a priority."</li>
+        <li><b>Disabled</b> is the saving state: while a dialog saves, its selects are disabled so the choice cannot change under the request. The value stays visible in <code>--color-fg-disabled</code> on <code>--color-bg-subtle</code>.</li>
+        <li><b>Open</b> is drawn by the browser or the phone's own picker and follows the theme through <code>color-scheme</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>A select is <code>width: 100%</code> of its field at every width, so it reflows to one column at 320px and at 400% zoom. Cap it with an inline <code>max-width</code> only when the options are short, such as Scope.</li>
+        <li>On phones the native picker opens: a wheel on iOS, a sheet on Android. Nothing about the component changes.</li>
+        <li>The value is 16px at every width, so no phone zooms the page when the select gets focus.</li>
+        <li>A long option is cut off in the closed select by the browser. Keep options short so the chosen value is always readable.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The select shares the text field's two component tokens. <code>--field-bg</code> is <code>--color-bg-surface</code> by default and <code>--color-bg-subtle</code> when disabled. <code>--field-border</code> is <code>--color-border-strong</code> by default, <code>--color-fg-muted</code> on hover, <code>--color-focus-ring</code> on focus and <code>--color-danger-solid</code> when invalid. The chevron is <code>currentColor</code>, so it turns muted with the text when disabled and flips with the theme for free.</p>
+      <pre><code>/* Each state only reassigns the two tokens */
+.select:hover { --field-border: var(--color-fg-muted); }
+.select[aria-invalid="true"] { --field-border: var(--color-danger-solid); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;select&gt;</code>: screen readers announce it as a combo box or pop-up button with its label and current value. The system does not build a custom listbox; the native control already meets the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/">WAI-ARIA APG Listbox</a> expectations and works with every phone picker.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves focus into and out of the select. A disabled select is skipped.</td></tr>
+        <tr><td><kbd>Space</kbd> or <kbd>Alt</kbd>+<kbd>↓</kbd></td><td>Opens the list.</td></tr>
+        <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>Moves through the options. On Windows this changes the value even while the list is closed, which is why a change must never act on its own.</td></tr>
+        <tr><td>A letter key</td><td>Jumps to the next option starting with that letter ("U" for Urgent).</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Esc</kbd></td><td>Chooses the highlighted option, or closes the list without changing it.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The border turns <code>--color-focus-ring</code> and the shared 2px ring hugs the box with no offset. In a dialog, focus starts on the first field, not on a select further down.</p>
+      <h3>Labelling</h3>
+      <p>Every select has a visible <code>&lt;label for&gt;</code>. Do not add an <code>aria-label</code> that repeats the label: the visible label is then not connected, clicking it does nothing, and the two can drift apart. Join help and error text with <code>aria-describedby</code>; set <code>aria-invalid="true"</code> while the error shows.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Value and chevron on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Value and chevron in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Border on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Border in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Invalid border</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <p>Disabled text is exempt from the minimums; it only shows while a form saves.</p>
+      <h3>Motion</h3>
+      <p>The border colour fades over <code>--duration-fast</code>; reduced motion sets it to zero. The open list has no animation of its own.</p>
+      <h3>Touch</h3>
+      <p>The medium select is 44px tall and as wide as its field. The small one is 36px tall, still above the 24px minimum.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The label is a short noun: "Role", "Type", "Status", "Priority".</li>
+        <li>Option text is plain words in sentence case: "Board member", "System administrator", "By-law". Keep system names such as <code>BoardMember</code> in the <code>value</code> only.</li>
+        <li>Spell out short forms: "Heating and cooling", not "HVAC".</li>
+        <li>Keep a scale in its natural order (Low, Medium, High, Urgent); otherwise sort by how often people choose each option, with the default first.</li>
+        <li>A "choose" option starts with "Choose": "Choose a priority". It is never a real answer.</li>
+        <li>The options in a list match the names used elsewhere in the admin. If Roles &amp; Privileges says "System administrator", so does the Role select.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="sel-do-label">Role</label><select class="select" id="sel-do-label" name="role-do"><option>Member</option><option>Board member</option></select></div></div><figcaption>A <code>&lt;label for&gt;</code>: the label names the select, and clicking it moves focus there.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><span class="field__label">Role</span><select class="select" name="role-dont" aria-label="Role"><option>Member</option><option>Board member</option></select></div></div><figcaption>A loose label plus a copied <code>aria-label</code>, as in all six admin dialogs and Settings. The label does nothing when clicked.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="sel-do-invalid">Priority</label><select class="select" id="sel-do-invalid" name="priority-do" required aria-invalid="true" aria-describedby="sel-do-invalid-error"><option value="" selected>Choose a priority</option><option>Low</option><option>Urgent</option></select><div class="field__error" id="sel-do-invalid-error">Choose a priority so the office knows how soon to come.</div></div></div><figcaption>Required, marked invalid, and an error that says what to do.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="sel-dont-invalid">Priority</label><select class="select" id="sel-dont-invalid" name="priority-dont"><option value="" selected>Select priority</option><option>Low</option><option>Urgent</option></select></div></div><figcaption>An empty choice that passes as valid, with no message. New Maintenance Request accepts "Select priority" without a word.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="sel-do-names">Role</label><select class="select" id="sel-do-names" name="role-names-do"><option value="Member">Member</option><option value="BoardMember">Board member</option><option value="SystemAdministrator">System administrator</option></select></div></div><figcaption>Options use the same names as Roles &amp; Privileges.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="sel-dont-names">Role</label><select class="select" id="sel-dont-names" name="role-names-dont"><option value="Member">Member</option><option value="BoardMember">Board Member</option><option value="Admin">Admin</option></select></div></div><figcaption>"Admin" in the user dialogs, where every other screen says System administrator; a staff member cannot tell they are the same role.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Background, disabled</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Value and chevron</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Value, disabled</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Border, hover</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Border, disabled</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Border and ring, focus</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Border, invalid</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Height sm / md</td><td><code>--control-height-sm/md</code></td><td><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span></td><td><span data-theme="dark"><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span></span></td></tr>
+          <tr><td>Padding / chevron room</td><td><code>--space-3</code> / <code>--size-icon-md</code></td><td><span data-token="--space-3"></span> / <span data-token="--size-icon-md"></span></td><td><span data-theme="dark"><span data-token="--space-3"></span> / <span data-token="--size-icon-md"></span></span></td></tr>
+          <tr><td>Radius / border</td><td><code>--radius-md</code>, <code>--border-width-hairline</code></td><td><span data-token="--radius-md"></span> / <span data-token="--border-width-hairline"></span></td><td><span data-theme="dark"><span data-token="--radius-md"></span> / <span data-token="--border-width-hairline"></span></span></td></tr>
+          <tr><td>Value font</td><td><code>--text-body</code></td><td><span data-token="--text-body"></span></td><td><span data-theme="dark" data-token="--text-body"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="priority"&gt;Priority&lt;/label&gt;
+  &lt;select class="select" id="priority" name="priority" required
+          aria-invalid="true" aria-describedby="priority-error"&gt;
+    &lt;option value="" selected&gt;Choose a priority&lt;/option&gt;
+    &lt;option value="Low"&gt;Low&lt;/option&gt;
+    …
+  &lt;/select&gt;
+  &lt;div class="field__error" id="priority-error"&gt;Choose a priority so the office knows how soon to come.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.select</code></td><td>Native select, medium size, with the drawn chevron.</td></tr>
+        <tr><td><code>.select--sm</code></td><td>36px tall with 14px text; omit for medium.</td></tr>
+        <tr><td><code>required</code> + <code>&lt;option value=""&gt;</code></td><td>Starts on a "choose" option that does not count as an answer.</td></tr>
+        <tr><td><code>aria-invalid="true"</code></td><td>Invalid border and inset ring; pair with a <code>.field__error</code> joined by <code>aria-describedby</code>.</td></tr>
+        <tr><td><code>disabled</code></td><td>Muted, out of the tab order; used while the form saves.</td></tr>
+        <tr><td><code>data-state="hover|focus|disabled"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/admin-user-create/default.html">dialogs/admin-user-create/default</a> and <a href="../../mocks/dialogs/admin-user-create/invalid.html">invalid</a>, <a href="../../mocks/dialogs/admin-user-edit/default.html">dialogs/admin-user-edit/default</a> (Role)</li>
+        <li><a href="../../mocks/dialogs/admin-invitation-create/default.html">dialogs/admin-invitation-create/default</a> (Type)</li>
+        <li><a href="../../mocks/dialogs/admin-maintenance-create/default.html">dialogs/admin-maintenance-create/default</a> and <a href="../../mocks/dialogs/admin-maintenance-create/invalid.html">invalid</a> (Priority and Category with a "choose" option)</li>
+        <li><a href="../../mocks/dialogs/admin-document-create/default.html">dialogs/admin-document-create/default</a>, <a href="../../mocks/dialogs/admin-document-create/send.html">send</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">busy</a> and <a href="../../mocks/dialogs/admin-document-create/send-error.html">send-error</a> (Type, Status)</li>
+        <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> and <a href="../../mocks/notifications/admin-theme-saved/success.html">notifications/admin-theme-saved/success</a> (Scope)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Look.</b> The admin styles bare <code>select</code> elements inside <code>.form-group</code> (and <code>.scope-group</code> on Settings) with an 8px radius, a pale grey border, 14px Outfit text and the browser's own arrow. The system uses <code>.select</code>: <code>--radius-md</code>, a <code>--color-border-strong</code> edge that passes 3:1, 16px text and a drawn chevron. The admin's pale border is well under 3:1 against white.</li>
+        <li><b>Focus.</b> The admin removes the outline and shows a green border with a faint green glow. The system keeps the shared 2px <code>--color-focus-ring</code>.</li>
+        <li><b>Labels.</b> Every admin select has a <code>&lt;label&gt;</code> with no <code>for</code> and repeats its name in <code>aria-label</code>. The system ties the visible label with <code>for</code> and drops the copy.</li>
+        <li><b>Required and invalid.</b> Priority and Category start on "Select priority" and "Select category" with <code>value=""</code>, but are not required: the invalid mock shows them as valid, with no message. The system marks them <code>required</code>, sets <code>aria-invalid</code> and shows a <code>.field__error</code>; the "choose" text reads "Choose a priority".</li>
+        <li><b>Option names.</b> The user dialogs offer "Member", "Board Member" and "Admin" (value <code>Admin</code>), while Roles &amp; Privileges lists System administrator, Board member, Member, Staff and Support. Invitations offer "Staff" with the value <code>StaffMember</code>. The system shows the same plain names everywhere, in sentence case.</li>
+        <li><b>Saving.</b> In New Document's busy state the Type and Status selects stay enabled while the Save button reads "Saving…". The system disables them until the answer arrives.</li>
+        <li><b>Short forms.</b> Category shows "HVAC". The system shows "Heating and cooling" and keeps <code>HVAC</code> as the value.</li>
+        <li><b>Theme.</b> The admin is light only. The system select follows both themes through tokens and <code>color-scheme</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

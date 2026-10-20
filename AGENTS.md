@@ -72,8 +72,8 @@ these locations and move existing files here as areas are touched:
 - `docs/specs/` — L1/L2 requirements
 - `docs/detailed-designs/` — detailed designs
 - `docs/mocks/` — static design reference
-- `docs/design-system/` — tokens, component styles, and pages extracted from
-  the mocks
+- `docs/design-system/` — tokens, component styles, and pages for the admin
+  site, adopted from the Shelfie design system
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing
   the areas they cover
 - `docs/videos/` — narrated videos (script, slides, captions, MP3/MP4)

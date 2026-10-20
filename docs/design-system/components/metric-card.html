@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Metric card — Coop design system</title>
-<meta name="description" content="A dashboard summary card showing one count, its label and an icon.">
+<meta name="description" content="Metric cards give the Coop admin dashboard its four counts at a glance, each with an icon, a label and a number, built on the stat.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,182 +31,324 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Data display</p>
       <h1>Metric card</h1>
-      <p class="ds-lead">The metric card puts one number first: a count, a label and an accent icon, laid out four to a row on the dashboards.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Static</span><span class="ds-pill">One variant</span></div>
+      <p class="ds-lead">A card that answers one question with one number: how many maintenance requests are open, how many messages are unread. The dashboard opens with four of them, so staff see what is waiting before they read anything else.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.card.metric-card</code> + <code>.stat</code></span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
       </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-      <p>A metric card shows one headline number with a label and an icon: open requests, unread messages, documents and active members on the dashboards. Four cards sit in a row at the top of each dashboard.</p>
-      <ul><li>It is a summary, not a control. The mocks do not link the cards to anything.</li><li>Value first in the markup, label second, so the pair reads as "3, Open Requests".</li><li>An empty dashboard shows 0, not a different component.</li></ul>
+      <p>Use a metric card when a count is worth a card of its own: it is one of the first things staff check, and the number alone tells them whether to act. The dashboard shows four in a <code>.metric-grid</code>: open requests, unread messages, documents and active members. Do not add a fifth to fill space; four that matter beat eight that do not.</p>
+      <p>The metric card is built from two smaller pieces:</p>
+      <ul>
+        <li><b>Stat</b> (<code>.stat</code>): a label above a large number. It works on its own wherever a number belongs inside a larger card.</li>
+        <li><b>Metric card</b> (<code>.card.metric-card</code>): a stat with a round icon, on its own card.</li>
+      </ul>
+      <p>Use a <a href="badge.html">badge</a> for a status word, a count badge for a small number attached to something else (unread messages on one conversation), and a <a href="table.html">table</a> when the numbers need to be compared.</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
-        <figure class="ds-anatomy__figure" style="display: block;"><div class="card metric-card" style="max-width: 16rem; margin-inline: auto;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">assignment</span></div><div class="metric-info"><span class="metric-count">3</span><span class="metric-label">Open Requests</span></div></div></div><span class="ds-callout" style="left: 12%; top: 8%;" aria-hidden="true">1</span><span class="ds-callout" style="left: 24%; top: 36%;" aria-hidden="true">2</span><span class="ds-callout" style="left: 62%; top: 24%;" aria-hidden="true">3</span><span class="ds-callout" style="left: 62%; bottom: 24%;" aria-hidden="true">4</span></figure>
+        <figure class="ds-anatomy__figure">
+          <div class="card metric-card" style="width: 100%; max-width: 18rem;">
+            <span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>
+            <div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></div>
+          </div>
+          <span class="ds-callout" style="left: 6%; top: 18%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 40%; top: 18%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 66%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 88%; top: 76%;" aria-hidden="true">4</span>
+        </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>Card</b><small><code>.card</code> surface with <code>--radius-lg</code> and <code>--shadow-1</code>.</small></div></li>
-          <li><div><b>Icon tile</b><small>3rem rounded square, <code>--color-accent-subtle</code> fill, icon in <code>--color-fg-accent</code>, <code>aria-hidden</code>.</small></div></li>
-          <li><div><b>Count</b><small><code>--text-h1</code> with tabular numerals.</small></div></li>
-          <li><div><b>Label</b><small><code>--text-body-sm</code> in <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Icon</b><small><code>.metric-card__icon</code>: a 56px circle (<code>--size-avatar-lg</code>) in a status tint, holding a 20px stroke icon. Decorative, <code>aria-hidden</code>.</small></div></li>
+          <li><div><b>Label</b><small><code>.stat__label</code>: <code>--text-label</code> in muted ink. Says what is counted. First in the DOM.</small></div></li>
+          <li><div><b>Value</b><small><code>.stat__value</code>: <code>--text-h2</code> with tabular numerals, so digits do not shift as they change.</small></div></li>
+          <li><div><b>Card</b><small><code>.card.metric-card</code>: surface, hairline border, <code>--radius-lg</code>, <code>--shadow-1</code>, 20px padding (<code>--space-5</code>), 16px between icon and stat.</small></div></li>
         </ol>
       </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <p>One variant. The mocks tint each icon tile differently (amber, blue, violet, green); the design system uses the accent tile for all four (see Drift).</p>
+      <h3>Dashboard metrics</h3>
+      <p>The icon tint follows what the number asks of staff, the same rule as badges: warning for work waiting, info for messages, success for people, and the accent for neutral counts.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">assignment</span></div><div class="metric-info"><span class="metric-count">3</span><span class="metric-label">Open Requests</span></div></div></div><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">chat</span></div><div class="metric-info"><span class="metric-count">2</span><span class="metric-label">Unread Messages</span></div></div></div><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">description</span></div><div class="metric-info"><span class="metric-count">3</span><span class="metric-label">Documents</span></div></div></div><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">people</span></div><div class="metric-info"><span class="metric-count">12</span><span class="metric-label">Active Members</span></div></div></div></div>
-        <div class="ds-example__caption"><span>The dashboard row: four cards, one accent icon tile each.</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card metric-card"&gt;
-  &lt;div class="metric-card-inner"&gt;
-    &lt;div class="metric-icon"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;assignment&lt;/span&gt;&lt;/div&gt;
-    &lt;div class="metric-info"&gt;
-      &lt;span class="metric-count"&gt;3&lt;/span&gt;
-      &lt;span class="metric-label"&gt;Open Requests&lt;/span&gt;
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="metric-grid" style="width: 100%;">
+            <div class="card metric-card">
+              <span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>
+              <div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></div>
+            </div>
+            <div class="card metric-card">
+              <span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span>
+              <div class="stat"><span class="stat__label">Unread messages</span><span class="stat__value">2</span></div>
+            </div>
+            <div class="card metric-card">
+              <span class="metric-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></span>
+              <div class="stat"><span class="stat__label">Documents</span><span class="stat__value">3</span></div>
+            </div>
+            <div class="card metric-card">
+              <span class="metric-card__icon metric-card__icon--success" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg></span>
+              <div class="stat"><span class="stat__label">Active members</span><span class="stat__value">4</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The four cards under "Hello, Mira". "Open requests" counts requests that are New, Received or Started.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="metric-grid"&gt;
+  &lt;div class="card metric-card"&gt;
+    &lt;span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"&gt;
+      &lt;svg class="icon" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/span&gt;
+    &lt;div class="stat"&gt;
+      &lt;span class="stat__label"&gt;Open requests&lt;/span&gt;
+      &lt;span class="stat__value"&gt;3&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
+  …
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>As a link</h3>
+      <p>When the card should open the list it counts, make the whole card an <code>&lt;a&gt;</code>: <code>a.card.metric-card</code> gains a hover border and shadow. The admin's cards are not links today; the dashboard offers "View all" under Recent maintenance requests instead.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a class="card metric-card" href="../../mocks/pages/admin-maintenance/default.html" style="width: 100%; max-width: 18rem;">
+            <span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>
+            <span class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></span>
+          </a>
+        </div>
+        <div class="ds-example__caption"><span>The link's name is its text, "Open requests 3". Inside a link, the stat is a <code>&lt;span&gt;</code> so no block sits inside an inline element.</span></div>
+      </div>
+      <h3>Bare stat</h3>
+      <p>Use <code>.stat</code> on its own when a number belongs inside a card that has a heading of its own. Put two or three side by side in a <code>.cluster</code>, never more.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="card" style="width: 100%; max-width: 22rem;">
+            <h3 class="card__title">OWN Housing Co-op</h3>
+            <div class="cluster" style="gap: var(--space-6);">
+              <div class="stat"><span class="stat__label">Documents</span><span class="stat__value">3</span></div>
+              <div class="stat"><span class="stat__label">Active members</span><span class="stat__value">4</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Two stats inside a card, 24px apart. The card heading sets the context once, so the labels stay short.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="stat"&gt;
+  &lt;span class="stat__label"&gt;Documents&lt;/span&gt;
+  &lt;span class="stat__value"&gt;3&lt;/span&gt;
 &lt;/div&gt;</code></pre></details>
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="The mocks show a single metric card size."><h2><a href="#sizes">Sizes</a></h2>
-      <p>The mocks show one size. The card grows with its grid cell; the icon tile is 3rem (the mocks use 44px and 48px, resolved to 48px).</p>
+    <section class="ds-section" id="sizes" data-na="One size only"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size: the value is <code>--text-h2</code>, the label <code>--text-label</code>, 4px apart; the icon circle is 56px. Width comes from the <code>.metric-grid</code> column (at least 14rem).</p>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
-      <p>The card is static. The only data states are the values themselves:</p>
-      <div class="ds-example">
-        <div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">assignment</span></div><div class="metric-info"><span class="metric-count">0</span><span class="metric-label">Open Requests</span></div></div></div><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">chat</span></div><div class="metric-info"><span class="metric-count">0</span><span class="metric-label">Unread Messages</span></div></div></div></div>
-        <div class="ds-example__caption"><span>Empty dashboard: counts of 0. There is no loading or error presentation for metrics in the mocks.</span></div>
+      <p>A static metric card is read-only text: no hover, focus or active state. The link form has hover and focus, forced here with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Default</th><td><div class="card metric-card" style="max-width: 18rem;"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><div class="stat"><span class="stat__label">Unread messages</span><span class="stat__value">2</span></div></div></td></tr>
+          <tr><th scope="row">Zero</th><td><div class="card metric-card" style="max-width: 18rem;"><span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">0</span></div></div></td></tr>
+          <tr><th scope="row">Loading</th><td><div class="card metric-card" style="max-width: 18rem;" aria-busy="true"><span class="metric-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></span><div class="stat"><span class="stat__label">Documents</span><span class="skeleton skeleton--title" style="width: var(--space-12);" aria-hidden="true"></span><span class="visually-hidden">Loading</span></div></div></td></tr>
+          <tr><th scope="row">Not available</th><td><div class="card metric-card" style="max-width: 18rem;"><span class="metric-card__icon metric-card__icon--success" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg></span><div class="stat"><span class="stat__label">Active members</span><span class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not available</span></span></div></div></td></tr>
+          <tr><th scope="row">Link, hover</th><td><a class="card metric-card" href="../../mocks/pages/admin-maintenance/default.html" data-state="hover" style="max-width: 18rem;"><span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><span class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></span></a></td></tr>
+          <tr><th scope="row">Link, focus</th><td><a class="card metric-card" href="../../mocks/pages/admin-messaging/default.html" data-state="focus" style="max-width: 18rem;"><span class="metric-card__icon metric-card__icon--info" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg></span><span class="stat"><span class="stat__label">Unread messages</span><span class="stat__value">2</span></span></a></td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Zero</b> shows "0", not a dash: no open requests is good news and a real answer.</li>
+        <li><b>Loading</b> keeps the label and icon and puts a skeleton bar where the number goes, so the card does not jump when the count arrives.</li>
+        <li><b>Not available</b> is for a count that failed to load. It shows a dash, never "0", so staff are not told "no open requests" when the truth is "we don't know". A page-level <a href="alert.html">alert</a> explains the failure once for all cards.</li>
+      </ul>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="metric-grid"><div class="card metric-card"><span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></div></div><div class="card metric-card"><span class="metric-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></span><div class="stat"><span class="stat__label">Documents</span><span class="stat__value">3</span></div></div></div></div>
+        <div data-theme="dark"><div class="metric-grid"><div class="card metric-card"><span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></div></div><div class="card metric-card"><span class="metric-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></span><div class="stat"><span class="stat__label">Documents</span><span class="stat__value">3</span></div></div></div></div>
       </div>
-      <p>No hover, focus, active or disabled state exists; the card is not interactive.</p>
     </section>
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
-      <p>From the dashboard styles, the cards sit in a four-column grid (<code>.metric-cards</code>, 16px gap). At a viewport of 768px or narrower the grid becomes one column. The card itself does not change.</p>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Viewport</th><th scope="col">Layout</th></tr></thead><tbody>
-        <tr><td>Above 768px</td><td>Four columns.</td></tr>
-        <tr><td>768px and below</td><td>One column.</td></tr>
-      </tbody></table></div>
+      <ul>
+        <li><code>.metric-grid</code> fits as many 14rem columns as the width allows: four across on a laptop, two on a tablet, one on a phone. There is no fixed four-column step, so a card is never squeezed.</li>
+        <li>At 320px, and at 400% zoom, the cards stack in one column, and each card keeps its icon beside the number.</li>
+        <li>A long label wraps under itself (<code>.metric-card .stat</code> has <code>min-width: 0</code>); the number never truncates.</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p>The product ships one light appearance; there are no theme variants. The card reads surface, accent and muted tokens only.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The card reads the card tokens (<code>--color-bg-surface</code>, <code>--color-border-default</code>, <code>--shadow-1</code>). The stat reads <code>--color-fg-muted</code> for the label and inherits <code>--color-fg-default</code> for the value. The icon circle reads <code>--color-accent-subtle</code> and <code>--color-fg-accent</code>, or the status pair for <code>--warning</code>, <code>--success</code> and <code>--info</code>. All are semantic tokens; nothing is set per theme in the component.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <h3>Role and pattern</h3>
-      <p>Static content in a group of divs; no role and no WAI-ARIA widget pattern. The mocks set <code>data-testid</code> only. The design system requires the icon to stay <code>aria-hidden</code> so the card reads as "3 Open Requests".</p>
+      <p>A static card is plain text in a <code>&lt;div&gt;</code>, read in order: "Open requests 3". No role. The label comes first in the DOM so the number is never heard without its meaning. The link form is a native <code>&lt;a&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">WAI-ARIA link pattern</a>) whose name is the label and number.</p>
       <h3>Keyboard</h3>
-      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td>Not applicable</td><td>The card takes no focus. If a card becomes a link in future, it must be an <code>&lt;a&gt;</code> and use the shared focus ring.</td></tr></tbody></table></div>
-      <h3>Focus</h3><p>None.</p>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips static cards; stops on link cards.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the list a link card counts.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Static cards are never focusable. A link card shows the shared 2px focus ring around the whole card.</p>
       <h3>Labelling</h3>
-      <p>The count and label are text and read in order. Do not set a separate <code>aria-label</code>; it would hide the label text.</p>
+      <p>The visible label names the number; the icon is decorative and <code>aria-hidden</code>. Loading reads "Documents, loading"; a failed count reads "Active members, not available". The dashboard heading ("Hello, Mira") and the cards' order give the context, so labels do not repeat "on the dashboard".</p>
       <h3>Contrast</h3>
-      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
-        <div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Count on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Icon on tile</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
-      </div>
-      <h3>Motion</h3><p>None.</p>
-      <h3>Touch</h3><p>Not a target.</p>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Icon on accent circle</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="3"></span></div><div class="ds-pair"><span>Icon on warning circle</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="3"></span></div><div class="ds-pair"><span>Icon on success circle</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="3"></span></div><div class="ds-pair"><span>Icon on info circle</span><span class="ds-pair__ratio" data-contrast="--color-info-fg|--color-info-bg" data-min="3"></span></div></div></div><div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Value on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Icon on accent circle</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="3"></span></div><div class="ds-pair"><span>Icon on warning circle</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="3"></span></div><div class="ds-pair"><span>Icon on success circle</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="3"></span></div><div class="ds-pair"><span>Icon on info circle</span><span class="ds-pair__ratio" data-contrast="--color-info-fg|--color-info-bg" data-min="3"></span></div></div></div></div>
+      <h3>Motion</h3>
+      <p>None. Numbers do not count up. The loading skeleton shimmers, and stops under <code>prefers-reduced-motion</code>; the link card's hover shadow changes over <code>--duration-fast</code>.</p>
+      <h3>Touch</h3>
+      <p>A static card is not a target. A link card is the whole card, far above 44px tall.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
-      <ul><li>The label is a short plural noun phrase in title case as in the mocks ("Open Requests", "Unread Messages"); keep the same casing across both dashboards.</li><li>The count is a whole number with no abbreviation. Show 0 rather than hiding the card.</li><li>Do not add trend arrows or units; the mocks have none.</li></ul>
+      <ul>
+        <li>Label: a short noun phrase in sentence case that says what is counted ("Open requests", "Unread messages").</li>
+        <li>Value: a numeral. No units unless the label leaves them unclear.</li>
+        <li>Say what a word like "open" includes somewhere staff can find it: here, New, Received and Started.</li>
+        <li>Use the same words as the screen the number comes from: "Documents" on the card, "Documents" in the sidebar.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
       <div class="ds-dodont">
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">assignment</span></div><div class="metric-info"><span class="metric-count">0</span><span class="metric-label">Open Requests</span></div></div></div></div><figcaption>Show 0 when there is nothing, so the dashboard keeps its shape.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" role="img" aria-label="clipboard">assignment</span></div><div class="metric-info"><span class="metric-count">3</span><span class="metric-label">Open Requests</span></div></div></div></div><figcaption>Naming the decorative icon makes screen readers say "clipboard 3 Open Requests". Keep it <code>aria-hidden</code>.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon"><span class="material-icons" aria-hidden="true">people</span></div><div class="metric-info"><span class="metric-count">12</span><span class="metric-label">Active Members</span></div></div></div></div><figcaption>One accent tile for every card; the label carries the meaning.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card metric-card" style="flex: 1 1 12rem;"><div class="metric-card-inner"><div class="metric-icon" style="background: var(--color-warning-bg); color: var(--color-warning-fg);"><span class="material-icons" aria-hidden="true">assignment</span></div><div class="metric-info"><span class="metric-count">3</span><span class="metric-label">Open Requests</span></div></div></div></div><figcaption>Per-card tile colours (amber, blue, violet) as in the mocks add colour with no meaning. Use the accent tile.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Open requests</span><span class="stat__value">3</span></div></div><figcaption>Label first in the DOM, number second: "Open requests 3".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stat"><span class="stat__value">3</span><span class="stat__label">Open Requests</span></div></div><figcaption>Number first and Title Case, as the admin's <code>.metric-count</code> then <code>.metric-label</code>; a screen reader hears "3" before it knows what of.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Active members</span><span class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not available</span></span></div></div><figcaption>A count that failed to load says so.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Active members</span><span class="stat__value">0</span></div></div><figcaption>"0" while loading or after a failure, as the dashboard does today; staff believe there are no members.</figcaption></figure>
       </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
       <div class="ds-table-wrap"><table class="ds-table">
-        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
         <tbody>
-          <tr><td data-token="--shadow-1">Card shadow</td><td><code>--shadow-1</code></td><td><span data-token="--shadow-1"></span> </td></tr>
-          <tr><td data-token="--radius-lg">Card radius</td><td><code>--radius-lg</code></td><td><span data-token="--radius-lg"></span> </td></tr>
-          <tr><td data-token="--color-accent-subtle">Icon tile fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span> </td></tr>
-          <tr><td data-token="--color-fg-accent">Icon colour</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span> </td></tr>
-          <tr><td data-token="--radius-md">Icon tile radius</td><td><code>--radius-md</code></td><td><span data-token="--radius-md"></span> </td></tr>
-          <tr><td data-token="--space-4">Gap</td><td><code>--space-4</code></td><td><span data-token="--space-4"></span> </td></tr>
-          <tr><td data-token="--text-h1">Count type</td><td><code>--text-h1</code></td><td><span data-token="--text-h1"></span> </td></tr>
-          <tr><td data-token="--text-body-sm">Label type</td><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span> </td></tr>
-          <tr><td data-token="--color-fg-muted">Label colour</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
+          <tr><td>Card surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Card border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Value</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Icon circle (default)</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Icon (default)</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Icon circle (warning)</td><td><code>--color-warning-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td></tr>
+          <tr><td>Icon (warning)</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Icon circle (success)</td><td><code>--color-success-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-bg" data-swatch></i><span data-token="--color-success-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-bg" data-swatch></i><span data-token="--color-success-bg"></span></span></td></tr>
+          <tr><td>Icon (success)</td><td><code>--color-success-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td></tr>
+          <tr><td>Icon circle (info)</td><td><code>--color-info-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-info-bg" data-swatch></i><span data-token="--color-info-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-info-bg" data-swatch></i><span data-token="--color-info-bg"></span></span></td></tr>
+          <tr><td>Icon (info)</td><td><code>--color-info-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-info-fg" data-swatch></i><span data-token="--color-info-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-info-fg" data-swatch></i><span data-token="--color-info-fg"></span></span></td></tr>
+          <tr><td>Card radius</td><td><code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Card shadow / link hover</td><td><code>--shadow-1</code> / <code>--shadow-2</code></td><td colspan="2"><span data-token="--shadow-1"></span> / <span data-token="--shadow-2"></span></td></tr>
+          <tr><td>Card padding</td><td><code>--space-5</code></td><td colspan="2"><span data-token="--space-5"></span></td></tr>
+          <tr><td>Icon to stat / between cards</td><td><code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+          <tr><td>Icon circle</td><td><code>--size-avatar-lg</code></td><td colspan="2"><span data-token="--size-avatar-lg"></span></td></tr>
+          <tr><td>Label font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Value font</td><td><code>--text-h2</code></td><td colspan="2"><span data-token="--text-h2"></span></td></tr>
+          <tr><td>Label to value</td><td><code>--space-1</code></td><td colspan="2"><span data-token="--space-1"></span></td></tr>
         </tbody>
       </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-      <pre><code>&lt;div class="card metric-card"&gt;
-  &lt;div class="metric-card-inner"&gt;
-    &lt;div class="metric-icon"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;chat&lt;/span&gt;&lt;/div&gt;
-    &lt;div class="metric-info"&gt;
-      &lt;span class="metric-count"&gt;2&lt;/span&gt;
-      &lt;span class="metric-label"&gt;Unread Messages&lt;/span&gt;
+      <pre><code>&lt;div class="metric-grid"&gt;
+  &lt;div class="card metric-card"&gt;
+    &lt;span class="metric-card__icon metric-card__icon--info" aria-hidden="true"&gt;
+      &lt;svg class="icon" viewBox="0 0 24 24"&gt;&lt;path d="M4 5h16v11H9l-5 4V5z"/&gt;&lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;div class="stat"&gt;
+      &lt;span class="stat__label"&gt;Unread messages&lt;/span&gt;
+      &lt;span class="stat__value"&gt;2&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody><tr><td><code>.card .metric-card</code></td><td>Surface, with the metric radius and shadow.</td></tr><tr><td><code>.metric-card-inner</code></td><td>Row: icon tile and text.</td></tr><tr><td><code>.metric-icon</code></td><td>Accent icon tile.</td></tr><tr><td><code>.metric-info</code> <code>.metric-count</code> <code>.metric-label</code></td><td>Text column, number and label.</td></tr></tbody></table></div>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.metric-grid</code></td><td>Auto-fill grid of 14rem-minimum columns, 16px gap.</td></tr>
+        <tr><td><code>.card.metric-card</code></td><td>Card with the icon and stat in a row, 20px padding.</td></tr>
+        <tr><td><code>a.card.metric-card</code></td><td>Link form: hover border and shadow, no underline.</td></tr>
+        <tr><td><code>.metric-card__icon</code></td><td>56px accent circle; add <code>--warning</code>, <code>--success</code> or <code>--info</code> for a status tint.</td></tr>
+        <tr><td><code>.stat</code>, <code>.stat__label</code>, <code>.stat__value</code></td><td>Label above a large tabular number, 4px apart. Usable on its own.</td></tr>
+        <tr><td><code>aria-busy="true"</code> + <code>.skeleton</code></td><td>Loading: a skeleton bar in place of the value, with visually hidden "Loading".</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-      <p>Extracted from these mocks:</p>
+      <p>Extracted from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (four cards)</li>
-        <li><a href="../../mocks/pages/admin-dashboard/empty.html">pages/admin-dashboard/empty</a> (counts of 0)</li>
-        <li><a href="../../mocks/pages/public-dashboard/default.html">pages/public-dashboard/default</a> (four cards)</li>
-        <li><a href="../../mocks/pages/public-dashboard/partial.html">pages/public-dashboard/partial</a> (mixed counts)</li>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (four metric cards)</li>
+        <li><a href="../../mocks/pages/admin-dashboard/partial.html">pages/admin-dashboard/partial</a> (open requests at 0, others filled)</li>
+        <li><a href="../../mocks/pages/admin-dashboard/empty.html">pages/admin-dashboard/empty</a> (every count at 0)</li>
+        <li><a href="../../mocks/notifications/admin-dashboard-unread/info.html">notifications/admin-dashboard-unread/info</a> (the Unread messages card showing 2)</li>
       </ul>
-      <h3>Drift</h3>
+      <h3>Drift from the implemented admin</h3>
       <ul>
-        <li>Mocks: <code>.metric-card</code> is a standalone surface (white, 14px radius, 20px padding, border, shadow). The design system composes <code>.card</code> with <code>.metric-card</code>, so the radius resolves to 16px.</li>
-        <li>Mocks: <code>.metric-icon</code> is 44px on one dashboard and 48px on the other, with a different tint per card (requests, messages, documents, members) and tints that differ between dashboards. Resolved to 48px and one accent tile.</li>
-        <li>Mocks: the tinted icon colours (amber, violet) are below 4.5:1 on their tint; the accent tile passes.</li>
-        <li>Mocks: gap is 14px on one dashboard and 16px on the other. Resolved to 16px.</li>
+        <li>The admin builds the card as <code>.metric-card &gt; .metric-card-inner</code> with <code>.metric-icon</code>, <code>.metric-info</code>, <code>.metric-count</code> and <code>.metric-label</code>, styled inside the dashboard component. The system uses <code>.card.metric-card</code>, <code>.metric-card__icon</code> and the shared <code>.stat</code>.</li>
+        <li>The count comes before the label in the DOM, so it is read before its meaning. The system puts <code>.stat__label</code> first.</li>
+        <li>Labels are in Title Case ("Open Requests", "Unread Messages", "Active Members"); the system uses sentence case.</li>
+        <li>Icon tiles are 44px rounded squares tinted amber, blue, purple and green from fixed colour values, holding Material Icons glyphs. The system uses 56px circles from the accent and status tokens, with inline stroke icons.</li>
+        <li>The label is drawn in a semi-transparent near-black, and the card radius is 14px. The system uses <code>--color-fg-muted</code> and <code>--radius-lg</code>.</li>
+        <li>The grid is a fixed four columns that drops to one below 768px, so cards are cramped just above that width. The system's <code>.metric-grid</code> fits columns to the space.</li>
+        <li>Counts start at 0 and are set to 0 when a request fails, so loading, failure and a true zero look the same. The system shows a skeleton while loading and a dash with "Not available" on failure.</li>
+        <li>When every request is completed, the source falls back to the total number of requests (<code>filter(…).length || list.length</code>), so "Open requests" shows a number when none are open. The system's rule is that the card shows only New, Received and Started requests, and "0" when there are none.</li>
+        <li>The "unread" notification is not a separate message: it is the Unread messages card showing its count.</li>
       </ul>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>
