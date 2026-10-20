@@ -1,12 +1,11 @@
 [
   {"name": "admin-maintenance", "mock": "pages/admin-maintenance/default.html", "phone": false},
   {"name": "admin-maintenance-new", "mock": "pages/admin-maintenance/new.html", "phone": false},
-  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
-  {"name": "admin-maintenance-detail-received-now", "mock": "pages/admin-maintenance/detail-new.html", "phone": false,
-   "js": "document.querySelectorAll('[data-testid=maintenance-request-card].selected [data-testid=request-status-badge], [data-testid=maintenance-detail-status]').forEach((b) => { b.className = 'badge badge-gray'; b.textContent = 'Received'; }); const btn = document.querySelector('[data-testid=maintenance-receive-button]'); btn.textContent = 'Start work';"},
+  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false, "height": 850},
+  {"name": "admin-maintenance-detail-received-now", "mock": "pages/admin-maintenance/detail-new.html", "phone": false, "js": "document.querySelectorAll('.list__item:has(a[aria-current=true]) .badge, #rq-panel .cluster--between .badge').forEach((b) => { b.className = 'badge badge--neutral'; b.textContent = 'Received'; }); const btn = document.querySelector('#rq-panel .btn--primary'); btn.textContent = 'Start work';", "height": 850},
   {"name": "admin-maintenance-comments", "mock": "pages/admin-maintenance/comments.html", "phone": false},
-  {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
-  {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
-  {"name": "admin-maintenance-detail-completed", "mock": "pages/admin-maintenance/detail-completed.html", "phone": false},
-  {"name": "admin-maintenance-detail-photos", "mock": "pages/admin-maintenance/detail-photos.html", "phone": false}
+  {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false, "height": 850},
+  {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false, "height": 850},
+  {"name": "admin-maintenance-detail-completed", "mock": "pages/admin-maintenance/detail-completed.html", "phone": false, "height": 850},
+  {"name": "admin-maintenance-detail-photos", "mock": "pages/admin-maintenance/detail-photos.html", "phone": false, "scroll": 320}
 ]

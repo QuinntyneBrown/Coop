@@ -16,11 +16,11 @@ Start on the Messages page. Tap Messages in the menu. Your conversations are lis
 
 [pause 2s]
 
-Looking for one? Type a word in Search conversations. Clear the search to see them all again.
+Looking for one? Type a word in the box that says Search by subject. Clear the search to see them all again.
 
 [pause 2s]
 
-To start a new one, tap the add button beside Messages. The New Conversation box opens. Type who it is for in Recipient, then tap Start.
+To start a new one, tap the add button beside Conversations. The New Conversation box opens. Type who it is for in Recipient, then tap Start.
 
 [pause 2s]
 
@@ -30,13 +30,13 @@ Tap a conversation to open it. You see who is in it, and the messages so far, ea
 
 [pause 2s]
 
-Type your message in the box at the bottom, where it says Type a message. Then tap the send button. Your message joins the conversation, and the box clears, ready for the next one.
+Type your message in the box at the bottom, where it says Write a message. Then tap Send. Your message joins the conversation, and the box clears, ready for the next one.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Tap Messages. Search for a conversation, or start a new one. Type your message and tap send.
+So, in short. Tap Messages. Search for a conversation, or start a new one. Type your message and tap Send.
 
 [pause 1s]
 

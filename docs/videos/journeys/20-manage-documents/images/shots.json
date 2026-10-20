@@ -3,5 +3,5 @@
   {"name": "admin-documents-bylaws", "mock": "pages/admin-documents/bylaws.html", "phone": false},
   {"name": "admin-document-create", "mock": "dialogs/admin-document-create/default.html", "phone": false},
   {"name": "admin-document-delete", "mock": "dialogs/admin-document-delete/default.html", "phone": false},
-  {"name": "admin-documents-search", "mock": "pages/admin-documents/default.html", "phone": false, "js": "const q = 'courtyard'; const box = document.querySelector('[data-testid=documents-search]'); box.value = q; box.setAttribute('value', q); document.querySelectorAll('[data-testid=document-card]').forEach((e) => { if (!e.textContent.toLowerCase().includes(q)) e.remove(); });"}
+  {"name": "admin-documents-search", "mock": "pages/admin-documents/default.html", "phone": false, "js": "const q = 'courtyard'; const box = document.querySelector('input[type=search]'); box.value = q; box.setAttribute('value', q); document.querySelectorAll('#documents-panel li').forEach((e) => { if (!e.textContent.toLowerCase().includes(q)) e.remove(); });"}
 ]

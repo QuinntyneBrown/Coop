@@ -1,29 +1,29 @@
 # Journey 18 · Invite members
 
-> **Runtime:** about 1 min 32 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 39 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [18-invite-members.mp4](18-invite-members.mp4) · [Slides](slides.html) · **Audio:** [18-invite-members.mp3](18-invite-members.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
 New members, board members and staff join through an invitation. This video shows staff
-how to create one, pass on its token, and follow its status.
+how to create one, pass on its code, and follow its status.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Open Create Invitation from the Invitations page.
-- Choose a type and expiry date, create the invitation and copy its token.
+- Open Create invitation from the Invitations page.
+- Choose who they are joining as and an expiry date, create the invitation and copy its code.
 - Read the Active, Used and Expired statuses.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/admin-invitations-1280.png` | The Invitations list |
-| `images/admin-invitation-create-1280.png` | The Create Invitation form |
-| `images/admin-invitation-created-1280.png` | The Invitation Created box with Copy and Close |
+| `images/admin-invitations-1280.png` | The Invitations list: Invitation code, For, Expires and Status |
+| `images/admin-invitation-create-1280.png` | The Create invitation dialog: They are joining as, Expires, Cancel and Create invitation |
+| `images/admin-invitation-created-1280.png` | The Invitation created dialog with the code, its copy button and Done |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -32,10 +32,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:17 | Welcome | Title; who needs an invitation |
-| 00:17-00:59 | Create an invitation | Invitations, Create Invitation, type, date, Copy |
-| 00:59-01:17 | Track the status | Active, Used, Expired |
-| 01:17-01:32 | In short | Three steps, thank you |
+| 00:00-00:18 | Welcome | Title; who needs an invitation |
+| 00:18-01:04 | Create an invitation | Invitations, Create invitation, joining as, date, copy, Done |
+| 01:04-01:22 | Track the status | Active, Used, Expired |
+| 01:22-01:39 | In short | Three steps, thank you |
 
 ## Demo commands
 

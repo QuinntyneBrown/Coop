@@ -18,6 +18,6 @@
   {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
   {"name": "admin-settings", "mock": "pages/admin-settings/default.html", "phone": false},
   {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false,
-   "js": "const names = ['Rooftop garden.jpg', 'Courtyard tea.jpg']; document.querySelectorAll('[data-testid=asset-name]').forEach((n, i) => { n.textContent = names[i]; });"},
+   "js": "const names = ['Rooftop garden.jpg', 'Courtyard tea.jpg']; const pic = '<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"1.5\"/><path d=\"M21 15l-5-5-11 9\"/>'; document.querySelectorAll('.picture-list__item').forEach((li, i) => { li.querySelector('p').textContent = names[i]; li.querySelector('.picture-list__note').textContent = '180 KB · Tue 13 Oct'; li.querySelector('.picture-list__thumb svg').innerHTML = pic; li.querySelector('.picture-list__actions button').setAttribute('aria-label', 'Details for ' + names[i]); });"},
   {"name": "admin-landing", "mock": "pages/admin-landing/default.html", "phone": false}
 ]

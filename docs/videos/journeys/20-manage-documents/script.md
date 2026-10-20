@@ -16,21 +16,21 @@ Start on the Documents page. Tap Documents in the menu. Each document shows its 
 
 [pause 2s]
 
-To see one kind only, tap a tab along the top: All Documents, Notices, By-Laws, or Reports.
+To see one kind only, tap a tab along the top: All documents, Notices, Bylaws, or Reports.
 
 [pause 2s]
 
-Looking for something? Type a word in Search documents. If nothing matches, you see No documents found.
+Looking for something? Type a word in the Search by title box. If nothing matches, you see No documents found.
 
 [pause 2s]
 
 ## Add and delete
 
-To add a document, tap New Document. Give it a title, choose the type, and write the content. Choose Draft or Published, then tap Save.
+To add a document, tap New Document. Give it a title, choose the type, and write the content. Choose Draft or Published, then tap Save document.
 
 [pause 2s]
 
-To remove a document, tap the delete button on it. You are asked if you are sure. Tap Delete to remove it, or Cancel to keep it.
+To remove a document, tap the delete button on it. You are asked if you are sure. Tap Delete document to remove it, or Cancel to keep it.
 
 [pause 2s]
 
