@@ -69,8 +69,7 @@ these locations and move existing files here as areas are touched:
   tokens), and `components` (design-system library)
 - `e2e/` — Playwright suite: `tests/` express intent, `pages/` own selectors
   and interactions, `fixtures/` hold test data
-- `docs/specs/` — L1/L2 requirements; `docs/specs/components/` holds the
-  component requirements documents (CRDs) indexed in its `README.md`
+- `docs/specs/` — L1/L2 requirements
 - `docs/detailed-designs/` — detailed designs
 - `docs/mocks/` — static design reference
 - `docs/design-system/` — tokens, component styles, and pages extracted from
@@ -148,8 +147,8 @@ test-project patterns when adding coverage.
 
 ## Frontend conventions
 
-- Follow a component's requirements document (CRD) when one exists. Preserve
-  the mock's visual classes and accessible state semantics in the application.
+- Preserve the mock's visual classes and accessible state semantics in the
+  application.
 - Keep business rules and view-model logic in plain TypeScript beside the
   feature, not in templates or shared visual components.
 - Keep component styles encapsulated and global styles limited to shared
@@ -209,6 +208,5 @@ Keep the two copies identical when updating a skill.
 - `writing-software-design-documents` — detailed designs from requirements
 - `writing-html-mocks` — static page, dialog, and notification mocks
 - `extracting-design-systems` — design system derived from the mocks
-- `writing-component-requirements-documents` — component requirements documents
 - `implementing-incrementally` — small, verifiable implementation slices
 - `creating-videos` — narrated walkthrough videos
