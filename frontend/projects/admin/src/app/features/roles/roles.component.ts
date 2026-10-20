@@ -1,219 +1,16 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-
 import { RoleService } from '../../core/services/role.service';
 import { PrivilegeService } from '../../core/services/privilege.service';
 import { plainName } from '../../core/plain-name';
+import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-roles',
   standalone: true,
-  imports: [],
-  template: `
-    <div class="roles-page">
-      <div class="page-header">
-        <h1 data-testid="roles-page-title">Roles &amp; Privileges</h1>
-      </div>
-      <div class="roles-layout">
-        <!-- Role List -->
-        <div class="role-list card" data-testid="roles-panel">
-          <h3 data-testid="roles-panel-title">Roles</h3>
-          @for (role of roles; track role) {
-            <div
-              data-testid="role-card"
-              [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
-            >
-              <div
-                class="role-item"
-                [class.selected]="selectedRole?.roleId === role.roleId"
-                (click)="selectRole(role)"
-                [attr.data-testid]="'role-card-' + (role.name || '').toLowerCase()"
-                [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
-              >
-                <span class="material-icons role-icon" data-testid="role-icon">shield</span>
-                <span>{{ plainName(role.name) }}</span>
-              </div>
-            </div>
-          }
-        </div>
-
-        <!-- Privileges Table -->
-        @if (selectedRole) {
-          <div class="privileges-panel card" data-testid="privileges-panel">
-            <div class="privileges-header">
-              <h3 data-testid="privileges-panel-title">
-                {{ plainName(selectedRole.name) }} privileges
-              </h3>
-              <button class="btn btn-primary btn-sm" data-testid="add-privilege-button">
-                <span class="material-icons">add</span> Add Privilege
-              </button>
-            </div>
-            <table class="privileges-table" data-testid="privileges-table">
-              <thead>
-                <tr>
-                  <th data-testid="privilege-header-aggregate">Aggregate</th>
-                  <th data-testid="privilege-header-read">Read</th>
-                  <th data-testid="privilege-header-write">Write</th>
-                  <th data-testid="privilege-header-create">Create</th>
-                  <th data-testid="privilege-header-delete">Delete</th>
-                </tr>
-              </thead>
-              @for (priv of rolePrivileges; track priv) {
-                <tbody
-                  data-testid="privilege-row"
-                  [attr.data-testid-specific]="
-                    'privilege-row-' + (priv.aggregate || '').toLowerCase()
-                  "
-                >
-                  <tr [attr.data-testid]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
-                    <td data-testid="privilege-aggregate">{{ plainName(priv.aggregate) }}</td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        [checked]="priv.canRead"
-                        class="privilege-toggle"
-                        data-testid="privilege-read"
-                        (change)="togglePrivilege(priv, 'canRead')"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        [checked]="priv.canUpdate"
-                        class="privilege-toggle"
-                        data-testid="privilege-write"
-                        (change)="togglePrivilege(priv, 'canUpdate')"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        [checked]="priv.canCreate"
-                        class="privilege-toggle"
-                        data-testid="privilege-create"
-                        (change)="togglePrivilege(priv, 'canCreate')"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        [checked]="priv.canDelete"
-                        class="privilege-toggle"
-                        data-testid="privilege-delete"
-                        (change)="togglePrivilege(priv, 'canDelete')"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              }
-            </table>
-          </div>
-        }
-      </div>
-    </div>
-  `,
+  imports: [IconComponent],
+  templateUrl: './roles.component.html',
+  styleUrl: './roles.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styles: [
-    `
-      .roles-page {
-        padding: 24px;
-      }
-      .page-header {
-        margin-bottom: 20px;
-        h1 {
-          font-size: 24px;
-          font-weight: 600;
-        }
-      }
-      .roles-layout {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 20px;
-      }
-      .role-list {
-        padding: 20px;
-        h3 {
-          margin-bottom: 16px;
-          font-size: 16px;
-          font-weight: 600;
-        }
-      }
-      .role-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 14px;
-        margin-bottom: 4px;
-        &:hover {
-          background: #f5f4f1;
-        }
-        &.selected {
-          background: #3d8a5a;
-          color: #fff;
-        }
-      }
-      .role-icon {
-        font-size: 18px;
-      }
-      .privileges-panel {
-        padding: 20px;
-        overflow-x: auto;
-      }
-      .privileges-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-        h3 {
-          font-size: 16px;
-          font-weight: 600;
-        }
-      }
-      .btn-sm {
-        padding: 6px 14px;
-        font-size: 14px;
-      }
-      .privileges-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .privileges-table th {
-        text-align: left;
-        padding: 10px 16px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #1a1918cc;
-        border-bottom: 1px solid #e5e4e1;
-      }
-      .privileges-table td {
-        padding: 10px 16px;
-        font-size: 14px;
-        border-bottom: 1px solid #f5f4f1;
-      }
-      .privilege-toggle {
-        width: 28px;
-        height: 28px;
-        margin: 0;
-        vertical-align: middle;
-        accent-color: #3d8a5a;
-        cursor: pointer;
-      }
-      @media (max-width: 768px) {
-        .roles-page {
-          padding: 16px;
-        }
-        .roles-layout {
-          grid-template-columns: minmax(0, 1fr);
-        }
-        .privileges-header {
-          flex-wrap: wrap;
-          gap: 12px;
-        }
-      }
-    `,
-  ],
 })
 export class RolesComponent implements OnInit {
   readonly plainName = plainName;
@@ -223,6 +20,10 @@ export class RolesComponent implements OnInit {
   roles: any[] = [];
   selectedRole: any = null;
   rolePrivileges: any[] = [];
+
+  rowId(priv: any): string {
+    return 'pv-row-' + (priv.aggregate || '').toLowerCase();
+  }
 
   ngOnInit(): void {
     this.roleService.getRoles().subscribe({

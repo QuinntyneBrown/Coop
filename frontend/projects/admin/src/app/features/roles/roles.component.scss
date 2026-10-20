@@ -1,0 +1,16 @@
+.role-card {
+  display: contents;
+}
+
+.card__title {
+  margin-bottom: 0;
+}
+
+// Each privilege row has its own tbody, so restore the row rule between them.
+.table tbody:not(:last-of-type) tr:last-child td {
+  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.table tbody:last-of-type th {
+  border-bottom: 0;
+}
