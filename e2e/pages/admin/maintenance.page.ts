@@ -115,7 +115,7 @@ export class MaintenancePage {
   }
 
   async expectRequestCardDate(index: number, pattern: RegExp) {
-    await expect(this.requestCards.nth(index).locator('.request-date')).toHaveText(pattern);
+    await expect(this.requestCards.nth(index).getByTestId('maintenance-request-date')).toHaveText(pattern);
   }
 
   async expectRequestCardStatus(index: number, status: string) {
