@@ -5,7 +5,7 @@
 // sanitised body; the header marks it current; a removed or unknown page
 // shows the not-found experience; a failed request offers Try again.
 
-import { test, expect } from '../../fixtures/public/auth.fixture';
+import { test, expect } from '../../fixtures/mock-api/mock-api.fixture';
 import { ContentPage } from '../../pages/public/content-page.page';
 
 test.describe('Website page', () => {

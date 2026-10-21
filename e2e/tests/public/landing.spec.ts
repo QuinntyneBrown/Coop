@@ -6,7 +6,7 @@
 // list and published notices from the API, the contact footer, and the phone
 // menu and one-column reflow on a narrow viewport.
 
-import { test, expect } from '../../fixtures/public/auth.fixture';
+import { test, expect } from '../../fixtures/mock-api/mock-api.fixture';
 import { LandingPage } from '../../pages/public/landing.page';
 import { ADMIN_LOGIN_URL, LoginPage as AdminLoginPage } from '../../pages/admin/login.page';
 

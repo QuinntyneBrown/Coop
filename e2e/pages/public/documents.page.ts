@@ -34,10 +34,24 @@ export class DocumentsPage {
   // Loading
   readonly loadingSpinner: Locator;
 
+  // Layout: the logo only; no signed-in parts (L2-REQ-102)
+  readonly topBar: Locator;
+  readonly logo: Locator;
+  readonly notificationBell: Locator;
+  readonly menuButton: Locator;
+  readonly tabBar: Locator;
+  readonly memberLinks: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
     this.pageTitle = page.locator('[data-testid="documents-page-title"]');
+    this.topBar = page.getByTestId('site-top-bar');
+    this.logo = page.getByTestId('site-logo');
+    this.notificationBell = page.getByTestId('dashboard-notification-bell');
+    this.menuButton = page.getByTestId('dashboard-hamburger-menu');
+    this.tabBar = page.getByTestId('bottom-tab-bar');
+    this.memberLinks = page.getByRole('link', { name: /^(Home|Requests|Messages|Profile)$/ });
 
     this.filterTabs = page.locator('[data-testid="documents-filter-tabs"]');
     this.filterAll = page.locator('[data-testid="documents-filter-all"]');

@@ -1,15 +1,11 @@
-import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
-import { test as apiTest } from '../../fixtures/public/api.fixture';
-import { mergeTests } from '@playwright/test';
+import { test, expect } from '../../fixtures/public/api.fixture';
 import { DocumentsPage } from '../../pages/public/documents.page';
-
-const test = mergeTests(authTest, apiTest);
 
 test.describe('Documents', () => {
   let documents: DocumentsPage;
 
-  test.beforeEach(async ({ authenticatedPage }) => {
-    documents = new DocumentsPage(authenticatedPage);
+  test.beforeEach(async ({ page }) => {
+    documents = new DocumentsPage(page);
   });
 
   test.describe('Page Load', () => {
@@ -180,7 +176,6 @@ test.describe('Documents', () => {
 
   test.describe('Public Access', () => {
     test('should allow viewing published documents without authentication', async ({ page }) => {
-      // Use a fresh page (no auth injected)
       const publicDocs = new DocumentsPage(page);
       await publicDocs.goto();
       // Should not redirect to login for public documents
@@ -190,16 +185,16 @@ test.describe('Documents', () => {
   });
 
   test.describe('Responsive Layout', () => {
-    test('should display document cards in a card layout on mobile', async ({ authenticatedPage }) => {
-      await authenticatedPage.setViewportSize({ width: 375, height: 812 });
-      documents = new DocumentsPage(authenticatedPage);
+    test('should display document cards in a card layout on mobile', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 812 });
+      documents = new DocumentsPage(page);
       await documents.goto();
       await documents.expectLoaded();
     });
 
-    test('should display filter tabs on mobile', async ({ authenticatedPage }) => {
-      await authenticatedPage.setViewportSize({ width: 375, height: 812 });
-      documents = new DocumentsPage(authenticatedPage);
+    test('should display filter tabs on mobile', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 812 });
+      documents = new DocumentsPage(page);
       await documents.goto();
       await documents.expectFilterTabsVisible();
     });
