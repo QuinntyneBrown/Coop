@@ -36,7 +36,7 @@
 
   @switch (status()) {
     @case ('loading') {
-      <div class="card card--flush">
+      <div libCard flush>
         <div class="loading" role="status" aria-live="polite" data-testid="board-loading">
           <span class="spinner" aria-hidden="true"></span>Loading the board list…
         </div>
@@ -64,22 +64,16 @@
             let i = $index, first = $first, last = $last
           ) {
             <li data-testid="director-card">
-              <article class="card stack" [attr.aria-labelledby]="'director-' + i">
+              <article libCard class="stack" [attr.aria-labelledby]="'director-' + i">
                 <div class="cluster director-card__identity">
-                  <span class="avatar avatar--lg" aria-hidden="true"
+                  <span libAvatar size="lg" aria-hidden="true"
                     >{{ initialsOf(director.name) }}
                     @if (director.photoUrl) {
-                      <img
-                        class="avatar__img"
-                        [src]="director.photoUrl"
-                        width="56"
-                        height="56"
-                        alt=""
-                      />
+                      <img libAvatarImage [src]="director.photoUrl" width="56" height="56" alt="" />
                     }
                   </span>
                   <div class="director-card__text">
-                    <h2 class="card__title" [id]="'director-' + i" data-testid="director-card-name">
+                    <h2 libCardTitle [id]="'director-' + i" data-testid="director-card-name">
                       {{ director.name }}
                     </h2>
                     <p class="text-muted">
@@ -134,19 +128,21 @@
           }
         </ol>
       } @else {
-        <div class="card empty" data-testid="board-empty">
-          <div class="empty__icon" aria-hidden="true">
-            <svg libIcon="board" size="lg"></svg>
-          </div>
-          <h2 class="empty__title">No directors listed yet</h2>
-          <p class="empty__text">
-            Until you add the directors here, the home page shows the board member profiles. Add
-            each director with their role, such as President or Treasurer.
-          </p>
-          <div class="empty__actions">
-            <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
-              <svg libIcon="person-add"></svg>Add director
-            </button>
+        <div libCard flush data-testid="board-empty">
+          <div libEmptyState>
+            <div libEmptyStateIcon aria-hidden="true">
+              <svg libIcon="board" size="lg"></svg>
+            </div>
+            <h2 libEmptyStateTitle>No directors listed yet</h2>
+            <p libEmptyStateText>
+              Until you add the directors here, the home page shows the board member profiles. Add
+              each director with their role, such as President or Treasurer.
+            </p>
+            <div libEmptyStateActions>
+              <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
+                <svg libIcon="person-add"></svg>Add director
+              </button>
+            </div>
           </div>
         </div>
       }

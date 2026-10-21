@@ -1,0 +1,17 @@
+// Table box (docs/design-system/components/table.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// position: relative so the visually-hidden caption (position: absolute) is clipped by the scroll
+// box instead of widening the page.
+:host {
+  position: relative;
+  overflow-x: auto;
+  border: var(--border-width-hairline) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+}
+
+:host(:where(.table-wrap--flush)) {
+  border: 0;
+  border-radius: 0;
+}

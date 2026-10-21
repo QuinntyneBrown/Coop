@@ -11,7 +11,18 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  IconComponent,
+  ListComponent,
+  ListTitleComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent as LibPhotoPickerComponent,
+  PictureListThumbComponent,
+} from 'components';
 import type { ContentRecord } from '../../core/models/content-record';
 import type { SiteContent } from '../../core/models/site-content';
 import { PUBLIC_SITE_URL } from '../../core/public-site-url';
@@ -40,7 +51,21 @@ type LoadStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-website',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent, ButtonComponent],
+  imports: [
+    FormsModule,
+    NgTemplateOutlet,
+    PhotoPickerComponent,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    CardTitleComponent,
+    ListComponent,
+    ListTitleComponent,
+    PhotoPickerActionsComponent,
+    PhotoPickerBodyComponent,
+    PictureListThumbComponent,
+    LibPhotoPickerComponent,
+  ],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

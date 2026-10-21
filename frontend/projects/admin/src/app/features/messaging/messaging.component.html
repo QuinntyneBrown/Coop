@@ -13,14 +13,16 @@
 <div class="grid messaging-layout">
   <!-- Conversation List -->
   <section
-    class="card card--flush span-4 conversation-list-panel"
+    libCard
+    flush
+    class="span-4 conversation-list-panel"
     aria-labelledby="conversation-list-title"
     [class.hidden-mobile]="selectedConversation"
     data-testid="conversation-list"
   >
     <div class="stack conversation-list-panel__head">
       <div class="cluster cluster--between conversation-list-panel__title-row">
-        <h2 class="card__title" id="conversation-list-title" data-testid="conversation-list-title">
+        <h2 libCardTitle id="conversation-list-title" data-testid="conversation-list-title">
           Messages
         </h2>
         <button
@@ -50,35 +52,37 @@
       </div>
     </div>
 
-    <ul class="list conversation-list">
+    <ul libList class="conversation-list">
       @for (conv of filteredConversations; track conv; let i = $index) {
         <li class="conversation-list__row">
           <button
             type="button"
-            class="list__item conversation-item"
+            libListItem
+            class="conversation-item"
             data-testid="conversation-item"
             [attr.aria-current]="
               selectedConversation?.conversationId === conv.conversationId ? 'true' : null
             "
             (click)="openConversation(conv)"
           >
-            <span class="avatar" aria-hidden="true">{{ getInitial(conv) }}</span>
-            <span class="list__body">
-              <span class="list__title" data-testid="conversation-name">{{
+            <span libAvatar aria-hidden="true">{{ getInitial(conv) }}</span>
+            <span libListBody>
+              <span libListTitle data-testid="conversation-name">{{
                 conv.subject || conv.title || 'Conversation'
               }}</span>
               <span
-                class="list__meta conversation-item__preview"
+                libListMeta
+                class="conversation-item__preview"
                 data-testid="conversation-preview"
                 >{{ conv.lastMessage?.body || conv.preview || '' }}</span
               >
             </span>
             <span class="conversation-item__meta">
-              <span class="list__meta" data-testid="conversation-time">{{
+              <span libListMeta data-testid="conversation-time">{{
                 conv.lastMessage?.createdOn || conv.updatedOn | date: 'shortTime'
               }}</span>
               @if (conv.unreadCount > 0) {
-                <span class="badge badge--count" data-testid="unread-indicator"
+                <span libBadge count data-testid="unread-indicator"
                   >{{ conv.unreadCount }}<span class="visually-hidden"> unread</span></span
                 >
               }
@@ -89,9 +93,9 @@
     </ul>
 
     @if (!loading && filteredConversations.length === 0) {
-      <div class="empty empty--compact">
-        <div class="empty__icon"><svg libIcon="messages"></svg></div>
-        <p class="empty__text">No conversations yet</p>
+      <div libEmptyState class="empty--compact">
+        <div libEmptyStateIcon><svg libIcon="messages"></svg></div>
+        <p libEmptyStateText>No conversations yet</p>
       </div>
     }
   </section>
@@ -99,13 +103,14 @@
   <!-- Empty State when no conversation selected -->
   @if (!selectedConversation) {
     <section
-      class="card span-8 empty-chat"
+      libCard
+      class="span-8 empty-chat"
       aria-label="Conversation"
       data-testid="chat-empty-state"
     >
-      <div class="empty">
-        <div class="empty__icon"><svg libIcon="messages"></svg></div>
-        <p class="empty__text">Select a conversation to start chatting</p>
+      <div libEmptyState>
+        <div libEmptyStateIcon><svg libIcon="messages"></svg></div>
+        <p libEmptyStateText>Select a conversation to start chatting</p>
       </div>
     </section>
   }
@@ -113,7 +118,9 @@
   <!-- Chat Panel -->
   @if (selectedConversation) {
     <section
-      class="card card--flush span-8 chat-panel"
+      libCard
+      flush
+      class="span-8 chat-panel"
       aria-labelledby="chat-heading"
       data-testid="chat-panel"
     >
@@ -129,32 +136,34 @@
         >
           <svg libIcon="back"></svg>
         </button>
-        <span class="avatar" aria-hidden="true" data-testid="chat-header-avatar">{{
+        <span libAvatar aria-hidden="true" data-testid="chat-header-avatar">{{
           getInitial(selectedConversation)
         }}</span>
         <div class="chat-header__info">
-          <h2 class="card__title" id="chat-heading" data-testid="chat-header-name">
+          <h2 libCardTitle id="chat-heading" data-testid="chat-header-name">
             {{ selectedConversation.subject || 'Conversation' }}
           </h2>
           <p class="text-caption">{{ getParticipants(selectedConversation) }}</p>
         </div>
       </div>
       <ul
-        class="list message-list"
+        libList
+        class="message-list"
         [attr.aria-label]="'Messages in ' + (selectedConversation.subject || 'Conversation')"
       >
         @for (msg of messages; track msg) {
           <li
-            class="list__item message-bubble"
+            libListItem
+            class="message-bubble"
             data-testid="message-bubble"
             [class.own]="isOwnMessage(msg)"
           >
-            <div class="list__body">
-              <div class="list__title" data-testid="message-sender">
+            <div libListBody>
+              <div libListTitle data-testid="message-sender">
                 {{ msg.createdBy || msg.sender || 'User' }}
               </div>
               <p>{{ msg.body || msg.content }}</p>
-              <div class="list__meta">{{ msg.createdOn | date: 'shortTime' }}</div>
+              <div libListMeta>{{ msg.createdOn | date: 'shortTime' }}</div>
             </div>
           </li>
         }

@@ -17,13 +17,13 @@
 </div>
 
 <div
-  class="table-wrap"
+  libTableWrap
   tabindex="0"
   role="region"
   aria-labelledby="inv-caption"
   data-testid="invitations-table"
 >
-  <table class="table">
+  <table libTable>
     <caption class="visually-hidden" id="inv-caption">
       Invitations
     </caption>
@@ -46,12 +46,9 @@
             {{ inv.expirationDate || inv.expiresOn | date: 'mediumDate' }}
           </td>
           <td>
-            <span
-              class="badge"
-              [ngClass]="getStatusClass(inv)"
-              data-testid="invitation-status-badge"
-              >{{ getStatus(inv) }}</span
-            >
+            <span libBadge [tone]="getStatusTone(inv)" data-testid="invitation-status-badge">{{
+              getStatus(inv)
+            }}</span>
           </td>
         </tr>
       }

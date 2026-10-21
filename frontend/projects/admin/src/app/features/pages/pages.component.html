@@ -29,7 +29,7 @@
 
   @switch (status()) {
     @case ('loading') {
-      <div class="card card--flush">
+      <div libCard flush>
         <div class="loading" role="status" aria-live="polite" data-testid="pages-loading">
           <span class="spinner" aria-hidden="true"></span>Loading pages…
         </div>
@@ -50,12 +50,16 @@
     }
     @case ('ready') {
       @if (pages().length > 0) {
-        <ul class="list pages-list" aria-label="Website pages" data-testid="pages-list">
+        <ul libList class="pages-list" aria-label="Website pages" data-testid="pages-list">
           @for (page of pages(); track page.pageId) {
             <li data-testid="page-card">
-              <article class="card stack" [attr.aria-labelledby]="'page-' + page.pageId + '-title'">
+              <article
+                libCard
+                class="stack"
+                [attr.aria-labelledby]="'page-' + page.pageId + '-title'"
+              >
                 <h2
-                  class="card__title"
+                  libCardTitle
                   [id]="'page-' + page.pageId + '-title'"
                   data-testid="page-card-title"
                 >
@@ -94,19 +98,21 @@
           }
         </ul>
       } @else {
-        <div class="card empty" data-testid="pages-empty">
-          <div class="empty__icon" aria-hidden="true">
-            <svg libIcon="pages" size="lg"></svg>
-          </div>
-          <h2 class="empty__title">No pages yet</h2>
-          <p class="empty__text">
-            The website menu shows the home page sections only. Add a page such as "About us" or
-            "How to apply" and visitors will see it in the menu.
-          </p>
-          <div class="empty__actions">
-            <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
-              <svg libIcon="add"></svg>New page
-            </button>
+        <div libCard flush data-testid="pages-empty">
+          <div libEmptyState>
+            <div libEmptyStateIcon aria-hidden="true">
+              <svg libIcon="pages" size="lg"></svg>
+            </div>
+            <h2 libEmptyStateTitle>No pages yet</h2>
+            <p libEmptyStateText>
+              The website menu shows the home page sections only. Add a page such as "About us" or
+              "How to apply" and visitors will see it in the menu.
+            </p>
+            <div libEmptyStateActions>
+              <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
+                <svg libIcon="add"></svg>New page
+              </button>
+            </div>
           </div>
         </div>
       }
@@ -193,9 +199,9 @@
       </div>
       <fieldset>
         <legend>Hero photo <span class="optional">(optional)</span></legend>
-        <div class="photo-picker">
+        <div libPhotoPicker>
           @if (draft.heroImageUrl) {
-            <div class="picture-list__thumb page-photo__thumb">
+            <div libPictureListThumb class="page-photo__thumb">
               <img
                 [src]="previewUrl(draft.heroImageUrl)"
                 width="160"
@@ -205,14 +211,14 @@
               />
             </div>
           }
-          <div class="photo-picker__body">
-            <p class="list__title" id="page-hero-name" data-testid="page-hero-name">
+          <div libPhotoPickerBody>
+            <p libListTitle id="page-hero-name" data-testid="page-hero-name">
               {{ heroName(draft.heroImageUrl) }}
             </p>
             <p class="field__help" id="page-hero-help">
               Pick a photo from the Assets library. It shows under the title.
             </p>
-            <div class="photo-picker__actions">
+            <div libPhotoPickerActions>
               <button
                 type="button"
                 libButton

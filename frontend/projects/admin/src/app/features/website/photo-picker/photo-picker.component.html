@@ -11,7 +11,7 @@
     </div>
     <div class="dialog__body stack">
       <p id="photo-picker-intro">Pick a photo from the Assets library, or upload a new one.</p>
-      <div class="picture-list">
+      <div libPictureList>
         @switch (status()) {
           @case ('loading') {
             <div class="loading" role="status" aria-live="polite">
@@ -33,12 +33,12 @@
           }
           @case ('ready') {
             @if (photos().length > 0) {
-              <ul class="picture-list__grid" aria-label="Photos in the Assets library">
+              <ul libPictureListGrid aria-label="Photos in the Assets library">
                 @for (photo of photos(); track photo.id) {
                   <li>
                     <button
                       type="button"
-                      class="picture-list__choice"
+                      libPictureListChoice
                       [class.photo-option--current]="photo.src === current()"
                       [attr.aria-pressed]="photo.src === current()"
                       (click)="choose(photo)"
@@ -56,18 +56,18 @@
                 }
               </ul>
             } @else {
-              <div class="empty" data-testid="photo-picker-empty-box">
-                <div class="empty__icon" aria-hidden="true">
+              <div libEmptyState data-testid="photo-picker-empty-box">
+                <div libEmptyStateIcon aria-hidden="true">
                   <svg libIcon="photo" size="lg"></svg>
                 </div>
-                <p class="empty__text" data-testid="photo-picker-empty">
+                <p libEmptyStateText data-testid="photo-picker-empty">
                   No photos in the library yet. Upload one below.
                 </p>
               </div>
             }
           }
         }
-        <div class="picture-list__add">
+        <div libPictureListAdd>
           <label libButton size="sm" [attr.aria-disabled]="uploading() || null"
             ><svg libIcon="upload"></svg>Upload a new photo<input
               class="visually-hidden"

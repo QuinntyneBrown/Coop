@@ -4,8 +4,8 @@
   </div>
 </div>
 <div class="stack">
-  <section class="card stack" aria-labelledby="roles-title" data-testid="roles-panel">
-    <h2 class="card__title" id="roles-title" data-testid="roles-panel-title">Roles</h2>
+  <section libCard class="stack" aria-labelledby="roles-title" data-testid="roles-panel">
+    <h2 libCardTitle id="roles-title" data-testid="roles-panel-title">Roles</h2>
     <div class="cluster" role="group" aria-labelledby="roles-title">
       @for (role of roles; track role) {
         <span
@@ -29,17 +29,22 @@
   </section>
 
   @if (selectedRole) {
-    <section class="card stack" aria-labelledby="privileges-title" data-testid="privileges-panel">
+    <section
+      libCard
+      class="stack"
+      aria-labelledby="privileges-title"
+      data-testid="privileges-panel"
+    >
       <div class="cluster cluster--between">
-        <h2 class="card__title" id="privileges-title" data-testid="privileges-panel-title">
+        <h2 libCardTitle id="privileges-title" data-testid="privileges-panel-title">
           {{ plainName(selectedRole.name) }} privileges
         </h2>
         <button libButton size="sm" type="button" data-testid="add-privilege-button">
           <svg libIcon="add"></svg>Add Privilege
         </button>
       </div>
-      <div class="table-wrap">
-        <table class="table" data-testid="privileges-table">
+      <div libTableWrap>
+        <table libTable data-testid="privileges-table">
           <caption class="visually-hidden">
             What the
             {{

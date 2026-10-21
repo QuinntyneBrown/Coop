@@ -19,7 +19,7 @@
 
   @switch (status()) {
     @case ('loading') {
-      <div class="card card--flush">
+      <div libCard flush>
         <div class="loading" role="status" aria-live="polite" data-testid="website-loading">
           <span class="spinner" aria-hidden="true"></span>Loading the website content…
         </div>
@@ -42,21 +42,21 @@
       @for (group of groups; track group.id) {
         <section class="section stack" [attr.aria-labelledby]="'website-group-' + group.id">
           <h2 [id]="'website-group-' + group.id">{{ group.name }}</h2>
-          <ul class="list website-blocks">
+          <ul libList class="website-blocks">
             @for (block of group.blocks; track block.id) {
               @let value = blockValue(block);
               @let photo = block.photo?.(value);
               <li data-testid="website-block">
-                <article class="card">
+                <article libCard>
                   <div class="cluster cluster--between">
                     <div class="cluster block-card__identity">
                       @if (photo) {
-                        <div class="picture-list__thumb block-card__thumb">
+                        <div libPictureListThumb class="block-card__thumb">
                           <img [src]="previewUrl(photo)" width="160" height="120" alt="" />
                         </div>
                       }
                       <div class="block-card__text">
-                        <h3 class="card__title">{{ block.name }}</h3>
+                        <h3 libCardTitle>{{ block.name }}</h3>
                         <p class="text-muted block-card__summary">{{ block.summary(value) }}</p>
                       </div>
                     </div>
@@ -190,7 +190,7 @@
     @case ('list') {
       <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <ol class="list content-list__items">
+        <ol libList class="content-list__items">
           @for (
             item of target[field.key];
             track $index;
@@ -199,7 +199,7 @@
             @let legend = itemLegend(field, i);
             @let name = legend.toLowerCase();
             <li [attr.data-item]="path + '.' + i">
-              <fieldset class="card stack">
+              <fieldset libCard class="stack">
                 <legend>{{ legend }}</legend>
                 <div class="stack" [class.content-fieldset__row]="field.columns">
                   @for (sub of field.fields; track sub.key) {
@@ -271,17 +271,17 @@
       @let altError = errors()[path + '.alt'];
       <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <div class="photo-picker">
+        <div libPhotoPicker>
           @if (photo.src) {
-            <div class="picture-list__thumb photo-field__thumb">
+            <div libPictureListThumb class="photo-field__thumb">
               <img [src]="previewUrl(photo.src)" width="160" height="120" alt="" />
             </div>
           }
-          <div class="photo-picker__body">
-            <p class="list__title" [id]="id + '-name'">
+          <div libPhotoPickerBody>
+            <p libListTitle [id]="id + '-name'">
               {{ photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet' }}
             </p>
-            <div class="photo-picker__actions">
+            <div libPhotoPickerActions>
               <button
                 type="button"
                 libButton

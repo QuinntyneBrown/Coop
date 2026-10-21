@@ -38,63 +38,65 @@
 <div class="grid maintenance">
   <div class="span-5 stack">
     <section
-      class="card card--flush"
+      libCard
+      flush
       role="tabpanel"
       id="mt-panel"
       aria-labelledby="mt-list-title"
       data-testid="maintenance-requests-panel"
     >
-      <h2 class="card__title" id="mt-list-title" data-testid="maintenance-requests-title">
+      <h2 libCardTitle id="mt-list-title" data-testid="maintenance-requests-title">
         {{ listHeadings[activeFilter] }}
       </h2>
-      <ul class="list maintenance__list">
+      <ul libList class="maintenance__list">
         @for (req of filteredRequests; track req) {
           <li
-            class="list__item maintenance__item"
+            libListItem
+            class="maintenance__item"
             data-testid="maintenance-request-card"
             [class.maintenance__item--selected]="isSelected(req)"
             (click)="selectRequest(req)"
           >
-            <div class="list__body">
+            <div libListBody>
               <button
-                class="list__title maintenance__select"
+                libListTitle
+                class="maintenance__select"
                 type="button"
                 data-testid="request-title"
                 [attr.aria-current]="isSelected(req) || null"
               >
                 {{ req.title }}
               </button>
-              <div class="list__meta">
+              <div libListMeta>
                 {{ req.description | slice: 0 : 80 }}{{ req.description?.length > 80 ? '...' : '' }}
               </div>
-              <div class="list__meta">
+              <div libListMeta>
                 <span data-testid="maintenance-request-date">{{
                   req.date || req.createdOn | date: 'MMM d, y, h:mm a'
                 }}</span>
               </div>
             </div>
-            <span
-              class="badge"
-              [ngClass]="getStatusClass(req.status)"
-              data-testid="request-status-badge"
-              >{{ getStatusLabel(req.status) }}</span
-            >
+            <span libBadge [tone]="getStatusTone(req.status)" data-testid="request-status-badge">{{
+              getStatusLabel(req.status)
+            }}</span>
           </li>
         }
       </ul>
     </section>
 
     @if (!loading && filteredRequests.length === 0) {
-      <div class="card empty" data-testid="maintenance-empty-state">
-        <span class="empty__icon" aria-hidden="true"><svg libIcon="inbox"></svg></span>
-        <p class="empty__text">No maintenance requests found</p>
+      <div libCard flush data-testid="maintenance-empty-state">
+        <div libEmptyState>
+          <span libEmptyStateIcon aria-hidden="true"><svg libIcon="inbox"></svg></span>
+          <p libEmptyStateText>No maintenance requests found</p>
+        </div>
       </div>
     }
   </div>
 
   @if (selectedRequest) {
     <div class="span-7">
-      <section class="card" aria-labelledby="rq-title" data-testid="maintenance-detail-panel">
+      <section libCard aria-labelledby="rq-title" data-testid="maintenance-detail-panel">
         <div class="tabs" role="tablist" [attr.aria-label]="selectedRequest.title">
           <button
             class="tabs__tab"
@@ -122,27 +124,29 @@
         <div class="tabs__panel stack" role="tabpanel" id="rq-panel">
           <div class="cluster cluster--between">
             <h2
-              class="card__title maintenance__title"
+              libCardTitle
+              class="maintenance__title"
               id="rq-title"
               data-testid="maintenance-detail-title"
             >
               {{ selectedRequest.title }}
             </h2>
             <span
-              class="badge"
-              [ngClass]="getStatusClass(selectedRequest.status)"
+              libBadge
+              [tone]="getStatusTone(selectedRequest.status)"
               data-testid="maintenance-detail-status"
               >{{ getStatusLabel(selectedRequest.status) }}</span
             >
           </div>
           @if (activeTab === 'details') {
-            <dl class="dl dl--horizontal">
+            <dl libDescriptionList horizontal>
               <dt>Submitted by</dt>
               <dd data-testid="maintenance-detail-submitted-by">
                 <span class="cluster">
                   @if (submitterPhotoUrl) {
                     <img
-                      class="avatar avatar--sm"
+                      libAvatar
+                      size="sm"
                       [src]="submitterPhotoUrl"
                       alt=""
                       data-testid="maintenance-detail-submitter-photo"
@@ -173,24 +177,24 @@
               </dd>
             </dl>
             <p data-testid="maintenance-detail-description">{{ selectedRequest.description }}</p>
-            <hr class="divider divider--rule" />
+            <hr libDivider />
             <section
               class="stack maintenance__photos"
               aria-labelledby="rq-photos"
               data-testid="maintenance-detail-photos"
             >
-              <h3 class="list__title" id="rq-photos">Photos</h3>
+              <h3 libListTitle id="rq-photos">Photos</h3>
               @if (selectedRequest.digitalAssets?.length) {
-                <ul class="picture-list__grid">
+                <ul libPictureListGrid>
                   @for (
                     asset of selectedRequest.digitalAssets;
                     track asset.digitalAssetId;
                     let i = $index
                   ) {
-                    <li class="picture-list__item" data-testid="maintenance-detail-photo">
+                    <li libPictureListItem data-testid="maintenance-detail-photo">
                       @if (photoUrls[asset.digitalAssetId]) {
                         <a
-                          class="picture-list__thumb"
+                          libPictureListThumb
                           [href]="photoUrls[asset.digitalAssetId]"
                           target="_blank"
                           rel="noopener"
@@ -201,8 +205,8 @@
                           />
                         </a>
                       } @else {
-                        <div class="picture-list__thumb" aria-busy="true"></div>
-                        <span class="picture-list__note">Loading photo…</span>
+                        <div libPictureListThumb aria-busy="true"></div>
+                        <span libPictureListNote>Loading photo…</span>
                       }
                     </li>
                   }
@@ -239,13 +243,13 @@
           @if (activeTab === 'comments') {
             <div class="stack" data-testid="maintenance-comments-section">
               @if (comments.length) {
-                <ul class="list">
+                <ul libList>
                   @for (comment of comments; track comment) {
-                    <li class="list__item" data-testid="maintenance-comment">
-                      <div class="list__body">
+                    <li libListItem data-testid="maintenance-comment">
+                      <div libListBody>
                         <div class="cluster cluster--between">
-                          <span class="list__title">{{ comment.createdBy || 'User' }}</span>
-                          <span class="list__meta">{{
+                          <span libListTitle>{{ comment.createdBy || 'User' }}</span>
+                          <span libListMeta>{{
                             comment.createdOn | date: 'MMM d, y, h:mm a'
                           }}</span>
                         </div>

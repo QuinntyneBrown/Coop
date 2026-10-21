@@ -1,0 +1,7 @@
+// Empty state text (docs/design-system/components/empty-state.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  color: var(--color-fg-muted);
+  max-width: 36ch;
+}

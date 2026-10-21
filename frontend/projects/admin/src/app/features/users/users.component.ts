@@ -7,14 +7,31 @@ import {
   viewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  IconComponent,
+  TableComponent,
+  TableWrapComponent,
+} from 'components';
 import { UserService } from '../../core/services/user.service';
 import { userRoleNames } from '../../core/user-role-names';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [ReactiveFormsModule, IconComponent, ButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    TableComponent,
+    TableWrapComponent,
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

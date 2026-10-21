@@ -1,7 +1,24 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  BadgeComponent,
+  BadgeTone,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+  MetricCardComponent,
+  MetricCardIconComponent,
+  StatComponent,
+  StatLabelComponent,
+  StatValueComponent,
+} from 'components';
 import { AuthService } from '../../core/services/auth.service';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { MessagingService } from '../../core/services/messaging.service';
@@ -12,7 +29,25 @@ import { DocumentService } from '../../core/services/document.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, IconComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    IconComponent,
+    ButtonComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+    MetricCardComponent,
+    MetricCardIconComponent,
+    StatComponent,
+    StatLabelComponent,
+    StatValueComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -123,19 +158,19 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getStatusClass(status: string): string {
+  getStatusTone(status: string): BadgeTone {
     switch ((status || '').toLowerCase()) {
       case 'new':
-        return 'badge--warning';
+        return 'warning';
       case 'received':
-        return 'badge--neutral';
+        return 'neutral';
       case 'started':
-        return 'badge--info';
+        return 'info';
       case 'completed':
       case 'done':
-        return 'badge--success';
+        return 'success';
       default:
-        return 'badge--neutral';
+        return 'neutral';
     }
   }
 }

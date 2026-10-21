@@ -72,11 +72,11 @@
     <ul class="grid grid--auto documents-list" aria-label="Documents" data-testid="documents-list">
       @for (doc of filteredDocuments; track doc) {
         <li>
-          <article class="card" data-testid="document-card">
+          <article libCard data-testid="document-card">
             <div class="cluster">
-              <span class="avatar" aria-hidden="true"><svg [libIcon]="getDocIcon(doc)"></svg></span>
+              <span libAvatar aria-hidden="true"><svg [libIcon]="getDocIcon(doc)"></svg></span>
               <div class="document-card__info">
-                <h2 class="card__title document-card__title" data-testid="document-title">
+                <h2 libCardTitle class="document-card__title" data-testid="document-title">
                   <button type="button" class="document-card__open" (click)="openDocument(doc)">
                     {{ doc.name || doc.title }}
                   </button>
@@ -90,9 +90,8 @@
                 </p>
               </div>
               <span
-                class="badge"
-                [class.badge--success]="getStatusLabel(doc) === 'Published'"
-                [class.badge--warning]="getStatusLabel(doc) !== 'Published'"
+                libBadge
+                [tone]="getStatusLabel(doc) === 'Published' ? 'success' : 'warning'"
                 data-testid="document-status-badge"
               >
                 {{ getStatusLabel(doc) }}
@@ -116,9 +115,11 @@
   }
 
   @if (!loading && filteredDocuments.length === 0) {
-    <div class="card empty" data-testid="documents-empty-state">
-      <div class="empty__icon"><svg libIcon="documents"></svg></div>
-      <p class="empty__text">No documents found</p>
+    <div libCard flush data-testid="documents-empty-state">
+      <div libEmptyState>
+        <div libEmptyStateIcon><svg libIcon="documents"></svg></div>
+        <p libEmptyStateText>No documents found</p>
+      </div>
     </div>
   }
 </div>

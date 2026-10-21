@@ -1,0 +1,33 @@
+// Avatar (docs/design-system/components/avatar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  --avatar-size: var(--size-avatar-md);
+  display: inline-grid;
+  place-items: center;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-subtle);
+  color: var(--color-fg-accent);
+  font: var(--text-label);
+  overflow: hidden;
+  flex: none;
+  // The person's own picture fills the circle over their letter.
+  position: relative;
+}
+
+:host(:where(.avatar--sm)) {
+  --avatar-size: var(--size-avatar-sm);
+  font-size: var(--font-size-xs);
+}
+
+:host(:where(.avatar--lg)) {
+  --avatar-size: var(--size-avatar-lg);
+  font-size: var(--font-size-lg);
+}
+
+:host(:where(.avatar--xl)) {
+  --avatar-size: var(--size-avatar-xl);
+  font-size: var(--font-size-xl);
+}

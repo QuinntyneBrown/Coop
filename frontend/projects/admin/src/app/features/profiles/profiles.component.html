@@ -1,13 +1,13 @@
 <div class="grid profiles">
   <section
-    class="card card--flush span-4"
+    libCard
+    flush
+    class="span-4"
     aria-labelledby="profiles-title"
     data-testid="profiles-panel"
   >
     <div class="cluster cluster--between profiles__header">
-      <h2 class="card__title" id="profiles-title" data-testid="profiles-panel-title">
-        My Profiles
-      </h2>
+      <h2 libCardTitle id="profiles-title" data-testid="profiles-panel-title">My Profiles</h2>
       <button
         libButton
         variant="ghost"
@@ -19,26 +19,28 @@
         Edit
       </button>
     </div>
-    <ul class="list profiles__list">
+    <ul libList class="profiles__list">
       @for (p of profiles; track p; let i = $index) {
         <li
-          class="list__item profiles__item"
+          libListItem
+          class="profiles__item"
           data-testid="profile-card"
           [class.profiles__item--selected]="currentProfile === p"
           (click)="switchProfile(i)"
         >
-          <div class="list__body">
+          <div libListBody>
             <button
-              class="list__title profiles__select"
+              libListTitle
+              class="profiles__select"
               type="button"
               [attr.aria-current]="currentProfile === p || null"
             >
               {{ p.firstname || p.firstName }} {{ p.lastname || p.lastName }}
             </button>
-            <div class="list__meta">{{ getProfileTypeLabel(p) }}</div>
+            <div libListMeta>{{ getProfileTypeLabel(p) }}</div>
           </div>
           @if (i === 0) {
-            <span class="badge badge--success" data-testid="profile-active-badge">Active</span>
+            <span libBadge tone="success" data-testid="profile-active-badge">Active</span>
           }
         </li>
       }
@@ -48,18 +50,19 @@
   <div class="stack span-8">
     @if (editMode) {
       <form
-        class="card stack"
+        libCard
+        class="stack"
         aria-labelledby="edit-title"
         novalidate
         data-testid="profile-edit-panel"
         [formGroup]="profileForm"
         (ngSubmit)="saveProfile()"
       >
-        <h2 class="card__title" id="edit-title" data-testid="profile-edit-title">
+        <h2 libCardTitle id="edit-title" data-testid="profile-edit-title">
           Edit {{ getProfileTypeLabel(currentProfile).toLowerCase() }} profile
         </h2>
         <div class="cluster" data-testid="profile-avatar">
-          <span class="avatar avatar--xl" aria-hidden="true">{{ getInitials() }}</span>
+          <span libAvatar size="xl" aria-hidden="true">{{ getInitials() }}</span>
           <button libButton type="button" data-testid="profile-change-avatar">Change Avatar</button>
         </div>
         <div class="field">
@@ -139,9 +142,9 @@
         </div>
       </form>
     } @else {
-      <section class="card stack" aria-labelledby="profile-name">
+      <section libCard class="stack" aria-labelledby="profile-name">
         <div class="cluster">
-          <span class="avatar avatar--xl" aria-hidden="true" data-testid="profile-avatar">{{
+          <span libAvatar size="xl" aria-hidden="true" data-testid="profile-avatar">{{
             getInitials()
           }}</span>
           <h2 class="profiles__name" id="profile-name" data-testid="profile-display-name">
@@ -184,8 +187,8 @@
     }
 
     @if (showPasswordForm) {
-      <section class="card stack" aria-labelledby="password-title">
-        <h2 class="card__title" id="password-title">Change Password</h2>
+      <section libCard class="stack" aria-labelledby="password-title">
+        <h2 libCardTitle id="password-title">Change Password</h2>
         <div class="field">
           <label class="field__label" for="pw-current">Current Password</label>
           <input

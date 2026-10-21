@@ -7,7 +7,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+} from 'components';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
 import { plainName } from '../../core/plain-name';
@@ -15,7 +27,20 @@ import { plainName } from '../../core/plain-name';
 @Component({
   selector: 'app-profiles',
   standalone: true,
-  imports: [ReactiveFormsModule, IconComponent, ButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+  ],
   templateUrl: './profiles.component.html',
   styleUrl: './profiles.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

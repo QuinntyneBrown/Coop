@@ -1,6 +1,6 @@
 import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { IconComponent } from 'components';
+import { AvatarComponent, IconComponent } from 'components';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
 import { SidebarLink } from './sidebar-link';
@@ -9,7 +9,7 @@ import { SidebarLink } from './sidebar-link';
   // eslint-disable-next-line @angular-eslint/component-selector -- the design system styles .app-shell > .sidebar, so the host must be the aside
   selector: 'aside[appSidebar]',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, IconComponent],
+  imports: [RouterLink, RouterLinkActive, IconComponent, AvatarComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

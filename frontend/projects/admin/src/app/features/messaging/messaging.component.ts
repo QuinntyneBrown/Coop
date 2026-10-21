@@ -8,14 +8,47 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+} from 'components';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-messaging',
   standalone: true,
-  imports: [DatePipe, ReactiveFormsModule, FormsModule, IconComponent, ButtonComponent],
+  imports: [
+    DatePipe,
+    ReactiveFormsModule,
+    FormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+  ],
   templateUrl: './messaging.component.html',
   styleUrl: './messaging.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

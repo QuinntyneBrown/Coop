@@ -8,7 +8,23 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  EmptyStateActionsComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  EmptyStateTitleComponent,
+  IconComponent,
+  ListComponent,
+  ListTitleComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent as LibPhotoPickerComponent,
+  PictureListThumbComponent,
+} from 'components';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import type { WebsitePageDraft } from '../../core/models/website-page-draft';
@@ -37,7 +53,25 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, PhotoPickerComponent, IconComponent, ButtonComponent],
+  imports: [
+    FormsModule,
+    PhotoPickerComponent,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateActionsComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    EmptyStateTitleComponent,
+    ListComponent,
+    ListTitleComponent,
+    PhotoPickerActionsComponent,
+    PhotoPickerBodyComponent,
+    PictureListThumbComponent,
+    LibPhotoPickerComponent,
+  ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

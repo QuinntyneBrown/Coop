@@ -1,0 +1,14 @@
+// List row (docs/design-system/components/list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+:host(:last-child) {
+  border-bottom: 0;
+}

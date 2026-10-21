@@ -30,12 +30,12 @@
   </div>
 </div>
 
-<div class="card" data-testid="assets-grid">
+<div libCard data-testid="assets-grid">
   @if (filteredAssets.length > 0) {
-    <div class="picture-list">
-      <ul class="picture-list__grid" aria-label="Assets">
+    <div libPictureList>
+      <ul libPictureListGrid aria-label="Assets">
         @for (asset of filteredAssets; track asset) {
-          <li class="picture-list__item">
+          <li libPictureListItem>
             <button
               class="asset-card"
               type="button"
@@ -43,11 +43,11 @@
               data-testid="asset-card"
               (click)="openAssetDetail(asset)"
             >
-              <span class="picture-list__thumb asset-card__thumb" data-testid="asset-preview">
+              <span libPictureListThumb class="asset-card__thumb" data-testid="asset-preview">
                 <svg libIcon="documents"></svg>
               </span>
               <span class="asset-card__name" data-testid="asset-name">{{ asset.name }}</span>
-              <span class="picture-list__note">
+              <span libPictureListNote>
                 <span data-testid="asset-size">{{
                   formatFileSize(asset.contentLength ?? asset.size)
                 }}</span>
@@ -60,9 +60,9 @@
       </ul>
     </div>
   } @else {
-    <div class="empty">
-      <div class="empty__icon"><svg libIcon="upload"></svg></div>
-      <h2 class="empty__title">No assets uploaded yet</h2>
+    <div libEmptyState>
+      <div libEmptyStateIcon><svg libIcon="upload"></svg></div>
+      <h2 libEmptyStateTitle>No assets uploaded yet</h2>
     </div>
   }
 </div>
@@ -157,10 +157,10 @@
         <h2 class="dialog__title" id="asset-detail-title">Asset Details</h2>
       </div>
       <div class="dialog__body stack">
-        <div data-testid="asset-detail-preview" class="picture-list__thumb asset-detail__preview">
+        <div data-testid="asset-detail-preview" libPictureListThumb class="asset-detail__preview">
           <svg libIcon="documents"></svg>
         </div>
-        <dl class="dl">
+        <dl libDescriptionList>
           <dt>File name</dt>
           <dd data-testid="asset-detail-name">{{ selectedAsset.name }}</dd>
           <dt>Size</dt>

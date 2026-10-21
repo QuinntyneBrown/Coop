@@ -8,7 +8,29 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  BadgeTone,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DescriptionListComponent,
+  DividerComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+  PictureListGridComponent,
+  PictureListItemComponent,
+  PictureListNoteComponent,
+  PictureListThumbComponent,
+} from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { MaintenanceStep } from './maintenance-step';
@@ -17,7 +39,30 @@ import { nextMaintenanceStep } from './next-maintenance-step';
 @Component({
   selector: 'app-maintenance',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    DescriptionListComponent,
+    DividerComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+    PictureListGridComponent,
+    PictureListItemComponent,
+    PictureListNoteComponent,
+    PictureListThumbComponent,
+  ],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -219,23 +264,23 @@ export class MaintenanceComponent implements OnInit {
     return status || 'New';
   }
 
-  getStatusClass(status: any): string {
+  getStatusTone(status: any): BadgeTone {
     const label = this.getStatusLabel(status).toLowerCase();
     switch (label) {
       case 'new':
       case 'created':
-        return 'badge--warning';
+        return 'warning';
       case 'received':
-        return 'badge--neutral';
+        return 'neutral';
       case 'started':
       case 'inprogress':
-        return 'badge--info';
+        return 'info';
       case 'completed':
       case 'complete':
       case 'done':
-        return 'badge--success';
+        return 'success';
       default:
-        return 'badge--neutral';
+        return 'neutral';
     }
   }
 }

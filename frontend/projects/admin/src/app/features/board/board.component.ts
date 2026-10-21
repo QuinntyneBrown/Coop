@@ -10,7 +10,19 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  AvatarImageComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  EmptyStateActionsComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  EmptyStateTitleComponent,
+  IconComponent,
+} from 'components';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
 import type { DirectorDraft } from '../../core/models/director-draft';
@@ -36,7 +48,20 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [FormsModule, IconComponent, ButtonComponent],
+  imports: [
+    FormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    AvatarImageComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateActionsComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    EmptyStateTitleComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

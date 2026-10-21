@@ -42,14 +42,14 @@
     data-testid="landing-board-section"
   >
     <h2 id="landing-board">Board of Directors</h2>
-    <div class="card card--flush">
-      <ul class="list">
+    <div libCard flush>
+      <ul libList>
         @for (member of boardMembers; track member) {
-          <li class="list__item" data-testid="landing-board-member">
-            <span class="avatar" aria-hidden="true">{{ getInitials(member.name) }}</span>
-            <div class="list__body">
-              <h3 class="list__title">{{ member.name }}</h3>
-              <p class="list__meta">{{ member.title }}</p>
+          <li libListItem data-testid="landing-board-member">
+            <span libAvatar aria-hidden="true">{{ getInitials(member.name) }}</span>
+            <div libListBody>
+              <h3 libListTitle>{{ member.name }}</h3>
+              <p libListMeta>{{ member.title }}</p>
             </div>
           </li>
         }
@@ -63,15 +63,15 @@
     data-testid="landing-notices-section"
   >
     <h2 id="landing-news">Announcements</h2>
-    <div class="card card--flush">
-      <ul class="list">
+    <div libCard flush>
+      <ul libList>
         @for (notice of notices; track notice) {
-          <li class="list__item" data-testid="landing-notice-card">
-            <div class="list__body stack landing-notice">
-              <h3 class="list__title">{{ notice.title }}</h3>
+          <li libListItem data-testid="landing-notice-card">
+            <div libListBody class="stack landing-notice">
+              <h3 libListTitle>{{ notice.title }}</h3>
               <p>{{ notice.body || notice.description }}</p>
               <p
-                class="list__meta"
+                libListMeta
                 data-testid="landing-notice-date"
                 [textContent]="noticeDate(notice) | date: 'mediumDate'"
               ></p>

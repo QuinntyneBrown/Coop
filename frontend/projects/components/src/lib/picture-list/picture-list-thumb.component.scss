@@ -1,0 +1,54 @@
+// Picture list thumbnail (docs/design-system/components/picture-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+  border: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+:host ::ng-deep img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: fade-in var(--duration-base) var(--ease-standard);
+}
+
+:host([aria-busy='true']) ::ng-deep img {
+  opacity: 0.5;
+}
+
+:host([aria-busy='true'])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 30%;
+  height: 30%;
+  border: var(--border-width-thick) solid var(--color-bg-surface);
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: spin calc(var(--duration-loop) / 2) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host ::ng-deep img {
+    animation: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}

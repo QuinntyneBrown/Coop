@@ -1,0 +1,6 @@
+// Empty state title (docs/design-system/components/empty-state.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-h3);
+}

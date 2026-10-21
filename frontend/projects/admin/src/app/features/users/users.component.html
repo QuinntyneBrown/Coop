@@ -29,9 +29,9 @@
   </div>
 </div>
 
-<div class="card card--flush" data-testid="users-table">
-  <div class="table-wrap table-wrap--flush">
-    <table class="table">
+<div libCard flush data-testid="users-table">
+  <div libTableWrap flush>
+    <table libTable>
       <caption class="visually-hidden">
         Users, page
         {{
@@ -55,7 +55,7 @@
           <tr data-testid="users-table-row">
             <td>
               <span class="user-cell">
-                <span class="avatar avatar--sm" aria-hidden="true">{{
+                <span libAvatar size="sm" aria-hidden="true">{{
                   user.username?.charAt(0).toUpperCase()
                 }}</span>
                 <span data-testid="user-username">{{ user.username }}</span>
@@ -66,9 +66,8 @@
             </td>
             <td>
               <span
-                class="badge"
-                [class.badge--danger]="user.status === 'Disabled'"
-                [class.badge--success]="user.status !== 'Disabled'"
+                libBadge
+                [tone]="user.status === 'Disabled' ? 'danger' : 'success'"
                 data-testid="user-status-badge"
               >
                 {{ user.status || 'Active' }}

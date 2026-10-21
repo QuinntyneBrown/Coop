@@ -8,13 +8,13 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ButtonComponent, IconComponent } from 'components';
+import { ButtonComponent, CardComponent, IconComponent } from 'components';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, IconComponent, ButtonComponent],
+  imports: [ReactiveFormsModule, RouterLink, IconComponent, ButtonComponent, CardComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

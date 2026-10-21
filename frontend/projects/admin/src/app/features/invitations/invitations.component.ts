@@ -9,13 +9,28 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ButtonComponent, IconComponent } from 'components';
+import {
+  BadgeComponent,
+  BadgeTone,
+  ButtonComponent,
+  IconComponent,
+  TableComponent,
+  TableWrapComponent,
+} from 'components';
 import { InvitationService } from '../../core/services/invitation.service';
 
 @Component({
   selector: 'app-invitations',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    BadgeComponent,
+    TableComponent,
+    TableWrapComponent,
+  ],
   templateUrl: './invitations.component.html',
   styleUrl: './invitations.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -101,10 +116,10 @@ export class InvitationsComponent implements OnInit, AfterViewChecked {
     return 'Active';
   }
 
-  getStatusClass(inv: any): string {
+  getStatusTone(inv: any): BadgeTone {
     const status = this.getStatus(inv);
-    if (status === 'Active') return 'badge--success';
-    if (status === 'Expired') return 'badge--danger';
-    return 'badge--neutral';
+    if (status === 'Active') return 'success';
+    if (status === 'Expired') return 'danger';
+    return 'neutral';
   }
 }
