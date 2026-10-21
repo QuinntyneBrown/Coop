@@ -5,6 +5,7 @@ using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Coop.Cli;
 
@@ -71,9 +72,11 @@ public class CliRunner
 
         var services = new ServiceCollection();
         services.AddSingleton<IConfiguration>(configuration);
+        // Log lines go to standard error, so a command's output (for example an export) stays clean.
         services.AddLogging(logging => logging
             .AddConfiguration(configuration.GetSection("Logging"))
-            .AddSimpleConsole(options => options.SingleLine = true));
+            .AddSimpleConsole(options => options.SingleLine = true)
+            .Services.Configure<ConsoleLoggerOptions>(options => options.LogToStandardErrorThreshold = LogLevel.Trace));
         services.AddCoopCore(configuration);
         services.AddAuthorizationCore();
         services.AddHttpContextAccessor();
