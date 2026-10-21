@@ -1,7 +1,0 @@
-[
-  {"name": "admin-change-password", "mock": "pages/admin-change-password/default.html", "phone": false},
-  {"name": "admin-change-password-two", "mock": "pages/admin-change-password/default.html", "phone": false, "js": "document.querySelector('[data-testid=change-password-current]').value = 'fictional-pass'; document.querySelector('[data-testid=change-password-new]').value = 'fictional-pass';"},
-  {"name": "admin-change-password-three", "mock": "pages/admin-change-password/default.html", "phone": false, "js": "document.querySelector('[data-testid=change-password-current]').value = 'fictional-pass'; document.querySelector('[data-testid=change-password-new]').value = 'fictional-pass'; document.querySelector('[data-testid=change-password-confirm]').value = 'fictional-pass';"},
-  {"name": "admin-change-password-updated", "mock": "pages/admin-change-password/default.html", "phone": false, "js": "const at = document.querySelector('[data-testid=change-password-subtitle]'); const n = document.createElement('div'); for (const a of at.attributes) { if (a.name.startsWith('_ngcontent')) n.setAttribute(a.name, ''); } n.className = 'alert alert-success'; n.textContent = 'Password updated successfully'; at.after(n);"},
-  {"name": "admin-change-password-mismatch", "mock": "pages/admin-change-password/mismatch.html", "phone": false}
-]
