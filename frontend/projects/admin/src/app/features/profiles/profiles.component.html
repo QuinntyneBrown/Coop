@@ -132,7 +132,7 @@
         <div role="status" aria-live="polite">
           @if (successMessage) {
             <div class="alert alert--success" data-testid="profile-success-message">
-              <svg appIcon="success"></svg>
+              <svg libIcon="success"></svg>
               <div class="alert__body">{{ successMessage }}</div>
             </div>
           }
@@ -164,7 +164,7 @@
             data-testid="profile-edit-btn"
             (click)="enterEditMode()"
           >
-            <svg appIcon="edit"></svg>Edit Profile
+            <svg libIcon="edit"></svg>Edit Profile
           </button>
           <button
             class="btn"
@@ -173,10 +173,10 @@
             [attr.aria-expanded]="showPasswordForm"
             (click)="showPasswordForm = !showPasswordForm"
           >
-            <svg appIcon="lock"></svg>Change Password
+            <svg libIcon="lock"></svg>Change Password
           </button>
           <button class="btn" type="button" data-testid="profile-logout-btn" (click)="logout()">
-            <svg appIcon="sign-out"></svg>Logout
+            <svg libIcon="sign-out"></svg>Logout
           </button>
         </div>
       </section>

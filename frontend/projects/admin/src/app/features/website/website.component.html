@@ -11,7 +11,7 @@
   <div role="status" aria-live="polite">
     @if (notice()) {
       <div class="alert alert--success">
-        <svg appIcon="success"></svg>
+        <svg libIcon="success"></svg>
         <div class="alert__body" data-testid="website-notice">{{ notice() }}</div>
       </div>
     }
@@ -27,12 +27,12 @@
     }
     @case ('error') {
       <div class="alert alert--danger" role="alert" data-testid="website-error">
-        <svg appIcon="error"></svg>
+        <svg libIcon="error"></svg>
         <div class="alert__body">
           <span>We couldn't load the website content. Check your connection and try again.</span>
           <div class="alert__actions">
             <button type="button" class="btn btn--sm" (click)="load()" data-testid="website-retry">
-              <svg appIcon="try-again"></svg>Try again
+              <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
         </div>
@@ -106,7 +106,7 @@
             role="alert"
             data-testid="content-editor-errors"
           >
-            <svg appIcon="error"></svg>
+            <svg libIcon="error"></svg>
             <div class="alert__body">
               <p class="alert__title">
                 Something needs attention before your changes can be saved.
@@ -123,7 +123,7 @@
         }
         @if (saveFailed()) {
           <div class="alert alert--danger" role="alert">
-            <svg appIcon="error"></svg>
+            <svg libIcon="error"></svg>
             <div class="alert__body" data-testid="content-editor-failed">
               We couldn't save your changes. Try again.
             </div>
@@ -223,7 +223,7 @@
                     [disabled]="first"
                     (click)="moveItem(target, field, path, i, -1)"
                   >
-                    <svg appIcon="move-up"></svg>Move up
+                    <svg libIcon="move-up"></svg>Move up
                   </button>
                   <button
                     type="button"
@@ -233,7 +233,7 @@
                     [disabled]="last"
                     (click)="moveItem(target, field, path, i, 1)"
                   >
-                    <svg appIcon="move-down"></svg>Move down
+                    <svg libIcon="move-down"></svg>Move down
                   </button>
                   <button
                     type="button"
@@ -254,7 +254,7 @@
           [attr.data-add]="path"
           (click)="addItem(target, field, path)"
         >
-          <svg appIcon="add"></svg>Add {{ field.itemName }}
+          <svg libIcon="add"></svg>Add {{ field.itemName }}
         </button>
       </fieldset>
     }
@@ -286,7 +286,7 @@
                 "
                 (click)="choosePhoto(photo, path)"
               >
-                <svg appIcon="photo"></svg>Choose photo
+                <svg libIcon="photo"></svg>Choose photo
               </button>
             </div>
             @if (srcError) {

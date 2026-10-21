@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
+import { IconComponent } from 'components';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-messaging',

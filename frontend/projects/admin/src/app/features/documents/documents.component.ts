@@ -9,11 +9,10 @@ import {
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { IconComponent, IconName } from 'components';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { documentTypeLabel } from './document-type-label';
-import { IconComponent } from '../../shared/components/icon.component';
-import { IconName } from '../../shared/components/icon-name';
 
 @Component({
   selector: 'app-documents',

@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { IconComponent } from 'components';
 import { RoleService } from '../../core/services/role.service';
 import { PrivilegeService } from '../../core/services/privilege.service';
 import { plainName } from '../../core/plain-name';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-roles',

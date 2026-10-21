@@ -10,7 +10,7 @@
     "build:public": "ng build public",
     "build:admin": "ng build admin",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test public --watch=false && ng test admin --watch=false",
+    "test": "ng test components --watch=false && ng test public --watch=false && ng test admin --watch=false",
     "lint": "ng lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

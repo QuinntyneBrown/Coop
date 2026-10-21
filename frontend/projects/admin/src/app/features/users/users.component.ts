@@ -7,9 +7,9 @@ import {
   viewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IconComponent } from 'components';
 import { UserService } from '../../core/services/user.service';
 import { userRoleNames } from '../../core/user-role-names';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-users',

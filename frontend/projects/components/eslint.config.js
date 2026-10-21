@@ -18,9 +18,9 @@ module.exports = defineConfig([
       '@angular-eslint/component-selector': [
         'error',
         {
-          type: 'element',
+          type: 'attribute',
           prefix: 'lib',
-          style: 'kebab-case',
+          style: 'camelCase',
         },
       ],
     },

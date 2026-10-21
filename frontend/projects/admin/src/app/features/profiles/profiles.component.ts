@@ -7,10 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IconComponent } from 'components';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
 import { plainName } from '../../core/plain-name';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-profiles',

@@ -21,7 +21,7 @@
             [attr.data-testid]="'role-card-' + (role.name || '').toLowerCase()"
             [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
           >
-            <svg appIcon="roles" data-testid="role-icon"></svg>{{ plainName(role.name) }}
+            <svg libIcon="roles" data-testid="role-icon"></svg>{{ plainName(role.name) }}
           </button>
         </span>
       }
@@ -35,7 +35,7 @@
           {{ plainName(selectedRole.name) }} privileges
         </h2>
         <button class="btn btn--sm" type="button" data-testid="add-privilege-button">
-          <svg appIcon="add"></svg>Add Privilege
+          <svg libIcon="add"></svg>Add Privilege
         </button>
       </div>
       <div class="table-wrap">

@@ -5,7 +5,7 @@
   <div class="cluster page-actions">
     <div class="search" role="search">
       <label class="visually-hidden" for="documents-search">Search documents</label>
-      <svg appIcon="search"></svg>
+      <svg libIcon="search"></svg>
       <input
         class="input"
         id="documents-search"
@@ -23,7 +23,7 @@
       data-testid="documents-new-button"
       (click)="openCreateDialog()"
     >
-      <svg appIcon="add"></svg>New Document
+      <svg libIcon="add"></svg>New Document
     </button>
   </div>
 </div>
@@ -31,7 +31,7 @@
 <div role="status" aria-live="polite">
   @if (statusMessage) {
     <div class="alert alert--success" data-testid="documents-status">
-      <svg appIcon="success"></svg>
+      <svg libIcon="success"></svg>
       <div class="alert__body">{{ statusMessage }}</div>
     </div>
   }
@@ -73,7 +73,7 @@
         <li>
           <article class="card" data-testid="document-card">
             <div class="cluster">
-              <span class="avatar" aria-hidden="true"><svg [appIcon]="getDocIcon(doc)"></svg></span>
+              <span class="avatar" aria-hidden="true"><svg [libIcon]="getDocIcon(doc)"></svg></span>
               <div class="document-card__info">
                 <h2 class="card__title document-card__title" data-testid="document-title">
                   <button type="button" class="document-card__open" (click)="openDocument(doc)">
@@ -103,7 +103,7 @@
                 data-testid="document-delete-button"
                 (click)="confirmDeleteDocument(doc, $event)"
               >
-                <svg appIcon="delete"></svg>
+                <svg libIcon="delete"></svg>
               </button>
             </div>
           </article>
@@ -114,7 +114,7 @@
 
   @if (!loading && filteredDocuments.length === 0) {
     <div class="card empty" data-testid="documents-empty-state">
-      <div class="empty__icon"><svg appIcon="documents"></svg></div>
+      <div class="empty__icon"><svg libIcon="documents"></svg></div>
       <p class="empty__text">No documents found</p>
     </div>
   }
@@ -141,7 +141,7 @@
         [disabled]="saving"
         (click)="closeDocumentDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body stack">
@@ -211,7 +211,7 @@
       }
       @if (dialogError) {
         <div class="alert alert--danger" role="alert" data-testid="document-dialog-error">
-          <svg appIcon="error"></svg>
+          <svg libIcon="error"></svg>
           <div class="alert__body">{{ dialogError }}</div>
         </div>
       }
@@ -253,7 +253,7 @@
   <div class="dialog__panel">
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
-        <svg appIcon="delete"></svg>
+        <svg libIcon="delete"></svg>
       </div>
       <h2 class="dialog__title" id="document-delete-heading">Confirm Delete</h2>
       <button
@@ -262,7 +262,7 @@
         aria-label="Close"
         (click)="closeDeleteDocDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body">
@@ -302,7 +302,7 @@
         data-testid="document-viewer-close"
         (click)="closeDocument()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body stack" data-testid="document-viewer-content">
@@ -317,7 +317,7 @@
     </div>
     <div class="dialog__footer">
       <button class="btn btn--primary" type="button" data-testid="document-download-btn">
-        <svg appIcon="download"></svg>Download
+        <svg libIcon="download"></svg>Download
       </button>
     </div>
   </div>

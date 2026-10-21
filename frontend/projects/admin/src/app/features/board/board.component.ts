@@ -10,6 +10,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { IconComponent } from 'components';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
 import type { DirectorDraft } from '../../core/models/director-draft';
@@ -18,7 +19,6 @@ import { directorFromDraft } from './director-from-draft';
 import { initialsOf } from './initials-of';
 import { moveDirector } from './move-director';
 import { validateDirectorDraft } from './validate-director-draft';
-import { IconComponent } from '../../shared/components/icon.component';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 

@@ -31,12 +31,12 @@
           data-testid="new-conversation-button"
           (click)="openNewConversationDialog()"
         >
-          <svg appIcon="add"></svg>
+          <svg libIcon="add"></svg>
         </button>
       </div>
       <div class="search" role="search">
         <label class="visually-hidden" for="conversation-search">Search conversations</label>
-        <svg appIcon="search"></svg>
+        <svg libIcon="search"></svg>
         <input
           class="input"
           id="conversation-search"
@@ -89,7 +89,7 @@
 
     @if (!loading && filteredConversations.length === 0) {
       <div class="empty empty--compact">
-        <div class="empty__icon"><svg appIcon="messages"></svg></div>
+        <div class="empty__icon"><svg libIcon="messages"></svg></div>
         <p class="empty__text">No conversations yet</p>
       </div>
     }
@@ -103,7 +103,7 @@
       data-testid="chat-empty-state"
     >
       <div class="empty">
-        <div class="empty__icon"><svg appIcon="messages"></svg></div>
+        <div class="empty__icon"><svg libIcon="messages"></svg></div>
         <p class="empty__text">Select a conversation to start chatting</p>
       </div>
     </section>
@@ -123,7 +123,7 @@
           aria-label="Back to messages"
           (click)="backToList()"
         >
-          <svg appIcon="back"></svg>
+          <svg libIcon="back"></svg>
         </button>
         <span class="avatar" aria-hidden="true" data-testid="chat-header-avatar">{{
           getInitial(selectedConversation)
@@ -173,7 +173,7 @@
           data-testid="message-send-button"
           (click)="sendMessage()"
         >
-          <svg appIcon="send"></svg>Send
+          <svg libIcon="send"></svg>Send
         </button>
       </div>
     </section>
@@ -197,7 +197,7 @@
         aria-label="Close"
         (click)="closeNewConversationDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body stack">

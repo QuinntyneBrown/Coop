@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { IconComponent } from 'components';
 import { ThemeService } from '../../core/services/theme.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-settings',

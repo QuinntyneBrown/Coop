@@ -7,13 +7,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { IconComponent } from 'components';
 import { ApiService } from '../../../core/services/api.service';
 import { DigitalAssetService } from '../../../core/services/digital-asset.service';
 import type { LibraryPhoto } from './library-photo';
 import { measurePhoto } from './measure-photo';
 import type { PickedPhoto } from './picked-photo';
 import { photoFileError } from './photo-file-error';
-import { IconComponent } from '../../../shared/components/icon.component';
 
 type LibraryStatus = 'loading' | 'ready' | 'error';
 

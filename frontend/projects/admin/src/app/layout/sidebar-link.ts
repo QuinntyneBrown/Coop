@@ -1,4 +1,4 @@
-import { IconName } from '../shared/components/icon-name';
+import { IconName } from 'components';
 
 export interface SidebarLink {
   path: string;

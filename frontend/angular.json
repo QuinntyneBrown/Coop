@@ -293,6 +293,13 @@
           },
           "defaultConfiguration": "production"
         },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/components/tsconfig.spec.json",
+            "runner": "vitest"
+          }
+        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {

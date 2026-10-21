@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IconComponent } from './icon.component';
+import { IconComponent } from 'components';
 
 @Component({
   selector: 'app-bottom-tab-bar',

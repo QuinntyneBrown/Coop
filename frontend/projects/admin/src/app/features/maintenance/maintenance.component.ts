@@ -8,11 +8,11 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IconComponent } from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { MaintenanceStep } from './maintenance-step';
 import { nextMaintenanceStep } from './next-maintenance-step';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-maintenance',

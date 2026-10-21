@@ -1,13 +1,13 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { IconComponent } from 'components';
 import { AuthService } from '../../core/services/auth.service';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { MessagingService } from '../../core/services/messaging.service';
 import { UserService } from '../../core/services/user.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { DocumentService } from '../../core/services/document.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-dashboard',

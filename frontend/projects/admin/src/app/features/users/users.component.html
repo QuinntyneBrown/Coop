@@ -5,7 +5,7 @@
   <div class="cluster page-actions">
     <div class="search" role="search">
       <label class="visually-hidden" for="users-search">Search users</label>
-      <svg appIcon="search"></svg>
+      <svg libIcon="search"></svg>
       <input
         class="input"
         id="users-search"
@@ -23,7 +23,7 @@
       data-testid="users-add-button"
       (click)="openAddDialog()"
     >
-      <svg appIcon="add"></svg>Add User
+      <svg libIcon="add"></svg>Add User
     </button>
   </div>
 </div>
@@ -82,7 +82,7 @@
                   data-testid="user-edit-button"
                   (click)="openEditDialog(user)"
                 >
-                  <svg appIcon="edit"></svg>
+                  <svg libIcon="edit"></svg>
                 </button>
                 <button
                   class="btn btn--ghost btn--icon"
@@ -91,7 +91,7 @@
                   data-testid="user-delete-button"
                   (click)="openDeleteDialog(user)"
                 >
-                  <svg appIcon="delete"></svg>
+                  <svg libIcon="delete"></svg>
                 </button>
               </span>
             </td>
@@ -175,7 +175,7 @@
         aria-label="Close"
         (click)="closeUserDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body stack">
@@ -245,7 +245,7 @@
   <div class="dialog__panel">
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
-        <svg appIcon="delete"></svg>
+        <svg libIcon="delete"></svg>
       </div>
       <h2 class="dialog__title" id="user-delete-title">Confirm Delete</h2>
     </div>

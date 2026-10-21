@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IconComponent } from 'components';
 import { InvitationService } from '../../core/services/invitation.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-invitations',

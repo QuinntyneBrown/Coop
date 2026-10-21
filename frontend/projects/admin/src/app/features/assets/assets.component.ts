@@ -8,9 +8,9 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IconComponent } from 'components';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-assets',

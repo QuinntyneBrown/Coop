@@ -1,0 +1,57 @@
+// Icon (docs/design-system/foundations/iconography.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010
+// for how they are written.
+
+:host {
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+:host(:where(.icon--sm)) {
+  width: var(--size-icon-sm);
+  height: var(--size-icon-sm);
+}
+
+:host(:where(.icon--lg)) {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+}
+
+// Where the icon sits.
+.btn :host {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.tabbar :host {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+}
+
+.alert :host {
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  color: var(--alert-icon);
+  margin-top: var(--space-0-5);
+}
+
+.sidebar__nav .nav-link :host {
+  color: var(--color-fg-subtle);
+}
+
+.sidebar__nav .nav-link[aria-current='page'] :host {
+  color: var(--color-fg-accent);
+}
+
+.search > :host {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--color-fg-subtle);
+  pointer-events: none;
+}

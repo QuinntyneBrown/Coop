@@ -6,7 +6,7 @@
   <div class="cluster">
     <div class="search assets-search" role="search">
       <label class="visually-hidden" for="assets-search">Search assets</label>
-      <svg appIcon="search"></svg>
+      <svg libIcon="search"></svg>
       <input
         class="input"
         id="assets-search"
@@ -24,7 +24,7 @@
       data-testid="assets-upload-button"
       (click)="openUploadDialog()"
     >
-      <svg appIcon="upload"></svg>Upload
+      <svg libIcon="upload"></svg>Upload
     </button>
   </div>
 </div>
@@ -43,7 +43,7 @@
               (click)="openAssetDetail(asset)"
             >
               <span class="picture-list__thumb asset-card__thumb" data-testid="asset-preview">
-                <svg appIcon="documents"></svg>
+                <svg libIcon="documents"></svg>
               </span>
               <span class="asset-card__name" data-testid="asset-name">{{ asset.name }}</span>
               <span class="picture-list__note">
@@ -60,7 +60,7 @@
     </div>
   } @else {
     <div class="empty">
-      <div class="empty__icon"><svg appIcon="upload"></svg></div>
+      <div class="empty__icon"><svg libIcon="upload"></svg></div>
       <h2 class="empty__title">No assets uploaded yet</h2>
     </div>
   }
@@ -84,7 +84,7 @@
           aria-label="Close"
           (click)="showUploadDialog = false"
         >
-          <svg appIcon="close"></svg>
+          <svg libIcon="close"></svg>
         </button>
       </div>
       <div class="dialog__body stack">
@@ -154,7 +154,7 @@
       </div>
       <div class="dialog__body stack">
         <div data-testid="asset-detail-preview" class="picture-list__thumb asset-detail__preview">
-          <svg appIcon="documents"></svg>
+          <svg libIcon="documents"></svg>
         </div>
         <dl class="dl">
           <dt>File name</dt>
@@ -171,7 +171,7 @@
       </div>
       <div class="dialog__footer">
         <button class="btn btn--primary" type="button" data-testid="asset-download-button">
-          <svg appIcon="download"></svg>Download
+          <svg libIcon="download"></svg>Download
         </button>
         <button class="btn" type="button" (click)="selectedAsset = null">Close</button>
         <button
@@ -181,7 +181,7 @@
           data-testid="asset-delete-button"
           (click)="openDeleteAssetDialog()"
         >
-          <svg appIcon="delete"></svg>Delete
+          <svg libIcon="delete"></svg>Delete
         </button>
       </div>
     </div>
@@ -202,7 +202,7 @@
     <div class="dialog__panel">
       <div class="dialog__header">
         <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
-          <svg appIcon="delete"></svg>
+          <svg libIcon="delete"></svg>
         </div>
         <h2 class="dialog__title" id="asset-delete-title">Confirm Delete</h2>
       </div>

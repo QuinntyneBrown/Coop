@@ -1,8 +1,8 @@
 import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { IconComponent } from 'components';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
-import { IconComponent } from '../shared/components/icon.component';
 import { SidebarLink } from './sidebar-link';
 
 @Component({

@@ -12,7 +12,7 @@
     (click)="openEditor(null, $event)"
     data-testid="pages-new-button"
   >
-    <svg appIcon="add"></svg>New page
+    <svg libIcon="add"></svg>New page
   </button>
 </div>
 
@@ -20,7 +20,7 @@
   <div role="status" aria-live="polite">
     @if (notice()) {
       <div class="alert alert--success">
-        <svg appIcon="success"></svg>
+        <svg libIcon="success"></svg>
         <div class="alert__body" data-testid="pages-notice">{{ notice() }}</div>
       </div>
     }
@@ -36,12 +36,12 @@
     }
     @case ('error') {
       <div class="alert alert--danger" role="alert" data-testid="pages-error">
-        <svg appIcon="error"></svg>
+        <svg libIcon="error"></svg>
         <div class="alert__body">
           <span>We couldn't load the pages. Check your connection and try again.</span>
           <div class="alert__actions">
             <button type="button" class="btn btn--sm" (click)="load()" data-testid="pages-retry">
-              <svg appIcon="try-again"></svg>Try again
+              <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
         </div>
@@ -94,7 +94,7 @@
       } @else {
         <div class="card empty" data-testid="pages-empty">
           <div class="empty__icon" aria-hidden="true">
-            <svg appIcon="pages" class="icon--lg"></svg>
+            <svg libIcon="pages" size="lg"></svg>
           </div>
           <h2 class="empty__title">No pages yet</h2>
           <p class="empty__text">
@@ -103,7 +103,7 @@
           </p>
           <div class="empty__actions">
             <button type="button" class="btn btn--primary" (click)="openEditor(null, $event)">
-              <svg appIcon="add"></svg>New page
+              <svg libIcon="add"></svg>New page
             </button>
           </div>
         </div>
@@ -138,7 +138,7 @@
     <div class="dialog__body stack">
       @if (errors().title || errors().heroImageAlt || errors().body) {
         <div class="alert alert--danger form-summary" role="alert" data-testid="page-editor-errors">
-          <svg appIcon="error"></svg>
+          <svg libIcon="error"></svg>
           <div class="alert__body">
             <p class="alert__title">Something needs attention before the page can be saved.</p>
             <ol>
@@ -163,7 +163,7 @@
       }
       @if (saveFailed()) {
         <div class="alert alert--danger" role="alert">
-          <svg appIcon="error"></svg>
+          <svg libIcon="error"></svg>
           <div class="alert__body" data-testid="page-editor-failed">
             We couldn't save the page. Try again.
           </div>
@@ -220,7 +220,7 @@
                 (click)="choosePhoto()"
                 data-testid="page-hero-choose"
               >
-                <svg appIcon="photo"></svg>Choose photo
+                <svg libIcon="photo"></svg>Choose photo
               </button>
               @if (draft.heroImageUrl) {
                 <button
@@ -229,7 +229,7 @@
                   (click)="removePhoto()"
                   data-testid="page-hero-remove"
                 >
-                  <svg appIcon="delete"></svg>Remove photo
+                  <svg libIcon="delete"></svg>Remove photo
                 </button>
               }
             </div>
@@ -323,7 +323,7 @@
   <div class="dialog__panel">
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
-        <svg appIcon="delete"></svg>
+        <svg libIcon="delete"></svg>
       </div>
       <h2 class="dialog__title" id="remove-title" data-testid="page-remove-heading">
         Remove “{{ removing()?.title }}”?
@@ -333,7 +333,7 @@
       <p id="remove-intro">It leaves the website menu straight away. You can add it again later.</p>
       @if (removeFailed()) {
         <div class="alert alert--danger" role="alert">
-          <svg appIcon="error"></svg>
+          <svg libIcon="error"></svg>
           <div class="alert__body">We couldn't remove the page. Try again.</div>
         </div>
       }

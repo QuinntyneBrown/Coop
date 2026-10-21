@@ -8,7 +8,7 @@
     data-testid="maintenance-create-btn"
     (click)="openCreate()"
   >
-    <svg appIcon="add"></svg>New Request
+    <svg libIcon="add"></svg>New Request
   </button>
 </div>
 
@@ -85,7 +85,7 @@
 
     @if (!loading && filteredRequests.length === 0) {
       <div class="card empty" data-testid="maintenance-empty-state">
-        <span class="empty__icon" aria-hidden="true"><svg appIcon="inbox"></svg></span>
+        <span class="empty__icon" aria-hidden="true"><svg libIcon="inbox"></svg></span>
         <p class="empty__text">No maintenance requests found</p>
       </div>
     }
@@ -229,7 +229,7 @@
             </div>
             @if (stepFailed) {
               <div class="alert alert--danger" role="alert" data-testid="maintenance-step-error">
-                <svg appIcon="error"></svg>
+                <svg libIcon="error"></svg>
                 <div class="alert__body">That change was not saved. Please try again.</div>
               </div>
             }
@@ -296,7 +296,7 @@
         aria-label="Close"
         (click)="closeCreate()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
     <div class="dialog__body stack">

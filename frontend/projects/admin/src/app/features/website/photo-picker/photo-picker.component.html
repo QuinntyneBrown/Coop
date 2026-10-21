@@ -20,12 +20,12 @@
           }
           @case ('error') {
             <div class="alert alert--danger" role="alert">
-              <svg appIcon="error"></svg>
+              <svg libIcon="error"></svg>
               <div class="alert__body">
                 <span>We couldn't load the photos. Try again.</span>
                 <div class="alert__actions">
                   <button type="button" class="btn btn--sm" (click)="load()">
-                    <svg appIcon="try-again"></svg>Try again
+                    <svg libIcon="try-again"></svg>Try again
                   </button>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                       <span class="photo-option__name">{{ photo.name }}</span>
                       @if (photo.src === current()) {
                         <span class="cluster photo-option__tag"
-                          ><svg appIcon="check" class="icon--sm"></svg>Current</span
+                          ><svg libIcon="check" size="sm"></svg>Current</span
                         >
                       }
                     </button>
@@ -58,7 +58,7 @@
             } @else {
               <div class="empty" data-testid="photo-picker-empty-box">
                 <div class="empty__icon" aria-hidden="true">
-                  <svg appIcon="photo" class="icon--lg"></svg>
+                  <svg libIcon="photo" size="lg"></svg>
                 </div>
                 <p class="empty__text" data-testid="photo-picker-empty">
                   No photos in the library yet. Upload one below.
@@ -69,7 +69,7 @@
         }
         <div class="picture-list__add">
           <label class="btn btn--sm" [attr.aria-disabled]="uploading() || null"
-            ><svg appIcon="upload"></svg>Upload a new photo<input
+            ><svg libIcon="upload"></svg>Upload a new photo<input
               class="visually-hidden"
               id="photo-upload-field"
               name="file"

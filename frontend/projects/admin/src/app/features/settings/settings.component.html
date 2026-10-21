@@ -6,14 +6,14 @@
 <div role="status" aria-live="polite">
   @if (successMsg) {
     <div class="alert alert--success settings-alert" data-testid="settings-success-message">
-      <svg appIcon="success"></svg>
+      <svg libIcon="success"></svg>
       <div class="alert__body">{{ successMsg }}</div>
     </div>
   }
 </div>
 @if (errorMsg) {
   <div class="alert alert--danger settings-alert" role="alert" data-testid="settings-error-message">
-    <svg appIcon="error"></svg>
+    <svg libIcon="error"></svg>
     <div class="alert__body">{{ errorMsg }}</div>
   </div>
 }
