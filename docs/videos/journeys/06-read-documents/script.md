@@ -12,7 +12,7 @@ By-Laws, reports and notices are all kept together, so you never have to search 
 
 ## Find a document
 
-Tap Docs at the bottom of the screen. The Documents page lists everything, with the kind of document and its date.
+Anyone can read them, without signing in. On the home page, scroll down to the bottom and tap Documents and bylaws. The Documents page lists everything, with the kind of document and its date.
 
 [pause 2s]
 
@@ -30,9 +30,13 @@ If you would like a copy, tap Download. To close it, tap the cross in the corner
 
 [pause 2s]
 
+If you are a member, the same documents are also on the members' site. After you sign in, choose Documents.
+
+[pause 2s]
+
 ## In short
 
-So, in short. Tap Docs. Choose a kind if you like. Tap a document to read it.
+So, in short. Tap Documents and bylaws. Choose a kind if you like. Tap a document to read it.
 
 [pause 1s]
 

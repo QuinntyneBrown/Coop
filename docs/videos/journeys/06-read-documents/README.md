@@ -1,6 +1,6 @@
 # Journey 06 · Read documents
 
-> **Runtime:** about 1 min 13 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** none (published documents are open to all)
+> **Runtime:** about 1 min 31 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** none (published documents are open to all)
 
 **Video:** [06-read-documents.mp4](06-read-documents.mp4) · [Slides](slides.html) · **Audio:** [06-read-documents.mp3](06-read-documents.mp3) · [Transcript](script.md)
 
@@ -12,7 +12,7 @@ By-Laws, reports and notices are kept together on the Documents page. This video
 
 By the end, the viewer can:
 
-- Open the Documents page from Docs.
+- Open the Documents page from Documents and bylaws at the bottom of the home page.
 - Use the All, Notices, By-Laws and Reports buttons.
 - Open a document, download a copy, and close it.
 
@@ -20,10 +20,12 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
+| `images/public-landing-footer-1280.png` | The home page footer with Documents and bylaws |
 | `images/public-documents-360.png` | The Documents page with three documents |
 | `images/public-documents-bylaws-360.png` | Only by-laws shown |
 | `images/public-documents-reports-360.png` | Only reports shown |
 | `images/public-document-viewer-360.png`, `-1280.png` | A document open with Download |
+| `images/admin-member-documents-1280.png` | The same documents on the members' site |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -32,10 +34,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:16 | Welcome | Title; all kept together |
-| 00:16-00:45 | Find a document | Docs; choose a kind |
-| 00:45-01:01 | Read it | Open, Download, close |
-| 01:01-01:13 | In short | Three steps, thank you |
+| 00:00-00:17 | Welcome | Title; all kept together |
+| 00:17-00:52 | Find a document | Documents and bylaws; choose a kind |
+| 00:52-01:18 | Read it | Open, Download, close; members' site |
+| 01:18-01:31 | In short | Three steps, thank you |
 
 ## Demo commands
 
