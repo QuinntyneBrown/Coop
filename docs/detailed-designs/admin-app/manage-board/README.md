@@ -118,6 +118,17 @@ director swapped with a neighbour. The server rules stay authoritative.
 (`core/models/director.ts`) and `DirectorDraft`
 (`core/models/director-draft.ts`) are the two types the screen uses.
 
+### Admin landing page
+
+`LandingComponent` (`frontend/projects/admin/src/app/features/landing/`)
+lists the directors from `BoardService.getAll()` under "Board of Directors"
+and up to six documents from `DocumentService.getPublishedDocuments()` under
+"Announcements" (`L2-REQ-101`). When a list is empty, or its request fails, the
+section shows the `.empty` state drawn in
+`docs/mocks/pages/admin-landing/empty.html` in place of the list card: "No
+board members listed yet" or "No announcements yet", each with one line saying
+when the list will fill (`L2-REQ-101` AC2, AC3).
+
 ### Public application
 
 Nothing changes. `LandingComponent` reads
@@ -136,7 +147,9 @@ The Playwright `admin` project covers the screen in
 `e2e/tests/admin/board.spec.ts` with selectors in `e2e/pages/admin/board.page.ts`;
 the add, move and remove tests open the public home page in the same browser
 context to check "Meet the board", and two tests open the admin landing page
-(`e2e/pages/admin/landing.page.ts`) to check it shows the same list. The in-process mock API serves
+(`e2e/pages/admin/landing.page.ts`) to check it shows the same list.
+`e2e/tests/admin/landing.spec.ts` checks the landing page's empty board and
+announcements states. The in-process mock API serves
 `api/board-of-directors` from the same `BoardOfDirectors` entry with the same
 role check.
 
@@ -146,6 +159,7 @@ role check.
 |-------|--------------|-------------|
 | `L2-REQ-085` | `L1-REQ-010`, `L1-REQ-016` | The admin app shall let an office administrator add, edit, reorder and remove the directors that the public home page lists under "Meet the board", from a "Board" screen at `/board`. |
 | `L2-REQ-086` | `L1-REQ-010`, `L1-REQ-016` | The API shall expose the board list at `/api/board-of-directors`, store it as the `BoardOfDirectors` JSON content entry that the home page reads, and restrict changes to roles that hold `Write` on the `JsonContent` aggregate. |
+| `L2-REQ-101` | `L1-REQ-013` | The admin app's landing page shall list the Board of Directors and the co-op's announcements, and shall say plainly when either list is empty. |
 
 ## Diagrams
 

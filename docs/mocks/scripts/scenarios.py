@@ -48,8 +48,8 @@ def notice(app,name,parent,req,patch,variant='success',note=''):
 
 for app in ['public','admin']:
     if app=='admin':  # the public landing is the hand-written OWN proposal in pages/public-landing; it is not captured
-        s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=DIRECTORS,notices=DOCS[:1],currentYear=2026))
-        state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='Empty CMS collections. No loading or error screen is implemented.')
+        s=add(app,'landing',[53,68,70,85,101],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=DIRECTORS,notices=DOCS[:1],currentYear=2026))
+        state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='No director listed and no documents: each section shows its empty state in place of the list (L2-REQ-101 AC2, AC3); a failed request shows the same. No loading or error screen is implemented.')
     s=add(app,'login',[7,76]); state(s); state(s,'invalid',dict(submitted=True))
     state(s,'submitting',dict(loading=True,username='mira.fern',password='FictionalPass123!'),forms={'loginForm':dict(username='mira.fern',password='FictionalPass123!')} if app=='admin' else {})
     state(s,'error',dict(loginError='Invalid username or password',username='mira.fern'),forms={'loginForm':dict(username='mira.fern')} if app=='admin' else {})

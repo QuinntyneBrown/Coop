@@ -380,7 +380,9 @@
       "requirements": [
         "L2-REQ-053",
         "L2-REQ-068",
-        "L2-REQ-070"
+        "L2-REQ-070",
+        "L2-REQ-085",
+        "L2-REQ-101"
       ],
       "note": "",
       "states": [

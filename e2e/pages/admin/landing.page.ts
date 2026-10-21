@@ -1,4 +1,4 @@
-import { type Locator, type Page } from "@playwright/test";
+import { type Locator, type Page } from '@playwright/test';
 
 /**
  * The admin app's landing page (`/`), drawn in docs/mocks/pages/admin-landing/.
@@ -13,28 +13,28 @@ export class AdminLandingPage {
   readonly boardMembers: Locator;
   readonly boardMemberNames: Locator;
   readonly noticeDates: Locator;
+  readonly notices: Locator;
   readonly boardEmpty: Locator;
   readonly noticesEmpty: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.brand = page.getByTestId("landing-navbar");
-    this.heroTitle = page.getByTestId("landing-hero-title");
-    this.heroSubtitle = page.getByTestId("landing-hero-subtitle");
-    this.boardMembers = page.getByTestId("landing-board-member");
-    this.boardMemberNames = this.boardMembers.getByRole("heading");
-    this.noticeDates = page.getByTestId("landing-notice-date");
-    this.boardEmpty = page.getByTestId("landing-board-empty");
-    this.noticesEmpty = page.getByTestId("landing-notices-empty");
+    this.brand = page.getByTestId('landing-navbar');
+    this.heroTitle = page.getByTestId('landing-hero-title');
+    this.heroSubtitle = page.getByTestId('landing-hero-subtitle');
+    this.boardMembers = page.getByTestId('landing-board-member');
+    this.boardMemberNames = this.boardMembers.getByRole('heading');
+    this.noticeDates = page.getByTestId('landing-notice-date');
+    this.notices = page.getByTestId('landing-notice-card');
+    this.boardEmpty = page.getByTestId('landing-board-empty');
+    this.noticesEmpty = page.getByTestId('landing-notices-empty');
   }
 
   async goto() {
-    await this.page.goto("/");
+    await this.page.goto('/');
   }
 
   boardMember(name: string): Locator {
-    return this.boardMembers.filter({
-      has: this.page.getByRole("heading", { name }),
-    });
+    return this.boardMembers.filter({ has: this.page.getByRole('heading', { name }) });
   }
 }
