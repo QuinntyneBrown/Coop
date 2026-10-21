@@ -1,0 +1,11 @@
+// Loaded after docs/design-system/tokens/tokens.css and the library's
+// styles/foundations.scss (see the angular.json storybook targets). Mirrors the
+// admin's global form-control font reset in projects/admin/src/styles.scss so
+// the stories look as the components do in the running app.
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

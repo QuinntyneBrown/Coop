@@ -306,6 +306,34 @@
             "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"],
             "eslintConfig": "projects/components/eslint.config.js"
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/components/.storybook",
+            "tsConfig": "projects/components/.storybook/tsconfig.json",
+            "compodoc": false,
+            "styles": [
+              "../docs/design-system/tokens/tokens.css",
+              "projects/components/src/styles/foundations.scss",
+              "projects/components/.storybook/preview.scss"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/components/.storybook",
+            "tsConfig": "projects/components/.storybook/tsconfig.json",
+            "compodoc": false,
+            "styles": [
+              "../docs/design-system/tokens/tokens.css",
+              "projects/components/src/styles/foundations.scss",
+              "projects/components/.storybook/preview.scss"
+            ],
+            "outputDir": "dist/storybook/components"
+          }
         }
       }
     }
