@@ -33,6 +33,15 @@ member. In the admin app Mira signs in with the SystemAdministrator role,
 Tavi and Neri have BoardMember, and Oren has Member. The invented address is **101 Fictional Court**, unit 101. No real
 cooperative or address is represented.
 
+**The member view.** `admin-member-*` mocks show the admin site as Oren Reed
+(`oren.reed`, unit 102, role Member) sees it: the sidebar and phone tab bar
+list only Dashboard, Maintenance, Documents, Messages and My profile; his two
+requests (bathroom fan, New; window latch, Completed); read-only documents;
+his conversation with Dolores Nakamura of the office; and his profile with
+his picture and the "New notices" choice (L2-REQ-112 to L2-REQ-117). A member
+who types the address of an office area lands on the dashboard, so there is no
+separate "not available" screen.
+
 The shared catalog contains four maintenance requests (kitchen tap, hallway
 light, courtyard gate, window latch), a courtyard gathering notice, a shared
 spaces bylaw, a draft maintenance report, one conversation, two document assets,
@@ -44,7 +53,7 @@ are inert text. The complete fixture and state inventory is in
 
 The user selected **current UI only**. The implementation takes precedence over
 the HTML-mocks skill's suggested future capabilities and generic state matrix.
-Both apps are covered: 10 public routes and 17 admin route presentations. The
+Both apps are covered: the public site's anonymous routes and the admin route presentations, with the admin member view drawn separately (`admin-member-*`). The
 public landing page and the website page screens are the exceptions described
 under *Proposal* below: they are hand-written design references that the
 applications implement, and `scripts/capture.py` does not capture them.
@@ -83,26 +92,24 @@ reported during verification. The review panel is outside the product UI.
 - **Theme:** the public app has no dark palette or dark-mode switch; public
   mocks stay light. Admin mocks follow the design system's light and dark
   themes (see above).
-- **Authentication:** the public site has no login screen. Its "Member sign
-  in" links, the register and forgot-password "Sign in" links, and Log Out on
-  the public profile all open the admin login (`admin-login`, L2-REQ-101).
-  Successful admin login goes to the dashboard; successful registration goes
-  to onboarding (admin first attempts login). They have no separate success
-  screen. Both forgot-password submit handlers are stubs.
+- **Authentication:** the public site has no login screen and no signed-in
+  pages (L2-REQ-110). Its "Member sign in" links and the footer's "Report a
+  repair" open the admin login (`admin-login`, L2-REQ-101). Register and
+  forgot-password exist only on the admin site (L2-REQ-111). Successful admin
+  login goes to the dashboard; successful registration goes to onboarding
+  (admin first attempts login). They have no separate success screen. The
+  forgot-password submit handler is a stub.
 - **Loading and errors:** retain implemented spinners rather than introducing
   skeletons. Several fetch failures become an empty list or leave the previous
   data unchanged. Missing error states are explained in the manifest; no new
   error banners, offline behavior, 403/500 pages, or notification center is added.
-- **Public profile:** edit and password forms expand inline. Saving a profile
-  also reports success after an API failure. Password success closes its form.
-  Avatar upload can update the image but has no explicit progress/error UI.
 - **Admin profiles:** edits stay open after save, including failed saves that
   display success. Switching profiles opens editing. Inline password changes
   have no mismatch check or visible failure state.
 - **Admin users:** the edit dialog submits through `addUser()`/`createUser()`.
   Pagination is two users per page. Several fields have only touched-invalid
   styling, with no explanatory validation text.
-- **Maintenance:** public photo selection is a stub. Admin Receive can change
+- **Maintenance:** Admin Receive can change
   status locally after a server failure; its button remains visible for all
   statuses. Edit Description has no handler. No extra lifecycle dialogs are
   invented. Failed creates/comments have no distinct visible error state.
@@ -111,8 +118,7 @@ reported during verification. The review panel is outside the product UI.
   is applied; other types are still created as plain documents. The dormant edit title branch
   has no implemented entry action, so it is not presented as an edit flow.
 - **Messaging:** admin Start New Conversation only closes the dialog and clears
-  the recipient. A public failed send clears the input without adding a message.
-  Neither app supplies a new failure notification.
+  the recipient. It supplies no failure notification.
 - **Assets and invitations:** asset Download has no handler. Upload progress
   becomes zero and never advances through progress events. Asset deletion opens
   a second overlay over the detail dialog. Failed uploads/invitation creation
@@ -187,34 +193,28 @@ editor. The website page editor shows its hero photo as a thumbnail with
 content, which the seed publishes (`L2-REQ-100`).
 
 **Photos on maintenance requests.** Members attach photos to their own
-requests and the office sees them (`L2-REQ-089`). These states are
-hand-written on the captured maintenance screens with
-`assets/maintenance-photos.css` and the fictional illustrations in
-`assets/photos/`: `dialogs/public-maintenance-create/` photos, sending and
-photo-invalid; `dialogs/public-maintenance-detail/` photos, adding-photo and
-photo-error (default and empty show the "Add a photo" control);
-`pages/public-maintenance/photo-failed.html` for a photo that failed after the
-request was sent; and `pages/admin-maintenance/detail-photos.html` for the
-office. They are listed in the manifest but not in the coverage table below.
+requests and the office sees them (`L2-REQ-089`). The member's states use the
+fictional illustrations in `assets/photos/`:
+`dialogs/admin-member-maintenance-create/` photos, busy and photo-invalid;
+`pages/admin-member-maintenance/` detail-photos, adding-photo and photo-error
+(detail shows the "Add a photo" control); `photo-failed.html` for a photo that
+failed after the request was sent; and
+`pages/admin-maintenance/detail-photos.html` for the office.
 
 **Profile pictures.** Members set, replace and remove their own picture,
-and it shows beside their name (`L2-REQ-091`). These states are hand-written
-on the captured screens with `assets/profile-picture.css` and the fictional
-illustration `assets/photos/portrait.svg`: `pages/public-profile/` photo,
-photo-preview, photo-saving, photo-invalid, photo-too-large, photo-error and
-photo-removed; `pages/public-messaging/chat-photo.html` for the picture
-beside the sender; and `pages/admin-maintenance/detail-submitter-photo.html`
-for the office. They are listed in the manifest but not in the coverage
-table below.
+and it shows beside their name (`L2-REQ-091`). These states use the
+fictional illustration `assets/photos/portrait.svg`:
+`pages/admin-member-profile/` photo-preview, photo-saving, photo-saved,
+photo-invalid, photo-too-large, photo-error and photo-removed; and
+`pages/admin-maintenance/detail-submitter-photo.html` for the office.
 
 **Sending notices.** Members choose on their profile whether new notices
 reach them by email or text message (`L2-REQ-092`), and the office sends a
-published notice to them once (`L2-REQ-093`). These states are hand-written
-on the captured screens with `assets/send-notices.css`:
+published notice to them once (`L2-REQ-093`):
 `dialogs/admin-document-create/` send, busy and send-error;
 `notifications/admin-notice-sent/success.html`; the "New notices" row on the
-`pages/public-profile/` states; and the "Send me new notices" choice in
-`pages/public-profile/edit.html` and notices-invalid. No message provider is
+`pages/admin-member-profile/` states; and the "Send me new notices" choice in
+`pages/admin-member-profile/edit.html` and notices-invalid. No message provider is
 connected yet; the API writes each message to its log.
 
 **400% zoom.** Every screen reflows to one column at 320 CSS px wide
@@ -288,7 +288,7 @@ python "$mockSkill/scripts/check_mocks.py" docs/mocks --write
 python "$mockSkill/scripts/screenshot_mocks.py" docs/mocks --theme light
 ```
 
-`--only public-register` limits capture to matching screen IDs during maintenance.
+`--only admin-register` limits capture to matching screen IDs during maintenance.
 The manifest and state definitions are reviewed inputs; inspect implementation
 changes before recapturing. Captured HTML works without Angular, a development
 server, an API, or an internet connection. Generated caches are ignored.
@@ -306,34 +306,32 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 
 ### Pages
 
-| Screen | default | loading | empty | error | menu | invalid | mismatch | submitting | partial | notices | bylaws | reports | no-results | new | received | started | done | photo-failed | chat | chat-empty | read | chat-photo | profile | unit | unit-selected | success | edit | password | password-invalid | password-error | photo | photo-preview | photo-saving | photo-invalid | photo-too-large | photo-error | photo-removed | notices-invalid | detail-new | detail-received | detail-started | detail-completed | comments | comments-empty | detail-photos | detail-submitter-photo | board-edit | page-2 | no-privileges | member | content | account | not-found | Requirements |
+| Screen | default | loading | empty | error | menu | notices | bylaws | reports | no-results | invalid | submitting | mismatch | partial | new | started | done | received | detail-new | detail-received | detail-started | detail-completed | comments | comments-empty | detail-photos | detail-submitter-photo | chat | chat-empty | read | profile | unit | unit-selected | edit | password | board-edit | page-2 | no-privileges | member | content | account | forbidden | detail | adding-photo | photo-error | photo-failed | notices-invalid | saved | photo-preview | photo-saving | photo-saved | photo-invalid | photo-too-large | photo-removed | not-found | Requirements |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Public · Landing (`public-landing`) | [✅](pages/public-landing/default.html) | ➖ | ➖ | ➖ | [✅](pages/public-landing/menu.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-053`, `L2-REQ-068`, `L2-REQ-070`, `L2-REQ-072` |
-| Public · Register (`public-register`) | [✅](pages/public-register/default.html) | ➖ | ➖ | [✅](pages/public-register/error.html) |  | [✅](pages/public-register/invalid.html) | [✅](pages/public-register/mismatch.html) | [✅](pages/public-register/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-044`, `L2-REQ-077` |
-| Public · Forgot Password (`public-forgot-password`) | [✅](pages/public-forgot-password/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001` |
-| Public · Dashboard (`public-dashboard`) | [✅](pages/public-dashboard/default.html) | ➖ | [✅](pages/public-dashboard/empty.html) | ➖ |  |  |  |  | [✅](pages/public-dashboard/partial.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-009`, `L2-REQ-030`, `L2-REQ-038` |
-| Public · Documents (`public-documents`) | [✅](pages/public-documents/default.html) | [✅](pages/public-documents/loading.html) | [✅](pages/public-documents/empty.html) | ➖ |  |  |  |  |  | [✅](pages/public-documents/notices.html) | [✅](pages/public-documents/bylaws.html) | [✅](pages/public-documents/reports.html) | [✅](pages/public-documents/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
-| Public · Maintenance (`public-maintenance`) | [✅](pages/public-maintenance/default.html) | [✅](pages/public-maintenance/loading.html) | [✅](pages/public-maintenance/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/public-maintenance/no-results.html) | [✅](pages/public-maintenance/new.html) | [✅](pages/public-maintenance/received.html) | [✅](pages/public-maintenance/started.html) | [✅](pages/public-maintenance/done.html) | [✅](pages/public-maintenance/photo-failed.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-025`, `L2-REQ-030`, `L2-REQ-088`, `L2-REQ-089` |
-| Public · Messaging (`public-messaging`) | [✅](pages/public-messaging/default.html) | [✅](pages/public-messaging/loading.html) | [✅](pages/public-messaging/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/public-messaging/chat.html) | [✅](pages/public-messaging/chat-empty.html) | [✅](pages/public-messaging/read.html) | [✅](pages/public-messaging/chat-photo.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036`, `L2-REQ-037`, `L2-REQ-038`, `L2-REQ-091` |
-| Public · Onboarding (`public-onboarding`) | [✅](pages/public-onboarding/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/public-onboarding/profile.html) | [✅](pages/public-onboarding/unit.html) | [✅](pages/public-onboarding/unit-selected.html) | [✅](pages/public-onboarding/success.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-014` |
-| Public · Profile (`public-profile`) | [✅](pages/public-profile/default.html) | ➖ | [✅](pages/public-profile/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/public-profile/edit.html) | [✅](pages/public-profile/password.html) | [✅](pages/public-profile/password-invalid.html) | [✅](pages/public-profile/password-error.html) | [✅](pages/public-profile/photo.html) | [✅](pages/public-profile/photo-preview.html) | [✅](pages/public-profile/photo-saving.html) | [✅](pages/public-profile/photo-invalid.html) | [✅](pages/public-profile/photo-too-large.html) | [✅](pages/public-profile/photo-error.html) | [✅](pages/public-profile/photo-removed.html) | [✅](pages/public-profile/notices-invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-015`, `L2-REQ-016`, `L2-REQ-018`, `L2-REQ-019`, `L2-REQ-091`, `L2-REQ-092` |
+| Public · Documents (`public-documents`) | [✅](pages/public-documents/default.html) | [✅](pages/public-documents/loading.html) | [✅](pages/public-documents/empty.html) | ➖ |  | [✅](pages/public-documents/notices.html) | [✅](pages/public-documents/bylaws.html) | [✅](pages/public-documents/reports.html) | [✅](pages/public-documents/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
 | Admin · Landing (`admin-landing`) | [✅](pages/admin-landing/default.html) | ➖ | [✅](pages/admin-landing/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-053`, `L2-REQ-068`, `L2-REQ-070` |
-| Admin · Login (`admin-login`) | [✅](pages/admin-login/default.html) | ➖ | ➖ | [✅](pages/admin-login/error.html) |  | [✅](pages/admin-login/invalid.html) |  | [✅](pages/admin-login/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-007`, `L2-REQ-101` |
-| Admin · Register (`admin-register`) | [✅](pages/admin-register/default.html) | ➖ | ➖ | [✅](pages/admin-register/error.html) |  | [✅](pages/admin-register/invalid.html) | [✅](pages/admin-register/mismatch.html) | [✅](pages/admin-register/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-044`, `L2-REQ-077` |
+| Admin · Login (`admin-login`) | [✅](pages/admin-login/default.html) | ➖ | ➖ | [✅](pages/admin-login/error.html) |  |  |  |  |  | [✅](pages/admin-login/invalid.html) | [✅](pages/admin-login/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-007`, `L2-REQ-101` |
+| Admin · Register (`admin-register`) | [✅](pages/admin-register/default.html) | ➖ | ➖ | [✅](pages/admin-register/error.html) |  |  |  |  |  | [✅](pages/admin-register/invalid.html) | [✅](pages/admin-register/submitting.html) | [✅](pages/admin-register/mismatch.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-044`, `L2-REQ-077` |
 | Admin · Forgot Password (`admin-forgot-password`) | [✅](pages/admin-forgot-password/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001` |
-| Admin · Dashboard (`admin-dashboard`) | [✅](pages/admin-dashboard/default.html) | ➖ | [✅](pages/admin-dashboard/empty.html) | ➖ |  |  |  |  | [✅](pages/admin-dashboard/partial.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-009`, `L2-REQ-030`, `L2-REQ-035`, `L2-REQ-038` |
-| Admin · Documents (`admin-documents`) | [✅](pages/admin-documents/default.html) | [✅](pages/admin-documents/loading.html) | [✅](pages/admin-documents/empty.html) | ➖ |  |  |  |  |  | [✅](pages/admin-documents/notices.html) | [✅](pages/admin-documents/bylaws.html) | [✅](pages/admin-documents/reports.html) | [✅](pages/admin-documents/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
-| Admin · Maintenance (`admin-maintenance`) | [✅](pages/admin-maintenance/default.html) | [✅](pages/admin-maintenance/loading.html) | [✅](pages/admin-maintenance/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/admin-maintenance/no-results.html) | [✅](pages/admin-maintenance/new.html) | [✅](pages/admin-maintenance/received.html) | [✅](pages/admin-maintenance/started.html) | [✅](pages/admin-maintenance/done.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-maintenance/detail-new.html) | [✅](pages/admin-maintenance/detail-received.html) | [✅](pages/admin-maintenance/detail-started.html) | [✅](pages/admin-maintenance/detail-completed.html) | [✅](pages/admin-maintenance/comments.html) | [✅](pages/admin-maintenance/comments-empty.html) | [✅](pages/admin-maintenance/detail-photos.html) | [✅](pages/admin-maintenance/detail-submitter-photo.html) |  |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-025`, `L2-REQ-030`, `L2-REQ-087`, `L2-REQ-089`, `L2-REQ-091` |
-| Admin · Messaging (`admin-messaging`) | [✅](pages/admin-messaging/default.html) | [✅](pages/admin-messaging/loading.html) | [✅](pages/admin-messaging/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/admin-messaging/no-results.html) |  |  |  |  |  | [✅](pages/admin-messaging/chat.html) | [✅](pages/admin-messaging/chat-empty.html) | [✅](pages/admin-messaging/read.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036`, `L2-REQ-037`, `L2-REQ-038` |
-| Admin · Onboarding (`admin-onboarding`) | [✅](pages/admin-onboarding/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-onboarding/profile.html) | [✅](pages/admin-onboarding/unit.html) | [✅](pages/admin-onboarding/unit-selected.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-014` |
-| Admin · Profile (`admin-profile`) | [✅](pages/admin-profile/default.html) | ➖ | [✅](pages/admin-profile/empty.html) | ➖ |  | [✅](pages/admin-profile/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profile/edit.html) | [✅](pages/admin-profile/password.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profile/board-edit.html) |  |  |  |  |  |  | `L2-REQ-015`, `L2-REQ-016`, `L2-REQ-018`, `L2-REQ-019` |
-| Admin · Profiles (`admin-profiles`) | [✅](pages/admin-profiles/default.html) | ➖ | [✅](pages/admin-profiles/empty.html) | ➖ |  | [✅](pages/admin-profiles/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profiles/edit.html) | [✅](pages/admin-profiles/password.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profiles/board-edit.html) |  |  |  |  |  |  | `L2-REQ-015`, `L2-REQ-016`, `L2-REQ-018`, `L2-REQ-019` |
-| Admin · Users (`admin-users`) | [✅](pages/admin-users/default.html) | ➖ | [✅](pages/admin-users/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/admin-users/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-users/page-2.html) |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-002`, `L2-REQ-003`, `L2-REQ-013`, `L2-REQ-057` |
-| Admin · Roles (`admin-roles`) | [✅](pages/admin-roles/default.html) | ➖ | [✅](pages/admin-roles/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-roles/no-privileges.html) | [✅](pages/admin-roles/member.html) |  |  |  | `L2-REQ-010`, `L2-REQ-011`, `L2-REQ-012` |
-| Admin · Assets (`admin-assets`) | [✅](pages/admin-assets/default.html) | ➖ | [✅](pages/admin-assets/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/admin-assets/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-040`, `L2-REQ-041`, `L2-REQ-042` |
+| Admin · Dashboard (`admin-dashboard`) | [✅](pages/admin-dashboard/default.html) | ➖ | [✅](pages/admin-dashboard/empty.html) | ➖ |  |  |  |  |  |  |  |  | [✅](pages/admin-dashboard/partial.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-009`, `L2-REQ-030`, `L2-REQ-035`, `L2-REQ-038` |
+| Admin · Documents (`admin-documents`) | [✅](pages/admin-documents/default.html) | [✅](pages/admin-documents/loading.html) | [✅](pages/admin-documents/empty.html) | ➖ |  | [✅](pages/admin-documents/notices.html) | [✅](pages/admin-documents/bylaws.html) | [✅](pages/admin-documents/reports.html) | [✅](pages/admin-documents/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
+| Admin · Maintenance (`admin-maintenance`) | [✅](pages/admin-maintenance/default.html) | [✅](pages/admin-maintenance/loading.html) | [✅](pages/admin-maintenance/empty.html) | ➖ |  |  |  |  | [✅](pages/admin-maintenance/no-results.html) |  |  |  |  | [✅](pages/admin-maintenance/new.html) | [✅](pages/admin-maintenance/started.html) | [✅](pages/admin-maintenance/done.html) | [✅](pages/admin-maintenance/received.html) | [✅](pages/admin-maintenance/detail-new.html) | [✅](pages/admin-maintenance/detail-received.html) | [✅](pages/admin-maintenance/detail-started.html) | [✅](pages/admin-maintenance/detail-completed.html) | [✅](pages/admin-maintenance/comments.html) | [✅](pages/admin-maintenance/comments-empty.html) | [✅](pages/admin-maintenance/detail-photos.html) | [✅](pages/admin-maintenance/detail-submitter-photo.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-025`, `L2-REQ-030`, `L2-REQ-087`, `L2-REQ-089`, `L2-REQ-091` |
+| Admin · Messaging (`admin-messaging`) | [✅](pages/admin-messaging/default.html) | [✅](pages/admin-messaging/loading.html) | [✅](pages/admin-messaging/empty.html) | ➖ |  |  |  |  | [✅](pages/admin-messaging/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-messaging/chat.html) | [✅](pages/admin-messaging/chat-empty.html) | [✅](pages/admin-messaging/read.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036`, `L2-REQ-037`, `L2-REQ-038` |
+| Admin · Onboarding (`admin-onboarding`) | [✅](pages/admin-onboarding/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-onboarding/profile.html) | [✅](pages/admin-onboarding/unit.html) | [✅](pages/admin-onboarding/unit-selected.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-014` |
+| Admin · Profile (`admin-profile`) | [✅](pages/admin-profile/default.html) | ➖ | [✅](pages/admin-profile/empty.html) | ➖ |  |  |  |  |  | [✅](pages/admin-profile/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profile/edit.html) | [✅](pages/admin-profile/password.html) | [✅](pages/admin-profile/board-edit.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-015`, `L2-REQ-016`, `L2-REQ-018`, `L2-REQ-019` |
+| Admin · Profiles (`admin-profiles`) | [✅](pages/admin-profiles/default.html) | ➖ | [✅](pages/admin-profiles/empty.html) | ➖ |  |  |  |  |  | [✅](pages/admin-profiles/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-profiles/edit.html) | [✅](pages/admin-profiles/password.html) | [✅](pages/admin-profiles/board-edit.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-015`, `L2-REQ-016`, `L2-REQ-018`, `L2-REQ-019` |
+| Admin · Users (`admin-users`) | [✅](pages/admin-users/default.html) | ➖ | [✅](pages/admin-users/empty.html) | ➖ |  |  |  |  | [✅](pages/admin-users/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-users/page-2.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001`, `L2-REQ-002`, `L2-REQ-003`, `L2-REQ-013`, `L2-REQ-057` |
+| Admin · Roles (`admin-roles`) | [✅](pages/admin-roles/default.html) | ➖ | [✅](pages/admin-roles/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-roles/no-privileges.html) | [✅](pages/admin-roles/member.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-010`, `L2-REQ-011`, `L2-REQ-012` |
+| Admin · Assets (`admin-assets`) | [✅](pages/admin-assets/default.html) | ➖ | [✅](pages/admin-assets/empty.html) | ➖ |  |  |  |  | [✅](pages/admin-assets/no-results.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-040`, `L2-REQ-041`, `L2-REQ-042` |
 | Admin · Invitations (`admin-invitations`) | [✅](pages/admin-invitations/default.html) | ➖ | [✅](pages/admin-invitations/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-043`, `L2-REQ-044` |
-| Admin · Settings (`admin-settings`) | [✅](pages/admin-settings/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-settings/content.html) | [✅](pages/admin-settings/account.html) |  | `L2-REQ-045`, `L2-REQ-046` |
-| Admin · Change Password (`admin-change-password`) | [✅](pages/admin-change-password/default.html) | ➖ | ➖ | [✅](pages/admin-change-password/error.html) |  | [✅](pages/admin-change-password/invalid.html) | [✅](pages/admin-change-password/mismatch.html) | [✅](pages/admin-change-password/submitting.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-004` |
+| Admin · Settings (`admin-settings`) | [✅](pages/admin-settings/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-settings/content.html) | [✅](pages/admin-settings/account.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-045`, `L2-REQ-046` |
+| Admin · Change Password (`admin-change-password`) | [✅](pages/admin-change-password/default.html) | ➖ | ➖ | [✅](pages/admin-change-password/error.html) |  |  |  |  |  | [✅](pages/admin-change-password/invalid.html) | [✅](pages/admin-change-password/submitting.html) | [✅](pages/admin-change-password/mismatch.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-004` |
+| Admin · Member Dashboard (`admin-member-dashboard`) | [✅](pages/admin-member-dashboard/default.html) | ➖ | [✅](pages/admin-member-dashboard/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-112`, `L2-REQ-114`, `L2-REQ-117` |
+| Admin · Member Maintenance (`admin-member-maintenance`) | [✅](pages/admin-member-maintenance/default.html) | [✅](pages/admin-member-maintenance/loading.html) | [✅](pages/admin-member-maintenance/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-member-maintenance/detail-completed.html) | [✅](pages/admin-member-maintenance/comments.html) |  | [✅](pages/admin-member-maintenance/detail-photos.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ➖ | [✅](pages/admin-member-maintenance/detail.html) | [✅](pages/admin-member-maintenance/adding-photo.html) | [✅](pages/admin-member-maintenance/photo-error.html) | [✅](pages/admin-member-maintenance/photo-failed.html) |  |  |  |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-030`, `L2-REQ-088`, `L2-REQ-089`, `L2-REQ-114`, `L2-REQ-115`, `L2-REQ-117` |
+| Admin · Member Documents (`admin-member-documents`) | [✅](pages/admin-member-documents/default.html) | [✅](pages/admin-member-documents/loading.html) | [✅](pages/admin-member-documents/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035`, `L2-REQ-112`, `L2-REQ-117` |
+| Admin · Member Messaging (`admin-member-messaging`) | [✅](pages/admin-member-messaging/default.html) | [✅](pages/admin-member-messaging/loading.html) | [✅](pages/admin-member-messaging/empty.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-member-messaging/chat.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036`, `L2-REQ-037`, `L2-REQ-038`, `L2-REQ-114`, `L2-REQ-117` |
+| Admin · Member Profile (`admin-member-profile`) | [✅](pages/admin-member-profile/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-member-profile/edit.html) |  |  |  |  |  |  |  |  |  |  | [✅](pages/admin-member-profile/photo-error.html) |  | [✅](pages/admin-member-profile/notices-invalid.html) | [✅](pages/admin-member-profile/saved.html) | [✅](pages/admin-member-profile/photo-preview.html) | [✅](pages/admin-member-profile/photo-saving.html) | [✅](pages/admin-member-profile/photo-saved.html) | [✅](pages/admin-member-profile/photo-invalid.html) | [✅](pages/admin-member-profile/photo-too-large.html) | [✅](pages/admin-member-profile/photo-removed.html) |  | `L2-REQ-004`, `L2-REQ-015`, `L2-REQ-091`, `L2-REQ-092`, `L2-REQ-114`, `L2-REQ-116`, `L2-REQ-117` |
 | Public · Page (`public-page`) | [✅](pages/public-page/default.html) | [✅](pages/public-page/loading.html) | ➖ | [✅](pages/public-page/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/public-page/not-found.html) | `L2-REQ-072`, `L2-REQ-073`, `L2-REQ-082`, `L2-REQ-083`, `L2-REQ-084` |
 | Admin · Pages (`admin-pages`) | [✅](pages/admin-pages/default.html) | [✅](pages/admin-pages/loading.html) | [✅](pages/admin-pages/empty.html) | [✅](pages/admin-pages/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-080` |
 | Admin · Board (`admin-board`) | [✅](pages/admin-board/default.html) | [✅](pages/admin-board/loading.html) | [✅](pages/admin-board/empty.html) | [✅](pages/admin-board/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-085` |
@@ -341,37 +339,34 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 
 ### Dialogs
 
-| Screen | default | busy | invalid | photos | sending | photo-invalid | empty | adding-photo | photo-error | send | send-error | failed | edit | list | uploading | upload-failed | Requirements |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Public · Document Viewer (`public-document-viewer`) | [✅](dialogs/public-document-viewer/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
-| Public · Maintenance Create (`public-maintenance-create`) | [✅](dialogs/public-maintenance-create/default.html) |  | [✅](dialogs/public-maintenance-create/invalid.html) | [✅](dialogs/public-maintenance-create/photos.html) | [✅](dialogs/public-maintenance-create/sending.html) | [✅](dialogs/public-maintenance-create/photo-invalid.html) |  |  |  |  |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-089` |
-| Public · Maintenance Detail (`public-maintenance-detail`) | [✅](dialogs/public-maintenance-detail/default.html) | ➖ | ➖ | [✅](dialogs/public-maintenance-detail/photos.html) |  |  | [✅](dialogs/public-maintenance-detail/empty.html) | [✅](dialogs/public-maintenance-detail/adding-photo.html) | [✅](dialogs/public-maintenance-detail/photo-error.html) |  |  |  |  |  |  |  | `L2-REQ-028`, `L2-REQ-029`, `L2-REQ-030`, `L2-REQ-088`, `L2-REQ-089` |
-| Public · Profile Switcher (`public-profile-switcher`) | [✅](dialogs/public-profile-switcher/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-018` |
-| Admin · Document Viewer (`admin-document-viewer`) | [✅](dialogs/admin-document-viewer/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
-| Admin · Maintenance Create (`admin-maintenance-create`) | [✅](dialogs/admin-maintenance-create/default.html) | ➖ | [✅](dialogs/admin-maintenance-create/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-021` |
-| Admin · New Conversation (`admin-new-conversation`) | [✅](dialogs/admin-new-conversation/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036` |
-| Admin · User Create (`admin-user-create`) | [✅](dialogs/admin-user-create/default.html) | ➖ | [✅](dialogs/admin-user-create/invalid.html) |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001` |
-| Admin · User Edit (`admin-user-edit`) | [✅](dialogs/admin-user-edit/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-002` |
-| Admin · User Delete (`admin-user-delete`) | [✅](dialogs/admin-user-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-003` |
-| Admin · Asset Upload (`admin-asset-upload`) | [✅](dialogs/admin-asset-upload/default.html) | [✅](dialogs/admin-asset-upload/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-040` |
-| Admin · Asset Detail (`admin-asset-detail`) | [✅](dialogs/admin-asset-detail/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-041` |
-| Admin · Asset Delete (`admin-asset-delete`) | [✅](dialogs/admin-asset-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-042` |
-| Admin · Invitation Create (`admin-invitation-create`) | [✅](dialogs/admin-invitation-create/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-043` |
-| Admin · Invitation Created (`admin-invitation-created`) | [✅](dialogs/admin-invitation-created/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-043` |
-| Admin · Document Create (`admin-document-create`) | [✅](dialogs/admin-document-create/default.html) | [✅](dialogs/admin-document-create/busy.html) | ➖ |  |  |  |  |  |  | [✅](dialogs/admin-document-create/send.html) | [✅](dialogs/admin-document-create/send-error.html) |  |  |  |  |  | `L2-REQ-031`, `L2-REQ-093` |
-| Admin · Document Delete (`admin-document-delete`) | [✅](dialogs/admin-document-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-034` |
-| Admin · Page Editor (`admin-page-editor`) | [✅](dialogs/admin-page-editor/default.html) | [✅](dialogs/admin-page-editor/busy.html) | [✅](dialogs/admin-page-editor/invalid.html) |  |  |  |  |  |  |  |  | [✅](dialogs/admin-page-editor/failed.html) | [✅](dialogs/admin-page-editor/edit.html) |  |  |  | `L2-REQ-080`, `L2-REQ-097` |
-| Admin · Page Remove (`admin-page-remove`) | [✅](dialogs/admin-page-remove/default.html) | [✅](dialogs/admin-page-remove/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-080` |
-| Admin · Director Editor (`admin-director-editor`) | [✅](dialogs/admin-director-editor/default.html) | [✅](dialogs/admin-director-editor/busy.html) | [✅](dialogs/admin-director-editor/invalid.html) |  |  |  |  |  |  |  |  | [✅](dialogs/admin-director-editor/failed.html) | [✅](dialogs/admin-director-editor/edit.html) |  |  |  | `L2-REQ-085` |
-| Admin · Director Remove (`admin-director-remove`) | [✅](dialogs/admin-director-remove/default.html) | [✅](dialogs/admin-director-remove/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-REQ-085` |
-| Admin · Content Editor (`admin-content-editor`) | [✅](dialogs/admin-content-editor/default.html) | [✅](dialogs/admin-content-editor/busy.html) | [✅](dialogs/admin-content-editor/invalid.html) |  |  |  |  |  |  |  |  | [✅](dialogs/admin-content-editor/failed.html) |  | [✅](dialogs/admin-content-editor/list.html) |  |  | `L2-REQ-095`, `L2-REQ-096`, `L2-REQ-097`, `L2-REQ-098` |
-| Admin · Photo Picker (`admin-photo-picker`) | [✅](dialogs/admin-photo-picker/default.html) | ➖ | ➖ |  |  |  | [✅](dialogs/admin-photo-picker/empty.html) |  |  |  |  |  |  |  | [✅](dialogs/admin-photo-picker/uploading.html) | [✅](dialogs/admin-photo-picker/upload-failed.html) | `L2-REQ-097` |
+| Screen | default | busy | invalid | send | send-error | photos | photo-invalid | failed | edit | list | empty | uploading | upload-failed | Requirements |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Public · Document Viewer (`public-document-viewer`) | [✅](dialogs/public-document-viewer/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
+| Admin · Document Viewer (`admin-document-viewer`) | [✅](dialogs/admin-document-viewer/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-035` |
+| Admin · Maintenance Create (`admin-maintenance-create`) | [✅](dialogs/admin-maintenance-create/default.html) | ➖ | [✅](dialogs/admin-maintenance-create/invalid.html) |  |  |  |  |  |  |  |  |  |  | `L2-REQ-021` |
+| Admin · New Conversation (`admin-new-conversation`) | [✅](dialogs/admin-new-conversation/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-036` |
+| Admin · User Create (`admin-user-create`) | [✅](dialogs/admin-user-create/default.html) | ➖ | [✅](dialogs/admin-user-create/invalid.html) |  |  |  |  |  |  |  |  |  |  | `L2-REQ-001` |
+| Admin · User Edit (`admin-user-edit`) | [✅](dialogs/admin-user-edit/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-002` |
+| Admin · User Delete (`admin-user-delete`) | [✅](dialogs/admin-user-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-003` |
+| Admin · Asset Upload (`admin-asset-upload`) | [✅](dialogs/admin-asset-upload/default.html) | [✅](dialogs/admin-asset-upload/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-040` |
+| Admin · Asset Detail (`admin-asset-detail`) | [✅](dialogs/admin-asset-detail/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-041` |
+| Admin · Asset Delete (`admin-asset-delete`) | [✅](dialogs/admin-asset-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-042` |
+| Admin · Invitation Create (`admin-invitation-create`) | [✅](dialogs/admin-invitation-create/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-043` |
+| Admin · Invitation Created (`admin-invitation-created`) | [✅](dialogs/admin-invitation-created/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-043` |
+| Admin · Document Create (`admin-document-create`) | [✅](dialogs/admin-document-create/default.html) | [✅](dialogs/admin-document-create/busy.html) | ➖ | [✅](dialogs/admin-document-create/send.html) | [✅](dialogs/admin-document-create/send-error.html) |  |  |  |  |  |  |  |  | `L2-REQ-031`, `L2-REQ-093` |
+| Admin · Document Delete (`admin-document-delete`) | [✅](dialogs/admin-document-delete/default.html) | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-034` |
+| Admin · Member Maintenance Create (`admin-member-maintenance-create`) | [✅](dialogs/admin-member-maintenance-create/default.html) | [✅](dialogs/admin-member-maintenance-create/busy.html) | [✅](dialogs/admin-member-maintenance-create/invalid.html) |  |  | [✅](dialogs/admin-member-maintenance-create/photos.html) | [✅](dialogs/admin-member-maintenance-create/photo-invalid.html) |  |  |  |  |  |  | `L2-REQ-021`, `L2-REQ-089`, `L2-REQ-115`, `L2-REQ-117` |
+| Admin · Page Editor (`admin-page-editor`) | [✅](dialogs/admin-page-editor/default.html) | [✅](dialogs/admin-page-editor/busy.html) | [✅](dialogs/admin-page-editor/invalid.html) |  |  |  |  | [✅](dialogs/admin-page-editor/failed.html) | [✅](dialogs/admin-page-editor/edit.html) |  |  |  |  | `L2-REQ-080`, `L2-REQ-097` |
+| Admin · Page Remove (`admin-page-remove`) | [✅](dialogs/admin-page-remove/default.html) | [✅](dialogs/admin-page-remove/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-080` |
+| Admin · Director Editor (`admin-director-editor`) | [✅](dialogs/admin-director-editor/default.html) | [✅](dialogs/admin-director-editor/busy.html) | [✅](dialogs/admin-director-editor/invalid.html) |  |  |  |  | [✅](dialogs/admin-director-editor/failed.html) | [✅](dialogs/admin-director-editor/edit.html) |  |  |  |  | `L2-REQ-085` |
+| Admin · Director Remove (`admin-director-remove`) | [✅](dialogs/admin-director-remove/default.html) | [✅](dialogs/admin-director-remove/busy.html) | ➖ |  |  |  |  |  |  |  |  |  |  | `L2-REQ-085` |
+| Admin · Content Editor (`admin-content-editor`) | [✅](dialogs/admin-content-editor/default.html) | [✅](dialogs/admin-content-editor/busy.html) | [✅](dialogs/admin-content-editor/invalid.html) |  |  |  |  | [✅](dialogs/admin-content-editor/failed.html) |  | [✅](dialogs/admin-content-editor/list.html) |  |  |  | `L2-REQ-095`, `L2-REQ-096`, `L2-REQ-097`, `L2-REQ-098` |
+| Admin · Photo Picker (`admin-photo-picker`) | [✅](dialogs/admin-photo-picker/default.html) | ➖ | ➖ |  |  |  |  |  |  |  | [✅](dialogs/admin-photo-picker/empty.html) | [✅](dialogs/admin-photo-picker/uploading.html) | [✅](dialogs/admin-photo-picker/upload-failed.html) | `L2-REQ-097` |
 
 ### Notifications
 
 | Screen | info | success | warning | danger | Requirements |
 |---|---|---|---|---|---|
-| Public · Profile Saved (`public-profile-saved`) | ➖ | [✅](notifications/public-profile-saved/success.html) | ➖ | ➖ | `L2-REQ-015`, `L2-REQ-092` |
 | Admin · Profile Saved (`admin-profile-saved`) | ➖ | [✅](notifications/admin-profile-saved/success.html) | ➖ | ➖ | `L2-REQ-015` |
 | Admin · Profiles Saved (`admin-profiles-saved`) | ➖ | [✅](notifications/admin-profiles-saved/success.html) | ➖ | ➖ | `L2-REQ-015` |
 | Admin · Theme Saved (`admin-theme-saved`) | ➖ | [✅](notifications/admin-theme-saved/success.html) | ➖ | ➖ | `L2-REQ-045` |

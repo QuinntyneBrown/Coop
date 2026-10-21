@@ -15,6 +15,8 @@ import {
 } from 'components';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
+import { MEMBER_LINKS } from './member-links';
+import { OFFICE_LINKS } from './office-links';
 import { SidebarLink } from './sidebar-link';
 
 @Component({
@@ -45,26 +47,16 @@ export class SidebarComponent implements OnInit {
 
   readonly role = signal('');
 
-  readonly links: SidebarLink[] = [
-    { path: '/dashboard', label: 'Dashboard', icon: 'dashboard', testId: 'dashboard' },
-    { path: '/maintenance', label: 'Maintenance', icon: 'maintenance', testId: 'maintenance' },
-    { path: '/documents', label: 'Documents', icon: 'documents', testId: 'documents' },
-    { path: '/pages', label: 'Pages', icon: 'pages', testId: 'pages' },
-    { path: '/board', label: 'Board', icon: 'board', testId: 'board' },
-    { path: '/website', label: 'Website', icon: 'website', testId: 'website' },
-    { path: '/messages', label: 'Messages', icon: 'messages', testId: 'messages' },
-    { path: '/users', label: 'Users', icon: 'users', testId: 'users' },
-    { path: '/roles', label: 'Roles & Privileges', icon: 'roles', testId: 'roles' },
-    { path: '/profiles', label: 'Profiles', icon: 'profiles', testId: 'profiles' },
-    { path: '/assets', label: 'Assets', icon: 'assets', testId: 'assets' },
-    { path: '/invitations', label: 'Invitations', icon: 'invitations', testId: 'invitations' },
-    { path: '/settings', label: 'Settings', icon: 'settings', testId: 'settings' },
-  ];
+  /** Member areas until the server says the person is the office. */
+  readonly links = signal<SidebarLink[]>(MEMBER_LINKS);
 
   ngOnInit(): void {
     this.authService
       .getCurrentUserFromApi()
       .subscribe((response) => this.role.set(userRoleNames(response?.user)));
+    this.authService.office$.subscribe((office) =>
+      this.links.set(office ? OFFICE_LINKS : MEMBER_LINKS),
+    );
   }
 
   get username(): string {

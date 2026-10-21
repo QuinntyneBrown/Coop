@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Documents.Commands.UpdateNotice;
 
+[OfficeOnly]
 public class UpdateNoticeRequest : IRequest<UpdateNoticeResponse>
 {
     public Guid DocumentId { get; set; }

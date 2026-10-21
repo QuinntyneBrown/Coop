@@ -12,25 +12,25 @@ You might want a new password if you think someone else knows it, or if you woul
 
 ## Change it
 
-Tap Profile at the bottom of the screen. Then move down the page, and tap Change Password.
+Sign in, and tap Profile at the bottom of the screen. Under your details, tap Change password.
 
 [pause 2s]
 
-Three boxes open. In the first, type the password you use now. In the second, type your new password. In the third, type the new password once more, exactly the same.
+A page opens with three boxes. In the first, type the password you use now. In the second, type your new password. In the third, type the new password once more, exactly the same.
 
 [pause 2s]
 
-Then tap Update Password. The boxes close, and your new password is ready to use.
+Then tap the Change password button at the bottom. The page says Your password is changed. Use it the next time you sign in.
 
 [pause 2s]
 
 ## If something is wrong
 
-If the two new passwords are not the same, the page tells you. New passwords do not match. Type them again, slowly.
+If the two new passwords are not the same, the page tells you. The new passwords don't match. Type them again, slowly.
 
 [pause 2s]
 
-If your current password is not right, you see a message in red. Failed to change password. Check your current password.
+If your current password is not right, you see a message in red. We couldn't change your password. Check your current password, then try again.
 
 [pause 2s]
 
@@ -40,7 +40,7 @@ Take your time. Nothing changes until all three boxes are right.
 
 ## In short
 
-So, in short. Tap Profile. Tap Change Password. Type your old password, then your new one twice, and tap Update Password.
+So, in short. Tap Profile. Tap Change password. Type your old password, then your new one twice, and tap Change password again.
 
 [pause 1s]
 

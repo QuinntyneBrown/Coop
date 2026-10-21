@@ -1,4 +1,4 @@
 [
-  {"name": "public-dashboard", "mock": "pages/public-dashboard/default.html", "phone": true},
-  {"name": "public-dashboard-empty", "mock": "pages/public-dashboard/empty.html", "phone": true}
+  {"name": "member-dashboard", "mock": "pages/admin-member-dashboard/default.html", "phone": true, "height": 1000},
+  {"name": "member-dashboard-empty", "mock": "pages/admin-member-dashboard/empty.html", "phone": true}
 ]

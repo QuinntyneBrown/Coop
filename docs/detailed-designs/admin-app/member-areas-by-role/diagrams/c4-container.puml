@@ -1,0 +1,22 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Member areas by role
+
+Person(member, "Member")
+Person(office, "Office")
+Person(visitor, "Visitor")
+System_Boundary(coop, "Coop platform") {
+  Container(publicApp, "Public application", "Angular", "Read-only, anonymous: home, website pages, documents; old member addresses open the admin login")
+  Container(adminApp, "Admin application", "Angular", "Sign in, register, onboarding; areas shown by role")
+  Container(api, "Coop API", "ASP.NET Core, MediatR", "Refuses office requests to members (403) and scopes members' data to its owner")
+  ContainerDb(db, "Database", "SQLite via EF Core", "Users, roles, profiles, requests, conversations, documents")
+}
+Rel(visitor, publicApp, "Reads", "HTTPS")
+Rel(publicApp, adminApp, "Member sign in and old member addresses open the login", "browser navigation")
+Rel(publicApp, api, "Anonymous reads", "JSON/HTTPS")
+Rel(member, adminApp, "Uses the member areas", "HTTPS")
+Rel(office, adminApp, "Uses every area", "HTTPS")
+Rel(adminApp, api, "Calls with the person's JWT", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "EF Core")
+@enduml

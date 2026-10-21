@@ -1,4 +1,5 @@
 [
-  {"name": "public-profile", "mock": "pages/public-profile/default.html", "phone": true, "scroll": 420},
-  {"name": "public-login", "mock": "pages/public-login/default.html", "phone": true}
+  {"name": "admin-member-profile", "mock": "pages/admin-member-profile/default.html", "phone": true},
+  {"name": "admin-member-profile-sign-out", "mock": "pages/admin-member-profile/default.html", "phone": true, "scroll": 420},
+  {"name": "admin-login", "mock": "pages/admin-login/default.html", "phone": true}
 ]

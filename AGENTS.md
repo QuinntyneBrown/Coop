@@ -1,7 +1,11 @@
 ## Project Overview
 
 Coop is a documentation-first repository for a cooperative residential
-management platform, covering a public-facing web app and an admin backend.
+management platform, covering a read-only, anonymous public website and an
+admin site that everyone who signs in uses. On the admin site each person sees
+the areas their role allows: members get their own maintenance requests,
+documents, messages and profile, and the office (staff, board members, system
+administrators and support) gets every area (ADR 0016).
 The working tree includes an Angular workspace in `frontend/`, backend source
 in `backend/`, Playwright suite in `e2e/`, and
 implementation-derived HTML references in `docs/mocks/`.
@@ -69,7 +73,7 @@ these locations and move existing files here as areas are touched:
     command-line administration)
   - `backend/tests/` — one test project per layer, e.g. `Coop.Api.Tests`
 - `frontend/` — Angular workspace with projects under `frontend/projects/`:
-  `public` (member app), `admin`, `api` (service contracts and injection
+  `public` (read-only public website), `admin` (office and members), `api` (service contracts and injection
   tokens), and `components` (design-system library)
 - `e2e/` — Playwright suite: `tests/` express intent, `pages/` own selectors
   and interactions, `fixtures/` hold test data

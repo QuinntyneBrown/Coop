@@ -33,6 +33,8 @@ public static class Dependencies
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ICoopDbContext).Assembly);
+            // Office areas are refused before anything else runs (ADR 0016).
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(OfficeOnlyBehavior<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ResourceOperationAuthorizationBehavior<,>));
         });

@@ -1,40 +1,44 @@
 # Journey 05 · Message the office
 
-> **Runtime:** about 1 min 14 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account with a conversation
+> **Runtime:** about 1 min 28 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016), with a conversation
 
 **Video:** [05-message-the-office.mp4](05-message-the-office.mp4) · [Slides](slides.html) · **Audio:** [05-message-the-office.mp3](05-message-the-office.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
-Messages let a member reach the office and her neighbours without a phone call. This video shows how to read a conversation and send a reply.
+Messages let a member reach the office without a phone call. This video shows
+a member, signed in on the admin site, how to read a conversation and send a
+reply.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Open Messages and spot unread conversations by the green number.
+- Open Messages and spot unread conversations by the 1 new label.
 - Open a conversation and see who sent each message.
-- Type a message and send it.
+- Write a message and tap Send.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-messaging-360.png`, `-1280.png` | Conversation list with an unread count |
-| `images/public-messaging-chat-360.png`, `-1280.png` | The open conversation with Type a message and send |
-| `images/public-messaging-read-360.png` | The list with nothing unread |
+| `images/member-messaging-360.png`, `-1280.png` | Oren Reed's conversation list; Fan repair visit marked 1 new |
+| `images/member-messaging-chat-360.png` | Fan repair visit open, with Oren Reed and Dolores Nakamura, Write a message and Send |
+| `images/member-messaging-typed-1280.png` | A reply typed in the message box (filled in with a `js` tweak) |
+| `images/member-messaging-read-360.png` | The list with nothing new (the label removed with a `js` tweak) |
 
-All screens are static design mocks under `docs/mocks/`, captured by
-`tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+All screens are static design mocks under `docs/mocks/` (`admin-member-messaging`),
+captured by `tools/video-build/capture-mocks.py` from the list in
+`images/shots.json`.
 
 ## Run sheet
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:15 | Welcome | Title; a simple way to talk |
-| 00:15-00:33 | Your conversations | Messages list; green number |
-| 00:33-01:02 | Read and reply | Open, type, send, caught up |
-| 01:02-01:14 | In short | Three steps, thank you |
+| 00:00-00:16 | Welcome | Title; a simple way to talk |
+| 00:16-00:40 | Your conversations | Messages list; 1 new |
+| 00:40-01:15 | Read and reply | Open, write, send, caught up |
+| 01:15-01:28 | In short | Three steps, thank you |
 
 ## Demo commands
 

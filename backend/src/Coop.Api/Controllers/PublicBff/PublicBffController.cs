@@ -2,22 +2,11 @@ using Coop.Application.Common.Interfaces;
 using Coop.Application.Documents.Queries.GetPublishedByLaws;
 using Coop.Application.Documents.Queries.GetPublishedNotices;
 using Coop.Application.Documents.Queries.GetPublishedReports;
-using Coop.Application.Identity.Commands.Authenticate;
-using Coop.Application.Identity.Commands.CreateUser;
-using Coop.Application.Maintenance.Commands.CreateMaintenanceRequest;
-using Coop.Application.Maintenance.Commands.CreateMaintenanceRequestComment;
-using Coop.Application.Maintenance.Queries.GetCurrentUserMaintenanceRequests;
-using Coop.Application.Maintenance.Queries.GetMaintenanceRequestById;
+using Coop.Application.Identity.Commands.RegisterMember;
 using Coop.Application.Messaging.Commands.CreateConversation;
 using Coop.Application.Messaging.Commands.SendMessage;
-using Coop.Application.Messaging.Queries.GetConversationsByProfile;
-using Coop.Application.Messaging.Queries.GetMessagesByConversation;
-using Coop.Application.Onboarding.Commands.ValidateInvitationToken;
 using Coop.Application.Profiles.Dtos;
 using Coop.Application.Profiles.Queries.GetBoardMembers;
-using Coop.Application.Profiles.Queries.GetMembers;
-using Coop.Application.Profiles.Queries.GetProfilesByUserId;
-using Coop.Domain.Identity;
 using Coop.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,13 +25,11 @@ public class PublicBffController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly ICoopDbContext _context;
-    private readonly IPasswordHasher _passwordHasher;
 
-    public PublicBffController(IMediator mediator, ICoopDbContext context, IPasswordHasher passwordHasher)
+    public PublicBffController(IMediator mediator, ICoopDbContext context)
     {
         _mediator = mediator;
         _context = context;
-        _passwordHasher = passwordHasher;
     }
 
     private Guid GetCurrentUserId()
@@ -64,50 +51,20 @@ public class PublicBffController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        // Validate the invitation token
-        try
+        var result = await _mediator.Send(new RegisterMemberRequest
         {
-            var validation = await _mediator.Send(new ValidateInvitationTokenRequest { Value = request.InvitationToken });
-            if (!validation.Success)
-                return BadRequest(new { message = "Invalid invitation token." });
-        }
-        catch
-        {
-            return BadRequest(new { message = "Invalid invitation token." });
-        }
-
-        // Create the user if not exists
-        var existingUser = await _context.Users.AnyAsync(u => u.Username == request.Username);
-        if (!existingUser)
-        {
-            await _mediator.Send(new CreateUserRequest
-            {
-                Username = request.Username,
-                Password = request.Password,
-                RoleIds = new List<Guid>()
-            });
-        }
-
-        // Authenticate to get token
-        AuthenticateResponse authResult;
-        try
-        {
-            authResult = await _mediator.Send(new AuthenticateRequest
-            {
-                Username = request.Username,
-                Password = request.Password
-            });
-        }
-        catch
-        {
-            return BadRequest(new { message = "Registration failed." });
-        }
+            InvitationToken = request.InvitationToken,
+            Username = request.Username,
+            Password = request.Password
+        });
+        if (result.Error is not null)
+            return BadRequest(new { message = result.Error });
 
         return Ok(new
         {
-            token = authResult.AccessToken,
-            accessToken = authResult.AccessToken,
-            userId = authResult.UserId.ToString(),
+            token = result.AccessToken,
+            accessToken = result.AccessToken,
+            userId = result.UserId.ToString(),
             username = request.Username,
             roles = new[] { "Member" }
         });
@@ -177,159 +134,6 @@ public class PublicBffController : ControllerBase
         });
     }
 
-    [HttpGet("api/user/profiles")]
-    public async Task<IActionResult> GetUserProfiles()
-    {
-        var userId = GetCurrentUserId();
-        var result = await _mediator.Send(new GetProfilesByUserIdRequest { UserId = userId });
-        var profiles = result.Profiles.Select(p => new
-        {
-            id = p.ProfileId.ToString(),
-            firstName = p.Firstname,
-            lastName = p.Lastname,
-            email = p.Email ?? "",
-            phone = p.PhoneNumber ?? "",
-            profileType = p.Type.ToString(),
-        });
-        return Ok(profiles);
-    }
-
-    [HttpPost("api/user/change-password")]
-    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordBffRequest request)
-    {
-        var userId = GetCurrentUserId();
-        var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
-        if (user == null) return NotFound();
-
-        var success = user.ChangePassword(_passwordHasher, request.CurrentPassword, request.NewPassword);
-        if (!success)
-            return BadRequest(new { message = "Current password is incorrect." });
-
-        await _context.SaveChangesAsync(default);
-        return Ok();
-    }
-
-    // ---- Maintenance Requests ----
-
-    [HttpGet("api/maintenance-requests/my")]
-    public async Task<IActionResult> GetMyMaintenanceRequests()
-    {
-        var result = await _mediator.Send(new GetCurrentUserMaintenanceRequestsRequest());
-        var items = result.MaintenanceRequests.Select(mr => new
-        {
-            id = mr.MaintenanceRequestId.ToString(),
-            title = mr.Title,
-            description = mr.Description,
-            status = mr.Status.ToString(),
-            priority = "Medium",
-            category = "General",
-            createdAt = mr.Date.ToString("o"),
-            updatedAt = mr.Date.ToString("o"),
-            comments = mr.Comments.Select(c => new
-            {
-                id = c.MaintenanceRequestCommentId.ToString(),
-                content = c.Body,
-                createdAt = c.CreatedOn.ToString("o"),
-                authorName = "Member"
-            }),
-            attachments = mr.DigitalAssets.Select(da => new
-            {
-                id = da.DigitalAssetId.ToString(),
-                fileName = "Photo",
-                url = da.Url
-            })
-        });
-        return Ok(items);
-    }
-
-    [HttpGet("api/maintenance-requests/{id}")]
-    public async Task<IActionResult> GetMaintenanceRequest(Guid id)
-    {
-        var result = await _mediator.Send(new GetMaintenanceRequestByIdRequest { MaintenanceRequestId = id });
-        var mr = result.MaintenanceRequest;
-        return Ok(new
-        {
-            id = mr.MaintenanceRequestId.ToString(),
-            title = mr.Title,
-            description = mr.Description,
-            status = mr.Status.ToString(),
-            priority = "Medium",
-            category = "General",
-            createdAt = mr.Date.ToString("o"),
-            updatedAt = mr.Date.ToString("o"),
-            comments = mr.Comments.Select(c => new
-            {
-                id = c.MaintenanceRequestCommentId.ToString(),
-                content = c.Body,
-                createdAt = c.CreatedOn.ToString("o"),
-                authorName = "Member"
-            }),
-            attachments = mr.DigitalAssets.Select(da => new
-            {
-                id = da.DigitalAssetId.ToString(),
-                fileName = "Photo",
-                url = da.Url
-            })
-        });
-    }
-
-    [HttpPost("api/maintenance-requests")]
-    public async Task<IActionResult> CreateMaintenanceRequest([FromBody] CreateMaintenanceRequestBffRequest request)
-    {
-        var profileId = await GetCurrentProfileIdAsync();
-        var result = await _mediator.Send(new CreateMaintenanceRequestRequest
-        {
-            RequestedByProfileId = profileId,
-            Title = request.Title,
-            Description = request.Description,
-            Phone = "N/A",
-        });
-
-        var mr = result.MaintenanceRequest;
-        return Ok(new
-        {
-            id = mr.MaintenanceRequestId.ToString(),
-            maintenanceRequestId = mr.MaintenanceRequestId.ToString(),
-            title = mr.Title,
-            description = mr.Description,
-            status = mr.Status.ToString(),
-            priority = request.Priority ?? "Medium",
-            category = request.Category ?? "General",
-            createdAt = mr.Date.ToString("o"),
-        });
-    }
-
-    [HttpDelete("api/maintenance-requests/{id}")]
-    public async Task<IActionResult> DeleteMaintenanceRequest(Guid id)
-    {
-        await _mediator.Send(new Application.Maintenance.Commands.RemoveMaintenanceRequest.RemoveMaintenanceRequestRequest
-        {
-            MaintenanceRequestId = id
-        });
-        return Ok();
-    }
-
-    [HttpPost("api/maintenance-requests/{requestId}/comments")]
-    public async Task<IActionResult> AddMaintenanceComment(Guid requestId, [FromBody] AddCommentBffRequest request)
-    {
-        var profileId = await GetCurrentProfileIdAsync();
-        var result = await _mediator.Send(new CreateMaintenanceRequestCommentRequest
-        {
-            MaintenanceRequestId = requestId,
-            CreatedByProfileId = profileId,
-            Body = request.Content,
-        });
-
-        var c = result.MaintenanceRequestComment;
-        return Ok(new
-        {
-            id = c.MaintenanceRequestCommentId.ToString(),
-            content = c.Body,
-            createdAt = c.CreatedOn.ToString("o"),
-            authorName = "Member"
-        });
-    }
-
     // ---- Documents ----
 
     [HttpGet("api/documents")]
@@ -386,83 +190,7 @@ public class PublicBffController : ControllerBase
         return Ok(all);
     }
 
-    [HttpPost("api/documents")]
-    public async Task<IActionResult> CreateDocument([FromBody] CreateDocumentBffRequest request)
-    {
-        Guid docId;
-        try
-        {
-            if (request.Type == "bylaws")
-            {
-                var result = await _mediator.Send(new Application.Documents.Commands.CreateByLaw.CreateByLawRequest { Name = request.Title });
-                docId = result.ByLaw.DocumentId;
-                if (request.Published)
-                    await _mediator.Send(new Application.Documents.Commands.PublishDocument.PublishDocumentRequest { DocumentId = docId });
-            }
-            else if (request.Type == "reports")
-            {
-                var result = await _mediator.Send(new Application.Documents.Commands.CreateReport.CreateReportRequest { Name = request.Title });
-                docId = result.Report.DocumentId;
-                if (request.Published)
-                    await _mediator.Send(new Application.Documents.Commands.PublishDocument.PublishDocumentRequest { DocumentId = docId });
-            }
-            else
-            {
-                var result = await _mediator.Send(new Application.Documents.Commands.CreateNotice.CreateNoticeRequest { Name = request.Title, Body = request.Content });
-                docId = result.Notice.DocumentId;
-                if (request.Published)
-                    await _mediator.Send(new Application.Documents.Commands.PublishDocument.PublishDocumentRequest { DocumentId = docId });
-            }
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-
-        return Ok(new
-        {
-            id = docId.ToString(),
-            documentId = docId.ToString(),
-            title = request.Title,
-            type = request.Type,
-            content = request.Content ?? "",
-            published = request.Published,
-            createdAt = DateTime.UtcNow.ToString("o"),
-        });
-    }
-
-    [HttpDelete("api/documents/{id}")]
-    public async Task<IActionResult> DeleteDocument(Guid id)
-    {
-        try { await _mediator.Send(new Application.Documents.Commands.RemoveNotice.RemoveNoticeRequest { DocumentId = id }); return Ok(); } catch { }
-        try { await _mediator.Send(new Application.Documents.Commands.RemoveByLaw.RemoveByLawRequest { DocumentId = id }); return Ok(); } catch { }
-        try { await _mediator.Send(new Application.Documents.Commands.RemoveReport.RemoveReportRequest { DocumentId = id }); return Ok(); } catch { }
-        return NotFound();
-    }
-
     // ---- Conversations / Messaging ----
-
-    [HttpGet("api/conversations")]
-    public async Task<IActionResult> GetConversations()
-    {
-        var profileId = await GetCurrentProfileIdAsync();
-        if (profileId == Guid.Empty) return Ok(Array.Empty<object>());
-
-        var result = await _mediator.Send(new GetConversationsByProfileRequest { ProfileId = profileId });
-        var conversations = result.Conversations.Select(c => new
-        {
-            id = c.ConversationId.ToString(),
-            subject = c.Messages.FirstOrDefault()?.Body?.StartsWith("[Subject:") == true
-                ? c.Messages.First().Body.Split(']')[0].Replace("[Subject:", "").Trim()
-                : c.Messages.FirstOrDefault()?.Body ?? "Conversation",
-            participantIds = c.ProfileIds.Select(p => p.ToString()),
-            participantNames = c.ProfileIds.Select(_ => "Member"),
-            lastMessage = StripSubjectPrefix(c.Messages.LastOrDefault()?.Body ?? ""),
-            lastMessageAt = c.Messages.LastOrDefault()?.CreatedOn.ToString("o") ?? c.CreatedOn.ToString("o"),
-            unreadCount = c.Messages.Count(m => !m.Read && m.FromProfileId != profileId),
-        });
-        return Ok(conversations);
-    }
 
     [HttpPost("api/conversations")]
     public async Task<IActionResult> CreateConversation([FromBody] CreateConversationBffRequest request)
@@ -511,40 +239,6 @@ public class PublicBffController : ControllerBase
         });
     }
 
-    [HttpDelete("api/conversations/{id}")]
-    public async Task<IActionResult> DeleteConversation(Guid id)
-    {
-        await _mediator.Send(new Application.Messaging.Commands.DeleteConversation.DeleteConversationRequest { ConversationId = id });
-        return Ok();
-    }
-
-    [HttpGet("api/conversations/{conversationId}/messages")]
-    public async Task<IActionResult> GetMessages(Guid conversationId)
-    {
-        var result = await _mediator.Send(new GetMessagesByConversationRequest { ConversationId = conversationId });
-        var avatarUrls = await SenderAvatarUrlsAsync(result.Messages.Select(m => m.FromProfileId));
-        var messages = result.Messages.Select(m =>
-        {
-            var body = m.Body;
-            // Strip subject prefix if present
-            if (body.StartsWith("[Subject:") && body.Contains(']'))
-            {
-                body = body.Substring(body.IndexOf(']') + 1).TrimStart();
-            }
-            return new
-            {
-                id = m.MessageId.ToString(),
-                conversationId = m.ConversationId.ToString(),
-                senderId = m.FromProfileId.ToString(),
-                senderName = "Member",
-                senderAvatarUrl = avatarUrls.GetValueOrDefault(m.FromProfileId, ""),
-                content = body,
-                createdAt = m.CreatedOn.ToString("o"),
-            };
-        });
-        return Ok(messages);
-    }
-
     [HttpPost("api/conversations/{conversationId}/messages")]
     public async Task<IActionResult> SendMessageToConversation(Guid conversationId, [FromBody] SendMessageBffRequest request)
     {
@@ -579,13 +273,6 @@ public class PublicBffController : ControllerBase
             .Select(p => new { p.ProfileId, p.AvatarDigitalAssetId })
             .ToListAsync();
         return avatars.ToDictionary(p => p.ProfileId, p => ProfileDto.AvatarUrlFor(p.AvatarDigitalAssetId)!);
-    }
-
-    private static string StripSubjectPrefix(string body)
-    {
-        if (body.StartsWith("[Subject:") && body.Contains(']'))
-            return body.Substring(body.IndexOf(']') + 1).TrimStart();
-        return body;
     }
 
     // ---- Board Members (public) ----
@@ -639,18 +326,6 @@ public class PublicBffController : ControllerBase
         });
     }
 
-    // ---- Members ----
-
-    [HttpGet("api/user/members")]
-    public async Task<IActionResult> GetMembersForUser()
-    {
-        var result = await _mediator.Send(new GetMembersRequest());
-        return Ok(result.Members.Select(m => new
-        {
-            id = m.ProfileId.ToString(),
-            name = m.Fullname,
-        }));
-    }
 }
 
 // ---- Request DTOs ----
@@ -670,33 +345,6 @@ public class UpdateProfileRequest
     public string? Phone { get; set; }
     public bool? NoticeByEmail { get; set; }
     public bool? NoticeByText { get; set; }
-}
-
-public class ChangePasswordBffRequest
-{
-    public string CurrentPassword { get; set; } = string.Empty;
-    public string NewPassword { get; set; } = string.Empty;
-}
-
-public class CreateMaintenanceRequestBffRequest
-{
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public string? Priority { get; set; }
-    public string? Category { get; set; }
-}
-
-public class AddCommentBffRequest
-{
-    public string Content { get; set; } = string.Empty;
-}
-
-public class CreateDocumentBffRequest
-{
-    public string Title { get; set; } = string.Empty;
-    public string Type { get; set; } = "notices";
-    public string? Content { get; set; }
-    public bool Published { get; set; } = true;
 }
 
 public class CreateConversationBffRequest

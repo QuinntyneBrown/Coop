@@ -1,5 +1,11 @@
 # Photos on maintenance requests
 
+**Status:** Moved to the admin site on 21 October 2026. Members now do this on
+the admin Maintenance screen's create dialog and the member's request detail (L2-REQ-115); the public member pages are removed (L2-REQ-110, ADR 0016). The API
+part of this design still holds. The design of the admin screens is
+`docs/detailed-designs/admin-app/member-areas-by-role/README.md`; the public
+screens, mocks and tests described below are kept for the record only.
+
 ## Overview
 
 A photo often says more about a leak or a crack than a description can.
@@ -70,7 +76,7 @@ so the anonymous asset routes never serve a photo.
 admin app reads it from `digitalAssets`, and `PublicBffController` returns it
 as each item of `attachments`.
 
-### Public application
+### Public application (removed on 21 October 2026)
 
 `MaintenanceComponent` (`frontend/projects/public/src/app/pages/maintenance/`)
 adds:

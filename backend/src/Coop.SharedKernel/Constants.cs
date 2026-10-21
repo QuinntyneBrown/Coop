@@ -19,6 +19,9 @@ public static class Constants
         public const string Support = "Support";
 
         public static readonly string[] All = { Member, Staff, BoardMember, SystemAdministrator, Support };
+
+        /// <summary>The office: holding any one of these opens the office's areas of the admin site (ADR 0016).</summary>
+        public static readonly string[] Office = { Staff, BoardMember, SystemAdministrator, Support };
     }
 
     public static class Aggregates

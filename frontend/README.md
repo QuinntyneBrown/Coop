@@ -1,19 +1,19 @@
 # Coop Frontend
 
-Angular 22 workspace for the Coop applications. It holds the public and member
-application, the administration application, and the shared libraries they will
+Angular 22 workspace for the Coop applications. It holds the read-only public
+website, the admin site that the office and members sign in to, and the shared libraries they will
 build on. The applications call the Coop API at `http://localhost:5000/api`; see
 the [root README](../README.md) for the full stack and the
 [backend guide](../backend/README.md) for the API.
 
 ## Projects
 
-| Project      | Path                  | Notes                                                                                    |
-| ------------ | --------------------- | ---------------------------------------------------------------------------------------- |
-| `public`     | `projects/public`     | Public and member application, served on port 4201 ([README](projects/public/README.md)) |
-| `admin`      | `projects/admin`      | Administration application, served on port 4200 ([README](projects/admin/README.md))     |
-| `api`        | `projects/api`        | Library for service contracts and injection tokens ([README](projects/api/README.md))    |
-| `components` | `projects/components` | Design-system components used by the admin ([README](projects/components/README.md))     |
+| Project      | Path                  | Notes                                                                                              |
+| ------------ | --------------------- | -------------------------------------------------------------------------------------------------- |
+| `public`     | `projects/public`     | Public website, read-only and anonymous, served on port 4201 ([README](projects/public/README.md)) |
+| `admin`      | `projects/admin`      | Admin site for the office and members, served on port 4200 ([README](projects/admin/README.md))    |
+| `api`        | `projects/api`        | Library for service contracts and injection tokens ([README](projects/api/README.md))              |
+| `components` | `projects/components` | Design-system components used by the admin ([README](projects/components/README.md))               |
 
 The API only allows CORS requests from `http://localhost:4200` and
 `http://localhost:4201`, so keep those ports.

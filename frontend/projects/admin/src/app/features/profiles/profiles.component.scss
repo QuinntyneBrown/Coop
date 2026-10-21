@@ -42,3 +42,10 @@
   gap: var(--space-1);
   color: var(--color-fg-muted);
 }
+
+.profiles__notices {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}

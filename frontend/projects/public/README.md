@@ -1,25 +1,22 @@
 # Coop Public
 
-Angular public and member application for Coop. It serves the CMS-driven public
-site (landing page, published documents, board members) and the signed-in member
-experience (maintenance requests, messaging, profile, onboarding).
+Angular public website for Coop. It serves the CMS-driven public site (landing
+page, website pages, published documents, board members). It is read-only and
+anonymous: members sign in, register and do everything that needs signing in
+on the [admin site](../admin/README.md) (L2-REQ-110, ADR 0016).
 
 It is the `public` project of the [frontend workspace](../../README.md) and
 talks to the Coop API at `http://localhost:5000/api`.
 
 ## Routes
 
-| Route                                     | Screen                                 | Access    |
-| ----------------------------------------- | -------------------------------------- | --------- |
-| `/`                                       | Landing page                           | Public    |
-| `/pages/:slug`                            | A website page the office added        | Public    |
-| `/login`, `/register`, `/forgot-password` | Authentication                         | Public    |
-| `/documents`                              | Published notices, bylaws, and reports | Public    |
-| `/dashboard`                              | Member dashboard                       | Signed in |
-| `/onboarding`                             | Onboarding                             | Signed in |
-| `/maintenance`                            | Maintenance requests and comments      | Signed in |
-| `/messaging`                              | Conversations and messages             | Signed in |
-| `/profile`                                | Profile and password                   | Signed in |
+| Route                                                                                        | Screen                                 | Access |
+| -------------------------------------------------------------------------------------------- | -------------------------------------- | ------ |
+| `/`                                                                                          | Landing page                           | Public |
+| `/pages/:slug`                                                                               | A website page the office added        | Public |
+| `/documents`                                                                                 | Published notices, bylaws, and reports | Public |
+| `/login`, `/register`, `/forgot-password`                                                    | Open the admin login                   | Public |
+| `/dashboard`, `/maintenance`, `/messaging`, `/profile`, `/onboarding` (old member addresses) | Open the admin login                   | Public |
 
 Unknown routes redirect to the landing page.
 
@@ -27,8 +24,8 @@ Unknown routes redirect to the landing page.
 
 ```
 src/app/
-  core/        # guards, interceptors, and services (API, auth, theme)
-  layout/      # shell for signed-in pages, and the site header and footer shared by the public pages
+  core/        # the admin login guard and address, site content, and services (API, documents, pages, theme)
+  layout/      # the documents page's logo bar, and the site header and footer shared by the public pages
   pages/       # one folder per screen
 public/own/    # photographs for the home page (see pages/landing/landing-content.ts)
 ```

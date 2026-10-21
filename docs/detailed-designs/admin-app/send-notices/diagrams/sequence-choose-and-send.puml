@@ -7,8 +7,8 @@ skinparam defaultFontName Arial
 skinparam ArrowColor #344054
 actor "Member" as member
 actor "Office" as office
-box "Frontend — Public and admin applications" #E0F2FE
-  participant "ProfileComponent" as profile
+box "Frontend — Admin application" #E0F2FE
+  participant "ProfilesComponent (My profile)" as profile
   participant "DocumentsComponent" as documents
 end box
 box "Backend — Coop API" #FEF3C7

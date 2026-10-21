@@ -6,7 +6,7 @@
 // safe, a missing photo is replaced, one request serves the whole page, and the
 // built-in defaults fill in when the content or a value is missing.
 
-import { test, expect } from '../../fixtures/public/auth.fixture';
+import { test, expect } from '../../fixtures/mock-api/mock-api.fixture';
 import type { MockApi } from '../../fixtures/mock-api/mock-api';
 import { ContentPage } from '../../pages/public/content-page.page';
 import { LandingPage } from '../../pages/public/landing.page';

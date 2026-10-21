@@ -2,7 +2,7 @@
 
 ## Welcome
 
-Hello. This short video shows how a member reads the notices the office sends to everyone.
+Hello. This short video shows how a member gets the notices the office sends to everyone, and how to read them.
 
 [pause 2s]
 
@@ -10,13 +10,27 @@ A notice might be about a gathering, a repair in the building, or a meeting. You
 
 [pause 2s]
 
-## Find the notices
+## Choose how notices reach you
 
-Tap Docs at the bottom of the screen. This is the Documents page. It holds notices, By-Laws and reports.
+First, tell the office how you would like to hear about new notices. Tap Profile at the bottom of the screen. On a computer, choose My profile on the left. Then tap Edit profile.
 
 [pause 2s]
 
-At the top are four buttons: All, Notices, By-Laws and Reports. Tap Notices. Now only the notices are shown, each with its date.
+Under Send me new notices, tick By email, By text message, or both. We use the email address and phone number on your profile. Then tap Save changes.
+
+[pause 2s]
+
+The page says, your profile is saved. The New notices line now shows your choice. If you tick nothing, notices are not sent to you, but you can still read them here.
+
+[pause 2s]
+
+## Find the notices
+
+Your dashboard shows the most recent notices near the bottom.
+
+[pause 1s]
+
+To see them all, tap Documents. At the top are four buttons: All documents, Notices, Bylaws and Reports. Tap Notices. Now only the notices are shown, each with its date.
 
 [pause 2s]
 
@@ -26,17 +40,13 @@ Tap a notice to open it. Here it is the Autumn courtyard gathering. You see the 
 
 [pause 2s]
 
-If you would like a copy to keep, tap Download.
-
-[pause 1s]
-
-When you are finished, tap the cross in the corner to close it.
+If you would like a copy to keep, tap Download. When you are finished, tap Close.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Tap Docs. Tap Notices. Tap a notice to read it.
+So, in short. Choose how notices reach you on your profile. Tap Documents, then Notices. Tap a notice to read it.
 
 [pause 1s]
 

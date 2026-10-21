@@ -1,27 +1,29 @@
 # Journey 15 · Sign out
 
-> **Runtime:** about 56 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 9 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [15-sign-out.mp4](15-sign-out.mp4) · [Slides](slides.html) · **Audio:** [15-sign-out.mp3](15-sign-out.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
-Signing out keeps a member's details private on a shared computer. This video shows where Log Out is
-and what she sees afterwards.
+Signing out keeps a member's details private on a shared computer. Members now sign out from My profile on the admin site. This video shows where Sign out is, on a phone and on a computer, and what she sees afterwards.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Find Log Out at the bottom of the Profile page.
-- Recognise the Welcome back sign-in page afterwards.
+- Open My profile from Profile at the bottom of a phone, or from the menu on a computer.
+- Find and tap Sign out under Edit profile and Change password.
+- Recognise the Welcome back sign in page afterwards.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-profile-360.png` | The Profile page scrolled to Log Out |
-| `images/public-login-360.png` | The sign-in page, “Welcome back” |
+| `images/admin-member-profile-360.png` | My profile on a phone, Profile chosen in the tab bar |
+| `images/admin-member-profile-sign-out-360.png` | My profile scrolled to the Sign out button |
+| `images/admin-member-profile-1280.png` | My profile on a computer, Sign out beside Change password |
+| `images/admin-login-360.png` | The sign in page, “Welcome back” |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -30,10 +32,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:19 | Welcome | Title; why sign out |
-| 00:19-00:32 | Sign out | Profile, Log Out |
-| 00:32-00:45 | What happens next | The sign-in page |
-| 00:45-00:56 | In short | Two steps, thank you |
+| 00:00-00:16 | Welcome | Title; why sign out |
+| 00:16-00:46 | Sign out | Profile, Sign out; on a computer |
+| 00:46-00:59 | What happens next | The sign in page |
+| 00:59-01:09 | In short | Two steps, thank you |
 
 ## Demo commands
 

@@ -17,15 +17,17 @@
         (input)="onSearchDocuments($event)"
       />
     </div>
-    <button
-      libButton
-      variant="primary"
-      type="button"
-      data-testid="documents-new-button"
-      (click)="openCreateDialog()"
-    >
-      <svg libIcon="add"></svg>New Document
-    </button>
+    @if (office) {
+      <button
+        libButton
+        variant="primary"
+        type="button"
+        data-testid="documents-new-button"
+        (click)="openCreateDialog()"
+      >
+        <svg libIcon="add"></svg>New Document
+      </button>
+    }
   </div>
 </div>
 
@@ -90,17 +92,19 @@
               >
                 {{ getStatusLabel(doc) }}
               </span>
-              <button
-                libButton
-                variant="ghost"
-                iconOnly
-                type="button"
-                [attr.aria-label]="'Delete ' + (doc.name || doc.title)"
-                data-testid="document-delete-button"
-                (click)="confirmDeleteDocument(doc, $event)"
-              >
-                <svg libIcon="delete"></svg>
-              </button>
+              @if (office) {
+                <button
+                  libButton
+                  variant="ghost"
+                  iconOnly
+                  type="button"
+                  [attr.aria-label]="'Delete ' + (doc.name || doc.title)"
+                  data-testid="document-delete-button"
+                  (click)="confirmDeleteDocument(doc, $event)"
+                >
+                  <svg libIcon="delete"></svg>
+                </button>
+              }
             </div>
           </article>
         </li>

@@ -16,19 +16,19 @@ At the top, it says hello to you by name. Underneath, it says, here's your overv
 
 [pause 2s]
 
-Next come three small cards. Requests shows how many repair requests you have. Messages shows your messages. Members shows how many members there are.
+Next come three small cards. Open requests shows how many repair requests are still open. Unread messages shows messages you have not read. Documents shows the notices and papers from the office.
 
 [pause 2s]
 
-Below the cards is Recent Requests. Each line shows a request, where it is, and the date. New, Received, Started, or Completed.
+Below the cards is My recent maintenance requests. Each line shows a request, the date, and where it is. New, Received, Started, or Completed.
 
 [pause 2s]
 
-To see them all, tap View all. That opens your Requests page.
+To see them all, tap View all requests. That opens your Requests page.
 
 [pause 2s]
 
-The bell at the top of the screen is for your notifications. Along the bottom are Home, Requests, Docs, Messages and Profile.
+Quick actions lets you start a new maintenance request or a new message. Recent notices shows the newest notices from the office. Along the bottom are Home, Requests, Documents, Messages and Profile.
 
 [pause 2s]
 
@@ -40,7 +40,7 @@ If you have not sent a request yet, the cards show zero, and the list says, no r
 
 ## In short
 
-So, in short. Sign in, and your dashboard greets you. Look at the cards, check your recent requests, and tap View all for more.
+So, in short. Sign in, and your dashboard greets you. Look at the cards, check your recent requests, and tap View all requests for more.
 
 [pause 1s]
 

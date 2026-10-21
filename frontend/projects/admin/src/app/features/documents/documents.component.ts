@@ -44,6 +44,7 @@ import {
   TextFieldComponent,
   TextareaComponent,
 } from 'components';
+import { AuthService } from '../../core/services/auth.service';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { documentTypeLabel } from './document-type-label';
@@ -93,6 +94,10 @@ import { documentTypeLabel } from './document-type-label';
 })
 export class DocumentsComponent implements OnInit {
   private documentService = inject(DocumentService);
+  private authService = inject(AuthService);
+
+  /** Documents are read only for members (L2-REQ-112 AC6). */
+  office = false;
   private readonly documentDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
     'documentDialog',
     { read: ElementRef },
@@ -131,6 +136,7 @@ export class DocumentsComponent implements OnInit {
   private savedDocumentId: string | null = null;
 
   ngOnInit(): void {
+    this.authService.office$.subscribe((office) => (this.office = office));
     this.loadDocuments();
   }
 

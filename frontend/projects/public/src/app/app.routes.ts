@@ -1,7 +1,21 @@
 import { Routes } from '@angular/router';
 import { adminLoginGuard } from './core/guards/admin-login.guard';
-import { authGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
+
+/**
+ * Addresses of the member pages, register and forgot-password the public site
+ * once had. Members now do everything that needs signing in on the admin site,
+ * so each of these opens the admin login (L2-REQ-110, L2-REQ-111, ADR 0016).
+ */
+const ADMIN_SITE_ADDRESSES = [
+  'dashboard',
+  'maintenance',
+  'messaging',
+  'profile',
+  'onboarding',
+  'register',
+  'forgot-password',
+];
 
 export const routes: Routes = [
   {
@@ -16,25 +30,7 @@ export const routes: Routes = [
   },
   // The public site has no login screen; /login leaves for the admin one.
   { path: 'login', canActivate: [adminLoginGuard], children: [] },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./pages/register/register.component').then((m) => m.RegisterComponent),
-  },
-  {
-    path: 'forgot-password',
-    loadComponent: () =>
-      import('./pages/forgot-password/forgot-password.component').then(
-        (m) => m.ForgotPasswordComponent,
-      ),
-  },
-  // Onboarding is a focused first-run wizard, outside the member layout and its navigation.
-  {
-    path: 'onboarding',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
-  },
+  ...ADMIN_SITE_ADDRESSES.map((path) => ({ path, canActivate: [adminLoginGuard], children: [] })),
   {
     path: 'documents',
     component: LayoutComponent,
@@ -43,33 +39,6 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./pages/documents/documents.component').then((m) => m.DocumentsComponent),
-      },
-    ],
-  },
-  {
-    path: '',
-    component: LayoutComponent,
-    canActivate: [authGuard],
-    children: [
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
-      },
-      {
-        path: 'maintenance',
-        loadComponent: () =>
-          import('./pages/maintenance/maintenance.component').then((m) => m.MaintenanceComponent),
-      },
-      {
-        path: 'messaging',
-        loadComponent: () =>
-          import('./pages/messaging/messaging.component').then((m) => m.MessagingComponent),
-      },
-      {
-        path: 'profile',
-        loadComponent: () =>
-          import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
       },
     ],
   },

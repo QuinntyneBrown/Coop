@@ -61,10 +61,6 @@
         <h2 libCardTitle id="edit-title" data-testid="profile-edit-title">
           Edit {{ getProfileTypeLabel(currentProfile).toLowerCase() }} profile
         </h2>
-        <div class="cluster" data-testid="profile-avatar">
-          <span libAvatar size="xl" aria-hidden="true">{{ getInitials() }}</span>
-          <button libButton type="button" data-testid="profile-change-avatar">Change Avatar</button>
-        </div>
         <div libFormField>
           <label libFieldLabel for="pf-first">First Name</label>
           <input
@@ -102,6 +98,17 @@
           }
         </div>
         <div libFormField>
+          <label libFieldLabel for="pf-email">Email</label>
+          <input
+            libTextField
+            id="pf-email"
+            type="email"
+            autocomplete="email"
+            formControlName="email"
+            data-testid="profile-email-input"
+          />
+        </div>
+        <div libFormField>
           <label libFieldLabel for="pf-phone">Phone</label>
           <input
             libTextField
@@ -124,6 +131,24 @@
             />
           </div>
         }
+        <fieldset class="stack profiles__notices" aria-describedby="pf-notices-help">
+          <legend libFieldLabel>Send me new notices</legend>
+          <p libFieldHelp id="pf-notices-help">We use the email address and phone number above.</p>
+          <label libCheckbox for="pf-notice-email">
+            <input id="pf-notice-email" type="checkbox" formControlName="noticeByEmail" />
+            <span libCheckboxText>By email</span>
+          </label>
+          <label libCheckbox for="pf-notice-text">
+            <input id="pf-notice-text" type="checkbox" formControlName="noticeByText" />
+            <span libCheckboxText>By text message</span>
+          </label>
+          @if (noticesError) {
+            <div libAlert tone="danger" role="alert" data-testid="profile-notices-error">
+              <svg libIcon="error"></svg>
+              <div libAlertBody>{{ noticesError }}</div>
+            </div>
+          }
+        </fieldset>
         <div class="form-actions">
           <button type="button" libButton data-testid="profile-cancel" (click)="cancelEdit()">
             Cancel
@@ -143,15 +168,85 @@
       </form>
     } @else {
       <section libCard class="stack" aria-labelledby="profile-name">
-        <div class="cluster">
-          <span libAvatar size="xl" aria-hidden="true" data-testid="profile-avatar">{{
-            getInitials()
-          }}</span>
-          <h2 class="profiles__name" id="profile-name" data-testid="profile-display-name">
-            {{ currentProfile?.firstname || currentProfile?.firstName || '' }}
-            {{ currentProfile?.lastname || currentProfile?.lastName || '' }}
-          </h2>
+        <h2 class="profiles__name" id="profile-name" data-testid="profile-display-name">
+          {{ currentProfile?.firstname || currentProfile?.firstName || '' }}
+          {{ currentProfile?.lastname || currentProfile?.lastName || '' }}
+        </h2>
+        <div libPhotoPicker>
+          @if (photoAddress) {
+            <img libAvatar size="xl" [src]="photoAddress" alt="" data-testid="profile-photo" />
+          } @else {
+            <span libAvatar size="xl" aria-hidden="true" data-testid="profile-avatar">{{
+              getInitials()
+            }}</span>
+          }
+          <div libPhotoPickerBody>
+            <div libPhotoPickerActions>
+              @if (chosenPhoto) {
+                <button
+                  libButton
+                  variant="primary"
+                  type="button"
+                  data-testid="profile-photo-save"
+                  [disabled]="savingPhoto"
+                  [attr.aria-busy]="savingPhoto || null"
+                  (click)="savePhoto()"
+                >
+                  {{ savingPhoto ? 'Saving…' : 'Save photo' }}
+                </button>
+                <button
+                  libButton
+                  type="button"
+                  data-testid="profile-photo-cancel"
+                  [disabled]="savingPhoto"
+                  (click)="cancelPhoto()"
+                >
+                  Cancel
+                </button>
+              } @else {
+                <label libButton variant="primary" for="pf-photo">
+                  <svg libIcon="camera"></svg
+                  >{{ photoAddress ? 'Choose another' : 'Choose a photo' }}
+                  <input
+                    id="pf-photo"
+                    class="visually-hidden"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    aria-describedby="pf-photo-help"
+                    data-testid="profile-photo-input"
+                    (change)="choosePhoto($event)"
+                  />
+                </label>
+                @if (photoAddress) {
+                  <button
+                    libButton
+                    variant="ghost"
+                    type="button"
+                    data-testid="profile-photo-remove"
+                    [disabled]="savingPhoto"
+                    (click)="removePhoto()"
+                  >
+                    <svg libIcon="delete"></svg>Remove photo
+                  </button>
+                }
+              }
+            </div>
+            <p libFieldHelp id="pf-photo-help" role="status" data-testid="profile-photo-status">
+              {{
+                photoStatus ||
+                  (chosenPhoto
+                    ? 'This is a preview. Nothing is saved until you choose Save photo.'
+                    : 'JPEG, PNG or WebP, up to 10 MB.')
+              }}
+            </p>
+          </div>
         </div>
+        @if (photoError) {
+          <div libAlert tone="danger" role="alert" data-testid="profile-photo-error">
+            <svg libIcon="error"></svg>
+            <div libAlertBody>{{ photoError }}</div>
+          </div>
+        }
         <div class="stack profiles__details">
           <p data-testid="profile-username">{{ authService.currentUser?.username }}</p>
           <p data-testid="profile-email">{{ currentProfile?.email || '' }}</p>
@@ -159,6 +254,12 @@
             {{ currentProfile?.phoneNumber || currentProfile?.phone || '' }}
           </p>
           <p data-testid="profile-unit">{{ currentProfile?.address || '' }}</p>
+          <p>
+            New notices:
+            <span data-testid="profile-notices">{{
+              noticeChoiceLabel(noticeByEmail, noticeByText)
+            }}</span>
+          </p>
         </div>
         <div class="cluster">
           <button

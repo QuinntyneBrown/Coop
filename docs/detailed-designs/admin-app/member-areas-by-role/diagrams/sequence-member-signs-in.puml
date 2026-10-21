@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — A member signs in and types an office address
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member" as member
+box "Frontend — Admin application" #E0F2FE
+  participant "LoginComponent" as login
+  participant "AuthService" as auth
+  participant "SidebarComponent" as sidebar
+  participant "officeGuard" as guard
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "UserController" as users
+  participant "GetCurrentUserHandler" as current
+end box
+member -> login : username and password
+login -> users : POST api/user/token
+users --> login : accessToken
+login -> sidebar : navigate to /dashboard
+sidebar -> auth : office$
+auth -> users : GET api/user/current
+users -> current : Send(GetCurrentUserRequest)
+current --> auth : user with roles [Member]
+auth --> sidebar : false
+sidebar --> member : Dashboard, Maintenance, Documents, Messages, My profile  [L2-REQ-112 AC1]
+member -> guard : types /users
+guard -> auth : office$ (cached)
+auth --> guard : false
+guard --> member : /dashboard opens instead  [L2-REQ-112 AC3]
+@enduml

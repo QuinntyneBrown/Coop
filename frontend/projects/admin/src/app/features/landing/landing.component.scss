@@ -1,5 +1,7 @@
 .landing-topbar {
   gap: var(--space-2);
+  /* At 400% zoom the links drop below the name rather than run off the edge (L2-REQ-090). */
+  flex-wrap: wrap;
 }
 
 .landing-notice {

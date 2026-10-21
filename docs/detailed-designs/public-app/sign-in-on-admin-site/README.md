@@ -6,8 +6,9 @@ The public site has no login screen of its own. Members sign in on the admin
 site's login screen (`docs/mocks/pages/admin-login/`), and every sign-in link
 and sign-in redirect on the public site takes the visitor there. The public
 mocks draw the links unchanged; only their target is the admin login
-(`docs/mocks/pages/public-landing/`, `public-page/`, `public-register/` and
-`public-forgot-password/`).
+(`docs/mocks/pages/public-landing/` and `public-page/`; the
+`public-register/` and `public-forgot-password/` mocks were removed on 21
+October 2026 with those screens).
 
 The feature belongs to the public-app subsystem of Coop. It changes no
 backend endpoint and no admin screen.
@@ -83,17 +84,16 @@ address for the sign-in links.
 
 ## Deferred
 
-- **Carrying the admin sign-in back to the public app.** The admin login
-  signs in to the admin app only; the token is not shared with the public
-  site. Until this exists, members cannot reach the public member pages
-  after signing in on the admin site.
-- Removing or moving the register and forgot-password screens.
-- Removing or moving the public member pages.
 - Per-environment configuration of the admin login address (ADR 0011).
 - Changing the API seed's sign-in links from `/login`; the redirect covers
   them.
-- Refreshing the narrated videos in `docs/videos/` that show the public
-  login.
+
+Since 21 October 2026 the public site has no member pages, register or
+forgot-password screens: members sign in and stay on the admin site, and
+those public addresses open the admin login (L2-REQ-110, L2-REQ-111, ADR
+0016, `docs/detailed-designs/admin-app/member-areas-by-role/`). The parts of
+this design about the register, forgot-password and member pages and the
+`authGuard` describe the state before that change.
 
 ## Requirements
 

@@ -1,0 +1,33 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Member areas by role
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(auth, "AuthService", "Angular service", "office$: true when GET api/user/current names an office role")
+  Component(guard, "officeGuard", "Angular CanActivateFn", "Sends a member who types an office address to /dashboard")
+  Component(sidebar, "SidebarComponent", "Angular component", "OFFICE_LINKS or MEMBER_LINKS")
+  Component(screens, "Dashboard, Maintenance, Documents, Profiles components", "Angular components", "Hide office actions from members; photos and notice choice")
+}
+Container_Boundary(publicApp, "Public application") {
+  Component(routes, "routes and adminLoginGuard", "Angular router", "Old member addresses open ADMIN_LOGIN_URL")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controllers, "Controllers", "ASP.NET Core", "Translate HTTP to MediatR requests")
+  Component(officeOnly, "OfficeOnlyBehavior", "MediatR pipeline behavior", "Refuses an [OfficeOnly] request when the caller holds no office role")
+  Component(handlers, "Query and command handlers", "MediatR handlers", "Scope members' data with CallerAccess, MaintenanceRequestAccess, ConversationAccess, ProfileAccess")
+  Component(register, "RegisterMemberHandler", "MediatR handler", "Anonymous registration with an invitation")
+  Component(middleware, "ExceptionHandlingMiddleware", "ASP.NET Core middleware", "UnauthorizedAccessException to 403")
+  ComponentDb(db, "CoopDbContext", "EF Core", "Profiles own the data a member may see")
+}
+Rel(sidebar, auth, "Reads office$")
+Rel(guard, auth, "Reads office$")
+Rel(screens, auth, "Reads office$")
+Rel(auth, controllers, "GET api/user/current", "JSON/HTTPS")
+Rel(screens, controllers, "Calls", "JSON/HTTPS")
+Rel(controllers, officeOnly, "Sends requests through")
+Rel(officeOnly, handlers, "Then")
+Rel(controllers, register, "POST api/user/register")
+Rel(handlers, db, "Filters by the caller's profiles", "EF Core")
+Rel(middleware, controllers, "Wraps")
+@enduml

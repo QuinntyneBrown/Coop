@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Roles.Queries.GetRolesPage;
 
+[OfficeOnly]
 public class GetRolesPageRequest : IRequest<GetRolesPageResponse>
 {
     public int PageSize { get; set; } = 10;

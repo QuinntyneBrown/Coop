@@ -134,6 +134,7 @@ Each row records where the implemented Angular admin (as captured in `docs/mocks
 | D26 | all admin screens | Raw transition times, no `prefers-reduced-motion` | Duration and easing tokens, zeroed under reduced motion |
 | D27 | admin-settings | "Theme Customization" edits the *public website's* colours, with no contrast check | Treated as website content; this system's themes must pass `check_contrast.py` |
 | D28 | admin-maintenance | Maintenance statuses are New, Received, Started and Completed; the code also accepts "Complete" and "Done" | These four words everywhere: New (warning), Received (neutral), Started (info), Completed (success) |
+| D29 | admin-member-* | The admin showed every member all thirteen sections, though most refuse them | Sidebar **member** variant: Dashboard, Maintenance, Documents, Messages, My profile; office sections left out, not disabled (L2-REQ-112) |
 
 ### Status in the app
 
@@ -148,6 +149,7 @@ On 20 October 2026 the admin moved onto this system without changing behaviour o
   - D21: success messages sit in a live region; showing them only after the server confirms is open.
   - D22: empty states use `.empty`; the separate first-use and no-results states are open.
   - D24: the unit choice is a radio group; the `h1` and moving focus are open.
+- **Resolved on 21 October 2026:** D29, the role-filtered sidebar.
 - **Open:** D9 (error and confirmation wording), D15 (plain role names, Title Case labels), D23 (metric links, loading and "Not available"), D27, D28 (status words), and the sentence-case labels in D3.
 
 ### Open questions
@@ -174,6 +176,7 @@ Not verified by tooling: a screen-reader pass, `forced-colors` rendering, and re
 
 ## Changelog
 
+- **2026-10-21**: Added the sidebar's member variant (five areas, "My profile") for members, who now use the admin site (ADR 0016, drift D29). No new tokens or components.
 - **2026-10-21**: The admin's presentation components are now built once in the Angular `components` library (`frontend/projects/components/src/lib`) and the admin no longer loads `components.css` (ADR 0010). Each component page names its Angular component under Code. No tokens or designs changed, and the drift items stay open.
 - **2026-10-20**: The Angular admin now loads this system (ADR 0009). Added the status of each drift item in the app.
 - **2026-10-20**: Rebuilt the 144 admin mocks in `docs/mocks` on this system (light and dark); removed their captured stylesheets.

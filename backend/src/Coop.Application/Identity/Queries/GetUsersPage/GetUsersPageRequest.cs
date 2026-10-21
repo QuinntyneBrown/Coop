@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Identity.Queries.GetUsersPage;
 
+[OfficeOnly]
 public class GetUsersPageRequest : IRequest<GetUsersPageResponse>
 {
     public int PageSize { get; set; } = 10;

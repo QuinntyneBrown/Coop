@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Onboarding.Queries.GetInvitationTokensPage;
 
+[OfficeOnly]
 public class GetInvitationTokensPageRequest : IRequest<GetInvitationTokensPageResponse>
 {
     public int PageSize { get; set; } = 10;

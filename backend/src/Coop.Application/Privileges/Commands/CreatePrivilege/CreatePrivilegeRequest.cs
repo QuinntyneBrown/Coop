@@ -1,8 +1,10 @@
+using Coop.Application.Behaviors;
 using Coop.Domain.Identity;
 using MediatR;
 
 namespace Coop.Application.Privileges.Commands.CreatePrivilege;
 
+[OfficeOnly]
 public class CreatePrivilegeRequest : IRequest<CreatePrivilegeResponse>
 {
     public Guid RoleId { get; set; }

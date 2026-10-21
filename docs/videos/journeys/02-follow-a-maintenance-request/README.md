@@ -1,6 +1,6 @@
 # Journey 02 · Follow a maintenance request
 
-> **Runtime:** about 1 min 38 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account with at least one request
+> **Runtime:** about 1 min 45 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account with at least one request
 
 **Video:** [02-follow-a-maintenance-request.mp4](02-follow-a-maintenance-request.mp4) · [Slides](slides.html) · **Audio:** [02-follow-a-maintenance-request.mp3](02-follow-a-maintenance-request.mp3) · [Transcript](script.md)
 
@@ -12,31 +12,37 @@ After a member reports a repair, she wants to know how it is going. This video s
 
 By the end, the viewer can:
 
-- Find her requests and read the New, Received, Started and Done labels.
-- Use the All, New, Started and Done buttons to show only some requests.
+- Find her requests and read the New, Received, Started and Completed labels.
+- Use the All, New, Received, Started and Completed buttons to show only some requests.
 - Open a request, read the comments, reply, and add a photo.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-maintenance-360.png` | The Requests page with four labelled requests |
-| `images/public-maintenance-started-360.png` | The list showing only Started requests |
-| `images/public-maintenance-detail-360.png`, `-1280.png` | An open request with a comment |
-| `images/public-maintenance-detail-photos-360.png` | The open request with two photos and Add a photo |
+| `images/member-maintenance-360.png` | The Requests page on a phone (admin site, member view) |
+| `images/member-maintenance-completed-360.png` | The list showing only Completed requests |
+| `images/member-maintenance-detail-1280.png` | An open request beside the list |
+| `images/member-maintenance-comments-1280.png` | The request's comments, with Add a comment and Send |
+| `images/member-maintenance-detail-photos-1280.png` | The open request with a photo and Add a photo |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
+Members sign in on the admin site and see only the member areas (ADR 0016),
+so the screens come from the `admin-member-maintenance` mocks. The mocks have
+no filtered state, so `shots.json` selects Completed and hides the other
+request with a short script before the screenshot. On a phone the open request
+sits below the list, so the open-request shots are taken at computer width.
 
 ## Run sheet
 
 | Time | Segment | Content |
 | --- | --- | --- |
 | 00:00-00:15 | Welcome | Title; it is all in one place |
-| 00:15-00:46 | Check the status | Labels; filter buttons |
-| 00:46-01:10 | Open a request | Open, read comments, reply |
-| 01:10-01:22 | Photos | Photos and Add a photo |
-| 01:22-01:38 | In short | Three steps, thank you |
+| 00:15-00:51 | Check the status | Labels; filter buttons |
+| 00:51-01:18 | Open a request | Open, read comments, reply |
+| 01:18-01:29 | Photos | Photos and Add a photo |
+| 01:29-01:45 | In short | Three steps, thank you |
 
 ## Demo commands
 

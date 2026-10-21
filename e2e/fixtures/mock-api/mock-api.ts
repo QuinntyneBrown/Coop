@@ -64,6 +64,65 @@ const badRequest = (message: string): MockResponse => ({ status: 400, body: { me
 const unauthorized = (): MockResponse => ({ status: 401, body: { message: 'Unauthorized' } });
 const forbidden = (): MockResponse => ({ status: 403, body: { message: 'Access denied.' } });
 
+/** The office's roles; anyone else signed in is a member (L2-REQ-112, ADR 0016). */
+export const OFFICE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
+
+export const isOffice = (user: MockUser) => OFFICE_ROLES.includes(user.role);
+
+/** Routes of the office areas: like the API, they answer a member with 403 (L2-REQ-113). */
+const OFFICE_ROUTES = new Set([
+  'GET user',
+  'GET user/page/:size/:index',
+  'GET user/:id',
+  'POST user',
+  'PUT user',
+  'DELETE user/:id',
+  'GET role',
+  'GET role/page/:size/:index',
+  'GET role/:id',
+  'GET privilege',
+  'POST privilege',
+  'DELETE privilege/:id',
+  'GET invitationtoken',
+  'GET invitation-token/page/:size/:index',
+  'GET invitation-token/:id',
+  'POST invitationtoken',
+  'PUT invitationtoken',
+  'DELETE invitation-token/:id',
+  'GET digitalasset/page/:size/:index',
+  'GET digital-asset/page/:size/:index',
+  'GET digital-asset/:id',
+  'GET digital-assets/:id',
+  'POST digitalasset/upload',
+  'POST digital-assets',
+  'DELETE digital-asset/:id',
+  'DELETE digitalasset/:id',
+  'GET members',
+  'GET profiles/type/:type',
+  'DELETE profiles/:id',
+  'POST profile',
+  'DELETE profile/:id',
+  'POST notice',
+  'POST notice/:id/send',
+  'POST document',
+  'PUT document',
+  'PUT document/publish',
+  'DELETE document/:id',
+  'POST theme',
+  'PUT theme',
+  'PUT site-content',
+  'PUT board-of-directors',
+  'POST pages',
+  'PUT pages',
+  'DELETE pages/:id',
+  'PUT maintenancerequest',
+  'PUT maintenancerequest/receive',
+  'PUT maintenancerequest/start',
+  'PUT maintenancerequest/complete',
+  'DELETE maintenancerequest/:id',
+  'POST maintenancerequestdigitalasset',
+]);
+
 /** Roles whose seeded privilege on the Page aggregate reaches each access right. */
 const PAGE_ROLES = {
   create: ['SystemAdministrator', 'BoardMember'],
@@ -227,6 +286,7 @@ export class MockApi {
         return { status: 500, body: { message: 'Simulated failure' } };
       }
       if (!entry.anonymous && !ctx.user) return unauthorized();
+      if (ctx.user && !isOffice(ctx.user) && OFFICE_ROUTES.has(`${entry.method} ${entry.route}`)) return forbidden();
       return entry.handler(ctx, match.slice(1));
     }
     return notFound(`No mock for ${ctx.method} /api/${ctx.path}`);
@@ -654,14 +714,13 @@ export class MockApi {
       ctx.user!.password = newPassword;
       return ok();
     };
-    this.on('POST', 'user/change-password', changePassword);
     this.on('PUT', 'user/password', changePassword);
 
     this.on('GET', 'user/current', (ctx) =>
       ok({ user: this.userView(ctx.user!) }),
     );
 
-    // Current user's profile (public app)
+    // The signed-in person's profile; the admin's My profile reads and saves the notice choice here.
     const ownProfiles = (user: MockUser) => s.profiles.filter((p) => p.userId === user.userId);
 
     this.on('GET', 'user/profile', (ctx) => {
@@ -690,13 +749,6 @@ export class MockApi {
         noticeByText: profile.noticeByText ?? false,
       });
     });
-    this.on('GET', 'user/profiles', (ctx) =>
-      ok({ profiles: ownProfiles(ctx.user!).map((p) => this.profileView(p)) }),
-    );
-    this.on('POST', 'user/switch-profile', (ctx) => ok({ token: this.tokenFor(ctx.user!) }));
-    this.on('GET', 'user/members', () =>
-      ok({ members: s.profiles.filter((p) => p.type === 0).map((p) => this.profileView(p)) }),
-    );
     this.on('GET', 'members', () =>
       ok({ members: s.profiles.filter((p) => p.type === 0).map((p) => this.profileView(p)) }),
     );
@@ -779,7 +831,10 @@ export class MockApi {
     );
 
     // Documents (admin app)
-    this.on('GET', 'document', () => ok({ documents: docs() }), true);
+    // Like the API, drafts are the office's: anyone else reads published documents only (L2-REQ-114).
+    const readable = (user: MockUser | null) =>
+      docs().filter((d) => (user && isOffice(user)) || d.published);
+    this.on('GET', 'document', (ctx) => ok({ documents: readable(ctx.user) }), true);
     this.on('GET', 'document/type/:type', (_ctx, [type]) => {
       const wanted = normalizeDocType(type);
       return ok({ documents: docs().filter((d) => d.documentType === wanted) });
@@ -860,26 +915,6 @@ export class MockApi {
         return ok({ maintenanceRequest: this.maintenanceView(request) });
       };
 
-    this.on('GET', 'maintenance-requests/my', (ctx) =>
-      ok({
-        maintenanceRequests: requests()
-          .filter((r) => r.ownerUserId === ctx.user!.userId)
-          .map((r) => this.maintenanceView(r)),
-      }),
-    );
-    this.on('GET', 'maintenance-requests/:id', (_ctx, [id]) => {
-      const request = findRequest(id);
-      return request ? ok({ maintenanceRequest: this.maintenanceView(request) }) : notFound();
-    });
-    this.on('POST', 'maintenance-requests', (ctx) => {
-      const request = this.createMaintenanceRequest(ctx.user!, ctx.body ?? {});
-      return ok({ maintenanceRequest: this.maintenanceView(request) });
-    });
-    this.on('POST', 'maintenance-requests/:id/comments', (ctx, [id]) => {
-      if (!findRequest(id)) return notFound();
-      const comment = this.addComment(ctx.user!, id, ctx.body?.content ?? ctx.body?.body ?? '');
-      return ok(this.commentView(comment));
-    });
     // Like the API: only the requesting household adds photos; the household
     // and the office read them; re-posting the same photo returns it (ADR 0005).
     this.on('POST', 'maintenance-requests/:id/photos', (ctx, [id]) => {
@@ -900,13 +935,16 @@ export class MockApi {
       const request = findRequest(id);
       const photo = s.photos.find((p) => p.maintenanceRequestId === id && p.photoId === photoId);
       if (!request || !photo) return notFound();
-      if (request.ownerUserId !== ctx.user!.userId && ctx.user!.role === 'Member') return forbidden();
+      if (request.ownerUserId !== ctx.user!.userId && !isOffice(ctx.user!)) return forbidden();
       return { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' };
     });
 
-    // Maintenance requests (admin app)
-    this.on('GET', 'maintenancerequest', () =>
-      ok({ maintenanceRequests: requests().map((r) => this.maintenanceView(r)) }),
+    // Maintenance requests (admin app). Like the API, a member sees only the
+    // requests their household made, and their comments (L2-REQ-114).
+    const visibleTo = (user: MockUser) =>
+      requests().filter((r) => isOffice(user) || r.ownerUserId === user.userId);
+    this.on('GET', 'maintenancerequest', (ctx) =>
+      ok({ maintenanceRequests: visibleTo(ctx.user!).map((r) => this.maintenanceView(r)) }),
     );
     this.on('GET', 'maintenancerequest/my', (ctx) =>
       ok({
@@ -915,14 +953,13 @@ export class MockApi {
           .map((r) => this.maintenanceView(r)),
       }),
     );
-    this.on('GET', 'maintenancerequest/page/:size/:index', (_ctx, [size, index]) => {
+    this.on('GET', 'maintenancerequest/page/:size/:index', (ctx, [size, index]) => {
       const n = Number(size);
       const start = Number(index) * n;
+      const visible = visibleTo(ctx.user!);
       return ok({
-        maintenanceRequests: requests()
-          .slice(start, start + n)
-          .map((r) => this.maintenanceView(r)),
-        totalCount: s.maintenanceRequests.length,
+        maintenanceRequests: visible.slice(start, start + n).map((r) => this.maintenanceView(r)),
+        totalCount: visible.length,
       });
     });
     this.on('PUT', 'maintenancerequest/receive', transition('Received'));
@@ -942,9 +979,11 @@ export class MockApi {
       };
     this.on('PUT', 'maintenancerequest/start', step('Started', 'Only a received request can be started.'));
     this.on('PUT', 'maintenancerequest/complete', step('Completed', 'Only a started request can be finished.'));
-    this.on('GET', 'maintenancerequest/:id', (_ctx, [id]) => {
+    this.on('GET', 'maintenancerequest/:id', (ctx, [id]) => {
       const request = findRequest(id);
-      return request ? ok({ maintenanceRequest: this.maintenanceView(request) }) : notFound();
+      if (!request) return notFound();
+      if (!visibleTo(ctx.user!).includes(request)) return forbidden();
+      return ok({ maintenanceRequest: this.maintenanceView(request) });
     });
     this.on('POST', 'maintenancerequest', (ctx) => {
       const request = this.createMaintenanceRequest(ctx.user!, ctx.body ?? {});
@@ -962,12 +1001,19 @@ export class MockApi {
       s.maintenanceRequests = s.maintenanceRequests.filter((r) => r.maintenanceRequestId !== id);
       return ok();
     });
-    this.on('GET', 'maintenancerequestcomment', () =>
-      ok({ comments: s.comments.map((c) => this.commentView(c)) }),
-    );
+    this.on('GET', 'maintenancerequestcomment', (ctx) => {
+      const visible = visibleTo(ctx.user!).map((r) => r.maintenanceRequestId);
+      return ok({
+        comments: s.comments
+          .filter((c) => visible.includes(c.maintenanceRequestId))
+          .map((c) => this.commentView(c)),
+      });
+    });
     this.on('POST', 'maintenancerequestcomment', (ctx) => {
       const { maintenanceRequestId, body } = ctx.body ?? {};
-      if (!findRequest(maintenanceRequestId)) return notFound();
+      const request = findRequest(maintenanceRequestId);
+      if (!request) return notFound();
+      if (!visibleTo(ctx.user!).includes(request)) return forbidden();
       const comment = this.addComment(ctx.user!, maintenanceRequestId, body ?? '');
       return ok({ comment: this.commentView(comment) });
     });
@@ -976,11 +1022,7 @@ export class MockApi {
       return ok({ digitalAsset: this.assetView(asset) });
     });
 
-    // Messaging (public app)
-    const conversationsFor = (user: MockUser) =>
-      newestFirst(s.conversations, 'createdOn').filter((c) =>
-        c.participantUserIds.includes(user.userId),
-      );
+    // Messaging
     const findConversation = (id: string) => s.conversations.find((c) => c.conversationId === id);
     const messagesFor = (conversationId: string) =>
       s.messages
@@ -988,25 +1030,26 @@ export class MockApi {
         .sort((a, b) => a.createdOn.localeCompare(b.createdOn))
         .map((m) => this.messageView(m));
 
-    this.on('GET', 'conversations', (ctx) =>
-      ok({ conversations: conversationsFor(ctx.user!).map((c) => this.conversationView(c)) }),
-    );
-    this.on('GET', 'conversations/by-profile/:id', () =>
+    // Like the API, a member uses only the conversations they take part in (L2-REQ-114).
+    const canUse = (user: MockUser, c: MockConversation) =>
+      isOffice(user) || c.participantUserIds.includes(user.userId);
+    this.on('GET', 'conversations/by-profile/:id', (ctx) =>
       ok({
-        conversations: newestFirst(s.conversations, 'createdOn').map((c) =>
-          this.conversationView(c),
-        ),
+        conversations: newestFirst(s.conversations, 'createdOn')
+          .filter((c) => canUse(ctx.user!, c))
+          .map((c) => this.conversationView(c)),
       }),
     );
-    this.on('GET', 'conversations/:id', (_ctx, [id]) => {
+    this.on('GET', 'conversations/:id', (ctx, [id]) => {
       const conversation = findConversation(id);
-      return conversation ? ok({ conversation: this.conversationView(conversation) }) : notFound();
+      if (!conversation) return notFound();
+      if (!canUse(ctx.user!, conversation)) return forbidden();
+      return ok({ conversation: this.conversationView(conversation) });
     });
-    this.on('GET', 'conversations/:id/messages', (_ctx, [id]) =>
-      ok({ messages: messagesFor(id) }),
-    );
     this.on('POST', 'conversations/:id/messages', (ctx, [id]) => {
-      if (!findConversation(id)) return notFound();
+      const conversation = findConversation(id);
+      if (!conversation) return notFound();
+      if (!canUse(ctx.user!, conversation)) return forbidden();
       const text = ctx.body?.content ?? ctx.body?.body ?? '';
       if (!text) return badRequest('Message body is required');
       const message = this.sendMessage(ctx.user!, id, text);
@@ -1018,9 +1061,11 @@ export class MockApi {
     });
 
     // Messaging (admin app)
-    this.on('GET', 'messages/by-conversation/:id', (_ctx, [id]) =>
-      ok({ messages: messagesFor(id) }),
-    );
+    this.on('GET', 'messages/by-conversation/:id', (ctx, [id]) => {
+      const conversation = findConversation(id);
+      if (conversation && !canUse(ctx.user!, conversation)) return forbidden();
+      return ok({ messages: messagesFor(id) });
+    });
     this.on('GET', 'messages/unread-count/:id', () => ok({ count: 0 }));
     this.on('POST', 'messages/mark-conversation-read/:id/:profileId', (_ctx, [id]) => {
       if (!findConversation(id)) return notFound();
@@ -1300,7 +1345,7 @@ export class MockApi {
     // Like the API: the owner and the office change a profile's picture; a
     // re-posted picture and a repeated removal change nothing (ADR 0006).
     const canChangePicture = (user: MockUser, profile: MockProfile) =>
-      profile.userId === user.userId || user.role !== 'Member';
+      profile.userId === user.userId || isOffice(user);
     this.on('POST', 'profiles/:id/avatar', (ctx, [id]) => {
       const profile = s.profiles.find((p) => p.profileId === id);
       if (!profile) return notFound();

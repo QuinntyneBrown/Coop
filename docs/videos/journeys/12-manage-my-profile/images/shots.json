@@ -1,8 +1,7 @@
 [
-  {"name": "public-profile", "mock": "pages/public-profile/default.html", "phone": true},
-  {"name": "public-profile-edit", "mock": "pages/public-profile/edit.html", "phone": true},
-  {"name": "public-profile-saved", "mock": "notifications/public-profile-saved/success.html", "phone": true},
-  {"name": "public-profile-photo-preview", "mock": "pages/public-profile/photo-preview.html", "phone": true},
-  {"name": "public-profile-photo", "mock": "pages/public-profile/photo.html", "phone": true},
-  {"name": "public-profile-switcher", "mock": "dialogs/public-profile-switcher/default.html", "phone": true, "scroll": 420}
+  {"name": "admin-member-profile", "mock": "pages/admin-member-profile/default.html", "phone": true},
+  {"name": "admin-member-profile-edit", "mock": "pages/admin-member-profile/edit.html", "phone": true},
+  {"name": "admin-member-profile-saved", "mock": "pages/admin-member-profile/saved.html", "phone": true},
+  {"name": "admin-member-profile-photo-preview", "mock": "pages/admin-member-profile/photo-preview.html", "phone": true},
+  {"name": "admin-member-profile-photo-saved", "mock": "pages/admin-member-profile/photo-saved.html", "phone": true}
 ]

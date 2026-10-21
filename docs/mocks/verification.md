@@ -89,3 +89,28 @@ scripts no longer capture a public login and map the admin login address to
 `admin-login`. `check_mocks.py docs/mocks --write` now reports 63 screens and
 214 mocks; its one error (the `public-maintenance-create` busy state) and its
 warnings were already reported before this change.
+
+## Members move to the admin site
+
+On 21 October 2026 the public member screens were removed, because members
+now do everything that needs signing in on the admin site (L2-REQ-110,
+L2-REQ-111): the pages `public-dashboard`, `public-maintenance`,
+`public-messaging`, `public-profile`, `public-onboarding`, `public-register`
+and `public-forgot-password`, the dialogs `public-maintenance-create`,
+`public-maintenance-detail` and `public-profile-switcher`, and the
+notification `public-profile-saved`. `public-documents` and
+`public-document-viewer` lost the signed-in parts of their layout (the bell,
+the menu button, the member sidebar and the phone tab bar); the top bar keeps
+the logo. Their layout stylesheet and the three photo, picture and notice
+stylesheets that only the removed screens used were removed or trimmed. The
+footer's "Report a repair" already opened `admin-login`.
+
+The member view of the admin site was added as six hand-written screens on
+the design system (`admin-member-dashboard`, `-maintenance`,
+`-maintenance-create`, `-documents`, `-messaging` and `-profile`, 37 files).
+They were screenshotted at 360, 768 and 1280 px in light and dark: the menu
+moves above the content under 768 px, the create dialog becomes a bottom
+sheet on a phone with Cancel and Send request in view, and no mock scrolls
+sideways. `check_mocks.py docs/mocks --write` now reports 58 screens, 193
+mocks and 0 errors; its warnings are the `admin-maintenance` requirement
+metadata already reported before this change.

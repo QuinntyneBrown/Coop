@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.CMS.Themes.Commands.CreateTheme;
 
+[OfficeOnly]
 public class CreateThemeRequest : IRequest<CreateThemeResponse>
 {
     public Guid? ProfileId { get; set; }

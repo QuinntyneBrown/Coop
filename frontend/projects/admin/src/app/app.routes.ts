@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { officeGuard } from './core/guards/office.guard';
 import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
@@ -60,16 +61,19 @@ export const routes: Routes = [
       },
       {
         path: 'pages',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/pages/pages.component').then((m) => m.PagesComponent),
       },
       {
         path: 'board',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/board/board.component').then((m) => m.BoardComponent),
       },
       {
         path: 'website',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/website/website.component').then((m) => m.WebsiteComponent),
       },
@@ -85,26 +89,31 @@ export const routes: Routes = [
       },
       {
         path: 'users',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/users/users.component').then((m) => m.UsersComponent),
       },
       {
         path: 'roles',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/roles/roles.component').then((m) => m.RolesComponent),
       },
       {
         path: 'profiles',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/profiles/profiles.component').then((m) => m.ProfilesComponent),
       },
       {
         path: 'assets',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/assets/assets.component').then((m) => m.AssetsComponent),
       },
       {
         path: 'invitations',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/invitations/invitations.component').then(
             (m) => m.InvitationsComponent,
@@ -119,6 +128,7 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
+        canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/settings/settings.component').then((m) => m.SettingsComponent),
       },

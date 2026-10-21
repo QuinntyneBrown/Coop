@@ -1,5 +1,6 @@
 [
-  {"name": "public-messaging", "mock": "pages/public-messaging/default.html", "phone": true},
-  {"name": "public-messaging-chat", "mock": "pages/public-messaging/chat.html", "phone": true},
-  {"name": "public-messaging-read", "mock": "pages/public-messaging/read.html", "phone": true}
+  {"name": "member-messaging", "mock": "pages/admin-member-messaging/default.html", "phone": true},
+  {"name": "member-messaging-chat", "mock": "pages/admin-member-messaging/chat.html", "phone": true, "phone_height": 900},
+  {"name": "member-messaging-typed", "mock": "pages/admin-member-messaging/chat.html", "phone": false, "js": "document.getElementById('chat-message').value = 'Thank you, Thursday at 10 is fine.';"},
+  {"name": "member-messaging-read", "mock": "pages/admin-member-messaging/default.html", "phone": true, "js": "document.querySelector('.list__item .badge').remove();"}
 ]

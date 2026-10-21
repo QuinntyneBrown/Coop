@@ -1,5 +1,11 @@
 # Profile pictures
 
+**Status:** Moved to the admin site on 21 October 2026. Members now do this on
+the admin My profile screen (L2-REQ-116); the public member pages are removed (L2-REQ-110, ADR 0016). The API
+part of this design still holds. The design of the admin screens is
+`docs/detailed-designs/admin-app/member-areas-by-role/README.md`; the public
+screens, mocks and tests described below are kept for the record only.
+
 ## Overview
 
 A face helps neighbours see who is writing. Members set, replace and remove
@@ -68,7 +74,7 @@ on `GET api/user/profile` and as `senderAvatarUrl` on each message of
 for an asset that no longer exists, and `DigitalAssetController.Serve`
 answers 404, so a replaced or removed picture is no longer served.
 
-### Public application
+### Public application (removed on 21 October 2026)
 
 `ProfileComponent` (`frontend/projects/public/src/app/pages/profile/`):
 

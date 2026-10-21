@@ -27,13 +27,15 @@
         <span libStatValue data-testid="metric-value">{{ documentsCount }}</span>
       </span>
     </div>
-    <div libMetricCard data-testid="metric-active-members">
-      <span libMetricCardIcon tone="success"><svg libIcon="users"></svg></span>
-      <span libStat>
-        <span libStatLabel>Active Members</span>
-        <span libStatValue data-testid="metric-value">{{ membersCount }}</span>
-      </span>
-    </div>
+    @if (office) {
+      <div libMetricCard data-testid="metric-active-members">
+        <span libMetricCardIcon tone="success"><svg libIcon="users"></svg></span>
+        <span libStat>
+          <span libStatLabel>Active Members</span>
+          <span libStatValue data-testid="metric-value">{{ membersCount }}</span>
+        </span>
+      </div>
+    }
   </div>
 
   <section libCard flush aria-labelledby="dash-requests" data-testid="dashboard-recent-maintenance">
@@ -69,15 +71,19 @@
       <a routerLink="/maintenance" libButton data-testid="quick-action-maintenance"
         ><svg libIcon="maintenance"></svg>New Maintenance</a
       >
-      <a routerLink="/documents" libButton data-testid="quick-action-document"
-        ><svg libIcon="documents"></svg>Create Document</a
-      >
+      @if (office) {
+        <a routerLink="/documents" libButton data-testid="quick-action-document"
+          ><svg libIcon="documents"></svg>Create Document</a
+        >
+      }
       <a routerLink="/messages" libButton data-testid="quick-action-message"
         ><svg libIcon="messages"></svg>New Message</a
       >
-      <a routerLink="/invitations" libButton data-testid="quick-action-invitation"
-        ><svg libIcon="invitations"></svg>Send Invitation</a
-      >
+      @if (office) {
+        <a routerLink="/invitations" libButton data-testid="quick-action-invitation"
+          ><svg libIcon="invitations"></svg>Send Invitation</a
+        >
+      }
     </div>
   </section>
 

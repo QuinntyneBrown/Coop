@@ -1,6 +1,7 @@
 [
-  {"name": "public-login", "mock": "pages/public-login/default.html", "phone": true},
-  {"name": "public-login-submitting", "mock": "pages/public-login/submitting.html", "phone": true},
-  {"name": "public-login-error", "mock": "pages/public-login/error.html", "phone": true},
-  {"name": "public-dashboard", "mock": "pages/public-dashboard/default.html", "phone": true}
+  {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": false},
+  {"name": "admin-login", "mock": "pages/admin-login/default.html", "phone": true},
+  {"name": "admin-login-submitting", "mock": "pages/admin-login/submitting.html", "phone": true},
+  {"name": "admin-login-error", "mock": "pages/admin-login/error.html", "phone": true},
+  {"name": "admin-member-dashboard", "mock": "pages/admin-member-dashboard/default.html", "phone": true}
 ]

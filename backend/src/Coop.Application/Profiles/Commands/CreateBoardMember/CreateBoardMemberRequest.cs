@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Profiles.Commands.CreateBoardMember;
 
+[OfficeOnly]
 public class CreateBoardMemberRequest : IRequest<CreateBoardMemberResponse>
 {
     public Guid? UserId { get; set; }

@@ -1,0 +1,75 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Member areas by role
+
+package "Coop.SharedKernel" {
+  class "Constants.Roles" as roles {
+    +Member, Staff, BoardMember, SystemAdministrator, Support : string
+    +Office : string[]
+  }
+}
+package "Coop.Application.Behaviors" {
+  class OfficeOnlyAttribute <<attribute>>
+  class "OfficeOnlyBehavior<TRequest, TResponse>" as behavior {
+    -ClaimsPrincipal _user
+    +Handle(request, next, ct)
+  }
+}
+package "Coop.Application.Common" {
+  class CallerAccess <<static>> {
+    +Guid? UserId(ClaimsPrincipal user)
+    +bool IsOffice(ClaimsPrincipal user)
+    +Task<List<Guid>> OwnProfileIdsAsync(context, user, ct)
+    +Task<bool> HoldsWriteAsync(authorization, user, aggregate)
+  }
+}
+package "Coop.Application.Messaging" {
+  class ConversationAccess <<static>> {
+    +Task<bool> CanUseAsync(context, authorization, user, conversationId, ct)
+  }
+}
+package "Coop.Application.Identity.Commands.RegisterMember" {
+  class RegisterMemberRequest {
+    +string InvitationToken
+    +string Username
+    +string Password
+  }
+  class RegisterMemberHandler
+}
+package "admin core" {
+  class AuthService {
+    +office$ : Observable<boolean>
+    +getCurrentUserFromApi()
+  }
+  class "isOffice(user)" as isOffice
+  class "OFFICE_ROLES" as officeRoles
+  class "officeGuard" as guard
+}
+package "admin layout" {
+  class SidebarComponent {
+    +links : Signal<SidebarLink[]>
+  }
+  class "OFFICE_LINKS" as officeLinks
+  class "MEMBER_LINKS" as memberLinks
+}
+behavior ..> OfficeOnlyAttribute : reads
+behavior ..> CallerAccess : IsOffice
+CallerAccess ..> roles : Office
+ConversationAccess ..> CallerAccess
+RegisterMemberHandler ..> RegisterMemberRequest
+AuthService ..> isOffice
+isOffice ..> officeRoles
+guard ..> AuthService
+SidebarComponent ..> AuthService
+SidebarComponent ..> officeLinks
+SidebarComponent ..> memberLinks
+@enduml

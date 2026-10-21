@@ -32,7 +32,7 @@ On her profile, a member can choose to get new notices by email, by text message
 
 Fourth, a leaking tap should be easy to report. A member taps new request, types a few words, adds a photo if she likes, and sends it.
 
-The office sees it at once, and taps receive, so the member knows someone is on it. When the work begins, the office taps start work, and when it is fixed, finish work. The member can follow the request from new, to received, to started, to done, with her photos beside it. All of this works today.
+The office sees it at once, and taps receive, so the member knows someone is on it. When the work begins, the office taps start work, and when it is fixed, finish work. The member can follow the request from new, to received, to started, to completed, with her photos beside it. All of this works today.
 
 [pause 2s]
 
@@ -40,7 +40,7 @@ Fifth, bigger words. Any member can make the text bigger, all the way to four hu
 
 [pause 2s]
 
-Sixth, your own face. A member can add her own profile picture, change it, or take it away. Neighbours see her face beside what she writes. This works today.
+Sixth, your own face. A member can add her own profile picture, change it, or take it away. The office sees her face beside the requests she makes. This works today.
 
 [pause 2s]
 

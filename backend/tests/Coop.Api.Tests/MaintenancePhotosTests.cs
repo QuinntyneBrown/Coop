@@ -24,9 +24,9 @@ public class MaintenancePhotosTests : IClassFixture<CoopApiFactory>
 
     private static async Task<string> CreateRequestAsync(HttpClient member, string title)
     {
-        var response = await member.PostAsJsonAsync("/api/maintenance-requests", new { title, description = "Water under the sink." });
+        var response = await member.PostAsJsonAsync("/api/maintenancerequest", new { title, description = "Water under the sink." });
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        return (await response.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("id").GetString()!;
+        return (await response.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("maintenanceRequest").GetProperty("maintenanceRequestId").GetString()!;
     }
 
     private static Task<HttpResponseMessage> UploadAsync(HttpClient client, string requestId, byte[] bytes, string fileName = "sink.png", string contentType = "image/png")
@@ -54,8 +54,8 @@ public class MaintenancePhotosTests : IClassFixture<CoopApiFactory>
         var photo = await UploadOkAsync(member, requestId, PngBytes);
         var url = photo.GetProperty("url").GetString()!;
 
-        var mine = await member.GetFromJsonAsync<JsonElement>($"/api/maintenance-requests/{requestId}");
-        Assert.Contains(mine.GetProperty("attachments").EnumerateArray(), a => a.GetProperty("url").GetString() == url);
+        var mine = await member.GetFromJsonAsync<JsonElement>($"/api/maintenancerequest/{requestId}");
+        Assert.Contains(mine.GetProperty("maintenanceRequest").GetProperty("digitalAssets").EnumerateArray(), a => a.GetProperty("url").GetString() == url);
 
         var ownView = await member.GetAsync(url);
         Assert.Equal(HttpStatusCode.OK, ownView.StatusCode);
@@ -112,7 +112,7 @@ public class MaintenancePhotosTests : IClassFixture<CoopApiFactory>
         var second = await UploadOkAsync(member, requestId, PngBytes, "window.png");
 
         Assert.Equal(first.GetProperty("photoId").GetString(), second.GetProperty("photoId").GetString());
-        var view = await member.GetFromJsonAsync<JsonElement>($"/api/maintenance-requests/{requestId}");
-        Assert.Single(view.GetProperty("attachments").EnumerateArray());
+        var view = await member.GetFromJsonAsync<JsonElement>($"/api/maintenancerequest/{requestId}");
+        Assert.Single(view.GetProperty("maintenanceRequest").GetProperty("digitalAssets").EnumerateArray());
     }
 }

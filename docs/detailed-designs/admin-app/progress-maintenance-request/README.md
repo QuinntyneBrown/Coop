@@ -3,12 +3,14 @@
 ## Overview
 
 A maintenance request moves through New, Received, Started and Completed
-(L1-REQ-005). Members report a request from the public app, and the office
-receives it from the admin app at `/maintenance`. This design adds the last
+(L1-REQ-005). Members report a request from the admin app's member view, and
+the office receives it from the admin app at `/maintenance`. This design adds the last
 two office steps, "Start work" and "Finish work", to the request detail drawn
 in `docs/mocks/pages/admin-maintenance/detail-*.html`, and shows the member
 the new statuses in plain words in the list and detail drawn in
-`docs/mocks/pages/public-maintenance/`.
+`docs/mocks/pages/admin-member-maintenance/` (since 21 October 2026; before,
+the public app's Requests page, now removed, see
+`docs/detailed-designs/admin-app/member-areas-by-role/`).
 
 The feature belongs to the admin-app subsystem of Coop and to the Maintenance
 module of the API. The endpoints already existed; this design adds the order
@@ -85,15 +87,13 @@ re-applies the list filter. On failure it leaves the status unchanged and sets
 `role="alert"`. Numeric statuses read "New", "Received", "Started" and
 "Completed".
 
-### Public application
+### The member's view
 
-`MaintenanceComponent` (`frontend/projects/public/src/app/pages/maintenance/`)
-shows the status through `maintenanceStatusLabel`
-(`maintenance-status-label.ts`), which returns "New", "Received", "Started"
-or "Done". The dashboard's recent requests (`DashboardComponent`) use the
-same function, and the Requests page offers a filter for each of these
-statuses: All, New, Received, Started and Done. The badge colour classes are
-unchanged.
+Members see the same admin screen, without the steps (L2-REQ-115). The status
+reads "New", "Received", "Started" or "Completed", the same words as the
+office, and the filters are All, New, Received, Started and Completed
+(L2-REQ-088). The public Requests page that said "Done" was removed on 21
+October 2026.
 
 ### Tests
 
@@ -102,8 +102,8 @@ the audit entries, the 400 answers and re-posting through the API over an
 in-memory database (ADR 0003). The Playwright mock API answers the start and
 complete routes with the same order and retry rules;
 `e2e/tests/admin/maintenance.spec.ts` covers Start and Finish in the admin
-app and `e2e/tests/public/maintenance.spec.ts` covers "Started" and "Done" for
-the member.
+app and `e2e/tests/admin/member-maintenance.spec.ts` covers "Started" and
+"Completed" for the member.
 
 ## Requirements
 
@@ -113,14 +113,14 @@ the member.
 | `L2-REQ-024` | `L1-REQ-005` | Staff can mark a started request as completed; the step is audited and re-posting returns the request. |
 | `L2-REQ-025` | `L1-REQ-005` | The status moves forward only, without skipping a step. |
 | `L2-REQ-087` | `L1-REQ-005` | The admin request detail offers the one next step. |
-| `L2-REQ-088` | `L1-REQ-005` | The member sees "Started" and "Done" in plain words. |
+| `L2-REQ-088` | `L1-REQ-005` | The member sees each request's status in plain words, with the office's words. |
 
 ## Diagrams
 
 Inside the API the controller sends each step through validation to its
 handler, which steps the entity and saves the request with its stored event;
-the admin screen picks the button with `nextMaintenanceStep`, and the public
-screen words the status with `maintenanceStatusLabel`.
+the admin screen picks the button with `nextMaintenanceStep` and shows the
+status in the same words to the office and to members.
 
 ![C4 component view for starting and finishing a request](diagrams/c4-component.png)
 

@@ -25,6 +25,23 @@ export class ProfilesPage {
   readonly firstNameError: Locator;
   readonly lastNameError: Locator;
 
+  // My profile: picture and notice choice (L2-REQ-116)
+  readonly editButton: Locator;
+  readonly displayName: Locator;
+  readonly photo: Locator;
+  readonly photoInput: Locator;
+  readonly savePhotoButton: Locator;
+  readonly cancelPhotoButton: Locator;
+  readonly removePhotoButton: Locator;
+  readonly photoStatus: Locator;
+  readonly photoError: Locator;
+  readonly noticesRow: Locator;
+  readonly emailInput: Locator;
+  readonly noticeByEmail: Locator;
+  readonly noticeByText: Locator;
+  readonly noticesError: Locator;
+  readonly successMessage: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -36,7 +53,7 @@ export class ProfilesPage {
     this.editPanel = page.getByTestId('profile-edit-panel');
     this.editPanelTitle = page.getByTestId('profile-edit-title');
     this.avatar = page.getByTestId('profile-avatar');
-    this.changeAvatarButton = page.getByTestId('profile-change-avatar');
+    this.changeAvatarButton = page.locator('label', { hasText: 'Choose a photo' });
     this.firstNameInput = page.getByTestId('profile-first-name');
     this.lastNameInput = page.getByTestId('profile-last-name');
     this.phoneNumberInput = page.getByTestId('profile-phone');
@@ -45,6 +62,21 @@ export class ProfilesPage {
     this.saveButton = page.getByTestId('profile-save');
 
     this.firstNameError = page.getByTestId('profile-first-name-error');
+    this.editButton = page.getByTestId('profile-edit-btn');
+    this.displayName = page.getByTestId('profile-display-name');
+    this.photo = page.getByTestId('profile-photo');
+    this.photoInput = page.getByTestId('profile-photo-input');
+    this.savePhotoButton = page.getByTestId('profile-photo-save');
+    this.cancelPhotoButton = page.getByTestId('profile-photo-cancel');
+    this.removePhotoButton = page.getByTestId('profile-photo-remove');
+    this.photoStatus = page.getByTestId('profile-photo-status');
+    this.photoError = page.getByTestId('profile-photo-error');
+    this.noticesRow = page.getByTestId('profile-notices');
+    this.emailInput = page.getByTestId('profile-email-input');
+    this.noticeByEmail = page.getByRole('checkbox', { name: 'By email' });
+    this.noticeByText = page.getByRole('checkbox', { name: 'By text message' });
+    this.noticesError = page.getByTestId('profile-notices-error');
+    this.successMessage = page.getByTestId('profile-success-message');
     this.lastNameError = page.getByTestId('profile-last-name-error');
   }
 
@@ -92,5 +124,14 @@ export class ProfilesPage {
   async expectEditPanelVisible(profileType: string) {
     await expect(this.editPanel).toBeVisible();
     await expect(this.editPanelTitle).toContainText(profileType);
+  }
+
+  async gotoMyProfile() {
+    await this.page.goto('/profile');
+    await expect(this.displayName).toBeVisible();
+  }
+
+  async choosePhoto(name = 'me.png', mimeType = 'image/png', size = 68) {
+    await this.photoInput.setInputFiles({ name, mimeType, buffer: Buffer.alloc(size, 1) });
   }
 }

@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Identity.Commands.CreateUser;
 
+[OfficeOnly]
 public class CreateUserRequest : IRequest<CreateUserResponse>
 {
     public string Username { get; set; } = string.Empty;

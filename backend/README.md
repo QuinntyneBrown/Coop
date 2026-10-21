@@ -39,7 +39,10 @@ authorization run as pipeline behaviors (`ValidationBehavior` in
 `Coop.Domain/Authorization/`); a request class opts into authorization with
 `[AuthorizeResourceOperation(accessRight, aggregate)]`, and
 `ExceptionHandlingMiddleware` in `Coop.Api/Middleware/` turns validation
-failures into 400 and refused operations into 403.
+failures into 400 and refused operations into 403. Requests of the office's
+areas carry `[OfficeOnly]`, and `OfficeOnlyBehavior`, which runs first, refuses
+them for anyone without the Staff, BoardMember, SystemAdministrator or Support
+role; handlers scope members' own data with `CallerAccess` (ADR 0016).
 
 ## Local quickstart
 
@@ -211,7 +214,7 @@ Routes are under `/api`. Endpoints require authentication unless noted.
 | `/api/board-of-directors` | The board list the home page shows, stored as the `BoardOfDirectors` JSON content; `GET` is anonymous, `PUT` replaces the whole list and requires the Write privilege on the `JsonContent` aggregate |
 | `/api/pages` | Website pages for the public site; `GET` and `GET {slug}` are anonymous, `POST`, `PUT` and `DELETE {pageId}` require the Create, Write or Delete privilege on the `Page` aggregate |
 | `/api/events`, `/api/storedevent` | Event sourcing and audit history |
-| `PublicBffController` routes | Endpoints shaped for the public app: `user/register`, `user/profile` (including the `noticeByEmail` and `noticeByText` choice), `maintenance-requests`, `documents`, `conversations/{id}/messages`, `board-members`, `json-content` |
+| `PublicBffController` routes | Endpoints shaped for the apps: anonymous `user/register`, `documents`, `board-members` and `json-content`, and, for the admin, `user/profile` (the `noticeByEmail` and `noticeByText` choice), `POST conversations` and `POST conversations/{id}/messages` (ADR 0016) |
 
 Most collections also expose `GET page/{pageSize}/{index}` for paging. The
 generated Swagger document is the complete reference.

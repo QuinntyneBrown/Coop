@@ -13,6 +13,13 @@
   </button>
 </div>
 
+@if (pageAlert) {
+  <div libAlert tone="danger" role="alert" data-testid="maintenance-page-alert">
+    <svg libIcon="error"></svg>
+    <div libAlertBody>{{ pageAlert }}</div>
+  </div>
+}
+
 <div libTabs pill aria-label="Filter requests by status">
   @for (filter of filters; track filter.key) {
     <button
@@ -211,25 +218,67 @@
               } @else {
                 <p class="text-muted">No photos attached</p>
               }
-            </section>
-            <div class="cluster">
-              @if (nextStep(selectedRequest.status); as step) {
-                <button
-                  libButton
-                  variant="primary"
-                  type="button"
-                  [attr.data-testid]="step.testId"
-                  [disabled]="advancing"
-                  [attr.aria-busy]="advancing || null"
-                  (click)="advance(step)"
-                >
-                  {{ step.label }}
-                </button>
+              @if (!office) {
+                <div class="cluster">
+                  @if (addingPhoto) {
+                    <button
+                      libButton
+                      type="button"
+                      disabled
+                      aria-busy="true"
+                      data-testid="maintenance-add-photo-status"
+                    >
+                      <span libSpinner size="sm"></span>Adding photo…
+                    </button>
+                  } @else {
+                    <label libButton for="rq-add-photo">
+                      <svg libIcon="upload"></svg>Add a photo
+                      <input
+                        id="rq-add-photo"
+                        class="visually-hidden"
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        aria-describedby="rq-add-photo-help"
+                        data-testid="maintenance-add-photo"
+                        (change)="addPhotoToRequest($event)"
+                      />
+                    </label>
+                  }
+                </div>
+                <p libFieldHelp id="rq-add-photo-help">JPEG, PNG or WebP, up to 10 MB.</p>
+                @if (addPhotoError) {
+                  <div
+                    libAlert
+                    tone="danger"
+                    role="alert"
+                    data-testid="maintenance-add-photo-error"
+                  >
+                    <svg libIcon="error"></svg>
+                    <div libAlertBody>{{ addPhotoError }}</div>
+                  </div>
+                }
               }
-              <button libButton type="button" data-testid="maintenance-edit-description">
-                Edit Description
-              </button>
-            </div>
+            </section>
+            @if (office) {
+              <div class="cluster">
+                @if (nextStep(selectedRequest.status); as step) {
+                  <button
+                    libButton
+                    variant="primary"
+                    type="button"
+                    [attr.data-testid]="step.testId"
+                    [disabled]="advancing"
+                    [attr.aria-busy]="advancing || null"
+                    (click)="advance(step)"
+                  >
+                    {{ step.label }}
+                  </button>
+                }
+                <button libButton type="button" data-testid="maintenance-edit-description">
+                  Edit Description
+                </button>
+              </div>
+            }
             @if (stepFailed) {
               <div libAlert tone="danger" role="alert" data-testid="maintenance-step-error">
                 <svg libIcon="error"></svg>
@@ -305,74 +354,135 @@
         <svg libIcon="close"></svg>
       </button>
     </div>
-    <div libDialogBody class="stack">
-      <div libFormField>
-        <label libFieldLabel for="mc-title">Title</label>
-        <input
-          libTextField
-          id="mc-title"
-          type="text"
-          formControlName="title"
-          data-testid="maintenance-title-input"
-        />
-      </div>
-      <div libFormField>
-        <label libFieldLabel for="mc-desc">Description</label>
-        <textarea
-          libTextarea
-          id="mc-desc"
-          rows="3"
-          formControlName="description"
-          data-testid="maintenance-description-input"
-        ></textarea>
-      </div>
-      <div libFormField>
-        <label libFieldLabel for="mc-priority">Priority</label>
-        <select
-          libSelect
-          id="mc-priority"
-          formControlName="priority"
-          data-testid="maintenance-priority-select"
-        >
-          <option value="">Select priority</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-          <option value="Urgent">Urgent</option>
-        </select>
-      </div>
-      <div libFormField>
-        <label libFieldLabel for="mc-category">Category</label>
-        <select
-          libSelect
-          id="mc-category"
-          formControlName="category"
-          data-testid="maintenance-category-select"
-        >
-          <option value="">Select category</option>
-          <option value="Plumbing">Plumbing</option>
-          <option value="Electrical">Electrical</option>
-          <option value="HVAC">HVAC</option>
-          <option value="General">General</option>
-        </select>
-      </div>
-      <div libFormField>
-        <label libFieldLabel for="mc-photos">Photos</label>
-        <input
-          id="mc-photos"
-          type="file"
-          multiple
-          accept="image/*"
-          data-testid="maintenance-photo-upload"
-        />
-      </div>
+    <div libDialogBody>
+      <!-- Disabled while the request and its photos are sent (L2-REQ-115 AC4). -->
+      <fieldset class="stack maintenance__fields" [disabled]="sending">
+        <div libFormField>
+          <label libFieldLabel for="mc-title">Title</label>
+          <input
+            libTextField
+            id="mc-title"
+            type="text"
+            formControlName="title"
+            data-testid="maintenance-title-input"
+            [attr.aria-invalid]="fieldInvalid('title') || null"
+            [attr.aria-describedby]="fieldInvalid('title') ? 'mc-title-error' : null"
+          />
+          @if (fieldInvalid('title')) {
+            <p libFieldError id="mc-title-error" data-testid="maintenance-title-error">
+              Give the request a title
+            </p>
+          }
+        </div>
+        <div libFormField>
+          <label libFieldLabel for="mc-desc">Description</label>
+          <textarea
+            libTextarea
+            id="mc-desc"
+            rows="3"
+            formControlName="description"
+            data-testid="maintenance-description-input"
+            [attr.aria-invalid]="fieldInvalid('description') || null"
+            [attr.aria-describedby]="fieldInvalid('description') ? 'mc-desc-error' : null"
+          ></textarea>
+          @if (fieldInvalid('description')) {
+            <p libFieldError id="mc-desc-error" data-testid="maintenance-description-error">
+              Say what is wrong
+            </p>
+          }
+        </div>
+        <div libFormField>
+          <label libFieldLabel for="mc-priority">Priority</label>
+          <select
+            libSelect
+            id="mc-priority"
+            formControlName="priority"
+            data-testid="maintenance-priority-select"
+          >
+            <option value="">Select priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+        </div>
+        <div libFormField>
+          <label libFieldLabel for="mc-category">Category</label>
+          <select
+            libSelect
+            id="mc-category"
+            formControlName="category"
+            data-testid="maintenance-category-select"
+          >
+            <option value="">Select category</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Electrical">Electrical</option>
+            <option value="HVAC">HVAC</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div libFormField>
+          <label libFieldLabel for="mc-photos">Photos (optional)</label>
+          <input
+            id="mc-photos"
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp"
+            aria-describedby="mc-photos-help"
+            data-testid="maintenance-photo-upload"
+            (change)="choosePhotos($event)"
+          />
+          <p libFieldHelp id="mc-photos-help" data-testid="maintenance-photo-hint">
+            JPEG, PNG or WebP, up to 10 MB each.
+          </p>
+          @if (chosenPhotos.length) {
+            <ul libList aria-label="Chosen photos">
+              @for (photo of chosenPhotos; track photo; let i = $index) {
+                <li libListItem data-testid="maintenance-chosen-photo">
+                  <div libListBody>
+                    <span libListTitle>{{ photo.name }}</span>
+                  </div>
+                  <button
+                    libButton
+                    variant="ghost"
+                    type="button"
+                    [attr.aria-label]="'Remove ' + photo.name"
+                    (click)="removePhoto(i)"
+                  >
+                    Remove
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+          @if (photoError) {
+            <div libAlert tone="danger" role="alert" data-testid="maintenance-photo-error">
+              <svg libIcon="error"></svg>
+              <div libAlertBody>{{ photoError }}</div>
+            </div>
+          }
+        </div>
+      </fieldset>
     </div>
     <div libDialogFooter>
-      <button type="button" libButton data-testid="maintenance-cancel-btn" (click)="closeCreate()">
+      <button
+        type="button"
+        libButton
+        data-testid="maintenance-cancel-btn"
+        [disabled]="sending"
+        (click)="closeCreate()"
+      >
         Cancel
       </button>
-      <button type="submit" libButton variant="primary" data-testid="maintenance-submit-btn">
-        Submit
+      <button
+        type="submit"
+        libButton
+        variant="primary"
+        data-testid="maintenance-submit-btn"
+        [disabled]="sending"
+        [attr.aria-busy]="sending || null"
+      >
+        {{ sending ? 'Sending…' : 'Submit' }}
       </button>
     </div>
   </form>

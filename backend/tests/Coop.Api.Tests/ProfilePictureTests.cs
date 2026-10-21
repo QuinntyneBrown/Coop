@@ -4,7 +4,8 @@
 // profile through the API. The office may change it too, another member may
 // not. Only JPEG, PNG and WebP pictures up to 10 MB are accepted, a replaced
 // or removed picture is no longer served, re-posting or re-removing returns
-// the profile unchanged, and the picture shows beside the member's messages.
+// the profile unchanged. (Showing it beside messages left with the public
+// messaging page and is deferred for the admin, ADR 0016.)
 
 using System.Net;
 using System.Net.Http.Headers;
@@ -138,19 +139,5 @@ public class ProfilePictureTests : IClassFixture<CoopApiFactory>
         Assert.Equal(HttpStatusCode.OK, (await member.DeleteAsync($"/api/profiles/{profileId}/avatar")).StatusCode);
         Assert.Equal(HttpStatusCode.OK, (await member.DeleteAsync($"/api/profiles/{profileId}/avatar")).StatusCode);
         Assert.Equal("", await OwnAvatarUrlAsync(member));
-    }
-
-    [Fact]
-    public async Task Given_a_member_with_a_picture_when_their_messages_are_read_then_each_carries_the_picture()
-    {
-        var member = await _factory.CreateMemberClientAsync();
-        var profileId = await OwnProfileIdAsync(member);
-        var url = await UploadOkAsync(member, profileId, OtherPngBytes, "messages.png");
-        var created = await member.PostAsJsonAsync("/api/conversations", new { subject = "Garden", initialMessage = "The tulips are up." });
-        var conversationId = (await created.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("id").GetString();
-
-        var messages = await member.GetFromJsonAsync<JsonElement>($"/api/conversations/{conversationId}/messages");
-
-        Assert.All(messages.EnumerateArray(), m => Assert.Equal(url, m.GetProperty("senderAvatarUrl").GetString()));
     }
 }

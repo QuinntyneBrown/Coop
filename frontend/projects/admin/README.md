@@ -1,30 +1,39 @@
 # Coop Admin
 
-Angular administration application for Coop. It is the admin backend for staff,
-board members, and system administrators: maintenance triage, document
-publishing, website pages, the Board of Directors list, messaging, user and role management, invitations,
-digital assets, and theme and content settings.
+Angular admin site for Coop. Everyone who signs in uses it, and each person sees
+the areas their role allows (ADR 0016):
+
+- the **office** (Staff, BoardMember, SystemAdministrator or Support) gets every
+  area: maintenance triage, document publishing, website pages, the Board of
+  Directors list, messaging, user and role management, invitations, digital
+  assets, and theme and content settings;
+- a **member** (anyone else) gets the member areas: Dashboard, Maintenance (own
+  requests, with photos), Documents (read only), Messages (own conversations)
+  and My profile (picture and notice choice), plus Change password and
+  Onboarding. The sidebar lists only these, and an office address opens the
+  dashboard (`officeGuard`). The API refuses the rest and scopes members' data.
 
 It is the `admin` project of the [frontend workspace](../../README.md) and talks
 to the Coop API at `http://localhost:5000/api`.
 
 ## Routes
 
-| Route                                         | Screen                                               | Access    |
-| --------------------------------------------- | ---------------------------------------------------- | --------- |
-| `/`                                           | Landing page                                         | Public    |
-| `/login`, `/register`, `/forgot-password`     | Authentication                                       | Public    |
-| `/onboarding`, `/change-password`, `/profile` | Account setup and profile                            | Signed in |
-| `/dashboard`                                  | Dashboard                                            | Signed in |
-| `/maintenance`                                | Maintenance requests                                 | Signed in |
-| `/documents`                                  | Documents                                            | Signed in |
-| `/pages`                                      | Website pages (add, edit, remove)                    | Signed in |
-| `/board`                                      | Board of Directors list (add, edit, reorder, remove) | Signed in |
-| `/messages`                                   | Messaging (`/messaging` redirects here)              | Signed in |
-| `/users`, `/roles`, `/profiles`               | Users, roles and privileges, and profiles            | Signed in |
-| `/assets`                                     | Digital assets                                       | Signed in |
-| `/invitations`                                | Invitations                                          | Signed in |
-| `/settings`                                   | Theme and content settings                           | Signed in |
+| Route                                         | Screen                                               | Access      |
+| --------------------------------------------- | ---------------------------------------------------- | ----------- |
+| `/`                                           | Landing page                                         | Public      |
+| `/login`, `/register`, `/forgot-password`     | Authentication                                       | Public      |
+| `/onboarding`, `/change-password`, `/profile` | Account setup and My profile                         | Signed in   |
+| `/dashboard`                                  | Dashboard                                            | Signed in   |
+| `/maintenance`                                | Maintenance requests (a member's own)                | Signed in   |
+| `/documents`                                  | Documents (read only for members)                    | Signed in   |
+| `/messages`                                   | Messaging (`/messaging` redirects here)              | Signed in   |
+| `/pages`                                      | Website pages (add, edit, remove)                    | Office only |
+| `/board`                                      | Board of Directors list (add, edit, reorder, remove) | Office only |
+| `/website`                                    | Website content                                      | Office only |
+| `/users`, `/roles`, `/profiles`               | Users, roles and privileges, and profiles            | Office only |
+| `/assets`                                     | Digital assets                                       | Office only |
+| `/invitations`                                | Invitations                                          | Office only |
+| `/settings`                                   | Theme and content settings                           | Office only |
 
 Unknown routes redirect to the landing page.
 
@@ -32,7 +41,7 @@ Unknown routes redirect to the landing page.
 
 ```
 src/app/
-  core/        # guards, interceptors, and services (API, auth)
+  core/        # guards (auth, office), the interceptor, office roles, and services (API, auth)
   layout/      # layout, sidebar, and top bar
   features/    # one folder per screen
   shared/      # shared components
