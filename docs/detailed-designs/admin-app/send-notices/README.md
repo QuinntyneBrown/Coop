@@ -14,12 +14,12 @@ and always for text messages, the default sender writes each message to the
 API log and sends nothing outside the system. No text message provider is
 connected yet.
 
-The screens are drawn in `docs/mocks/pages/public-profile/` (default, edit,
-notices-invalid), `docs/mocks/dialogs/admin-document-create/` (send,
+The screens are drawn in `docs/mocks/pages/admin-member-profile/` (default,
+edit, notices-invalid, saved), `docs/mocks/dialogs/admin-document-create/` (send,
 busy, send-error) and
 `docs/mocks/notifications/admin-notice-sent/success.html`.
 
-The feature belongs to the admin-app and public-app subsystems of Coop and
+The feature belongs to the admin-app subsystem of Coop and
 to the Documents and Profiles modules of the API.
 
 Terms used in this design:
@@ -113,9 +113,12 @@ set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
   dialog open and shows `noticeNotSentMessage(title)` with `role="alert"`.
   Both live in `notice-messages.ts` beside the component.
 
-### Public application
+### Choosing on My profile
 
-`ProfileComponent` (`frontend/projects/public/src/app/pages/profile/`):
+Since 21 October 2026 members choose on the admin app's My profile
+(`frontend/projects/admin/src/app/features/profiles/`, L2-REQ-108); the public
+profile page is removed (see
+`docs/detailed-designs/admin-app/member-areas-by-role/`). `ProfilesComponent`:
 
 - The profile shows a "New notices" row with the text from
   `noticeChoiceLabel(byEmail, byText)` (`notice-choice.ts`).
@@ -124,8 +127,10 @@ set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
   email address and phone number above."
 - `saveProfile` checks the form with `noticeChoiceError(form)` first; an
   error is shown in the group with `role="alert"` and nothing is saved.
-  `UserService.updateProfile` sends `noticeByEmail` and `noticeByText`
-  with the other fields, and `UserService.getProfile` reads them.
+  `ProfileService.saveNoticeChoice` sends `noticeByEmail` and
+  `noticeByText` to `PUT api/user/profile` after the rest of the profile is
+  saved, and `ProfileService.getNoticeChoice` reads them from `GET
+  api/user/profile`.
 
 ### Tests
 
@@ -139,7 +144,7 @@ keeps the messages and can be told to fail. A separate test points
 files `SmtpNoticeSender` writes there, so no test uses the network. The
 Playwright mock API serves `POST notice`, `POST notice/{id}/send` and the
 notice choice on `user/profile`; `e2e/tests/admin/documents.spec.ts` and
-`e2e/tests/public/profile.spec.ts` cover the screens.
+`e2e/tests/admin/member-profile.spec.ts` cover the screens.
 
 ## Requirements
 

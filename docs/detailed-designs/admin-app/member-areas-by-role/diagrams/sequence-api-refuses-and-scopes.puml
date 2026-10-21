@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — The API refuses an office request and scopes a member's list
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member (bypassing the app)" as member
+box "Frontend — any HTTP client" #E0F2FE
+  participant "Client" as client
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "ExceptionHandlingMiddleware" as middleware
+  participant "UserController / MaintenanceRequestController" as controller
+  participant "OfficeOnlyBehavior" as officeOnly
+  participant "GetMaintenanceRequestsHandler" as handler
+  database "CoopDbContext" as db
+end box
+member -> client : GET api/user
+client -> middleware : with the member's JWT
+middleware -> controller : GetUsersRequest
+controller -> officeOnly : Send(GetUsersRequest) [OfficeOnly]
+officeOnly --> middleware : UnauthorizedAccessException (no office role)
+middleware --> client : 403 { message: "Access denied." }  [L2-REQ-105 AC1, AC5]
+member -> client : GET api/maintenancerequest
+client -> middleware : with the member's JWT
+middleware -> controller : GetMaintenanceRequestsRequest
+controller -> officeOnly : Send (not OfficeOnly)
+officeOnly -> handler : next()
+handler -> db : caller holds no Write on MaintenanceRequest: own profile ids
+handler -> db : requests WHERE RequestedByProfileId IN own ids
+handler --> client : 200 only the member's requests  [L2-REQ-106 AC1]
+@enduml

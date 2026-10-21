@@ -1,0 +1,36 @@
+@startuml
+title UML sequence behaviour — A member sends a request with photos on the admin site
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Member" as member
+box "Frontend — Admin application" #E0F2FE
+  participant "MaintenanceComponent" as screen
+  participant "MaintenanceService" as service
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "MaintenanceRequestController" as controller
+  participant "CreateMaintenanceRequestHandler" as create
+  participant "MaintenanceRequestPhotosController" as photos
+  participant "AddMaintenanceRequestPhotoHandler" as addPhoto
+  database "CoopDbContext" as db
+end box
+member -> screen : New request; title, what is wrong, Add photos
+screen --> member : chosen photos listed with Remove  [L2-REQ-107 AC3]
+member -> screen : Send request
+screen --> member : "Sending…", controls disabled  [L2-REQ-107 AC4]
+screen -> service : createMaintenanceRequest(form)
+service -> controller : POST api/maintenancerequest
+controller -> create : Send(CreateMaintenanceRequestRequest)
+create -> db : requested by the caller's current profile  [L2-REQ-106 AC4]
+controller --> screen : 200 { maintenanceRequest }
+loop each chosen photo
+  screen -> service : addPhoto(id, file)
+  service -> photos : POST api/maintenance-requests/{id}/photos
+  photos -> addPhoto : caller owns the requesting profile  [L2-REQ-089 AC7]
+  addPhoto -> db : store digital asset and attach
+end
+screen --> member : dialog closes; the list shows the request
+@enduml

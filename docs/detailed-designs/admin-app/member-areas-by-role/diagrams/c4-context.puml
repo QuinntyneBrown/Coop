@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System context — Member areas by role
+
+Person(member, "Member", "An older woman living in the co-op; signs in to report repairs, read documents, write to the office and keep her profile")
+Person(office, "Office", "Staff, board members, system administrators and support")
+Person(visitor, "Visitor", "Anyone reading the public website")
+System(coop, "Coop platform", "Public website, admin site and API")
+Rel(visitor, coop, "Reads the home page, website pages and documents; follows Member sign in")
+Rel(member, coop, "Signs in on the admin site and uses the member areas")
+Rel(office, coop, "Signs in on the admin site and uses every area")
+@enduml

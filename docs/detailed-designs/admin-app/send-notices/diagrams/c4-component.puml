@@ -7,11 +7,9 @@ Container_Boundary(adminApp, "Admin application") {
   Component(documents, "DocumentsComponent", "Angular standalone component", "New Document dialog with Also send to members by email and text")
   Component(messages, "notice-messages", "Plain TypeScript functions", "Sent and not-sent messages")
   Component(documentService, "DocumentService", "Angular service", "createNotice, publishDocument, sendNotice")
-}
-Container_Boundary(publicApp, "Public application") {
-  Component(profile, "ProfileComponent", "Angular standalone component", "New notices row; Send me new notices checkboxes")
+  Component(profile, "ProfilesComponent", "Angular standalone component", "My profile: New notices row; Send me new notices checkboxes")
   Component(choice, "notice-choice", "Plain TypeScript functions", "noticeChoiceLabel, noticeChoiceError")
-  Component(profileService, "UserService", "Angular service", "getProfile, updateProfile")
+  Component(profileService, "ProfileService", "Angular service", "getNoticeChoice, saveNoticeChoice")
 }
 Container_Boundary(api, "Coop API") {
   Component(bff, "PublicBffController", "ASP.NET Core controller", "noticeByEmail and noticeByText on api/user/profile")

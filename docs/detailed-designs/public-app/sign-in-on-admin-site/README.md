@@ -83,17 +83,16 @@ address for the sign-in links.
 
 ## Deferred
 
-- **Carrying the admin sign-in back to the public app.** The admin login
-  signs in to the admin app only; the token is not shared with the public
-  site. Until this exists, members cannot reach the public member pages
-  after signing in on the admin site.
-- Removing or moving the register and forgot-password screens.
-- Removing or moving the public member pages.
 - Per-environment configuration of the admin login address (ADR 0011).
 - Changing the API seed's sign-in links from `/login`; the redirect covers
   them.
-- Refreshing the narrated videos in `docs/videos/` that show the public
-  login.
+
+Since 21 October 2026 the public site has no member pages, register or
+forgot-password screens: members sign in and stay on the admin site, and
+those public addresses open the admin login (L2-REQ-102, L2-REQ-103, ADR
+0012, `docs/detailed-designs/admin-app/member-areas-by-role/`). The parts of
+this design about the register, forgot-password and member pages and the
+`authGuard` describe the state before that change.
 
 ## Requirements
 
