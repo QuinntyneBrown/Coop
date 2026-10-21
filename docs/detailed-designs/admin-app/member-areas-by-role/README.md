@@ -96,7 +96,9 @@ as before.
   While sending, the submit button reads "Sending…" and the dialog's
   controls are disabled. A member's detail has "Add a photo" (L2-REQ-107).
   Statuses keep the office's words, New, Received, Started and Completed
-  (L2-REQ-088).
+  (L2-REQ-088). The Comments tab lists only the open request's comments; it
+  used to list every comment the API returned. Empty Title and Description
+  fields say "Give the request a title" and "Say what is wrong".
 - **Documents** (`features/documents/`): a member gets no New document,
   Delete, Publish or Send; the API returns them published documents only.
 - **Messages** (`features/messaging/`): unchanged; the API returns a member
