@@ -73,4 +73,74 @@ public class DemoResetTests
         Assert.NotEqual("Test", profile.GetProperty("firstname").GetString());
         Assert.EndsWith(".test", profile.GetProperty("email").GetString());
     }
+
+    [Fact]
+    public async Task Given_the_demo_state_when_the_public_site_content_is_read_then_every_photo_is_a_stored_asset_with_its_description()
+    {
+        using var host = new CliTestHost();
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes")).ExitCode);
+        var anonymous = host.CreateAnonymousClient();
+
+        var content = (await anonymous.GetFromJsonAsync<JsonElement>("/api/site-content")).GetProperty("siteContent");
+        var home = content.GetProperty("home");
+        var photos = new List<JsonElement> { home.GetProperty("hero").GetProperty("photo"), home.GetProperty("quote").GetProperty("photo") };
+        photos.AddRange(home.GetProperty("gallery").GetProperty("photos").EnumerateArray().Select(p => p.GetProperty("photo")));
+        photos.AddRange(home.GetProperty("features").GetProperty("rows").EnumerateArray().Select(r => r.GetProperty("photo")));
+        Assert.Equal(10, photos.Count);
+
+        foreach (var photo in photos)
+        {
+            var src = photo.GetProperty("src").GetString()!;
+            Assert.StartsWith("http://localhost:5000/api/digitalasset/serve/", src);
+            Assert.False(string.IsNullOrWhiteSpace(photo.GetProperty("alt").GetString()));
+            Assert.True(photo.GetProperty("width").GetInt32() > 0);
+            await AssertServesSvgAsync(anonymous, src);
+        }
+    }
+
+    [Fact]
+    public async Task Given_an_api_url_when_the_demo_reset_runs_then_the_photos_are_addressed_from_it()
+    {
+        using var host = new CliTestHost();
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes", "--api-url", "https://coop.example/api")).ExitCode);
+
+        var content = (await host.CreateAnonymousClient().GetFromJsonAsync<JsonElement>("/api/site-content")).GetProperty("siteContent");
+
+        Assert.StartsWith("https://coop.example/api/digitalasset/serve/",
+            content.GetProperty("home").GetProperty("hero").GetProperty("photo").GetProperty("src").GetString());
+    }
+
+    [Fact]
+    public async Task Given_the_demo_state_when_the_pages_and_board_are_read_then_they_show_photos_from_the_assets()
+    {
+        using var host = new CliTestHost();
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes")).ExitCode);
+        var anonymous = host.CreateAnonymousClient();
+
+        var pages = (await anonymous.GetFromJsonAsync<JsonElement>("/api/pages")).GetProperty("pages").EnumerateArray().ToArray();
+        Assert.True(pages.Length >= 2);
+        foreach (var page in pages)
+        {
+            await AssertServesSvgAsync(anonymous, page.GetProperty("heroImageUrl").GetString()!);
+            Assert.False(string.IsNullOrWhiteSpace(page.GetProperty("heroImageAlt").GetString()));
+        }
+
+        var directors = (await anonymous.GetFromJsonAsync<JsonElement>("/api/board-of-directors")).GetProperty("directors").EnumerateArray().ToArray();
+        Assert.Equal(4, directors.Length);
+        foreach (var director in directors)
+            await AssertServesSvgAsync(anonymous, director.GetProperty("photoUrl").GetString()!);
+
+        var admin = await host.CreateClientAsAsync("admin", "Admin123!");
+        var assets = await admin.GetFromJsonAsync<JsonElement>("/api/digitalasset/page/100/0");
+        Assert.Equal(11, assets.GetProperty("totalCount").GetInt32());
+    }
+
+    private static async Task AssertServesSvgAsync(HttpClient client, string address)
+    {
+        var path = new Uri(address).AbsolutePath;
+        var response = await client.GetAsync(path);
+        response.EnsureSuccessStatusCode();
+        Assert.Equal("image/svg+xml", response.Content.Headers.ContentType?.MediaType);
+        Assert.StartsWith("<svg", await response.Content.ReadAsStringAsync());
+    }
 }
