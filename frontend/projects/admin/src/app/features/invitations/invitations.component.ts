@@ -13,9 +13,13 @@ import {
   BadgeComponent,
   BadgeTone,
   ButtonComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
+  SelectComponent,
   TableComponent,
   TableWrapComponent,
+  TextFieldComponent,
 } from 'components';
 import { InvitationService } from '../../core/services/invitation.service';
 
@@ -30,6 +34,10 @@ import { InvitationService } from '../../core/services/invitation.service';
     BadgeComponent,
     TableComponent,
     TableWrapComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
   ],
   templateUrl: './invitations.component.html',
   styleUrl: './invitations.component.scss',

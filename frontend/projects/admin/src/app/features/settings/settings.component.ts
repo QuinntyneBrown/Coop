@@ -6,7 +6,11 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
+  SelectComponent,
+  TextFieldComponent,
 } from 'components';
 import { ThemeService } from '../../core/services/theme.service';
 
@@ -21,6 +25,10 @@ import { ThemeService } from '../../core/services/theme.service';
     CardTitleComponent,
     AlertBodyComponent,
     AlertComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',

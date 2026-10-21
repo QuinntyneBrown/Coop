@@ -297,16 +297,16 @@
               </button>
             </div>
             @if (srcError) {
-              <p class="field__error" [id]="id + '-src-error'">
+              <p libFieldError [id]="id + '-src-error'">
                 <span data-testid="field-error">{{ srcError }}</span>
               </p>
             }
           </div>
         </div>
-        <div class="field">
-          <label class="field__label" [for]="altId">Photo description</label>
+        <div libFormField>
+          <label libFieldLabel [for]="altId">Photo description</label>
           <textarea
-            class="textarea"
+            libTextarea
             [id]="altId"
             rows="3"
             [(ngModel)]="photo.alt"
@@ -314,11 +314,11 @@
             [attr.aria-invalid]="altError ? 'true' : null"
             [attr.aria-describedby]="altId + '-help' + (altError ? ' ' + altId + '-error' : '')"
           ></textarea>
-          <p class="field__help" [id]="altId + '-help'">
+          <p libFieldHelp [id]="altId + '-help'">
             Describe the photo for people who cannot see it.
           </p>
           @if (altError) {
-            <p class="field__error" [id]="altId + '-error'">
+            <p libFieldError [id]="altId + '-error'">
               <span data-testid="field-error">{{ altError }}</span>
             </p>
           }
@@ -326,12 +326,12 @@
       </fieldset>
     }
     @default {
-      <div class="field">
-        <label class="field__label" [for]="id">{{ field.label }}</label>
+      <div libFormField>
+        <label libFieldLabel [for]="id">{{ field.label }}</label>
         @switch (field.kind) {
           @case ('choice') {
             <select
-              class="select"
+              libSelect
               [id]="id"
               [(ngModel)]="target[field.key]"
               [ngModelOptions]="{ standalone: true }"
@@ -344,7 +344,7 @@
           }
           @case ('textarea') {
             <textarea
-              class="textarea"
+              libTextarea
               [id]="id"
               rows="3"
               [(ngModel)]="target[field.key]"
@@ -355,7 +355,7 @@
           }
           @case ('lines') {
             <textarea
-              class="textarea"
+              libTextarea
               [id]="id"
               rows="4"
               [(ngModel)]="target[field.key]"
@@ -366,7 +366,7 @@
           }
           @case ('address') {
             <input
-              class="input"
+              libTextField
               [id]="id"
               type="text"
               inputmode="url"
@@ -380,7 +380,7 @@
           }
           @default {
             <input
-              class="input"
+              libTextField
               [id]="id"
               type="text"
               autocomplete="off"
@@ -392,10 +392,10 @@
           }
         }
         @if (field.help) {
-          <p class="field__help" [id]="id + '-help'">{{ field.help }}</p>
+          <p libFieldHelp [id]="id + '-help'">{{ field.help }}</p>
         }
         @if (error) {
-          <p class="field__error" [id]="id + '-error'">
+          <p libFieldError [id]="id + '-error'">
             <span data-testid="field-error">{{ error }}</span>
           </p>
         }

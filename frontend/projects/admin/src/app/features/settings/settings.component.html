@@ -57,10 +57,11 @@
         <p class="text-muted" data-testid="theme-subtitle">
           Choose the colours for the app. The preview shows your changes before you save.
         </p>
-        <div class="field">
-          <label class="field__label" for="theme-scope">Scope</label>
+        <div libFormField>
+          <label libFieldLabel for="theme-scope">Scope</label>
           <select
-            class="select theme-scope"
+            libSelect
+            class="theme-scope"
             id="theme-scope"
             data-testid="theme-scope-select"
             [formControl]="scopeControl"
@@ -71,8 +72,8 @@
         </div>
         <form class="stack" novalidate [formGroup]="themeForm">
           @for (colour of colours; track colour.control) {
-            <div class="field">
-              <label class="field__label" [for]="'theme-' + colour.id">{{ colour.label }}</label>
+            <div libFormField>
+              <label libFieldLabel [for]="'theme-' + colour.id">{{ colour.label }}</label>
               <div class="cluster theme-colour">
                 <span
                   class="theme-swatch"
@@ -81,7 +82,7 @@
                   [style.background]="themeForm.value[colour.control]"
                 ></span>
                 <input
-                  class="input"
+                  libTextField
                   type="text"
                   autocomplete="off"
                   spellcheck="false"

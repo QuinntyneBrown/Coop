@@ -3,11 +3,11 @@
     <h1 data-testid="documents-page-title">Documents</h1>
   </div>
   <div class="cluster page-actions">
-    <div class="search" role="search">
+    <div libSearchField>
       <label class="visually-hidden" for="documents-search">Search documents</label>
       <svg libIcon="search"></svg>
       <input
-        class="input"
+        libTextField
         id="documents-search"
         type="search"
         placeholder="Search documents..."
@@ -151,10 +151,10 @@
       </button>
     </div>
     <div class="dialog__body stack">
-      <div class="field">
-        <label class="field__label" for="document-dialog-title-input">Title</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-title-input">Title</label>
         <input
-          class="input"
+          libTextField
           id="document-dialog-title-input"
           type="text"
           autocomplete="off"
@@ -162,10 +162,10 @@
           [(ngModel)]="dialogDoc.title"
         />
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-type">Type</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-type">Type</label>
         <select
-          class="select"
+          libSelect
           id="document-dialog-type"
           data-testid="document-dialog-type"
           [(ngModel)]="dialogDoc.type"
@@ -175,20 +175,20 @@
           <option value="Report">Report</option>
         </select>
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-content">Content</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-content">Content</label>
         <textarea
-          class="textarea"
+          libTextarea
           id="document-dialog-content"
           rows="4"
           data-testid="document-dialog-content"
           [(ngModel)]="dialogDoc.content"
         ></textarea>
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-status">Status</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-status">Status</label>
         <select
-          class="select"
+          libSelect
           id="document-dialog-status"
           data-testid="document-dialog-status"
           [(ngModel)]="dialogDoc.status"
@@ -198,8 +198,8 @@
         </select>
       </div>
       @if (dialogDoc.type === 'Notice' && dialogDoc.status === 'Published') {
-        <div class="field">
-          <label class="checkbox" for="notice-send">
+        <div libFormField>
+          <label libCheckbox for="notice-send">
             <input
               id="notice-send"
               type="checkbox"
@@ -208,9 +208,9 @@
               [(ngModel)]="dialogDoc.send"
               [disabled]="saving"
             />
-            <span class="checkbox__text">Also send to members by email and text</span>
+            <span libCheckboxText>Also send to members by email and text</span>
           </label>
-          <p id="notice-send-hint" class="field__help">
+          <p id="notice-send-hint" libFieldHelp>
             Only members who asked for new notices on their profile get one.
           </p>
         </div>

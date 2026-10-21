@@ -4,11 +4,11 @@
     <p class="subtitle" data-testid="assets-info">{{ assets.length }} assets</p>
   </div>
   <div class="cluster">
-    <div class="search assets-search" role="search">
+    <div libSearchField class="assets-search">
       <label class="visually-hidden" for="assets-search">Search assets</label>
       <svg libIcon="search"></svg>
       <input
-        class="input"
+        libTextField
         id="assets-search"
         type="search"
         placeholder="Search assets..."
@@ -91,17 +91,17 @@
         </button>
       </div>
       <div class="dialog__body stack">
-        <div class="field">
-          <label class="field__label" for="asset-upload-file">Choose a file</label>
+        <div libFormField>
+          <label libFieldLabel for="asset-upload-file">Choose a file</label>
           <input
             id="asset-upload-file"
             type="file"
-            class="input"
+            libTextField
             aria-describedby="asset-upload-help"
             data-testid="upload-file-input"
             (change)="onFileSelected($event)"
           />
-          <p class="field__help" id="asset-upload-help">
+          <p libFieldHelp id="asset-upload-help">
             Any file, such as a photo or a PDF, up to 28 MB.
           </p>
         </div>

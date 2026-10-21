@@ -12,9 +12,14 @@ import {
   BadgeComponent,
   ButtonComponent,
   CardComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
+  SearchFieldComponent,
+  SelectComponent,
   TableComponent,
   TableWrapComponent,
+  TextFieldComponent,
 } from 'components';
 import { UserService } from '../../core/services/user.service';
 import { userRoleNames } from '../../core/user-role-names';
@@ -31,6 +36,11 @@ import { userRoleNames } from '../../core/user-role-names';
     CardComponent,
     TableComponent,
     TableWrapComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',

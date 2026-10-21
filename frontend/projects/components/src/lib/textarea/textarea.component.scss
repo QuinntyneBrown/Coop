@@ -1,0 +1,18 @@
+// Text area (docs/design-system/components/textarea.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+@use '../text-field/text-control';
+
+:host {
+  @include text-control.base;
+}
+
+:host {
+  min-height: calc(var(--control-height-md) * 2.5);
+  resize: vertical;
+  line-height: var(--line-height-relaxed);
+}
+
+@include text-control.states;
+
+@include text-control.forced-colors;

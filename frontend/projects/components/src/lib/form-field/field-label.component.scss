@@ -1,0 +1,14 @@
+// Field label (docs/design-system/components/form-field.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-label);
+  color: var(--color-fg-default);
+  display: flex;
+  gap: var(--space-1);
+}
+
+:host ::ng-deep .optional {
+  color: var(--color-fg-subtle);
+  font-weight: var(--font-weight-regular);
+}

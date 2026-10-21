@@ -6,7 +6,12 @@ import {
   AlertComponent,
   ButtonComponent,
   CardComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
+  TextFieldComponent,
 } from 'components';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -21,6 +26,11 @@ import { AuthService } from '../../core/services/auth.service';
     CardComponent,
     AlertBodyComponent,
     AlertComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',

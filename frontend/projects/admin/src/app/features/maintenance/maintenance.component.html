@@ -262,7 +262,7 @@
               <div class="maintenance__comment-form">
                 <label class="visually-hidden" for="rq-comment">Add a comment</label>
                 <input
-                  class="input"
+                  libTextField
                   id="rq-comment"
                   type="text"
                   [formControl]="commentControl"
@@ -309,30 +309,30 @@
       </button>
     </div>
     <div class="dialog__body stack">
-      <div class="field">
-        <label class="field__label" for="mc-title">Title</label>
+      <div libFormField>
+        <label libFieldLabel for="mc-title">Title</label>
         <input
-          class="input"
+          libTextField
           id="mc-title"
           type="text"
           formControlName="title"
           data-testid="maintenance-title-input"
         />
       </div>
-      <div class="field">
-        <label class="field__label" for="mc-desc">Description</label>
+      <div libFormField>
+        <label libFieldLabel for="mc-desc">Description</label>
         <textarea
-          class="textarea"
+          libTextarea
           id="mc-desc"
           rows="3"
           formControlName="description"
           data-testid="maintenance-description-input"
         ></textarea>
       </div>
-      <div class="field">
-        <label class="field__label" for="mc-priority">Priority</label>
+      <div libFormField>
+        <label libFieldLabel for="mc-priority">Priority</label>
         <select
-          class="select"
+          libSelect
           id="mc-priority"
           formControlName="priority"
           data-testid="maintenance-priority-select"
@@ -344,10 +344,10 @@
           <option value="Urgent">Urgent</option>
         </select>
       </div>
-      <div class="field">
-        <label class="field__label" for="mc-category">Category</label>
+      <div libFormField>
+        <label libFieldLabel for="mc-category">Category</label>
         <select
-          class="select"
+          libSelect
           id="mc-category"
           formControlName="category"
           data-testid="maintenance-category-select"
@@ -359,8 +359,8 @@
           <option value="General">General</option>
         </select>
       </div>
-      <div class="field">
-        <label class="field__label" for="mc-photos">Photos</label>
+      <div libFormField>
+        <label libFieldLabel for="mc-photos">Photos</label>
         <input
           id="mc-photos"
           type="file"

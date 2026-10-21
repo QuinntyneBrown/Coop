@@ -22,6 +22,8 @@ import {
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   ListBodyComponent,
   ListComponent,
@@ -33,7 +35,10 @@ import {
   PictureListItemComponent,
   PictureListNoteComponent,
   PictureListThumbComponent,
+  SelectComponent,
   SpinnerComponent,
+  TextFieldComponent,
+  TextareaComponent,
 } from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
@@ -70,6 +75,11 @@ import { nextMaintenanceStep } from './next-maintenance-step';
     AlertComponent,
     LoadingComponent,
     SpinnerComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    TextareaComponent,
   ],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',

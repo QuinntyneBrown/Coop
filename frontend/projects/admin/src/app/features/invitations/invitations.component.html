@@ -80,10 +80,10 @@
         </button>
       </div>
       <div class="dialog__body stack">
-        <div class="field">
-          <label class="field__label" for="invitation-type">Type</label>
+        <div libFormField>
+          <label libFieldLabel for="invitation-type">Type</label>
           <select
-            class="select"
+            libSelect
             id="invitation-type"
             formControlName="type"
             data-testid="invitation-dialog-type"
@@ -93,10 +93,11 @@
             <option value="StaffMember">Staff</option>
           </select>
         </div>
-        <div class="field">
-          <label class="field__label" for="invitation-expires">Expires</label>
+        <div libFormField>
+          <label libFieldLabel for="invitation-expires">Expires</label>
           <input
-            class="input invitation-expires"
+            libTextField
+            class="invitation-expires"
             id="invitation-expires"
             type="date"
             formControlName="expires"

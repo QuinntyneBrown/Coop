@@ -21,6 +21,10 @@ import {
   EmptyStateIconComponent,
   EmptyStateTextComponent,
   EmptyStateTitleComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   ListComponent,
   ListTitleComponent,
@@ -30,6 +34,8 @@ import {
   PhotoPickerComponent as LibPhotoPickerComponent,
   PictureListThumbComponent,
   SpinnerComponent,
+  TextFieldComponent,
+  TextareaComponent,
 } from 'components';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
@@ -83,6 +89,12 @@ const emptyDraft = (): WebsitePageDraft => ({
     AlertTitleComponent,
     LoadingComponent,
     SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
+    TextareaComponent,
   ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',

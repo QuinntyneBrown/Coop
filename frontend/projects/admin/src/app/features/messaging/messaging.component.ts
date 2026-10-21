@@ -17,6 +17,9 @@ import {
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   ListBodyComponent,
   ListComponent,
@@ -24,7 +27,9 @@ import {
   ListMetaComponent,
   ListTitleComponent,
   LoadingComponent,
+  SearchFieldComponent,
   SpinnerComponent,
+  TextFieldComponent,
 } from 'components';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -52,6 +57,11 @@ import { AuthService } from '../../core/services/auth.service';
     ListTitleComponent,
     LoadingComponent,
     SpinnerComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './messaging.component.html',
   styleUrl: './messaging.component.scss',

@@ -15,12 +15,16 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  FieldErrorComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   ListBodyComponent,
   ListComponent,
   ListItemComponent,
   ListMetaComponent,
   ListTitleComponent,
+  TextFieldComponent,
 } from 'components';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -44,6 +48,10 @@ import { plainName } from '../../core/plain-name';
     ListTitleComponent,
     AlertBodyComponent,
     AlertComponent,
+    FieldErrorComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './profiles.component.html',
   styleUrl: './profiles.component.scss',

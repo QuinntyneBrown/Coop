@@ -37,10 +37,10 @@
           </div>
         }
 
-        <div class="field">
-          <label class="field__label" for="invitationToken">Invitation Token</label>
+        <div libFormField>
+          <label libFieldLabel for="invitationToken">Invitation Token</label>
           <input
-            class="input"
+            libTextField
             id="invitationToken"
             type="text"
             autocomplete="off"
@@ -53,16 +53,16 @@
             [attr.aria-describedby]="invalid('invitationToken') ? 'invitationToken-error' : null"
           />
           @if (invalid('invitationToken')) {
-            <p class="field__error" id="invitationToken-error" data-testid="register-token-error">
+            <p libFieldError id="invitationToken-error" data-testid="register-token-error">
               Invitation token is required
             </p>
           }
         </div>
 
-        <div class="field">
-          <label class="field__label" for="username">Username</label>
+        <div libFormField>
+          <label libFieldLabel for="username">Username</label>
           <input
-            class="input"
+            libTextField
             id="username"
             type="text"
             autocomplete="username"
@@ -75,16 +75,16 @@
             [attr.aria-describedby]="invalid('username') ? 'username-error' : null"
           />
           @if (invalid('username')) {
-            <p class="field__error" id="username-error" data-testid="register-username-error">
+            <p libFieldError id="username-error" data-testid="register-username-error">
               Username is required
             </p>
           }
         </div>
 
-        <div class="field">
-          <label class="field__label" for="password">Password</label>
+        <div libFormField>
+          <label libFieldLabel for="password">Password</label>
           <input
-            class="input"
+            libTextField
             id="password"
             type="password"
             autocomplete="new-password"
@@ -95,16 +95,16 @@
             [attr.aria-describedby]="invalid('password') ? 'password-error' : null"
           />
           @if (invalid('password')) {
-            <p class="field__error" id="password-error" data-testid="register-password-error">
+            <p libFieldError id="password-error" data-testid="register-password-error">
               Password is required
             </p>
           }
         </div>
 
-        <div class="field">
-          <label class="field__label" for="confirmPassword">Confirm Password</label>
+        <div libFormField>
+          <label libFieldLabel for="confirmPassword">Confirm Password</label>
           <input
-            class="input"
+            libTextField
             id="confirmPassword"
             type="password"
             autocomplete="new-password"
@@ -116,7 +116,7 @@
           />
           @if (submitted && f['confirmPassword'].errors?.['required']) {
             <p
-              class="field__error"
+              libFieldError
               id="confirmPassword-error"
               data-testid="register-confirm-password-error"
             >
@@ -125,7 +125,7 @@
           }
           @if (submitted && f['confirmPassword'].errors?.['passwordMismatch']) {
             <p
-              class="field__error"
+              libFieldError
               id="confirmPassword-error"
               data-testid="register-confirm-password-error"
             >
@@ -134,8 +134,8 @@
           }
         </div>
 
-        <div class="field">
-          <label class="checkbox" data-testid="register-terms-label">
+        <div libFormField>
+          <label libCheckbox data-testid="register-terms-label">
             <input
               type="checkbox"
               id="termsAccepted"
@@ -144,10 +144,10 @@
               [attr.aria-invalid]="invalid('termsAccepted') || null"
               [attr.aria-describedby]="invalid('termsAccepted') ? 'termsAccepted-error' : null"
             />
-            <span class="checkbox__text">I agree to the Terms and Conditions</span>
+            <span libCheckboxText>I agree to the Terms and Conditions</span>
           </label>
           @if (invalid('termsAccepted')) {
-            <p class="field__error" id="termsAccepted-error" data-testid="register-terms-error">
+            <p libFieldError id="termsAccepted-error" data-testid="register-terms-error">
               You must accept the terms and conditions
             </p>
           }

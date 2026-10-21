@@ -83,14 +83,14 @@
               (change)="upload($event)"
           /></label>
         </div>
-        <p class="field__help" id="photo-upload-help">JPEG, PNG or WebP, up to 10 MB.</p>
+        <p libFieldHelp id="photo-upload-help">JPEG, PNG or WebP, up to 10 MB.</p>
         @if (uploading()) {
           <p libInlineStatus role="status" aria-live="polite">
             <span libSpinner size="sm"></span>Uploading…
           </p>
         }
         @if (uploadError()) {
-          <p class="field__error" id="photo-upload-error" role="alert">
+          <p libFieldError id="photo-upload-error" role="alert">
             <span data-testid="photo-picker-upload-error">{{ uploadError() }}</span>
           </p>
         }

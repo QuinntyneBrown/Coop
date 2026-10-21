@@ -37,11 +37,11 @@
           <svg libIcon="add"></svg>
         </button>
       </div>
-      <div class="search" role="search">
+      <div libSearchField>
         <label class="visually-hidden" for="conversation-search">Search conversations</label>
         <svg libIcon="search"></svg>
         <input
-          class="input"
+          libTextField
           id="conversation-search"
           type="search"
           placeholder="Search conversations..."
@@ -171,7 +171,7 @@
       <div class="cluster message-input-bar">
         <label class="visually-hidden" for="message-input">Message</label>
         <input
-          class="input"
+          libTextField
           id="message-input"
           type="text"
           autocomplete="off"
@@ -217,13 +217,13 @@
       </button>
     </div>
     <div class="dialog__body stack">
-      <div class="field">
-        <label class="field__label" for="new-conversation-recipient">Recipient</label>
-        <p id="new-conversation-recipient-hint" class="field__help">
+      <div libFormField>
+        <label libFieldLabel for="new-conversation-recipient">Recipient</label>
+        <p id="new-conversation-recipient-hint" libFieldHelp>
           Type the username of the member you want to message.
         </p>
         <input
-          class="input"
+          libTextField
           id="new-conversation-recipient"
           type="text"
           placeholder="Member's username"

@@ -25,9 +25,14 @@ import {
   EmptyStateIconComponent,
   EmptyStateTextComponent,
   EmptyStateTitleComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   LoadingComponent,
   SpinnerComponent,
+  TextFieldComponent,
 } from 'components';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
@@ -73,6 +78,11 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
     AlertTitleComponent,
     LoadingComponent,
     SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',

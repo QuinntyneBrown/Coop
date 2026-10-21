@@ -183,10 +183,10 @@
           </div>
         </div>
       }
-      <div class="field">
-        <label class="field__label" for="page-title-field">Page title</label>
+      <div libFormField>
+        <label libFieldLabel for="page-title-field">Page title</label>
         <input
-          class="input"
+          libTextField
           id="page-title-field"
           name="title"
           type="text"
@@ -198,7 +198,7 @@
           data-testid="page-title-input"
         />
         @if (errors().title) {
-          <p class="field__error" id="page-title-error">
+          <p libFieldError id="page-title-error">
             <span data-testid="page-title-error">{{ errors().title }}</span>
           </p>
         }
@@ -221,7 +221,7 @@
             <p libListTitle id="page-hero-name" data-testid="page-hero-name">
               {{ heroName(draft.heroImageUrl) }}
             </p>
-            <p class="field__help" id="page-hero-help">
+            <p libFieldHelp id="page-hero-help">
               Pick a photo from the Assets library. It shows under the title.
             </p>
             <div libPhotoPickerActions>
@@ -252,13 +252,13 @@
           </div>
         </div>
       </fieldset>
-      <div class="field">
-        <label class="field__label" for="page-hero-alt-field">Photo description</label>
-        <p class="field__help" id="page-hero-alt-help">
+      <div libFormField>
+        <label libFieldLabel for="page-hero-alt-field">Photo description</label>
+        <p libFieldHelp id="page-hero-alt-help">
           Describe the photo for people who cannot see it. Needed when the page has a photo.
         </p>
         <textarea
-          class="textarea"
+          libTextarea
           id="page-hero-alt-field"
           name="heroImageAlt"
           rows="3"
@@ -270,21 +270,21 @@
           data-testid="page-hero-alt-input"
         ></textarea>
         @if (errors().heroImageAlt) {
-          <p class="field__error" id="page-hero-alt-error">
+          <p libFieldError id="page-hero-alt-error">
             <span data-testid="page-hero-alt-error">{{ errors().heroImageAlt }}</span>
           </p>
         }
       </div>
-      <div class="field">
-        <label class="field__label" for="page-body-field">Page text</label>
-        <p class="field__help" id="page-body-help">
+      <div libFormField>
+        <label libFieldLabel for="page-body-field">Page text</label>
+        <p libFieldHelp id="page-body-help">
           Plain words work. For headings and lists use simple HTML:
           <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>,
           <code>&lt;li&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;a&gt;</code>,
           <code>&lt;img&gt;</code>
         </p>
         <textarea
-          class="textarea"
+          libTextarea
           id="page-body-field"
           name="body"
           rows="8"
@@ -296,7 +296,7 @@
           data-testid="page-body-input"
         ></textarea>
         @if (errors().body) {
-          <p class="field__error" id="page-body-error">
+          <p libFieldError id="page-body-error">
             <span data-testid="page-body-error">{{ errors().body }}</span>
           </p>
         }

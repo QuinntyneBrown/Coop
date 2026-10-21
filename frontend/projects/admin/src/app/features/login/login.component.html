@@ -42,10 +42,10 @@
           </div>
         }
 
-        <div class="field">
-          <label class="field__label" for="username">Username</label>
+        <div libFormField>
+          <label libFieldLabel for="username">Username</label>
           <input
-            class="input"
+            libTextField
             id="username"
             type="text"
             autocomplete="username"
@@ -58,16 +58,16 @@
             [attr.aria-describedby]="usernameInvalid ? 'username-error' : null"
           />
           @if (usernameInvalid) {
-            <p class="field__error" id="username-error" data-testid="login-username-error">
+            <p libFieldError id="username-error" data-testid="login-username-error">
               Username is required
             </p>
           }
         </div>
 
-        <div class="field">
-          <label class="field__label" for="password">Password</label>
+        <div libFormField>
+          <label libFieldLabel for="password">Password</label>
           <input
-            class="input"
+            libTextField
             id="password"
             type="password"
             autocomplete="current-password"
@@ -78,16 +78,16 @@
             [attr.aria-describedby]="passwordInvalid ? 'password-error' : null"
           />
           @if (passwordInvalid) {
-            <p class="field__error" id="password-error" data-testid="login-password-error">
+            <p libFieldError id="password-error" data-testid="login-password-error">
               Password is required
             </p>
           }
         </div>
 
         <div class="cluster cluster--between">
-          <label class="checkbox">
+          <label libCheckbox>
             <input type="checkbox" formControlName="rememberMe" data-testid="login-remember-me" />
-            <span class="checkbox__text">Remember me</span>
+            <span libCheckboxText>Remember me</span>
           </label>
           <a routerLink="/forgot-password" data-testid="login-forgot-password">Forgot password?</a>
         </div>

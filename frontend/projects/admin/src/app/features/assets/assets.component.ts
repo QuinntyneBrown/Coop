@@ -15,6 +15,9 @@ import {
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTitleComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
   PictureListComponent,
   PictureListGridComponent,
@@ -22,6 +25,8 @@ import {
   PictureListNoteComponent,
   PictureListThumbComponent,
   ProgressComponent,
+  SearchFieldComponent,
+  TextFieldComponent,
 } from 'components';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
@@ -44,6 +49,11 @@ import { formatFileSize } from './format-file-size';
     PictureListNoteComponent,
     PictureListThumbComponent,
     ProgressComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './assets.component.html',
   styleUrl: './assets.component.scss',

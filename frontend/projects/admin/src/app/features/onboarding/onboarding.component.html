@@ -50,10 +50,10 @@
         <div class="stack onboarding-step" data-testid="onboarding-profile-section">
           <h1>Set Up Your Profile</h1>
           <form class="stack" novalidate aria-label="Your profile" [formGroup]="profileForm">
-            <div class="field">
-              <label class="field__label" for="ob-first">First Name</label>
+            <div libFormField>
+              <label libFieldLabel for="ob-first">First Name</label>
               <input
-                class="input"
+                libTextField
                 id="ob-first"
                 type="text"
                 autocomplete="given-name"
@@ -61,10 +61,10 @@
                 data-testid="onboarding-first-name"
               />
             </div>
-            <div class="field">
-              <label class="field__label" for="ob-last">Last Name</label>
+            <div libFormField>
+              <label libFieldLabel for="ob-last">Last Name</label>
               <input
-                class="input"
+                libTextField
                 id="ob-last"
                 type="text"
                 autocomplete="family-name"
@@ -72,10 +72,10 @@
                 data-testid="onboarding-last-name"
               />
             </div>
-            <div class="field">
-              <label class="field__label" for="ob-email">Email</label>
+            <div libFormField>
+              <label libFieldLabel for="ob-email">Email</label>
               <input
-                class="input"
+                libTextField
                 id="ob-email"
                 type="email"
                 autocomplete="email"
@@ -83,10 +83,10 @@
                 data-testid="onboarding-email"
               />
             </div>
-            <div class="field">
-              <label class="field__label" for="ob-phone">Phone</label>
+            <div libFormField>
+              <label libFieldLabel for="ob-phone">Phone</label>
               <input
-                class="input"
+                libTextField
                 id="ob-phone"
                 type="text"
                 autocomplete="tel"
@@ -94,10 +94,10 @@
                 data-testid="onboarding-phone"
               />
             </div>
-            <div class="field">
-              <label class="field__label" for="ob-photo">Avatar</label>
+            <div libFormField>
+              <label libFieldLabel for="ob-photo">Avatar</label>
               <input
-                class="input"
+                libTextField
                 id="ob-photo"
                 type="file"
                 accept="image/*"
@@ -145,9 +145,9 @@
           <div class="stack" data-testid="onboarding-unit-section">
             <h1>Select Your Unit</h1>
             <fieldset class="stack onboarding-units" data-testid="onboarding-unit-selector">
-              <legend class="field__label">Your unit</legend>
+              <legend libFieldLabel>Your unit</legend>
               @for (unit of units; track unit; let i = $index) {
-                <label class="choice" data-testid="onboarding-unit-option">
+                <label libRadio data-testid="onboarding-unit-option">
                   <input
                     type="radio"
                     name="onboarding-unit"
@@ -155,7 +155,7 @@
                     [checked]="selectedUnit === i"
                     (change)="selectUnit(i)"
                   />
-                  <span class="choice__text">{{ unit }}</span>
+                  <span libRadioText>{{ unit }}</span>
                 </label>
               }
             </fieldset>

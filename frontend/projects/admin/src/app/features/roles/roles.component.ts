@@ -5,6 +5,7 @@ import {
   CardTitleComponent,
   ChipComponent,
   IconComponent,
+  SwitchComponent,
   TableComponent,
   TableWrapComponent,
 } from 'components';
@@ -23,6 +24,7 @@ import { plainName } from '../../core/plain-name';
     CardTitleComponent,
     TableComponent,
     TableWrapComponent,
+    SwitchComponent,
   ],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.scss',

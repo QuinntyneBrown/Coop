@@ -3,11 +3,11 @@
     <h1 data-testid="users-page-title">Users</h1>
   </div>
   <div class="cluster page-actions">
-    <div class="search" role="search">
+    <div libSearchField>
       <label class="visually-hidden" for="users-search">Search users</label>
       <svg libIcon="search"></svg>
       <input
-        class="input"
+        libTextField
         id="users-search"
         type="search"
         placeholder="Search users..."
@@ -185,10 +185,10 @@
       </button>
     </div>
     <div class="dialog__body stack">
-      <div class="field">
-        <label class="field__label" for="user-dialog-username">Username</label>
+      <div libFormField>
+        <label libFieldLabel for="user-dialog-username">Username</label>
         <input
-          class="input"
+          libTextField
           id="user-dialog-username"
           type="text"
           autocomplete="off"
@@ -197,10 +197,10 @@
           data-testid="user-dialog-username"
         />
       </div>
-      <div class="field">
-        <label class="field__label" for="user-dialog-role">Role</label>
+      <div libFormField>
+        <label libFieldLabel for="user-dialog-role">Role</label>
         <select
-          class="select"
+          libSelect
           id="user-dialog-role"
           formControlName="role"
           data-testid="user-dialog-role"
@@ -210,10 +210,10 @@
           <option value="Admin">Admin</option>
         </select>
       </div>
-      <div class="field">
-        <label class="field__label" for="user-dialog-password">Password</label>
+      <div libFormField>
+        <label libFieldLabel for="user-dialog-password">Password</label>
         <input
-          class="input"
+          libTextField
           id="user-dialog-password"
           type="password"
           autocomplete="new-password"

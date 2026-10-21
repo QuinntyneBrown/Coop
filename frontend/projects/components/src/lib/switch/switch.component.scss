@@ -1,0 +1,70 @@
+// Switch (docs/design-system/components/switch.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// A checkbox drawn as a toggle (a role's privilege on or off). The thumb springs across.
+:host {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  cursor: pointer;
+  font: var(--text-body);
+  padding-block: var(--space-1);
+  min-height: var(--target-min);
+}
+
+:host ::ng-deep input {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: calc(var(--size-icon-md) * 1.75);
+  height: var(--size-icon-md);
+  margin: var(--space-0-5) 0 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+:host ::ng-deep input::before {
+  content: '';
+  position: absolute;
+  top: var(--space-0-5);
+  left: var(--space-0-5);
+  width: calc(var(--size-icon-md) - var(--space-1));
+  height: calc(var(--size-icon-md) - var(--space-1));
+  border-radius: var(--radius-full);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-1);
+  transition: translate var(--duration-base) var(--ease-spring);
+}
+
+:host ::ng-deep input:hover {
+  background: var(--color-fg-muted);
+}
+
+:host ::ng-deep input:checked {
+  background: var(--color-accent);
+}
+
+:host ::ng-deep input:checked:hover {
+  background: var(--color-accent-hover);
+}
+
+:host ::ng-deep input:checked::before {
+  translate: calc(var(--size-icon-md) * 0.75) 0;
+}
+
+:host ::ng-deep input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--space-0-5);
+}
+
+:host ::ng-deep input:disabled {
+  background: var(--color-border-default);
+  cursor: not-allowed;
+}
+
+:host ::ng-deep input:disabled + * {
+  color: var(--color-fg-disabled);
+}

@@ -6,7 +6,13 @@ import {
   AlertComponent,
   ButtonComponent,
   CardComponent,
+  CheckboxComponent,
+  CheckboxTextComponent,
+  FieldErrorComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
   IconComponent,
+  TextFieldComponent,
 } from 'components';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -21,6 +27,12 @@ import { AuthService } from '../../core/services/auth.service';
     CardComponent,
     AlertBodyComponent,
     AlertComponent,
+    CheckboxComponent,
+    CheckboxTextComponent,
+    FieldErrorComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

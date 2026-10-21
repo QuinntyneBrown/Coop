@@ -206,10 +206,10 @@
           </div>
         </div>
       }
-      <div class="field">
-        <label class="field__label" for="director-name-field">Name</label>
+      <div libFormField>
+        <label libFieldLabel for="director-name-field">Name</label>
         <input
-          class="input"
+          libTextField
           id="director-name-field"
           name="name"
           type="text"
@@ -221,15 +221,15 @@
           data-testid="director-name-input"
         />
         @if (errors().name) {
-          <p class="field__error" id="director-name-error">
+          <p libFieldError id="director-name-error">
             <span data-testid="director-name-error">{{ errors().name }}</span>
           </p>
         }
       </div>
-      <div class="field">
-        <label class="field__label" for="director-title-field">Role on the board</label>
+      <div libFormField>
+        <label libFieldLabel for="director-title-field">Role on the board</label>
         <input
-          class="input"
+          libTextField
           id="director-title-field"
           name="title"
           type="text"
@@ -241,21 +241,21 @@
           "
           data-testid="director-title-input"
         />
-        <p class="field__help" id="director-title-help">
+        <p libFieldHelp id="director-title-help">
           For example President, Treasurer, Secretary or Member at large.
         </p>
         @if (errors().title) {
-          <p class="field__error" id="director-title-error">
+          <p libFieldError id="director-title-error">
             <span data-testid="director-title-error">{{ errors().title }}</span>
           </p>
         }
       </div>
-      <div class="field">
-        <label class="field__label" for="director-photo-field"
+      <div libFormField>
+        <label libFieldLabel for="director-photo-field"
           >Photo address <span class="optional">(optional)</span></label
         >
         <input
-          class="input"
+          libTextField
           id="director-photo-field"
           name="photoUrl"
           type="url"
@@ -263,7 +263,7 @@
           aria-describedby="director-photo-help"
           data-testid="director-photo-input"
         />
-        <p class="field__help" id="director-photo-help">
+        <p libFieldHelp id="director-photo-help">
           Paste the address of a portrait from the Assets library. Without one, the website shows
           the director's initials.
         </p>

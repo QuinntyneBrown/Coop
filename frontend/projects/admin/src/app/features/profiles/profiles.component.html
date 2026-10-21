@@ -65,10 +65,10 @@
           <span libAvatar size="xl" aria-hidden="true">{{ getInitials() }}</span>
           <button libButton type="button" data-testid="profile-change-avatar">Change Avatar</button>
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-first">First Name</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-first">First Name</label>
           <input
-            class="input"
+            libTextField
             id="pf-first"
             type="text"
             autocomplete="given-name"
@@ -78,15 +78,15 @@
             [attr.aria-describedby]="firstNameInvalid ? 'pf-first-error' : null"
           />
           @if (firstNameInvalid) {
-            <p class="field__error" id="pf-first-error" data-testid="profile-first-name-error">
+            <p libFieldError id="pf-first-error" data-testid="profile-first-name-error">
               First name is required
             </p>
           }
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-last">Last Name</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-last">Last Name</label>
           <input
-            class="input"
+            libTextField
             id="pf-last"
             type="text"
             autocomplete="family-name"
@@ -96,15 +96,15 @@
             [attr.aria-describedby]="lastNameInvalid ? 'pf-last-error' : null"
           />
           @if (lastNameInvalid) {
-            <p class="field__error" id="pf-last-error" data-testid="profile-last-name-error">
+            <p libFieldError id="pf-last-error" data-testid="profile-last-name-error">
               Last name is required
             </p>
           }
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-phone">Phone</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-phone">Phone</label>
           <input
-            class="input"
+            libTextField
             id="pf-phone"
             type="tel"
             autocomplete="tel"
@@ -113,10 +113,10 @@
           />
         </div>
         @if (isBoardMember(currentProfile)) {
-          <div class="field">
-            <label class="field__label" for="pf-board-title">Board Title</label>
+          <div libFormField>
+            <label libFieldLabel for="pf-board-title">Board Title</label>
             <input
-              class="input"
+              libTextField
               id="pf-board-title"
               type="text"
               formControlName="boardTitle"
@@ -189,10 +189,10 @@
     @if (showPasswordForm) {
       <section libCard class="stack" aria-labelledby="password-title">
         <h2 libCardTitle id="password-title">Change Password</h2>
-        <div class="field">
-          <label class="field__label" for="pw-current">Current Password</label>
+        <div libFormField>
+          <label libFieldLabel for="pw-current">Current Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-current"
             type="password"
             autocomplete="current-password"
@@ -200,10 +200,10 @@
             data-testid="profile-current-password"
           />
         </div>
-        <div class="field">
-          <label class="field__label" for="pw-new">New Password</label>
+        <div libFormField>
+          <label libFieldLabel for="pw-new">New Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-new"
             type="password"
             autocomplete="new-password"
@@ -211,10 +211,10 @@
             data-testid="profile-new-password"
           />
         </div>
-        <div class="field">
-          <label class="field__label" for="pw-confirm">Confirm New Password</label>
+        <div libFormField>
+          <label libFieldLabel for="pw-confirm">Confirm New Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-confirm"
             type="password"
             autocomplete="new-password"

@@ -1,0 +1,58 @@
+// Select (docs/design-system/components/select.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  --field-border: var(--color-border-strong);
+  --field-bg: var(--color-bg-surface);
+  appearance: none;
+  width: 100%;
+  min-height: var(--control-height-md);
+  padding: var(--space-2) calc(var(--space-3) + var(--size-icon-md) + var(--space-2)) var(--space-2)
+    var(--space-3);
+  font: var(--text-body);
+  color: var(--color-fg-default);
+  background-color: var(--field-bg);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - var(--space-5)) 50%,
+    calc(100% - var(--space-4)) 50%;
+  background-size:
+    var(--space-1) var(--space-1),
+    var(--space-1) var(--space-1);
+  background-repeat: no-repeat;
+  border: var(--border-width-hairline) solid var(--field-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  --field-border: var(--color-fg-muted);
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 0;
+  --field-border: var(--color-focus-ring);
+}
+
+:host([aria-invalid='true']) {
+  --field-border: var(--color-danger-solid);
+  box-shadow: inset 0 0 0 var(--border-width-hairline) var(--color-danger-solid);
+}
+
+:host(:disabled) {
+  --field-bg: var(--color-bg-subtle);
+  --field-border: var(--color-border-default);
+  color: var(--color-fg-disabled);
+  cursor: not-allowed;
+}
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    border: var(--border-width-hairline) solid CanvasText;
+  }
+}
