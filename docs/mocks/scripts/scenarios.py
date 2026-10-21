@@ -50,9 +50,10 @@ for app in ['public','admin']:
     if app=='admin':  # the public landing is the hand-written OWN proposal in pages/public-landing; it is not captured
         s=add(app,'landing',[53,68,70],dict(heroTitle='Welcome to Your Cooperative',heroSubtitle='Manage your community, submit requests, and stay connected with your neighbors.',boardMembers=DIRECTORS,notices=DOCS[:1],currentYear=2026))
         state(s); state(s,'empty',dict(boardMembers=[],notices=[]),note='Empty CMS collections. No loading or error screen is implemented.')
-    s=add(app,'login',[7,76]); state(s); state(s,'invalid',dict(submitted=True))
-    state(s,'submitting',dict(loading=True,username='mira.fern',password='FictionalPass123!'),forms={'loginForm':dict(username='mira.fern',password='FictionalPass123!')} if app=='admin' else {})
-    state(s,'error',dict(loginError='Invalid username or password',username='mira.fern'),forms={'loginForm':dict(username='mira.fern')} if app=='admin' else {})
+    if app=='admin':  # the public site has no login screen; its sign-in links open this one (L2-REQ-101)
+        s=add(app,'login',[7,101]); state(s); state(s,'invalid',dict(submitted=True))
+        state(s,'submitting',dict(loading=True,username='mira.fern',password='FictionalPass123!'),forms={'loginForm':dict(username='mira.fern',password='FictionalPass123!')})
+        state(s,'error',dict(loginError='Invalid username or password',username='mira.fern'),forms={'loginForm':dict(username='mira.fern')})
     s=add(app,'register',[1,44,77]); state(s); state(s,'invalid',dict(submitted=True))
     state(s,'mismatch',dict(submitted=True,password='FictionalPass123!',confirmPassword='DifferentPass123!'),forms={'registerForm':dict(password='FictionalPass123!',confirmPassword='DifferentPass123!')} if app=='admin' else {})
     state(s,'submitting',dict(loading=True)); state(s,'error',dict(registrationError='Registration failed. Please check your invitation token.'))

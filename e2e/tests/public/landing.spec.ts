@@ -1,6 +1,6 @@
 // Acceptance Test
 // Traces to: L2-REQ-053, L2-REQ-066, L2-REQ-067, L2-REQ-068, L2-REQ-069, L2-REQ-070,
-// L2-REQ-071, L2-REQ-078, L2-REQ-079, L2-REQ-082
+// L2-REQ-071, L2-REQ-078, L2-REQ-079, L2-REQ-082, L2-REQ-101
 // Description: The public home page renders the OWN design: header with sign in,
 // CMS-driven hero with its actions and photograph, the body blocks, the board
 // list and published notices from the API, the contact footer, and the phone
@@ -8,6 +8,7 @@
 
 import { test, expect } from '../../fixtures/public/auth.fixture';
 import { LandingPage } from '../../pages/public/landing.page';
+import { ADMIN_LOGIN_URL, LoginPage as AdminLoginPage } from '../../pages/admin/login.page';
 
 const DEFAULT_HERO_TITLE = 'A home of our own, in the heart of Toronto.';
 
@@ -26,10 +27,26 @@ test.describe('Home page', () => {
       await expect(landing.signInLink).toBeVisible();
     });
 
-    test('opens the login page from Member sign in', async () => {
+    // L2-REQ-066 AC4, L2-REQ-101 AC3
+    test('opens the admin login screen from Member sign in', async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
       await landing.goto();
-      await landing.navigateToLogin();
-      await expect(landing.page).toHaveURL(/\/login/);
+      await landing.signInLink.click();
+      await new AdminLoginPage(page).expectOpen();
+    });
+
+    // L2-REQ-101 AC6
+    test('reaches Member sign in with the keyboard, with its label and a focus ring', async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
+      await landing.goto();
+      await expect(landing.signInLink).toHaveText('Member sign in');
+      await expect(landing.signInLink).toHaveAttribute('href', ADMIN_LOGIN_URL);
+      await landing.tabTo(landing.signInLink);
+      expect(await landing.focusOutline(landing.signInLink)).toBe('solid');
+      await page.keyboard.press('Enter');
+      await new AdminLoginPage(page).expectOpen();
     });
 
     test('lists the website pages after the home page sections', async ({ mockApi, page }) => {
@@ -218,11 +235,12 @@ test.describe('Home page', () => {
       await expect(landing.menuButton).toBeFocused();
     });
 
-    test('opens the login page from the panel', async () => {
+    // L2-REQ-067 AC2, L2-REQ-101 AC3
+    test('opens the admin login screen from the panel', async ({ page }) => {
       await landing.goto();
       await landing.openMenu();
       await landing.menuSignInLink.click();
-      await expect(landing.page).toHaveURL(/\/login/);
+      await new AdminLoginPage(page).expectOpen();
     });
   });
 
@@ -253,6 +271,13 @@ test.describe('Home page', () => {
       await expect(landing.footer).toBeVisible();
       await expect(landing.footer).toContainText('Visit or write');
       await expect(landing.footerPhone).toHaveAttribute('href', /^tel:/);
+    });
+
+    // L2-REQ-078 AC2, L2-REQ-101 AC3
+    test('opens the admin login screen from Member sign in under For members', async ({ page }) => {
+      await landing.goto();
+      await landing.footerLink('Member sign in').click();
+      await new AdminLoginPage(page).expectOpen();
     });
   });
 });

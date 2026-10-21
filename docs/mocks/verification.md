@@ -73,3 +73,19 @@ mocks and the same four intentional dashboard `h1` errors. The new screens
 were screenshotted at 360 and 1280 px: the public page and its not-found
 state reflow to one column, the admin list stacks its cards and actions, and
 the dialogs become bottom sheets under 640 px.
+
+## Public login removed
+
+On 21 October 2026 the `public-login` screen and its four states (default,
+error, invalid, submitting) were removed: the public site no longer has a
+login screen (L2-REQ-101). Every public mock link that led to it now opens
+`admin-login` instead: "Member sign in" in the header, phone menu and footer
+of `public-landing` and `public-page`, "Report a repair" in those footers (a
+signed-out visitor is sent to the admin login), the register and
+forgot-password "Sign in" links, and Log Out on the public profile mocks.
+"Documents and bylaws" in those footers now opens `public-documents`, the
+screen its route shows. The links keep their classes and look. The capture
+scripts no longer capture a public login and map the admin login address to
+`admin-login`. `check_mocks.py docs/mocks --write` now reports 63 screens and
+214 mocks; its one error (the `public-maintenance-create` busy state) and its
+warnings were already reported before this change.

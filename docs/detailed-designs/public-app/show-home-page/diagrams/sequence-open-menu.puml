@@ -15,7 +15,7 @@ actor -> button : Activate "Menu"
 button -> page : toggleMenu()
 page -> page : menuOpen = true
 page -> button : aria-expanded="true", label "Close"  [L2-REQ-067 AC2]
-page -> panel : Show links, Member sign in, Book a visit
+page -> panel : Show links, Member sign in (opens the admin login, L2-REQ-101), Book a visit
 panel --> actor : Panel visible under the header
 alt Escape key or "Close"
   actor -> page : keydown.escape or click

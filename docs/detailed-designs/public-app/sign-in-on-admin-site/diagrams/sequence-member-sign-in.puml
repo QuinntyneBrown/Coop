@@ -1,0 +1,22 @@
+@startuml
+title UML sequence behaviour — Member sign in opens the admin login
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "SiteHeaderComponent" as header
+  participant "SiteLinkDirective" as link
+end box
+box "Frontend — Admin application" #FEF3C7
+  participant "Login screen" as admin
+end box
+header -> link : Render signInLink (href = ADMIN_LOGIN_URL)
+link -> link : linkTarget(): web address, external  [L2-REQ-098 AC2]
+actor -> link : Activate "Member sign in" (click, Enter)
+link --> actor : No in-app navigation; browser follows href
+actor -> admin : GET http://localhost:4200/login  [L2-REQ-101 AC3]
+admin --> actor : Admin login screen
+@enduml

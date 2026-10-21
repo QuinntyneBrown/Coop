@@ -156,9 +156,18 @@ export class LandingPage {
     return this.noticeCards.filter({ hasText: title });
   }
 
-  async navigateToLogin() {
-    await this.signInLink.click();
-    await this.page.waitForURL('**/login');
+  /** Moves keyboard focus with Tab, as a visitor would, until the link has it. */
+  async tabTo(link: Locator, maxPresses = 40) {
+    for (let i = 0; i < maxPresses; i++) {
+      await this.page.keyboard.press('Tab');
+      if (await link.evaluate((el) => el === document.activeElement)) return;
+    }
+    throw new Error(`Could not reach the link with Tab in ${maxPresses} presses`);
+  }
+
+  /** The outline style the focused element draws, e.g. "solid" for the focus ring. */
+  async focusOutline(link: Locator): Promise<string> {
+    return link.evaluate((el) => getComputedStyle(el).outlineStyle);
   }
 
   async openMenu() {

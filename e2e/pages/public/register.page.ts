@@ -104,11 +104,6 @@ export class RegisterPage {
     await this.submit();
   }
 
-  async navigateToSignIn() {
-    await this.signInLink.click();
-    await this.page.waitForURL('**/login');
-  }
-
   async expectPasswordMismatchError() {
     await expect(this.confirmPasswordError).toBeVisible();
     await expect(this.confirmPasswordError).toContainText(/match/i);

@@ -1,3 +1,4 @@
+import { ADMIN_LOGIN_URL } from '../services/admin-login-url';
 import type { SiteContent } from './site-content';
 import type { SiteLink } from './site-link';
 import type { SitePhoto } from './site-photo';
@@ -14,8 +15,10 @@ const photo = (src: string, alt: string, width: number, height: number): SitePho
  * The built-in content of the header, footer and home page, shown for any
  * value the published site content lacks or when it cannot be loaded
  * (L2-REQ-100). It matches the content the API seeds
- * (backend/src/Coop.Api/SiteContentSeed.cs). People, events and contact
- * details are fictional.
+ * (backend/src/Coop.Api/SiteContentSeed.cs), except that the sign-in links
+ * open the admin login directly; the seed's `/login` reaches it through the
+ * public `/login` redirect (L2-REQ-101). People, events and contact details
+ * are fictional.
  */
 export const SITE_DEFAULTS: SiteContent = {
   header: {
@@ -28,7 +31,7 @@ export const SITE_DEFAULTS: SiteContent = {
       link("What's on", '/#events'),
       link('Contact', '/#contact'),
     ],
-    signInLink: link('Member sign in', '/login'),
+    signInLink: link('Member sign in', ADMIN_LOGIN_URL),
     visitLink: link('Book a visit', '/#visit'),
   },
   footer: {
@@ -46,7 +49,7 @@ export const SITE_DEFAULTS: SiteContent = {
     ],
     memberLinksHeading: 'For members',
     memberLinks: [
-      link('Member sign in', '/login'),
+      link('Member sign in', ADMIN_LOGIN_URL),
       link('Report a repair', '/maintenance'),
       link('Documents and bylaws', '/documents'),
     ],
@@ -79,7 +82,7 @@ export const SITE_DEFAULTS: SiteContent = {
     about: {
       eyebrow: 'Who we are',
       title: 'Older women built this place. We still run it.',
-      lead: "Our founding members imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.",
+      lead: 'Our founding members imagined a building where women could grow older with dignity, affordable rent and friends down the hall. In 1997 the doors opened. They have stayed open ever since.',
       values: [
         {
           icon: 'members',

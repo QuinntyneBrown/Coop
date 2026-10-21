@@ -1,6 +1,10 @@
+import { ADMIN_LOGIN_URL } from '../../pages/admin/login.page';
+
 /**
  * The SiteContent entry the API seeds (backend/src/Coop.Api/SiteContentSeed.cs):
  * every value the public site shows. People and contact details are fictional.
+ * The sign-in links hold the admin login address, as an administrator would
+ * publish it (L2-REQ-101); the API seed's `/login` reaches the same screen.
  */
 export function createSiteContent(): Record<string, any> {
   const link = (label: string, href: string) => ({ label, href });
@@ -22,7 +26,7 @@ export function createSiteContent(): Record<string, any> {
         link("What's on", '/#events'),
         link('Contact', '/#contact'),
       ],
-      signInLink: link('Member sign in', '/login'),
+      signInLink: link('Member sign in', ADMIN_LOGIN_URL),
       visitLink: link('Book a visit', '/#visit'),
     },
     footer: {
@@ -40,7 +44,7 @@ export function createSiteContent(): Record<string, any> {
       ],
       memberLinksHeading: 'For members',
       memberLinks: [
-        link('Member sign in', '/login'),
+        link('Member sign in', ADMIN_LOGIN_URL),
         link('Report a repair', '/maintenance'),
         link('Documents and bylaws', '/documents'),
       ],

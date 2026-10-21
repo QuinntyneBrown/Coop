@@ -1,13 +1,14 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { ADMIN_LOGIN_URL } from '../../core/services/admin-login-url';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   template: `
     <!-- Green header -->
     <div class="register-header" data-testid="register-header">
@@ -129,7 +130,7 @@ import { AuthService } from '../../core/services/auth.service';
 
       <div class="sign-in-row">
         Already have an account?
-        <a routerLink="/login" data-testid="register-sign-in-link">Sign in</a>
+        <a [href]="adminLoginUrl" data-testid="register-sign-in-link">Sign in</a>
       </div>
     </div>
   `,
@@ -246,6 +247,7 @@ import { AuthService } from '../../core/services/auth.service';
   ],
 })
 export class RegisterComponent {
+  readonly adminLoginUrl = ADMIN_LOGIN_URL;
   private authService = inject(AuthService);
   private router = inject(Router);
 

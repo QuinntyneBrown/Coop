@@ -20,7 +20,8 @@ Terms used in this design:
 - **slug** — URL segment derived from the title on the server, for example
   `how-to-apply`
 - **site header** — sticky header shared by the home page and every website
-  page: Co-op mark and name, navigation, "Member sign in" and the phone menu
+  page: Co-op mark and name, navigation, "Member sign in" (which opens the
+  admin login, see `../sign-in-on-admin-site/`) and the phone menu
 - **site footer** — footer shared by the same pages
 - **not-found experience** — page shown inside the site layout when no page
   matches the slug, instead of a redirect
@@ -87,7 +88,7 @@ answers 404 for an unknown or removed slug.
 
 | L2 ID | Refines (L1) | Requirement |
 |-------|--------------|-------------|
-| `L2-REQ-066` | `L1-REQ-015` | The public app header at desktop breakpoints shall display the Co-op mark, site name, horizontal navigation links to CMS pages, and a "Member sign in" button. |
+| `L2-REQ-066` | `L1-REQ-015` | The public app header at desktop breakpoints shall display the Co-op mark, site name, horizontal navigation links to CMS pages, and a "Member sign in" button that opens the admin site's login screen (`L2-REQ-101`). |
 | `L2-REQ-067` | `L1-REQ-015` | The public app header below LG (1024) shall collapse navigation into a labelled "Menu" button. |
 | `L2-REQ-082` | `L1-REQ-015` | The public app header shall list, after the home page section links, one link per website page the office has added (L2-REQ-080), on every page that shows the header. |
 | `L2-REQ-072` | `L1-REQ-017` | A generic CMS content page at XL (1440) shall have the header, an optional page hero/banner, a title, and a rendered HTML body. |

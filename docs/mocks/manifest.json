@@ -26,29 +26,6 @@
       }
     },
     {
-      "id": "public-login",
-      "kind": "page",
-      "title": "Public \u00b7 Login",
-      "app": "public",
-      "route": "/login",
-      "source": "frontend/projects/public/src/app/pages/login/login.component.ts",
-      "requirements": [
-        "L2-REQ-007",
-        "L2-REQ-076"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "invalid",
-        "submitting",
-        "error"
-      ],
-      "not_applicable": {
-        "loading": "The component loads no data on entry, so there is no loading presentation.",
-        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
-      }
-    },
-    {
       "id": "public-register",
       "kind": "page",
       "title": "Public \u00b7 Register",
@@ -401,7 +378,7 @@
       "source": "frontend/projects/admin/src/app/features/login/login.component.ts",
       "requirements": [
         "L2-REQ-007",
-        "L2-REQ-076"
+        "L2-REQ-101"
       ],
       "note": "",
       "states": [

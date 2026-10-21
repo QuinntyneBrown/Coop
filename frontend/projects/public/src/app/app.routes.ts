@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminLoginGuard } from './core/guards/admin-login.guard';
 import { authGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -13,10 +14,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/content-page/content-page.component').then((m) => m.ContentPageComponent),
   },
-  {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.component').then((m) => m.LoginComponent),
-  },
+  // The public site has no login screen; /login leaves for the admin one.
+  { path: 'login', canActivate: [adminLoginGuard], children: [] },
   {
     path: 'register',
     loadComponent: () =>

@@ -2,6 +2,7 @@ import { test as authTest, expect } from '../../fixtures/public/auth.fixture';
 import { test as apiTest } from '../../fixtures/public/api.fixture';
 import { mergeTests } from '@playwright/test';
 import { ProfilePage } from '../../pages/public/profile.page';
+import { LoginPage as AdminLoginPage } from '../../pages/admin/login.page';
 import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 import { MEMBER_PROFILE_ID, newId, type MockProfile } from '../../fixtures/mock-api/mock-store';
 
@@ -398,10 +399,11 @@ test.describe('Profile', () => {
       await expect(profile.logoutButton).toBeVisible();
     });
 
-    test('should redirect to login page after logout', async () => {
+    // L2-REQ-101 AC2: Log Out ends on the admin login screen, the only login screen.
+    test('should open the admin login screen after logout', async () => {
       await profile.goto();
       await profile.logout();
-      await expect(profile.page).toHaveURL(/\/login/);
+      await new AdminLoginPage(profile.page).expectOpen();
     });
   });
 

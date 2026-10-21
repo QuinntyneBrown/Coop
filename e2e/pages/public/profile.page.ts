@@ -201,6 +201,5 @@ export class ProfilePage {
 
   async logout() {
     await this.logoutButton.click();
-    await this.page.waitForURL('**/login');
   }
 }

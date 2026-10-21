@@ -1,107 +1,16 @@
 import { test, expect } from '../../fixtures/public/auth.fixture';
-import { LoginPage } from '../../pages/public/login.page';
 import { RegisterPage } from '../../pages/public/register.page';
+import { ForgotPasswordPage } from '../../pages/public/forgot-password.page';
+import { LoginPage as AdminLoginPage } from '../../pages/admin/login.page';
 import { DocumentsPage } from '../../pages/public/documents.page';
 import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 
 test.describe('Authentication', () => {
-  test.describe('Login Page', () => {
-    let login: LoginPage;
-
-    test.beforeEach(async ({ page }) => {
-      login = new LoginPage(page);
-      await login.goto();
-    });
-
-    test('should load the login page', async () => {
-      await login.expectLoaded();
-    });
-
-    test('should display the green header with Coop branding', async () => {
-      await login.expectHeaderContent();
-    });
-
-    test('should display "Welcome back" heading', async () => {
-      await expect(login.welcomeHeading).toHaveText('Welcome back');
-    });
-
-    test('should have username and password fields', async () => {
-      await expect(login.usernameInput).toBeVisible();
-      await expect(login.passwordInput).toBeVisible();
-    });
-
-    test('should have a "Forgot password?" link', async () => {
-      await expect(login.forgotPasswordLink).toBeVisible();
-      await expect(login.forgotPasswordLink).toHaveText(/forgot password/i);
-    });
-
-    test('should have a full-width "Sign In" button', async () => {
-      await expect(login.signInButton).toBeVisible();
-      await expect(login.signInButton).toHaveText(/sign in/i);
-    });
-
-    test('should have a "Don\'t have an account? Sign up" link', async () => {
-      await expect(login.signUpLink).toBeVisible();
-      await expect(login.signUpLink).toContainText(/sign up/i);
-    });
-
-    test.describe('Form Validation', () => {
-      test('should show validation error when submitting empty form', async () => {
-        await login.signInButton.click();
-        await login.expectValidationErrors();
-      });
-
-      test('should show validation error for empty username', async () => {
-        await login.passwordInput.fill('somepassword');
-        await login.signInButton.click();
-        await expect(login.usernameError).toBeVisible();
-      });
-
-      test('should show validation error for empty password', async () => {
-        await login.usernameInput.fill('someuser');
-        await login.signInButton.click();
-        await expect(login.passwordError).toBeVisible();
-      });
-    });
-
-    test.describe('Login Flow', () => {
-      test('should login successfully with valid credentials', async ({ page }) => {
-        await login.login('member', 'Member123!');
-        await page.waitForURL('**/dashboard');
-        await expect(page).toHaveURL(/\/dashboard/);
-      });
-
-      test('should show error for invalid credentials', async () => {
-        await login.login('invaliduser', 'WrongPass123!');
-        await login.expectLoginError();
-      });
-
-      test('should show error for wrong password', async () => {
-        await login.login('member', 'WrongPassword!');
-        await login.expectLoginError();
-      });
-    });
-
-    test.describe('Navigation', () => {
-      test('should navigate to register page', async () => {
-        await login.navigateToSignUp();
-        await expect(login.page).toHaveURL(/\/register/);
-      });
-
-      test('should navigate to forgot password page', async () => {
-        await login.navigateToForgotPassword();
-        await expect(login.page).toHaveURL(/\/forgot-password/);
-      });
-    });
-
-    test.describe('Mobile Layout', () => {
-      test('should not show the member tab bar before sign-in', async ({ page }) => {
-        await page.setViewportSize({ width: 360, height: 800 });
-        login = new LoginPage(page);
-        await login.goto();
-        await expect(login.signInButton).toBeVisible();
-        await expect(login.bottomTabBar).toHaveCount(0);
-      });
+  // L2-REQ-101 AC1, AC2: the public site has no login screen of its own.
+  test.describe('Sign in', () => {
+    test('should take /login to the admin login screen', async ({ page }) => {
+      await page.goto('/login');
+      await new AdminLoginPage(page).expectOpen();
     });
   });
 
@@ -238,33 +147,34 @@ test.describe('Authentication', () => {
     });
 
     test.describe('Navigation', () => {
-      test('should navigate to sign in page', async () => {
-        await register.navigateToSignIn();
-        await expect(register.page).toHaveURL(/\/login/);
+      // L2-REQ-077 AC3, L2-REQ-101 AC4
+      test('should open the admin login screen from Sign in', async ({ page }) => {
+        await register.signInLink.click();
+        await new AdminLoginPage(page).expectOpen();
       });
     });
   });
 
+  test.describe('Forgot Password Page', () => {
+    // L2-REQ-101 AC4
+    test('should open the admin login screen from Back to Sign In', async ({ page }) => {
+      const forgotPassword = new ForgotPasswordPage(page);
+      await forgotPassword.goto();
+      await forgotPassword.signInLink.click();
+      await new AdminLoginPage(page).expectOpen();
+    });
+  });
+
   test.describe('Protected Routes', () => {
-    test('should redirect /dashboard to /login when not authenticated', async ({ page }) => {
-      await page.goto('/dashboard');
-      await expect(page).toHaveURL(/\/login/);
-    });
-
-    test('should redirect /maintenance to /login when not authenticated', async ({ page }) => {
-      await page.goto('/maintenance');
-      await expect(page).toHaveURL(/\/login/);
-    });
-
-    test('should redirect /messaging to /login when not authenticated', async ({ page }) => {
-      await page.goto('/messaging');
-      await expect(page).toHaveURL(/\/login/);
-    });
-
-    test('should redirect /profile to /login when not authenticated', async ({ page }) => {
-      await page.goto('/profile');
-      await expect(page).toHaveURL(/\/login/);
-    });
+    // L2-REQ-101 AC5
+    for (const path of ['/dashboard', '/maintenance', '/messaging', '/profile', '/onboarding']) {
+      test(`should send a signed-out visitor on ${path} to the admin login screen`, async ({
+        page,
+      }) => {
+        await page.goto(path);
+        await new AdminLoginPage(page).expectOpen();
+      });
+    }
 
     test('should allow anonymous access to landing page', async ({ page }) => {
       await page.goto('/');

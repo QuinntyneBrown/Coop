@@ -1,5 +1,8 @@
 import { type Locator, type Page, expect } from '@playwright/test';
 
+/** The admin login screen, where the public site sends members to sign in (L2-REQ-101, ADR 0011). */
+export const ADMIN_LOGIN_URL = 'http://localhost:4200/login';
+
 export class LoginPage {
   readonly page: Page;
 
@@ -79,6 +82,12 @@ export class LoginPage {
     await expect(this.usernameInput).toBeVisible();
     await expect(this.passwordInput).toBeVisible();
     await expect(this.signInButton).toBeVisible();
+  }
+
+  /** The admin login screen is open at its own address, e.g. after a public sign-in link. */
+  async expectOpen() {
+    await expect(this.page).toHaveURL(ADMIN_LOGIN_URL);
+    await this.expectFormVisible();
   }
 
   async expectValidationErrors() {
