@@ -14,6 +14,8 @@ public static class CredentialRules
     public static IRuleBuilderOptions<T, string> Username<T>(this IRuleBuilder<T, string> rule)
         => rule.NotEmpty().MinimumLength(UsernameMinimumLength);
 
+    public static string TakenMessage(string username) => $"The username \"{username}\" is already taken.";
+
     public static IRuleBuilderOptions<T, string> Password<T>(this IRuleBuilder<T, string> rule)
         => rule.NotEmpty().MinimumLength(PasswordMinimumLength);
 }
