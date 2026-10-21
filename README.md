@@ -120,6 +120,44 @@ restart the API to recreate it. Swagger is available at `http://localhost:5000/s
 in the Development environment. See [backend/README.md](backend/README.md) for the seed
 accounts and the backend layout.
 
+### Command-line tool (reset and administer the database)
+
+`backend/src/Coop.Cli` is a command-line tool for the person who looks after
+the machine that holds the database. Run it from the same folder as the API so
+both use `coop.db`, or pass `--connection "<connection string>"`. Every rule
+the admin app meets applies to it too, because it calls the same application
+handlers. `--help` on any group lists its commands.
+
+> **Warning:** `db reset` deletes every record in the database. It refuses to
+> run without `--yes`.
+
+```powershell
+# Demo state: every screen has fictional content, photos are stored as assets
+dotnet run --project .\backend\src\Coop.Cli -- db reset --demo --yes
+
+# New instance: roles, privileges, one administrator you name and the baseline site content
+dotnet run --project .\backend\src\Coop.Cli -- db reset --new-instance --admin-username ruth --admin-password "<a strong password>" --yes
+
+# Day-to-day administration, for example
+dotnet run --project .\backend\src\Coop.Cli -- user set-password --username member --password "<new password>"
+dotnet run --project .\backend\src\Coop.Cli -- site-content export --file site.json
+dotnet run --project .\backend\src\Coop.Cli -- site-content import --file site.json
+```
+
+Demo sign-ins, one per role:
+
+| Username | Password | Role |
+| --- | --- | --- |
+| `admin` | `Admin123!` | SystemAdministrator |
+| `member` | `Member123!` | Member |
+| `staff` | `Staff123!` | Staff |
+| `board` | `Board123!` | BoardMember |
+| `support` | `Support123!` | Support |
+
+The tool also manages roles and privileges, invitations, website pages, the
+board list, digital assets, themes, and notices, bylaws and reports. See
+[backend/README.md](backend/README.md#command-line-tool) for every command.
+
 ### Design reference (static mocks)
 
 Open any page under [docs/mocks/pages](docs/mocks/pages/), for example
@@ -131,11 +169,12 @@ provenance, and known differences from the requirements.
 
 | Area | Path | Notes |
 | --- | --- | --- |
-| Backend API | `backend/src/Coop.Api` | ASP.NET Core controllers, `Program.cs`, DI composition, Swagger, seed data |
-| Backend tests | `backend/tests/Coop.Api.Tests` | Acceptance tests through the API over an in-memory database |
+| Backend API | `backend/src/Coop.Api` | ASP.NET Core controllers, `Program.cs`, DI composition, Swagger |
+| Command-line tool | `backend/src/Coop.Cli` | Resets the database (demo state or new instance) and administers users, roles, invitations and site content through the application handlers |
+| Backend tests | `backend/tests/Coop.Api.Tests`, `backend/tests/Coop.Cli.Tests` | Acceptance tests through the API over an in-memory database; the tool's tests run it in process and check the result through the API |
 | Application layer | `backend/src/Coop.Application` | MediatR handlers, FluentValidation validators, pipeline behaviors, DTO contracts |
 | Domain layer | `backend/src/Coop.Domain` | Entities, enums, aggregates, and authorization rules with no infrastructure dependency |
-| Infrastructure | `backend/src/Coop.Infrastructure` | EF Core with SQLite, `CoopDbContext`, identity services, notifications |
+| Infrastructure | `backend/src/Coop.Infrastructure` | EF Core with SQLite, `CoopDbContext`, identity services, notifications, seed data, shared service registration |
 | Shared kernel | `backend/src/Coop.SharedKernel` | Constants and authentication primitives shared across layers |
 | Public app | `frontend/projects/public` | Angular public and member application ([README](frontend/projects/public/README.md)) |
 | Admin app | `frontend/projects/admin` | Angular administration application ([README](frontend/projects/admin/README.md)) |
@@ -189,8 +228,8 @@ Development conventions:
 
 | Suite | Command | Purpose |
 | --- | --- | --- |
-| Backend build | `dotnet build .\backend\Coop.sln` | Compile the API, application, domain, infrastructure, and shared kernel projects |
-| Backend tests | `dotnet test .\backend\Coop.sln` | Acceptance tests through the API with an in-memory database (`backend/tests/Coop.Api.Tests`) |
+| Backend build | `dotnet build .\backend\Coop.sln` | Compile the API, command-line tool, application, domain, infrastructure, and shared kernel projects |
+| Backend tests | `dotnet test .\backend\Coop.sln` | Acceptance tests through the API with an in-memory database (`backend/tests/Coop.Api.Tests`, `backend/tests/Coop.Cli.Tests`) |
 | Frontend build | `npm run build` from `frontend` | Build the public and admin applications and the shared libraries |
 | Frontend unit tests | `npm test` from `frontend` | Angular Vitest tests |
 | Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against an in-process mock of the API |
@@ -202,8 +241,8 @@ running and runs in Chromium. It never needs the backend: every request to
 `http://localhost:5000/api` is answered by the in-process mock in
 `e2e/fixtures/mock-api/`, which seeds fictional data per test. Backend
 behavior is tested through the API at the integration boundary in
-`backend/tests/Coop.Api.Tests`, over an in-memory database rather than a
-real one.
+`backend/tests/Coop.Api.Tests` and `backend/tests/Coop.Cli.Tests`, over an
+in-memory database rather than a real one.
 
 ## Documentation
 

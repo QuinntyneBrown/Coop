@@ -16,8 +16,11 @@ package "Coop.Cli" {
     +RunAsync(args, output, error, configureServices) : Task<int>
   }
   class CliRunner {
+    +SetAction(command, action)
+  }
+  class CommandContext {
+    +Value(option)
     +SendAsync(request) : Task<TResponse>
-    +WriteLine(text)
   }
   class OperatorIdentity {
     +Create() : ClaimsPrincipal
@@ -37,7 +40,7 @@ package "Coop.Cli" {
     +SeedAsync(context, hasher, apiUrl)
   }
   class DemoPhotos {
-    +All() : IEnumerable<(name, bytes, width, height)>
+    +All() : IReadOnlyList<DemoPhoto>
   }
 }
 
@@ -48,10 +51,11 @@ package "Coop.Infrastructure" {
   class SeedData {
     +SeedAsync(context, hasher)
     +SeedRolesAsync(context)
+    +SeedAccountsAsync(context, hasher)
     +SeedSiteContentAsync(context, content)
   }
   class SiteContentSeed {
-    +Create(photo) : SiteContentDto
+    +Create(photoAddress) : SiteContentDto
   }
 }
 
@@ -72,9 +76,12 @@ package "Coop.Application.Identity" {
   class SetPasswordValidator
   class RemoveUserValidator
   class RemoveUserRoleValidator
+  class SystemAdministratorRules
 }
+RemoveUserRoleValidator --> SystemAdministratorRules
 
 CliApp --> CliRunner
+CliRunner --> CommandContext
 CliApp --> OperatorIdentity
 CliApp --> Dependencies
 CliApp --> DbCommands

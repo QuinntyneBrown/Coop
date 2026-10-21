@@ -44,15 +44,18 @@ Its one package is `System.CommandLine` (ADR 0013).
 | File | Responsibility |
 |------|----------------|
 | `Program.cs` | Calls `CliApp.RunAsync(args, Console.Out, Console.Error)` and returns its exit code |
-| `CliApp.cs` | Builds the configuration, the services and the command tree; parses and invokes; turns exceptions into messages and exit codes |
-| `CliServices.cs` | `AddCoopCore` plus the operator identity, `IHttpContextAccessor` and the authorization service |
-| `OperatorIdentity.cs` | Builds the operator's `ClaimsPrincipal` |
+| `CliApp.cs` | Builds the command tree with the global `--connection` option, parses and invokes |
+| `CliRunner.cs` | Sets each command's action: builds the services for the chosen connection, runs the action in a scope, and turns failures into messages and exit codes |
+| `CommandContext.cs` | What an action works with: the parsed options, the scoped services, the output and `SendAsync` for MediatR requests |
+| `OperatorIdentity.cs` | Builds the operator's `ClaimsPrincipal` (ADR 0014) |
 | `CliException.cs` | A plain message for something not found or refused, printed without a stack trace |
-| `CliRunner.cs` | Runs a command action in a fresh service scope and writes results |
-| `Commands/*Commands.cs` | One class per group: `DbCommands`, `UserCommands`, `RoleCommands`, `InvitationCommands`, `SiteContentCommands`, `PageCommands`, `BoardCommands`, `AssetCommands`, `ThemeCommands`, `DocumentCommands` |
+| `CliFiles.cs` | Reads the files the operator names and reads and writes JSON in the API's camel-case shape |
+| `Table.cs` | Prints rows as aligned columns |
+| `Commands/*Commands.cs` | One class per group: `DbCommands`, `UserCommands`, `RoleCommands`, `InvitationCommands`, `SiteContentCommands`, `PageCommands`, `BoardCommands`, `AssetCommands`, `ThemeCommands` and `DocumentCommands` (notices, bylaws and reports, each described by a `DocumentKind`) |
+| `Commands/Lookup.cs` | Finds a user or role by name through the list queries |
 | `Seeding/DemoSeed.cs` | The demo accounts, profiles and content |
-| `Seeding/DemoPhotos.cs` | Reads the embedded photographs |
-| `appsettings.json` | `ConnectionStrings:DefaultConnection` = `Data Source=coop.db`, as the API |
+| `Seeding/DemoPhotos.cs`, `Seeding/DemoPhoto.cs` | Read the embedded photographs with their view-box width and height |
+| `appsettings.json` | `ConnectionStrings:DefaultConnection` = `Data Source=coop.db`, as the API, and quiet logging |
 
 The public app's photographs, `frontend/projects/public/public/own/*.svg`,
 are linked into the project as embedded resources
@@ -71,9 +74,10 @@ and `ResourceOperationAuthorizationHandler`. The API's `AddCoopServices`
 calls it and then adds the HTTP context, the JWT bearer scheme, CORS, Swagger
 and controllers, so the API's behaviour is unchanged.
 
-`CliServices` calls `AddCoopCore`, then `AddLogging`, `AddAuthorizationCore`,
-`AddHttpContextAccessor` (no request, so handlers that need one are not
-exposed) and a scoped `ClaimsPrincipal` from `OperatorIdentity.Create()`. No
+`CliRunner` calls `AddCoopCore`, then `AddLogging` (to standard error, so an
+export stays clean JSON), `AddAuthorizationCore`, `AddHttpContextAccessor`
+(there is no request, so handlers that need one are not exposed) and a scoped
+`ClaimsPrincipal` from `OperatorIdentity.Create()`. No
 web host starts. Configuration comes from the tool's `appsettings.json`, then
 environment variables, then `--connection`, which replaces
 `ConnectionStrings:DefaultConnection`.
@@ -146,17 +150,19 @@ The tool needs a few rules the handlers did not have. They live in
 - `Identity/CredentialRules.cs` holds the username rule (at least 3
   characters) and the password rule (at least 6 characters) that
   `CreateUserValidator` already applied; `CreateUserValidator`,
-  `ChangePasswordValidator` and a new `SetPasswordValidator` use them, and the
-  new-instance reset checks the administrator's options against them before
-  deleting anything (`L2-REQ-104` AC3).
+  `UpdateUserValidator`, `ChangePasswordValidator` and a new
+  `SetPasswordValidator` use them, and the new-instance reset checks the
+  administrator's options against them before deleting anything
+  (`L2-REQ-104` AC3).
 - `CreateUserValidator` and a new `UpdateUserValidator` reject a username
   another user holds with `The username "{name}" is already taken.`
   (`L2-REQ-001` AC4, `L2-REQ-105` AC2, AC3).
 - `AddUserRole` and `RemoveUserRole` (`Identity/Commands/`) add or remove one
   role, which `UpdateUserRequest` cannot do because it replaces the whole set
   and ignores an empty one. Adding a role the user holds changes nothing.
-- `RemoveUserValidator` and `RemoveUserRoleValidator` refuse to leave no
-  active user holding SystemAdministrator (`At least one system administrator
+- `Identity/SystemAdministratorRules.cs` backs `RemoveUserValidator` and
+  `RemoveUserRoleValidator`, which refuse to leave no active user holding
+  SystemAdministrator (`At least one system administrator
   must remain.`), and `RemoveRoleValidator` refuses to remove the
   SystemAdministrator role (`L2-REQ-105` AC8, `L2-REQ-106` AC3). Allowing it
   would leave an installation nobody can administer except by resetting it.
@@ -171,10 +177,11 @@ The tool needs a few rules the handlers did not have. They live in
 `SeedData` and `SiteContentSeed` move from `Coop.Api` to
 `Coop.Infrastructure/Persistence/Seeding/`. `SeedData.SeedAsync` keeps its
 steps and order, so the API's startup seed is unchanged; it is split into
-`SeedRolesAsync` (roles and privileges, including the `Page` back-fill),
-`SeedAccountsAsync`, `SeedInvitationsAsync`, `SeedBoardAsync`,
-`SeedJsonContentAsync` and `SeedSiteContentAsync`, which the resets reuse.
-`SiteContentSeed.Create(photo)` takes an optional function that maps each
+`SeedRolesAsync`, `SeedAccountsAsync` (`admin` and `member`),
+`SeedPagePrivilegesAsync` (the `Page` back-fill), `SeedInvitationsAsync`,
+`SeedBoardAsync`, `SeedJsonContentAsync` and
+`SeedSiteContentAsync(context, content)`, which the resets reuse.
+`SiteContentSeed.Create(photoAddress)` takes an optional function that maps each
 photograph's file name (`hero.svg`) to its address; without it the addresses
 stay the public app's own files (`/own/hero.svg`), the baseline of
 `L2-REQ-100` AC1.
@@ -184,7 +191,8 @@ stay the public app's own files (`/own/hero.svg`), the baseline of
 API creates the schema; no migrations are added.
 
 `--new-instance` checks the administrator's username and password against
-`CredentialRules` before deleting, then seeds roles, sends
+`CredentialRules` before deleting, then seeds the roles with
+`SeedRolesAsync`, sends
 `CreateUserRequest` with the SystemAdministrator role, and seeds the
 baseline site content. Nothing else is created.
 

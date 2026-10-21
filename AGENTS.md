@@ -65,7 +65,8 @@ these locations and move existing files here as areas are touched:
 - `backend/` — .NET solution (`Coop.sln`, `Directory.Build.props`,
   `Directory.Packages.props`, `global.json`)
   - `backend/src/` — `Coop.SharedKernel`, `Coop.Domain`, `Coop.Application`,
-    `Coop.Infrastructure`, `Coop.Api`, and `Coop.Cli` (migrate, seed, reset)
+    `Coop.Infrastructure`, `Coop.Api`, and `Coop.Cli` (database reset and
+    command-line administration)
   - `backend/tests/` — one test project per layer, e.g. `Coop.Api.Tests`
 - `frontend/` — Angular workspace with projects under `frontend/projects/`:
   `public` (member app), `admin`, `api` (service contracts and injection
@@ -88,8 +89,12 @@ these locations and move existing files here as areas are touched:
 All areas have moved to this layout. The `api` library in `frontend/projects/`
 is still a scaffold; the `components` library holds the design system's
 presentation components that the admin uses, and the public app does not use
-it yet. `backend/tests/` holds only `Coop.Api.Tests`, and `Coop.Cli` does not
-exist yet. Update this note and `README.md` when that changes.
+it yet. `backend/tests/` holds `Coop.Api.Tests` and `Coop.Cli.Tests`.
+`Coop.Cli` resets the database (demo state or new instance) and administers
+users, roles, invitations and the public site content through the application
+handlers (ADR 0012); it has no `migrate` command because the database has no EF
+migrations yet, and the API still creates and seeds the database on startup.
+Update this note and `README.md` when that changes.
 
 See `README.md` for setup and development commands.
 
@@ -104,9 +109,14 @@ Layer dependency direction (strict):
 - `Coop.Application` — MediatR handlers, FluentValidation validators, pipeline
   behaviors, DTO contracts, `ICoopDbContext`
 - `Coop.Infrastructure` — `CoopDbContext`, EF configurations and migrations,
-  identity (password hashing, token building), notifications
+  identity (password hashing, token building), notifications, the startup
+  seed, and `AddCoopCore`, the service registration the API and `Coop.Cli`
+  share
 - `Coop.Api` — controllers, `Program.cs`, DI composition in `Dependencies.cs`,
   Swagger, middleware ordering
+- `Coop.Cli` — console tool that sends the same MediatR requests as the API
+  in process, as an operator identity (ADR 0012 to ADR 0014); like a
+  controller, it only translates arguments and prints results
 
 Non-obvious rules:
 
