@@ -205,7 +205,7 @@ test-project patterns when adding coverage.
 
 ## Project skills
 
-Project skills live in `.claude/skills/` and are copied to `.agenets/skills/`.
+Project skills live in `.claude/skills/` and are copied to `.agents/skills/`.
 Keep the two copies identical when updating a skill.
 
 - `engineering-requirements` — L1/L2 requirements and acceptance criteria
@@ -214,3 +214,4 @@ Keep the two copies identical when updating a skill.
 - `extracting-design-systems` — design system derived from the mocks
 - `implementing-incrementally` — small, verifiable implementation slices
 - `creating-videos` — narrated walkthrough videos
+- `writing-feature-prompts` — ready-to-run feature and bug-fix prompts
