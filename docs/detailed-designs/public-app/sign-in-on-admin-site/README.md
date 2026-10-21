@@ -73,10 +73,10 @@ also serves the admin app at `http://localhost:4200`, so a test can follow a
 sign-in link to the real admin login screen without a backend.
 `e2e/tests/public/landing.spec.ts` covers the header and menu links and the
 footer link, `auth.spec.ts` the register and forgot-password links, `/login`
-and the member-page redirects, and `profile.spec.ts` Log Out. Page objects
+and the member-page redirects, and `profile.spec.ts` Log Out. The public page objects
 (`landing.page.ts`, `register.page.ts`, `forgot-password.page.ts`,
-`profile.page.ts`) own the selectors and the admin login address the tests
-expect. Member-page tests start signed in through the `authenticatedPage`
+`profile.page.ts`) own the selectors; the admin `login.page.ts` owns the
+admin login address and checks that the admin login screen is open. Member-page tests start signed in through the `authenticatedPage`
 fixture, which seeds the three storage values. The mock site-content seed
 (`e2e/fixtures/mock-api/site-content-seed.ts`) publishes the admin login
 address for the sign-in links.

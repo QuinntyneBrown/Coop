@@ -123,7 +123,7 @@ accounts and the backend layout.
 ### Design reference (static mocks)
 
 Open any page under [docs/mocks/pages](docs/mocks/pages/), for example
-`docs/mocks/pages/public-login/default.html`, directly from disk. No server is
+`docs/mocks/pages/public-register/default.html`, directly from disk. No server is
 required. See the [mock README](docs/mocks/README.md) for capture setup,
 provenance, and known differences from the requirements.
 
