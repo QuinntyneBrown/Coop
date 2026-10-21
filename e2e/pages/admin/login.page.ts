@@ -1,6 +1,6 @@
 import { type Locator, type Page, expect } from '@playwright/test';
 
-/** The admin login screen, where the public site sends members to sign in (L2-REQ-101, ADR 0010). */
+/** The admin login screen, where the public site sends members to sign in (L2-REQ-101, ADR 0011). */
 export const ADMIN_LOGIN_URL = 'http://localhost:4200/login';
 
 export class LoginPage {

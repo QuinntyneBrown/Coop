@@ -1,4 +1,4 @@
-# 0010. The public app holds the admin login address in one constant
+# 0011. The public app holds the admin login address in one constant
 
 - Status: Accepted
 - Date: 2026-10-21

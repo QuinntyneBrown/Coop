@@ -18,7 +18,7 @@ Terms used in this design:
   route of `frontend/projects/admin/src/app/app.routes.ts`, served at
   `http://localhost:4200/login` in development
 - **admin login address** — `ADMIN_LOGIN_URL`, the one place in the public
-  app that holds that address (ADR 0010)
+  app that holds that address (ADR 0011)
 - **sign-in link** — "Member sign in" in the header, the phone menu and the
   footer's "For members" column, and "Sign in" on the register and
   forgot-password screens
@@ -30,7 +30,7 @@ Terms used in this design:
 **Where the address lives.** `ADMIN_LOGIN_URL`
 (`frontend/projects/public/src/app/core/services/admin-login-url.ts`) holds
 `http://localhost:4200/login`, beside `api.service.ts`, whose API base URL
-is held the same way. No other file spells the address (ADR 0010).
+is held the same way. No other file spells the address (ADR 0011).
 
 **Header, menu and footer.** `SITE_DEFAULTS`
 (`core/site-content/site-defaults.ts`) uses `ADMIN_LOGIN_URL` for
@@ -89,7 +89,7 @@ address for the sign-in links.
   after signing in on the admin site.
 - Removing or moving the register and forgot-password screens.
 - Removing or moving the public member pages.
-- Per-environment configuration of the admin login address (ADR 0010).
+- Per-environment configuration of the admin login address (ADR 0011).
 - Changing the API seed's sign-in links from `/login`; the redirect covers
   them.
 - Refreshing the narrated videos in `docs/videos/` that show the public

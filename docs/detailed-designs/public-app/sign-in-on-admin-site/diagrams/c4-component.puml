@@ -9,7 +9,7 @@ Container_Boundary(publicApp, "Public application") {
   Component(siteFooter, "SiteFooterComponent", "Angular standalone component", "Member sign in in the For members column")
   Component(register, "RegisterComponent / ForgotPasswordComponent", "Angular standalone components", "Sign in links")
   Component(defaults, "SITE_DEFAULTS", "Plain TypeScript constant", "Built-in header and footer links")
-  Component(url, "ADMIN_LOGIN_URL", "Plain TypeScript constant", "Address of the admin login screen (ADR 0010)")
+  Component(url, "ADMIN_LOGIN_URL", "Plain TypeScript constant", "Address of the admin login screen (ADR 0011)")
   Component(loginGuard, "adminLoginGuard", "Angular route guard", "Route /login: leaves for the admin login")
   Component(authGuard, "authGuard", "Angular route guard", "Member pages: signed out leaves for the admin login")
 }
