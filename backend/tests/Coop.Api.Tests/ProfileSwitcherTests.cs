@@ -1,7 +1,7 @@
 // Acceptance Test
 // Traces to: L2-REQ-018 (AC4)
 // Description: A person with more than one profile can tell them apart in the
-// member app's Switch Profile list: each profile the API lists names its type.
+// admin's My profiles list: each of their profiles the API lists names its type.
 
 using System.Net.Http.Json;
 using System.Security.Cryptography;
@@ -40,9 +40,9 @@ public class ProfileSwitcherTests : IClassFixture<CoopApiFactory>
         }
         var client = await _factory.CreateClientAsAsync(username, password);
 
-        var profiles = await client.GetFromJsonAsync<JsonElement>("/api/user/profiles");
+        var profiles = await client.GetFromJsonAsync<JsonElement>("/api/profiles");
 
-        var types = profiles.EnumerateArray().Select(p => p.GetProperty("profileType").GetString()).OrderBy(t => t).ToArray();
-        Assert.Equal(new[] { "BoardMember", "Member" }, types);
+        var types = profiles.GetProperty("profiles").EnumerateArray().Select(p => (ProfileType)p.GetProperty("type").GetInt32()).OrderBy(t => t).ToArray();
+        Assert.Equal(new[] { ProfileType.Member, ProfileType.BoardMember }, types);
     }
 }

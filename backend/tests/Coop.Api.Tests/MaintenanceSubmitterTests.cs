@@ -19,9 +19,9 @@ public class MaintenanceSubmitterTests : IClassFixture<CoopApiFactory>
     public async Task Given_a_member_sends_a_request_when_the_office_opens_it_then_it_shows_the_members_name()
     {
         var member = await _factory.CreateNeighbourClientAsync();
-        var created = await member.PostAsJsonAsync("/api/maintenance-requests", new { title = "Loose railing", description = "The stair railing moves." });
+        var created = await member.PostAsJsonAsync("/api/maintenancerequest", new { title = "Loose railing", description = "The stair railing moves." });
         Assert.Equal(HttpStatusCode.OK, created.StatusCode);
-        var requestId = (await created.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("id").GetString();
+        var requestId = (await created.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("maintenanceRequest").GetProperty("maintenanceRequestId").GetString();
 
         var admin = await _factory.CreateAdminClientAsync();
         var office = await admin.GetFromJsonAsync<JsonElement>($"/api/maintenancerequest/{requestId}");

@@ -714,14 +714,13 @@ export class MockApi {
       ctx.user!.password = newPassword;
       return ok();
     };
-    this.on('POST', 'user/change-password', changePassword);
     this.on('PUT', 'user/password', changePassword);
 
     this.on('GET', 'user/current', (ctx) =>
       ok({ user: this.userView(ctx.user!) }),
     );
 
-    // Current user's profile (public app)
+    // The signed-in person's profile; the admin's My profile reads and saves the notice choice here.
     const ownProfiles = (user: MockUser) => s.profiles.filter((p) => p.userId === user.userId);
 
     this.on('GET', 'user/profile', (ctx) => {
@@ -750,13 +749,6 @@ export class MockApi {
         noticeByText: profile.noticeByText ?? false,
       });
     });
-    this.on('GET', 'user/profiles', (ctx) =>
-      ok({ profiles: ownProfiles(ctx.user!).map((p) => this.profileView(p)) }),
-    );
-    this.on('POST', 'user/switch-profile', (ctx) => ok({ token: this.tokenFor(ctx.user!) }));
-    this.on('GET', 'user/members', () =>
-      ok({ members: s.profiles.filter((p) => p.type === 0).map((p) => this.profileView(p)) }),
-    );
     this.on('GET', 'members', () =>
       ok({ members: s.profiles.filter((p) => p.type === 0).map((p) => this.profileView(p)) }),
     );
@@ -923,26 +915,6 @@ export class MockApi {
         return ok({ maintenanceRequest: this.maintenanceView(request) });
       };
 
-    this.on('GET', 'maintenance-requests/my', (ctx) =>
-      ok({
-        maintenanceRequests: requests()
-          .filter((r) => r.ownerUserId === ctx.user!.userId)
-          .map((r) => this.maintenanceView(r)),
-      }),
-    );
-    this.on('GET', 'maintenance-requests/:id', (_ctx, [id]) => {
-      const request = findRequest(id);
-      return request ? ok({ maintenanceRequest: this.maintenanceView(request) }) : notFound();
-    });
-    this.on('POST', 'maintenance-requests', (ctx) => {
-      const request = this.createMaintenanceRequest(ctx.user!, ctx.body ?? {});
-      return ok({ maintenanceRequest: this.maintenanceView(request) });
-    });
-    this.on('POST', 'maintenance-requests/:id/comments', (ctx, [id]) => {
-      if (!findRequest(id)) return notFound();
-      const comment = this.addComment(ctx.user!, id, ctx.body?.content ?? ctx.body?.body ?? '');
-      return ok(this.commentView(comment));
-    });
     // Like the API: only the requesting household adds photos; the household
     // and the office read them; re-posting the same photo returns it (ADR 0005).
     this.on('POST', 'maintenance-requests/:id/photos', (ctx, [id]) => {
@@ -1050,11 +1022,7 @@ export class MockApi {
       return ok({ digitalAsset: this.assetView(asset) });
     });
 
-    // Messaging (public app)
-    const conversationsFor = (user: MockUser) =>
-      newestFirst(s.conversations, 'createdOn').filter((c) =>
-        c.participantUserIds.includes(user.userId),
-      );
+    // Messaging
     const findConversation = (id: string) => s.conversations.find((c) => c.conversationId === id);
     const messagesFor = (conversationId: string) =>
       s.messages
@@ -1062,9 +1030,6 @@ export class MockApi {
         .sort((a, b) => a.createdOn.localeCompare(b.createdOn))
         .map((m) => this.messageView(m));
 
-    this.on('GET', 'conversations', (ctx) =>
-      ok({ conversations: conversationsFor(ctx.user!).map((c) => this.conversationView(c)) }),
-    );
     // Like the API, a member uses only the conversations they take part in (L2-REQ-106).
     const canUse = (user: MockUser, c: MockConversation) =>
       isOffice(user) || c.participantUserIds.includes(user.userId);
@@ -1081,9 +1046,6 @@ export class MockApi {
       if (!canUse(ctx.user!, conversation)) return forbidden();
       return ok({ conversation: this.conversationView(conversation) });
     });
-    this.on('GET', 'conversations/:id/messages', (_ctx, [id]) =>
-      ok({ messages: messagesFor(id) }),
-    );
     this.on('POST', 'conversations/:id/messages', (ctx, [id]) => {
       const conversation = findConversation(id);
       if (!conversation) return notFound();
