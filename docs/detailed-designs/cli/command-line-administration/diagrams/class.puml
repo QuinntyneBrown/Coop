@@ -1,0 +1,106 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Command-Line Administration
+
+package "Coop.Cli" {
+  class CliApp {
+    +RunAsync(args, output, error, configureServices) : Task<int>
+  }
+  class CliRunner {
+    +SetAction(command, action)
+  }
+  class CommandContext {
+    +Value(option)
+    +SendAsync(request) : Task<TResponse>
+  }
+  class OperatorIdentity {
+    +Create() : ClaimsPrincipal
+  }
+  class CliException
+  class DbCommands
+  class UserCommands
+  class RoleCommands
+  class InvitationCommands
+  class SiteContentCommands
+  class PageCommands
+  class BoardCommands
+  class AssetCommands
+  class ThemeCommands
+  class DocumentCommands
+  class DemoSeed {
+    +SeedAsync(context, hasher, apiUrl)
+  }
+  class DemoPhotos {
+    +All() : IReadOnlyList<DemoPhoto>
+  }
+}
+
+package "Coop.Infrastructure" {
+  class Dependencies {
+    +AddCoopCore(services, configuration)
+  }
+  class SeedData {
+    +SeedAsync(context, hasher)
+    +SeedRolesAsync(context)
+    +SeedAccountsAsync(context, hasher)
+    +SeedSiteContentAsync(context, content)
+  }
+  class SiteContentSeed {
+    +Create(photoAddress) : SiteContentDto
+  }
+}
+
+package "Coop.Application.Identity" {
+  class CredentialRules {
+    +Username()
+    +Password()
+  }
+  class AddUserRoleRequest {
+    +Guid UserId
+    +Guid RoleId
+  }
+  class RemoveUserRoleRequest {
+    +Guid UserId
+    +Guid RoleId
+  }
+  class UpdateUserValidator
+  class SetPasswordValidator
+  class RemoveUserValidator
+  class RemoveUserRoleValidator
+  class SystemAdministratorRules
+}
+RemoveUserRoleValidator --> SystemAdministratorRules
+
+CliApp --> CliRunner
+CliRunner --> CommandContext
+CliApp --> OperatorIdentity
+CliApp --> Dependencies
+CliApp --> DbCommands
+CliApp --> UserCommands
+CliApp --> RoleCommands
+CliApp --> InvitationCommands
+CliApp --> SiteContentCommands
+CliApp --> PageCommands
+CliApp --> BoardCommands
+CliApp --> AssetCommands
+CliApp --> ThemeCommands
+CliApp --> DocumentCommands
+DbCommands --> SeedData
+DbCommands --> DemoSeed
+DbCommands --> CredentialRules
+DemoSeed --> DemoPhotos
+DemoSeed --> SiteContentSeed
+SeedData --> SiteContentSeed
+UserCommands --> AddUserRoleRequest
+UserCommands --> RemoveUserRoleRequest
+UserCommands ..> CliException
+@enduml

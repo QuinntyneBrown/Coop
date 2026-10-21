@@ -114,10 +114,12 @@ not reach `Write` on `JsonContent`, and `ExceptionHandlingMiddleware` turns
 that into 403 and a `ValidationException` into 400. The seeded roles already
 hold the `JsonContent` privilege at their level, so no role change is needed.
 
-`SiteContentSeed` (`backend/src/Coop.Api/SiteContentSeed.cs`) builds the
+`SiteContentSeed` (`backend/src/Coop.Infrastructure/Persistence/Seeding/SiteContentSeed.cs`, shared with the command-line tool) builds the
 seeded content: every value the public site showed before this feature, with
 the photographs addressed as the public application's own files
-(`/own/hero.svg` and so on). `SeedData` adds the `SiteContent` entry only when
+(`/own/hero.svg` and so on). The command-line tool's demo reset stores the
+same photographs as digital assets and points the content at them
+(`docs/detailed-designs/cli/command-line-administration/`). `SeedData` adds the `SiteContent` entry only when
 no entry of that name exists, so re-running the seed keeps saved content
 (`L2-REQ-100` AC1). The obsolete `Hero` entry is no longer seeded or read.
 

@@ -1,12 +1,16 @@
+using Coop.Application.Common.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.Identity.Commands.CreateUser;
 
 public class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {
-    public CreateUserValidator()
+    public CreateUserValidator(ICoopDbContext context)
     {
-        RuleFor(x => x.Username).NotEmpty().MinimumLength(3);
-        RuleFor(x => x.Password).NotEmpty().MinimumLength(6);
+        RuleFor(x => x.Username).Username()
+            .MustAsync(async (username, cancellationToken) => !await context.Users.AnyAsync(u => u.Username == username && !u.IsDeleted, cancellationToken))
+            .WithMessage(x => CredentialRules.TakenMessage(x.Username));
+        RuleFor(x => x.Password).Password();
     }
 }
