@@ -64,6 +64,65 @@ const badRequest = (message: string): MockResponse => ({ status: 400, body: { me
 const unauthorized = (): MockResponse => ({ status: 401, body: { message: 'Unauthorized' } });
 const forbidden = (): MockResponse => ({ status: 403, body: { message: 'Access denied.' } });
 
+/** The office's roles; anyone else signed in is a member (L2-REQ-104, ADR 0012). */
+export const OFFICE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
+
+export const isOffice = (user: MockUser) => OFFICE_ROLES.includes(user.role);
+
+/** Routes of the office areas: like the API, they answer a member with 403 (L2-REQ-105). */
+const OFFICE_ROUTES = new Set([
+  'GET user',
+  'GET user/page/:size/:index',
+  'GET user/:id',
+  'POST user',
+  'PUT user',
+  'DELETE user/:id',
+  'GET role',
+  'GET role/page/:size/:index',
+  'GET role/:id',
+  'GET privilege',
+  'POST privilege',
+  'DELETE privilege/:id',
+  'GET invitationtoken',
+  'GET invitation-token/page/:size/:index',
+  'GET invitation-token/:id',
+  'POST invitationtoken',
+  'PUT invitationtoken',
+  'DELETE invitation-token/:id',
+  'GET digitalasset/page/:size/:index',
+  'GET digital-asset/page/:size/:index',
+  'GET digital-asset/:id',
+  'GET digital-assets/:id',
+  'POST digitalasset/upload',
+  'POST digital-assets',
+  'DELETE digital-asset/:id',
+  'DELETE digitalasset/:id',
+  'GET members',
+  'GET profiles/type/:type',
+  'DELETE profiles/:id',
+  'POST profile',
+  'DELETE profile/:id',
+  'POST notice',
+  'POST notice/:id/send',
+  'POST document',
+  'PUT document',
+  'PUT document/publish',
+  'DELETE document/:id',
+  'POST theme',
+  'PUT theme',
+  'PUT site-content',
+  'PUT board-of-directors',
+  'POST pages',
+  'PUT pages',
+  'DELETE pages/:id',
+  'PUT maintenancerequest',
+  'PUT maintenancerequest/receive',
+  'PUT maintenancerequest/start',
+  'PUT maintenancerequest/complete',
+  'DELETE maintenancerequest/:id',
+  'POST maintenancerequestdigitalasset',
+]);
+
 /** Roles whose seeded privilege on the Page aggregate reaches each access right. */
 const PAGE_ROLES = {
   create: ['SystemAdministrator', 'BoardMember'],
@@ -227,6 +286,7 @@ export class MockApi {
         return { status: 500, body: { message: 'Simulated failure' } };
       }
       if (!entry.anonymous && !ctx.user) return unauthorized();
+      if (ctx.user && !isOffice(ctx.user) && OFFICE_ROUTES.has(`${entry.method} ${entry.route}`)) return forbidden();
       return entry.handler(ctx, match.slice(1));
     }
     return notFound(`No mock for ${ctx.method} /api/${ctx.path}`);
@@ -900,7 +960,7 @@ export class MockApi {
       const request = findRequest(id);
       const photo = s.photos.find((p) => p.maintenanceRequestId === id && p.photoId === photoId);
       if (!request || !photo) return notFound();
-      if (request.ownerUserId !== ctx.user!.userId && ctx.user!.role === 'Member') return forbidden();
+      if (request.ownerUserId !== ctx.user!.userId && !isOffice(ctx.user!)) return forbidden();
       return { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' };
     });
 
@@ -1300,7 +1360,7 @@ export class MockApi {
     // Like the API: the owner and the office change a profile's picture; a
     // re-posted picture and a repeated removal change nothing (ADR 0006).
     const canChangePicture = (user: MockUser, profile: MockProfile) =>
-      profile.userId === user.userId || user.role !== 'Member';
+      profile.userId === user.userId || isOffice(user);
     this.on('POST', 'profiles/:id/avatar', (ctx, [id]) => {
       const profile = s.profiles.find((p) => p.profileId === id);
       if (!profile) return notFound();

@@ -102,6 +102,8 @@ export class MaintenancePage {
       completed: this.filterCompleted,
     };
     await filterMap[status].click();
+    // The list is drawn with the filter, so wait for it before counting cards.
+    await expect(filterMap[status]).toHaveAttribute('aria-selected', 'true');
   }
 
   async selectRequest(index: number) {

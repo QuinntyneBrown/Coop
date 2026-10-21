@@ -4,7 +4,7 @@
     <span data-testid="sidebar-app-title">OWN Housing Co-op</span>
   </a>
   <nav libSidebarNav aria-label="Admin sections">
-    @for (link of links; track link.path) {
+    @for (link of links(); track link.path) {
       <a
         libNavLink
         [routerLink]="link.path"

@@ -66,8 +66,11 @@ export class MessagingPage {
     await expect(this.conversationListTitle).toHaveText('Messages');
   }
 
+  /** Opens a conversation and waits for its messages to arrive, so they can be counted. */
   async selectConversation(index: number) {
+    const messagesLoaded = this.page.waitForResponse((r) => r.url().includes('/messages/by-conversation/'));
     await this.conversationItems.nth(index).click();
+    await messagesLoaded;
   }
 
   async expectConversationSelected(name: string) {

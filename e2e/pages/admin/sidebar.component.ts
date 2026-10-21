@@ -22,6 +22,9 @@ export class SidebarComponent {
   readonly assetsLink: Locator;
   readonly invitationsLink: Locator;
   readonly settingsLink: Locator;
+  readonly profileLink: Locator;
+  /** Every section link, in the order the sidebar lists them. */
+  readonly navLinks: Locator;
 
   // User info at bottom
   readonly userInfo: Locator;
@@ -49,6 +52,8 @@ export class SidebarComponent {
     this.assetsLink = page.getByTestId('sidebar-nav-assets');
     this.invitationsLink = page.getByTestId('sidebar-nav-invitations');
     this.settingsLink = page.getByTestId('sidebar-nav-settings');
+    this.profileLink = page.getByTestId('sidebar-nav-profile');
+    this.navLinks = this.sidebar.locator('nav a');
 
     this.userInfo = page.getByTestId('sidebar-user-info');
     this.userAvatar = page.getByTestId('sidebar-user-avatar');
@@ -59,6 +64,11 @@ export class SidebarComponent {
   async expectVisible() {
     await expect(this.sidebar).toBeVisible();
     await expect(this.appTitle).toHaveText('OWN Housing Co-op');
+  }
+
+  /** The sidebar lists exactly these sections, in this order. */
+  async expectLinks(labels: string[]) {
+    await expect(this.navLinks).toHaveText(labels);
   }
 
   async expectUserInfo(name: string, role: string) {

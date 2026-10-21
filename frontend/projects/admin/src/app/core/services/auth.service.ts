@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap, catchError, of } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, map, of, shareReplay } from 'rxjs';
+import { isOffice } from '../is-office';
 
 export interface AuthTokenResponse {
   token: string;
@@ -22,6 +23,7 @@ export class AuthService {
   private readonly API_URL = 'http://localhost:5000/api';
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
+  private office?: Observable<boolean>;
 
   constructor(
     private http: HttpClient,
@@ -51,11 +53,25 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  /**
+   * True when the signed-in person holds an office role, as the server says
+   * (GET api/user/current); asked once per sign-in. A failed answer counts as
+   * a member, so only the member areas show (L2-REQ-104).
+   */
+  get office$(): Observable<boolean> {
+    this.office ??= this.getCurrentUserFromApi().pipe(
+      map((response) => isOffice(response?.user)),
+      shareReplay(1),
+    );
+    return this.office;
+  }
+
   login(username: string, password: string): Observable<AuthTokenResponse> {
     return this.http
       .post<AuthTokenResponse>(`${this.API_URL}/user/token`, { username, password })
       .pipe(
         tap((response: any) => {
+          this.office = undefined;
           const token = response.accessToken || response.token;
           localStorage.setItem('auth_token', token);
           localStorage.setItem('auth_user_id', response.userId);
@@ -73,6 +89,7 @@ export class AuthService {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('auth_user_id');
     localStorage.removeItem('auth_username');
+    this.office = undefined;
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
