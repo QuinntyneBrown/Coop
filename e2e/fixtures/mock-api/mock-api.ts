@@ -839,7 +839,10 @@ export class MockApi {
     );
 
     // Documents (admin app)
-    this.on('GET', 'document', () => ok({ documents: docs() }), true);
+    // Like the API, drafts are the office's: anyone else reads published documents only (L2-REQ-106).
+    const readable = (user: MockUser | null) =>
+      docs().filter((d) => (user && isOffice(user)) || d.published);
+    this.on('GET', 'document', (ctx) => ok({ documents: readable(ctx.user) }), true);
     this.on('GET', 'document/type/:type', (_ctx, [type]) => {
       const wanted = normalizeDocType(type);
       return ok({ documents: docs().filter((d) => d.documentType === wanted) });
@@ -1062,22 +1065,29 @@ export class MockApi {
     this.on('GET', 'conversations', (ctx) =>
       ok({ conversations: conversationsFor(ctx.user!).map((c) => this.conversationView(c)) }),
     );
-    this.on('GET', 'conversations/by-profile/:id', () =>
+    // Like the API, a member uses only the conversations they take part in (L2-REQ-106).
+    const canUse = (user: MockUser, c: MockConversation) =>
+      isOffice(user) || c.participantUserIds.includes(user.userId);
+    this.on('GET', 'conversations/by-profile/:id', (ctx) =>
       ok({
-        conversations: newestFirst(s.conversations, 'createdOn').map((c) =>
-          this.conversationView(c),
-        ),
+        conversations: newestFirst(s.conversations, 'createdOn')
+          .filter((c) => canUse(ctx.user!, c))
+          .map((c) => this.conversationView(c)),
       }),
     );
-    this.on('GET', 'conversations/:id', (_ctx, [id]) => {
+    this.on('GET', 'conversations/:id', (ctx, [id]) => {
       const conversation = findConversation(id);
-      return conversation ? ok({ conversation: this.conversationView(conversation) }) : notFound();
+      if (!conversation) return notFound();
+      if (!canUse(ctx.user!, conversation)) return forbidden();
+      return ok({ conversation: this.conversationView(conversation) });
     });
     this.on('GET', 'conversations/:id/messages', (_ctx, [id]) =>
       ok({ messages: messagesFor(id) }),
     );
     this.on('POST', 'conversations/:id/messages', (ctx, [id]) => {
-      if (!findConversation(id)) return notFound();
+      const conversation = findConversation(id);
+      if (!conversation) return notFound();
+      if (!canUse(ctx.user!, conversation)) return forbidden();
       const text = ctx.body?.content ?? ctx.body?.body ?? '';
       if (!text) return badRequest('Message body is required');
       const message = this.sendMessage(ctx.user!, id, text);
@@ -1089,9 +1099,11 @@ export class MockApi {
     });
 
     // Messaging (admin app)
-    this.on('GET', 'messages/by-conversation/:id', (_ctx, [id]) =>
-      ok({ messages: messagesFor(id) }),
-    );
+    this.on('GET', 'messages/by-conversation/:id', (ctx, [id]) => {
+      const conversation = findConversation(id);
+      if (conversation && !canUse(ctx.user!, conversation)) return forbidden();
+      return ok({ messages: messagesFor(id) });
+    });
     this.on('GET', 'messages/unread-count/:id', () => ok({ count: 0 }));
     this.on('POST', 'messages/mark-conversation-read/:id/:profileId', (_ctx, [id]) => {
       if (!findConversation(id)) return notFound();

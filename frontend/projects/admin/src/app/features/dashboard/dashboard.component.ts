@@ -60,6 +60,8 @@ export class DashboardComponent implements OnInit {
   private profileService = inject(ProfileService);
   private documentService = inject(DocumentService);
 
+  /** The office's counts and actions are left out for members (L2-REQ-104 AC5). */
+  office = false;
   displayName = '';
   requestsCount = 0;
   messagesCount = 0;
@@ -71,6 +73,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.displayName = this.authService.currentUser?.username || 'User';
     this.loadProfileName();
+    this.authService.office$.subscribe((office) => {
+      this.office = office;
+      if (office) this.loadMembersCount();
+    });
     this.loadMetrics();
     this.loadRecentRequests();
     this.loadRecentNotices();
@@ -111,16 +117,6 @@ export class DashboardComponent implements OnInit {
       },
     });
 
-    this.userService.getUsers().subscribe({
-      next: (data: any) => {
-        const list = Array.isArray(data) ? data : data?.users || [];
-        this.membersCount = list.length;
-      },
-      error: () => {
-        this.membersCount = 0;
-      },
-    });
-
     this.documentService.getDocuments().subscribe({
       next: (data: any) => {
         const list = Array.isArray(data) ? data : data?.documents || [];
@@ -128,6 +124,18 @@ export class DashboardComponent implements OnInit {
       },
       error: () => {
         this.documentsCount = 0;
+      },
+    });
+  }
+
+  private loadMembersCount(): void {
+    this.userService.getUsers().subscribe({
+      next: (data: any) => {
+        const list = Array.isArray(data) ? data : data?.users || [];
+        this.membersCount = list.length;
+      },
+      error: () => {
+        this.membersCount = 0;
       },
     });
   }
