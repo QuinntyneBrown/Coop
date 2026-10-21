@@ -6,7 +6,7 @@ import { REFLOW_WIDTH, ReflowPage } from '../../pages/reflow.page';
 
 test.use({ viewport: { width: REFLOW_WIDTH, height: 800 } });
 
-const anonymousScreens = ['/', '/pages/how-to-apply', '/login', '/register', '/forgot-password', '/documents'];
+const anonymousScreens = ['/', '/pages/how-to-apply', '/register', '/forgot-password', '/documents'];
 const memberScreens = ['/dashboard', '/onboarding', '/maintenance', '/messaging', '/profile'];
 
 test.describe('Reflow at 400% zoom', () => {

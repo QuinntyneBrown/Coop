@@ -41,19 +41,6 @@ export class AuthService {
     return localStorage.getItem('auth_token');
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.API_URL}/user/token`, { username, password }).pipe(
-      tap((response) => {
-        const token = response.token || response.accessToken;
-        const userId = response.userId;
-        localStorage.setItem('auth_token', token);
-        localStorage.setItem('auth_user_id', userId);
-        localStorage.setItem('auth_username', username);
-        this.currentUser$.next({ token, userId, username });
-      }),
-    );
-  }
-
   register(data: { invitationToken: string; username: string; password: string }): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/user/register`, data).pipe(
       tap((response) => {
