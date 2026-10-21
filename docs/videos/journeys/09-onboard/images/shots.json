@@ -1,6 +1,7 @@
 [
-  {"name": "public-onboarding", "mock": "pages/public-onboarding/default.html", "phone": true},
-  {"name": "public-onboarding-profile", "mock": "pages/public-onboarding/profile.html", "phone": true},
-  {"name": "public-onboarding-unit-selected", "mock": "pages/public-onboarding/unit-selected.html", "phone": true},
-  {"name": "public-onboarding-success", "mock": "pages/public-onboarding/success.html", "phone": true}
+  {"name": "admin-onboarding", "mock": "pages/admin-onboarding/default.html", "phone": true},
+  {"name": "admin-onboarding-profile", "mock": "pages/admin-onboarding/profile.html", "phone": true},
+  {"name": "admin-onboarding-profile-buttons", "mock": "pages/admin-onboarding/profile.html", "phone": true, "scroll": 420},
+  {"name": "admin-onboarding-unit-selected", "mock": "pages/admin-onboarding/unit-selected.html", "phone": true},
+  {"name": "admin-member-dashboard", "mock": "pages/admin-member-dashboard/default.html", "phone": true}
 ]

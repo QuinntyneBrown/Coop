@@ -1,29 +1,31 @@
 # Journey 08 · Register
 
-> **Runtime:** about 1 min 35 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** an invitation token from the office
+> **Runtime:** about 1 min 55 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** an invitation code from the office
 
 **Video:** [08-register.mp4](08-register.mp4) · [Slides](slides.html) · **Audio:** [08-register.mp3](08-register.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
-A new member needs an account before anything else. This video walks through the Create account page, box by box, and what the red notes mean.
+A new member needs an account before anything else. Members now register on the admin site, from the Create an account link on the sign in page. This video walks through the Create your account page, box by box, and what the notes mean.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Have the invitation token ready.
-- Fill in Invitation Token, Username, Password and Confirm Password, and accept the terms.
-- Tap Create Account and recognise the Creating account state.
-- Fix a box when a red note appears, and call the office if the token is wrong.
+- Have the invitation code ready, and reach Create an account from Member sign in.
+- Fill in Invitation code, Username, Password and Confirm password, and accept the terms.
+- Tap Create account and recognise the greyed-out button while it works.
+- Fix each item the box at the top lists, and call the office if the code is wrong.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-register-360.png` | The empty Create account page on a phone |
-| `images/public-register-submitting-360.png` | The filled-in form, its button showing Creating account... |
-| `images/public-register-mismatch-360.png` | Red notes, including Passwords do not match |
+| `images/admin-login-360.png` | The sign in page with the Create an account link |
+| `images/admin-register-360.png` | The empty Create your account page on a phone |
+| `images/admin-register-submitting-360.png` | The filled-in form, its Create account button greyed out |
+| `images/admin-register-mismatch-360.png` | Four things to fix, with a note under each box |
+| `images/admin-register-error-360.png` | We couldn't create your account; check your invitation code |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -32,10 +34,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:16 | Welcome | Title; the invitation token |
-| 00:16-00:52 | Create your account | The four boxes, terms, Create Account |
-| 00:52-01:18 | If something is missing | Red notes; wrong token, call the office |
-| 01:18-01:35 | In short | Summary, thank you |
+| 00:00-00:16 | Welcome | Title; the invitation code |
+| 00:16-01:03 | Create your account | Create an account link, the four boxes, terms, Create account |
+| 01:03-01:39 | If something is missing | Things to fix; wrong code, call the office |
+| 01:39-01:55 | In short | Summary, thank you |
 
 ## Demo commands
 

@@ -6,35 +6,37 @@ Hello. This short video shows the few steps you see after you make your account.
 
 [pause 2s]
 
-There are four steps. It only takes a few minutes.
+There are three steps. It only takes a few minutes.
 
 [pause 2s]
 
-## Four easy steps
+## Three easy steps
 
-Step one says, Welcome to Coop! Tap Get Started.
-
-[pause 2s]
-
-Step two is Set up your profile. Type your first name, your last name and your email. A phone number is optional. So is a photo. To add one, tap Upload photo.
+Step one says, Welcome to OWN Housing Co-op. Tap Get started.
 
 [pause 2s]
 
-Tap Next to go on, or Back to go back. If you would rather do this later, tap Skip.
+Step two is Set up your profile. Type your first name and your last name. Your email, your phone number and a photo are optional. You can change these later in your profile.
 
 [pause 2s]
 
-Step three is Select your unit. Tap the unit where you live. It is marked when you choose it. Then tap Next.
+Tap Next to go on, or Back to go back. If you would rather do this later, tap Skip for now, at the bottom.
 
 [pause 2s]
 
-Step four says, You're all set! Your profile is ready. Tap Go to Dashboard, and you are home.
+Step three is Select your unit. Tap the unit where you live. It is marked when you choose it. Then tap Go to dashboard.
+
+[pause 2s]
+
+## You are home
+
+Your own home page opens. It greets you by name, and shows your requests, your messages and the latest notices.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Get Started. Tell us about yourself, or skip. Choose your unit. Then Go to Dashboard.
+So, in short. Get started. Tell us about yourself, or skip for now. Choose your unit. Then Go to dashboard.
 
 [pause 1s]
 

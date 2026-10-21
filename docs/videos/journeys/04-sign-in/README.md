@@ -1,29 +1,32 @@
 # Journey 04 · Sign in
 
-> **Runtime:** about 1 min 22 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 51 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [04-sign-in.mp4](04-sign-in.mp4) · [Slides](slides.html) · **Audio:** [04-sign-in.mp3](04-sign-in.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
-Signing in is the door to every private page. This video shows a member how to sign in, what to do if it does not work, and why private pages ask her to sign in first.
+Signing in is the door to every private page. Members now sign in on the admin site, reached from the Member sign in button on the public website. This video shows a member how to get there, how to sign in, what to do if it does not work, and what she sees once she is in.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Enter her username and password and tap Sign In.
-- Recognise the Invalid username or password message and try again, or use Forgot password.
-- Know that private pages bring her to the sign in page first.
+- Find Member sign in on the public website, or inside the Menu on a phone.
+- Enter her username and password on the sign in page and tap Sign in.
+- Recognise the We couldn't sign you in message and try again, or use Forgot password.
+- Know that the menu shows only her own areas, and that old member links bring her to the sign in page.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-login-360.png` | The sign in page, Welcome back |
-| `images/public-login-submitting-360.png` | The button showing Signing in |
-| `images/public-login-error-360.png` | The Invalid username or password message |
-| `images/public-dashboard-360.png` | The member home page, Hello, Mira |
+| `images/public-landing-1280.png` | The public website with the Member sign in button |
+| `images/admin-login-360.png` | The sign in page, Welcome back |
+| `images/admin-login-submitting-360.png` | The Sign in button greyed out while it works |
+| `images/admin-login-error-360.png` | The We couldn't sign you in message |
+| `images/admin-member-dashboard-360.png` | The member home page, Hello, Oren |
+| `images/admin-member-dashboard-1280.png` | The member menu: Dashboard, Maintenance, Documents, Messages, My profile |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -32,10 +35,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:13 | Welcome | Title; private, just for you |
-| 00:13-00:46 | Sign in | Username, password, Sign In, error |
-| 00:46-01:10 | You are in | Home page; private pages ask to sign in |
-| 01:10-01:22 | In short | Three steps, thank you |
+| 00:00-00:15 | Welcome | Title; private, just for you |
+| 00:15-01:01 | Sign in | Member sign in, Welcome back, Sign in, error |
+| 01:01-01:38 | You are in | Home page; only your areas; old links |
+| 01:38-01:51 | In short | Three steps, thank you |
 
 ## Demo commands
 

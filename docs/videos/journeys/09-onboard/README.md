@@ -1,31 +1,31 @@
 # Journey 09 · Onboard
 
-> **Runtime:** about 1 min 16 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a newly created member account
+> **Runtime:** about 1 min 22 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a newly created member account
 
 **Video:** [09-onboard.mp4](09-onboard.mp4) · [Slides](slides.html) · **Audio:** [09-onboard.mp3](09-onboard.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
-After registering, a member is guided through four short set-up steps. This video shows each step, and that the profile step can be skipped.
+After registering on the admin site, a member is guided through three short set-up steps and then lands on her own home page. This video shows each step, and that the profile step can be skipped.
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Start with Get Started.
-- Fill in the profile, or tap Skip to do it later.
-- Choose a unit and tap Next.
-- Finish with Go to Dashboard.
+- Start with Get started.
+- Fill in the profile, or tap Skip for now to do it later.
+- Choose a unit and tap Go to dashboard.
+- Recognise her own home page when it opens.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/public-onboarding-360.png` | Step 1 of 4: Welcome to Coop! |
-| `images/public-onboarding-profile-1280.png` | Step 2 of 4: the profile form |
-| `images/public-onboarding-profile-360.png` | Back, Next and Skip on a phone |
-| `images/public-onboarding-unit-selected-360.png` | Step 3 of 4: a unit chosen |
-| `images/public-onboarding-success-360.png` | Step 4 of 4: You're all set! |
+| `images/admin-onboarding-360.png` | Step 1 of 3: Welcome to OWN Housing Co-op |
+| `images/admin-onboarding-profile-1280.png` | Step 2 of 3: the profile form |
+| `images/admin-onboarding-profile-buttons-360.png` | Next, Back and Skip for now on a phone |
+| `images/admin-onboarding-unit-selected-360.png` | Step 3 of 3: a unit chosen, Go to dashboard |
+| `images/admin-member-dashboard-360.png` | The member home page, Hello, Oren |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -34,9 +34,10 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:15 | Welcome | Title; four steps |
-| 00:15-01:02 | Four easy steps | Welcome, profile, Skip, unit, all set |
-| 01:02-01:16 | In short | Summary, thank you |
+| 00:00-00:15 | Welcome | Title; three steps |
+| 00:15-00:57 | Three easy steps | Welcome, profile, Skip for now, unit |
+| 00:57-01:07 | You are home | The member home page |
+| 01:07-01:22 | In short | Summary, thank you |
 
 ## Demo commands
 
