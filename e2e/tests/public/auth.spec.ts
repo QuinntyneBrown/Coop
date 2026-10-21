@@ -1,6 +1,8 @@
 import { test, expect } from '../../fixtures/public/auth.fixture';
 import { LoginPage } from '../../pages/public/login.page';
 import { RegisterPage } from '../../pages/public/register.page';
+import { ForgotPasswordPage } from '../../pages/public/forgot-password.page';
+import { LoginPage as AdminLoginPage } from '../../pages/admin/login.page';
 import { DocumentsPage } from '../../pages/public/documents.page';
 import { BottomTabBar } from '../../pages/public/bottom-tab-bar.page';
 
@@ -238,10 +240,21 @@ test.describe('Authentication', () => {
     });
 
     test.describe('Navigation', () => {
-      test('should navigate to sign in page', async () => {
-        await register.navigateToSignIn();
-        await expect(register.page).toHaveURL(/\/login/);
+      // L2-REQ-077 AC3, L2-REQ-101 AC4
+      test('should open the admin login screen from Sign in', async ({ page }) => {
+        await register.signInLink.click();
+        await new AdminLoginPage(page).expectOpen();
       });
+    });
+  });
+
+  test.describe('Forgot Password Page', () => {
+    // L2-REQ-101 AC4
+    test('should open the admin login screen from Back to Sign In', async ({ page }) => {
+      const forgotPassword = new ForgotPasswordPage(page);
+      await forgotPassword.goto();
+      await forgotPassword.signInLink.click();
+      await new AdminLoginPage(page).expectOpen();
     });
   });
 

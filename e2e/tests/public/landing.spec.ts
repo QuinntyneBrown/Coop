@@ -272,5 +272,12 @@ test.describe('Home page', () => {
       await expect(landing.footer).toContainText('Visit or write');
       await expect(landing.footerPhone).toHaveAttribute('href', /^tel:/);
     });
+
+    // L2-REQ-078 AC2, L2-REQ-101 AC3
+    test('opens the admin login screen from Member sign in under For members', async ({ page }) => {
+      await landing.goto();
+      await landing.footerLink('Member sign in').click();
+      await new AdminLoginPage(page).expectOpen();
+    });
   });
 });

@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ADMIN_LOGIN_URL } from '../../core/services/admin-login-url';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   template: `
     <div class="header">
       <h1>OWN Housing Co-op</h1>
@@ -29,7 +29,7 @@ import { RouterLink } from '@angular/router';
       </div>
       <button class="btn btn-primary btn-full" (click)="onSubmit()">Send Reset Link</button>
       <div class="back-row">
-        <a routerLink="/login">Back to Sign In</a>
+        <a [href]="adminLoginUrl">Back to Sign In</a>
       </div>
     </div>
   `,
@@ -84,6 +84,7 @@ import { RouterLink } from '@angular/router';
   ],
 })
 export class ForgotPasswordComponent {
+  readonly adminLoginUrl = ADMIN_LOGIN_URL;
   email = '';
   onSubmit() {
     // stub
