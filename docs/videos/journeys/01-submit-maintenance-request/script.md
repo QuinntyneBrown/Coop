@@ -12,23 +12,23 @@ A dripping tap, a light that flickers, a window that will not close. Telling the
 
 ## Send a request
 
-Start on the Requests page. Tap Requests at the bottom of the screen. Here you see every request you have sent, and where each one is.
+First, sign in on the co-op's members' site. Then start on the Requests page. On a phone, tap Requests at the bottom of the screen. On a computer, choose Maintenance in the menu. Here you see every request you have sent, and where each one is.
 
 [pause 2s]
 
-To report something new, tap Create Request. A short form opens.
+To report something new, tap New request. A short form opens.
 
 [pause 1s]
 
-Give it a title, such as water under the kitchen sink. Then say what is wrong in your own words. Choose how urgent it is, and what kind of problem it is.
+Give it a title, such as water under the kitchen sink. Then say what is wrong in your own words.
 
 [pause 2s]
 
-If you like, add a photo or two. Tap Choose photos and pick them from your phone. A photo often says more than words. If you choose the wrong one, tap Remove.
+If you like, add a photo or two. Tap Add photos and pick them from your phone. A photo often says more than words. If you choose the wrong one, tap Remove.
 
 [pause 2s]
 
-When you are ready, tap Submit Request. The button says Sending while it goes.
+When you are ready, tap Send request. The button says Sending while it goes.
 
 [pause 2s]
 
@@ -44,7 +44,7 @@ At the same moment, the office sees it on their screen, with your words and your
 
 ## In short
 
-So, in short. Tap Requests. Tap Create Request. Say what is wrong, add a photo if you like, and send. That is all.
+So, in short. Tap Requests. Tap New request. Say what is wrong, add a photo if you like, and send. That is all.
 
 [pause 1s]
 

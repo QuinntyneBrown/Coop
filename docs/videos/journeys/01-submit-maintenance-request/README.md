@@ -1,6 +1,6 @@
 # Journey 01 · Submit a maintenance request
 
-> **Runtime:** about 1 min 45 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 50 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [01-submit-maintenance-request.mp4](01-submit-maintenance-request.mp4) · [Slides](slides.html) · **Audio:** [01-submit-maintenance-request.mp3](01-submit-maintenance-request.mp3) · [Transcript](script.md)
 
@@ -13,7 +13,7 @@ member through it, step by step, in plain words.
 
 By the end, the viewer can:
 
-- Find the Requests page and open the Create Request form.
+- Sign in on the members' site, find the Requests page and tap New request.
 - Fill in a request and, if she likes, add photos.
 - Tell that her request was sent and that the office sees it.
 
@@ -21,28 +21,31 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
-| `images/public-maintenance-360.png` | The member's Requests page on a phone |
-| `images/public-maintenance-create-360.png` | The empty Create New Request form |
-| `images/public-maintenance-create-filled-360.png` | The form filled in, before any photo |
-| `images/public-maintenance-create-photos-1280.png` | The form with a photo chosen |
-| `images/public-maintenance-create-sending-1280.png` | The button showing "Sending…" |
-| `images/public-maintenance-new-360.png` | Water under the kitchen sink on the list, marked New |
+| `images/member-maintenance-360.png` | The member's Requests page on a phone (admin site, member view) |
+| `images/member-maintenance-create-360.png` | The empty New maintenance request form |
+| `images/member-maintenance-create-filled-360.png` | The form filled in, before any photo |
+| `images/member-maintenance-create-photos-1280.png` | The form with a photo chosen |
+| `images/member-maintenance-create-sending-1280.png` | The button showing "Sending…" |
+| `images/member-maintenance-new-360.png` | Water under the kitchen sink on the list, marked New |
 | `images/admin-maintenance-detail-new-1280.png` | The office's view of Water under the kitchen sink, with Receive |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
-The mocks have no state for a request the member has just sent, so
-`shots.json` adds Water under the kitchen sink to the list and the office
-view with a short script before the screenshot.
+Members sign in on the admin site and see only the member areas (ADR 0012),
+so the member screens come from the `admin-member-*` mocks. The mocks have no
+state for a request the member has just sent, so `shots.json` fills in the
+form, renames the chosen photo, adds Water under the kitchen sink to the list,
+and puts Oren Reed of unit 102 on the office view, with a short script before
+each screenshot.
 
 ## Run sheet
 
 | Time | Segment | Content |
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title; telling the office should be easy |
-| 00:17-01:10 | Send a request | Requests, Create Request, fill in, photos, Submit |
-| 01:10-01:30 | What happens next | Marked New; the office sees it and taps Receive |
-| 01:30-01:45 | In short | Three steps, thank you |
+| 00:17-01:14 | Send a request | Sign in, Requests, New request, fill in, photos, Send request |
+| 01:14-01:35 | What happens next | Marked New; the office sees it and taps Receive |
+| 01:35-01:50 | In short | Three steps, thank you |
 
 ## Demo commands
 

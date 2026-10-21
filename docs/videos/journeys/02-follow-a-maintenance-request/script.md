@@ -12,11 +12,11 @@ Once a request is sent, you will want to know how it is going. It is all in one 
 
 ## Check the status
 
-Tap Requests at the bottom of the screen. Each request shows a coloured label. New means the office has it. Received means they have seen it. Started means the work has begun. Done means it is fixed.
+Tap Requests at the bottom of the screen, or Maintenance in the menu on a computer. Each request shows a coloured label. New means the office has it. Received means they have seen it. Started means the work has begun. Completed means it is fixed.
 
 [pause 2s]
 
-To see only some of them, tap one of the buttons at the top: All, New, Started or Done. Tap Started, and only the requests being worked on are shown.
+To see only some of them, tap one of the buttons at the top: All, New, Received, Started or Completed. Tap Completed, and only the finished repairs are shown.
 
 [pause 2s]
 
@@ -26,7 +26,7 @@ Tap a request to open it. You see its title, its label, and what you wrote.
 
 [pause 2s]
 
-Under Comments, you and the office can leave notes for each other. Here Mira says it drips most at night.
+Under Comments, you and the office can leave notes for each other. Here Dolores, from the office, says they will look at the fan on Thursday morning.
 
 [pause 2s]
 
