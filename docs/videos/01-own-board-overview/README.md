@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 4 min 14 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 4 min 15 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 
@@ -37,9 +37,9 @@ By the end, the viewer can:
 | `images/admin-pages-1280.png` | The admin Pages screen: add, edit and remove website pages (working today) |
 | `images/admin-board-1280.png` | The admin Board screen: add, edit, reorder and remove directors (working today) |
 | `images/admin-documents-notices-1280.png`, `public-documents-notices-360.png` | Notices |
-| `images/public-profile-edit-360.png`, `admin-document-create-send-1280.png` | Notices by email or text: the member's "Send me new notices" choice, and the office's "Also send to members by email and text" box |
-| `images/public-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `admin-maintenance-detail-started-1280.png`, `public-maintenance-detail-photos-360.png` | Repair requests, with photos |
-| `images/public-profile-photo-preview-360.png`, `public-messaging-chat-photo-360.png` | Profile photos: choose and save, then shown beside messages |
+| `images/admin-member-profile-edit-360.png`, `admin-document-create-send-1280.png` | Notices by email or text: the member's "Send me new notices" choice, and the office's "Also send to members by email and text" box |
+| `images/admin-member-maintenance-create-360.png`, `admin-maintenance-detail-received-1280.png`, `admin-maintenance-detail-started-1280.png`, `admin-member-maintenance-detail-photos-360.png` | Repair requests, with photos |
+| `images/admin-member-profile-photo-preview-360.png`, `admin-maintenance-detail-submitter-photo-1280.png` | Profile photos: the member chooses and saves one on the admin site's member view, and the office sees it beside "Submitted by" |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`. The
@@ -57,10 +57,10 @@ before the real site.
 | 00:50-01:33 | 2 OWN runs it | Edited-in-admin tags; colours, photos, pages and the board list, all working today |
 | 01:33-02:12 | 3 Notices | Working today, including the email or text choice and one-tick sending; a real email and text message service is the step left |
 | 02:12-02:46 | 4 Repair requests | Send with photos, receive, start, finish and follow, working today |
-| 02:46-03:06 | 5 Bigger words | Up to 400%, working today on every screen |
-| 03:06-03:20 | 6 Your own photo | Add, change or remove, shown beside messages, working today |
-| 03:20-03:49 | In short | All six working today; a real email and text message service coming next |
-| 03:49-04:14 | Our ask | Three small things, thank you |
+| 02:46-03:07 | 5 Bigger words | Up to 400%, working today on every screen |
+| 03:07-03:21 | 6 Your own photo | Add, change or remove; the office sees it beside her requests, working today |
+| 03:21-03:50 | In short | All six working today; a real email and text message service coming next |
+| 03:50-04:15 | Our ask | Three small things, thank you |
 
 ## Demo commands
 
