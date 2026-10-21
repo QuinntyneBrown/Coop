@@ -1,0 +1,18 @@
+// Progress (docs/design-system/components/progress.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  width: 100%;
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle-hover);
+  overflow: hidden;
+}
+
+.progress__bar {
+  height: 100%;
+  width: var(--value, 0%);
+  background: var(--color-accent);
+  border-radius: inherit;
+  transition: width var(--duration-slow) var(--ease-standard);
+}

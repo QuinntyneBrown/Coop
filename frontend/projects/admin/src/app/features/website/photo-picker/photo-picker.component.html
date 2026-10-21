@@ -14,16 +14,16 @@
       <div libPictureList>
         @switch (status()) {
           @case ('loading') {
-            <div class="loading" role="status" aria-live="polite">
-              <span class="spinner" aria-hidden="true"></span>Loading photos…
+            <div libLoading role="status" aria-live="polite">
+              <span libSpinner></span>Loading photos…
             </div>
           }
           @case ('error') {
-            <div class="alert alert--danger" role="alert">
+            <div libAlert tone="danger" role="alert">
               <svg libIcon="error"></svg>
-              <div class="alert__body">
+              <div libAlertBody>
                 <span>We couldn't load the photos. Try again.</span>
-                <div class="alert__actions">
+                <div libAlertActions>
                   <button type="button" libButton size="sm" (click)="load()">
                     <svg libIcon="try-again"></svg>Try again
                   </button>
@@ -85,8 +85,8 @@
         </div>
         <p class="field__help" id="photo-upload-help">JPEG, PNG or WebP, up to 10 MB.</p>
         @if (uploading()) {
-          <p class="inline-status" role="status" aria-live="polite">
-            <span class="spinner spinner--sm" aria-hidden="true"></span>Uploading…
+          <p libInlineStatus role="status" aria-live="polite">
+            <span libSpinner size="sm"></span>Uploading…
           </p>
         }
         @if (uploadError()) {

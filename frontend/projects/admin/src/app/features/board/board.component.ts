@@ -11,6 +11,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
   AvatarComponent,
   AvatarImageComponent,
   ButtonComponent,
@@ -22,6 +26,8 @@ import {
   EmptyStateTextComponent,
   EmptyStateTitleComponent,
   IconComponent,
+  LoadingComponent,
+  SpinnerComponent,
 } from 'components';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
@@ -61,6 +67,12 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
     EmptyStateIconComponent,
     EmptyStateTextComponent,
     EmptyStateTitleComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',

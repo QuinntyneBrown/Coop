@@ -8,15 +8,21 @@ import {
   viewChild,
 } from '@angular/core';
 import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
   ButtonComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
   IconComponent,
+  InlineStatusComponent,
+  LoadingComponent,
   PictureListAddComponent,
   PictureListChoiceComponent,
   PictureListComponent,
   PictureListGridComponent,
+  SpinnerComponent,
 } from 'components';
 import { ApiService } from '../../../core/services/api.service';
 import { DigitalAssetService } from '../../../core/services/digital-asset.service';
@@ -46,6 +52,12 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
     PictureListChoiceComponent,
     PictureListComponent,
     PictureListGridComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    InlineStatusComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './photo-picker.component.html',
   styleUrl: './photo-picker.component.scss',

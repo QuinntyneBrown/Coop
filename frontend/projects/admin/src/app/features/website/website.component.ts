@@ -12,16 +12,22 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
   IconComponent,
   ListComponent,
   ListTitleComponent,
+  LoadingComponent,
   PhotoPickerActionsComponent,
   PhotoPickerBodyComponent,
   PhotoPickerComponent as LibPhotoPickerComponent,
   PictureListThumbComponent,
+  SpinnerComponent,
 } from 'components';
 import type { ContentRecord } from '../../core/models/content-record';
 import type { SiteContent } from '../../core/models/site-content';
@@ -65,6 +71,12 @@ type LoadStatus = 'loading' | 'ready' | 'error';
     PhotoPickerBodyComponent,
     PictureListThumbComponent,
     LibPhotoPickerComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',

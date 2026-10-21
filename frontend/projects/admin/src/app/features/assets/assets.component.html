@@ -107,16 +107,11 @@
         </div>
         @if (uploadProgressValue >= 0) {
           <div
-            class="progress"
-            role="progressbar"
+            libProgress
             aria-label="Upload progress"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [attr.aria-valuenow]="uploadProgressValue"
+            [value]="uploadProgressValue"
             data-testid="upload-progress"
-          >
-            <div class="progress__bar" [style.--value]="uploadProgressValue + '%'"></div>
-          </div>
+          ></div>
         }
       </div>
       <div class="dialog__footer">

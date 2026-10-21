@@ -36,9 +36,9 @@
         (ngSubmit)="onSubmit()"
       >
         @if (loginError) {
-          <div class="alert alert--danger" role="alert" data-testid="login-form-error">
+          <div libAlert tone="danger" role="alert" data-testid="login-form-error">
             <svg libIcon="error"></svg>
-            <div class="alert__body">{{ loginError }}</div>
+            <div libAlertBody>{{ loginError }}</div>
           </div>
         }
 

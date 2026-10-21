@@ -5,16 +5,22 @@
 </div>
 <div role="status" aria-live="polite">
   @if (successMsg) {
-    <div class="alert alert--success settings-alert" data-testid="settings-success-message">
+    <div libAlert tone="success" class="settings-alert" data-testid="settings-success-message">
       <svg libIcon="success"></svg>
-      <div class="alert__body">{{ successMsg }}</div>
+      <div libAlertBody>{{ successMsg }}</div>
     </div>
   }
 </div>
 @if (errorMsg) {
-  <div class="alert alert--danger settings-alert" role="alert" data-testid="settings-error-message">
+  <div
+    libAlert
+    tone="danger"
+    class="settings-alert"
+    role="alert"
+    data-testid="settings-error-message"
+  >
     <svg libIcon="error"></svg>
-    <div class="alert__body">{{ errorMsg }}</div>
+    <div libAlertBody>{{ errorMsg }}</div>
   </div>
 }
 

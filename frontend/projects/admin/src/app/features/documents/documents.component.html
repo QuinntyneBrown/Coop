@@ -31,9 +31,9 @@
 
 <div role="status" aria-live="polite">
   @if (statusMessage) {
-    <div class="alert alert--success" data-testid="documents-status">
+    <div libAlert tone="success" data-testid="documents-status">
       <svg libIcon="success"></svg>
-      <div class="alert__body">{{ statusMessage }}</div>
+      <div libAlertBody>{{ statusMessage }}</div>
     </div>
   }
 </div>
@@ -63,8 +63,8 @@
   [attr.aria-labelledby]="'documents-tab-' + activeFilter"
 >
   @if (loading) {
-    <div class="loading" role="status" data-testid="documents-loading">
-      <span class="spinner" aria-hidden="true"></span>Loading documents…
+    <div libLoading role="status" data-testid="documents-loading">
+      <span libSpinner></span>Loading documents…
     </div>
   }
 
@@ -216,9 +216,9 @@
         </div>
       }
       @if (dialogError) {
-        <div class="alert alert--danger" role="alert" data-testid="document-dialog-error">
+        <div libAlert tone="danger" role="alert" data-testid="document-dialog-error">
           <svg libIcon="error"></svg>
-          <div class="alert__body">{{ dialogError }}</div>
+          <div libAlertBody>{{ dialogError }}</div>
         </div>
       }
     </div>

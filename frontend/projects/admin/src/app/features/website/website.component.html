@@ -10,9 +10,9 @@
 <div class="stack">
   <div role="status" aria-live="polite">
     @if (notice()) {
-      <div class="alert alert--success">
+      <div libAlert tone="success">
         <svg libIcon="success"></svg>
-        <div class="alert__body" data-testid="website-notice">{{ notice() }}</div>
+        <div libAlertBody data-testid="website-notice">{{ notice() }}</div>
       </div>
     }
   </div>
@@ -20,17 +20,17 @@
   @switch (status()) {
     @case ('loading') {
       <div libCard flush>
-        <div class="loading" role="status" aria-live="polite" data-testid="website-loading">
-          <span class="spinner" aria-hidden="true"></span>Loading the website content…
+        <div libLoading role="status" aria-live="polite" data-testid="website-loading">
+          <span libSpinner></span>Loading the website content…
         </div>
       </div>
     }
     @case ('error') {
-      <div class="alert alert--danger" role="alert" data-testid="website-error">
+      <div libAlert tone="danger" role="alert" data-testid="website-error">
         <svg libIcon="error"></svg>
-        <div class="alert__body">
+        <div libAlertBody>
           <span>We couldn't load the website content. Check your connection and try again.</span>
-          <div class="alert__actions">
+          <div libAlertActions>
             <button type="button" libButton size="sm" (click)="load()" data-testid="website-retry">
               <svg libIcon="try-again"></svg>Try again
             </button>
@@ -102,15 +102,15 @@
       <div class="dialog__body stack">
         @if (errorList().length > 0) {
           <div
-            class="alert alert--danger form-summary"
+            libAlert
+            tone="danger"
+            class="form-summary"
             role="alert"
             data-testid="content-editor-errors"
           >
             <svg libIcon="error"></svg>
-            <div class="alert__body">
-              <p class="alert__title">
-                Something needs attention before your changes can be saved.
-              </p>
+            <div libAlertBody>
+              <p libAlertTitle>Something needs attention before your changes can be saved.</p>
               <ol>
                 @for (error of errorList(); track error.id) {
                   <li>
@@ -122,9 +122,9 @@
           </div>
         }
         @if (saveFailed()) {
-          <div class="alert alert--danger" role="alert">
+          <div libAlert tone="danger" role="alert">
             <svg libIcon="error"></svg>
-            <div class="alert__body" data-testid="content-editor-failed">
+            <div libAlertBody data-testid="content-editor-failed">
               We couldn't save your changes. Try again.
             </div>
           </div>

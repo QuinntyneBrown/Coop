@@ -1,0 +1,24 @@
+// Spinner (docs/design-system/components/spinner.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  --spinner-size: var(--size-icon-md);
+  display: inline-block;
+  flex: none;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: var(--border-width-thick) solid var(--color-bg-subtle-hover);
+  border-top-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  animation: spin calc(var(--duration-loop) / 2) linear infinite;
+}
+
+:host(:where(.spinner--sm)) {
+  --spinner-size: var(--size-icon-sm);
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}

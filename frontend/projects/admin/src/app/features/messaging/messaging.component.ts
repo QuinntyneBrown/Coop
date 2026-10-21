@@ -23,6 +23,8 @@ import {
   ListItemComponent,
   ListMetaComponent,
   ListTitleComponent,
+  LoadingComponent,
+  SpinnerComponent,
 } from 'components';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -48,6 +50,8 @@ import { AuthService } from '../../core/services/auth.service';
     ListItemComponent,
     ListMetaComponent,
     ListTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './messaging.component.html',
   styleUrl: './messaging.component.scss',

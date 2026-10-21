@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
@@ -20,10 +24,12 @@ import {
   IconComponent,
   ListComponent,
   ListTitleComponent,
+  LoadingComponent,
   PhotoPickerActionsComponent,
   PhotoPickerBodyComponent,
   PhotoPickerComponent as LibPhotoPickerComponent,
   PictureListThumbComponent,
+  SpinnerComponent,
 } from 'components';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
@@ -71,6 +77,12 @@ const emptyDraft = (): WebsitePageDraft => ({
     PhotoPickerBodyComponent,
     PictureListThumbComponent,
     LibPhotoPickerComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',

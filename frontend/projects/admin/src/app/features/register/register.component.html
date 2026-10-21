@@ -31,9 +31,9 @@
         (ngSubmit)="onSubmit()"
       >
         @if (registrationError) {
-          <div class="alert alert--danger" role="alert" data-testid="register-form-error">
+          <div libAlert tone="danger" role="alert" data-testid="register-form-error">
             <svg libIcon="error"></svg>
-            <div class="alert__body">{{ registrationError }}</div>
+            <div libAlertBody>{{ registrationError }}</div>
           </div>
         }
 

@@ -21,6 +21,7 @@ import {
   PictureListItemComponent,
   PictureListNoteComponent,
   PictureListThumbComponent,
+  ProgressComponent,
 } from 'components';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
@@ -42,6 +43,7 @@ import { formatFileSize } from './format-file-size';
     PictureListItemComponent,
     PictureListNoteComponent,
     PictureListThumbComponent,
+    ProgressComponent,
   ],
   templateUrl: './assets.component.html',
   styleUrl: './assets.component.scss',

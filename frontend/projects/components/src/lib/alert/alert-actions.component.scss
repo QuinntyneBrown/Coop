@@ -1,0 +1,8 @@
+// Alert actions (docs/design-system/components/alert.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}

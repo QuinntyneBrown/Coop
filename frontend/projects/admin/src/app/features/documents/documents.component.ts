@@ -10,6 +10,8 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
 import {
+  AlertBodyComponent,
+  AlertComponent,
   AvatarComponent,
   BadgeComponent,
   ButtonComponent,
@@ -20,6 +22,8 @@ import {
   EmptyStateTextComponent,
   IconComponent,
   IconName,
+  LoadingComponent,
+  SpinnerComponent,
 } from 'components';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
@@ -40,6 +44,10 @@ import { documentTypeLabel } from './document-type-label';
     EmptyStateComponent,
     EmptyStateIconComponent,
     EmptyStateTextComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',

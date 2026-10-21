@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  AlertBodyComponent,
+  AlertComponent,
   AvatarComponent,
   BadgeComponent,
   ButtonComponent,
@@ -40,6 +42,8 @@ import { plainName } from '../../core/plain-name';
     ListItemComponent,
     ListMetaComponent,
     ListTitleComponent,
+    AlertBodyComponent,
+    AlertComponent,
   ],
   templateUrl: './profiles.component.html',
   styleUrl: './profiles.component.scss',

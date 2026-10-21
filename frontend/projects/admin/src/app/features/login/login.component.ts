@@ -1,13 +1,27 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ButtonComponent, CardComponent, IconComponent } from 'components';
+import {
+  AlertBodyComponent,
+  AlertComponent,
+  ButtonComponent,
+  CardComponent,
+  IconComponent,
+} from 'components';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, IconComponent, ButtonComponent, CardComponent],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    AlertBodyComponent,
+    AlertComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

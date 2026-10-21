@@ -30,8 +30,8 @@
 </div>
 
 @if (loading) {
-  <div class="loading" role="status" data-testid="maintenance-loading">
-    <span class="spinner" aria-hidden="true"></span><span class="visually-hidden">Loading</span>
+  <div libLoading role="status" data-testid="maintenance-loading">
+    <span libSpinner></span><span class="visually-hidden">Loading</span>
   </div>
 }
 
@@ -234,9 +234,9 @@
               </button>
             </div>
             @if (stepFailed) {
-              <div class="alert alert--danger" role="alert" data-testid="maintenance-step-error">
+              <div libAlert tone="danger" role="alert" data-testid="maintenance-step-error">
                 <svg libIcon="error"></svg>
-                <div class="alert__body">That change was not saved. Please try again.</div>
+                <div libAlertBody>That change was not saved. Please try again.</div>
               </div>
             }
           }

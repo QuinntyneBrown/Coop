@@ -9,6 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  AlertBodyComponent,
+  AlertComponent,
   AvatarComponent,
   BadgeComponent,
   BadgeTone,
@@ -26,10 +28,12 @@ import {
   ListItemComponent,
   ListMetaComponent,
   ListTitleComponent,
+  LoadingComponent,
   PictureListGridComponent,
   PictureListItemComponent,
   PictureListNoteComponent,
   PictureListThumbComponent,
+  SpinnerComponent,
 } from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
@@ -62,6 +66,10 @@ import { nextMaintenanceStep } from './next-maintenance-step';
     PictureListItemComponent,
     PictureListNoteComponent,
     PictureListThumbComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    LoadingComponent,
+    SpinnerComponent,
   ],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',

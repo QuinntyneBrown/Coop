@@ -134,9 +134,9 @@
         </div>
         <div role="status" aria-live="polite">
           @if (successMessage) {
-            <div class="alert alert--success" data-testid="profile-success-message">
+            <div libAlert tone="success" data-testid="profile-success-message">
               <svg libIcon="success"></svg>
-              <div class="alert__body">{{ successMessage }}</div>
+              <div libAlertBody>{{ successMessage }}</div>
             </div>
           }
         </div>
