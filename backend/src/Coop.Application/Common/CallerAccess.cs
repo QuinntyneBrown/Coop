@@ -37,6 +37,21 @@ public static class CallerAccess
             .ToListAsync(cancellationToken);
     }
 
+    /// <summary>The caller's current profile, else their first, else none.</summary>
+    public static async Task<Guid?> CurrentProfileIdAsync(ICoopDbContext context, ClaimsPrincipal user, CancellationToken cancellationToken)
+    {
+        var userId = UserId(user);
+        if (userId is null)
+            return null;
+
+        var current = await context.Users.Where(u => u.UserId == userId).Select(u => u.CurrentProfileId).SingleOrDefaultAsync(cancellationToken);
+        if (current is not null)
+            return current;
+
+        var own = await OwnProfileIdsAsync(context, user, cancellationToken);
+        return own.Count > 0 ? own[0] : null;
+    }
+
     public static async Task<bool> HoldsWriteAsync(IAuthorizationService authorization, ClaimsPrincipal user, string aggregate)
         => (await authorization.AuthorizeAsync(user, aggregate, Operations.Write)).Succeeded;
 }

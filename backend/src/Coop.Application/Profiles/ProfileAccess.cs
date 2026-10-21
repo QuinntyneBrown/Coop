@@ -12,6 +12,10 @@ namespace Coop.Application.Profiles;
 /// </summary>
 public static class ProfileAccess
 {
+    /// <summary>The office for profiles: Write or higher on the Member aggregate.</summary>
+    public static async Task<bool> IsOfficeAsync(IAuthorizationService authorization, ClaimsPrincipal user)
+        => (await authorization.AuthorizeAsync(user, Constants.Aggregates.Member, Operations.Write)).Succeeded;
+
     public static async Task<bool> CanChangePictureAsync(IAuthorizationService authorization, ClaimsPrincipal user, ProfileBase profile)
     {
         var claim = user.FindFirst(Constants.ClaimTypes.UserId);

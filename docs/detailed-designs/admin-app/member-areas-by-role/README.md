@@ -148,9 +148,15 @@ aggregate:
 | Profiles | `GetProfiles`, `GetProfileById`, `GetProfilesByUserId`, `CreateMember`, `UpdateMember` | Their own profiles; a new member profile belongs to them |
 | Documents | `GetDocuments`, `GetDocumentById` | Published documents only |
 
+Sending a request from the admin's create dialog carries no phone number, so
+`CreateMaintenanceRequestValidator` now requires a title and a description,
+and the handler takes the phone from the requesting profile. A comment
+without a named author is written by the caller's current profile.
+
 `ConversationAccess` (`Coop.Application/Messaging/ConversationAccess.cs`)
 holds the conversation rule; `MaintenanceRequestAccess` and `ProfileAccess`
-keep theirs. The office for a record is Write on `MaintenanceRequest`,
+keep theirs, and `MaintenanceRequestScope` lists the profiles whose requests a
+caller may see. The office for a record is Write on `MaintenanceRequest`,
 `Message`, `Member` or `Notice`.
 
 ### The public app

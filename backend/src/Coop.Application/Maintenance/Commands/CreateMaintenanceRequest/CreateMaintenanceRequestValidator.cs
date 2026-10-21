@@ -6,7 +6,7 @@ public class CreateMaintenanceRequestValidator : AbstractValidator<CreateMainten
 {
     public CreateMaintenanceRequestValidator()
     {
+        RuleFor(x => x.Title).NotEmpty();
         RuleFor(x => x.Description).NotEmpty();
-        RuleFor(x => x.Phone).NotEmpty();
     }
 }
