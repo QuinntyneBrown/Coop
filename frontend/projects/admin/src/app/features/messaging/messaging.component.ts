@@ -14,6 +14,12 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
@@ -62,6 +68,12 @@ import { AuthService } from '../../core/services/auth.service';
     FormFieldComponent,
     SearchFieldComponent,
     TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './messaging.component.html',
   styleUrl: './messaging.component.scss',
@@ -70,8 +82,10 @@ import { AuthService } from '../../core/services/auth.service';
 export class MessagingComponent implements OnInit {
   private messagingService = inject(MessagingService);
   private authService = inject(AuthService);
-  private readonly newConversationDialog =
-    viewChild<ElementRef<HTMLDialogElement>>('newConversationDialog');
+  private readonly newConversationDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'newConversationDialog',
+    { read: ElementRef },
+  );
 
   conversations: any[] = [];
   filteredConversations: any[] = [];

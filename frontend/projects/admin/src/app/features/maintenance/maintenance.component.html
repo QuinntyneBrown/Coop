@@ -286,14 +286,14 @@
 
 <dialog
   #createDialog
-  class="dialog"
+  libDialog
   aria-labelledby="mc-heading"
   data-testid="maintenance-create-modal"
   (close)="showCreateModal = false"
 >
-  <form class="dialog__panel" novalidate [formGroup]="createForm" (ngSubmit)="submitRequest()">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="mc-heading">New Maintenance Request</h2>
+  <form libDialogPanel novalidate [formGroup]="createForm" (ngSubmit)="submitRequest()">
+    <div libDialogHeader>
+      <h2 libDialogTitle id="mc-heading">New Maintenance Request</h2>
       <button
         libButton
         variant="ghost"
@@ -305,7 +305,7 @@
         <svg libIcon="close"></svg>
       </button>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <div libFormField>
         <label libFieldLabel for="mc-title">Title</label>
         <input
@@ -367,7 +367,7 @@
         />
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button type="button" libButton data-testid="maintenance-cancel-btn" (click)="closeCreate()">
         Cancel
       </button>

@@ -152,19 +152,19 @@
 
 <dialog
   #editorDialog
-  class="dialog"
+  libDialog
   aria-labelledby="director-editor-title"
   aria-describedby="director-editor-intro"
   (close)="onEditorClosed()"
   data-testid="director-editor"
 >
-  <form class="dialog__panel" (submit)="save($event)" novalidate>
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="director-editor-title" data-testid="director-editor-heading">
+  <form libDialogPanel (submit)="save($event)" novalidate>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="director-editor-title" data-testid="director-editor-heading">
         {{ editingIndex() === null ? 'Add director' : 'Edit director' }}
       </h2>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <p id="director-editor-intro">
         {{
           editingIndex() === null
@@ -269,7 +269,7 @@
         </p>
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
         libButton
@@ -295,23 +295,23 @@
 
 <dialog
   #removeDialog
-  class="dialog"
+  libDialog
   role="alertdialog"
   aria-labelledby="director-remove-title"
   aria-describedby="director-remove-intro"
   (close)="onRemoveClosed()"
   data-testid="director-remove-dialog"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
         <svg libIcon="delete"></svg>
       </div>
-      <h2 class="dialog__title" id="director-remove-title" data-testid="director-remove-heading">
+      <h2 libDialogTitle id="director-remove-title" data-testid="director-remove-heading">
         Remove “{{ removingName() }}” from the board list?
       </h2>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <p id="director-remove-intro">
         They leave the home page straight away. You can add them again later.
       </p>
@@ -322,7 +322,7 @@
         </div>
       }
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
         libButton

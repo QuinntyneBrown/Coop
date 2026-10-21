@@ -81,17 +81,17 @@
 
 <dialog
   #editorDialog
-  class="dialog"
+  libDialog
   aria-labelledby="content-editor-title"
   aria-describedby="content-editor-intro"
   (close)="onEditorClosed()"
   data-testid="content-editor"
 >
   @if (editing(); as block) {
-    <form class="dialog__panel" (submit)="save($event)" novalidate>
-      <div class="dialog__header">
+    <form libDialogPanel (submit)="save($event)" novalidate>
+      <div libDialogHeader>
         <div class="dialog-heading">
-          <h2 class="dialog__title" id="content-editor-title" data-testid="content-editor-heading">
+          <h2 libDialogTitle id="content-editor-title" data-testid="content-editor-heading">
             Edit {{ block.name }}
           </h2>
           <p class="text-muted dialog-intro" id="content-editor-intro">
@@ -99,7 +99,7 @@
           </p>
         </div>
       </div>
-      <div class="dialog__body stack">
+      <div libDialogBody class="stack">
         @if (errorList().length > 0) {
           <div
             libAlert
@@ -138,7 +138,7 @@
           />
         }
       </div>
-      <div class="dialog__footer">
+      <div libDialogFooter>
         <button
           type="button"
           libButton

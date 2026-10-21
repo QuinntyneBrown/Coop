@@ -18,6 +18,12 @@ import {
   CardComponent,
   CardTitleComponent,
   DescriptionListComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   DividerComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
@@ -86,6 +92,12 @@ import { nextMaintenanceStep } from './next-maintenance-step';
     TabComponent,
     TabPanelComponent,
     TabsComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',
@@ -133,7 +145,10 @@ export class MaintenanceComponent implements OnInit {
 
   commentControl = this.fb.control('');
 
-  private readonly createDialog = viewChild.required<ElementRef<HTMLDialogElement>>('createDialog');
+  private readonly createDialog = viewChild.required<unknown, ElementRef<HTMLDialogElement>>(
+    'createDialog',
+    { read: ElementRef },
+  );
 
   ngOnInit(): void {
     this.loadRequests();

@@ -122,16 +122,16 @@
 
 <dialog
   #editorDialog
-  class="dialog"
+  libDialog
   aria-labelledby="editor-title"
   aria-describedby="editor-intro"
   (close)="onEditorClosed()"
   data-testid="page-editor"
 >
-  <form class="dialog__panel" (submit)="save($event)" novalidate>
-    <div class="dialog__header">
+  <form libDialogPanel (submit)="save($event)" novalidate>
+    <div libDialogHeader>
       <div class="dialog-heading">
-        <h2 class="dialog__title" id="editor-title" data-testid="page-editor-heading">
+        <h2 libDialogTitle id="editor-title" data-testid="page-editor-heading">
           {{ editing() ? 'Edit page' : 'New page' }}
         </h2>
         <p class="text-muted dialog-intro" id="editor-intro">
@@ -143,7 +143,7 @@
         </p>
       </div>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       @if (errors().title || errors().heroImageAlt || errors().body) {
         <div
           libAlert
@@ -302,7 +302,7 @@
         }
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
         libButton
@@ -330,23 +330,23 @@
 
 <dialog
   #removeDialog
-  class="dialog"
+  libDialog
   role="alertdialog"
   aria-labelledby="remove-title"
   aria-describedby="remove-intro"
   (close)="onRemoveClosed()"
   data-testid="page-remove-dialog"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
         <svg libIcon="delete"></svg>
       </div>
-      <h2 class="dialog__title" id="remove-title" data-testid="page-remove-heading">
+      <h2 libDialogTitle id="remove-title" data-testid="page-remove-heading">
         Remove “{{ removing()?.title }}”?
       </h2>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <p id="remove-intro">It leaves the website menu straight away. You can add it again later.</p>
       @if (removeFailed()) {
         <div libAlert tone="danger" role="alert">
@@ -355,7 +355,7 @@
         </div>
       }
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
         libButton

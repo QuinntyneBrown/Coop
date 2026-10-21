@@ -20,6 +20,13 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   EmptyStateActionsComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
@@ -83,6 +90,13 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
     FieldLabelComponent,
     FormFieldComponent,
     TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -92,8 +106,14 @@ export class BoardComponent implements OnInit {
   private readonly boardService = inject(BoardService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
-  private readonly removeDialog = viewChild<ElementRef<HTMLDialogElement>>('removeDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
+  private readonly removeDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'removeDialog',
+    { read: ElementRef },
+  );
 
   readonly initialsOf = initialsOf;
 

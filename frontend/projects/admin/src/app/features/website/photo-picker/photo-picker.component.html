@@ -1,15 +1,15 @@
 <dialog
   #dialog
-  class="dialog"
+  libDialog
   aria-labelledby="photo-picker-title"
   aria-describedby="photo-picker-intro"
   data-testid="photo-picker"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="photo-picker-title">Choose a photo</h2>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="photo-picker-title">Choose a photo</h2>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <p id="photo-picker-intro">Pick a photo from the Assets library, or upload a new one.</p>
       <div libPictureList>
         @switch (status()) {
@@ -96,7 +96,7 @@
         }
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
         libButton

@@ -13,6 +13,12 @@ import {
   BadgeComponent,
   BadgeTone,
   ButtonComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   FieldLabelComponent,
   FormFieldComponent,
   IconComponent,
@@ -38,6 +44,12 @@ import { InvitationService } from '../../core/services/invitation.service';
     FormFieldComponent,
     SelectComponent,
     TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './invitations.component.html',
   styleUrl: './invitations.component.scss',
@@ -53,8 +65,13 @@ export class InvitationsComponent implements OnInit, AfterViewChecked {
   createdToken = '';
   invForm: FormGroup = this.fb.group({ type: ['Member'], expires: [''] });
 
-  private readonly createDialog = viewChild<ElementRef<HTMLDialogElement>>('createDialog');
-  private readonly tokenDialog = viewChild<ElementRef<HTMLDialogElement>>('tokenDialog');
+  private readonly createDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'createDialog',
+    { read: ElementRef },
+  );
+  private readonly tokenDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>('tokenDialog', {
+    read: ElementRef,
+  });
 
   // The flags above decide which dialog is open; the native dialogs follow them.
   ngAfterViewChecked(): void {

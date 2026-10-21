@@ -1,0 +1,14 @@
+// Dialog footer (docs/design-system/components/dialog.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-6) var(--space-6);
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+  position: sticky;
+  bottom: 0;
+  background: var(--color-bg-surface-raised);
+}

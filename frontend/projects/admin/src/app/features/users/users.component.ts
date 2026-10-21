@@ -12,6 +12,13 @@ import {
   BadgeComponent,
   ButtonComponent,
   CardComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   FieldLabelComponent,
   FormFieldComponent,
   IconComponent,
@@ -47,6 +54,13 @@ import { userRoleNames } from '../../core/user-role-names';
     PaginationComponent,
     PaginationLinkComponent,
     PaginationListComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
@@ -55,8 +69,13 @@ import { userRoleNames } from '../../core/user-role-names';
 export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
-  private readonly userDialog = viewChild<ElementRef<HTMLDialogElement>>('userDialog');
-  private readonly deleteDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDialog');
+  private readonly userDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>('userDialog', {
+    read: ElementRef,
+  });
+  private readonly deleteDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'deleteDialog',
+    { read: ElementRef },
+  );
 
   Math = Math;
   roleNames = userRoleNames;

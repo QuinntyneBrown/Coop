@@ -16,6 +16,13 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   EmptyStateActionsComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
@@ -95,6 +102,13 @@ const emptyDraft = (): WebsitePageDraft => ({
     FormFieldComponent,
     TextFieldComponent,
     TextareaComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
@@ -102,8 +116,14 @@ const emptyDraft = (): WebsitePageDraft => ({
 })
 export class PagesComponent implements OnInit {
   private readonly pageService = inject(PageService);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
-  private readonly removeDialog = viewChild<ElementRef<HTMLDialogElement>>('removeDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
+  private readonly removeDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'removeDialog',
+    { read: ElementRef },
+  );
   private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly pages = signal<WebsitePage[]>([]);

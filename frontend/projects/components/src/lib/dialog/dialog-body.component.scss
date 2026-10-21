@@ -1,0 +1,7 @@
+// Dialog body (docs/design-system/components/dialog.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  padding: var(--space-4) var(--space-6);
+  flex: 1;
+}

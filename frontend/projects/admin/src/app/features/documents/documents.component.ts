@@ -19,6 +19,13 @@ import {
   CardTitleComponent,
   CheckboxComponent,
   CheckboxTextComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
@@ -72,6 +79,13 @@ import { documentTypeLabel } from './document-type-label';
     TabComponent,
     TabPanelComponent,
     TabsComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
@@ -79,9 +93,18 @@ import { documentTypeLabel } from './document-type-label';
 })
 export class DocumentsComponent implements OnInit {
   private documentService = inject(DocumentService);
-  private readonly documentDialog = viewChild<ElementRef<HTMLDialogElement>>('documentDialog');
-  private readonly deleteDocDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDocDialog');
-  private readonly viewerDialog = viewChild<ElementRef<HTMLDialogElement>>('viewerDialog');
+  private readonly documentDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'documentDialog',
+    { read: ElementRef },
+  );
+  private readonly deleteDocDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'deleteDocDialog',
+    { read: ElementRef },
+  );
+  private readonly viewerDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'viewerDialog',
+    { read: ElementRef },
+  );
 
   readonly filterTabs = [
     { filter: 'all', label: 'All Documents' },

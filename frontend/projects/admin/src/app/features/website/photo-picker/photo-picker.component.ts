@@ -12,6 +12,12 @@ import {
   AlertBodyComponent,
   AlertComponent,
   ButtonComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
@@ -62,6 +68,12 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
     SpinnerComponent,
     FieldErrorComponent,
     FieldHelpComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './photo-picker.component.html',
   styleUrl: './photo-picker.component.scss',
@@ -70,7 +82,9 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
 export class PhotoPickerComponent {
   private readonly assets = inject(DigitalAssetService);
   private readonly api = inject(ApiService);
-  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
+  private readonly dialog = viewChild.required<unknown, ElementRef<HTMLDialogElement>>('dialog', {
+    read: ElementRef,
+  });
 
   readonly picked = output<PickedPhoto>();
 

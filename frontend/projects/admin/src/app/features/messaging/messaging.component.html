@@ -197,14 +197,14 @@
 <!-- New Conversation Dialog -->
 <dialog
   #newConversationDialog
-  class="dialog"
+  libDialog
   aria-labelledby="new-conversation-title"
   data-testid="new-conversation-dialog"
   (close)="showNewConversationDialog = false"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="new-conversation-title">New Conversation</h2>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="new-conversation-title">New Conversation</h2>
       <button
         libButton
         variant="ghost"
@@ -216,7 +216,7 @@
         <svg libIcon="close"></svg>
       </button>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <div libFormField>
         <label libFieldLabel for="new-conversation-recipient">Recipient</label>
         <p id="new-conversation-recipient-hint" libFieldHelp>
@@ -235,7 +235,7 @@
         />
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         libButton
         type="button"

@@ -19,6 +19,12 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
   FieldErrorComponent,
   FieldHelpComponent,
   FieldLabelComponent,
@@ -91,6 +97,12 @@ type LoadStatus = 'loading' | 'ready' | 'error';
     SelectComponent,
     TextFieldComponent,
     TextareaComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
   ],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
@@ -100,7 +112,10 @@ export class WebsiteComponent implements OnInit {
   private readonly siteContent = inject(SiteContentService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
   private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly groups = [
