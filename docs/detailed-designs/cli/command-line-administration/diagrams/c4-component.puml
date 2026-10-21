@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Command-Line Administration
+
+Container_Boundary(cli, "Coop.Cli") {
+  Component(app, "CliApp", "System.CommandLine", "Builds services and the command tree, parses, maps errors to exit codes")
+  Component(groups, "Command groups", "DbCommands, UserCommands, RoleCommands, …", "Turn options into MediatR requests and print results")
+  Component(identity, "OperatorIdentity", "ClaimsPrincipal", "Delete on every aggregate")
+  Component(demo, "DemoSeed", "Seed", "Demo accounts, profiles, embedded photos as assets, content")
+}
+Container_Boundary(core, "Coop.Application, Coop.Domain, Coop.Infrastructure") {
+  Component(services, "AddCoopCore", "DI registration", "Shared with the API")
+  Component(validation, "ValidationBehavior", "MediatR pipeline behavior", "Runs the request's validators")
+  Component(authz, "ResourceOperationAuthorizationBehavior", "MediatR pipeline behavior", "Checks the operator identity's privileges")
+  Component(handlers, "Handlers", "MediatR handlers", "Identity, Roles, Privileges, Onboarding, CMS, Assets, Documents")
+  Component(seed, "SeedData, SiteContentSeed", "Seed", "Roles, privileges, startup accounts, site content")
+  ComponentDb(db, "CoopDbContext", "EF Core", "SQLite")
+}
+Rel(app, services, "Registers")
+Rel(app, identity, "Registers as the scoped principal")
+Rel(app, groups, "Invokes")
+Rel(groups, validation, "Sends requests through")
+Rel(validation, authz, "Then")
+Rel(authz, identity, "Reads privileges from")
+Rel(authz, handlers, "Then")
+Rel(handlers, db, "Queries and saves")
+Rel(groups, seed, "db reset runs")
+Rel(groups, demo, "db reset --demo runs")
+Rel(demo, db, "Adds demo records")
+Rel(seed, db, "EnsureDeleted, EnsureCreated, seed")
+@enduml

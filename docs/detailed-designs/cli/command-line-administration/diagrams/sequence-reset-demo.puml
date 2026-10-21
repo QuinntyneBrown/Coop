@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Reset the database to the demo state
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as operator
+box "Coop.Cli" #DCFCE7
+  participant "DbCommands" as dbc
+  participant "DemoSeed" as demo
+  participant "DemoPhotos" as photos
+end box
+box "Coop.Infrastructure" #FEF3C7
+  participant "SeedData" as seed
+  participant "CoopDbContext" as ctx
+end box
+operator -> dbc : coop db reset --demo [--yes]
+alt --yes missing
+  dbc --> operator : This deletes every record in the database. Add --yes to confirm.  [L2-REQ-103 AC1]
+else confirmed
+  dbc -> ctx : EnsureDeletedAsync, EnsureCreatedAsync
+  dbc -> seed : SeedAsync(context, hasher): roles, admin, member, invitations, JSON content
+  dbc -> demo : SeedAsync(context, hasher, apiUrl)
+  demo -> ctx : staff, board, support accounts and profiles
+  demo -> photos : embedded *.svg
+  photos --> demo : name, bytes, width, height
+  demo -> ctx : DigitalAsset per photo
+  demo -> ctx : SiteContent with {apiUrl}/digitalasset/serve/{id}  [L2-REQ-103 AC5]
+  demo -> ctx : pages, board, maintenance, documents, messages, theme, invitation
+  dbc --> operator : The database now holds the demo state., exit code 0
+end
+@enduml
