@@ -1,0 +1,44 @@
+.page-actions {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+.page-actions .search {
+  flex: 1 1 14rem;
+  max-width: 20rem;
+}
+
+.tabs--pill {
+  margin-bottom: var(--space-4);
+}
+
+.documents-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.document-card__info {
+  flex: 1;
+  min-width: 12rem;
+}
+
+.document-card__title {
+  margin-bottom: 0;
+}
+
+.document-card__open {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-fg-link);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.document-card__open:hover {
+  color: var(--color-fg-link-hover);
+}

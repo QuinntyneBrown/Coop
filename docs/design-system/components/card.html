@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Card — Coop design system</title>
-<meta name="description" content="A bordered surface that groups related content; the selectable request and document cards and the quick-action tile are variants.">
+<meta name="description" content="Cards in the Coop admin: request, document, asset, page, director, block and profile cards. A plain container whose title is the link and whose actions are named buttons, in both themes.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,284 +31,412 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Containers</p>
       <h1>Card</h1>
-      <p class="ds-lead">A card is a white, bordered, rounded surface that groups one subject: a notice, a form, a table, a maintenance request. Two variants are selectable (the request and document cards), and the quick-action tile is a small related surface.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Light only</span></div>
+      <p class="ds-lead">A raised surface that holds one thing the co-op looks after: a maintenance request, a document, a page of the website, a director on the board. The card names its subject in a heading; anything you can do with it is a real link or button inside.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;article&gt;</code> / <code>&lt;li&gt;</code></span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
       </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-      <p>The card is the product's one container. Pages are a stack of cards on the canvas background; <a href="dialog.html">dialogs</a> and <a href="table.html">tables</a> are cards too (<code>.modal-content.card</code>, <code>.table-card</code>).</p>
+      <p>Use a card when each item on a screen has its own name, a few facts and its own actions, and people look at one item at a time. The Coop admin has seven kinds, all built from the same <code>.card</code>:</p>
       <ul>
-        <li><b>Static card</b> (<code>.card</code>) holds content that is read or edited in place: a notice, a settings form, a profile.</li>
-        <li><b>Interactive card</b> (<code>.card-interactive</code>) is a whole summary that opens a detail view: the request card on the maintenance page and the document card on the documents page.</li>
-        <li><b>Quick-action tile</b> (<code>.quick-action-btn</code>) is a small subtle tile with an icon above a label, used for dashboard shortcuts.</li>
+        <li><b>Request card</b> (Maintenance): the request's title as a link, a status <a href="badge.html">badge</a>, the description and when it was reported.</li>
+        <li><b>Document card</b> (Documents): a type icon, the title as a link, the type and date, a Draft or Published badge and a Delete <a href="icon-button.html">icon button</a>.</li>
+        <li><b>Asset card</b> (Assets): a file icon, the file name as a link, its size and upload date.</li>
+        <li><b>Page card</b> (Pages): the page title, its web address, "Open on the website", and Edit and Remove buttons.</li>
+        <li><b>Director card</b> (Board): a photo or initials <a href="avatar.html">avatar</a>, the name and role, and Move up, Move down, Edit and Remove.</li>
+        <li><b>Block card</b> (Website): the block's name, a one-line summary of what it says, and Edit.</li>
+        <li><b>Profile card</b> (Profiles): a profile's name and type; the one in use carries an "Active" badge.</li>
       </ul>
-      <p>Use a <a href="list-item.html">list item</a> for dense, repeating one-line rows, and a <a href="metric-card.html">metric card</a> for a single number.</p>
+      <p>A card is never the button itself. When a card opens something, its title is a real link; other actions are buttons beside it. Do not use a card when people compare the same facts down a column (use a <a href="table.html">table</a>), for a single dashboard count (use a <a href="metric-card.html">metric card</a>), or for a short list of one-line rows (use a <a href="list.html">list</a>).</p>
+      <p><code>.card--success</code> and <code>.card--warning</code>, the tinted surfaces, remain in the stylesheet, but no admin screen uses them yet.</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
         <figure class="ds-anatomy__figure">
-          <div class="card" style="width: 100%; max-width: 22rem; padding: 0;">
-            <div class="card-header"><h3 style="margin: 0;">Courtyard lighting</h3><span class="badge badge-warning">Open</span></div>
-            <div class="card-body"><p>Two lamps near the north gate are out.</p><span class="card-meta">Submitted Oct 13, 2026</span></div>
-          </div>
+          <article class="card stack" aria-labelledby="card-anat-title" style="width: 100%; max-width: 24rem;">
+            <div class="cluster cluster--between">
+              <h4 class="card__title" id="card-anat-title" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a></h4>
+              <span class="badge badge--warning">New</span>
+            </div>
+            <p>The kitchen tap drips after it is closed.</p>
+            <p class="text-caption">Reported Tue 13 Oct, 8:00 am</p>
+          </article>
+          <span class="ds-callout" style="left: 6%; top: 10%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 16%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 78%; top: 30%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 16%; top: 54%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 16%; top: 74%;" aria-hidden="true">5</span>
         </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>Container</b><small><code>.card</code>: <code>--color-bg-surface</code> fill, 1px <code>--color-border-default</code> edge, <code>--radius-lg</code> corners, <code>--space-5</code> padding.</small></div></li>
-          <li><div><b>Header (optional)</b><small><code>.card-header</code>: title left, status or action right, separated from the body by a hairline. Set the container padding to zero when a header or body is used.</small></div></li>
-          <li><div><b>Title</b><small>An <code>h3</code> in <code>--text-h3</code>. Choose the heading level for the page outline.</small></div></li>
-          <li><div><b>Body</b><small><code>.card-body</code>: paragraphs in <code>--text-body-sm</code>, muted.</small></div></li>
-          <li><div><b>Meta line (optional)</b><small><code>.card-meta</code>: date or type in <code>--text-caption</code>, muted.</small></div></li>
+          <li><div><b>Surface</b><small><code>--color-bg-surface</code> through <code>--card-bg</code>, hairline <code>--color-border-default</code>, <code>--radius-lg</code>, <code>--shadow-1</code>, <code>--space-6</code> padding.</small></div></li>
+          <li><div><b>Title</b><small><code>.card__title</code> (<code>--text-h4</code>) on a real heading. When the card opens something, the heading holds the link.</small></div></li>
+          <li><div><b>Status (optional)</b><small>A <a href="badge.html">badge</a> with a word: New, Received, Started, Completed, Draft, Published, Active.</small></div></li>
+          <li><div><b>Body</b><small>One or two short lines in <code>--text-body</code>. A <code>.stack</code> spaces the parts.</small></div></li>
+          <li><div><b>Meta and actions</b><small>Dates and sizes in <code>.text-caption</code>; buttons in a <code>.cluster</code> that wraps.</small></div></li>
         </ol>
       </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <h3>Static card</h3>
+      <p>The variants differ in what the card holds, not in the surface. Pick by what people do with the item: open it (title link), change it (buttons), or both.</p>
+
+      <h3>Opens a detail: request, document and asset cards</h3>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <div class="card" style="max-width: 22rem;">
-            <h3>Autumn courtyard gathering</h3>
-            <p>Join your neighbours in the courtyard on Saturday at 2 pm. Bring a mug and a story to share.</p>
-            <span class="card-meta">Oct 13, 2026</span>
-          </div>
-        </div>
-        <div class="ds-example__caption"><span>The default surface. Content is not selectable as a whole.</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card"&gt;
-  &lt;h3&gt;Autumn courtyard gathering&lt;/h3&gt;
-  &lt;p&gt;Join your neighbours in the courtyard on Saturday at 2 pm.&lt;/p&gt;
-  &lt;span class="card-meta"&gt;Oct 13, 2026&lt;/span&gt;
-&lt;/div&gt;</code></pre></details>
-      </div>
-      <h3>Interactive card (request card, document card)</h3>
-      <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <article class="card card-interactive" style="max-width: 22rem;">
-            <h3><a href="#main">Courtyard lighting</a></h3>
-            <p>Two lamps near the north gate are out.</p>
-            <span class="card-meta">Maintenance · Oct 13, 2026</span>
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <ul class="grid grid--auto" style="list-style: none; padding: 0; margin: 0;" aria-label="Maintenance requests">
+            <li><article class="card stack" aria-labelledby="card-req-1">
+              <div class="cluster cluster--between"><h4 class="card__title" id="card-req-1" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a></h4><span class="badge badge--warning">New</span></div>
+              <p>The kitchen tap drips after it is closed.</p>
+              <p class="text-caption">Reported Tue 13 Oct, 8:00 am</p>
+            </article></li>
+            <li><article class="card stack" aria-labelledby="card-req-2">
+              <div class="cluster cluster--between"><h4 class="card__title" id="card-req-2" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-started.html">Courtyard gate</a></h4><span class="badge badge--info">Started</span></div>
+              <p>The courtyard gate needs its hinges adjusted.</p>
+              <p class="text-caption">Reported Fri 2 Oct, 1:15 pm</p>
+            </article></li>
+          </ul>
+          <article class="card" aria-labelledby="card-doc-1">
+            <div class="cluster">
+              <span class="avatar" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 10v4h3l7 4V6l-7 4H4zM18 9a4 4 0 0 1 0 6"/></svg></span>
+              <div style="flex: 1; min-width: 12rem;">
+                <h4 class="card__title" id="card-doc-1" style="margin-bottom: 0;"><a href="../../mocks/dialogs/admin-document-viewer/default.html">Autumn courtyard gathering</a></h4>
+                <p class="text-caption">Notice · Tue 13 Oct</p>
+              </div>
+              <span class="badge badge--success">Published</span>
+              <button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Autumn courtyard gathering"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button>
+            </div>
           </article>
-          <article class="card card-interactive" style="max-width: 22rem;" aria-current="true">
-            <h3><a href="#main">Bike room lock</a></h3>
-            <p>The latch sticks when the door is closed.</p>
-            <span class="card-meta">Maintenance · Oct 12, 2026</span>
+          <article class="card" aria-labelledby="card-asset-1">
+            <div class="cluster">
+              <span class="avatar" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5"/></svg></span>
+              <div style="flex: 1; min-width: 12rem;">
+                <h4 class="card__title" id="card-asset-1" style="margin-bottom: 0;"><a href="../../mocks/dialogs/admin-asset-detail/default.html">Courtyard plan.pdf</a></h4>
+                <p class="text-caption">2 KB · uploaded Tue 13 Oct</p>
+              </div>
+            </div>
           </article>
         </div>
-        <div class="ds-example__caption"><span>The second card is the selected one (<code>aria-current="true"</code>). Hover raises the edge to the accent and adds <code>--shadow-2</code>.</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;article class="card card-interactive" aria-current="true"&gt;
-  &lt;h3&gt;&lt;a href="/maintenance/42"&gt;Bike room lock&lt;/a&gt;&lt;/h3&gt;
-  &lt;p&gt;The latch sticks when the door is closed.&lt;/p&gt;
-  &lt;span class="card-meta"&gt;Maintenance · Oct 12, 2026&lt;/span&gt;
+        <div class="ds-example__caption"><span>Request cards (Maintenance), a document card (Documents) and an asset card (Assets). The title is the link; Delete is a separate, named button.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;article class="card stack" aria-labelledby="req-1"&gt;
+  &lt;div class="cluster cluster--between"&gt;
+    &lt;h3 class="card__title" id="req-1"&gt;&lt;a href="/maintenance/1"&gt;Kitchen tap leak&lt;/a&gt;&lt;/h3&gt;
+    &lt;span class="badge badge--warning"&gt;Open&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;p&gt;The kitchen tap drips after it is closed.&lt;/p&gt;
+  &lt;p class="text-caption"&gt;Reported Tue 13 Oct, 8:00 am&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;article class="card" aria-labelledby="doc-1"&gt;
+  &lt;div class="cluster"&gt;
+    &lt;span class="avatar" aria-hidden="true"&gt;&lt;svg class="icon" …&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;div&gt;&lt;h3 class="card__title" id="doc-1"&gt;&lt;a href="…"&gt;Autumn courtyard gathering&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class="text-caption"&gt;Notice · Tue 13 Oct&lt;/p&gt;&lt;/div&gt;
+    &lt;span class="badge badge--success"&gt;Published&lt;/span&gt;
+    &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Autumn courtyard gathering"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
 &lt;/article&gt;</code></pre></details>
       </div>
-      <h3>Quick-action tile</h3>
+
+      <h3>Holds actions: page, director and block cards</h3>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <a class="quick-action-btn" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>New Maintenance</span></a>
-          <a class="quick-action-btn" href="#main"><span class="material-icons" aria-hidden="true">description</span><span>New Document</span></a>
-          <a class="quick-action-btn" href="#main"><span class="material-icons" aria-hidden="true">chat</span><span>Messages</span></a>
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <article class="card stack" aria-labelledby="card-page-1">
+            <h4 class="card__title" id="card-page-1">About us</h4>
+            <div class="cluster text-muted">
+              <span>Web address: /pages/about-us</span>
+              <a href="../../mocks/pages/admin-pages/default.html">Open on the website<span class="visually-hidden">: About us</span></a>
+            </div>
+            <div class="cluster">
+              <button class="btn" type="button" aria-label="Edit About us">Edit</button>
+              <button class="btn btn--danger" type="button" aria-label="Remove About us">Remove</button>
+            </div>
+          </article>
+          <article class="card stack" aria-labelledby="card-dir-1">
+            <div class="cluster">
+              <span class="avatar avatar--lg"><img class="avatar__img" src="../../mocks/assets/photos/portrait.svg" alt="Portrait of Rosalind Achebe" width="48" height="48">RA</span>
+              <div>
+                <h4 class="card__title" id="card-dir-1" style="margin-bottom: 0;">Rosalind Achebe</h4>
+                <p class="text-muted">President</p>
+              </div>
+            </div>
+            <div class="cluster">
+              <button class="btn" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Rosalind Achebe</span></button>
+              <button class="btn" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Rosalind Achebe</span></button>
+              <button class="btn" type="button">Edit<span class="visually-hidden"> Rosalind Achebe</span></button>
+              <button class="btn btn--danger" type="button">Remove<span class="visually-hidden"> Rosalind Achebe</span></button>
+            </div>
+          </article>
+          <article class="card" aria-labelledby="card-block-1">
+            <div class="cluster cluster--between">
+              <div style="min-width: 0;">
+                <h4 class="card__title" id="card-block-1" style="margin-bottom: 0;">Header</h4>
+                <p class="text-muted">OWN Housing Co-op</p>
+              </div>
+              <button class="btn" type="button">Edit<span class="visually-hidden"> Header</span></button>
+            </div>
+          </article>
         </div>
-        <div class="ds-example__caption"><span>A subtle tile (<code>--color-bg-subtle</code>, no border, <code>--radius-md</code>) with a 24px accent icon above a label. It is a link.</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;a class="quick-action-btn" href="/maintenance"&gt;
-  &lt;span class="material-icons" aria-hidden="true"&gt;build&lt;/span&gt;
-  &lt;span&gt;New Maintenance&lt;/span&gt;
-&lt;/a&gt;</code></pre></details>
+        <div class="ds-example__caption"><span>A page card (Pages), a director card (Board) with the first director's Move up disabled, and a block card (Website).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;article class="card stack" aria-labelledby="page-1"&gt;
+  &lt;h3 class="card__title" id="page-1"&gt;About us&lt;/h3&gt;
+  &lt;div class="cluster text-muted"&gt;
+    &lt;span&gt;Web address: /pages/about-us&lt;/span&gt;
+    &lt;a href="/pages/about-us"&gt;Open on the website&lt;span class="visually-hidden"&gt;: About us&lt;/span&gt;&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class="cluster"&gt;
+    &lt;button class="btn" type="button"&gt;Edit&lt;span class="visually-hidden"&gt; About us&lt;/span&gt;&lt;/button&gt;
+    &lt;button class="btn btn--danger" type="button"&gt;Remove&lt;span class="visually-hidden"&gt; About us&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre></details>
       </div>
-      <h3>With header and body</h3>
+
+      <h3>Flush: a card around a list or table</h3>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--canvas">
-          <div class="card" style="max-width: 26rem; padding: 0;">
-            <div class="card-header"><h3 style="margin: 0;">Recent notices</h3><a href="#main">View all</a></div>
-            <div class="card-body"><p>Water shut-off on Tuesday from 9 am to noon.</p></div>
-          </div>
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="card card--flush" aria-labelledby="card-flush-title">
+            <h4 class="card__title" id="card-flush-title">My profiles</h4>
+            <ul class="list">
+              <li class="list__item" aria-current="true"><div class="list__body"><div class="list__title">Mira Fern</div><div class="list__meta">Member</div></div><span class="badge badge--success">Active</span></li>
+              <li class="list__item"><div class="list__body"><div class="list__title">Mira Fern</div><div class="list__meta">Board member</div></div></li>
+            </ul>
+          </section>
         </div>
-        <div class="ds-example__caption"><span>Header and body each carry their own padding (<code>--space-4</code> by <code>--space-5</code>).</span></div>
+        <div class="ds-example__caption"><span><code>.card--flush</code> has no padding, so list rows and <a href="table.html">tables</a> run edge to edge. Here, the profile cards from Profiles as rows of one card; the profile in use says "Active".</span></div>
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="The card has one size; it takes the width of its container and the height of its content."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">The implemented card has no size variants.</p>
+    <section class="ds-section" id="sizes" data-na="one padding"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One padding (<code>--space-6</code>), or none with <code>.card--flush</code>. A card's width comes from the layout it sits in.</p>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
-      <p>Only the interactive card and the quick-action tile have states. The static card never changes. Hover and focus are forced here with <code>data-state</code>; real pages use <code>:hover</code> and <code>:focus-visible</code>.</p>
+      <p>The card itself is not interactive, so it has no hover, focus or pressed state of its own. Its links and buttons have theirs. What changes is the card's content:</p>
       <div class="ds-matrix"><table>
-        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th></tr></thead>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th><th scope="col">Rule</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Interactive card</th>
-            <td><article class="card card-interactive"><h3><a href="#main">Lock</a></h3><p>Bike room.</p></article></td>
-            <td><article class="card card-interactive" data-state="hover"><h3><a href="#main">Lock</a></h3><p>Bike room.</p></article></td>
-            <td><article class="card card-interactive"><h3><a href="#main" data-state="focus">Lock</a></h3><p>Bike room.</p></article></td>
-            <td><article class="card card-interactive" aria-current="true"><h3><a href="#main">Lock</a></h3><p>Bike room.</p></article></td></tr>
-          <tr><th scope="row">Quick-action tile</th>
-            <td><a class="quick-action-btn" href="#main"><span class="material-icons" aria-hidden="true">build</span><span>Repair</span></a></td>
-            <td><a class="quick-action-btn" href="#main" data-state="hover"><span class="material-icons" aria-hidden="true">build</span><span>Repair</span></a></td>
-            <td><a class="quick-action-btn" href="#main" data-state="focus"><span class="material-icons" aria-hidden="true">build</span><span>Repair</span></a></td>
-            <td>Not implemented</td></tr>
+          <tr><th scope="row">Default</th><td><article class="card" aria-labelledby="card-st-1" style="min-width: 14rem;"><h4 class="card__title" id="card-st-1" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-completed.html">Window latch</a></h4><span class="badge badge--success">Completed</span></article></td><td>Title link plus a status word.</td></tr>
+          <tr><th scope="row">Title link focus</th><td><article class="card" aria-labelledby="card-st-2" style="min-width: 14rem;"><h4 class="card__title" id="card-st-2" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-received.html" data-state="focus">Hallway light</a></h4><span class="badge badge--warning">New</span></article></td><td>The shared focus ring sits on the link, not on the card.</td></tr>
+          <tr><th scope="row">Title link hover</th><td><article class="card" aria-labelledby="card-st-3" style="min-width: 14rem;"><h4 class="card__title" id="card-st-3" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-started.html" data-state="hover">Courtyard gate</a></h4><span class="badge badge--info">Started</span></article></td><td>The underline thickens.</td></tr>
+          <tr><th scope="row">Active (selected)</th><td><article class="card" aria-labelledby="card-st-4" aria-current="true" style="min-width: 14rem;"><div class="cluster cluster--between"><h4 class="card__title" id="card-st-4" style="margin-bottom: 0;">Mira Fern</h4><span class="badge badge--success">Active</span></div><p class="text-muted">Member</p></article></td><td>A badge with a word and <code>aria-current="true"</code>. There is no tinted selected surface.</td></tr>
+          <tr><th scope="row">Action disabled</th><td><button class="btn" type="button" disabled>Move up<span class="visually-hidden">: Rosalind Achebe</span></button></td><td>The first director cannot move up; the button stays visible and disabled.</td></tr>
         </tbody>
       </table></div>
-      <ul>
-        <li><b>Hover</b> (interactive card): edge becomes <code>--color-accent</code> and <code>--shadow-2</code> appears, over <code>--duration-base</code>. (Tile) the fill steps from <code>--color-bg-subtle</code> to <code>--color-bg-subtle-hover</code>.</li>
-        <li><b>Selected</b>: edge <code>--color-accent</code> plus a 2px <code>--shadow-selected</code> halo. The mock used a <code>.selected</code> class only; the design system sets <code>aria-current="true"</code> so assistive technology hears the state. <code>.selected</code> is kept as an alias.</li>
-        <li>Disabled, loading and error states are not implemented for cards.</li>
-      </ul>
+      <h3>Loading and empty</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <article class="card stack" aria-busy="true" aria-label="Loading a maintenance request"><span class="skeleton skeleton--title" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></article>
+        </div>
+        <div class="ds-example__caption"><span>While a list of cards loads, show <a href="skeleton.html">skeleton</a> cards with <code>aria-busy="true"</code>, or a <a href="spinner.html">spinner</a> line. When there are no items, show an <a href="empty-state.html">empty state</a> in place of the cards, never an empty frame.</span></div>
+      </div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack">
+          <article class="card stack" aria-labelledby="card-th-l1"><div class="cluster cluster--between"><h4 class="card__title" id="card-th-l1" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a></h4><span class="badge badge--warning">New</span></div><p class="text-caption">Reported Tue 13 Oct, 8:00 am</p></article>
+          <article class="card" aria-labelledby="card-th-l2"><div class="cluster cluster--between"><h4 class="card__title" id="card-th-l2" style="margin-bottom: 0;">Footer</h4><button class="btn" type="button">Edit<span class="visually-hidden"> Footer, light theme</span></button></div></article>
+        </div></div>
+        <div data-theme="dark"><div class="stack">
+          <article class="card stack" aria-labelledby="card-th-d1"><div class="cluster cluster--between"><h4 class="card__title" id="card-th-d1" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a></h4><span class="badge badge--warning">New</span></div><p class="text-caption">Reported Tue 13 Oct, 8:00 am</p></article>
+          <article class="card" aria-labelledby="card-th-d2"><div class="cluster cluster--between"><h4 class="card__title" id="card-th-d2" style="margin-bottom: 0;">Footer</h4><button class="btn" type="button">Edit<span class="visually-hidden"> Footer, dark theme</span></button></div></article>
+        </div></div>
+      </div>
     </section>
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
-        <li>The card is fluid: it fills its container and has no breakpoint of its own.</li>
-        <li>The documents page lays document cards in a grid that becomes one column at <code>max-width: 640px</code> (the only card-related <code>@media</code> rule in the mocks).</li>
-        <li>The dashboard's metric cards become one column at <code>max-width: 768px</code>; see <a href="metric-card.html">metric card</a>.</li>
-        <li>Padding does not change on phones: <code>--space-5</code> (20px) container, <code>--space-4</code> (16px) for interactive cards.</li>
+        <li>Phones: every card is full width and cards stack with <code>--space-3</code> to <code>--space-4</code> between them.</li>
+        <li>Collections of small cards (requests, documents, assets) sit in <code>.grid--auto</code>, which fits as many 18rem columns as the width allows and falls back to one column.</li>
+        <li>Inside a card, <code>.cluster</code> wraps: the badge drops under the title and the director's four buttons wrap onto two rows rather than shrinking.</li>
+        <li>Padding stays <code>--space-6</code> at every width. Long titles and web addresses wrap; nothing is cut off.</li>
+        <li>At 400% zoom (320 CSS px) each card is one column of title, facts and buttons, with no sideways scrolling.</li>
       </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p class="ds-na">Card colours come from semantic tokens only, so a future theme would not require changes to this component.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The card reads one component token, <code>--card-bg</code> (default <code>--color-bg-surface</code>), plus <code>--color-border-default</code>, <code>--radius-lg</code> and <code>--shadow-1</code>. In the dark theme the surface lifts above the canvas, the shadow deepens and the hairline keeps the edge visible. Re-point <code>--card-bg</code> to restyle a card; do not add a new class for a colour.</p>
+      <pre><code>.card { --card-bg: var(--color-bg-surface); }</code></pre>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <h3>Role and pattern</h3>
-      <p>A static card is a generic container with no role; give it an <code>&lt;article&gt;</code> or <code>&lt;section&gt;</code> only when it is a standalone, titled unit. An interactive card follows the "card" convention: one real <code>&lt;a href&gt;</code> inside the title is the control, and the rest of the card is a larger pointer target for the same link. The mocks used <code>&lt;div role="link" tabindex="0"&gt;</code> with no key handler. That is a requirement gap: the design system requires a native link.</p>
+      <p>No ARIA widget pattern: a card is content. Use <code>&lt;article aria-labelledby&gt;</code> for a self-contained item (a request, a document, a director) inside a <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> when there are several, and <code>&lt;section aria-labelledby&gt;</code> when the card is a named region of the page. The board list is an <code>&lt;ol&gt;</code> because its order is what the home page shows.</p>
       <h3>Keyboard</h3>
-      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
-        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to the card's title link. A card has one tab stop.</td></tr>
-        <tr><td><kbd>Enter</kbd></td><td>Follows the title link (required; the mock's <code>role="link"</code> div did not respond to it).</td></tr>
-        <tr><td><kbd>Space</kbd></td><td>No action on a link.</td></tr>
-      </tbody></table></div>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the title link and the buttons inside each card, in reading order. The card itself is not a tab stop.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the title link or activates the focused button.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Activates the focused button.</td></tr>
+      </tbody></table>
       <h3>Focus</h3>
-      <p>The shared focus ring (<code>2px --color-focus-ring</code>, 2px offset) shows on the title link and on the quick-action tile. The mocks removed the outline on cards; the design system restores it.</p>
+      <p>The shared 2px <code>--color-focus-ring</code> appears on the link or button, never around the whole card. After Move up or Move down, focus stays on the moved director's button in its new place. After Remove, focus goes to the next card, or to the page heading if none is left.</p>
       <h3>Labelling</h3>
-      <p>The card is named by its title heading. Selection is exposed with <code>aria-current="true"</code>. Decorative icons are <code>aria-hidden</code>; the tile's accessible name is its visible label. Meta text (type, date) must stay in the reading order after the body.</p>
+      <p>The heading names the card through <code>aria-labelledby</code>. Repeated buttons ("Edit", "Remove", "Move up") carry the item's name in visually hidden text so a list of controls reads "Edit About us", "Remove Rosalind Achebe". Keep the visible word at the start of the name (WCAG 2.5.3). The type icon is <code>aria-hidden</code>; the type is also written out ("Notice"). Status is a word in a badge, never colour alone.</p>
       <h3>Contrast</h3>
       <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
-        <div class="ds-pair"><span>Title on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Body and meta (muted) on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Tile label on tile</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Tile label on tile (hover)</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle-hover" data-min="4.5"></span></div>
-        <div class="ds-pair"><span>Selected edge on canvas</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Title and body on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title link on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Type icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="3"></span></div>
         <div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
       </div>
-      <p>The default card edge (<code>--color-border-default</code>) is decorative; the card is identified by its content and surface, not by the border.</p>
+      <p>The card's edge (hairline on canvas) is decorative and need not reach 3:1; the heading and spacing mark where one card ends.</p>
       <h3>Motion</h3>
-      <p>Edge colour and shadow transition over <code>--duration-base</code> (200 ms). There is no movement or scaling.</p>
+      <p>None. Links and buttons change colour over <code>--duration-fast</code>, which reduced motion zeroes.</p>
       <h3>Touch</h3>
-      <p>An interactive card is far larger than 44px. The quick-action tile is 16px padded around a 24px icon and a label, about 74px tall.</p>
+      <p>Buttons in a card are at least 40px tall with 12px between them, above the 24px minimum. The title link is the whole heading line. Nothing depends on hover.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
       <ul>
-        <li>Titles are short noun phrases: "Courtyard lighting", not "There is a problem with the lighting".</li>
-        <li>Body text is one or two sentences. Long text belongs in the detail dialog the card opens.</li>
-        <li>Meta shows type and date in that order, separated by a middle dot. Dates use the same format throughout a page.</li>
-        <li>Quick-action labels are verb phrases or destinations of one to three words, in title case as the mocks have them ("New Maintenance").</li>
+        <li>The title is the item's own name, as a person would say it: "Kitchen tap leak", "Autumn courtyard gathering", "About us", "Rosalind Achebe".</li>
+        <li>One status word in sentence case: New, Received, Started, Completed; Draft, Published; Active.</li>
+        <li>Meta lines are short and use the system's dates: "Notice · Tue 13 Oct", "2 KB · uploaded Tue 13 Oct".</li>
+        <li>Button words are plain verbs: Edit, Remove, Move up, Move down. "Open on the website" says where the link goes.</li>
+        <li>Summaries on block cards show the block's own first words, cut after two lines, so staff recognise the block.</li>
       </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
       <div class="ds-dodont">
-        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><article class="card card-interactive" aria-current="true"><h3><a href="#main">Bike room lock</a></h3><p>The latch sticks.</p></article></div><figcaption>Mark the selected card with <code>aria-current="true"</code> and put a real link in the title.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card card-interactive selected" role="link" tabindex="0"><h3>Bike room lock</h3><p>The latch sticks.</p></div></div><figcaption>A <code>div role="link"</code> with only a <code>.selected</code> class, as in the request and document cards of the mocks. It has no Enter handling and does not announce selection.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card"><h3>Settings</h3><p>Choose how you are notified.</p></div></div><figcaption>One card per subject, with one title.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card"><div class="card" style="padding: var(--space-3);"><h3>Settings</h3><p>Choose how you are notified.</p></div></div></div><figcaption>Do not nest a card inside a card; the doubled border and radius add noise. Use a hairline or spacing to group.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><article class="card" aria-labelledby="card-do-1" style="width: 100%;"><h4 class="card__title" id="card-do-1" style="margin-bottom: 0;"><a href="../../mocks/pages/admin-maintenance/detail-new.html">Kitchen tap leak</a></h4></article></div><figcaption>Make the title a real link; the card stays a container.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;div class="card" role="link" tabindex="0"&gt;</code></div><figcaption>A whole card with <code>role="link"</code> and <code>tabindex="0"</code>, as the request, document and asset cards do. It has no <code>href</code>, cannot be opened in a new tab, and reads as one long link.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Meeting notes.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>Put Delete next to the link, outside it, and name it: "Delete Meeting notes.pdf".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;div role="link"&gt; … &lt;button class="icon-btn"&gt;delete&lt;/button&gt;&lt;/div&gt;</code></div><figcaption>A nameless delete button inside a clickable card: a control inside a control, announced only as "button", and one slip opens the document instead.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="badge badge--success">Active</span></div><figcaption>Mark the profile in use with a word.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="text-caption">A green left border and a pointer cursor on a <code>&lt;div&gt;</code></span></div><figcaption>The selected profile card relies on a coloured edge and looks clickable, but a keyboard cannot reach it.</figcaption></figure>
       </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
       <div class="ds-table-wrap"><table class="ds-table">
-        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
         <tbody>
-          <tr><td>Fill</td><td data-token="--color-bg-surface"></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
-          <tr><td>Edge</td><td data-token="--color-border-default"></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
-          <tr><td>Hover and selected edge</td><td data-token="--color-accent"></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
-          <tr><td>Muted text</td><td data-token="--color-fg-muted"></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
-          <tr><td>Tile fill</td><td data-token="--color-bg-subtle"></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
-          <tr><td>Tile fill, hover</td><td data-token="--color-bg-subtle-hover"></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
-          <tr><td>Corner radius</td><td data-token="--radius-lg"></td><td><span data-token="--radius-lg"></span></td></tr>
-          <tr><td>Tile radius</td><td data-token="--radius-md"></td><td><span data-token="--radius-md"></span></td></tr>
-          <tr><td>Container padding</td><td data-token="--space-5"></td><td><span data-token="--space-5"></span></td></tr>
-          <tr><td>Interactive and tile padding</td><td data-token="--space-4"></td><td><span data-token="--space-4"></span></td></tr>
-          <tr><td>Hover shadow</td><td data-token="--shadow-2"></td><td><span data-token="--shadow-2"></span></td></tr>
-          <tr><td>Selected halo</td><td data-token="--shadow-selected"></td><td><span data-token="--shadow-selected"></span></td></tr>
-          <tr><td>Transition</td><td data-token="--duration-base"></td><td><span data-token="--duration-base"></span></td></tr>
+          <tr><td>Surface</td><td><code>--color-bg-surface</code> (via <code>--card-bg</code>)</td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Meta text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Title link</td><td><code>--color-fg-link</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td></tr>
+          <tr><td>Type icon circle</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-1</code></td><td><span data-token="--shadow-1"></span></td><td><span data-theme="dark" data-token="--shadow-1"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span></td></tr>
+          <tr><td>Border width</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
+          <tr><td>Title font</td><td><code>--text-h4</code></td><td colspan="2"><span data-token="--text-h4"></span></td></tr>
         </tbody>
       </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-      <pre><code>&lt;article class="card card-interactive" aria-current="true"&gt;
-  &lt;h3&gt;&lt;a href="/maintenance/42"&gt;Bike room lock&lt;/a&gt;&lt;/h3&gt;
-  &lt;p&gt;The latch sticks when the door is closed.&lt;/p&gt;
-  &lt;span class="card-meta"&gt;Maintenance · Oct 12, 2026&lt;/span&gt;
-&lt;/article&gt;</code></pre>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
-        <tr><td><code>.card</code></td><td>Surface, edge, radius, padding.</td></tr>
-        <tr><td><code>.card-header</code> <code>.card-body</code></td><td>Optional regions; set the container padding to zero when used.</td></tr>
-        <tr><td><code>.card-interactive</code></td><td>Pointer cursor, hover edge and shadow, 16px padding.</td></tr>
-        <tr><td><code>aria-current="true"</code> / <code>.selected</code></td><td>Selected card (accent edge and halo).</td></tr>
-        <tr><td><code>.card-meta</code></td><td>Caption-size muted line beneath the body.</td></tr>
-        <tr><td><code>.quick-action-btn</code></td><td>Icon-over-label tile; put it on an <code>&lt;a&gt;</code>.</td></tr>
-        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
-      </tbody></table></div>
+      <pre><code>&lt;ol class="stack" aria-label="Board of directors"&gt;
+  &lt;li&gt;&lt;article class="card stack" aria-labelledby="dir-1"&gt;
+    &lt;div class="cluster"&gt;
+      &lt;span class="avatar avatar--lg"&gt;&lt;img class="avatar__img" src="…" alt="Portrait of Rosalind Achebe"&gt;RA&lt;/span&gt;
+      &lt;div&gt;&lt;h3 class="card__title" id="dir-1"&gt;Rosalind Achebe&lt;/h3&gt;&lt;p class="text-muted"&gt;President&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="cluster"&gt;
+      &lt;button class="btn" type="button" disabled&gt;Move up&lt;span class="visually-hidden"&gt;: Rosalind Achebe&lt;/span&gt;&lt;/button&gt;
+      &lt;button class="btn" type="button"&gt;Move down&lt;span class="visually-hidden"&gt;: Rosalind Achebe&lt;/span&gt;&lt;/button&gt;
+      &lt;button class="btn" type="button"&gt;Edit&lt;span class="visually-hidden"&gt; Rosalind Achebe&lt;/span&gt;&lt;/button&gt;
+      &lt;button class="btn btn--danger" type="button"&gt;Remove&lt;span class="visually-hidden"&gt; Rosalind Achebe&lt;/span&gt;&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.card</code></td><td>Surface, hairline border, <code>--radius-lg</code>, <code>--shadow-1</code>, 24px padding.</td></tr>
+        <tr><td><code>.card--flush</code></td><td>No padding; clips its content. Wrap a <code>.list</code> or a <code>.table-wrap--flush</code>.</td></tr>
+        <tr><td><code>.card__title</code></td><td>Card heading in <code>--text-h4</code>; padded inside <code>.card--flush</code>; no bottom margin as a direct child of <code>.stack</code>.</td></tr>
+        <tr><td><code>.card--success</code> / <code>.card--warning</code></td><td>Status tint fading into the surface. Kept; no admin screen uses it yet.</td></tr>
+        <tr><td><code>.stack</code>, <code>.cluster</code>, <code>.cluster--between</code>, <code>.grid--auto</code></td><td>Layout inside and around cards (see <a href="layout.html">layout primitives</a>).</td></tr>
+        <tr><td><code>aria-current="true"</code></td><td>Marks the profile in use, together with an "Active" badge.</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-      <p>Extracted from these mocks:</p>
+      <p>The look comes from the adopted system (first written for Shelfie); the content and the seven card kinds come from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/public-documents/default.html">pages/public-documents/default</a> (document cards)</li>
-        <li><a href="../../mocks/pages/public-maintenance/default.html">pages/public-maintenance/default</a> (request cards, selected state)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/default.html">pages/admin-maintenance/default</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">empty</a>, <a href="../../mocks/pages/admin-maintenance/loading.html">loading</a> (request cards)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a>, <a href="../../mocks/pages/admin-documents/notices.html">notices</a> (document cards)</li>
         <li><a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (asset cards)</li>
-        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (quick-action tiles)</li>
-        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (card wrapping a table)</li>
+        <li><a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> (page cards)</li>
+        <li><a href="../../mocks/pages/admin-board/default.html">pages/admin-board/default</a> (director cards)</li>
+        <li><a href="../../mocks/pages/admin-website/default.html">pages/admin-website/default</a> (block cards)</li>
+        <li><a href="../../mocks/pages/admin-profiles/default.html">pages/admin-profiles/default</a> and <a href="../../mocks/pages/admin-profile/default.html">pages/admin-profile/default</a> (profile cards)</li>
       </ul>
-      <h3>Drift</h3>
+      <h3>Drift from the implemented admin</h3>
       <ul>
-        <li>Request and document cards were <code>div role="link" tabindex="0"</code> with no Enter or Space handling; the system requires a native link in the title.</li>
-        <li>Hover differed: request cards on the maintenance page changed the edge, on the messaging page the shadow. The system applies both (<code>--color-accent</code> edge and <code>--shadow-2</code>).</li>
-        <li>Selected used only a <code>.selected</code> class; the system adds <code>aria-current="true"</code>.</li>
-        <li>Card radius was 14px or 16px and padding 16px, 20px or 24px per screen; the system uses <code>--radius-lg</code> and <code>--space-5</code> (<code>--space-4</code> when interactive).</li>
-        <li>The document card's coloured top bar (<code>.card-color-bar</code>) is only in the documents mock and is not part of this system's card.</li>
-        <li>The mocks removed the focus outline from cards; the shared focus ring is restored.</li>
+        <li><b>Look</b>: the admin's <code>.card</code> is white with a 12px radius (14px on some screens), 20px padding and a faint shadow, in green and Outfit. The system uses <code>--color-bg-surface</code>, <code>--radius-lg</code>, <code>--space-6</code> and <code>--shadow-1</code>, in violet and the system's rounded fonts, light and dark.</li>
+        <li><b>Repeated card styles</b>: <code>.page-card</code>, <code>.director-card</code> and <code>.block-card</code> do not use <code>.card</code>; each repeats its own background, border, radius and shadow in feature CSS. In the system they are all <code>.card</code> with <code>.stack</code> and <code>.cluster</code> inside.</li>
+        <li><b>Clickable cards</b>: <code>.request-card</code>, <code>.document-card</code> and <code>.asset-card</code> are <code>&lt;div role="link" tabindex="0"&gt;</code> with a click handler and no <code>href</code>. The system makes the title a real <code>&lt;a href&gt;</code>.</li>
+        <li><b>Control inside a control</b>: the document card's <code>.icon-btn.delete-doc-btn</code> sits inside the <code>role="link"</code> card and has no accessible name (only the Material Icons ligature "delete"). The system puts a named Delete button beside the link.</li>
+        <li><b>Profile cards</b>: <code>.profile-card.selected</code> marks the profile in use with a green left border and tint; the cards have a pointer cursor and hover colour but are plain <code>&lt;div&gt;</code>s a keyboard cannot reach. The system uses an "Active" badge and <code>aria-current="true"</code>; choosing a profile, if it is an action, belongs on a real button.</li>
+        <li><b>Hover</b>: the document card's border turns green on hover. Cards have no hover in the system; links and buttons do.</li>
+        <li><b>Statuses</b>: request cards show four statuses (New, Received, Started, Completed), with Received in a grey badge. This page uses the same words.</li>
+        <li><b>Labels in the name</b>: page and director buttons use <code>aria-label="Edit About us"</code>. That passes 2.5.3 because the visible word comes first; the system prefers visually hidden text so the name survives translation tools.</li>
+        <li><b>Icons</b>: type icons (campaign, gavel, assessment, insert_drive_file) are Material Icons font ligatures without <code>aria-hidden</code>, so screen readers can read the ligature word. The system uses inline stroke SVGs with <code>aria-hidden="true"</code> and writes the type out.</li>
       </ul>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

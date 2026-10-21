@@ -1,247 +1,26 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvitationService } from '../../core/services/invitation.service';
+import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-invitations',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <div class="invitations-page">
-      <div class="page-header">
-        <h1 data-testid="invitations-page-title">Invitations</h1>
-        <button
-          class="btn btn-primary"
-          data-testid="invitations-create-button"
-          (click)="showModal = true"
-        >
-          <span class="material-icons">add</span> Create Invitation
-        </button>
-      </div>
-
-      <div class="invitations-table card" data-testid="invitations-table">
-        <table>
-          <thead>
-            <tr>
-              <th data-testid="invitations-header-token">Token</th>
-              <th data-testid="invitations-header-type">Type</th>
-              <th data-testid="invitations-header-expires">Expires</th>
-              <th data-testid="invitations-header-status">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (inv of invitations; track inv) {
-              <tr data-testid="invitation-row">
-                <td class="token-cell" data-testid="invitation-token">
-                  {{ inv.value || inv.token }}
-                </td>
-                <td data-testid="invitation-type">{{ getTypeName(inv.type) }}</td>
-                <td data-testid="invitation-expires">
-                  {{ inv.expirationDate || inv.expiresOn | date: 'mediumDate' }}
-                </td>
-                <td>
-                  <span
-                    class="badge"
-                    [ngClass]="getStatusClass(inv)"
-                    data-testid="invitation-status-badge"
-                    >{{ getStatus(inv) }}</span
-                  >
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Create Invitation Dialog -->
-      @if (showModal) {
-        <div class="modal-overlay" data-testid="invitation-create-dialog">
-          <div class="modal-content card">
-            <h3>Create Invitation</h3>
-            <form [formGroup]="invForm" (ngSubmit)="createInvitation()">
-              <div class="form-group">
-                <label>Type</label>
-                <select formControlName="type" data-testid="invitation-dialog-type">
-                  <option value="Member">Member</option>
-                  <option value="BoardMember">Board Member</option>
-                  <option value="StaffMember">Staff</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Expires</label>
-                <input
-                  type="date"
-                  formControlName="expires"
-                  data-testid="invitation-dialog-expires"
-                />
-              </div>
-              <div class="modal-actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-testid="invitation-dialog-cancel"
-                  (click)="showModal = false"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  data-testid="invitation-dialog-create"
-                >
-                  Create
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      }
-
-      <!-- Token Display Dialog -->
-      @if (showTokenDialog) {
-        <div class="modal-overlay" data-testid="invitation-token-dialog">
-          <div class="modal-content card">
-            <h3>Invitation Created</h3>
-            <p class="token-display" data-testid="invitation-token-value">{{ createdToken }}</p>
-            <div class="modal-actions">
-              <button
-                class="btn btn-secondary"
-                data-testid="invitation-token-copy"
-                (click)="copyToken()"
-              >
-                Copy
-              </button>
-              <button
-                class="btn btn-primary"
-                data-testid="invitation-token-close"
-                (click)="showTokenDialog = false"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  `,
+  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  templateUrl: './invitations.component.html',
+  styleUrl: './invitations.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styles: [
-    `
-      .invitations-page {
-        padding: 24px;
-      }
-      .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        h1 {
-          font-size: 24px;
-          font-weight: 600;
-        }
-      }
-      .invitations-table {
-        overflow-x: auto;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th {
-        text-align: left;
-        padding: 12px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #1a1918cc;
-        border-bottom: 1px solid #e5e4e1;
-      }
-      td {
-        padding: 12px 20px;
-        font-size: 14px;
-        border-bottom: 1px solid #f5f4f1;
-      }
-      .token-cell {
-        font-family: monospace;
-        font-size: 14px;
-      }
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
-      .modal-content {
-        width: 100%;
-        max-width: 400px;
-        padding: 32px;
-        h3 {
-          margin-bottom: 20px;
-        }
-      }
-      .form-group {
-        margin-bottom: 16px;
-        label {
-          display: block;
-          margin-bottom: 6px;
-          font-size: 14px;
-          font-weight: 500;
-        }
-        select,
-        input {
-          width: 100%;
-          padding: 10px 14px;
-          border: 1px solid #e5e4e1;
-          border-radius: 8px;
-          font-size: 14px;
-        }
-      }
-      .token-display {
-        font-family: monospace;
-        font-size: 16px;
-        background: #f5f4f1;
-        padding: 12px;
-        border-radius: 8px;
-        word-break: break-all;
-        margin: 12px 0;
-      }
-      .modal-actions {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-        margin-top: 20px;
-      }
-      .badge-success {
-        background: rgba(16, 185, 129, 0.1);
-        color: #059669;
-      }
-      .badge-danger {
-        background: rgba(220, 53, 69, 0.1);
-        color: #dc3545;
-      }
-      .badge-gray {
-        background: rgba(26, 25, 24, 0.06);
-        color: #1a1918cc;
-      }
-      @media (max-width: 768px) {
-        .invitations-page {
-          padding: 16px;
-        }
-        .page-header {
-          flex-wrap: wrap;
-          gap: 12px;
-        }
-      }
-    `,
-  ],
 })
-export class InvitationsComponent implements OnInit {
+export class InvitationsComponent implements OnInit, AfterViewChecked {
   private invService = inject(InvitationService);
   private fb = inject(FormBuilder);
 
@@ -250,6 +29,23 @@ export class InvitationsComponent implements OnInit {
   showTokenDialog = false;
   createdToken = '';
   invForm: FormGroup = this.fb.group({ type: ['Member'], expires: [''] });
+
+  private readonly createDialog = viewChild<ElementRef<HTMLDialogElement>>('createDialog');
+  private readonly tokenDialog = viewChild<ElementRef<HTMLDialogElement>>('tokenDialog');
+
+  // The flags above decide which dialog is open; the native dialogs follow them.
+  ngAfterViewChecked(): void {
+    const dialogs: [HTMLDialogElement | undefined, boolean][] = [
+      [this.createDialog()?.nativeElement, this.showModal],
+      [this.tokenDialog()?.nativeElement, this.showTokenDialog],
+    ];
+    for (const [dialog, open] of dialogs) {
+      if (dialog?.open && !open) dialog.close();
+    }
+    for (const [dialog, open] of dialogs) {
+      if (dialog && !dialog.open && open) dialog.showModal();
+    }
+  }
 
   ngOnInit(): void {
     this.loadInvitations();
@@ -307,8 +103,8 @@ export class InvitationsComponent implements OnInit {
 
   getStatusClass(inv: any): string {
     const status = this.getStatus(inv);
-    if (status === 'Active') return 'badge-success';
-    if (status === 'Expired') return 'badge-danger';
-    return 'badge-gray';
+    if (status === 'Active') return 'badge--success';
+    if (status === 'Expired') return 'badge--danger';
+    return 'badge--neutral';
   }
 }

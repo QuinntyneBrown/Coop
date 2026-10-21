@@ -122,6 +122,19 @@ test.describe('Roles & Privileges', () => {
       await expect(firstRow.getByTestId('privilege-create')).toBeVisible();
       await expect(firstRow.getByTestId('privilege-delete')).toBeVisible();
     });
+
+    test('names each privilege toggle as a switch by its column and area', async ({
+      authenticatedPage,
+    }) => {
+      await rolesPage.selectRole('systemadministrator');
+      await expect(rolesPage.privilegeRows).not.toHaveCount(0);
+      await expect(
+        authenticatedPage.getByRole('switch', {
+          name: 'Write Document',
+          exact: true,
+        }),
+      ).toBeVisible();
+    });
   });
 
   test.describe('Privilege Toggling', () => {
@@ -136,7 +149,9 @@ test.describe('Roles & Privileges', () => {
       await expect(writeToggle).toBeVisible();
     });
 
-    test('should persist privilege changes after role reselection', async ({ authenticatedPage }) => {
+    test('should persist privilege changes after role reselection', async ({
+      authenticatedPage,
+    }) => {
       // Select member role and wait for privilege matrix to fully render
       const memberInitPromise = authenticatedPage.waitForResponse(
         (resp) => resp.url().includes('/api/role/') && resp.request().method() === 'GET',
@@ -152,7 +167,10 @@ test.describe('Roles & Privileges', () => {
 
       // Click toggle and wait for the single API call to complete
       const apiPromise = authenticatedPage.waitForResponse(
-        (resp) => resp.url().includes('/api/privilege') && (resp.request().method() === 'POST' || resp.request().method() === 'DELETE') && resp.status() === 200,
+        (resp) =>
+          resp.url().includes('/api/privilege') &&
+          (resp.request().method() === 'POST' || resp.request().method() === 'DELETE') &&
+          resp.status() === 200,
       );
       await writeToggle.click();
       await apiPromise;

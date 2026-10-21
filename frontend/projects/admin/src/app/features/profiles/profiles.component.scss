@@ -1,0 +1,44 @@
+.profiles {
+  margin-block: var(--space-6);
+  align-items: start;
+}
+
+.profiles__header {
+  padding: var(--space-4) var(--space-4) var(--space-2);
+}
+
+.profiles__header .card__title,
+.profiles__name {
+  margin: 0;
+}
+
+.profiles__list {
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.profiles__item {
+  cursor: pointer;
+}
+
+.profiles__item:hover {
+  background: var(--color-bg-subtle);
+}
+
+.profiles__item--selected {
+  background: var(--color-accent-subtle);
+}
+
+.profiles__select {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-fg-default);
+  text-align: start;
+  cursor: pointer;
+}
+
+.profiles__details {
+  gap: var(--space-1);
+  color: var(--color-fg-muted);
+}

@@ -14,7 +14,7 @@ to find, add and delete documents.
 By the end, the viewer can:
 
 - Filter documents with the tabs and search them.
-- Add a document with New Document.
+- Add a document with New document.
 - Delete a document after confirming.
 
 ## Code / assets on screen
@@ -22,10 +22,10 @@ By the end, the viewer can:
 | File | What to show |
 | --- | --- |
 | `images/admin-documents-1280.png` | The Documents page |
-| `images/admin-documents-bylaws-1280.png` | The By-Laws tab |
+| `images/admin-documents-bylaws-1280.png` | The Bylaws tab |
 | `images/admin-documents-search-1280.png` | A search for courtyard, showing only Autumn courtyard gathering |
-| `images/admin-document-create-1280.png` | The New Document form |
-| `images/admin-document-delete-1280.png` | The Confirm Delete box |
+| `images/admin-document-create-1280.png` | The New document dialog |
+| `images/admin-document-delete-1280.png` | The box asking Delete “Autumn courtyard gathering”? |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -36,7 +36,7 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | --- | --- | --- |
 | 00:00-00:15 | Welcome | Title; all in one place |
 | 00:15-00:49 | Find a document | Documents, tabs, search |
-| 00:49-01:13 | Add and delete | New Document, delete and confirm |
+| 00:49-01:13 | Add and delete | New document, delete and confirm |
 | 01:13-01:30 | In short | Summary, thank you |
 
 ## Demo commands

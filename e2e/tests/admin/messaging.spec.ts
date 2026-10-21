@@ -187,6 +187,13 @@ test.describe('Messaging', () => {
       await expect(messagingPage.newConversationDialog).toBeHidden();
     });
 
+    test('should open as a named modal dialog that Escape closes', async () => {
+      await messagingPage.newConversationButton.click();
+      await messagingPage.expectDialogNamed('New Conversation');
+      await messagingPage.closeDialogWithEscape();
+      await expect(messagingPage.newConversationDialog).toBeHidden();
+    });
+
     test('should display recipient input in dialog', async () => {
       await messagingPage.newConversationButton.click();
       await expect(messagingPage.recipientInput).toBeVisible();

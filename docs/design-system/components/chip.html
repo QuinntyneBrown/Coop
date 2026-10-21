@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chip — Coop design system</title>
+<meta name="description" content="Filter chips narrow a list in the Coop admin, such as maintenance requests by status or documents by type, and say which filter is on with aria-pressed.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Chip</h1>
+      <p class="ds-lead">A pill-shaped toggle button that narrows a list to one kind of thing: maintenance requests that are "New", or documents that are "Notices". One chip in a row is pressed at a time, and it says so with <code>aria-pressed</code>.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a row of filter chips above a list when staff want to see one group at a time and there are five or fewer groups. The first chip, "All", is pressed when the screen opens. Pressing another chip shows only that group and un-presses the rest. A chip never saves, sends or deletes anything.</p>
+      <ul>
+        <li>Use <a href="tabs.html">tabs</a> when each choice shows a different panel of content, such as the Settings sections. Filter chips keep one list and change what is in it.</li>
+        <li>Use a <a href="select.html">select</a> when there are more than five groups, or when the filter is one of several on a toolbar.</li>
+        <li>Use a <a href="badge.html">badge</a> to show a status that cannot be pressed.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <button class="chip" type="button" aria-pressed="true">Started</button>
+          <span class="ds-callout" style="left: 46%; top: 24%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 60%; top: 70%;" aria-hidden="true">2</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small><code>--text-label</code>, one or two words. The accessible name.</small></div></li>
+          <li><div><b>Pill</b><small>36px tall (<code>--control-height-sm</code>), 12px side padding, <code>--radius-full</code>, 1px <code>--color-border-strong</code>. Accent tint and accent border when pressed.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>The admin uses one variant, the filter chip. Removable "input" chips and static tags do not appear in the admin; a status that cannot be pressed is a badge.</p>
+      <h3>Maintenance requests by status</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="cluster" role="group" aria-label="Show requests">
+            <button class="chip" type="button" aria-pressed="true">All</button>
+            <button class="chip" type="button" aria-pressed="false">New</button>
+            <button class="chip" type="button" aria-pressed="false">Received</button>
+            <button class="chip" type="button" aria-pressed="false">Started</button>
+            <button class="chip" type="button" aria-pressed="false">Completed</button>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From Maintenance. The list heading changes with the chip: "All requests", "Completed requests".</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="cluster" role="group" aria-label="Show requests"&gt;
+  &lt;button class="chip" type="button" aria-pressed="true"&gt;All&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;New&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Received&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Started&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Completed&lt;/button&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Documents by type</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="cluster" role="group" aria-label="Show documents">
+            <button class="chip" type="button" aria-pressed="false">All documents</button>
+            <button class="chip" type="button" aria-pressed="true">Notices</button>
+            <button class="chip" type="button" aria-pressed="false">Bylaws</button>
+            <button class="chip" type="button" aria-pressed="false">Reports</button>
+          </div>
+          <div class="card card--flush" style="width: 100%; max-width: 32rem;">
+            <ul class="list">
+              <li class="list__item"><div class="list__body"><div class="list__title">Autumn courtyard gathering</div><div class="list__meta">Notice · Oct 13, 2026</div></div><span class="badge badge--success">Published</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From Documents, with "Notices" pressed. The search field and the New document button sit on their own row below the chips.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size only"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size, 36px tall (<code>--control-height-sm</code>). Chips sit in a <code>.cluster</code> with 12px between them, which keeps neighbouring targets apart.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Pointer and focus states are forced with <code>data-state</code>; real pages get them from <code>:hover</code>, <code>:focus-visible</code>, <code>aria-pressed</code> and <code>disabled</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Chip</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Pressed</th><th scope="col">Pressed, focus</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Filter</th><td><button class="chip" type="button" aria-pressed="false">New</button></td><td><button class="chip" type="button" aria-pressed="false" data-state="hover">New</button></td><td><button class="chip" type="button" aria-pressed="false" data-state="focus">New</button></td><td><button class="chip" type="button" aria-pressed="true">Started</button></td><td><button class="chip" type="button" aria-pressed="true" data-state="focus">Started</button></td><td><button class="chip" type="button" aria-pressed="false" disabled>Reports</button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="cluster"><button class="chip" type="button" aria-pressed="true">All</button><button class="chip" type="button" aria-pressed="false">New</button><button class="chip" type="button" aria-pressed="false" data-state="hover">Received</button><button class="chip" type="button" aria-pressed="false" disabled>Completed</button></div></div>
+        <div data-theme="dark"><div class="cluster"><button class="chip" type="button" aria-pressed="true">All</button><button class="chip" type="button" aria-pressed="false">New</button><button class="chip" type="button" aria-pressed="false" data-state="hover">Received</button><button class="chip" type="button" aria-pressed="false" disabled>Completed</button></div></div>
+      </div>
+      <ul>
+        <li><b>Pressed</b> uses <code>aria-pressed="true"</code>: accent tint, accent border, accent label. Exactly one chip in a group is pressed.</li>
+        <li><b>Disabled</b> uses the native attribute at 50% opacity. Keep chips enabled while the list loads, as the admin does, so staff can change their mind; disable only if a filter cannot work at all.</li>
+        <li><b>No results</b> is a state of the list, not the chip: the chip stays pressed and the list shows its empty state ("No maintenance requests found").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Chips wrap onto new lines inside the <code>.cluster</code>; they never scroll sideways and never shrink.</li>
+        <li>Labels do not wrap inside a chip. At 320px the five maintenance chips take two lines, which is fine.</li>
+        <li>At 400% zoom each chip may sit on its own line; the order stays the same, so "All" is always first.</li>
+        <li>On Documents the search field and New document button move to their own row under the chips on phones.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Unpressed chips read <code>--color-bg-surface</code>, <code>--color-border-strong</code> and <code>--color-fg-default</code>; hover adds <code>--color-bg-subtle</code>. Pressed reads <code>--color-accent-subtle</code>, <code>--color-accent</code> and <code>--color-fg-accent</code>. All are semantic tokens, so both themes come for free; re-theme by changing them, not by restyling <code>.chip</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;button type="button"&gt;</code> in the toggle form of the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">WAI-ARIA button pattern</a> (<code>aria-pressed</code>). The set sits in <code>role="group"</code> with an <code>aria-label</code> such as "Show requests". The group acts as a single choice, so the script that presses one chip sets <code>aria-pressed="false"</code> on the others. Do not use <code>role="tab"</code>: there are no separate panels.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves chip to chip; every chip is a tab stop.</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Presses the chip and filters the list. Pressing the chip that is already pressed does nothing.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared 2px focus ring with 2px offset, which stays at least 3:1 on the pressed accent tint. Focus stays on the chip after the list changes, so a keyboard user can try the next filter straight away.</p>
+      <h3>Labelling</h3>
+      <p>The visible text is the name. Screen readers announce "Completed, toggle button, pressed". The group's <code>aria-label</code> gives the context. The list heading below ("Completed requests") confirms the result when the person moves on; it is not a live region, so the filter does not interrupt with an announcement.</p>
+      <h3>Contrast</h3>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on chip</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Label on hovered chip</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div><div class="ds-pair"><span>Pressed label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div><div class="ds-pair"><span>Chip edge</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div><div class="ds-pair"><span>Pressed edge on tint</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-accent-subtle" data-min="3"></span></div><div class="ds-pair"><span>Focus ring on pressed chip</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-accent-subtle" data-min="3"></span></div></div></div><div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Label on chip</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Label on hovered chip</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div><div class="ds-pair"><span>Pressed label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div><div class="ds-pair"><span>Chip edge</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div><div class="ds-pair"><span>Pressed edge on tint</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-accent-subtle" data-min="3"></span></div><div class="ds-pair"><span>Focus ring on pressed chip</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-accent-subtle" data-min="3"></span></div></div></div></div>
+      <h3>Motion</h3>
+      <p>Background colour fades over <code>--duration-fast</code> (120 ms), zeroed under <code>prefers-reduced-motion</code>.</p>
+      <h3>Touch</h3>
+      <p>36px tall with 12px between chips: above the 24px minimum, and the gap keeps a finger from pressing two. Nothing depends on hover.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>One or two words, sentence case: "All documents", "Bylaws", "Completed".</li>
+        <li>Use the same words as the badges in the list, so "Started" the chip shows "Started" the badges.</li>
+        <li>"All" comes first, then the groups in the order work moves through them (New, Received, Started, Completed) or in the order staff use them most.</li>
+        <li>No more than five chips in a group; more than that is a select.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="cluster" role="group" aria-label="Show requests, good example"><button class="chip" type="button" aria-pressed="true">All</button><button class="chip" type="button" aria-pressed="false">New</button></div></div><figcaption>Say which chip is on with <code>aria-pressed</code>, not just the tint.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="cluster" role="group" aria-label="Show requests, bad example"><button class="chip" type="button" data-state="selected">All</button><button class="chip" type="button">New</button></div></div><figcaption>A chip that only looks selected, like the admin's <code>.filter-btn.active</code>; a screen reader hears two identical buttons.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="cluster" role="group" aria-label="Show documents, good example"><button class="chip" type="button" aria-pressed="true">All documents</button><button class="chip" type="button" aria-pressed="false">Bylaws</button></div></div><figcaption>Sentence case, and one spelling of "bylaws" across the admin.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="cluster" role="group" aria-label="Show documents, bad example"><button class="chip" type="button" aria-pressed="true">All Documents</button><button class="chip" type="button" aria-pressed="false">By-Laws</button></div></div><figcaption>Title Case and a hyphenated "By-Laws" that no other screen uses.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button">New request</button></div><figcaption>Start a task with a button.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="chip" type="button">New request</button></div><figcaption>A chip that opens a dialog or saves; chips only filter.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Background, hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Pressed background</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Pressed border</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Pressed label</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Height</td><td><code>--control-height-sm</code></td><td colspan="2"><span data-token="--control-height-sm"></span></td></tr>
+          <tr><td>Side padding / gap inside</td><td><code>--space-3</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Gap between chips</td><td><code>--space-3</code> (from <code>.cluster</code>)</td><td colspan="2"><span data-token="--space-3"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+          <tr><td>Label font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="cluster" role="group" aria-label="Show documents"&gt;
+  &lt;button class="chip" type="button" aria-pressed="true"&gt;All documents&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Notices&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Bylaws&lt;/button&gt;
+  &lt;button class="chip" type="button" aria-pressed="false"&gt;Reports&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.chip</code></td><td>Pill button, 36px tall.</td></tr>
+        <tr><td><code>aria-pressed="true|false"</code></td><td>Required. <code>true</code> shows the accent style and tells assistive technology which filter is on.</td></tr>
+        <tr><td><code>role="group"</code> + <code>aria-label</code></td><td>On the <code>.cluster</code> that holds the chips; names the filter.</td></tr>
+        <tr><td><code>disabled</code></td><td>50% opacity, not focusable. Rarely needed.</td></tr>
+        <tr><td><code>data-state="hover|focus|selected|disabled"</code></td><td>Documentation only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-maintenance/default.html">pages/admin-maintenance/default</a>, <a href="../../mocks/pages/admin-maintenance/new.html">new</a>, <a href="../../mocks/pages/admin-maintenance/received.html">received</a>, <a href="../../mocks/pages/admin-maintenance/started.html">started</a>, <a href="../../mocks/pages/admin-maintenance/done.html">done</a> (status filter, one per pressed chip)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/loading.html">pages/admin-maintenance/loading</a> and <a href="../../mocks/pages/admin-maintenance/no-results.html">no-results</a> (chips stay enabled; the list is empty)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a>, <a href="../../mocks/pages/admin-documents/notices.html">notices</a>, <a href="../../mocks/pages/admin-documents/bylaws.html">bylaws</a>, <a href="../../mocks/pages/admin-documents/reports.html">reports</a> (document type filter)</li>
+        <li><a href="../../mocks/pages/admin-documents/no-results.html">pages/admin-documents/no-results</a></li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li>The admin draws filters as <code>.filter-btn</code> inside <code>.filters</code> (Maintenance) or <code>.filter-tabs</code> (Documents), styled separately in each feature. The system uses one <code>.chip</code> inside a <code>.cluster</code>.</li>
+        <li>The pressed filter is marked only by the <code>.active</code> class (and <code>data-active</code> on Documents); there is no <code>aria-pressed</code>, so a screen reader cannot tell which filter is on. The system requires <code>aria-pressed</code> and a labelled <code>role="group"</code>.</li>
+        <li>The pressed filter is solid green with white text and an 8px by 16px padding at 14px type. The system uses the accent tint with an accent border and label, 36px tall.</li>
+        <li>The unpressed border is a pale grey that does not reach 3:1 against white (1.4.11). The system uses <code>--color-border-strong</code>, at least 3:1 in both themes.</li>
+        <li>Maintenance chips animate with <code>transition: all 0.2s</code>, which ignores reduced motion. The system fades only the background, over <code>--duration-fast</code>, zeroed for reduced motion.</li>
+        <li>Documents labels use Title Case and a hyphen ("All Documents", "By-Laws"); the system writes "All documents" and "Bylaws".</li>
+        <li>The buttons have no <code>type</code>; the system always sets <code>type="button"</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

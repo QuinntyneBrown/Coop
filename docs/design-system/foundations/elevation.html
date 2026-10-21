@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Elevation — Coop design system</title>
-<meta name="description" content="Three shadows and four stacking layers; no dark theme and no stronger elevation levels.">
+<meta name="description" content="Coop admin elevation: four shadow levels, a matching surface ladder and a fixed z-order, so the sidebar, tab bar, dialogs and toasts always stack the same way in both themes.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,123 +31,224 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
   <main id="main" class="ds-main">
     <header class="ds-header">
-      <p class="ds-kicker">Foundation</p>
+      <p class="ds-kicker">Foundation · Elevation</p>
       <h1>Elevation</h1>
-      <p class="ds-lead">A nearly flat system: three shadows for three jobs and four z-order layers. There is no dark theme and no stronger elevation level.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span><span class="ds-pill">Tokens: <code>--shadow-*</code>, <code>--z-*</code></span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#shadows">Shadows</a></li><li><a href="#z-order">Z-order</a></li><li><a href="#drift">Drift</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+      <p class="ds-lead">Four shadow levels, a matching surface ladder and a fixed z-order, so the tab bar, dialogs and toasts always stack the same way in both themes.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span><span class="ds-pill">Coop admin</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#shadows">Shadow levels</a></li><li><a href="#surfaces">Surface hierarchy</a></li><li><a href="#z-order">Z-order</a></li><li><a href="#dark">Elevation in the dark theme</a></li><li><a href="#usage">Usage</a></li><li><a href="#do-dont">Do and don’t</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
     </header>
 
-<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Elevation tells a person what sits on top of what. The admin uses four shadow levels and a matching set of surface colours: the page canvas, cards and the sidebar on it, raised surfaces (menus and dialogs) above them, and the inverse toast on top. Stacking order is fixed by <code>--z-*</code> tokens so a dialog always sits over the tab bar and a toast is never hidden behind a dialog.</p>
+      <ul>
+        <li>Pair each shadow with its surface token; a raised surface is never just a darker shadow on a card colour.</li>
+        <li>Use the z-index tokens; never type a number.</li>
+      </ul>
+    </section>
 
-<p>Coop is almost flat. Surfaces are separated by a hairline border and a change of background, not by shadow. Three shadows exist, each with one job, and four stacking layers keep overlays in order.</p>
-<ul>
-<li><b>No dark theme.</b> The product ships one light appearance, so elevation is never expressed through lighter surfaces, and no shadow has a dark variant.</li>
-<li><b>No stronger levels.</b> The mocks show no raised menu, popover, drawer or toast shadow beyond these three. Dialogs sit on a scrim, not on a shadow. Do not add levels 3, 4 and up.</li>
-</ul>
+    <section class="ds-section" id="shadows"><h2><a href="#shadows">Shadow levels</a></h2>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-shadow-grid"><div style="--shadow: var(--shadow-1);">--shadow-1 · cards, metric cards</div><div style="--shadow: var(--shadow-2);">--shadow-2 · hovered metric card</div><div style="--shadow: var(--shadow-3);">--shadow-3 · menus, toasts</div><div style="--shadow: var(--shadow-4);">--shadow-4 · dialogs</div><div style="--shadow: var(--shadow-focus);">--shadow-focus · focus halo</div></div></div><div data-theme="dark"><div class="ds-shadow-grid"><div style="--shadow: var(--shadow-1);">--shadow-1 · cards, metric cards</div><div style="--shadow: var(--shadow-2);">--shadow-2 · hovered metric card</div><div style="--shadow: var(--shadow-3);">--shadow-3 · menus, toasts</div><div style="--shadow: var(--shadow-4);">--shadow-4 · dialogs</div><div style="--shadow: var(--shadow-focus);">--shadow-focus · focus halo</div></div></div></div>
+      <p>Shadows are built from <code>--shadow-color</code> (an RGB triplet) at increasing opacity. The dark theme sets the triplet to pure darkness and raises the opacities, because a soft grey shadow disappears on a dark canvas.</p>
+    </section>
 
-</section>
-<section class="ds-section" id="shadows"><h2><a href="#shadows">Shadows</a></h2>
+    <section class="ds-section" id="surfaces"><h2><a href="#surfaces">Surface hierarchy</a></h2>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-4);">
+          <article class="card stack" style="gap: var(--space-3);">
+            <h3 class="card__title">Kitchen tap leak</h3>
+            <dl class="dl"><dt>Status</dt><dd><span class="badge badge--warning">New</span></dd><dt>Submitted by</dt><dd>Mira Fern · Oct 13, 2026, 8:00 AM</dd></dl>
+            <p style="margin: 0; padding: var(--space-3) var(--space-4); background: var(--color-bg-surface-sunken); border-radius: var(--radius-md);">The kitchen tap drips after it is closed.</p>
+          </article>
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="elev-dlg-light">
+            <div class="dialog__panel" style="margin-inline: auto;">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <h3 class="dialog__title" id="elev-dlg-light">Delete tavi.moss?</h3>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close (example, light)"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__body"><p style="margin: 0;">tavi.moss will no longer be able to sign in. This can’t be undone.</p></div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete user</button></div>
+            </div>
+          </div>
+          <div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Profile updated</div><div class="toast__text">Your changes are saved.</div></div></div></div>
+        </div></div><div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-4);">
+          <article class="card stack" style="gap: var(--space-3);">
+            <h3 class="card__title">Kitchen tap leak</h3>
+            <dl class="dl"><dt>Status</dt><dd><span class="badge badge--warning">New</span></dd><dt>Submitted by</dt><dd>Mira Fern · Oct 13, 2026, 8:00 AM</dd></dl>
+            <p style="margin: 0; padding: var(--space-3) var(--space-4); background: var(--color-bg-surface-sunken); border-radius: var(--radius-md);">The kitchen tap drips after it is closed.</p>
+          </article>
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="elev-dlg-dark">
+            <div class="dialog__panel" style="margin-inline: auto;">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <h3 class="dialog__title" id="elev-dlg-dark">Delete tavi.moss?</h3>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close (example, dark)"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__body"><p style="margin: 0;">tavi.moss will no longer be able to sign in. This can’t be undone.</p></div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete user</button></div>
+            </div>
+          </div>
+          <div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Profile updated</div><div class="toast__text">Your changes are saved.</div></div></div></div>
+        </div></div></div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Level</th><th scope="col">Surface</th><th scope="col">Shadow</th><th scope="col">Used by</th></tr></thead>
+        <tbody>
+          <tr><td>0 · page</td><td><code>--color-bg-canvas</code></td><td>none</td><td>The page behind the sidebar and cards</td></tr>
+          <tr><td>0 · well</td><td><code>--color-bg-surface-sunken</code></td><td>none</td><td>Table headers, read-only fields, a request’s description</td></tr>
+          <tr><td>1 · surface</td><td><code>--color-bg-surface</code></td><td><code>--shadow-1</code></td><td>Cards, metric cards, tables; the sidebar and tab bar use a border instead of a shadow</td></tr>
+          <tr><td>2 · lifted</td><td><code>--color-bg-surface</code></td><td><code>--shadow-2</code></td><td>A metric card that links somewhere, on hover</td></tr>
+          <tr><td>3 · raised</td><td><code>--color-bg-surface-raised</code> / <code>--color-bg-inverse</code></td><td><code>--shadow-3</code></td><td>Menus, toasts, the skip link</td></tr>
+          <tr><td>4 · modal</td><td><code>--color-bg-surface-raised</code> over <code>--color-bg-backdrop</code></td><td><code>--shadow-4</code></td><td>“Confirm delete”, “New maintenance request”, “Add director”, the document viewer</td></tr>
+        </tbody>
+      </table></div>
+    </section>
 
-<div class="ds-shadow-grid"><div style="--shadow: var(--shadow-1);">--shadow-1</div><div style="--shadow: var(--shadow-2);">--shadow-2</div><div style="--shadow: var(--shadow-selected);">--shadow-selected</div></div>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Look</th><th scope="col">Used for</th></tr></thead><tbody>
-<tr><td><code>--shadow-1</code></td><td>Faint, soft, 2px down, 8px blur</td><td>Metric cards at rest</td></tr>
-<tr><td><code>--shadow-2</code></td><td>Slightly stronger, same offset and blur</td><td>Hovered cards and rows</td></tr>
-<tr><td><code>--shadow-selected</code></td><td>2px ring, no blur, in the brand green at 20%</td><td>Selected request card</td></tr>
-</tbody></table></div>
-<div class="ds-example"><div class="ds-example__canvas ds-example__canvas--canvas">
-<div class="card metric-card" style="width: 14rem;"><div class="metric-card-inner"><div class="metric-info"><div class="metric-count">12</div><div class="metric-label">Open requests</div></div></div></div><div class="card card-interactive" data-state="hover" style="width: 14rem;">Hovered card</div><div class="card card-interactive" aria-current="true" style="width: 14rem;">Selected card</div>
-</div><div class="ds-example__caption"><span>Metric card (<code>--shadow-1</code>), hovered interactive card (<code>--shadow-2</code>) and selected card (<code>--shadow-selected</code>).</span></div></div>
-</section>
-<section class="ds-section" id="z-order"><h2><a href="#z-order">Z-order</a></h2>
+    <section class="ds-section" id="z-order"><h2><a href="#z-order">Z-order</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Used by</th></tr></thead>
+        <tbody>
+          <tr><td><code>--z-base</code></td><td><span data-token="--z-base"></span></td><td>Normal flow</td></tr>
+          <tr><td><code>--z-raised</code></td><td><span data-token="--z-raised"></span></td><td>An element lifted above its siblings</td></tr>
+          <tr><td><code>--z-sticky</code></td><td><span data-token="--z-sticky"></span></td><td>The sidebar (from 768px) and the phone tab bar</td></tr>
+          <tr><td><code>--z-dropdown</code></td><td><span data-token="--z-dropdown"></span></td><td>Menus</td></tr>
+          <tr><td><code>--z-overlay</code></td><td><span data-token="--z-overlay"></span></td><td>Dialog backdrop</td></tr>
+          <tr><td><code>--z-modal</code></td><td><span data-token="--z-modal"></span></td><td>Dialog</td></tr>
+          <tr><td><code>--z-popover</code></td><td><span data-token="--z-popover"></span></td><td>Reserved in the order; no admin component uses it</td></tr>
+          <tr><td><code>--z-toast</code></td><td><span data-token="--z-toast"></span></td><td>Toast region, above a dialog so a confirmation shows as the dialog closes</td></tr>
+          <tr><td><code>--z-tooltip</code></td><td><span data-token="--z-tooltip"></span></td><td>Tooltips on icon buttons; the skip link</td></tr>
+        </tbody>
+      </table></div>
+      <p>The tab bar sits at <code>--z-sticky</code>, far below the dialog backdrop, so an open dialog always sits over it. Only one layer holds each job; a dialog never opens another dialog.</p>
+    </section>
 
-<p>Four layers. Pick the layer; never write a raw <code>z-index</code>.</p>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Layer</th></tr></thead><tbody>
-<tr><td><code>--z-base</code></td><td>0</td><td>Normal flow</td></tr>
-<tr><td><code>--z-sticky</code></td><td>100</td><td>Sidebar, top bar and bottom tab bar</td></tr>
-<tr><td><code>--z-drawer</code></td><td>200</td><td>Mobile sidebar drawer</td></tr>
-<tr><td><code>--z-modal</code></td><td>1000</td><td>Dialog overlay and its content</td></tr>
-</tbody></table></div>
-<p>Dialogs sit above the drawer, which sits above the sticky bars, which sit above the page. A toast or menu is not a layer in the mocks.</p>
+    <section class="ds-section" id="dark"><h2><a href="#dark">Elevation in the dark theme</a></h2>
+      <ul>
+        <li>Higher surfaces get <b>lighter</b>: canvas gray 950, surface gray 900, raised gray 800. The colour step does the work a shadow cannot.</li>
+        <li>Shadows stay, darker and more opaque, so edges still read on bright screens.</li>
+        <li>The inverse toast flips to a light surface, which is why its status icons have their own tokens.</li>
+        <li>The backdrop darkens to 65% so the dialog stands clear of the page.</li>
+      </ul>
+    </section>
 
-</section>
-<section class="ds-section" id="drift"><h2><a href="#drift">Drift</a></h2>
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Cards sit at level 1. Do not raise a card to level 2 to make it “important”; use a status alert or the page order instead.</li>
+        <li>Only one modal at a time; a dialog never opens another dialog.</li>
+        <li>Hover lifts are for things that take you somewhere (a metric card that links to its list), not for static cards.</li>
+      </ul>
+    </section>
 
-<p>Shadow values (8 distinct in the harvest) and z-indexes (8 distinct) are mostly consistent, with these exceptions.</p>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">In the mocks</th><th scope="col">Resolved to</th><th scope="col">Why</th></tr></thead><tbody>
-<tr><td><code>0 2px 8px</code> at 3% of the text colour (4 uses) and at 8% black (3 uses)</td><td>Two tokens: <code>--shadow-1</code> and <code>--shadow-2</code></td><td>Same geometry; the strength tells rest from hover.</td></tr>
-<tr><td>Selected ring at 2px 20% (1 use), 3px 20% (1 use) and 3px 10% (2 uses)</td><td><code>--shadow-selected</code>, 2px at 20%</td><td>One selected ring.</td></tr>
-<tr><td><code>0 4px 24px</code> and <code>0 4px 20px</code> at 13% black</td><td>Dropped</td><td>These exist only in the mock viewer chrome (<code>assets/mock.css</code>), not in the product.</td></tr>
-<tr><td><code>z-index: 101</code> on in-page action rows (4 uses)</td><td><code>--z-base</code> or <code>--z-sticky</code> by context</td><td>Used to sit above the bottom bar's area; an in-flow row should not need its own layer.</td></tr>
-<tr><td><code>z-index: 199</code> on the drawer scrim, <code>200</code> on the drawer</td><td><code>--z-drawer</code> for both; scrim first in the DOM</td><td>One layer for the drawer and its scrim, ordered by DOM position.</td></tr>
-<tr><td><code>z-index: 10000</code> to <code>10002</code></td><td>Dropped</td><td>Mock viewer chrome, not product.</td></tr>
-</tbody></table></div>
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don’t</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="width: 100%;"><p style="margin: 0; font: var(--text-label);">Kitchen tap leak</p><p class="text-muted" style="margin: 0;">Oct 13, 2026</p></div></div><figcaption>A card at level 1: a hairline edge and a soft shadow are enough to separate it from the page.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="width: 100%; box-shadow: var(--shadow-4);"><p style="margin: 0; font: var(--text-label);">Kitchen tap leak</p><p class="text-muted" style="margin: 0;">Oct 13, 2026</p></div></div><figcaption>A card with a dialog’s shadow. It looks like it floats above everything and people try to close it.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="stack" style="width: 100%; gap: var(--space-2);"><span class="text-muted">Dialog: <code>--z-modal</code></span><span class="text-muted">Backdrop: <code>--z-overlay</code></span><span class="text-muted">Tab bar: <code>--z-sticky</code></span></div></div><figcaption>Take every layer from the z-order tokens, so the order is decided once.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stack" style="width: 100%; gap: var(--space-2);"><span class="text-muted">Dialog overlay: 1000</span><span class="text-muted">Tab bar: 1000</span><span class="text-muted">Document viewer: 1001</span></div></div><figcaption>Hand-typed numbers. In the implemented admin the tab bar and every dialog overlay share 1000, so which one wins depends on the order of the page’s markup.</figcaption></figure>
+      </div>
+    </section>
 
-</section>
-<section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><caption class="visually-hidden">Elevation tokens</caption>
+        <thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Shadow colour as an RGB triplet</td><td><code>--shadow-color</code></td><td><span data-theme="light" data-token="--shadow-color"></span></td><td><span data-theme="dark" data-token="--shadow-color"></span></td></tr>
+          <tr><td>Cards</td><td><code>--shadow-1</code></td><td><span data-theme="light" data-token="--shadow-1"></span></td><td><span data-theme="dark" data-token="--shadow-1"></span></td></tr>
+          <tr><td>Raised cards, dropdowns</td><td><code>--shadow-2</code></td><td><span data-theme="light" data-token="--shadow-2"></span></td><td><span data-theme="dark" data-token="--shadow-2"></span></td></tr>
+          <tr><td>Popovers, menus</td><td><code>--shadow-3</code></td><td><span data-theme="light" data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td></tr>
+          <tr><td>Dialogs, sheets</td><td><code>--shadow-4</code></td><td><span data-theme="light" data-token="--shadow-4"></span></td><td><span data-theme="dark" data-token="--shadow-4"></span></td></tr>
+          <tr><td>Focus halo: offset gap plus ring</td><td><code>--shadow-focus</code></td><td colspan="2"><span data-token="--shadow-focus"></span></td></tr>
+          <tr><td>Normal flow</td><td><code>--z-base</code></td><td colspan="2"><span data-token="--z-base"></span></td></tr>
+          <tr><td>An element lifted above its siblings</td><td><code>--z-raised</code></td><td colspan="2"><span data-token="--z-raised"></span></td></tr>
+          <tr><td>The sidebar (from 768px) and the phone tab bar</td><td><code>--z-sticky</code></td><td colspan="2"><span data-token="--z-sticky"></span></td></tr>
+          <tr><td>Menus</td><td><code>--z-dropdown</code></td><td colspan="2"><span data-token="--z-dropdown"></span></td></tr>
+          <tr><td>Dialog backdrop</td><td><code>--z-overlay</code></td><td colspan="2"><span data-token="--z-overlay"></span></td></tr>
+          <tr><td>Dialog</td><td><code>--z-modal</code></td><td colspan="2"><span data-token="--z-modal"></span></td></tr>
+          <tr><td>Reserved in the order; no admin component uses it</td><td><code>--z-popover</code></td><td colspan="2"><span data-token="--z-popover"></span></td></tr>
+          <tr><td>Toast region, above a dialog so a confirmation shows as the dialog closes</td><td><code>--z-toast</code></td><td colspan="2"><span data-token="--z-toast"></span></td></tr>
+          <tr><td>Tooltips on icon buttons; the skip link</td><td><code>--z-tooltip</code></td><td colspan="2"><span data-token="--z-tooltip"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
 
-<ul>
-<li>Separate surfaces with a border and background first. Add a shadow only for the three jobs above.</li>
-<li>Hover shadow appears with <code>--duration-base</code>; it is a response, not a resting state.</li>
-<li>A selected item takes <code>--shadow-selected</code> plus an accent border. The ring is not a focus indicator.</li>
-<li>Overlays use the layer tokens, not numbers: a new overlay chooses an existing layer.</li>
-</ul>
-<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card card-interactive" data-state="hover">Hovered card gains <code>--shadow-2</code></div></div><figcaption>Reserve shadow for the metric card, hover and selected states.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="box-shadow: 0 12px 32px var(--color-bg-backdrop);">Heavy shadow on a plain card</div></div><figcaption>Do not add a heavier shadow. No stronger level exists and the product is deliberately flat.</figcaption></figure></div><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="card" style="position: relative; z-index: var(--z-base);">Layer from a token</div></div><figcaption>Choose a layer token for stacking.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="card" style="position: relative; z-index: 9999;">Layer from a number</div></div><figcaption>Do not escalate with numbers. The mocks reached 10002 in one file; there are only four layers.</figcaption></figure></div>
-</section>
-<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Read from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (cards, metric cards, sidebar, tab bar)</li>
+        <li><a href="../../mocks/dialogs/admin-user-delete/default.html">dialogs/admin-user-delete/default</a> (confirmation dialog)</li>
+        <li><a href="../../mocks/dialogs/admin-maintenance-create/default.html">dialogs/admin-maintenance-create/default</a> (form dialog)</li>
+        <li><a href="../../mocks/dialogs/admin-document-viewer/default.html">dialogs/admin-document-viewer/default</a> (top-aligned viewer)</li>
+        <li><a href="../../mocks/notifications/admin-profile-saved/success.html">notifications/admin-profile-saved/success</a> (saved message)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <p>The mocks are captures of the running Angular admin, which does not use this system yet. Each difference below is drift: the system value is the one to build to.</p>
+      <ul>
+        <li><b>One faint shadow.</b> Admin cards and metric cards share a single very soft shadow (black at 3% opacity, 2px down, 8px blur) that barely shows on the warm canvas. The system has four levels, each paired with a surface.</li>
+        <li><b>Z-index numbers.</b> The sidebar is 100, the tab bar 1000, every <code>.modal-overlay</code> 1000 and <code>.modal-overlay--top</code> (the document viewer) 1001. The tab bar and dialogs share a layer. The system uses <code>--z-sticky</code>, <code>--z-overlay</code> and <code>--z-modal</code>.</li>
+        <li><b>Backdrop.</b> The admin scrim is black at 50% in its only theme. The system uses <code>--color-bg-backdrop</code>, which deepens in the dark theme.</li>
+        <li><b>Saved messages.</b> The admin shows “saved” messages as inline alerts with screen-specific classes (<code>.board-alert</code>, <code>.pages-alert</code>, <code>.website-alert</code>, <code>.notice-alert</code>, <code>.alert-success</code>) at page level, with no layer of their own. The system’s toast has <code>--z-toast</code> and <code>--shadow-3</code>; which messages become toasts is decided in the notifications pattern.</li>
+        <li><b>No dark theme.</b> The admin is light only, so elevation is never shown by surface colour. The system’s dark theme lightens raised surfaces.</li>
+      </ul>
+    </section>
 
-<ul>
-<li>Shadow never carries meaning alone. The selected state also has an accent border and <code>aria-current</code>.</li>
-<li>Do not rely on a shadow to show a boundary; keep the hairline border, which survives forced colours.</li>
-<li>A shadow must not reduce the contrast of text on or beside it; the shadows are faint so they do not.</li>
-<li>Dialogs should trap focus and make the page behind inert while open. The mocks do not implement a focus trap; the design system requires one (see <a href="../components/dialog.html">Dialog</a>).</li>
-</ul>
-
-</section>
-<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-<p>Every elevation token. Values resolve live from <code>tokens/tokens.css</code>.</p><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Use</th></tr></thead><tbody>
-<tr><td><code>--shadow-1</code></td><td data-token="--shadow-1"></td><td>metric cards</td></tr>
-<tr><td><code>--shadow-2</code></td><td data-token="--shadow-2"></td><td>hovered cards and rows</td></tr>
-<tr><td><code>--shadow-selected</code></td><td data-token="--shadow-selected"></td><td>selected request card</td></tr>
-<tr><td><code>--z-base</code></td><td data-token="--z-base"></td><td></td></tr>
-<tr><td><code>--z-sticky</code></td><td data-token="--z-sticky"></td><td>sidebar, top bar, bottom tab bar</td></tr>
-<tr><td><code>--z-drawer</code></td><td data-token="--z-drawer"></td><td>mobile sidebar drawer</td></tr>
-<tr><td><code>--z-modal</code></td><td data-token="--z-modal"></td><td>dialog overlay</td></tr>
-</tbody></table></div>
-</section>
-
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

@@ -1,277 +1,16 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
+import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, BottomTabBarComponent],
-  template: `
-    <div class="login-page">
-      <div class="login-header" data-testid="login-hero-panel">
-        <div class="header-content">
-          <svg
-            class="header-icon"
-            data-testid="login-hero-icon"
-            width="64"
-            height="64"
-            viewBox="0 0 48 48"
-            aria-hidden="true"
-          >
-            <rect width="48" height="48" rx="14" fill="#B4502A" />
-            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
-            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
-            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
-          </svg>
-          <h1 data-testid="login-hero-title">OWN Housing Co-op</h1>
-          <p data-testid="login-hero-description">Cooperative management</p>
-        </div>
-      </div>
-
-      <div class="login-form-panel" data-testid="login-form-panel">
-        <div class="form-container">
-          <h2 data-testid="login-heading">Welcome back</h2>
-          <p class="form-subtitle" data-testid="login-subtitle">
-            Sign in to your account to continue
-          </p>
-
-          @if (loginError) {
-            <div class="alert alert-danger" data-testid="login-form-error">
-              {{ loginError }}
-            </div>
-          }
-
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                id="username"
-                type="text"
-                formControlName="username"
-                data-testid="login-username"
-                placeholder="Enter your username"
-                [class.invalid]="submitted && f['username'].errors"
-              />
-              @if (submitted && f['username'].errors) {
-                <div class="error-message" data-testid="login-username-error">
-                  Username is required
-                </div>
-              }
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                formControlName="password"
-                data-testid="login-password"
-                placeholder="Enter your password"
-                [class.invalid]="submitted && f['password'].errors"
-              />
-              @if (submitted && f['password'].errors) {
-                <div class="error-message" data-testid="login-password-error">
-                  Password is required
-                </div>
-              }
-            </div>
-
-            <div class="form-options">
-              <label class="checkbox-label">
-                <input
-                  type="checkbox"
-                  formControlName="rememberMe"
-                  data-testid="login-remember-me"
-                />
-                <span>Remember me</span>
-              </label>
-              <a
-                routerLink="/forgot-password"
-                class="forgot-link"
-                data-testid="login-forgot-password"
-                >Forgot password?</a
-              >
-            </div>
-
-            <button
-              type="submit"
-              class="btn btn-primary btn-block sign-in-btn"
-              data-testid="login-submit"
-              [disabled]="loading"
-            >
-              {{ loading ? 'Signing in...' : 'Sign In' }}
-            </button>
-          </form>
-
-          <p class="sign-up-text">
-            Don't have an account?
-            <a routerLink="/register" data-testid="login-signup-link">Sign up</a>
-          </p>
-        </div>
-      </div>
-
-      <app-bottom-tab-bar class="mobile-only"></app-bottom-tab-bar>
-    </div>
-  `,
+  imports: [ReactiveFormsModule, RouterLink, IconComponent],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styles: [
-    `
-      .login-page {
-        display: flex;
-        min-height: 100vh;
-      }
-      .login-header {
-        flex: 1;
-        background: linear-gradient(135deg, #3d8a5a 0%, #2d6b44 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        padding: 40px;
-      }
-      .header-content {
-        text-align: center;
-        .header-icon {
-          margin-bottom: 16px;
-        }
-        h1 {
-          font-size: 36px;
-          font-weight: 700;
-          margin-bottom: 8px;
-        }
-        p {
-          font-size: 18px;
-          opacity: 0.9;
-        }
-      }
-      .login-form-panel {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        padding: 40px;
-      }
-      .form-container {
-        width: 100%;
-        max-width: 400px;
-        h2 {
-          font-size: 28px;
-          font-weight: 600;
-          margin-bottom: 8px;
-        }
-        .form-subtitle {
-          color: #1a1918cc;
-          margin-bottom: 24px;
-        }
-      }
-      .form-group {
-        margin-bottom: 20px;
-        label {
-          display: block;
-          margin-bottom: 6px;
-          font-size: 14px;
-          font-weight: 500;
-          color: #1a1918cc;
-        }
-        input[type='text'],
-        input[type='password'] {
-          width: 100%;
-          padding: 12px 14px;
-          border: 1px solid #e5e4e1;
-          border-radius: 10px;
-          font-size: 14px;
-          transition: border-color 0.2s;
-          &:focus {
-            outline: none;
-            border-color: #3d8a5a;
-            box-shadow: 0 0 0 3px rgba(61, 138, 90, 0.1);
-          }
-          &.invalid {
-            border-color: #dc3545;
-          }
-        }
-        .error-message {
-          color: #dc3545;
-          font-size: 14px;
-          margin-top: 4px;
-        }
-      }
-      .form-options {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-      }
-      .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-height: 44px;
-        font-size: 14px;
-        cursor: pointer;
-        input {
-          width: 24px;
-          height: 24px;
-          margin: 0;
-          flex-shrink: 0;
-          accent-color: #3d8a5a;
-          cursor: pointer;
-        }
-      }
-      .forgot-link {
-        font-size: 14px;
-        color: #3d8a5a;
-        text-decoration: none;
-      }
-      .sign-in-btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 12px;
-      }
-      .sign-up-text {
-        text-align: center;
-        margin-top: 24px;
-        font-size: 14px;
-        color: #1a1918cc;
-        a {
-          color: #3d8a5a;
-          font-weight: 500;
-        }
-      }
-      .alert-danger {
-        background: rgba(220, 53, 69, 0.1);
-        color: #dc3545;
-        padding: 10px 14px;
-        border-radius: 8px;
-        font-size: 14px;
-        margin-bottom: 16px;
-      }
-      .mobile-only {
-        display: none;
-      }
-      @media (max-width: 768px) {
-        .login-page {
-          flex-direction: column;
-        }
-        .login-header {
-          display: none;
-        }
-        .login-form-panel {
-          padding: 24px;
-          padding-bottom: 80px;
-        }
-        .mobile-only {
-          display: block;
-        }
-      }
-    `,
-  ],
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
@@ -290,6 +29,14 @@ export class LoginComponent {
 
   get f() {
     return this.loginForm.controls;
+  }
+
+  get usernameInvalid(): boolean {
+    return this.submitted && !!this.f['username'].errors;
+  }
+
+  get passwordInvalid(): boolean {
+    return this.submitted && !!this.f['password'].errors;
   }
 
   onSubmit(): void {

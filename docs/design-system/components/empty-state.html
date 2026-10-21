@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Empty state — Coop design system</title>
-<meta name="description" content="A centred icon and one sentence that replaces a list with nothing to show.">
+<meta name="description" content="What Coop admin lists show when they have nothing in them: first use, no results, nothing selected and error, with both themes and accessibility.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,157 +31,303 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Feedback</p>
       <h1>Empty state</h1>
-      <p class="ds-lead">The empty state tells people a list has nothing in it: an optional icon and one sentence, nothing more.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Static</span><span class="ds-pill">No action</span></div>
+      <p class="ds-lead">What a list shows when there is nothing in it: a round icon, a short heading, one plain sentence, and the one thing to do next. Nobody should be left wondering whether the page is broken.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Composition</span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
       </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-      <p>An empty state replaces a list or section that has nothing to show: no requests, no documents, no messages, and the no-results outcome of a search or filter. It is an icon above one sentence.</p>
-      <ul><li>It fills the area where the list would have been.</li><li>There is no title and no action button in the mocks, so neither is part of the component.</li><li>Empty (nothing exists) and no-results (nothing matches) use the same component with different words.</li></ul>
+      <p>Use an empty state in place of a list, table or panel that has nothing to show: the Assets library before the first upload, a Users search with no match, the Messages panel before a conversation is chosen. It always says why it is empty and, where there is one, offers the way forward.</p>
+      <ul>
+        <li><b>First use</b> (<code>.empty</code>): nothing has been added yet, and that is fine. Accent icon and the main action ("Upload a file", "New document").</li>
+        <li><b>No results</b> (<code>.empty</code>): a search or filter matched nothing. Repeat what was searched and offer Clear search.</li>
+        <li><b>Nothing selected</b> (<code>.empty</code>, compact): a panel waiting for a choice, such as the chat panel in Messages.</li>
+        <li><b>Error</b> (<code>.empty.empty--error</code>): a region that did not load. Danger icon and Try again. A short banner <a href="alert.html">alert</a> above the list also works; the admin uses one on Board, Pages and Website.</li>
+      </ul>
+      <p>Whole-page problems (page not found, no access, server error, offline) are an <a href="error-page.html">error page</a>. A failed action, as opposed to a failed load, is an <a href="alert.html">alert</a> or a <a href="toast.html">toast</a>.</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
-        <figure class="ds-anatomy__figure" style="display: block;"><div class="empty-state"><span class="material-icons" aria-hidden="true">inbox</span><p>No documents found</p></div><span class="ds-callout" style="left: 52%; top: 8%;" aria-hidden="true">1</span><span class="ds-callout" style="left: 70%; top: 62%;" aria-hidden="true">2</span></figure>
+        <figure class="ds-anatomy__figure">
+          <div class="card" style="width: 100%;"><div class="empty" style="padding: var(--space-4);">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8"/><path d="M12 12v8M9 15l3-3 3 3"/></svg></div>
+            <h3 class="empty__title">No files in the library yet</h3>
+            <p class="empty__text">Upload photos and PDFs here once, then use them on the website and in documents.</p>
+            <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/dialogs/admin-asset-upload/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M5 21h14"/></svg>Upload a file</a></div>
+          </div></div>
+          <span class="ds-callout" style="left: 60%; top: 8%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 86%; top: 36%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 92%; top: 56%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 76%; top: 84%;" aria-hidden="true">4</span>
+        </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>Icon (optional)</b><small>3rem Material icon, centred, <code>aria-hidden</code>. Some mocks omit it.</small></div></li>
-          <li><div><b>Message</b><small>One sentence in <code>--text-body</code>, <code>--color-fg-muted</code>, centred.</small></div></li>
+          <li><div><b>Icon</b><small><code>.empty__icon</code>: 64px circle in <code>--color-accent-subtle</code> (<code>--color-danger-bg</code> for errors) around a 24px stroke icon, <code>aria-hidden</code>.</small></div></li>
+          <li><div><b>Heading</b><small><code>.empty__title</code>: a real heading (an <code>&lt;h2&gt;</code> under the page <code>&lt;h1&gt;</code>) in the h3 style; says what is, or is not, here.</small></div></li>
+          <li><div><b>Text</b><small><code>.empty__text</code>: one or two sentences, muted, 36 characters wide at most.</small></div></li>
+          <li><div><b>Actions</b><small><code>.empty__actions</code>: one primary action, optionally one secondary. Omit when there is nothing to do.</small></div></li>
         </ol>
       </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <p>One variant, with or without the icon. The mocks use an icon in the full-page lists and plain text inside cards (for example "No recent requests" on the dashboard).</p>
+      <p>The layout stays the same; the icon, words and action change with the reason the list is empty.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas"><div class="empty-state" style="flex: 1 1 100%;"><span class="material-icons" aria-hidden="true">inbox</span><p>No documents found</p></div><div class="empty-state" style="flex: 1 1 100%;"><p>No recent requests</p></div></div>
-        <div class="ds-example__caption"><span>With icon (list pages) and without (inside a card).</span></div>
-        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="empty-state"&gt;
-  &lt;span class="material-icons" aria-hidden="true"&gt;inbox&lt;/span&gt;
-  &lt;p&gt;No documents found&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;div class="empty-state"&gt;&lt;p&gt;No recent requests&lt;/p&gt;&lt;/div&gt;</code></pre></details>
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="card"><div class="empty">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
+            <h3 class="empty__title">No documents yet</h3>
+            <p class="empty__text">Add the bylaws, meeting notes and notices that members should be able to read.</p>
+            <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/dialogs/admin-document-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New document</a></div>
+          </div></div>
+          <div class="card"><div class="empty">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div>
+            <h3 class="empty__title">No users match “tavi.m”</h3>
+            <p class="empty__text">Check the spelling, or clear the search to see everyone.</p>
+            <div class="empty__actions"><button class="btn" type="button">Clear search</button></div>
+          </div></div>
+          <div class="card"><div class="empty" style="padding: var(--space-6) var(--space-4);">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></div>
+            <h3 class="empty__title">Choose a conversation</h3>
+            <p class="empty__text">Pick one from the list to read it, or start a new one.</p>
+            <div class="empty__actions"><a class="btn" href="../../mocks/dialogs/admin-new-conversation/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New conversation</a></div>
+          </div></div>
+          <div class="card"><div class="empty empty--error">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div>
+            <h3 class="empty__title">The maintenance requests didn't load</h3>
+            <p class="empty__text">Nothing has been lost. Check your connection and try again.</p>
+            <div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div>
+          </div></div>
+        </div>
+        <div class="ds-example__caption"><span>First use (Documents), no results (Users search), nothing selected (Messages, compact), error (Maintenance).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card"&gt;
+  &lt;div class="empty"&gt;
+    &lt;div class="empty__icon"&gt;&lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/div&gt;
+    &lt;h2 class="empty__title"&gt;No users match “tavi.m”&lt;/h2&gt;
+    &lt;p class="empty__text"&gt;Check the spelling, or clear the search to see everyone.&lt;/p&gt;
+    &lt;div class="empty__actions"&gt;&lt;button class="btn" type="button"&gt;Clear search&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="The mocks show a single empty-state treatment."><h2><a href="#sizes">Sizes</a></h2>
-      <p>One size. Padding is 48px by 20px; the mocks vary it from 24px to 48px by screen, resolved to the single value.</p>
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Full (48px above and below, 24px at the sides) replaces a whole list or table. Compact (24px and 16px) sits in a panel or a dashboard card, and may drop the icon and the action when space is short.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="card"><div class="empty">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg></div>
+            <h3 class="empty__title">No maintenance requests</h3>
+            <p class="empty__text">When a member reports a problem, such as a kitchen tap leak, it appears here.</p>
+          </div></div>
+          <div class="card"><h3 class="card__title">Recent requests</h3><div class="empty" style="padding: var(--space-6) var(--space-4);"><p class="empty__text" style="margin: 0;">No recent requests.</p></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Full (Maintenance list) and compact (Dashboard card). Compact padding is set with tokens inline; there is no modifier class yet.</span></div>
+      </div>
     </section>
 
-    <section class="ds-section" id="states" data-na="A static message with no interactive states."><h2><a href="#states">States</a></h2>
-      <p>An empty state is static: it is shown while the collection is empty and removed once content arrives. It has no interactive states.</p>
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The block itself is static; its buttons and links carry the interactive states (see <a href="button.html">button</a>). What changes is which variant shows and what its action is doing.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Default</th><td><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 9M22 21a7 7 0 0 0-4-6.3"/></svg></div><h3 class="empty__title">No users yet</h3><p class="empty__text">Add the staff and board members who help run the co-op.</p><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/dialogs/admin-user-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add user</a></div></div></td></tr>
+          <tr><th scope="row">Action focus</th><td><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><h3 class="empty__title">No files match “minutes”</h3><div class="empty__actions"><button class="btn" type="button" data-state="focus">Clear search</button></div></div></td></tr>
+          <tr><th scope="row">Error</th><td><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">The documents didn't load</h3><p class="empty__text">Nothing has been lost. Check your connection and try again.</p><div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div></div></td></tr>
+          <tr><th scope="row">Retrying</th><td><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">The documents didn't load</h3><div class="empty__actions"><button class="btn btn--primary" type="button" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack"><div class="card"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8"/><path d="M12 12v8M9 15l3-3 3 3"/></svg></div><h3 class="empty__title">No files in the library yet</h3><p class="empty__text">Upload photos and PDFs here once.</p></div></div><div class="card"><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">The documents didn't load</h3></div></div></div></div>
+        <div data-theme="dark"><div class="stack"><div class="card"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8"/><path d="M12 12v8M9 15l3-3 3 3"/></svg></div><h3 class="empty__title">No files in the library yet</h3><p class="empty__text">Upload photos and PDFs here once.</p></div></div><div class="card"><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">The documents didn't load</h3></div></div></div></div>
+      </div>
+      <ul>
+        <li><b>Retrying</b>: Try again becomes a busy button (<code>aria-busy="true"</code>); on success the real list replaces the whole block.</li>
+        <li><b>No results</b> clears itself: when the search is cleared, the list comes back.</li>
+        <li>Examples here use <code>&lt;h3&gt;</code> because this page already has its headings; in the admin the heading is an <code>&lt;h2&gt;</code> under the page's <code>&lt;h1&gt;</code>.</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="responsive" data-na="The mocks have no breakpoint rules for the empty state."><h2><a href="#responsive">Responsive behaviour</a></h2>
-      <p>No breakpoint rules apply; the block is centred and its text wraps. In grid lists (documents, assets) the mocks stretch it across every column; the layout, not the component, owns that.</p>
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Centred at every width, inside the card or panel the list would fill.</li>
+        <li>Text stops at 36 characters wide so it never runs the width of a desktop, and wraps freely at 320px and at 400% zoom.</li>
+        <li>Two actions sit side by side and wrap, centred, when they do not fit.</li>
+        <li>In Messages on phones, the list and the chat panel show one at a time, so the "Choose a conversation" state only appears on wider screens.</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p>The product ships one light appearance; there are no theme variants. It reads the muted foreground only.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The icon reads <code>--color-accent-subtle</code> with <code>--color-fg-accent</code>; the error icon <code>--color-danger-bg</code> with <code>--color-danger-fg</code>. Heading and text read <code>--color-fg-default</code> and <code>--color-fg-muted</code> on whatever surface holds them (a card or the page). All are theme tokens; nothing in the component changes between themes.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <h3>Role and pattern</h3>
-      <p>Plain text in a block; no role, no widget pattern. The icon is <code>aria-hidden</code>. The mocks do not announce the change from loading to empty; the design system requires the container that holds the list to be a polite live region (<code>aria-live="polite"</code>) when results change by search or filter.</p>
+      <p>Plain content: a heading, a paragraph and native buttons or links. No ARIA widget pattern. When a search returns nothing, the result count ("0 users") is announced through the page's <code>role="status"</code> region; the empty block itself is not a live region.</p>
       <h3>Keyboard</h3>
-      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td>Not applicable</td><td>Not focusable and no controls.</td></tr></tbody></table></div>
-      <h3>Focus</h3><p>None.</p>
-      <h3>Labelling</h3><p>The sentence is the accessible content. Name what is empty ("No documents found"), not just "Empty".</p>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves to the primary action, then the secondary.</td></tr>
+        <tr><td><kbd>Enter</kbd> (and <kbd>Space</kbd> on buttons)</td><td>Runs the action.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus does not jump to the empty state. After Clear search, focus returns to the search field. After Try again fails, focus stays on the button.</p>
+      <h3>Labelling</h3>
+      <p>The icon is decorative. The heading is a real heading, so it shows in the heading list. "Try again" and "Clear search" are <code>&lt;button&gt;</code>s (they act); "Upload a file" and "New conversation" may be links when they open a dialog route, or buttons when they open a dialog in place.</p>
       <h3>Contrast</h3>
       <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
-        <div class="ds-pair"><span>Message on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div><div class="ds-pair"><span>Message on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Heading on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Icon</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error icon</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
       </div>
-      <h3>Motion</h3><p>None.</p>
-      <h3>Touch</h3><p>Not a target.</p>
+      <h3>Motion</h3>
+      <p>None.</p>
+      <h3>Touch</h3>
+      <p>Actions are 40px buttons with 12px between them.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
-      <ul><li>Say what is missing in plain words: "No documents found", "No recent requests".</li><li>For a search or filter with no matches, name the cause in the sentence rather than repeating the empty text.</li><li>One sentence, no calls to action (the mocks have none).</li></ul>
+      <ul>
+        <li>Heading says what is here in plain words: "No documents yet", "No maintenance requests", "Choose a conversation". Avoid "found" and "data".</li>
+        <li>For no results, repeat the search: "No users match “tavi.m”". Never reuse the first-use message ("No assets uploaded yet") for a search with no match.</li>
+        <li>Text says what the list is for or what to try: "When a member reports a problem, such as a kitchen tap leak, it appears here."</li>
+        <li>The action uses the same words as the page's main button, in sentence case: "Add user", "New document", "Upload a file", "New conversation".</li>
+        <li>Errors never blame the person using the admin: "Nothing has been lost. Check your connection and try again."</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
       <div class="ds-dodont">
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="empty-state" style="flex: 1 1 100%;"><span class="material-icons" aria-hidden="true">inbox</span><p>No documents found</p></div></div><figcaption>Icon and one specific sentence.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="empty-state" style="flex: 1 1 100%;"><span class="material-icons" role="img" aria-label="inbox">inbox</span><p>Nothing</p></div></div><figcaption>A named decorative icon and a vague message. Keep the icon <code>aria-hidden</code> and say what is empty.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas"><div class="empty-state" style="flex: 1 1 100%;"><p>No recent requests</p></div></div><figcaption>Inside a card, text alone is enough.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><div class="empty-state" style="flex: 1 1 100%; padding: var(--space-2);"><span class="material-icons" aria-hidden="true">inbox</span><p>No messages</p></div></div><figcaption>Overriding padding per screen (24px, 40px and 48px in the mocks) makes empty states uneven. Use the component padding.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card" style="width: 100%;"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><h3 class="empty__title">No files match “minutes”</h3><div class="empty__actions"><button class="btn" type="button">Clear search</button></div></div></div></div><figcaption>Say what was searched and how to get back.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card" style="width: 100%;"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8"/><path d="M12 12v8M9 15l3-3 3 3"/></svg></div><p class="empty__text">No assets uploaded yet</p></div></div></div><figcaption>The first-use message after a search, as on Assets: it suggests the library is empty when it is not.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="card" style="width: 100%;"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 9M22 21a7 7 0 0 0-4-6.3"/></svg></div><h3 class="empty__title">No users yet</h3><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/dialogs/admin-user-create/default.html">Add user</a></div></div></div></div><figcaption>A heading and one clear next step.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="table-wrap" style="width: 100%;"><table class="table"><caption class="visually-hidden">Users</caption><thead><tr><th scope="col">Username</th><th scope="col">Role</th></tr></thead><tbody><tr><td colspan="2">No users found</td></tr></tbody></table></div></div><figcaption>A dead end in a table cell, as on Users: no heading, no reason and nothing to do.</figcaption></figure>
       </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
       <div class="ds-table-wrap"><table class="ds-table">
-        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
         <tbody>
-          <tr><td data-token="--color-fg-muted">Text colour</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
-          <tr><td data-token="--space-12">Padding</td><td><code>--space-12</code> <code>--space-5</code></td><td><span data-token="--space-12"></span> <span data-token="--space-5"></span> </td></tr>
-          <tr><td data-token="--text-body">Message type</td><td><code>--text-body</code></td><td><span data-token="--text-body"></span> </td></tr>
-          <tr><td data-token="--space-2">Icon gap</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span> </td></tr>
+          <tr><td>Icon background</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Icon</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Error icon background</td><td><code>--color-danger-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td></tr>
+          <tr><td>Error icon</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Heading</td><td><code>--color-fg-default</code>, <code>--text-h3</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Icon circle</td><td><code>--size-avatar-xl</code></td><td colspan="2"><span data-token="--size-avatar-xl"></span></td></tr>
+          <tr><td>Padding, full / compact</td><td><code>--space-12</code> <code>--space-6</code> / <code>--space-6</code> <code>--space-4</code></td><td colspan="2"><span data-token="--space-12"></span> <span data-token="--space-6"></span> / <span data-token="--space-6"></span> <span data-token="--space-4"></span></td></tr>
+          <tr><td>Gap</td><td><code>--space-3</code></td><td colspan="2"><span data-token="--space-3"></span></td></tr>
         </tbody>
       </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-      <pre><code>&lt;div class="empty-state"&gt;
-  &lt;span class="material-icons" aria-hidden="true"&gt;inbox&lt;/span&gt;
-  &lt;p&gt;No documents found&lt;/p&gt;
+      <pre><code>&lt;div class="card"&gt;
+  &lt;div class="empty"&gt;
+    &lt;div class="empty__icon"&gt;&lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/div&gt;
+    &lt;h2 class="empty__title"&gt;No files in the library yet&lt;/h2&gt;
+    &lt;p class="empty__text"&gt;Upload photos and PDFs here once, then use them on the website and in documents.&lt;/p&gt;
+    &lt;div class="empty__actions"&gt;&lt;button class="btn btn--primary" type="button"&gt;…Upload a file&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody><tr><td><code>.empty-state</code></td><td>Centred muted block with padding.</td></tr><tr><td><code>.empty-state .material-icons</code></td><td>3rem icon above the text.</td></tr><tr><td><code>.empty-state p</code></td><td>The message.</td></tr></tbody></table></div>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.empty</code></td><td>Centred column, 48 × 24px padding.</td></tr>
+        <tr><td><code>.empty--error</code></td><td>Danger-tinted icon.</td></tr>
+        <tr><td><code>.empty__icon</code></td><td>64px circle around an <code>.icon--lg</code>.</td></tr>
+        <tr><td><code>.empty__title</code></td><td>h3 style; use the right heading level.</td></tr>
+        <tr><td><code>.empty__text</code></td><td>Muted, 36ch max.</td></tr>
+        <tr><td><code>.empty__actions</code></td><td>Centred, wrapping button row.</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-      <p>Extracted from these mocks:</p>
+      <p>Extracted from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/admin-documents/empty.html">pages/admin-documents/empty</a> (icon and message)</li>
-        <li><a href="../../mocks/pages/admin-documents/no-results.html">pages/admin-documents/no-results</a> (no results)</li>
-        <li><a href="../../mocks/pages/admin-dashboard/empty.html">pages/admin-dashboard/empty</a> (plain text in a card)</li>
-        <li><a href="../../mocks/pages/public-maintenance/empty.html">pages/public-maintenance/empty</a> (public list)</li>
-        <li><a href="../../mocks/pages/admin-messaging/empty.html">pages/admin-messaging/empty</a> (messages)</li>
+        <li><a href="../../mocks/pages/admin-users/empty.html">pages/admin-users/empty</a>, <a href="../../mocks/pages/admin-users/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-documents/empty.html">pages/admin-documents/empty</a>, <a href="../../mocks/pages/admin-documents/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-maintenance/empty.html">pages/admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-assets/empty.html">pages/admin-assets/empty</a>, <a href="../../mocks/pages/admin-assets/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-messaging/empty.html">pages/admin-messaging/empty</a>, <a href="../../mocks/pages/admin-messaging/no-results.html">no-results</a>, <a href="../../mocks/dialogs/admin-new-conversation/default.html">dialogs/admin-new-conversation/default</a></li>
+        <li><a href="../../mocks/pages/admin-board/empty.html">pages/admin-board/empty</a>, <a href="../../mocks/pages/admin-pages/empty.html">pages/admin-pages/empty</a>, <a href="../../mocks/pages/admin-dashboard/empty.html">pages/admin-dashboard/empty</a> (for comparison)</li>
       </ul>
-      <h3>Drift</h3>
+      <p>Adopted from the Shelfie design system and rewritten for the Coop admin.</p>
+      <h3>Drift from the implemented admin</h3>
       <ul>
-        <li>Mocks: padding differs by screen (24px, 40px, 48px by 20px) and the icon is 48px with a bottom margin of 8px or an SVG with a 12px margin. Resolved to 48px by 20px and a 3rem Material icon with 8px gap.</li>
-        <li>Mocks: text colour is a translucent black (about 80% alpha); resolved to <code>--color-fg-muted</code>.</li>
-        <li>Mocks: the dashboard "No recent requests" is a bare div with no paragraph; the system wraps the message in a paragraph.</li>
+        <li><b>Users</b>: "No users found" is a <code>.empty-row</code> cell spanning the table, under "Showing 0-0 of 0 users", with no heading and no action. The system replaces the table with an <code>.empty</code> block.</li>
+        <li><b>Documents, Maintenance, Assets</b>: <code>.empty-state.card</code> holds a 48px Material Icons glyph and one muted paragraph ("No documents found", "No maintenance requests found", "No assets uploaded yet"), with no heading and no action. The system adds an <code>&lt;h2&gt;</code>, a reason and the page's main action.</li>
+        <li><b>No results</b>: on Users, Documents, Maintenance, Assets and Messages the no-results capture is identical to the empty one; the search term is not repeated and there is no Clear search. Assets even says "No assets uploaded yet" after a search. The system has a separate no-results variant.</li>
+        <li><b>Messages</b>: two empty states show at once ("No conversations yet" and "Select a conversation to start chatting"), and the button that opens New Conversation is an icon-only "add" with no accessible name. The system gives the chat panel a compact "Choose a conversation" state with a named New conversation action.</li>
+        <li><b>Look</b>: implemented empty states use 40px or 48px × 20px padding, muted text in the green-and-Outfit palette, and icon-font glyphs with no circle. The system uses the 64px accent circle, stroke SVG icons and token spacing.</li>
+        <li><b>Already aligned</b>: the hand-written Board and Pages empty states (<code>.board-empty</code>, <code>.pages-empty</code>) already follow the formula: icon, <code>&lt;h2&gt;</code>, sentence, primary action.</li>
+        <li><b>CSS gap</b>: <code>components.css</code> has no compact modifier, so compact padding is set inline with tokens.</li>
       </ul>
     </section>
-
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

@@ -97,7 +97,7 @@ export class WebsitePage {
   /** The inline error under a field in the open editor. */
   fieldError(label: string, within?: string): Locator {
     return this.field(label, within)
-      .locator('xpath=ancestor::div[contains(@class,"form-group")][1]')
+      .locator('xpath=ancestor::div[contains(concat(" ", @class, " ")," field ")][1]')
       .getByTestId('field-error');
   }
 

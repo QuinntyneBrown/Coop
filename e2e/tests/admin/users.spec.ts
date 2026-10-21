@@ -158,6 +158,11 @@ test.describe('Users Management', () => {
       await expect(usersPage.dialogTitle).toContainText(/add|new|create/i);
     });
 
+    test('should open the add user form as a named modal dialog', async () => {
+      await usersPage.addUserButton.click();
+      await usersPage.expectDialogNamed('Add New User');
+    });
+
     test('should close dialog when clicking cancel', async () => {
       await usersPage.addUserButton.click();
       await expect(usersPage.userDialog).toBeVisible();
@@ -200,6 +205,16 @@ test.describe('Users Management', () => {
     test('should show confirmation dialog when clicking delete', async () => {
       await usersPage.clickDeleteUser(0);
       await expect(usersPage.deleteDialog).toBeVisible();
+    });
+
+    test('should ask for confirmation in an alert dialog', async () => {
+      await usersPage.clickDeleteUser(0);
+      await usersPage.expectDeleteAlertDialogNamed('Confirm Delete');
+    });
+
+    test('should name the row in each icon-only action button', async () => {
+      await expect(usersPage.rowAction('Edit', 'admin')).toBeVisible();
+      await expect(usersPage.rowAction('Delete', 'admin')).toBeVisible();
     });
 
     test('should name the user in the delete confirmation', async () => {

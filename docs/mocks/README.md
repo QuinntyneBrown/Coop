@@ -6,6 +6,24 @@ in the bottom-right corner to browse related states, dialogs, and notifications.
 Use `?chrome=0` to hide review controls. Product navigation links work locally;
 forms never send requests or save data.
 
+## Admin mocks follow the design system
+
+Since 20 October 2026 the **admin** mocks (`pages/admin-*`, `dialogs/admin-*`,
+`notifications/admin-*`) are no longer captures. They are rebuilt on the Coop
+admin design system in [docs/design-system](../design-system/README.md) and
+load its `tokens/tokens.css` and `assets/components.css`, with no captured
+styles. They keep the same screens, states, fictional data and review links,
+but show the **target design**: the design system's components, light and
+dark themes (`?theme=light|dark`, otherwise the device setting), and its
+documented fixes (labelled fields, named icon buttons, dialog roles, the phone
+tab bar with More). The running Angular admin does not match them until it
+adopts the system; the design-system README's drift log lists the differences.
+
+Do **not** re-run `scripts/capture.py` for admin screens: it would overwrite
+these mocks with captures of the current app. The rest of this README
+describes the captured **public** mocks, and the admin captures as they were
+before this change.
+
 ## Cast and catalog
 
 All sample records are fictional. The reference date is **13 October 2026**.
@@ -62,9 +80,9 @@ reported during verification. The review panel is outside the product UI.
 
 ## Known implementation gaps and assumptions
 
-- **Theme:** no dark palette or dark-mode switch is implemented. `?theme=dark`
-  intentionally retains the same light product appearance. Screenshot checks
-  cover the implemented light appearance at phone, tablet, and desktop sizes.
+- **Theme:** the public app has no dark palette or dark-mode switch; public
+  mocks stay light. Admin mocks follow the design system's light and dark
+  themes (see above).
 - **Authentication:** successful login goes to the dashboard; successful
   registration goes to onboarding (admin first attempts login). They have no
   separate success screen. Both forgot-password submit handlers are stubs.
@@ -132,11 +150,11 @@ navigation (`L2-REQ-082`) and renders at `/pages/{slug}` (`L2-REQ-083`,
 way as the landing page: `pages/public-page/` (default, loading, error,
 not-found) extends `assets/own-site.css` with the banner and reading column;
 `pages/admin-pages/`, `dialogs/admin-page-editor/`, `dialogs/admin-page-remove/`
-and `notifications/admin-page-saved/` reuse the captured admin shell and
-`assets/admin-pages.css`. The landing navigation shows the sample page "How
-to apply" after the home page sections, and every captured admin sidebar
-carries the "Pages" link. The dialogs are native `<dialog>` elements, so focus
-is trapped, Escape closes and the page behind is inert; the editor shows
+and `notifications/admin-page-saved/` are now built on the design system
+(see above). The landing navigation shows the sample page "How
+to apply" after the home page sections, and every admin sidebar
+carries the "Pages" link. The dialogs are design-system dialogs
+(`role="dialog"`, `aria-modal`); the editor shows
 inline errors with a summary, a busy save, and a failed save that keeps the
 entered values.
 
@@ -144,10 +162,9 @@ entered values.
 admin "Board" screen (`L2-REQ-085`): `pages/admin-board/` (default, loading,
 empty, error), `dialogs/admin-director-editor/` (default, invalid, busy,
 failed, edit), `dialogs/admin-director-remove/` and
-`notifications/admin-board-saved/` are hand-written on the same captured admin
-shell with `assets/admin-board.css`. Each director shows the portrait or
+`notifications/admin-board-saved/` are built on the design system (see above). Each director shows the portrait or
 initials, name and role with Move up, Move down, Edit and Remove, in the order
-the home page shows them, and every captured admin sidebar carries the "Board"
+the home page shows them, and every admin sidebar carries the "Board"
 link. The sample directors are the fictional board of the landing proposal.
 
 **Website content.** The office edits every text, link and photo of the public
@@ -155,15 +172,14 @@ header, footer and home page from the admin "Website" screen (`L2-REQ-095` to
 `L2-REQ-098`): `pages/admin-website/` (default, loading, error),
 `dialogs/admin-content-editor/` (default, list, invalid, busy, failed),
 `dialogs/admin-photo-picker/` (default, empty, uploading, upload-failed) and
-`notifications/admin-website-saved/` are hand-written on the same captured admin
-shell with `assets/admin-website.css`. The screen groups the blocks under "On
+`notifications/admin-website-saved/` are built on the design system (see above). The screen groups the blocks under "On
 every page" and "Home page" in home page order, each with a short summary and
 Edit; the editor shows links as a label and an address, photos with a "Choose
 photo" button and a required photo description, and lists with Move up, Move
 down, Remove and Add; the photo picker is a second dialog stacked over the
 editor. The website page editor shows its hero photo as a thumbnail with
 "Choose photo" (the same photo picker) and "Remove photo", followed by a
-"Photo description" field (`L2-REQ-097`), and every captured admin sidebar carries the
+"Photo description" field (`L2-REQ-097`), and every admin sidebar carries the
 "Website" link. The sample values are the public site's built-in default
 content, which the seed publishes (`L2-REQ-100`).
 

@@ -1,289 +1,45 @@
 import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
-
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
+import { IconComponent } from '../shared/components/icon.component';
+import { SidebarLink } from './sidebar-link';
 
 @Component({
-  selector: 'app-sidebar',
+  // eslint-disable-next-line @angular-eslint/component-selector -- the design system styles .app-shell > .sidebar, so the host must be the aside
+  selector: 'aside[appSidebar]',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
-  template: `
-    <aside class="sidebar" data-testid="sidebar">
-      <div class="sidebar-header">
-        <div class="logo">
-          <svg
-            class="logo-icon"
-            data-testid="sidebar-logo"
-            width="28"
-            height="28"
-            viewBox="0 0 48 48"
-            aria-hidden="true"
-          >
-            <rect width="48" height="48" rx="14" fill="#B4502A" />
-            <circle cx="17" cy="27" r="8" fill="#F6A98A" />
-            <circle cx="31" cy="27" r="8" fill="#F0B35A" />
-            <circle cx="24" cy="17" r="8" fill="#FBF7F0" />
-          </svg>
-          <span class="logo-text" data-testid="sidebar-app-title">OWN Housing Co-op</span>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-dashboard"
-          [attr.data-active]="isActive('/dashboard')"
-        >
-          <span class="material-icons">dashboard</span>
-          <span>Dashboard</span>
-        </a>
-        <a
-          routerLink="/maintenance"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-maintenance"
-          [attr.data-active]="isActive('/maintenance')"
-        >
-          <span class="material-icons">build</span>
-          <span>Maintenance</span>
-        </a>
-        <a
-          routerLink="/documents"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-documents"
-          [attr.data-active]="isActive('/documents')"
-        >
-          <span class="material-icons">description</span>
-          <span>Documents</span>
-        </a>
-        <a
-          routerLink="/pages"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-pages"
-          [attr.data-active]="isActive('/pages')"
-        >
-          <span class="material-icons">web</span>
-          <span>Pages</span>
-        </a>
-        <a
-          routerLink="/board"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-board"
-          [attr.data-active]="isActive('/board')"
-        >
-          <span class="material-icons">groups</span>
-          <span>Board</span>
-        </a>
-        <a
-          routerLink="/website"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-website"
-          [attr.data-active]="isActive('/website')"
-        >
-          <span class="material-icons">public</span>
-          <span>Website</span>
-        </a>
-        <a
-          routerLink="/messages"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-messages"
-          [attr.data-active]="isActive('/messages')"
-        >
-          <span class="material-icons">chat</span>
-          <span>Messages</span>
-        </a>
-        <a
-          routerLink="/users"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-users"
-          [attr.data-active]="isActive('/users')"
-        >
-          <span class="material-icons">people</span>
-          <span>Users</span>
-        </a>
-        <a
-          routerLink="/roles"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-roles"
-          [attr.data-active]="isActive('/roles')"
-        >
-          <span class="material-icons">admin_panel_settings</span>
-          <span>Roles & Privileges</span>
-        </a>
-        <a
-          routerLink="/profiles"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-profiles"
-          [attr.data-active]="isActive('/profiles')"
-        >
-          <span class="material-icons">badge</span>
-          <span>Profiles</span>
-        </a>
-        <a
-          routerLink="/assets"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-assets"
-          [attr.data-active]="isActive('/assets')"
-        >
-          <span class="material-icons">perm_media</span>
-          <span>Assets</span>
-        </a>
-        <a
-          routerLink="/invitations"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-invitations"
-          [attr.data-active]="isActive('/invitations')"
-        >
-          <span class="material-icons">mail</span>
-          <span>Invitations</span>
-        </a>
-        <a
-          routerLink="/settings"
-          routerLinkActive="active"
-          class="nav-item"
-          data-testid="sidebar-nav-settings"
-          [attr.data-active]="isActive('/settings')"
-        >
-          <span class="material-icons">settings</span>
-          <span>Settings</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="user-info" data-testid="sidebar-user-info">
-          <div class="user-avatar" data-testid="sidebar-user-avatar">{{ userInitial }}</div>
-          <div class="user-details">
-            <span class="user-name" data-testid="sidebar-user-name">{{ username }}</span>
-            <span class="user-role" data-testid="sidebar-user-role">{{ role() }}</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-  `,
+  imports: [RouterLink, RouterLinkActive, IconComponent],
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styles: [
-    `
-      .sidebar {
-        width: 260px;
-        height: 100vh;
-        background: #fff;
-        border-right: 1px solid #e5e4e1;
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 100;
-      }
-      .sidebar-header {
-        padding: 20px;
-        border-bottom: 1px solid #e5e4e1;
-      }
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .logo-icon {
-        flex: none;
-      }
-      .logo-text {
-        font-size: 18px;
-        font-weight: 600;
-        color: #1a1918;
-      }
-      .sidebar-nav {
-        flex: 1;
-        padding: 12px;
-        overflow-y: auto;
-      }
-      .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        color: #1a1918cc;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 2px;
-        transition: all 0.2s ease;
-      }
-      .nav-item:hover {
-        background: #f5f4f1;
-        text-decoration: none;
-      }
-      .nav-item.active {
-        background: #3d8a5a;
-        color: #fff;
-      }
-      .nav-item .material-icons {
-        font-size: 20px;
-      }
-      .sidebar-footer {
-        padding: 16px 20px;
-        border-top: 1px solid #e5e4e1;
-      }
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .user-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: #3d8a5a;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .user-details {
-        display: flex;
-        flex-direction: column;
-      }
-      .user-name {
-        font-size: 14px;
-        font-weight: 500;
-      }
-      .user-role {
-        font-size: 14px;
-        color: #1a1918cc;
-      }
-      @media (max-width: 768px) {
-        .sidebar {
-          position: static;
-          width: auto;
-          height: auto;
-          border-right: none;
-          border-bottom: 1px solid #e5e4e1;
-        }
-      }
-    `,
-  ],
+  host: {
+    class: 'sidebar',
+    'aria-label': 'Admin',
+    'data-testid': 'sidebar',
+  },
 })
 export class SidebarComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 
   readonly role = signal('');
+
+  readonly links: SidebarLink[] = [
+    { path: '/dashboard', label: 'Dashboard', icon: 'dashboard', testId: 'dashboard' },
+    { path: '/maintenance', label: 'Maintenance', icon: 'maintenance', testId: 'maintenance' },
+    { path: '/documents', label: 'Documents', icon: 'documents', testId: 'documents' },
+    { path: '/pages', label: 'Pages', icon: 'pages', testId: 'pages' },
+    { path: '/board', label: 'Board', icon: 'board', testId: 'board' },
+    { path: '/website', label: 'Website', icon: 'website', testId: 'website' },
+    { path: '/messages', label: 'Messages', icon: 'messages', testId: 'messages' },
+    { path: '/users', label: 'Users', icon: 'users', testId: 'users' },
+    { path: '/roles', label: 'Roles & Privileges', icon: 'roles', testId: 'roles' },
+    { path: '/profiles', label: 'Profiles', icon: 'profiles', testId: 'profiles' },
+    { path: '/assets', label: 'Assets', icon: 'assets', testId: 'assets' },
+    { path: '/invitations', label: 'Invitations', icon: 'invitations', testId: 'invitations' },
+    { path: '/settings', label: 'Settings', icon: 'settings', testId: 'settings' },
+  ];
 
   ngOnInit(): void {
     this.authService

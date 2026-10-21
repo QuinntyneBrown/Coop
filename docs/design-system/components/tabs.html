@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tabs — Coop design system</title>
-<meta name="description" content="Segmented buttons that switch between views of one record.">
+<meta name="description" content="Tabs switch between views inside one admin page: the Theme, Content and Account parts of Settings, a maintenance request's Details and Comments, and pill tabs that filter maintenance requests and documents. APG tabs with manual activation.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,188 +31,389 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Navigation</p>
       <h1>Tabs</h1>
-      <p class="ds-lead">A row of segmented buttons that switches between sibling views of one record; the selected tab is filled with the accent colour.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">WAI-ARIA Tabs</span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+      <p class="ds-lead">Tabs show one part of a page at a time without leaving it: the Theme, Content or Account part of Settings, or a request's Details and Comments. Pill tabs do the same job for a list, showing all requests or only the new ones.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Tabs, manual activation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-<p>Tabs switch between views of one record, for example the Details and Comments views of a maintenance request. Only one is active at a time and the active tab is filled with the accent colour.</p>
-<ul>
-<li>Use tabs for two to four sibling views of the same thing. Use <a href="filter-chips.html">filter chips</a> to narrow a list and the <a href="sidebar.html">sidebar</a> or <a href="bottom-tab-bar.html">bottom tab bar</a> to move between areas.</li>
-<li>In the mocks, <code>.tab-btn</code> is a button that loads the other view as a separate page (<code>data-mock-href</code>). If a tab loads a new URL it is navigation and should be a link with <code>aria-current="page"</code>; if it swaps a panel on the same page it is a tablist. The design system specifies the tablist form below.</li>
-</ul>
+      <p>Use tabs when one page holds a few views of the same thing and people only need one at a time. Selecting a tab changes what shows below it; it does not go to another page.</p>
+      <ul>
+        <li><b>Underline tabs</b> (<code>.tabs</code>) split a page or panel into sections: Settings into Theme, Content and Account; a maintenance request into Details and Comments.</li>
+        <li><b>Pill tabs</b> (<code>.tabs--pill</code>) filter one list: maintenance requests by status (All, New, Received, Started, Completed) and documents by kind (All documents, Notices, Bylaws, Reports).</li>
+        <li>Use the <a href="sidebar.html">sidebar</a> or <a href="tab-bar.html">tab bar</a> to go to another section. Those are links; these are tabs.</li>
+        <li>Use two to five tabs. With one, there is nothing to choose; with more, people lose track, so split the page instead.</li>
+        <li>Do not use tabs for steps in order, such as onboarding; use the <a href="step-indicator.html">step indicator</a>.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
-<div class="ds-anatomy">
-<figure class="ds-anatomy__figure"><div role="tablist" aria-label="Request views" style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;">
-  <button class="tab-btn" type="button" role="tab" id="tab-details" aria-selected="true" aria-controls="panel-details">Details</button>
-  <button class="tab-btn" type="button" role="tab" id="tab-comments" aria-selected="false" aria-controls="panel-comments" tabindex="-1">Comments</button>
-</div></figure>
-<ol class="ds-anatomy__list">
-<li><div><b>Tab list</b><small>Row of tabs with <code>--space-1</code> gap and a hairline rule below (<code>.detail-tabs</code> in the mocks). <code>role="tablist"</code> with a label.</small></div></li>
-<li><div><b>Tab (<code>.tab-btn</code>)</b><small>Button, <code>--space-2</code> by <code>--space-4</code> padding, <code>--radius-sm</code> corners, <code>--text-body-sm</code> label.</small></div></li>
-<li><div><b>Selected tab</b><small>Filled <code>--color-accent</code> with <code>--color-fg-on-accent</code> text.</small></div></li>
-<li><div><b>Panel</b><small>Content for the selected tab, <code>role="tabpanel"</code>, labelled by its tab.</small></div></li>
-</ol>
-</div>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-10) var(--space-4); display: block;">
+          <div class="tabs" role="tablist" aria-label="Kitchen tap leak (anatomy)">
+            <button class="tabs__tab" type="button" role="tab" id="an-tab-details" aria-selected="true" aria-controls="an-panel">Details</button>
+            <button class="tabs__tab" type="button" role="tab" id="an-tab-comments" aria-selected="false" aria-controls="an-panel">Comments <span class="tabs__count" aria-label="1 comment">1</span></button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="an-panel" aria-labelledby="an-tab-details" tabindex="0"><p>Submitted by Mira Fern · Priority: High</p></div>
+          <span class="ds-callout" style="left: 4%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 12%; top: 50%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 34%; top: 14%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 52%; top: 14%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 4%; top: 78%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Tab list</b><small><code>.tabs</code> with <code>role="tablist"</code> and an <code>aria-label</code>; a hairline rule underneath. Scrolls sideways if the tabs do not fit.</small></div></li>
+          <li><div><b>Selected indicator</b><small>A 2px <code>--color-accent</code> bar under the selected tab, which also turns <code>--color-fg-accent</code>.</small></div></li>
+          <li><div><b>Tab</b><small><code>button.tabs__tab</code> with <code>role="tab"</code>, <code>aria-selected</code> and <code>aria-controls</code>; 44px tall, label in <code>--text-label</code>.</small></div></li>
+          <li><div><b>Count (optional)</b><small><code>.tabs__count</code>: a small number after the label, in a pill.</small></div></li>
+          <li><div><b>Panel</b><small><code>.tabs__panel</code> with <code>role="tabpanel"</code>, <code>aria-labelledby</code> and <code>tabindex="0"</code>; <code>--space-6</code> above its content.</small></div></li>
+        </ol>
+      </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-<p>One variant: segmented buttons with a filled selected tab. No underline, icon or closable tab is implemented.</p>
-<div class="ds-example">
-<div class="ds-example__canvas">
-<div role="tablist" aria-label="Request views" style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;">
-  <button class="tab-btn" type="button" role="tab" id="tab-details" aria-selected="true" aria-controls="panel-details">Details</button>
-  <button class="tab-btn" type="button" role="tab" id="tab-comments" aria-selected="false" aria-controls="panel-comments" tabindex="-1">Comments</button>
-</div>
-</div>
-<div class="ds-example__caption"><span>Details selected. The tab list sits above the panel it controls.</span></div>
-<details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div role="tablist" aria-label="Request views" class="detail-tabs"&gt;
-  &lt;button class="tab-btn" type="button" role="tab" id="tab-details" aria-selected="true" aria-controls="panel-details"&gt;Details&lt;/button&gt;
-  &lt;button class="tab-btn" type="button" role="tab" id="tab-comments" aria-selected="false" aria-controls="panel-comments" tabindex="-1"&gt;Comments&lt;/button&gt;
-&lt;/div&gt;</code></pre></details>
-</div>
+      <h3>Underline: sections of a page</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="tabs" role="tablist" aria-label="Settings">
+            <button class="tabs__tab" type="button" role="tab" id="set-tab-theme" aria-selected="true" aria-controls="set-panel-theme">Theme</button>
+            <button class="tabs__tab" type="button" role="tab" id="set-tab-content" aria-selected="false" aria-controls="set-panel-theme">Content</button>
+            <button class="tabs__tab" type="button" role="tab" id="set-tab-account" aria-selected="false" aria-controls="set-panel-theme">Account</button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="set-panel-theme" aria-labelledby="set-tab-theme" tabindex="0">
+            <div class="card"><p class="card__title">Theme customisation</p><p class="text-muted">Choose the colours for the app. The preview shows your changes before you save.</p></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Settings with Theme selected. In the product each tab controls its own panel; here the three share one so the page stays short.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="tabs" role="tablist" aria-label="Settings"&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-theme"
+          aria-selected="true" aria-controls="panel-theme"&gt;Theme&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-content"
+          aria-selected="false" aria-controls="panel-content" tabindex="-1"&gt;Content&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-account"
+          aria-selected="false" aria-controls="panel-account" tabindex="-1"&gt;Account&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="panel-theme" aria-labelledby="tab-theme" tabindex="0"&gt;…&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="panel-content" aria-labelledby="tab-content" tabindex="0" hidden&gt;…&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="panel-account" aria-labelledby="tab-account" tabindex="0" hidden&gt;…&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Underline with counts: inside a card</h3>
+      <p>On a maintenance request, Details and Comments sit at the top of the request's card. A count tells staff there is something to read before they switch.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="card">
+            <div class="tabs" role="tablist" aria-label="Kitchen tap leak">
+              <button class="tabs__tab" type="button" role="tab" id="req-tab-details" aria-selected="false" aria-controls="req-panel">Details</button>
+              <button class="tabs__tab" type="button" role="tab" id="req-tab-comments" aria-selected="true" aria-controls="req-panel">Comments <span class="tabs__count" aria-label="1 comment">1</span></button>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="req-panel" aria-labelledby="req-tab-comments" tabindex="0">
+              <p><b>Mira Fern</b> <span class="text-muted">· Oct 13, 2026, 10:20 AM</span></p>
+              <p>It drips most at night. I have put a bowl under it for now.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The Kitchen tap leak request with Comments selected.</span></div>
+      </div>
+      <h3>Pill: filter one list</h3>
+      <p>Pill tabs sit above a list and change which items it shows. They wrap onto a second row on narrow screens instead of scrolling, so every filter stays visible.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="tabs tabs--pill" role="tablist" aria-label="Filter requests by status">
+            <button class="tabs__tab" type="button" role="tab" id="mt-tab-all" aria-selected="false" aria-controls="mt-panel">All</button>
+            <button class="tabs__tab" type="button" role="tab" id="mt-tab-new" aria-selected="true" aria-controls="mt-panel">New</button>
+            <button class="tabs__tab" type="button" role="tab" id="mt-tab-received" aria-selected="false" aria-controls="mt-panel">Received</button>
+            <button class="tabs__tab" type="button" role="tab" id="mt-tab-started" aria-selected="false" aria-controls="mt-panel">Started</button>
+            <button class="tabs__tab" type="button" role="tab" id="mt-tab-completed" aria-selected="false" aria-controls="mt-panel">Completed</button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="mt-panel" aria-labelledby="mt-tab-new" tabindex="0" style="padding-top: var(--space-4);">
+            <div class="card"><div class="cluster cluster--between"><span><b>Kitchen tap leak</b><br><span class="text-muted">Oct 13, 2026</span></span><span class="badge badge--warning">New</span></div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Maintenance requests filtered to New. Every pill controls the same list.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="tabs tabs--pill" role="tablist" aria-label="Filter requests by status"&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="filter-all"
+          aria-selected="false" aria-controls="request-list" tabindex="-1"&gt;All&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="filter-new"
+          aria-selected="true" aria-controls="request-list"&gt;New&lt;/button&gt;
+  …
+&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="request-list" aria-labelledby="filter-new" tabindex="0"&gt;…&lt;/div&gt;</code></pre></details>
+      </div>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="tabs tabs--pill" role="tablist" aria-label="Filter documents by kind">
+            <button class="tabs__tab" type="button" role="tab" id="doc-tab-all" aria-selected="true" aria-controls="doc-panel">All documents</button>
+            <button class="tabs__tab" type="button" role="tab" id="doc-tab-notices" aria-selected="false" aria-controls="doc-panel">Notices</button>
+            <button class="tabs__tab" type="button" role="tab" id="doc-tab-bylaws" aria-selected="false" aria-controls="doc-panel">Bylaws</button>
+            <button class="tabs__tab" type="button" role="tab" id="doc-tab-reports" aria-selected="false" aria-controls="doc-panel">Reports</button>
+          </div>
+          <div class="tabs__panel visually-hidden" role="tabpanel" id="doc-panel" aria-labelledby="doc-tab-all">Meeting notes.pdf, Courtyard plan.pdf, Autumn courtyard gathering</div>
+        </div>
+        <div class="ds-example__caption"><span>Documents filtered by kind, All documents selected. The list itself is left out here.</span></div>
+      </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="Tabs have one size: 14px label with 8px by 16px padding."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">Tabs have one size: 14px label with 8px by 16px padding.</p>
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Each variant has one size. Underline tabs are a comfortable 44px; pills are smaller because they sit in a row above a list, and stay well above the 24px minimum.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="tabs" role="tablist" aria-label="Size example, underline"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Underline · 44px</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Content</button></div>
+          <div class="tabs tabs--pill" role="tablist" aria-label="Size example, pill"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Pill · 36px</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Notices</button></div>
+        </div>
+        <div class="ds-example__caption"><span>Heights: <code>--target-comfortable</code> and <code>--control-height-sm</code>; padding <code>--space-4</code> and <code>--space-3</code>.</span></div>
+      </div>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
-<p>Hover and focus are forced with <code>data-state</code>.</p>
-<div class="ds-matrix"><table>
-<thead><tr><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th></tr></thead>
-<tbody><tr>
-<td><button class="tab-btn" type="button" role="tab" aria-selected="false">Comments</button></td>
-<td><button class="tab-btn" type="button" role="tab" aria-selected="false" data-state="hover">Comments</button></td>
-<td><button class="tab-btn" type="button" role="tab" aria-selected="false" data-state="focus">Comments</button></td>
-<td><button class="tab-btn" type="button" role="tab" aria-selected="true">Details</button></td>
-</tr></tbody></table></div>
-<ul>
-<li>Selected state is <code>aria-selected="true"</code>; the stylesheet also styles the mocks' <code>.active</code> class.</li>
-<li>Hover does not change a selected tab. No disabled tab is implemented.</li>
-</ul>
+      <p>Hover and focus are forced with <code>data-state</code>; selected and disabled use the real <code>aria-selected="true"</code> and <code>disabled</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th><th scope="col">Selected + focus</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Underline, light</th>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline default, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false">Account</button></div></td>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline hover, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="hover">Account</button></div></td>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline focus, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="focus">Account</button></div></td>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline selected, light"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Account</button></div></td>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline selected and focus, light"><button class="tabs__tab" type="button" role="tab" aria-selected="true" data-state="focus">Account</button></div></td>
+            <td data-theme="light"><div class="tabs" role="tablist" aria-label="Underline disabled, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" disabled>Account</button></div></td></tr>
+          <tr><th scope="row">Underline, dark</th>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline default, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false">Account</button></div></td>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline hover, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="hover">Account</button></div></td>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline focus, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="focus">Account</button></div></td>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline selected, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Account</button></div></td>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline selected and focus, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="true" data-state="focus">Account</button></div></td>
+            <td data-theme="dark"><div class="tabs" role="tablist" aria-label="Underline disabled, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" disabled>Account</button></div></td></tr>
+          <tr><th scope="row">Pill, light</th>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill default, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false">Started</button></div></td>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill hover, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="hover">Started</button></div></td>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill focus, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="focus">Started</button></div></td>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill selected, light"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Started</button></div></td>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill selected and focus, light"><button class="tabs__tab" type="button" role="tab" aria-selected="true" data-state="focus">Started</button></div></td>
+            <td data-theme="light"><div class="tabs tabs--pill" role="tablist" aria-label="Pill disabled, light"><button class="tabs__tab" type="button" role="tab" aria-selected="false" disabled>Started</button></div></td></tr>
+          <tr><th scope="row">Pill, dark</th>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill default, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false">Started</button></div></td>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill hover, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="hover">Started</button></div></td>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill focus, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" data-state="focus">Started</button></div></td>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill selected, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Started</button></div></td>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill selected and focus, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="true" data-state="focus">Started</button></div></td>
+            <td data-theme="dark"><div class="tabs tabs--pill" role="tablist" aria-label="Pill disabled, dark"><button class="tabs__tab" type="button" role="tab" aria-selected="false" disabled>Started</button></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="tabs" role="tablist" aria-label="Settings, light theme"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Theme</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Content</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Account</button></div><div class="tabs tabs--pill" role="tablist" aria-label="Filter requests, light theme" style="margin-top: var(--space-4);"><button class="tabs__tab" type="button" role="tab" aria-selected="true">All</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">New</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Completed</button></div></div>
+        <div data-theme="dark"><div class="tabs" role="tablist" aria-label="Settings, dark theme"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Theme</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Content</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Account</button></div><div class="tabs tabs--pill" role="tablist" aria-label="Filter requests, dark theme" style="margin-top: var(--space-4);"><button class="tabs__tab" type="button" role="tab" aria-selected="true">All</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">New</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Completed</button></div></div>
+      </div>
+      <ul>
+        <li><b>Selected</b>: exactly one tab per list. Underline tabs turn accent with a 2px bar; pills fill with <code>--color-accent-subtle</code> and take an accent border, so the state never depends on colour alone.</li>
+        <li><b>Disabled</b>: avoid it. If a view cannot be shown, leave the tab out or explain inside its panel. When one is unavoidable, use <code>disabled</code> (or <code>aria-disabled="true"</code> to keep it focusable and explain why).</li>
+        <li><b>Empty panel</b>: a filter with no matches shows the list's own <a href="empty-state.html">empty state</a> ("No completed requests"), never an empty tab.</li>
+        <li><b>Loading</b>: when a filter fetches its list, the panel shows a <a href="spinner.html">spinner</a> and the selected tab does not change back.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
-<ul>
-<li>No <code>@media</code> rule changes tabs. The mocks' list is a flex row; two or three short labels fit at 320px.</li>
-<li>Do not wrap or scroll the tab list: keep labels short. If more tabs are ever needed, that behaviour is not implemented and must be specified first.</li>
-</ul>
+      <ul>
+        <li><b>Underline tabs</b> stay on one row at every width. If they do not fit (with large text or 400% zoom), the tab list scrolls sideways inside itself; the page never scrolls sideways. Labels never wrap or truncate.</li>
+        <li><b>Pill tabs</b> wrap onto as many rows as they need, with <code>--space-2</code> between pills, so all filters stay visible on a 320px screen.</li>
+        <li>The panel is full width at every size; its content follows its own layout rules.</li>
+        <li>No breakpoint changes the tabs. At 320px "Theme", "Content" and "Account" fit on one row; so do "Details" and "Comments".</li>
+      </ul>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p class="ds-na">The product ships one light appearance; there are no theme variants.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Tabs read <code>--color-fg-muted</code> for unselected labels, <code>--color-bg-subtle</code> on hover, <code>--color-fg-accent</code> and an <code>--color-accent</code> bar when selected, and <code>--color-border-default</code> for the rule under the list. Pills add a <code>--color-border-strong</code> outline on <code>--color-bg-surface</code>, and fill with <code>--color-accent-subtle</code> when selected. Counts read <code>--color-fg-muted</code> on <code>--color-bg-subtle</code>. The dark theme swaps only those semantic tokens.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
-<h3>Role and pattern</h3>
-<p>WAI-ARIA <b>Tabs</b> pattern. The mocks render plain buttons with no roles; the design system requires <code>role="tablist"</code> on the container, <code>role="tab"</code> and <code>aria-selected</code> on each tab, <code>aria-controls</code> pointing to the panel, and <code>role="tabpanel"</code> with <code>aria-labelledby</code> on the panel. This is a requirement, not current behaviour.</p>
-<h3>Keyboard</h3>
-<div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd></td><td>Moves focus into the tab list on the selected tab, then to the panel. Unselected tabs have <code>tabindex="-1"</code> (roving tabindex).</td></tr><tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>Moves focus to the previous or next tab and wraps; automatic activation selects it.</td></tr><tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Moves to the first or last tab.</td></tr><tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused tab (needed only if activation is manual).</td></tr></tbody></table></div>
-<p>Implemented in the mocks: each button is its own tab stop and Enter or Space activates it. Arrow keys, Home and End are requirements.</p>
-<h3>Focus</h3>
-<p>Shared focus ring on <code>:focus-visible</code>; the mocks suppress it. The selected tab keeps the ring offset so it is visible against the fill.</p>
-<h3>Labelling</h3>
-<p>The visible label is the name. The tab list needs an <code>aria-label</code> ("Request views"). The selected state is conveyed by <code>aria-selected</code>, not colour alone.</p>
-<h3>Contrast</h3>
-<div class="ds-example__canvas ds-example__canvas--stack">
-<div class="ds-pair"><span>Label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Selected label on accent</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Hover background</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
-</div>
-<h3>Motion</h3>
-<p>None: the selected fill changes instantly.</p>
-<h3>Touch</h3>
-<p>Tabs are about 36px tall (20px line plus 16px padding), above the 24px minimum, with a 4px gap. Extend the hit area on touch if tabs ever become dense.</p>
+      <h3>Role and pattern</h3>
+      <p>The APG <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">Tabs pattern</a> with <b>manual activation</b>: arrow keys move focus between tabs, and Enter or Space selects one. Manual activation means a filter does not reload the list each time focus passes over a pill, and nobody loses their place in Settings by pressing an arrow key. Tabs are <code>&lt;button role="tab"&gt;</code> in a <code>role="tablist"</code> with an <code>aria-label</code>; each points at its panel with <code>aria-controls</code>, and the panel has <code>role="tabpanel"</code> and <code>aria-labelledby</code>. All pill tabs in a filter control the same list panel.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves into the tab list onto the selected tab, then on into the panel. Only the selected tab is in the Tab order (<code>tabindex="-1"</code> on the others).</td></tr>
+        <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>Moves focus to the previous or next tab, wrapping at the ends. Does not select.</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Moves focus to the first or last tab.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Selects the focused tab and shows its panel.</td></tr>
+      </tbody></table>
+      <p>The live examples on this page are static: every tab is reachable with Tab and the arrow keys do nothing. The code samples show the roving <code>tabindex</code> the product uses.</p>
+      <h3>Focus</h3>
+      <p>The shared 2px <code>--color-focus-ring</code>. On underline tabs the ring is drawn inside the tab (negative offset) so the scrolling tab list does not clip it; on pills it sits outside. Focus stays on the tab after selecting; it does not jump into the panel.</p>
+      <h3>Labelling</h3>
+      <p>The tab list is named for what it switches ("Settings", "Filter requests by status"). Each tab's visible word is its name. A count has an <code>aria-label</code> that says what it counts ("1 comment"), so the tab reads "Comments, 1 comment, tab, selected".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Unselected tab on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hovered tab</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected underline tab</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected indicator bar</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Pill label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Pill outline</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Selected pill label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected pill border</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-accent-subtle" data-min="3"></span></div>
+        <div class="ds-pair"><span>Count</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on selected pill</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-accent-subtle" data-min="3"></span></div>
+      </div>
+      <p>Disabled tabs use <code>--color-fg-disabled</code>, which is exempt from contrast minimums (WCAG 1.4.3) and is one reason to avoid disabled tabs.</p>
+      <h3>Motion</h3>
+      <p>Label colour and background fade over <code>--duration-fast</code>. The indicator does not slide between tabs. Reduced motion zeroes the fade. Panels swap instantly.</p>
+      <h3>Touch</h3>
+      <p>Underline tabs are 44px tall (<code>--target-comfortable</code>) with 16px side padding. Pills are 36px tall (<code>--control-height-sm</code>) with 8px between them, above the 24px minimum with room to spare.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
-<ul>
-<li>One word, a noun naming the view: "Details", "Comments".</li>
-<li>Keep the first tab as the default view and the order stable.</li>
-<li>Counts, if added, go in the label as text ("Comments (3)").</li>
-</ul>
+      <ul>
+        <li>One or two words per tab, in sentence case: "Theme", "Comments", "All documents", "Bylaws".</li>
+        <li>Name the view, not an action: "Comments", not "View comments".</li>
+        <li>Filter pills use the same words as the status badges they filter: New, Received, Started, Completed. Put "All" first.</li>
+        <li>Counts are plain numbers; leave the count off rather than show "0".</li>
+        <li>The panel's heading can repeat the tab name with more detail ("Theme customisation"), but the tab itself stays short.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
-<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div role="tablist" aria-label="Views" style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;"><button class="tab-btn" type="button" role="tab" aria-selected="true">Details</button><button class="tab-btn" type="button" role="tab" aria-selected="false">Comments</button></div></div><figcaption>Give the list a label and mark the selected tab with <code>aria-selected</code>.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;"><button class="tab-btn active" type="button">Details</button><button class="tab-btn" type="button">Comments</button></div></div><figcaption>Do not build tabs from unlabelled buttons that only change colour, as the mocks do; screen readers get no selected state.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><div role="tablist" aria-label="Views" style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;"><button class="tab-btn" type="button" role="tab" aria-selected="true">Details</button><button class="tab-btn" type="button" role="tab" aria-selected="false">Comments</button></div></div><figcaption>Keep two to four short labels.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div role="tablist" aria-label="Views" style="display: flex; gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: var(--border-width-hairline) solid var(--color-border-default); width: 100%;"><button class="tab-btn" type="button" role="tab" aria-selected="true">Request details and history</button><button class="tab-btn" type="button" role="tab" aria-selected="false">Comments from members</button></div></div><figcaption>Do not use long labels; they wrap or overflow at 320px.</figcaption></figure></div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="tabs" role="tablist" aria-label="Do example: settings"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Theme</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Account</button></div></div><figcaption>Give tabs <code>role="tab"</code> and <code>aria-selected</code>, so screen readers say "Theme, tab, selected, 1 of 2".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;button class="tab active"&gt;Theme&lt;/button&gt;</code></div><figcaption>Plain buttons with an <code>.active</code> class. The admin's Settings tabs, request tabs and filters all do this, so nothing tells a screen reader which one is selected.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="tabs tabs--pill" role="tablist" aria-label="Do example: document filters"><button class="tabs__tab" type="button" role="tab" aria-selected="true">All documents</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Bylaws</button></div></div><figcaption>Sentence case and the everyday spelling: "All documents", "Bylaws".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="tabs tabs--pill" role="tablist" aria-label="Don't example: document filters"><button class="tabs__tab" type="button" role="tab" aria-selected="true">All Documents</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">By-Laws</button></div></div><figcaption>Title Case and a hyphenated "By-Laws", as the admin's Documents filters read.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="tabs" role="tablist" aria-label="Do example: one style"><button class="tabs__tab" type="button" role="tab" aria-selected="true">Details</button><button class="tabs__tab" type="button" role="tab" aria-selected="false">Comments</button></div></div><figcaption>Use one underline style for every set of page sections, so Settings and a request's Details and Comments look like the same control.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><code>.tabs .tab</code><code>.detail-tabs .tab-btn</code><code>.filters .filter-btn</code><code>.filter-tabs .filter-btn</code></div><figcaption>Four separate tab styles for one job. The admin has a different look for each.</figcaption></figure>
+      </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody>
-<tr><td>Selected background</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span> </td></tr>
-<tr><td>Selected label</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span> </td></tr>
-<tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
-<tr><td>Hover background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span> </td></tr>
-<tr><td>List rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span> </td></tr>
-<tr><td>Padding</td><td><code>--space-2</code> / <code>--space-4</code></td><td><span data-token="--space-2"></span> <span data-token="--space-4"></span> </td></tr>
-<tr><td>List gap</td><td><code>--space-1</code></td><td><span data-token="--space-1"></span> </td></tr>
-<tr><td>Radius</td><td><code>--radius-sm</code></td><td><span data-token="--radius-sm"></span> </td></tr>
-<tr><td>Label font</td><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span> </td></tr>
-</tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Unselected label, count text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Hover fill, count fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Selected label</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Selected bar, selected pill border</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Selected pill fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Pill outline</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Rule under the list</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Disabled label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Height, underline / pill</td><td><code>--target-comfortable</code> / <code>--control-height-sm</code></td><td colspan="2"><span data-token="--target-comfortable"></span> / <span data-token="--control-height-sm"></span></td></tr>
+          <tr><td>Padding, underline / pill</td><td><code>--space-4</code> / <code>--space-3</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Indicator thickness</td><td><code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Corners, underline / pill</td><td><code>--radius-md</code> / <code>--radius-full</code></td><td colspan="2"><span data-token="--radius-md"></span> / <span data-token="--radius-full"></span></td></tr>
+          <tr><td>Label font, count font</td><td><code>--text-label</code>, <code>--text-caption</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Panel spacing</td><td><code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-<pre><code>&lt;div role="tablist" aria-label="Request views" class="detail-tabs"&gt;
-  &lt;button class="tab-btn" type="button" role="tab" id="tab-details"
-          aria-selected="true" aria-controls="panel-details"&gt;Details&lt;/button&gt;
-  &lt;button class="tab-btn" type="button" role="tab" id="tab-comments"
-          aria-selected="false" aria-controls="panel-comments" tabindex="-1"&gt;Comments&lt;/button&gt;
+      <pre><code>&lt;div class="tabs" role="tablist" aria-label="Settings"&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-theme" aria-selected="true" aria-controls="panel-theme"&gt;Theme&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-content" aria-selected="false" aria-controls="panel-content" tabindex="-1"&gt;Content&lt;/button&gt;
+  &lt;button class="tabs__tab" type="button" role="tab" id="tab-account" aria-selected="false" aria-controls="panel-account" tabindex="-1"&gt;Account&lt;/button&gt;
 &lt;/div&gt;
-&lt;div role="tabpanel" id="panel-details" aria-labelledby="tab-details"&gt;...&lt;/div&gt;</code></pre>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
-<tr><td><code>.tab-btn</code></td><td>A tab: transparent, muted label.</td></tr>
-<tr><td><code>aria-selected="true"</code></td><td>Selected: accent fill. Also styled for the mocks' <code>.active</code>.</td></tr>
-<tr><td><code>.detail-tabs</code></td><td>Tab list row with rule below (in the mocks; the demos use the same layout through tokens).</td></tr>
-</tbody></table></div>
+&lt;div class="tabs__panel" role="tabpanel" id="panel-theme" aria-labelledby="tab-theme" tabindex="0"&gt;…&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="panel-content" aria-labelledby="tab-content" tabindex="0" hidden&gt;…&lt;/div&gt;
+&lt;div class="tabs__panel" role="tabpanel" id="panel-account" aria-labelledby="tab-account" tabindex="0" hidden&gt;…&lt;/div&gt;
+
+&lt;button class="tabs__tab" type="button" role="tab" id="tab-comments" aria-selected="false" aria-controls="panel-comments" tabindex="-1"&gt;
+  Comments &lt;span class="tabs__count" aria-label="1 comment"&gt;1&lt;/span&gt;&lt;/button&gt;
+
+&lt;div class="tabs tabs--pill" role="tablist" aria-label="Filter requests by status"&gt;…&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.tabs</code> + <code>role="tablist"</code></td><td>Underline tab list; scrolls sideways if it overflows.</td></tr>
+        <tr><td><code>.tabs--pill</code></td><td>Pill tabs that wrap; for filtering one list.</td></tr>
+        <tr><td><code>.tabs__tab</code> + <code>role="tab"</code></td><td>A tab button.</td></tr>
+        <tr><td><code>aria-selected="true"</code></td><td>The selected tab: accent label and bar, or filled pill.</td></tr>
+        <tr><td><code>aria-controls</code>, <code>tabindex="-1"</code></td><td>Points at the panel; roving focus for unselected tabs.</td></tr>
+        <tr><td><code>disabled</code> / <code>aria-disabled="true"</code></td><td>Disabled tab (avoid).</td></tr>
+        <tr><td><code>.tabs__count</code></td><td>Optional number after the label; give it an <code>aria-label</code>.</td></tr>
+        <tr><td><code>.tabs__panel</code> + <code>role="tabpanel"</code></td><td>The panel; <code>hidden</code> when its tab is not selected.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-<p>Extracted from these mocks:</p>
-<ul><li><a href="../../mocks/pages/admin-maintenance/detail-new.html">pages/admin-maintenance/detail-new</a> (tabs Details and Comments)</li><li><a href="../../mocks/pages/admin-maintenance/comments.html">pages/admin-maintenance/comments</a> (Comments tab active)</li></ul>
-<h3>Drift</h3>
-<p>Where the mocks differ from each other or fail WCAG 2.2 AA, the design system resolves it as follows.</p>
-<ul><li>Tab buttons carry no <code>role</code>, <code>aria-selected</code> or <code>aria-controls</code>; the system requires the Tabs pattern.</li><li>Each tab loads another page in the mock, which is navigation rather than a tablist; the system treats it as a tablist when it swaps a panel on one page.</li><li>Selected fill is <code>#3D8A5A</code> with white text (4.2:1, fails AA); the system uses <code>--color-accent</code>.</li><li>Padding is 6px 16px in the mocks; the system uses <code>--space-2</code> by <code>--space-4</code>.</li><li>Focus outline is removed in the mocks; the shared focus ring is applied.</li></ul>
+      <p>New for the Coop admin (the Shelfie design system had no tabs), grounded in these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a>, <a href="../../mocks/pages/admin-settings/content.html">content</a> and <a href="../../mocks/pages/admin-settings/account.html">account</a> (underline: Theme, Content, Account)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/detail-new.html">pages/admin-maintenance/detail-new</a>, <a href="../../mocks/pages/admin-maintenance/comments.html">comments</a> and <a href="../../mocks/pages/admin-maintenance/comments-empty.html">comments-empty</a> (underline in a card: Details, Comments)</li>
+        <li><a href="../../mocks/pages/admin-maintenance/default.html">pages/admin-maintenance/default</a>, <a href="../../mocks/pages/admin-maintenance/new.html">new</a>, <a href="../../mocks/pages/admin-maintenance/received.html">received</a>, <a href="../../mocks/pages/admin-maintenance/started.html">started</a> and <a href="../../mocks/pages/admin-maintenance/done.html">done</a> (pill filters by status)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a>, <a href="../../mocks/pages/admin-documents/notices.html">notices</a>, <a href="../../mocks/pages/admin-documents/bylaws.html">bylaws</a> and <a href="../../mocks/pages/admin-documents/reports.html">reports</a> (pill filters by kind)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Four styles for one control</b>: Settings uses <code>.tabs .tab.active .tab-content</code> (bordered boxes, 10px radius); a request uses <code>.detail-tabs .tab-btn.active</code> (borderless, 8px radius); Maintenance filters use <code>.filters .filter-btn.active</code> and Documents filters <code>.filter-tabs .filter-btn.active</code> (20px-radius pills). Every selected state is a solid green fill with white text. The system has one underline style and one pill style.</li>
+        <li><b>No tab semantics</b>: all four are plain <code>&lt;button&gt;</code>s with an <code>.active</code> class: no <code>role="tab"</code>, <code>aria-selected</code>, <code>aria-pressed</code> or labelled panel, and no arrow-key support. The system uses the APG Tabs pattern with manual activation.</li>
+        <li><b>Wording</b>: Documents filters read "All Documents" and "By-Laws", and the Settings panels are titled "Theme Customization", "Content Management" and "Account Settings". The system uses sentence case, "Bylaws" and "customisation".</li>
+        <li><b>Sizes</b>: the admin's tabs are about 30 to 36px tall with 14px Outfit labels. The system's underline tabs are 44px and pills 36px.</li>
+        <li><b>Theme</b>: the admin is light only. The system adds the dark theme.</li>
+        <li>No admin tab shows a count today; <code>.tabs__count</code> is available for when one is wanted.</li>
+      </ul>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

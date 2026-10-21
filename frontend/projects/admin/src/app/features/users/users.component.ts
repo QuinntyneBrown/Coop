@@ -1,419 +1,29 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+  viewChild,
+} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
 import { userRoleNames } from '../../core/user-role-names';
+import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <div class="users-page">
-      <div class="page-header">
-        <h1 data-testid="users-page-title">Users</h1>
-        <div class="page-actions">
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Search users..."
-            data-testid="users-search"
-            (input)="onSearch($event)"
-          />
-          <button class="btn btn-primary" data-testid="users-add-button" (click)="openAddDialog()">
-            <span class="material-icons">add</span> Add User
-          </button>
-        </div>
-      </div>
-
-      <div class="users-table card" data-testid="users-table">
-        <table>
-          <thead>
-            <tr>
-              <th data-testid="users-header-username">Username</th>
-              <th data-testid="users-header-role">Role</th>
-              <th data-testid="users-header-status">Status</th>
-              <th data-testid="users-header-actions">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (user of users; track user) {
-              <tr data-testid="users-table-row">
-                <td>
-                  <div class="user-cell">
-                    <div class="user-avatar" [style.background]="getColor(user)">
-                      {{ user.username?.charAt(0).toUpperCase() }}
-                    </div>
-                    <span data-testid="user-username">{{ user.username }}</span>
-                  </div>
-                </td>
-                <td>
-                  <span data-testid="user-role-badge">{{ roleNames(user) }}</span>
-                </td>
-                <td>
-                  <span
-                    class="badge"
-                    [ngClass]="user.status === 'Disabled' ? 'badge-danger' : 'badge-success'"
-                    data-testid="user-status-badge"
-                  >
-                    {{ user.status || 'Active' }}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    class="icon-btn"
-                    data-testid="user-edit-button"
-                    (click)="openEditDialog(user)"
-                  >
-                    <span class="material-icons">edit</span>
-                  </button>
-                  <button
-                    class="icon-btn"
-                    data-testid="user-delete-button"
-                    (click)="openDeleteDialog(user)"
-                  >
-                    <span class="material-icons">delete</span>
-                  </button>
-                </td>
-              </tr>
-            } @empty {
-              <tr>
-                <td colspan="4" class="empty-row" data-testid="users-empty-state">
-                  No users found
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        <div class="pagination" data-testid="users-pagination">
-          <span data-testid="users-pagination-info">
-            Showing {{ totalCount ? (page - 1) * pageSize + 1 : 0 }}-{{
-              Math.min(page * pageSize, totalCount)
-            }}
-            of {{ totalCount }} users
-          </span>
-          @if (totalPages > 1) {
-            <div class="page-controls">
-              <button
-                (click)="goToPage(page - 1)"
-                [disabled]="page <= 1"
-                data-testid="users-pagination-prev"
-              >
-                &laquo;
-              </button>
-              @for (p of pages; track p) {
-                <button
-                  [class.active]="p === page"
-                  (click)="goToPage(p)"
-                  data-testid="users-pagination-page"
-                >
-                  {{ p }}
-                </button>
-              }
-              <button
-                (click)="goToPage(page + 1)"
-                [disabled]="page >= totalPages"
-                data-testid="users-pagination-next"
-              >
-                &raquo;
-              </button>
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Add/Edit User Dialog -->
-      @if (showModal) {
-        <div class="modal-overlay" data-testid="user-dialog">
-          <div class="modal-content card">
-            <h3 data-testid="user-dialog-title">
-              {{ editingUser ? 'Edit User' : 'Add New User' }}
-            </h3>
-            <form [formGroup]="userForm" (ngSubmit)="addUser()">
-              <div class="form-group">
-                <label>Username</label>
-                <input type="text" formControlName="username" data-testid="user-dialog-username" />
-              </div>
-              <div class="form-group">
-                <label>Role</label>
-                <select formControlName="role" data-testid="user-dialog-role">
-                  <option value="Member">Member</option>
-                  <option value="BoardMember">Board Member</option>
-                  <option value="Admin">Admin</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  formControlName="password"
-                  data-testid="user-dialog-password"
-                />
-              </div>
-              <div class="modal-actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-testid="user-dialog-cancel"
-                  (click)="showModal = false"
-                >
-                  Cancel
-                </button>
-                <button type="submit" class="btn btn-primary" data-testid="user-dialog-save">
-                  {{ editingUser ? 'Save' : 'Create' }}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      }
-
-      <!-- Delete Confirmation Dialog -->
-      @if (showDeleteDialog) {
-        <div class="modal-overlay" data-testid="user-delete-dialog">
-          <div class="modal-content card">
-            <h3>Confirm Delete</h3>
-            <p data-testid="user-delete-message">
-              Are you sure you want to delete <strong>{{ deletingUser?.username }}</strong
-              >?
-            </p>
-            <div class="modal-actions">
-              <button
-                class="btn btn-secondary"
-                data-testid="user-delete-cancel"
-                (click)="showDeleteDialog = false"
-              >
-                Cancel
-              </button>
-              <button
-                class="btn btn-danger"
-                data-testid="user-delete-confirm"
-                (click)="confirmDeleteUser()"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  `,
+  imports: [ReactiveFormsModule, IconComponent],
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styles: [
-    `
-      .users-page {
-        padding: 24px;
-      }
-      .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        h1 {
-          font-size: 24px;
-          font-weight: 600;
-        }
-      }
-      .users-table {
-        overflow-x: auto;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th {
-        text-align: left;
-        padding: 12px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #1a1918cc;
-        border-bottom: 1px solid #e5e4e1;
-      }
-      th:first-child {
-        width: 40%;
-      }
-      th:not(:first-child) {
-        width: 20%;
-      }
-      td {
-        padding: 12px 20px;
-        font-size: 14px;
-        border-bottom: 1px solid #f5f4f1;
-      }
-      .empty-row {
-        padding: 32px 20px;
-        text-align: center;
-        font-size: 15px;
-        color: #1a1918cc;
-      }
-      .user-cell {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .user-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .icon-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-        color: #1a1918cc;
-        &:hover {
-          color: #1a1918;
-        }
-      }
-      .pagination {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 20px;
-        font-size: 14px;
-        color: #1a1918cc;
-      }
-      .page-controls {
-        display: flex;
-        gap: 4px;
-        button {
-          padding: 6px 10px;
-          border: 1px solid #e5e4e1;
-          border-radius: 6px;
-          background: #fff;
-          cursor: pointer;
-          font-size: 14px;
-          &.active {
-            background: #3d8a5a;
-            color: #fff;
-            border-color: #3d8a5a;
-          }
-          &:disabled {
-            background: #f5f4f1;
-            color: #6b6a67;
-            border-color: #c9c8c5;
-            cursor: not-allowed;
-          }
-        }
-      }
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
-      .modal-content {
-        width: 100%;
-        max-width: 400px;
-        padding: 32px;
-        h3 {
-          margin-bottom: 20px;
-        }
-      }
-      .form-group {
-        margin-bottom: 16px;
-        label {
-          display: block;
-          margin-bottom: 6px;
-          font-size: 14px;
-          font-weight: 500;
-        }
-        input {
-          width: 100%;
-          padding: 10px 14px;
-          border: 1px solid #e5e4e1;
-          border-radius: 8px;
-          font-size: 14px;
-          &:focus {
-            outline: none;
-            border-color: #3d8a5a;
-          }
-        }
-      }
-      .modal-actions {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-        margin-top: 20px;
-      }
-      .badge-success {
-        background: rgba(16, 185, 129, 0.1);
-        color: #059669;
-      }
-      .badge-danger {
-        background: rgba(220, 53, 69, 0.1);
-        color: #dc3545;
-      }
-      .page-actions {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-      .search-input {
-        padding: 8px 14px;
-        border: 1px solid #e5e4e1;
-        border-radius: 8px;
-        font-size: 14px;
-        &:focus {
-          outline: none;
-          border-color: #3d8a5a;
-        }
-      }
-      select {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid #e5e4e1;
-        border-radius: 8px;
-        font-size: 14px;
-        &:focus {
-          outline: none;
-          border-color: #3d8a5a;
-        }
-      }
-      .btn-danger {
-        background: #dc3545;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      @media (max-width: 768px) {
-        .users-page {
-          padding: 16px;
-        }
-        .page-header {
-          flex-wrap: wrap;
-          gap: 12px;
-        }
-        .page-actions {
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-        }
-        .search-input {
-          flex: 1 1 160px;
-          min-width: 0;
-        }
-      }
-    `,
-  ],
 })
 export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
+  private readonly userDialog = viewChild<ElementRef<HTMLDialogElement>>('userDialog');
+  private readonly deleteDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDialog');
 
   Math = Math;
   roleNames = userRoleNames;
@@ -433,8 +43,6 @@ export class UsersComponent implements OnInit {
     password: ['', Validators.required],
     role: ['Member'],
   });
-
-  private colors = ['#3D8A5A', '#3B82F6', '#F59E0B', '#DC3545', '#8B5CF6', '#EC4899'];
 
   ngOnInit(): void {
     this.loadUsers();
@@ -483,7 +91,7 @@ export class UsersComponent implements OnInit {
     if (this.userForm.invalid) return;
     this.userService.createUser(this.userForm.value).subscribe({
       next: () => {
-        this.showModal = false;
+        this.closeUserDialog();
         this.userForm.reset();
         this.loadUsers();
       },
@@ -500,36 +108,47 @@ export class UsersComponent implements OnInit {
   openAddDialog(): void {
     this.editingUser = null;
     this.userForm.reset({ role: 'Member' });
-    this.showModal = true;
+    this.openUserDialog();
   }
 
   openEditDialog(user: any): void {
     this.editingUser = user;
     this.userForm.patchValue({ username: user.username, role: user.role || 'Member' });
+    this.openUserDialog();
+  }
+
+  closeUserDialog(): void {
+    this.showModal = false;
+    this.userDialog()?.nativeElement.close();
+  }
+
+  private openUserDialog(): void {
     this.showModal = true;
+    this.userDialog()?.nativeElement.showModal();
   }
 
   openDeleteDialog(user: any): void {
     this.deletingUser = user;
     this.showDeleteDialog = true;
+    this.deleteDialog()?.nativeElement.showModal();
+  }
+
+  closeDeleteDialog(): void {
+    this.showDeleteDialog = false;
+    this.deleteDialog()?.nativeElement.close();
   }
 
   confirmDeleteUser(): void {
     if (this.deletingUser) {
       this.userService.deleteUser(this.deletingUser.userId || this.deletingUser.id).subscribe({
         next: () => {
-          this.showDeleteDialog = false;
+          this.closeDeleteDialog();
           this.loadUsers();
         },
         error: () => {
-          this.showDeleteDialog = false;
+          this.closeDeleteDialog();
         },
       });
     }
-  }
-
-  getColor(user: any): string {
-    const idx = (user.username || '').charCodeAt(0) % this.colors.length;
-    return this.colors[idx];
   }
 }

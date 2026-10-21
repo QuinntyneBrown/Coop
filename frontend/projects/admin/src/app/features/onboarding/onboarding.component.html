@@ -1,0 +1,180 @@
+<main id="main" class="auth-layout">
+  <div class="auth-card stack">
+    <div class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect width="48" height="48" rx="14" style="fill: var(--color-accent)" />
+          <circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle)" />
+          <circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover)" />
+          <circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface)" />
+        </svg>
+      </span>
+    </div>
+    <div class="card stack wizard">
+      <p class="steps">
+        <span class="steps__dots" aria-hidden="true" data-testid="onboarding-step-indicator">
+          @for (s of [1, 2, 3]; track s) {
+            <span
+              class="steps__dot"
+              [class.steps__dot--done]="step > s"
+              [class.steps__dot--current]="step === s"
+            ></span>
+          }
+        </span>
+        <span data-testid="onboarding-current-step">Step {{ step }} of 3</span>
+      </p>
+
+      <!-- Welcome Step -->
+      @if (step === 1) {
+        <h1 data-testid="onboarding-welcome-title">Welcome to Your Cooperative!</h1>
+        <p class="text-muted" data-testid="onboarding-welcome-message">
+          Let's get your profile set up so you can start managing your cooperative community.
+        </p>
+        <div class="wizard__actions">
+          <button
+            type="button"
+            class="btn btn--primary btn--lg btn--block"
+            data-testid="onboarding-get-started-btn"
+            (click)="nextStep()"
+          >
+            Get Started
+          </button>
+        </div>
+      }
+
+      <!-- Profile Step -->
+      @if (step === 2) {
+        <div class="stack onboarding-step" data-testid="onboarding-profile-section">
+          <h1>Set Up Your Profile</h1>
+          <form class="stack" novalidate aria-label="Your profile" [formGroup]="profileForm">
+            <div class="field">
+              <label class="field__label" for="ob-first">First Name</label>
+              <input
+                class="input"
+                id="ob-first"
+                type="text"
+                autocomplete="given-name"
+                formControlName="firstName"
+                data-testid="onboarding-first-name"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ob-last">Last Name</label>
+              <input
+                class="input"
+                id="ob-last"
+                type="text"
+                autocomplete="family-name"
+                formControlName="lastName"
+                data-testid="onboarding-last-name"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ob-email">Email</label>
+              <input
+                class="input"
+                id="ob-email"
+                type="email"
+                autocomplete="email"
+                formControlName="email"
+                data-testid="onboarding-email"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ob-phone">Phone</label>
+              <input
+                class="input"
+                id="ob-phone"
+                type="text"
+                autocomplete="tel"
+                formControlName="phone"
+                data-testid="onboarding-phone"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ob-photo">Avatar</label>
+              <input
+                class="input"
+                id="ob-photo"
+                type="file"
+                accept="image/*"
+                data-testid="onboarding-avatar-upload"
+              />
+            </div>
+          </form>
+          <div class="wizard__actions">
+            <button
+              type="button"
+              class="btn btn--primary btn--lg btn--block"
+              data-testid="onboarding-next-btn"
+              (click)="nextStep()"
+            >
+              Next
+            </button>
+            <button
+              type="button"
+              class="btn btn--ghost"
+              data-testid="onboarding-skip-btn"
+              (click)="nextStep()"
+            >
+              Skip
+            </button>
+            <button
+              type="button"
+              class="btn btn--ghost"
+              data-testid="onboarding-back-btn"
+              (click)="prevStep()"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- Unit/Confirmation Step -->
+      @if (step === 3) {
+        <div class="stack onboarding-step" data-testid="onboarding-confirmation">
+          <div class="stack" data-testid="onboarding-unit-section">
+            <h1>Select Your Unit</h1>
+            <fieldset class="stack onboarding-units" data-testid="onboarding-unit-selector">
+              <legend class="field__label">Your unit</legend>
+              @for (unit of units; track unit; let i = $index) {
+                <label class="choice" data-testid="onboarding-unit-option">
+                  <input
+                    type="radio"
+                    name="onboarding-unit"
+                    [value]="i"
+                    [checked]="selectedUnit === i"
+                    (change)="selectUnit(i)"
+                  />
+                  <span class="choice__text">{{ unit }}</span>
+                </label>
+              }
+            </fieldset>
+          </div>
+          <p class="text-muted" data-testid="onboarding-confirmation-message">
+            You're all set! Click below to go to your dashboard.
+          </p>
+          <div class="wizard__actions">
+            <button
+              type="button"
+              class="btn btn--primary btn--lg btn--block"
+              data-testid="onboarding-go-to-dashboard-btn"
+              (click)="finish()"
+            >
+              Go to Dashboard
+            </button>
+            <button
+              type="button"
+              class="btn btn--ghost"
+              data-testid="onboarding-back-btn"
+              (click)="prevStep()"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</main>

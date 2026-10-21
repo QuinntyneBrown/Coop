@@ -104,5 +104,6 @@ export class SidebarComponent {
   async expectActiveLink(section: string) {
     const link = this.page.getByTestId(`sidebar-nav-${section}`);
     await expect(link).toHaveAttribute('data-active', 'true');
+    await expect(link).toHaveAttribute('aria-current', 'page');
   }
 }

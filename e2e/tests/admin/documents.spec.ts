@@ -46,6 +46,12 @@ test.describe('Documents', () => {
       await expect(tab).toHaveAttribute('data-active', 'true');
     });
 
+    test('should expose the filters as tabs with the current one selected', async () => {
+      await expect(documentsPage.selectedFilter('All Documents')).toBeVisible();
+      await documentsPage.switchTab('notices');
+      await expect(documentsPage.selectedFilter('Notices')).toBeVisible();
+    });
+
     test('should switch to Notices tab', async () => {
       await documentsPage.switchTab('notices');
       await expect(documentsPage.tabNotices).toHaveAttribute('data-active', 'true');
@@ -252,6 +258,21 @@ test.describe('Documents', () => {
       const card = documentsPage.documentCards.first();
       await card.getByTestId('document-delete-button').click();
       await expect(documentsPage.deleteDialog).toBeVisible();
+    });
+
+    test('should name the document on its delete button and confirm in an alert dialog', async ({
+      api,
+    }) => {
+      await api.createDocument({
+        title: 'Named Delete Doc',
+        type: 'Notice',
+        content: 'Delete me by name',
+        status: 'Draft',
+      });
+      await documentsPage.goto();
+
+      await documentsPage.deleteButtonFor('Named Delete Doc').click();
+      await documentsPage.expectDeleteAlertDialogNamed('Confirm Delete');
     });
 
     test('should keep the document when the confirmation is closed', async ({ api }) => {

@@ -1,0 +1,378 @@
+<div class="page-header">
+  <div>
+    <h1 data-testid="maintenance-page-title">Maintenance Requests</h1>
+  </div>
+  <button
+    class="btn btn--primary"
+    type="button"
+    data-testid="maintenance-create-btn"
+    (click)="openCreate()"
+  >
+    <svg appIcon="add"></svg>New Request
+  </button>
+</div>
+
+<div class="tabs tabs--pill" role="tablist" aria-label="Filter requests by status">
+  @for (filter of filters; track filter.key) {
+    <button
+      class="tabs__tab"
+      type="button"
+      role="tab"
+      aria-controls="mt-panel"
+      [attr.aria-selected]="activeFilter === filter.key"
+      [attr.data-testid]="'maintenance-filter-' + filter.testId"
+      (click)="filterBy(filter.key)"
+    >
+      {{ filter.label }}
+    </button>
+  }
+</div>
+
+@if (loading) {
+  <div class="loading" role="status" data-testid="maintenance-loading">
+    <span class="spinner" aria-hidden="true"></span><span class="visually-hidden">Loading</span>
+  </div>
+}
+
+<div class="grid maintenance">
+  <div class="span-5 stack">
+    <section
+      class="card card--flush"
+      role="tabpanel"
+      id="mt-panel"
+      aria-labelledby="mt-list-title"
+      data-testid="maintenance-requests-panel"
+    >
+      <h2 class="card__title" id="mt-list-title" data-testid="maintenance-requests-title">
+        {{ listHeadings[activeFilter] }}
+      </h2>
+      <ul class="list maintenance__list">
+        @for (req of filteredRequests; track req) {
+          <li
+            class="list__item maintenance__item"
+            data-testid="maintenance-request-card"
+            [class.maintenance__item--selected]="isSelected(req)"
+            (click)="selectRequest(req)"
+          >
+            <div class="list__body">
+              <button
+                class="list__title maintenance__select"
+                type="button"
+                data-testid="request-title"
+                [attr.aria-current]="isSelected(req) || null"
+              >
+                {{ req.title }}
+              </button>
+              <div class="list__meta">
+                {{ req.description | slice: 0 : 80 }}{{ req.description?.length > 80 ? '...' : '' }}
+              </div>
+              <div class="list__meta">
+                <span data-testid="maintenance-request-date">{{
+                  req.date || req.createdOn | date: 'MMM d, y, h:mm a'
+                }}</span>
+              </div>
+            </div>
+            <span
+              class="badge"
+              [ngClass]="getStatusClass(req.status)"
+              data-testid="request-status-badge"
+              >{{ getStatusLabel(req.status) }}</span
+            >
+          </li>
+        }
+      </ul>
+    </section>
+
+    @if (!loading && filteredRequests.length === 0) {
+      <div class="card empty" data-testid="maintenance-empty-state">
+        <span class="empty__icon" aria-hidden="true"><svg appIcon="inbox"></svg></span>
+        <p class="empty__text">No maintenance requests found</p>
+      </div>
+    }
+  </div>
+
+  @if (selectedRequest) {
+    <div class="span-7">
+      <section class="card" aria-labelledby="rq-title" data-testid="maintenance-detail-panel">
+        <div class="tabs" role="tablist" [attr.aria-label]="selectedRequest.title">
+          <button
+            class="tabs__tab"
+            type="button"
+            role="tab"
+            aria-controls="rq-panel"
+            [attr.aria-selected]="activeTab === 'details'"
+            data-testid="maintenance-tab-details"
+            (click)="activeTab = 'details'"
+          >
+            Details
+          </button>
+          <button
+            class="tabs__tab"
+            type="button"
+            role="tab"
+            aria-controls="rq-panel"
+            [attr.aria-selected]="activeTab === 'comments'"
+            data-testid="maintenance-tab-comments"
+            (click)="activeTab = 'comments'"
+          >
+            Comments
+          </button>
+        </div>
+        <div class="tabs__panel stack" role="tabpanel" id="rq-panel">
+          <div class="cluster cluster--between">
+            <h2
+              class="card__title maintenance__title"
+              id="rq-title"
+              data-testid="maintenance-detail-title"
+            >
+              {{ selectedRequest.title }}
+            </h2>
+            <span
+              class="badge"
+              [ngClass]="getStatusClass(selectedRequest.status)"
+              data-testid="maintenance-detail-status"
+              >{{ getStatusLabel(selectedRequest.status) }}</span
+            >
+          </div>
+          @if (activeTab === 'details') {
+            <dl class="dl dl--horizontal">
+              <dt>Submitted by</dt>
+              <dd data-testid="maintenance-detail-submitted-by">
+                <span class="cluster">
+                  @if (submitterPhotoUrl) {
+                    <img
+                      class="avatar avatar--sm"
+                      [src]="submitterPhotoUrl"
+                      alt=""
+                      data-testid="maintenance-detail-submitter-photo"
+                    />
+                  }
+                  {{ selectedRequest.requestedByName || selectedRequest.createdBy || 'Unknown' }}
+                </span>
+              </dd>
+              <dt>Submitted</dt>
+              <dd data-testid="maintenance-detail-date">
+                {{ selectedRequest.date || selectedRequest.createdOn | date: 'MMM d, y, h:mm a' }}
+              </dd>
+              @if (selectedRequest.priority) {
+                <dt>Priority</dt>
+                <dd data-testid="maintenance-detail-priority">{{ selectedRequest.priority }}</dd>
+              }
+              <dt>Address</dt>
+              <dd data-testid="maintenance-detail-address">
+                {{ selectedRequest.unitNumber || selectedRequest.address || 'N/A' }}
+              </dd>
+              <dt>Phone</dt>
+              <dd data-testid="maintenance-detail-phone">
+                {{ selectedRequest.phone || selectedRequest.phoneNumber || 'N/A' }}
+              </dd>
+              <dt>Unattended Entry</dt>
+              <dd data-testid="maintenance-detail-unattended">
+                {{ selectedRequest.unattendedEntry ? 'Yes' : 'No' }}
+              </dd>
+            </dl>
+            <p data-testid="maintenance-detail-description">{{ selectedRequest.description }}</p>
+            <hr class="divider divider--rule" />
+            <section
+              class="stack maintenance__photos"
+              aria-labelledby="rq-photos"
+              data-testid="maintenance-detail-photos"
+            >
+              <h3 class="list__title" id="rq-photos">Photos</h3>
+              @if (selectedRequest.digitalAssets?.length) {
+                <ul class="picture-list__grid">
+                  @for (
+                    asset of selectedRequest.digitalAssets;
+                    track asset.digitalAssetId;
+                    let i = $index
+                  ) {
+                    <li class="picture-list__item" data-testid="maintenance-detail-photo">
+                      @if (photoUrls[asset.digitalAssetId]) {
+                        <a
+                          class="picture-list__thumb"
+                          [href]="photoUrls[asset.digitalAssetId]"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <img
+                            [src]="photoUrls[asset.digitalAssetId]"
+                            [alt]="'Photo ' + (i + 1) + ' of ' + selectedRequest.title"
+                          />
+                        </a>
+                      } @else {
+                        <div class="picture-list__thumb" aria-busy="true"></div>
+                        <span class="picture-list__note">Loading photo…</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <p class="text-muted">No photos attached</p>
+              }
+            </section>
+            <div class="cluster">
+              @if (nextStep(selectedRequest.status); as step) {
+                <button
+                  class="btn btn--primary"
+                  type="button"
+                  [attr.data-testid]="step.testId"
+                  [disabled]="advancing"
+                  [attr.aria-busy]="advancing || null"
+                  (click)="advance(step)"
+                >
+                  {{ step.label }}
+                </button>
+              }
+              <button class="btn" type="button" data-testid="maintenance-edit-description">
+                Edit Description
+              </button>
+            </div>
+            @if (stepFailed) {
+              <div class="alert alert--danger" role="alert" data-testid="maintenance-step-error">
+                <svg appIcon="error"></svg>
+                <div class="alert__body">That change was not saved. Please try again.</div>
+              </div>
+            }
+          }
+          @if (activeTab === 'comments') {
+            <div class="stack" data-testid="maintenance-comments-section">
+              @if (comments.length) {
+                <ul class="list">
+                  @for (comment of comments; track comment) {
+                    <li class="list__item" data-testid="maintenance-comment">
+                      <div class="list__body">
+                        <div class="cluster cluster--between">
+                          <span class="list__title">{{ comment.createdBy || 'User' }}</span>
+                          <span class="list__meta">{{
+                            comment.createdOn | date: 'MMM d, y, h:mm a'
+                          }}</span>
+                        </div>
+                        <p>{{ comment.body }}</p>
+                      </div>
+                    </li>
+                  }
+                </ul>
+              }
+              <div class="maintenance__comment-form">
+                <label class="visually-hidden" for="rq-comment">Add a comment</label>
+                <input
+                  class="input"
+                  id="rq-comment"
+                  type="text"
+                  [formControl]="commentControl"
+                  placeholder="Add a comment..."
+                  data-testid="maintenance-comment-input"
+                />
+                <button
+                  class="btn btn--primary"
+                  type="button"
+                  data-testid="maintenance-comment-send"
+                  (click)="addComment()"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+  }
+</div>
+
+<dialog
+  #createDialog
+  class="dialog"
+  aria-labelledby="mc-heading"
+  data-testid="maintenance-create-modal"
+  (close)="showCreateModal = false"
+>
+  <form class="dialog__panel" novalidate [formGroup]="createForm" (ngSubmit)="submitRequest()">
+    <div class="dialog__header">
+      <h2 class="dialog__title" id="mc-heading">New Maintenance Request</h2>
+      <button
+        class="btn btn--ghost btn--icon"
+        type="button"
+        aria-label="Close"
+        (click)="closeCreate()"
+      >
+        <svg appIcon="close"></svg>
+      </button>
+    </div>
+    <div class="dialog__body stack">
+      <div class="field">
+        <label class="field__label" for="mc-title">Title</label>
+        <input
+          class="input"
+          id="mc-title"
+          type="text"
+          formControlName="title"
+          data-testid="maintenance-title-input"
+        />
+      </div>
+      <div class="field">
+        <label class="field__label" for="mc-desc">Description</label>
+        <textarea
+          class="textarea"
+          id="mc-desc"
+          rows="3"
+          formControlName="description"
+          data-testid="maintenance-description-input"
+        ></textarea>
+      </div>
+      <div class="field">
+        <label class="field__label" for="mc-priority">Priority</label>
+        <select
+          class="select"
+          id="mc-priority"
+          formControlName="priority"
+          data-testid="maintenance-priority-select"
+        >
+          <option value="">Select priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+          <option value="Urgent">Urgent</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="mc-category">Category</label>
+        <select
+          class="select"
+          id="mc-category"
+          formControlName="category"
+          data-testid="maintenance-category-select"
+        >
+          <option value="">Select category</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Electrical">Electrical</option>
+          <option value="HVAC">HVAC</option>
+          <option value="General">General</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="mc-photos">Photos</label>
+        <input
+          id="mc-photos"
+          type="file"
+          multiple
+          accept="image/*"
+          data-testid="maintenance-photo-upload"
+        />
+      </div>
+    </div>
+    <div class="dialog__footer">
+      <button
+        type="button"
+        class="btn"
+        data-testid="maintenance-cancel-btn"
+        (click)="closeCreate()"
+      >
+        Cancel
+      </button>
+      <button type="submit" class="btn btn--primary" data-testid="maintenance-submit-btn">
+        Submit
+      </button>
+    </div>
+  </form>
+</dialog>

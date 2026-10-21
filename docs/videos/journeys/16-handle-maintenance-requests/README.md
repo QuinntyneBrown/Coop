@@ -14,7 +14,7 @@ shows the filter tabs, the request detail and photos, the three action buttons a
 By the end, the viewer can:
 
 - Filter requests by step and open one.
-- Move a request along with Receive Request, Start work and Finish work.
+- Move a request along with Receive request, Start work and Finish work.
 - Leave a comment on a request.
 
 ## Code / assets on screen
@@ -25,7 +25,7 @@ By the end, the viewer can:
 | `images/admin-maintenance-new-1280.png` | Filtered by New |
 | `images/admin-maintenance-detail-received-1280.png` | A request's details |
 | `images/admin-maintenance-detail-photos-1280.png` | Attached photos |
-| `images/admin-maintenance-detail-received-now-1280.png` | Kitchen tap leak after Receive Request: Received, with Start work |
+| `images/admin-maintenance-detail-received-now-1280.png` | Kitchen tap leak after Receive request: Received, with Start work |
 | `images/admin-maintenance-detail-started-1280.png` | Started, with Finish work |
 | `images/admin-maintenance-detail-completed-1280.png` | Completed, no next step |
 | `images/admin-maintenance-comments-1280.png` | The Comments tab |
@@ -39,7 +39,7 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | --- | --- | --- |
 | 00:00-00:23 | Welcome | Title; the four steps |
 | 00:23-01:01 | Find a request | Maintenance, tabs, details, photos |
-| 01:01-01:25 | Move it along | Receive Request, Start work, Finish work |
+| 01:01-01:25 | Move it along | Receive request, Start work, Finish work |
 | 01:25-01:36 | Comments | Comments tab, Send |
 | 01:36-01:50 | In short | Recap, thank you |
 

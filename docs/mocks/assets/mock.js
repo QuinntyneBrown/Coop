@@ -1,8 +1,10 @@
 /* Adapted from the invoked skill: chrome handling and state-link navigation.
-   Light appearance only: the implementation has no dark theme. */
+   Theme: ?theme=light|dark forces one. Otherwise public mocks stay light (their
+   markup sets data-theme="light"; the public app has no dark theme) and admin
+   mocks follow the OS preference through docs/design-system/tokens/tokens.css. */
 (() => {
   const params=new URLSearchParams(location.search);
-  document.documentElement.dataset.theme='light';
+  const theme=params.get('theme');if(theme==='light'||theme==='dark')document.documentElement.dataset.theme=theme;
   if(params.get('chrome')==='0')document.documentElement.dataset.chrome='off';
   function go(target){const url=new URL(target,location.href);if(params.get('chrome')==='0')url.searchParams.set('chrome','0');location.href=url.href;}
   function note(text){let box=document.querySelector('.mock-status');if(!box){box=document.createElement('div');box.className='mock-status';box.setAttribute('role','status');document.body.append(box);}box.textContent=text;setTimeout(()=>box.remove(),4500);}

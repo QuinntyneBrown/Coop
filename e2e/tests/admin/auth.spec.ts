@@ -105,9 +105,9 @@ test.describe('Login Page', () => {
       await expect(loginPage.formPanel).toBeVisible();
     });
 
-    test('should hide hero panel on mobile', async ({ page }) => {
+    test('should keep the branding above the form on mobile', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await expect(loginPage.heroPanel).toBeHidden();
+      await expect(loginPage.heroPanel).toBeVisible();
       await expect(loginPage.formPanel).toBeVisible();
     });
 
@@ -215,10 +215,6 @@ test.describe('Change Password Page', () => {
 
     test('should display password requirements hint', async () => {
       await expect(changePasswordPage.passwordHint).toContainText('8 characters');
-    });
-
-    test('should show lock icon', async () => {
-      await expect(changePasswordPage.lockIcon).toBeVisible();
     });
 
     test('should use the admin layout with the sidebar', async ({ authenticatedPage }) => {

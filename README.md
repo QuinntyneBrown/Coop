@@ -143,7 +143,7 @@ provenance, and known differences from the requirements.
 | Component library | `frontend/projects/components` | Angular library for design-system components; scaffold only so far |
 | E2E suite | `e2e` | Playwright projects for the public and admin apps; `tests/` express intent, `pages/` own selectors, `fixtures/` hold test data |
 | Design reference | `docs/mocks` | Static HTML references of both applications, with capture scripts and a manifest |
-| Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages extracted from the mocks; light appearance only |
+| Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages for the admin site, adopted from the Shelfie design system; light and dark themes; loaded by the admin app |
 | Requirements | `docs/specs` | L1 high-level and L2 detailed requirements with acceptance criteria |
 | Videos | `docs/videos`, `tools/` | Narrated videos built from a script and slides; tools in `tools/video-audio` and `tools/video-build` |
 | Board pitch | `docs/pitch` | Picture-first pitch page, one-page handout, and slide deck for the OWN board |

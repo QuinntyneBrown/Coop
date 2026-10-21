@@ -4,23 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Iconography — Coop design system</title>
-<meta name="description" content="The Material Icons font and inline SVG icons the Coop product uses, with every ligature name, sizes and labelling rules.">
+<meta name="description" content="Coop admin icons: inline stroke SVGs on a 24-unit grid, sizes, the icon sheet, the Material Icons mapping and labelling rules.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
-<style>
-.ico-grid td:first-child { width: 4rem; }
-.ico-sizes { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-end; }
-.ico-sizes figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); font: var(--text-caption); color: var(--color-fg-muted); text-align: center; }
-.ico-svg { display: block; flex: none; }
-</style>
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -38,168 +31,170 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
-      <p class="ds-kicker">Foundation</p>
+      <p class="ds-kicker">Foundation · Iconography</p>
       <h1>Iconography</h1>
-      <p class="ds-lead">Material Icons ligatures in four sizes, a small inline SVG set in the public shell, and the rules for labelling both.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#catalog">Icon catalog</a></li><li><a href="#svg">Inline SVG icons</a></li><li><a href="#accessibility">Accessibility and labelling</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+      <p class="ds-lead">Thirty plain line icons on a 24-unit grid with a 2px stroke, coloured by the text beside them, each with one meaning and almost always with a word next to it.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#style">Style</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#sheet">Icon sheet</a></li><li><a href="#mapping">From Material Icons</a></li><li><a href="#labelling">Labelling</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources and drift</a></li>
+      </ul>
     </header>
+
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-
-<p>Coop uses the <strong>Material Icons</strong> font (filled style, ligature names such as <code>build</code>), bundled locally so the product works offline. The public app also draws a small set of inline SVG icons in its shell. Nothing else (no icon sprite, no icon set from another family, no image icons) is used. Every ligature below appears in the mocks.</p>
-<p>Icons are rendered with <code>&lt;span class="material-icons"&gt;name&lt;/span&gt;</code>. The font family is <code>--font-family-icon</code>; the size comes from the component-level <code>--icon-size</code> property, which defaults to 24px.</p>
-
+      <p>The Coop admin uses 30 line icons, drawn inline as SVG so they inherit the colour of the text beside them and need no icon font or extra download. Each icon means exactly one thing everywhere it appears: the wrench is always maintenance, the bin is always delete. Icons help people find their way, but the word does the work. In the sidebar, the tab bar and on buttons, an icon always sits next to its label, because a picture alone is easy to misread, especially for people who did not grow up with app icons.</p>
     </section>
+
+    <section class="ds-section" id="style"><h2><a href="#style">Style</a></h2>
+      <ul>
+        <li><b>Grid:</b> a 24 × 24 viewBox with about 2 units of padding inside it.</li>
+        <li><b>Stroke:</b> 2 units, round caps and joins, no fill (<code>.icon</code> sets <code>fill: none; stroke: currentColor</code>).</li>
+        <li><b>Colour:</b> <code>currentColor</code>, so an icon is always the colour of the text beside it; alerts and toasts set it from their <code>*-icon</code> tokens, and sidebar links use <code>--color-fg-subtle</code> until the link is current.</li>
+        <li><b>Markup:</b> <code>&lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;</code> with paths only; no <code>width</code>, <code>height</code> or <code>fill</code> attributes.</li>
+        <li><b>The co-op logo</b> is not an icon. It is the logo mark (a rounded square with three overlapping circles) and is documented on <a href="../components/logo-mark.html">Logo mark</a>.</li>
+      </ul>
+    </section>
+
     <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
-
-<p>Four sizes exist, set through modifier classes in <code>components.css</code>. Choose the size by the component that hosts the icon, not by taste.</p>
-<div class="ds-example"><div class="ds-example__canvas"><div class="ico-sizes">
-<figure><span class="material-icons icon-sm" aria-hidden="true">search</span><span><code>.icon-sm</code><br>18px<br>search bar</span></span>
-<figure><span class="material-icons icon-md" aria-hidden="true">build</span><span><code>.icon-md</code><br>20px<br>sidebar nav items</span></span>
-<figure><span class="material-icons" aria-hidden="true">home</span><span>default<br>24px<br>tab bar, buttons, headers</span></span>
-<figure><span class="material-icons icon-xl" aria-hidden="true">inbox</span><span><code>.icon-xl</code><br>48px<br>empty states</span></span>
-</div></div></div>
-<p>Icons inherit the colour of the text around them (<code>currentColor</code>), so they take the hover, active and disabled colours of their control. Meaningful state is never carried by icon colour alone.</p>
-
+      <div class="ds-example"><div class="ds-example__canvas">
+        <span class="inline-status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 15v5h16v-5"/></svg>Meeting notes.pdf · 2 KB</span>
+        <a class="btn" href="../../mocks/dialogs/admin-page-editor/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</a>
+        <nav class="tabbar tabbar--static" aria-label="Icon size example" style="flex: 1 1 18rem;"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav>
+      </div><div class="ds-example__caption"><span>sm 16px beside small text (file details, list metadata); md 20px by default (buttons, sidebar links, alerts, toasts; inside a button it is 1.25em, so it grows with the label); lg 24px in the phone tab bar, metric cards and empty states.</span></div></div>
     </section>
-    <section class="ds-section" id="catalog"><h2><a href="#catalog">Icon catalog</a></h2>
 
-<h3>Navigation</h3>
-<p>Admin sidebar items, in order. See <a href="../components/sidebar.html">Sidebar</a>.</p>
-<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
-<tr><td><span class="material-icons" aria-hidden="true">dashboard</span></td><td><code>dashboard</code></td><td>Dashboard</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">build</span></td><td><code>build</code></td><td>Maintenance (also Requests in the tab bar)</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">description</span></td><td><code>description</code></td><td>Documents (also Docs in the tab bar)</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">chat</span></td><td><code>chat</code></td><td>Messages</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">people</span></td><td><code>people</code></td><td>Users</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">admin_panel_settings</span></td><td><code>admin_panel_settings</code></td><td>Roles and privileges</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">badge</span></td><td><code>badge</code></td><td>Profiles</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">perm_media</span></td><td><code>perm_media</code></td><td>Assets</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">mail</span></td><td><code>mail</code></td><td>Invitations</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">settings</span></td><td><code>settings</code></td><td>Settings</td></tr>
-</tbody></table></div>
-
-<h3>Shell</h3>
-<p>Top bar, tab bar and brand marks. See <a href="../components/bottom-tab-bar.html">Bottom tab bar</a> and <a href="../components/top-bar.html">Top bar</a>.</p>
-<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
-<tr><td><span class="material-icons" aria-hidden="true">home</span></td><td><code>home</code></td><td>Home tab</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">person</span></td><td><code>person</code></td><td>Profile tab</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">menu</span></td><td><code>menu</code></td><td>Open navigation (admin top bar)</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">notifications</span></td><td><code>notifications</code></td><td>Notifications button</td></tr>
-
-</tbody></table></div>
-
-<h3>Actions</h3>
-<p>Icons inside buttons and icon buttons. See <a href="../components/button.html">Button</a> and <a href="../components/icon-button.html">Icon button</a>.</p>
-<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
-<tr><td><span class="material-icons" aria-hidden="true">add</span></td><td><code>add</code></td><td>Create (New Request, Add User, New Document, Create Invitation)</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">edit</span></td><td><code>edit</code></td><td>Edit</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">delete</span></td><td><code>delete</code></td><td>Delete</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">search</span></td><td><code>search</code></td><td>Search bar</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">upload</span></td><td><code>upload</code></td><td>Upload</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">download</span></td><td><code>download</code></td><td>Download</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">send</span></td><td><code>send</code></td><td>Send message</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">close</span></td><td><code>close</code></td><td>Close a viewer</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">arrow_back</span></td><td><code>arrow_back</code></td><td>Back from a conversation on phones</td></tr>
-</tbody></table></div>
-
-<h3>Content, status and empty states</h3>
-<div class="ds-table-wrap"><table class="ds-table ico-grid"><thead><tr><th scope="col">Icon</th><th scope="col">Ligature name</th><th scope="col">Used for</th></tr></thead><tbody>
-<tr><td><span class="material-icons" aria-hidden="true">gavel</span></td><td><code>gavel</code></td><td>By-law document</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">campaign</span></td><td><code>campaign</code></td><td>Notice document</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">assessment</span></td><td><code>assessment</code></td><td>Report document</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">insert_drive_file</span></td><td><code>insert_drive_file</code></td><td>File or asset preview</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">shield</span></td><td><code>shield</code></td><td>Role in the roles list</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">lock</span></td><td><code>lock</code></td><td>Change password page</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">lock_reset</span></td><td><code>lock_reset</code></td><td>Forgot password page</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">inbox</span></td><td><code>inbox</code></td><td>Empty maintenance list</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">chat_bubble_outline</span></td><td><code>chat_bubble_outline</code></td><td>Empty conversation list and empty chat pane</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">cloud_upload</span></td><td><code>cloud_upload</code></td><td>Empty asset list and upload target</td></tr>
-<tr><td><span class="material-icons" aria-hidden="true">sync</span></td><td><code>sync</code></td><td>Loading state; the product adds a <code>spin</code> class that turns it</td></tr>
-</tbody></table></div>
-
+    <section class="ds-section" id="sheet"><h2><a href="#sheet">Icon sheet</a></h2>
+      <p>Every icon the admin needs, one per meaning. Nothing else is in the set; add an icon only when a mock needs one, and draw it in the same style.</p>
+      <div class="ds-swatches"><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Dashboard</span><span>Sidebar: Dashboard</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Maintenance</span><span>Sidebar, tab bar and metric card: maintenance requests</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Documents</span><span>Sidebar, tab bar and metric card: documents, notices, by-laws and reports</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Pages</span><span>Sidebar: website pages</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20a6 6 0 0 1 12 0"/><circle cx="5" cy="10" r="2"/><circle cx="19" cy="10" r="2"/><path d="M2 19a3.5 3.5 0 0 1 4-3.4M22 19a3.5 3.5 0 0 0-4-3.4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Board</span><span>Sidebar: board of directors</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Website</span><span>Sidebar: public website content</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Messages</span><span>Sidebar, tab bar and metric card: messages</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Users</span><span>Sidebar: user accounts; metric card: active members</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Roles &amp; Privileges</span><span>Sidebar: roles and what each may do</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Profiles</span><span>Sidebar: member and board profiles</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5L5 19"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Assets</span><span>Sidebar: the Assets library of photos and files</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Invitations</span><span>Sidebar: invitations; quick action: Send invitation</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3.9a7 7 0 0 0-1.7-1L14.5 3h-5l-.4 2.4a7 7 0 0 0-1.7 1L5.1 5.5l-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 1.7 1l.4 2.4h5l.4-2.4a7 7 0 0 0 1.7-1l2.3.9 2-3.4-2-1.5c.1-.3.1-.7.1-1z"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Settings</span><span>Sidebar: settings</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Add</span><span>New request, New page, Add director, Add user</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Edit</span><span>Edit a page, a director, a website section</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Delete</span><span>Remove a page or director; delete a document, asset or user</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Home</span><span>Phone tab bar: Home (the dashboard)</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Profile</span><span>Phone tab bar: my profile</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Close</span><span>Close a dialog; dismiss a message</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Move up</span><span>Reorder a director or a menu link</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Move down</span><span>Reorder a director or a menu link</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Open on the website</span><span>Opens a page on the public website in a new tab</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M4 15v5h16v-5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Upload</span><span>Upload a file or photo to the Assets library</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 15v5h16v-5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Download</span><span>Download a document or asset</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Search</span><span>Leading icon in a search field</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Try again</span><span>Retry after a list did not load</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Information</span><span>Information message</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Success</span><span>Saved and sent messages</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3zM12 10v4M12 17h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Warning</span><span>Warning message</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Error</span><span>A list did not load; a save failed; a form needs attention</span></div></div></div>
     </section>
-    <section class="ds-section" id="svg"><h2><a href="#svg">Inline SVG icons</a></h2>
 
-<p>The public app does not use the Material Icons font in its shell. It draws 24-unit outline icons as inline SVG: <code>viewBox="0 0 24 24"</code>, <code>fill="none"</code>, <code>stroke="currentColor"</code>, <code>stroke-width="2"</code>. They render at 24px in the top bar, tab bar and metric tiles, 20px in sidebar links, and the brand mark is a 28px rounded square with a letter.</p>
-<div class="ds-example"><div class="ds-example__canvas">
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Home</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Requests</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documents</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Messages</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Members</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notifications</span></span>
-<span class="ds-swatch-cell"><svg class="ico-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Menu</span></span>
-</div></div>
-<p>The two icon systems draw the same destinations differently: the admin app shows <code>build</code> for Requests, the public app a wrench outline; admin <code>description</code> against a public page outline. Both are listed here because both ship. A consolidated set is a future decision, not a rule of this system.</p>
-
+    <section class="ds-section" id="mapping"><h2><a href="#mapping">From Material Icons</a></h2>
+      <p>The implemented admin draws its icons with the Material Icons font. Each Material name it uses maps to one icon in this set.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><caption class="visually-hidden">Material Icons names and their stroke equivalents</caption>
+        <thead><tr><th scope="col">Material name in the admin</th><th scope="col">Icon</th><th scope="col">System name</th><th scope="col">Where</th></tr></thead>
+        <tbody><tr><td><code>dashboard</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></td><td>Dashboard</td><td>Sidebar: Dashboard</td></tr><tr><td><code>build</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></td><td>Maintenance</td><td>Sidebar, tab bar and metric card: maintenance requests</td></tr><tr><td><code>description</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></td><td>Documents</td><td>Sidebar, tab bar and metric card: documents, notices, by-laws and reports</td></tr><tr><td><code>web</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/></svg></td><td>Pages</td><td>Sidebar: website pages</td></tr><tr><td><code>groups</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20a6 6 0 0 1 12 0"/><circle cx="5" cy="10" r="2"/><circle cx="19" cy="10" r="2"/><path d="M2 19a3.5 3.5 0 0 1 4-3.4M22 19a3.5 3.5 0 0 0-4-3.4"/></svg></td><td>Board</td><td>Sidebar: board of directors</td></tr><tr><td><code>public</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></td><td>Website</td><td>Sidebar: public website content</td></tr><tr><td><code>chat</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></td><td>Messages</td><td>Sidebar, tab bar and metric card: messages</td></tr><tr><td><code>people</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg></td><td>Users</td><td>Sidebar: user accounts; metric card: active members</td></tr><tr><td><code>admin_panel_settings</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></td><td>Roles &amp; Privileges</td><td>Sidebar: roles and what each may do</td></tr><tr><td><code>badge</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4"/></svg></td><td>Profiles</td><td>Sidebar: member and board profiles</td></tr><tr><td><code>perm_media</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5L5 19"/></svg></td><td>Assets</td><td>Sidebar: the Assets library of photos and files</td></tr><tr><td><code>mail</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></td><td>Invitations</td><td>Sidebar: invitations; quick action: Send invitation</td></tr><tr><td><code>settings</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3.9a7 7 0 0 0-1.7-1L14.5 3h-5l-.4 2.4a7 7 0 0 0-1.7 1L5.1 5.5l-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 1.7 1l.4 2.4h5l.4-2.4a7 7 0 0 0 1.7-1l2.3.9 2-3.4-2-1.5c.1-.3.1-.7.1-1z"/></svg></td><td>Settings</td><td>Sidebar: settings</td></tr><tr><td><code>add</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></td><td>Add</td><td>New request, New page, Add director, Add user</td></tr><tr><td><code>edit</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></td><td>Edit</td><td>Edit a page, a director, a website section</td></tr><tr><td><code>delete</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></td><td>Delete</td><td>Remove a page or director; delete a document, asset or user</td></tr><tr><td><code>home</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg></td><td>Home</td><td>Phone tab bar: Home (the dashboard)</td></tr><tr><td><code>person</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></td><td>Profile</td><td>Phone tab bar: my profile</td></tr><tr><td><code>close</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></td><td>Close</td><td>Close a dialog; dismiss a message</td></tr><tr><td><code>arrow_upward</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></td><td>Move up</td><td>Reorder a director or a menu link</td></tr><tr><td><code>arrow_downward</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></td><td>Move down</td><td>Reorder a director or a menu link</td></tr><tr><td><code>open_in_new</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></td><td>Open on the website</td><td>Opens a page on the public website in a new tab</td></tr><tr><td><code>upload</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M4 15v5h16v-5"/></svg></td><td>Upload</td><td>Upload a file or photo to the Assets library</td></tr><tr><td><code>download</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 15v5h16v-5"/></svg></td><td>Download</td><td>Download a document or asset</td></tr><tr><td><code>check_circle</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></td><td>Success</td><td>Saved and sent messages</td></tr><tr><td><code>error_outline</code></td><td><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></td><td>Error</td><td>A list did not load; a save failed; a form needs attention</td></tr></tbody>
+      </table></div>
+      <p>The admin also uses a few Material names on single screens (<code>shield</code>, <code>photo_library</code>, <code>person_add</code>, <code>insert_drive_file</code>, <code>gavel</code>, <code>campaign</code>, <code>assessment</code>, <code>lock</code>, <code>send</code>, <code>inbox</code>, <code>sync</code>). They are not in the set yet; the component pages that need them map them to the closest icon above or draw a new one in this style.</p>
     </section>
-    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility and labelling</a></h2>
 
-<ul>
-<li><strong>Decorative icons</strong> (the icon sits beside a visible text label) carry <code>aria-hidden="true"</code>. This is the default for icons in nav items, tab items, and buttons that also show text.</li>
-<li><strong>Icon-only buttons and links</strong> need an accessible name: <code>aria-label</code> on the button, never on the icon. Use the action, not the glyph: "Notifications", "Open menu", "Delete document".</li>
-<li><strong>Meaningful stand-alone icons</strong> (a status shown without text) either get a visually hidden text alternative or are replaced by text.</li>
-<li>Material Icons are ligatures: if the font fails to load, the ligature name is shown as text. Always keep <code>aria-hidden="true"</code> so assistive technology does not read "inbox" before the real label.</li>
-<li>Icons that carry meaning must reach 3:1 contrast against their background (WCAG 1.4.11). The brand green and the accent colour both pass on white; see <a href="accessibility.html">Accessibility</a>.</li>
-<li>Icon-only buttons meet the 24px minimum target through the 2.5rem (40px) icon button.</li>
-</ul>
-<div class="ds-example"><div class="ds-example__canvas">
-<button class="icon-btn" type="button" aria-label="Delete document"><span class="material-icons" aria-hidden="true">delete</span></button>
-<button class="btn btn-primary" type="button"><span class="material-icons icon-md" aria-hidden="true">add</span>New Request</button>
-</div><div class="ds-example__caption"><span>Icon-only button named with <code>aria-label</code>; icon plus text with the glyph hidden.</span></div></div>
-
+    <section class="ds-section" id="labelling"><h2><a href="#labelling">Labelling</a></h2>
+      <ul>
+        <li>An icon beside visible text is decoration: <code>aria-hidden="true"</code>, and the text is the name.</li>
+        <li>An icon-only button has an <code>aria-label</code> with the verb and the object: "Delete Meeting notes.pdf", "Edit mira.fern", "Close". A bare "Delete" in a list of ten rows does not say which row.</li>
+        <li>When a row has visible "Edit" and "Remove" text, the button still gets a fuller <code>aria-label</code> ("Edit About us", "Remove Our garden", "Move Rosalind Achebe up"), as the Pages and Board screens already do.</li>
+        <li>An icon that carries status always sits next to words: the success icon with "“About us” is now on the website."</li>
+      </ul>
+      <div class="ds-example"><div class="ds-example__canvas">
+        <button class="btn btn--sm" type="button" aria-label="Edit About us"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg>Edit</button>
+        <button class="btn btn--sm btn--danger" type="button" aria-label="Remove About us"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>Remove</button>
+        <button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Meeting notes.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button>
+      </div><div class="ds-example__caption"><span>Word plus icon wherever there is room; icon-only only in dense rows, and always with a full <code>aria-label</code>.</span></div></div>
     </section>
+
     <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
-
-<ul>
-<li>Use only the ligatures listed in the catalog. Adding an icon means adding it to the catalog first.</li>
-<li>Pick the size modifier from the host component (search bar 18, nav item 20, default 24, empty state 48). Do not size icons with ad hoc <code>font-size</code>.</li>
-<li>Do not colour icons independently of their text, except the semantic tiles (<code>.icon-tile-success</code>, <code>.icon-tile-info</code>, <code>.icon-tile-warning</code>).</li>
-</ul>
-<h3>Drift</h3>
-<ul>
-<li>The mocks set icon sizes in pixels (<code>font-size: 24px</code>, hero icons 80px on phones). The system exposes four sizes through <code>--icon-size</code>.</li>
-<li>Several icon-only controls in the mocks have no accessible name. The system requires one; see <a href="accessibility.html#gaps">Known gaps</a>.</li>
-</ul>
-
+      <ul>
+        <li>Lead with the icon in buttons, sidebar links and menu items; the label follows.</li>
+        <li>One icon per meaning: the check in a circle is "success" and nothing else; the bin is "delete" or "remove" and nothing else.</li>
+        <li>Copy paths from this sheet; do not redraw them or import icons from another set or font.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><a class="nav-link" href="../../mocks/pages/admin-roles/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Roles &amp; Privileges</a></div><figcaption>Inline SVG with <code>aria-hidden="true"</code>; a screen reader hears "Roles &amp; Privileges, link".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;span class="material-icons"&gt;admin_panel_settings&lt;/span&gt;Roles &amp; Privileges</code></div><figcaption>An icon-font ligature that is not hidden is read aloud: "admin underscore panel underscore settings, Roles and Privileges".</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>Icon-only row actions name the row they act on and are 44px square.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="delete"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>A 16px bin in a small button with no row name, as on the Users and Documents lists, is hard to hit and does not say what it deletes.</figcaption></figure>
+      </div>
     </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li>Meaningful icons reach 3:1 against their background (1.4.11); status icons use the <code>--color-*-icon</code> tokens, which are checked in both themes.</li>
+        <li>Icon-only buttons are 44px square (<code>--target-comfortable</code>); never smaller than 24px (<code>--target-min</code>).</li>
+        <li>In forced-colours mode icons follow <code>currentColor</code> and stay visible; an icon font can be replaced or blocked by the browser, an inline SVG cannot.</li>
+        <li>Each icon means one thing on every screen (3.2.4, consistent identification).</li>
+      </ul>
+    </section>
+
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-<p>This page owns no tokens. Icon size is a component-level property (<code>--icon-size</code> on <code>.material-icons</code>) and the icon font is <code>--font-family-icon</code>, which Typography lists.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><caption class="visually-hidden">Icon size tokens</caption>
+        <thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Inline with small text</td><td><code>--size-icon-sm</code></td><td colspan="2"><span data-token="--size-icon-sm"></span></td></tr>
+          <tr><td>Default: buttons, sidebar links, alerts</td><td><code>--size-icon-md</code></td><td colspan="2"><span data-token="--size-icon-md"></span></td></tr>
+          <tr><td>Tab bar, metric cards, empty states</td><td><code>--size-icon-lg</code></td><td colspan="2"><span data-token="--size-icon-lg"></span></td></tr>
+        </tbody>
+      </table></div>
     </section>
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources and drift</a></h2>
+      <p>The icon style is adopted from the Shelfie design system. The set is taken from the icons the admin mocks use: <a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (sidebar, metric cards, quick actions, tab bar), <a href="../../mocks/pages/admin-board/default.html">pages/admin-board/default</a> (move up, move down, edit, remove), <a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> (open on the website), <a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (edit and delete row actions), <a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (upload) and <a href="../../mocks/dialogs/admin-asset-detail/default.html">dialogs/admin-asset-detail/default</a> (download).</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li>The admin draws icons with the Material Icons font (<code>&lt;span class="material-icons"&gt;build&lt;/span&gt;</code>). The system uses inline stroke SVGs; see the <a href="#mapping">mapping</a>.</li>
+        <li>Most Material icon spans in the mocks have no <code>aria-hidden</code>, so screen readers read the ligature text ("build Maintenance", "admin_panel_settings Roles &amp; Privileges").</li>
+        <li>The document delete button and the user edit and delete buttons are <code>.icon-btn</code> elements with no <code>aria-label</code>; their only name is the ligature text "delete" or "edit". The system names the row: "Delete Meeting notes.pdf".</li>
+        <li><code>.icon-btn</code> has 4px padding around a 24px glyph (a 32px target). The system's icon button is 44px.</li>
+        <li>The phone tab bar uses <code>home</code> and <code>person</code> for Home and Profile; the system keeps both meanings as Home and Profile.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

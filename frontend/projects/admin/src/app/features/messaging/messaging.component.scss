@@ -1,0 +1,122 @@
+.messaging-layout {
+  align-items: start;
+}
+
+.conversation-list-panel__head {
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.conversation-list-panel__title-row {
+  flex-wrap: nowrap;
+}
+
+.conversation-list-panel__title-row .card__title {
+  margin: 0;
+}
+
+.conversation-list {
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.conversation-list__row {
+  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.conversation-list__row:last-child {
+  border-bottom: 0;
+}
+
+.conversation-item {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.conversation-item:hover {
+  background: var(--color-bg-subtle);
+}
+
+.conversation-item[aria-current='true'] {
+  background: var(--color-accent-subtle);
+}
+
+.conversation-item .list__body,
+.conversation-item .list__title,
+.conversation-item .list__meta {
+  display: block;
+}
+
+.conversation-item__preview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversation-item__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex: none;
+}
+
+.empty--compact {
+  padding: var(--space-6) var(--space-4);
+}
+
+.chat-header {
+  flex-wrap: nowrap;
+  padding: var(--space-4);
+}
+
+.chat-header__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-header__info .card__title {
+  margin: 0;
+}
+
+.message-list {
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.message-bubble {
+  align-items: flex-start;
+}
+
+.message-bubble.own {
+  background: var(--color-accent-subtle);
+}
+
+.message-input-bar {
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+.message-input-bar .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.back-btn {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .conversation-list-panel.hidden-mobile,
+  .empty-chat {
+    display: none;
+  }
+
+  .back-btn {
+    display: inline-flex;
+  }
+}

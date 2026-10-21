@@ -1,17 +1,38 @@
 <!doctype html>
-<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin · Forgot Password · default</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Forgot Password · default</title>
 <meta name="mock:screen" content="admin-forgot-password">
 <meta name="mock:kind" content="page">
 <meta name="mock:state" content="default">
 <meta name="mock:requirements" content="L2-REQ-001">
-<link rel="stylesheet" href="../../assets/tokens.css">
-<link rel="stylesheet" href="../../assets/fonts.css">
-<link rel="stylesheet" href="../../assets/styles/74dcab47ad882ae4.css">
-<link rel="stylesheet" href="../../assets/styles/966523f07b4db81c.css">
-<link rel="stylesheet" href="../../assets/styles/dd462e4f22a2a1ae.css">
+<link rel="stylesheet" href="../../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../../design-system/assets/components.css">
 <link rel="stylesheet" href="../../assets/mock.css">
-<script src="../../assets/mock.js" defer></script></head><body>
+<script src="../../assets/mock.js" defer></script>
+</head>
+<body>
 <a class="mock-skip" href="#main">Skip to content</a>
-<main style="display:contents"><app-root ng-version="19.2.25" _nghost-ng-c3984273398="" role="main" id="main"><app-forgot-password _nghost-ng-c3355490508=""><div _ngcontent-ng-c3355490508="" class="forgot-page"><div _ngcontent-ng-c3355490508="" class="forgot-card card"><span _ngcontent-ng-c3355490508="" class="material-icons lock-icon">lock_reset</span><h2 _ngcontent-ng-c3355490508="">Forgot Password</h2><p _ngcontent-ng-c3355490508="">Enter your username and we'll help you reset your password.</p><form _ngcontent-ng-c3355490508="" novalidate="" class="ng-untouched ng-pristine ng-invalid" data-source-action="submit"><div _ngcontent-ng-c3355490508="" class="form-group"><label _ngcontent-ng-c3355490508="" for="username">Username</label><input _ngcontent-ng-c3355490508="" id="username" type="text" formcontrolname="username" placeholder="Enter your username" data-testid="forgot-username" class="ng-untouched ng-pristine ng-invalid" value=""></div><button _ngcontent-ng-c3355490508="" type="submit" data-testid="forgot-submit-btn" class="btn btn-primary btn-block">Reset Password</button></form><p _ngcontent-ng-c3355490508="" class="back-link"><a _ngcontent-ng-c3355490508="" routerlink="/login" href="../../pages/admin-login/default.html" data-source-action="click">Back to Sign In</a></p></div></div></app-forgot-password></app-root></main>
-<h1 class="mock-review-heading">Admin · Forgot Password · default</h1><aside class="mock-bar"><details><summary>Admin · Forgot Password · default — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html" aria-current="page">default</a> </nav><p class="mock-note">Submit handler is a stub. There is no implemented reset request, busy indicator, or confirmation. Requirement linkage is contextual; self-service reset is not specified by L2-REQ-001. Static capture of the implemented light UI. Forms do not submit. Missing states and source limitations are documented in the README.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/forgot-password/forgot-password.component.ts</code></p></details></aside>
-</body></html>
+<main id="main" class="auth-layout">
+<div class="auth-card stack">
+<div class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span></div>
+<div class="card stack">
+<h1 style="font: var(--text-h2); text-align: center;">Forgot your password?</h1>
+<p class="text-muted" style="text-align: center; margin-inline: auto;">Enter your username and we'll help you reset your password.</p>
+<form class="stack" novalidate aria-label="Reset password">
+<div class="field">
+  <label class="field__label" for="forgot-username">Username</label>
+  <input class="input" id="forgot-username" name="forgot-username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false">
+</div>
+<button class="btn btn--primary btn--lg btn--block" type="submit">Reset password</button>
+<p style="text-align: center; margin-inline: auto;"><a href="../../pages/admin-login/default.html">Back to sign in</a></p>
+</form>
+</div>
+</div>
+</main>
+
+<aside class="mock-bar"><details><summary>Admin · Forgot Password · default — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html" aria-current="page">default</a> </nav><p class="mock-note">Submit handler is a stub. There is no implemented reset request, busy indicator, or confirmation. Requirement linkage is contextual; self-service reset is not specified by L2-REQ-001. Static capture of the implemented light UI. Forms do not submit. Missing states and source limitations are documented in the README.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/forgot-password/forgot-password.component.ts</code></p><p class="mock-note">Design-system mock of the Coop admin, built from docs/design-system (light and dark). It shows the target design; the running Angular admin does not match it yet. Forms do not submit; use the state links to review outcomes.</p></details></aside>
+</body>
+</html>

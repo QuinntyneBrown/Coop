@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Theming — Coop design system</title>
-<meta name="description" content="How Coop design tokens are layered in three tiers, how components override them, and how tokens.json is consumed; the product has no dark mode.">
+<meta name="description" content="Coop admin theming: light and dark themes with data-theme, token tiers, adding a theme, tokens.json, and the website theme in Settings.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,129 +31,187 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
-      <p class="ds-kicker">Foundation</p>
+      <p class="ds-kicker">Foundation · Theming</p>
       <h1>Theming</h1>
-      <p class="ds-lead">One light appearance, three token tiers, and component tokens as the override points. No dark theme is implemented or specified.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light appearance only</span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#tiers">The three tiers</a></li><li><a href="#overrides">Component overrides</a></li><li><a href="#tokens-json">tokens.json</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+      <p class="ds-lead">Light and dark are the same components reading the same token names; a theme is a block of semantic overrides applied with data-theme or the device setting.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#how">How a theme applies</a></li><li><a href="#tiers">Token tiers</a></li><li><a href="#add-theme">Adding a theme</a></li><li><a href="#json">Consuming tokens.json</a></li><li><a href="#site-theme">The website theme in Settings</a></li><li><a href="#usage">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources and drift</a></li>
+      </ul>
     </header>
+
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-
-<p>The implemented Coop product ships <strong>one light appearance</strong>. There is no dark palette, no theme switch and no per-user colour mode; the mocks README records that <code>?theme=dark</code> keeps the same light product. <strong>No dark theme is specified</strong> by this design system either. <code>tokens.css</code> declares <code>color-scheme: light</code>, and the documentation pages have no theme toggle.</p>
-<p>Theming here therefore means how tokens are layered, so that a value can change in one place, and how a component can be adjusted without editing its stylesheet. It does not mean theme variants.</p>
-
+      <p>The Coop admin system ships a light and a dark theme. Both are the same components reading the same token names; only the semantic colour and shadow values change. With no setting, the admin follows the device: someone who has set their tablet or computer to dark mode gets the dark theme, and everyone else gets light. Both themes pass WCAG 2.2 AA for every pair in <code>contrast-pairs.json</code>.</p>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack">
+          <a class="card metric-card" href="../../mocks/pages/admin-maintenance/default.html"><span class="metric-card__icon metric-card__icon--warning"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="stat"><span class="stat__value">3</span><span class="stat__label">Open requests</span></span></a>
+          <div class="cluster"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</button></div>
+        </div></div>
+        <div data-theme="dark"><div class="stack">
+          <a class="card metric-card" href="../../mocks/pages/admin-maintenance/default.html?theme=dark"><span class="metric-card__icon metric-card__icon--warning"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="stat"><span class="stat__value">3</span><span class="stat__label">Open requests</span></span></a>
+          <div class="cluster"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</button></div>
+        </div></div>
+      </div>
     </section>
-    <section class="ds-section" id="tiers"><h2><a href="#tiers">The three tiers</a></h2>
 
-<p>Tokens come in three tiers. Each tier references the one below it, never the reverse.</p>
-<ol>
-<li><strong>Primitives</strong> (<code>--palette-*</code>, <code>--font-*</code>) are raw values: a hex colour, a font stack, a size. Components never use them directly. This is the only tier where raw colour values live.</li>
-<li><strong>Semantic</strong> tokens (<code>--color-*</code>, <code>--text-*</code>, <code>--space-*</code>, <code>--radius-*</code>, <code>--shadow-*</code>, <code>--duration-*</code>, <code>--z-*</code>, <code>--layout-*</code>) name a role and alias a primitive. Components and pages consume these. Example: <code>--color-accent</code> aliases <code>--palette-green-700</code>.</li>
-<li><strong>Component</strong> tokens (<code>--button-bg</code>, <code>--button-height</code>, <code>--icon-size</code>, <code>--alert-bg</code>, <code>--field-border</code>, <code>--avatar-size</code>, <code>--icon-btn-size</code>) are declared inside a component rule in <code>components.css</code> and always alias a semantic token. They are the supported override points.</li>
-</ol>
-<p>The system also honours three user preferences by overriding semantic tokens in <code>tokens.css</code>: <code>prefers-reduced-motion</code> (shortens durations), <code>prefers-contrast: more</code> (stronger borders and secondary text) and <code>forced-colors</code> (system colours for the focus ring and borders). These are accessibility adaptations of the single appearance, not themes.</p>
+    <section class="ds-section" id="how"><h2><a href="#how">How a theme applies</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Mechanism</th><th scope="col">What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>:root</code></td><td>Light values; the default.</td></tr>
+          <tr><td><code>[data-theme="dark"]</code></td><td>Dark values on any element and everything inside it. Set on <code>&lt;html&gt;</code> to force dark.</td></tr>
+          <tr><td><code>[data-theme="light"]</code></td><td>Light values, even inside a dark page or on a dark device. Set on <code>&lt;html&gt;</code> to force light.</td></tr>
+          <tr><td><code>@media (prefers-color-scheme: dark)</code> on <code>:root:not([data-theme="light"])</code></td><td>Follow the device: dark when the device is dark, unless light has been forced.</td></tr>
+          <tr><td><code>color-scheme: light | dark</code></td><td>Set inside each theme so scrollbars, native form controls (the native <code>&lt;select&gt;</code> list, date pickers) and the default canvas match.</td></tr>
+          <tr><td><code>@media (prefers-contrast: more)</code></td><td>Decorative borders become strong; muted and subtle text become default.</td></tr>
+          <tr><td><code>@media (forced-colors: active)</code></td><td>The focus ring and borders hand over to system colours; buttons, fields, cards and badges draw a <code>CanvasText</code> border.</td></tr>
+        </tbody>
+      </table></div>
+      <pre><code>&lt;!-- Follow the device: no attribute --&gt;
+&lt;html lang="en"&gt;
 
+&lt;!-- Force one theme --&gt;
+&lt;html lang="en" data-theme="dark"&gt;
+&lt;html lang="en" data-theme="light"&gt;</code></pre>
+      <p>Set the attribute before first paint so there is no flash of the wrong theme. The admin has no appearance setting of its own today, so "follow the device" is the behaviour this system documents. These docs and the mocks also accept <code>?theme=dark</code> and the <kbd>t</kbd> key to preview.</p>
     </section>
-    <section class="ds-section" id="overrides"><h2><a href="#overrides">Component overrides</a></h2>
 
-<p>A component reads its look from its own tokens. To change one instance, set the component token on that element or a wrapper; to change a role everywhere, change the semantic token. <code>.btn-primary</code> works exactly this way: it only reassigns the button tokens.</p>
-<div class="ds-example"><div class="ds-example__canvas">
-<button class="btn btn-primary" type="button">Primary</button>
-<button class="btn btn-danger" type="button">Danger</button>
-<button class="btn btn-outline" type="button">Outline</button>
-</div>
-<div class="ds-example__code"><details><summary>Show the override</summary><pre><code>.btn-danger {
-  --button-bg: var(--color-danger-solid);
-  --button-bg-hover: var(--color-danger-solid-hover);
-  --button-fg: var(--color-fg-on-danger);
-  --button-border: var(--color-danger-solid);
-}</code></pre></details></div>
-<div class="ds-example__caption"><span>Variants are token reassignments, not new rules. See <a href="../components/button.html">Button</a>.</span></div></div>
-<p>Overrides must point at semantic tokens (<code>var(--color-accent)</code>), never at a literal colour, so contrast is checked once in <code>tokens/contrast-pairs.json</code>.</p>
-
+    <section class="ds-section" id="tiers"><h2><a href="#tiers">Token tiers</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Tier</th><th scope="col">Examples</th><th scope="col">Who reads it</th><th scope="col">Changes per theme?</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Primitives</td><td><code>--palette-violet-600</code>, <code>--palette-gray-900</code>, <code>--font-size-md</code></td><td>Only semantic tokens</td><td>No</td></tr>
+          <tr><td>2 · Semantic</td><td><code>--color-accent</code>, <code>--text-body</code>, <code>--space-4</code>, <code>--radius-md</code>, <code>--shadow-1</code></td><td>Components and pages</td><td>Colour and shadow do</td></tr>
+          <tr><td>3 · Component</td><td><code>--btn-bg</code>, <code>--field-border</code>, <code>--alert-icon</code>, <code>--sidebar-bg</code>, <code>--avatar-size</code></td><td>One component; declared in <code>components.css</code></td><td>No; they alias semantic tokens</td></tr>
+        </tbody>
+      </table></div>
+      <p>A theme overrides tier 2. A one-off re-skin of a single component overrides tier 3 in a scoped selector. Nothing outside <code>tokens.css</code> names a tier 1 token.</p>
     </section>
-    <section class="ds-section" id="tokens-json"><h2><a href="#tokens-json">tokens.json</a></h2>
 
-<p><code>tokens/tokens.json</code> is the same set of tokens in the Design Tokens Community Group format. It is exported from <code>tokens.css</code>, which stays the source of truth. Each entry has <code>$type</code>, <code>$value</code> and the CSS custom property name under <code>$extensions["com.agent-toolkit"].css</code>.</p>
-<pre><code>{
-  "layout": {
-    "breakpoint": {
-      "sm": {
-        "$type": "dimension",
-        "$value": "40rem",
-        "$extensions": { "com.agent-toolkit": { "css": "--layout-breakpoint-sm" } }
-      }
+    <section class="ds-section" id="add-theme"><h2><a href="#add-theme">Adding a theme</a></h2>
+      <ol>
+        <li>Copy the <code>[data-theme="dark"]</code> block in <code>tokens/tokens.css</code> and rename the selector, for example <code>[data-theme="high-contrast"]</code>.</li>
+        <li>Point each <code>--color-*</code> token at a palette step. Add a new ramp under Primitives if the theme needs a hue the palette does not have; never put a raw value in the theme block.</li>
+        <li>Set <code>color-scheme</code> and, for a dark-based theme, <code>--shadow-color</code> and the four shadows.</li>
+        <li>Run <code>python .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system/tokens/tokens.css</code>; every pair in <code>contrast-pairs.json</code> must pass in the new theme.</li>
+        <li>Regenerate <code>tokens.json</code> (below) and add the theme to the docs' theme previews.</li>
+      </ol>
+      <p>Adding a theme is a design decision for the whole admin, not a per-user preference. It needs a requirement and a mock before anyone builds it.</p>
+    </section>
+
+    <section class="ds-section" id="json"><h2><a href="#json">Consuming tokens.json</a></h2>
+      <p><code>tokens/tokens.json</code> is a DTCG export of <code>tokens.css</code> for tools that cannot read CSS (design tools, tests). Each token has <code>$type</code>, <code>$value</code> (an alias such as <code>{palette.violet.600}</code> or a raw value) and, under <code>$extensions["com.agent-toolkit"]</code>, its CSS name, the resolved value and any theme overrides.</p>
+      <pre><code>"accent": {
+  "$type": "color",
+  "$value": "{palette.violet.600}",
+  "$extensions": {
+    "com.agent-toolkit": {
+      "css": "--color-accent",
+      "themes": { "dark": { "$value": "{palette.violet.300}" } }
     }
   }
 }</code></pre>
-<ul>
-<li>Web code consumes <code>tokens.css</code> directly through <code>var(--token)</code>. Link it before <code>components.css</code>.</li>
-<li>Other tools (design software, native code, style generators) read <code>tokens.json</code> and use the <code>css</code> extension to map back to the property name.</li>
-<li>Edit <code>tokens.css</code> first, then regenerate <code>tokens.json</code>. Do not edit both by hand.</li>
-</ul>
-
+      <ul>
+        <li><code>tokens.css</code> is the source of truth; regenerate the JSON with <code>python .claude/skills/extracting-design-systems/scripts/tokens_to_json.py docs/design-system/tokens/tokens.css</code> after every change and never edit it by hand.</li>
+        <li>In the Angular admin, import <code>tokens.css</code> once in the global styles and read tokens with <code>var()</code>; components never import the JSON.</li>
+        <li>Playwright tests that need a value read it with <code>getComputedStyle</code>, so they follow the active theme.</li>
+      </ul>
     </section>
-    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
 
-<ul>
-<li>Add a new value as a primitive first, then alias it with a semantic token. Pages and components use the semantic name.</li>
-<li>Do not add a dark or high-contrast <em>theme</em>. Preference media queries may adapt existing tokens; they do not introduce a second palette.</li>
-<li>Do not use <code>data-theme</code> to switch appearance. The mocks set <code>data-theme="light"</code> only as a constant.</li>
-<li>When a component needs a new adjustable value, declare it as a component token that aliases a semantic token.</li>
-</ul>
-
+    <section class="ds-section" id="site-theme"><h2><a href="#site-theme">The website theme in Settings</a></h2>
+      <p>The admin's Settings screen has a "Theme" tab ("Theme Customization": Scope, Primary Color, Background Color, Accent Color, Text Color, Reset to Default, Save Theme). That tab edits the colours of the <b>public website</b> that members and visitors see. It is website content that staff manage, like the pages and the board list. It does not change this design system or the admin's own colours, and the admin's light and dark themes do not read it.</p>
+      <p>Keep the two apart: a co-op can choose its website colours without touching the admin, and the admin keeps tested contrast whatever the website uses. When documenting the Settings screen, show the tab's controls with the system's components (select, text field, button) and treat its colour values as data, not tokens.</p>
     </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>background: var(--color-bg-surface);</code></div><figcaption>Read semantic tokens in components, so the dark theme works with no extra CSS.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>background: var(--palette-white);</code></div><figcaption>A primitive stays white in dark mode and leaves a glaring panel on a dark page.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;html lang="en" data-theme="dark"&gt;</code></div><figcaption>Set the theme once, on <code>&lt;html&gt;</code>; the docs use it on preview frames only.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>[data-theme="dark"] .card { … }</code></div><figcaption>Theme-specific component CSS splits one decision into two places; change the semantic token instead.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="text-muted">Website colours saved as website settings; admin colours from <code>tokens.css</code></span></div><figcaption>Keep the public website's theme as content the co-op edits.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="text-muted">The admin sidebar turning orange because someone changed the website's Primary Color</span></div><figcaption>Feeding the website theme into admin tokens would break tested contrast without warning.</figcaption></figure>
+      </div>
+      <ul>
+        <li><b>Do</b> check both themes for every new colour pair; <b>don't</b> assume a pair that passes in light passes in dark.</li>
+        <li><b>Do</b> let <code>prefers-reduced-motion</code>, <code>prefers-contrast</code> and <code>forced-colors</code> adjust tokens; <b>don't</b> override them per component.</li>
+      </ul>
+    </section>
+
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-
-<p>This page owns no tokens. It lists the tiers only.</p>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Prefix</th><th scope="col">Tier</th><th scope="col">Example</th></tr></thead><tbody>
-<tr><td><code>--palette-*</code></td><td>Primitive</td><td><code>--palette-green-700</code></td></tr>
-<tr><td><code>--font-*</code></td><td>Primitive</td><td><code>--font-size-md</code></td></tr>
-<tr><td><code>--color-*</code></td><td>Semantic</td><td><code>--color-accent</code></td></tr>
-<tr><td><code>--text-*</code></td><td>Semantic</td><td><code>--text-body</code></td></tr>
-<tr><td><code>--space-*</code></td><td>Semantic</td><td><code>--space-4</code></td></tr>
-<tr><td><code>--radius-*</code>, <code>--border-width-*</code></td><td>Semantic</td><td><code>--radius-md</code></td></tr>
-<tr><td><code>--shadow-*</code></td><td>Semantic</td><td><code>--shadow-2</code></td></tr>
-<tr><td><code>--duration-*</code>, <code>--ease-*</code></td><td>Semantic</td><td><code>--duration-base</code></td></tr>
-<tr><td><code>--z-*</code></td><td>Semantic</td><td><code>--z-modal</code></td></tr>
-<tr><td><code>--layout-*</code></td><td>Semantic</td><td><code>--layout-sidebar-width</code></td></tr>
-<tr><td><code>--target-min</code>, <code>--focus-ring-*</code></td><td>Semantic</td><td><code>--focus-ring-width</code></td></tr>
-<tr><td><code>--button-*</code>, <code>--alert-*</code>, <code>--field-*</code>, <code>--avatar-size</code>, <code>--icon-size</code>, <code>--icon-btn-size</code></td><td>Component</td><td><code>--button-bg</code></td></tr>
-</tbody></table></div>
-
+      <p>This page owns no tokens. Colour tokens are on <a href="color.html#tokens">Color</a>, shadows on <a href="elevation.html#tokens">Elevation</a>, layout tokens on <a href="layout.html#tokens">Layout</a>, motion on <a href="motion.html#tokens">Motion</a>, and the interaction tokens (targets, control heights, focus ring) on <a href="accessibility.html#tokens">Accessibility</a>.</p>
     </section>
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources and drift</a></h2>
+      <p>The theming model and both themes are adopted from the Shelfie design system. The Settings theme tab is in <a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> and <a href="../../mocks/notifications/admin-theme-saved/success.html">notifications/admin-theme-saved/success</a>.</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li>The implemented admin is light only: it has no dark theme, no <code>data-theme</code> attribute, no <code>prefers-color-scheme</code> rule and no <code>color-scheme</code> declaration. The system adds a dark theme that follows the device.</li>
+        <li>Colours in the implemented admin are hard-coded in each component's styles (green for primary buttons, a warm grey canvas, warm grey borders) rather than read from tokens, so a theme cannot switch them. The system reads every colour from <code>tokens.css</code>.</li>
+        <li>The co-op logo in the sidebar uses its own fixed palette. The system draws the logo mark with accent tokens so it follows the theme.</li>
+        <li>The Settings "Theme" tab is titled "Theme Customization" and says "Choose the colours for the app", which suggests it changes the admin. It changes the public website. The label is content drift, recorded on <a href="content.html#sources">Content</a>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

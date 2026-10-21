@@ -5,7 +5,6 @@ export class ChangePasswordPage {
 
   // Layout
   readonly card: Locator;
-  readonly lockIcon: Locator;
   readonly heading: Locator;
   readonly subtitle: Locator;
 
@@ -30,7 +29,6 @@ export class ChangePasswordPage {
     this.page = page;
 
     this.card = page.getByTestId('change-password-card');
-    this.lockIcon = page.getByTestId('change-password-icon');
     this.heading = page.getByTestId('change-password-heading');
     this.subtitle = page.getByTestId('change-password-subtitle');
 
@@ -62,7 +60,6 @@ export class ChangePasswordPage {
 
   async expectPageVisible() {
     await expect(this.card).toBeVisible();
-    await expect(this.lockIcon).toBeVisible();
     await expect(this.heading).toHaveText('Change Password');
     await expect(this.subtitle).toContainText('current password');
     await expect(this.passwordHint).toContainText('8 characters');

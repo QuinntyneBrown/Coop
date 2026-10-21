@@ -30,7 +30,7 @@ Set the status to Published. A new choice appears: Also send to members by email
 
 [pause 2s]
 
-Only members who asked for new notices on their profile get one. Then tap Save.
+Only members who asked for new notices on their profile get one. Then tap Save document.
 
 [pause 2s]
 
@@ -38,13 +38,13 @@ A message at the top of the page says the notice is published and sent to member
 
 [pause 2s]
 
-If something goes wrong, the form stays open and says the notice was not sent. Press Save to try again. Members still get it only once.
+If something goes wrong, the form stays open and says the notice was not sent. Press Save document to try again. Members still get it only once.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Open a new document and write a notice. Set it to Published, tick the send box, and tap Save.
+So, in short. Open a new document and write a notice. Set it to Published, tick the send box, and tap Save document.
 
 [pause 1s]
 

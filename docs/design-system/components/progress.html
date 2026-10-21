@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress — Coop design system</title>
+<meta name="description" content="The upload progress bar for the Coop admin&#x27;s Upload File dialog: anatomy, sizes, states, both themes and accessibility.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Progress</h1>
+      <p class="ds-lead">A rounded bar that fills as a file uploads to the Assets library, with the percentage beside it in words. It turns green when the upload is done.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>role="progressbar"</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use the progress bar when the admin knows how far along a task is: an upload where the browser reports how many bytes have been sent. In the admin that is the Upload File dialog on the Assets page.</p>
+      <ul>
+        <li>Always pair the bar with a visible value in a <code>.progress-row</code> ("45%") and a line that says what is happening ("Uploading Courtyard plan.pdf").</li>
+        <li>When the time is unknown, such as loading a list or saving a form, use a <a href="spinner.html">spinner</a> with text or a busy <a href="button.html">button</a>. The system has no indeterminate bar on purpose: a bar that never moves looks broken.</li>
+        <li>When an upload fails, remove the bar and show a danger <a href="alert.html">alert</a> with a way to try again.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="width: 100%; max-width: 24rem; gap: var(--space-2);">
+            <p class="text-caption" id="pr-anat-name" style="margin: 0;">Uploading Courtyard plan.pdf</p>
+            <div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-labelledby="pr-anat-name"><div class="progress__bar" style="--value: 45%;"></div></div><span class="progress-row__label">45%</span></div>
+          </div>
+          <span class="ds-callout" style="left: 4%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 22%; top: 74%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 62%; top: 74%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 74%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Caption</b><small>What is happening, with the file name; it also names the bar through <code>aria-labelledby</code>.</small></div></li>
+          <li><div><b>Fill</b><small><code>.progress__bar</code>; width from <code>--value</code> (a percentage), accent colour.</small></div></li>
+          <li><div><b>Track</b><small><code>.progress</code>; 8px (12px with <code>--lg</code>), fully rounded, <code>--color-bg-subtle-hover</code>.</small></div></li>
+          <li><div><b>Value</b><small><code>.progress-row__label</code>: "45%", tabular figures, never wraps.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Two variants: uploading (accent) and complete (success green, with a word, not only a colour).</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="stack" style="gap: var(--space-2);"><p class="text-caption" id="pr-var-a" style="margin: 0;">Uploading Meeting notes.pdf</p><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-labelledby="pr-var-a"><div class="progress__bar" style="--value: 62%;"></div></div><span class="progress-row__label">62%</span></div></div>
+          <div class="stack" style="gap: var(--space-2);"><p class="text-caption" id="pr-var-b" style="margin: 0;">Courtyard plan.pdf</p><div class="progress-row"><div class="progress progress--complete" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-labelledby="pr-var-b"><div class="progress__bar" style="--value: 100%;"></div></div><span class="progress-row__label">Uploaded</span></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Uploading and complete, in the Upload File dialog.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="text-caption" id="upload-name"&gt;Courtyard plan.pdf&lt;/p&gt;
+&lt;div class="progress-row"&gt;
+  &lt;div class="progress progress--complete" role="progressbar"
+       aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-labelledby="upload-name"&gt;
+    &lt;div class="progress__bar" style="--value: 100%;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="progress-row__label"&gt;Uploaded&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Default (8px) is the admin's size, used in the Upload File dialog. Large (12px) is for a bar that is the only thing on a screen or sheet, where it can afford more weight.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Meeting notes.pdf"><div class="progress__bar" style="--value: 30%;"></div></div><span class="progress-row__label">30%</span></div>
+          <div class="progress-row"><div class="progress progress--lg" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 30%;"></div></div><span class="progress-row__label">30%</span></div>
+        </div>
+        <div class="ds-example__caption"><span>Height: <code>--space-2</code> (default) and <code>--space-3</code> (<code>.progress--lg</code>).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The bar is not interactive; its states are values. The dialog around it changes too: Upload is busy and Choose a file is disabled until the upload ends.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Starting</th><td><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 0%;"></div></div><span class="progress-row__label">0%</span></div></td></tr>
+          <tr><th scope="row">Uploading</th><td><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 45%;"></div></div><span class="progress-row__label">45%</span></div></td></tr>
+          <tr><th scope="row">Nearly done</th><td><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 96%;"></div></div><span class="progress-row__label">96%</span></div></td></tr>
+          <tr><th scope="row">Complete</th><td><div class="progress-row"><div class="progress progress--complete" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Courtyard plan.pdf uploaded"><div class="progress__bar" style="--value: 100%;"></div></div><span class="progress-row__label">Uploaded</span></div></td></tr>
+          <tr><th scope="row">Failed</th><td><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div>We couldn't upload Courtyard plan.pdf. Check your connection and try again.</div></div></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack"><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 45%;"></div></div><span class="progress-row__label">45%</span></div><div class="progress-row"><div class="progress progress--complete" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Meeting notes.pdf uploaded"><div class="progress__bar" style="--value: 100%;"></div></div><span class="progress-row__label">Uploaded</span></div></div></div>
+        <div data-theme="dark"><div class="stack"><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Uploading Courtyard plan.pdf"><div class="progress__bar" style="--value: 45%;"></div></div><span class="progress-row__label">45%</span></div><div class="progress-row"><div class="progress progress--complete" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Meeting notes.pdf uploaded"><div class="progress__bar" style="--value: 100%;"></div></div><span class="progress-row__label">Uploaded</span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Starting</b> shows the empty track only until the first progress event; if no event arrives, show a spinner instead of a bar stuck at 0%.</li>
+        <li><b>Uploading</b>: each new value animates the fill over <code>--duration-slow</code>.</li>
+        <li><b>Complete</b> adds <code>.progress--complete</code> at 100% and the label says "Uploaded". The dialog then closes and the new file appears in the Assets list.</li>
+        <li><b>Failed</b> replaces the bar with a danger alert (<code>role="alert"</code> in the product); Upload becomes available again.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The track fills whatever width is left in its row; the value keeps its width and never wraps.</li>
+        <li>On phones the Upload File dialog becomes a bottom sheet; the bar spans the sheet, and the caption wraps above it if the file name is long.</li>
+        <li>At 320px and at 400% zoom the row still fits: the value is short ("45%"), and the file name lives in the caption, not in the row.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The track reads <code>--color-bg-subtle-hover</code>, the fill <code>--color-accent</code>, the complete fill <code>--color-success-solid</code>, and the value <code>--color-fg-muted</code>. The value is a custom property, <code>--value</code>, set on the fill, so the component needs no inline width.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The track is <code>role="progressbar"</code> with <code>aria-valuenow</code>, <code>aria-valuemin="0"</code> and <code>aria-valuemax="100"</code>, named by the caption through <code>aria-labelledby</code> (or by <code>aria-label</code> when there is no caption). This follows the WAI-ARIA progressbar role (read only).</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Not a stop; the bar is read only. Focus stays on Upload, which is busy.</td></tr>
+        <tr><td>Reading keys (screen reader)</td><td>Reads "Uploading Courtyard plan.pdf, progress bar, 45%".</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>None of its own. While the upload runs, focus stays on the busy Upload button; when the dialog closes, focus returns to the Upload button on the Assets page.</p>
+      <h3>Labelling</h3>
+      <p>Name the bar with the file. Do not make the bar a live region: announcing every percent is noisy. Announce the end once, through the success toast or the danger alert.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Fill on track</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-subtle-hover" data-min="3"></span></div>
+        <div class="ds-pair"><span>Complete fill on track</span><span class="ds-pair__ratio" data-contrast="--color-success-solid|--color-bg-subtle-hover" data-min="3"></span></div>
+        <div class="ds-pair"><span>Value in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Value on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The fill width transitions over <code>--duration-slow</code>; reduced motion zeroes it, so each new value appears at once.</p>
+      <h3>Touch</h3>
+      <p>No targets.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Caption: "Uploading {file name}": "Uploading Courtyard plan.pdf".</li>
+        <li>Value: a whole percentage, "45%". Finished: "Uploaded".</li>
+        <li>Failure, in the alert: "We couldn't upload {file name}. Check your connection and try again."</li>
+        <li>Keep the size limit in the field help, not the bar: "Any file, such as a photo or a PDF, up to 28 MB."</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="stack" style="gap: var(--space-2);"><p class="text-caption" id="pr-do-name" style="margin: 0;">Uploading Courtyard plan.pdf</p><div class="progress-row"><div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-labelledby="pr-do-name"><div class="progress__bar" style="--value: 45%;"></div></div><span class="progress-row__label">45%</span></div></div></div><figcaption>Give the bar a role, a name and a visible value.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="progress"><div class="progress__bar" style="--value: 45%;"></div></div></div><figcaption>A bare bar with no role, name or number, as in the Upload File dialog.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="loading" role="status" style="padding: 0;"><span class="spinner" aria-hidden="true"></span>Uploading Courtyard plan.pdf…</div></div><figcaption>No progress events? Show a spinner and say what is happening.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Upload"><div class="progress__bar" style="--value: 0%;"></div></div></div><figcaption>A bar that stays at 0% for the whole upload, as the implemented dialog does.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Track</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Fill</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Fill, complete</td><td><code>--color-success-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td></tr>
+          <tr><td>Value</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Height / large</td><td><code>--space-2</code> / <code>--space-3</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+          <tr><td>Row gap</td><td><code>--space-3</code></td><td colspan="2"><span data-token="--space-3"></span></td></tr>
+          <tr><td>Value font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Fill transition</td><td><code>--duration-slow</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-slow"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;p class="text-caption" id="upload-name"&gt;Uploading Courtyard plan.pdf&lt;/p&gt;
+&lt;div class="progress-row"&gt;
+  &lt;div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+       aria-labelledby="upload-name"&gt;
+    &lt;div class="progress__bar" style="--value: 45%;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="progress-row__label"&gt;45%&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.progress</code></td><td>Track, 8px.</td></tr>
+        <tr><td><code>.progress--lg</code></td><td>Track, 12px.</td></tr>
+        <tr><td><code>.progress--complete</code></td><td>Success fill.</td></tr>
+        <tr><td><code>.progress__bar</code> with <code>--value</code></td><td>Fill width, a percentage (bytes sent ÷ file size, rounded).</td></tr>
+        <tr><td><code>.progress-row</code>, <code>.progress-row__label</code></td><td>Bar plus value on one line.</td></tr>
+        <tr><td><code>role="progressbar"</code> + <code>aria-value*</code> + a name</td><td>Required on the track.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/admin-asset-upload/default.html">dialogs/admin-asset-upload/default</a> (before an upload)</li>
+        <li><a href="../../mocks/dialogs/admin-asset-upload/busy.html">dialogs/admin-asset-upload/busy</a> (the bar)</li>
+        <li><a href="../../mocks/dialogs/admin-photo-picker/upload-failed.html">dialogs/admin-photo-picker/upload-failed</a> (how a failed upload is reported)</li>
+      </ul>
+      <p>Adopted from the Shelfie design system and rewritten for the Coop admin.</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Markup</b>: the admin draws <code>.progress-bar</code> with <code>.progress-fill</code> and an inline <code>width</code>; it has no <code>role="progressbar"</code>, no name, no value attributes and no visible percentage. The system uses <code>.progress</code>, <code>.progress__bar</code> with <code>--value</code>, the progressbar role and a <code>.progress-row__label</code>.</li>
+        <li><b>Behaviour</b>: the implemented value is only ever set to 0; no progress events advance it, so the bar sits empty for the whole upload. The system shows a bar only when progress is reported, and a spinner with text otherwise.</li>
+        <li><b>Busy dialog</b>: Upload stays enabled and unchanged while uploading. The system makes it a busy button and disables Choose a file until the upload ends.</li>
+        <li><b>Look</b>: a 6px light grey track with a 3px radius, a green fill and a 0.3 s transition. The system uses the 8px rounded track, the violet accent fill, a success fill when complete, and <code>--duration-slow</code>.</li>
+        <li><b>No completion or failure state</b> on the bar. The system adds <code>.progress--complete</code> with "Uploaded", and reports failure with a danger alert, as the photo picker already does.</li>
+      </ul>
+    </section>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

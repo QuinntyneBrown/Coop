@@ -1,0 +1,157 @@
+<div class="page-header">
+  <div>
+    <h1 data-testid="invitations-page-title">Invitations</h1>
+  </div>
+  <div class="cluster">
+    <button
+      class="btn btn--primary"
+      type="button"
+      aria-haspopup="dialog"
+      data-testid="invitations-create-button"
+      (click)="showModal = true"
+    >
+      <svg appIcon="add"></svg>Create Invitation
+    </button>
+  </div>
+</div>
+
+<div
+  class="table-wrap"
+  tabindex="0"
+  role="region"
+  aria-labelledby="inv-caption"
+  data-testid="invitations-table"
+>
+  <table class="table">
+    <caption class="visually-hidden" id="inv-caption">
+      Invitations
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" data-testid="invitations-header-token">Token</th>
+        <th scope="col" data-testid="invitations-header-type">Type</th>
+        <th scope="col" data-testid="invitations-header-expires">Expires</th>
+        <th scope="col" data-testid="invitations-header-status">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (inv of invitations; track inv) {
+        <tr data-testid="invitation-row">
+          <td data-testid="invitation-token">
+            <code>{{ inv.value || inv.token }}</code>
+          </td>
+          <td data-testid="invitation-type">{{ getTypeName(inv.type) }}</td>
+          <td data-testid="invitation-expires">
+            {{ inv.expirationDate || inv.expiresOn | date: 'mediumDate' }}
+          </td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="getStatusClass(inv)"
+              data-testid="invitation-status-badge"
+              >{{ getStatus(inv) }}</span
+            >
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Create Invitation Dialog -->
+<dialog
+  #createDialog
+  class="dialog"
+  aria-labelledby="invitation-create-title"
+  data-testid="invitation-create-dialog"
+  (cancel)="$event.preventDefault(); showModal = false"
+>
+  @if (showModal) {
+    <form class="dialog__panel" novalidate [formGroup]="invForm" (ngSubmit)="createInvitation()">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="invitation-create-title">Create Invitation</h2>
+        <button
+          class="btn btn--ghost btn--icon"
+          type="button"
+          aria-label="Close"
+          (click)="showModal = false"
+        >
+          <svg appIcon="close"></svg>
+        </button>
+      </div>
+      <div class="dialog__body stack">
+        <div class="field">
+          <label class="field__label" for="invitation-type">Type</label>
+          <select
+            class="select"
+            id="invitation-type"
+            formControlName="type"
+            data-testid="invitation-dialog-type"
+          >
+            <option value="Member">Member</option>
+            <option value="BoardMember">Board Member</option>
+            <option value="StaffMember">Staff</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="invitation-expires">Expires</label>
+          <input
+            class="input invitation-expires"
+            id="invitation-expires"
+            type="date"
+            formControlName="expires"
+            data-testid="invitation-dialog-expires"
+          />
+        </div>
+      </div>
+      <div class="dialog__footer">
+        <button
+          type="button"
+          class="btn"
+          data-testid="invitation-dialog-cancel"
+          (click)="showModal = false"
+        >
+          Cancel
+        </button>
+        <button type="submit" class="btn btn--primary" data-testid="invitation-dialog-create">
+          Create
+        </button>
+      </div>
+    </form>
+  }
+</dialog>
+
+<!-- Token Display Dialog -->
+<dialog
+  #tokenDialog
+  class="dialog"
+  aria-labelledby="invitation-token-title"
+  data-testid="invitation-token-dialog"
+  (cancel)="$event.preventDefault(); showTokenDialog = false"
+>
+  @if (showTokenDialog) {
+    <div class="dialog__panel">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="invitation-token-title">Invitation Created</h2>
+      </div>
+      <div class="dialog__body stack">
+        <p class="invitation-token" data-testid="invitation-token-value">
+          <code>{{ createdToken }}</code>
+        </p>
+      </div>
+      <div class="dialog__footer">
+        <button class="btn" type="button" data-testid="invitation-token-copy" (click)="copyToken()">
+          <svg appIcon="copy"></svg>Copy
+        </button>
+        <button
+          class="btn btn--primary"
+          type="button"
+          data-testid="invitation-token-close"
+          (click)="showTokenDialog = false"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  }
+</dialog>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooltip — Coop design system</title>
+<meta name="description" content="The tooltip for the Coop admin's icon-only buttons: icon buttons are named by aria-label, and the tooltip adds the same words as visible text on hover and focus. A core component the admin does not use yet.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Overlays</p>
+      <h1>Tooltip</h1>
+      <p class="ds-lead">A small label that appears when the pointer rests on, or the keyboard reaches, an icon-only button, and says in words what the icon does: "Delete mira.fern", "Close". It adds visible text; it never holds anything you need to click.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: core, not yet used in the admin</span><span class="ds-pill">APG Tooltip</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Coop admin has no tooltips today. The tooltip is part of the core set so that icon-only buttons, where they cannot be avoided, can show their meaning in words.</p>
+      <ul>
+        <li><b>Icon-only buttons rely on <code>aria-label</code> for their name.</b> A screen reader announces "Delete mira.fern, button" from the label alone; the tooltip is not what names the button.</li>
+        <li><b>Tooltips add visible text</b> for sighted people who do not recognise an icon, which is common with a pencil, a bin or a cross when you are new to a screen or your eyesight is not what it was.</li>
+      </ul>
+      <p>Use a tooltip on the <a href="icon-button.html">icon buttons</a> in a <a href="table.html">table</a> row (Edit, Delete), on a <a href="card.html">card's</a> Delete, and on a <a href="dialog.html">dialog's</a> Close. Where there is room for a word, use a <a href="button.html">button</a> with a visible label instead, as the page and director cards already do ("Edit", "Remove"); that is clearer than any tooltip. Do not use a tooltip for help with a field (use the field's help text), for errors, or for anything with a link or button in it (use a dialog).</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding-top: var(--space-16);">
+          <span class="tooltip-anchor">
+            <button class="btn btn--ghost btn--icon" type="button" aria-label="Delete mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button>
+            <span class="tooltip" data-state="visible" aria-hidden="true">Delete mira.fern</span>
+          </span>
+          <span class="ds-callout" style="left: 30%; top: 70%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 46%; top: 70%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 70%; top: 34%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Anchor</b><small><code>.tooltip-anchor</code>: an inline wrapper around the trigger and its tooltip; it positions the tooltip and shows it on <code>:hover</code> and <code>:focus-within</code>.</small></div></li>
+          <li><div><b>Trigger</b><small>An icon-only button with <code>aria-label</code>. It must work and be named without the tooltip.</small></div></li>
+          <li><div><b>Bubble</b><small><code>.tooltip</code>: <code>--color-bg-inverse</code> with <code>--color-fg-inverse</code>, <code>--radius-sm</code>, <code>--text-body-sm</code>, 4 × 8px padding, at most 16rem wide, centred 8px above the trigger at <code>--z-tooltip</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Two variants, chosen by whether the tooltip says the same as the button's name or adds to it.</p>
+      <h3>Name echo: the same words as the label</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="padding-top: var(--space-16); justify-content: center;">
+          <span class="tooltip-anchor">
+            <button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM14 6l4 4"/></svg></button>
+            <span class="tooltip" data-state="visible" aria-hidden="true">Edit mira.fern</span>
+          </span>
+          <span class="tooltip-anchor">
+            <button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <span class="tooltip" data-state="visible" aria-hidden="true">Close</span>
+          </span>
+        </div>
+        <div class="ds-example__caption"><span>The usual case. The button's <code>aria-label</code> already says it, so the bubble is <code>aria-hidden="true"</code> and is not announced twice.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="tooltip-anchor"&gt;
+  &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;span class="tooltip" aria-hidden="true"&gt;Edit mira.fern&lt;/span&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+      <h3>Description: adds to the label</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="padding-top: var(--space-16); justify-content: center;">
+          <span class="tooltip-anchor">
+            <button class="btn btn--ghost btn--icon" type="button" aria-label="Delete Autumn courtyard gathering" aria-describedby="tip-doc-delete"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button>
+            <span class="tooltip" role="tooltip" id="tip-doc-delete" data-state="visible">Delete (asks you first)</span>
+          </span>
+        </div>
+        <div class="ds-example__caption"><span>When the bubble says something the name does not, give it <code>role="tooltip"</code> and an <code>id</code>, and point the trigger's <code>aria-describedby</code> at it. It is read after the name: "Delete Autumn courtyard gathering, button, Delete (asks you first)".</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="tooltip-anchor"&gt;
+  &lt;button class="btn btn--ghost btn--icon" type="button"
+          aria-label="Delete Autumn courtyard gathering" aria-describedby="tip-doc-delete"&gt;…&lt;/button&gt;
+  &lt;span class="tooltip" role="tooltip" id="tip-doc-delete"&gt;Delete (asks you first)&lt;/span&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+      <p>There is no keyboard-shortcut variant: the admin has no shortcuts to show.</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="one size"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size: <code>--text-body-sm</code>, 4 × 8px padding, up to 16rem wide; longer text wraps.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hidden until its trigger is hovered or focused. Forced here with <code>data-state="visible"</code> on the bubble and <code>data-state</code> on the trigger.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Hidden</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Static (docs)</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="padding-top: var(--space-12);"><span class="tooltip-anchor"><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button><span class="tooltip" aria-hidden="true">Delete tavi.moss</span></span></td>
+            <td style="padding-top: var(--space-12);"><span class="tooltip-anchor"><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete tavi.moss, hovered" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button><span class="tooltip" data-state="visible" aria-hidden="true">Delete tavi.moss</span></span></td>
+            <td style="padding-top: var(--space-12);"><span class="tooltip-anchor"><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete tavi.moss, focused" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button><span class="tooltip" data-state="visible" aria-hidden="true">Delete tavi.moss</span></span></td>
+            <td style="padding-top: var(--space-12);"><span class="tooltip tooltip--static" aria-hidden="true">Delete tavi.moss</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <p>Hover over or tab to the buttons in the first column to see the real behaviour. Pressing <kbd>Esc</kbd> hides a visible tooltip without moving focus (this needs a few lines of script; see <a href="#code">Code</a>). A tooltip has no disabled state: a disabled button cannot take focus, so do not hang the only explanation of why it is disabled on a tooltip.</p>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="cluster"><span class="tooltip tooltip--static" aria-hidden="true">Edit mira.fern</span><span class="tooltip tooltip--static" aria-hidden="true">Close</span></div></div>
+        <div data-theme="dark"><div class="cluster"><span class="tooltip tooltip--static" aria-hidden="true">Edit mira.fern</span><span class="tooltip tooltip--static" aria-hidden="true">Close</span></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The bubble sits centred above its trigger at every width and wraps at 16rem, so it never runs wider than a 320px screen.</li>
+        <li>It does not flip or shift near the edge of the screen. Keep the words short, and do not put a tooltip on a button that touches the screen edge.</li>
+        <li>Phones and tablets have no hover. A tap may focus the button and show the tooltip for a moment, but nobody can rely on that, which is one more reason the button must be named without it and why a visible word is better on small screens.</li>
+        <li>At 400% zoom the text grows with the page and wraps inside the bubble.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The bubble is the inverse pair: <code>--color-bg-inverse</code> behind <code>--color-fg-inverse</code>. In the light theme the bubble is near-black with white text; in the dark theme it turns light grey with dark text, so it always stands apart from the page. There are no tooltip-specific tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The WAI-ARIA APG <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/">Tooltip</a> pattern. The trigger is a real <code>&lt;button&gt;</code> named by <code>aria-label</code>. A tooltip that adds information has <code>role="tooltip"</code> and is joined to the trigger by <code>aria-describedby</code>; one that repeats the name is <code>aria-hidden="true"</code>. A tooltip never takes focus and never contains a link, button or field.</p>
+      <p><b>Known gap:</b> WCAG 1.4.13 asks that a pointer can move onto the tooltip without it vanishing. The stylesheet sets <code>pointer-events: none</code> on <code>.tooltip</code>, so today it hides when the pointer leaves the button. Keep tooltip text short enough to read from the button until the stylesheet is changed.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Focusing the trigger shows its tooltip; leaving it hides the tooltip.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Hides the tooltip; focus stays on the button (WCAG 1.4.13, dismissible).</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activates the button as usual; the tooltip plays no part.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus stays on the trigger, which shows the shared 2px ring. The bubble sits above the button and never covers it or its focus ring (WCAG 2.4.11).</p>
+      <h3>Labelling</h3>
+      <p>Icon-only buttons rely on <code>aria-label</code> for their accessible name; the tooltip adds visible text and never replaces the label. Do not use the <code>title</code> attribute as a stand-in: it does not appear on keyboard focus or on touch, and it shows up late and small.</p>
+      <h3>Contrast</h3>
+      <div class="ds-themes"><div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Tooltip text on bubble</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div><div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div></div></div><div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);"><div class="ds-pair"><span>Tooltip text on bubble</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div><div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div></div></div></div>
+      <h3>Motion</h3>
+      <p>The bubble fades in over <code>--duration-fast</code> after a 300ms delay, so it does not flash while the pointer passes over a row of buttons, and disappears at once. Reduced motion zeroes the fade; the short delay stays.</p>
+      <h3>Touch</h3>
+      <p>Hover does not exist on touch screens, so nothing may depend on a tooltip. The trigger keeps its own 40px target; the bubble is not a target.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Say what the button does, as a verb and its object, in sentence case and without a full stop: "Edit mira.fern", "Delete Meeting notes.pdf", "Close".</li>
+        <li>Use the same words as the button's <code>aria-label</code>, so what people see matches what a screen reader says.</li>
+        <li>Keep it to a few words. If it needs a sentence, it belongs in help text on the page, not in a tooltip.</li>
+        <li>Never put something people must know only in a tooltip, such as a warning, a rule or why a button is disabled.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas" style="padding-top: var(--space-12);"><span class="tooltip-anchor"><button class="btn btn--ghost btn--icon" type="button" aria-label="Delete oren.reed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button><span class="tooltip" data-state="visible" aria-hidden="true">Delete oren.reed</span></span></div><figcaption>Name the button with <code>aria-label</code> and show the same words in a tooltip.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;button class="icon-btn"&gt;&lt;span class="material-icons"&gt;delete&lt;/span&gt;&lt;/button&gt;</code></div><figcaption>An icon with no name and no tooltip, as on every Edit and Delete in Users and every Delete in Documents. Nobody is told what it does.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn" type="button">Edit<span class="visually-hidden"> About us</span></button><button class="btn btn--danger" type="button">Remove<span class="visually-hidden"> About us</span></button></div><figcaption>Where there is room, write the word on the button, as the page cards do. No tooltip needed.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="tooltip tooltip--static" aria-hidden="true">Deleted documents can’t be recovered. Read the bylaws first.</span></div><figcaption>A warning or rule hidden in a tooltip, which touch users and many keyboard users never see.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Bubble</td><td><code>--color-bg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td></tr>
+          <tr><td>Text</td><td><code>--color-fg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-sm</code></td><td colspan="2"><span data-token="--radius-sm"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-1</code> × <code>--space-2</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-2"></span></td></tr>
+          <tr><td>Gap above the trigger</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Font</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Stacking</td><td><code>--z-tooltip</code></td><td colspan="2"><span data-token="--z-tooltip"></span></td></tr>
+          <tr><td>Fade</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;span class="tooltip-anchor"&gt;
+  &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Delete mira.fern"&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip" aria-hidden="true"&gt;Delete mira.fern&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;script&gt;
+  // Esc hides a visible tooltip and leaves focus where it is (WCAG 1.4.13).
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+    var anchor = document.activeElement &amp;&amp; document.activeElement.closest('.tooltip-anchor');
+    var tip = anchor &amp;&amp; anchor.querySelector('.tooltip');
+    if (tip) tip.hidden = true;
+  });
+  // Show it again the next time the button is focused or hovered.
+  ['focusin', 'pointerover'].forEach(function (type) {
+    document.addEventListener(type, function (event) {
+      var anchor = event.target.closest &amp;&amp; event.target.closest('.tooltip-anchor');
+      if (anchor) anchor.querySelector('.tooltip').hidden = false;
+    });
+  });
+&lt;/script&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.tooltip-anchor</code></td><td>Inline wrapper; positions the bubble and shows it on <code>:hover</code> and <code>:focus-within</code>.</td></tr>
+        <tr><td><code>.tooltip</code></td><td>The bubble: inverse colours, small text, centred 8px above, hidden until shown, 300ms delay in, instant out.</td></tr>
+        <tr><td><code>.tooltip--static</code></td><td>Documentation only: draws the bubble in the flow, always visible.</td></tr>
+        <tr><td><code>.tooltip[data-state="visible"]</code></td><td>Documentation only: forces the bubble to show above its trigger.</td></tr>
+        <tr><td><code>aria-hidden="true"</code></td><td>On a tooltip that repeats the button's name.</td></tr>
+        <tr><td><code>role="tooltip"</code> + <code>id</code>, and <code>aria-describedby</code> on the trigger</td><td>On a tooltip that adds to the name.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>The tooltip is a core component of the adopted system (first written for Shelfie). No admin mock has one; these are the admin screens whose icon-only buttons it is meant for:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (Edit and Delete in every row)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (Delete on every document card)</li>
+        <li><a href="../../mocks/dialogs/admin-document-viewer/default.html">dialogs/admin-document-viewer/default</a> (Close)</li>
+        <li><a href="../../mocks/dialogs/admin-document-delete/default.html">dialogs/admin-document-delete/default</a> (Close, the one named icon button)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>No tooltips and no names</b>: the admin has no tooltips and no <code>title</code> attributes. Its <code>.icon-btn</code> buttons (Edit and Delete in Users, Delete on document cards, Close in the document viewer) have no accessible name and no visible word. Only <code>.form-dialog__close</code> in Delete document has <code>aria-label="Close"</code>. The system names every icon button with <code>aria-label</code> and adds a tooltip with the same words.</li>
+        <li><b>Icons</b>: the icons are Material Icons font ligatures ("edit", "delete", "close") without <code>aria-hidden</code>, so a screen reader may read the ligature word. The system uses inline stroke SVGs with <code>aria-hidden="true"</code>.</li>
+        <li><b>Targets</b>: <code>.icon-btn</code> is a 24px icon with 4px padding (32px). The system's icon button is 40px.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

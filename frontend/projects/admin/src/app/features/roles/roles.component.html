@@ -1,0 +1,123 @@
+<div class="page-header">
+  <div>
+    <h1 data-testid="roles-page-title">Roles &amp; Privileges</h1>
+  </div>
+</div>
+<div class="stack">
+  <section class="card stack" aria-labelledby="roles-title" data-testid="roles-panel">
+    <h2 class="card__title" id="roles-title" data-testid="roles-panel-title">Roles</h2>
+    <div class="cluster" role="group" aria-labelledby="roles-title">
+      @for (role of roles; track role) {
+        <span
+          class="role-card"
+          data-testid="role-card"
+          [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
+        >
+          <button
+            class="chip"
+            type="button"
+            [attr.aria-pressed]="selectedRole?.roleId === role.roleId"
+            (click)="selectRole(role)"
+            [attr.data-testid]="'role-card-' + (role.name || '').toLowerCase()"
+            [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
+          >
+            <svg appIcon="roles" data-testid="role-icon"></svg>{{ plainName(role.name) }}
+          </button>
+        </span>
+      }
+    </div>
+  </section>
+
+  @if (selectedRole) {
+    <section class="card stack" aria-labelledby="privileges-title" data-testid="privileges-panel">
+      <div class="cluster cluster--between">
+        <h2 class="card__title" id="privileges-title" data-testid="privileges-panel-title">
+          {{ plainName(selectedRole.name) }} privileges
+        </h2>
+        <button class="btn btn--sm" type="button" data-testid="add-privilege-button">
+          <svg appIcon="add"></svg>Add Privilege
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table class="table" data-testid="privileges-table">
+          <caption class="visually-hidden">
+            What the
+            {{
+              plainName(selectedRole.name)
+            }}
+            role may do in each area
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" data-testid="privilege-header-aggregate">Aggregate</th>
+              <th scope="col" id="pv-col-read" data-testid="privilege-header-read">Read</th>
+              <th scope="col" id="pv-col-write" data-testid="privilege-header-write">Write</th>
+              <th scope="col" id="pv-col-create" data-testid="privilege-header-create">Create</th>
+              <th scope="col" id="pv-col-delete" data-testid="privilege-header-delete">Delete</th>
+            </tr>
+          </thead>
+          @for (priv of rolePrivileges; track priv) {
+            <tbody
+              data-testid="privilege-row"
+              [attr.data-testid-specific]="'privilege-row-' + (priv.aggregate || '').toLowerCase()"
+            >
+              <tr [attr.data-testid]="'privilege-row-' + (priv.aggregate || '').toLowerCase()">
+                <th scope="row" [id]="rowId(priv)" data-testid="privilege-aggregate">
+                  {{ plainName(priv.aggregate) }}
+                </th>
+                <td>
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      role="switch"
+                      [checked]="priv.canRead"
+                      [attr.aria-labelledby]="'pv-col-read ' + rowId(priv)"
+                      data-testid="privilege-read"
+                      (change)="togglePrivilege(priv, 'canRead')"
+                    />
+                  </label>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      role="switch"
+                      [checked]="priv.canUpdate"
+                      [attr.aria-labelledby]="'pv-col-write ' + rowId(priv)"
+                      data-testid="privilege-write"
+                      (change)="togglePrivilege(priv, 'canUpdate')"
+                    />
+                  </label>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      role="switch"
+                      [checked]="priv.canCreate"
+                      [attr.aria-labelledby]="'pv-col-create ' + rowId(priv)"
+                      data-testid="privilege-create"
+                      (change)="togglePrivilege(priv, 'canCreate')"
+                    />
+                  </label>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      role="switch"
+                      [checked]="priv.canDelete"
+                      [attr.aria-labelledby]="'pv-col-delete ' + rowId(priv)"
+                      data-testid="privilege-delete"
+                      (change)="togglePrivilege(priv, 'canDelete')"
+                    />
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          }
+        </table>
+      </div>
+    </section>
+  }
+</div>

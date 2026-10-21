@@ -15,7 +15,6 @@ import type { ContentRecord } from '../../core/models/content-record';
 import type { SiteContent } from '../../core/models/site-content';
 import { PUBLIC_SITE_URL } from '../../core/public-site-url';
 import { SiteContentService } from '../../core/services/site-content.service';
-import { BottomTabBarComponent } from '../../shared/components/bottom-tab-bar.component';
 import { fromDraft, toDraft } from './block-draft';
 import type { ContentBlock } from './content-block';
 import { blocksIn, itemLegend } from './content-blocks';
@@ -24,6 +23,7 @@ import { readPath, writePath } from './content-path';
 import { moveItem } from './move-item';
 import type { PickedPhoto } from './photo-picker/picked-photo';
 import { PhotoPickerComponent } from './photo-picker/photo-picker.component';
+import { IconComponent } from '../../shared/components/icon.component';
 import { validateBlock } from './validate-block';
 
 type LoadStatus = 'loading' | 'ready' | 'error';
@@ -40,7 +40,7 @@ type LoadStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-website',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, BottomTabBarComponent, PhotoPickerComponent],
+  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

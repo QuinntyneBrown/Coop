@@ -1,0 +1,17 @@
+.register-brand {
+  gap: var(--space-2);
+}
+
+.register-brand .logo {
+  margin-bottom: 0;
+}
+
+.register-centred {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.register-heading {
+  font: var(--text-h2);
+  text-align: center;
+}

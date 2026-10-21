@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu — Coop design system</title>
+<meta name="description" content="Menu button for the Coop admin: a core component not yet used by the admin, with the rule for when a menu may replace visible actions.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Menu</h1>
+      <p class="ds-lead">A menu is a short list of actions behind one button. No admin screen uses one today; it stays in the system as a core component, with a strict rule for when it may appear.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: core, not used in the admin</span><span class="ds-pill">APG Menu Button</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p><b>The admin mocks have no menu.</b> The closest thing is the page actions on Pages: each page card shows "Open on the website", "Edit" and "Remove" as visible controls. Board goes further, with "Edit", "Move up", "Move down" and "Remove" on every director, and still keeps them all visible, wrapping on phones. That is the preferred approach for this audience: an action that can be seen is an action that can be found, and many staff and board members will not open a "more" button to look for one.</p>
+      <ul>
+        <li><b>Use a menu</b> only when an item has more actions than can stay visible even when they wrap, and none of the hidden ones is used often. Keep it to three to six items.</li>
+        <li><b>Do not use a menu</b> for one, two or three actions; show them as <a href="button.html">buttons</a> or <a href="icon-button.html">icon buttons</a>.</li>
+        <li><b>Do not use a menu</b> to move between admin sections; that is the <a href="sidebar.html">sidebar</a> and the <a href="tab-bar.html">tab bar</a>.</li>
+        <li><b>Do not use a menu</b> to pick a value; that is a <a href="select.html">select</a> or a <a href="radio-group.html">radio group</a>.</li>
+      </ul>
+      <p>There is also no account menu. The sidebar footer shows "mira.fern" and "SystemAdministrator" as plain text, and signing out happens on Profile. The examples below use the Pages actions only to show the anatomy; they are not a proposal to hide those buttons.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="align-items: flex-end; gap: 0;">
+            <button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="true" aria-controls="menu-anatomy">Actions<span class="visually-hidden"> for About us</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="menu menu--static" role="menu" id="menu-anatomy" aria-label="Actions for About us" style="min-width: 14rem;">
+              <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg>Edit page</button></li>
+              <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Open on the website</a></li>
+              <li role="none" class="menu__divider" aria-hidden="true"></li>
+              <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>Remove page</button></li>
+            </ul>
+          </div>
+          <span class="ds-callout" style="left: 70%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 70%; top: 50%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 27%; top: 38%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 27%; top: 60%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Trigger</b><small>A <code>.btn</code> with a visible label and a chevron, <code>aria-haspopup="menu"</code>, <code>aria-expanded</code> and <code>aria-controls</code>.</small></div></li>
+          <li><div><b>Panel</b><small><code>.menu</code>: raised surface, hairline border, <code>--shadow-3</code>, <code>--radius-md</code>, anchored under the trigger.</small></div></li>
+          <li><div><b>Item</b><small><code>.menu__item</code>: icon plus label, full width. A <code>&lt;button&gt;</code> for an action, an <code>&lt;a href&gt;</code> for a destination.</small></div></li>
+          <li><div><b>Divider</b><small><code>.menu__divider</code>, <code>aria-hidden="true"</code>; puts the removal on its own, last.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Two triggers and one panel. The labelled trigger is preferred: it says there is something to open.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="stack" style="gap: 0; align-items: flex-start;">
+            <button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="true" aria-controls="menu-labelled">Actions<span class="visually-hidden"> for Our garden</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="menu menu--static" role="menu" id="menu-labelled" aria-label="Actions for Our garden" style="min-width: 14rem;">
+              <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg>Edit page</button></li>
+              <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Open on the website</a></li>
+              <li role="none" class="menu__divider" aria-hidden="true"></li>
+              <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>Remove page</button></li>
+            </ul>
+          </div>
+          <div class="stack" style="gap: 0; align-items: flex-start;">
+            <button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for How to apply" aria-haspopup="menu" aria-expanded="true" aria-controls="menu-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button>
+            <ul class="menu menu--static" role="menu" id="menu-icon" aria-label="More actions for How to apply" style="min-width: 14rem;">
+              <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg>Edit page</button></li>
+              <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Open on the website</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Labelled trigger ("Actions", small secondary button) and icon trigger (small ghost <a href="icon-button.html">icon button</a> named "More actions for How to apply"). Both shown open with <code>.menu--static</code> so they render in flow.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="page-actions-1"&gt;
+  Actions&lt;span class="visually-hidden"&gt; for Our garden&lt;/span&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;ul class="menu" role="menu" id="page-actions-1" aria-label="Actions for Our garden" hidden&gt;
+  &lt;li role="none"&gt;&lt;button class="menu__item" role="menuitem" type="button" tabindex="-1"&gt;…Edit page&lt;/button&gt;&lt;/li&gt;
+  &lt;li role="none"&gt;&lt;a class="menu__item" role="menuitem" href="/pages/our-garden" tabindex="-1"&gt;…Open on the website&lt;/a&gt;&lt;/li&gt;
+  &lt;li role="none" class="menu__divider" aria-hidden="true"&gt;&lt;/li&gt;
+  &lt;li role="none"&gt;&lt;button class="menu__item" role="menuitem" type="button" tabindex="-1"&gt;…Remove page&lt;/button&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <p>An item that removes something opens the same confirmation dialog as the visible "Remove" button would; the menu never deletes directly. There is no red danger item: the bin icon, the word "Remove" and the divider set it apart, and the red belongs on the confirmation dialog's button.</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The menu has one size: items are --control-height-sm tall and the panel is at least 12rem wide. The trigger takes any button size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The menu has one size: items are <code>--control-height-sm</code> (36px) tall and the panel is at least 12rem wide. The trigger takes any button size.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; the expanded trigger uses the real <code>aria-expanded="true"</code>.</p>
+      <h3>Trigger</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Trigger</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Expanded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Labelled</th>
+            <td><button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="false">Actions<span class="visually-hidden"> for About us</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="false" data-state="hover">Actions<span class="visually-hidden"> for About us</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="false" data-state="focus">Actions<span class="visually-hidden"> for About us</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="true" data-state="active">Actions<span class="visually-hidden"> for About us</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg></button></td></tr>
+          <tr><th scope="row">Icon</th>
+            <td><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for About us" aria-haspopup="menu" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for About us" aria-haspopup="menu" aria-expanded="false" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for About us" aria-haspopup="menu" aria-expanded="false" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for About us" aria-haspopup="menu" aria-expanded="true" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Item</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Action item</th>
+            <td><ul class="menu menu--static" role="menu" aria-label="Default item"><li role="none"><button class="menu__item" role="menuitem" type="button">Edit page</button></li></ul></td>
+            <td><ul class="menu menu--static" role="menu" aria-label="Hovered item"><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover">Edit page</button></li></ul></td>
+            <td><ul class="menu menu--static" role="menu" aria-label="Focused item"><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="focus">Edit page</button></li></ul></td>
+            <td><ul class="menu menu--static" role="menu" aria-label="Disabled item"><li role="none"><button class="menu__item" role="menuitem" type="button" aria-disabled="true">Edit page</button></li></ul></td></tr>
+        </tbody>
+      </table></div>
+      <p><code>.menu__item[aria-disabled="true"]</code> exists in the CSS, but leave an action out instead of greying it: a person whose role cannot remove pages should not see "Remove page" at all.</p>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><ul class="menu menu--static" role="menu" aria-label="Actions for About us, light theme" style="min-width: 14rem;"><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover">Edit page</button></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><button class="menu__item" role="menuitem" type="button">Remove page</button></li></ul></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><ul class="menu menu--static" role="menu" aria-label="Actions for About us, dark theme" style="min-width: 14rem;"><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover">Edit page</button></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><button class="menu__item" role="menuitem" type="button">Remove page</button></li></ul></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The panel is the same at every width: at least 12rem wide, anchored under its trigger and aligned to the trigger's end edge, so a trigger at the end of a card row opens inward. At 320px a 14rem panel fits with the 16px margins.</li>
+        <li>Script keeps the panel inside the viewport; if there is no room below the trigger it opens above. It never needs to become a bottom sheet.</li>
+        <li>It sits on <code>--z-dropdown</code>, below dialogs and toasts and above the page.</li>
+        <li>Item labels are two or three words and do not wrap. At 400% zoom the panel can grow to the viewport width; it never scrolls sideways.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The panel reads <code>--color-bg-surface-raised</code>, <code>--color-border-default</code> and <code>--shadow-3</code>; items read <code>--color-fg-default</code> and <code>--color-bg-subtle</code> for hover and focus. In dark the raised surface is lighter than the page, so elevation shows without relying on the shadow. The trigger is an ordinary button and themes as one.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>WAI-ARIA APG <b>Menu Button</b> pattern. The trigger is a native <code>&lt;button&gt;</code> with <code>aria-haspopup="menu"</code>, <code>aria-expanded</code> and <code>aria-controls</code> pointing at the menu. The list is <code>role="menu"</code>, each <code>&lt;li&gt;</code> is <code>role="none"</code> and each item is <code>role="menuitem"</code> on a native button or link. Focus inside the menu is roving: only the current item has <code>tabindex="0"</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>↓</kbd> on the trigger</td><td>Opens the menu and focuses the first item.</td></tr>
+        <tr><td><kbd>↑</kbd> on the trigger</td><td>Opens the menu and focuses the last item.</td></tr>
+        <tr><td><kbd>↓</kbd> / <kbd>↑</kbd></td><td>Moves to the next or previous item, wrapping at the ends. Dividers are skipped.</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Moves to the first or last item.</td></tr>
+        <tr><td>A letter</td><td>Moves to the next item starting with that letter.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Activates the focused item and closes the menu. An item that opens a dialog moves focus into it.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the menu and returns focus to the trigger.</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Closes the menu and moves focus to the next element after the trigger.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The trigger shows the shared focus ring. Items show focus with the <code>--color-bg-subtle</code> fill plus the shared ring drawn inside the item (a fill alone is too faint against the raised panel), and the menu moves real DOM focus, not <code>aria-activedescendant</code>. A click outside closes the menu without moving focus. When a dialog opened from the menu closes, focus returns to the trigger.</p>
+      <h3>Labelling</h3>
+      <p>The trigger names the item it acts on: visible "Actions" plus a hidden " for About us", or <code>aria-label="More actions for About us"</code> on an icon trigger. The menu repeats that name with <code>aria-label</code>. Icons are <code>aria-hidden</code>; the dividers are hidden from assistive technology.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Item label on menu</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Item label, hover and focus</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Trigger label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Trigger edge on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on a menu item</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on the trigger</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>The panel border is decorative; the shadow and the raised surface set the panel apart, and its items are text.</p>
+      <h3>Motion</h3>
+      <p>The panel scales in from its top corner over <code>--duration-fast</code> with <code>--ease-enter</code>. Reduced motion zeroes the duration, so it simply appears.</p>
+      <h3>Touch</h3>
+      <p>Items are 36px tall and span the panel's full width, well over the 24px minimum. The trigger is at least a 36px small button. Hover is never needed: every item is reachable by tap and by keyboard.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The trigger says "Actions" (or "More actions" on an icon) and names the item for assistive technology: "Actions for About us".</li>
+        <li>Items are verb phrases in sentence case: "Edit page", "Open on the website", "Remove page". One icon each, from the shared set.</li>
+        <li>Order by use, then put removal last, after a divider, so it is not hit by accident.</li>
+        <li>An item that opens a dialog uses the same words as the dialog's title and button.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="cluster"><button class="btn btn--sm" type="button" aria-label="Edit About us">Edit</button><button class="btn btn--sm" type="button" aria-label="Remove About us"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>Remove</button></div></div><figcaption>Keep a page card's few actions visible, as Pages does today.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="More actions for About us" aria-haspopup="menu" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></div><figcaption>Hiding two actions behind three dots: people who do not think to open it never find Edit.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Removal last" style="min-width: 12rem;"><li role="none"><button class="menu__item" role="menuitem" type="button">Edit page</button></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><button class="menu__item" role="menuitem" type="button">Remove page</button></li></ul></div><figcaption>Removal comes last, after a divider, and opens a confirmation.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Removal in the middle" style="min-width: 12rem;"><li role="none"><button class="menu__item" role="menuitem" type="button">Edit page</button></li><li role="none"><button class="menu__item" role="menuitem" type="button">Remove page</button></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li></ul></div><figcaption>Removal between two everyday actions, one slip away from either.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Board member's actions" style="min-width: 12rem;"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li></ul></div><figcaption>Leave out what this person's role cannot do.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Board member's actions, greyed" style="min-width: 12rem;"><li role="none"><button class="menu__item" role="menuitem" type="button" aria-disabled="true">Edit page</button></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/admin-pages/default.html">Open on the website</a></li><li role="none"><button class="menu__item" role="menuitem" type="button" aria-disabled="true">Remove page</button></li></ul></div><figcaption>Greyed-out items are hard to read and do not say why they are off.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Panel background</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Panel border and divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Item label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Item hover and focus</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Disabled item label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-3</code></td><td><span data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td></tr>
+          <tr><td>Item height</td><td><code>--control-height-sm</code></td><td><span data-token="--control-height-sm"></span></td><td><span data-theme="dark" data-token="--control-height-sm"></span></td></tr>
+          <tr><td>Panel / item radius</td><td><code>--radius-md</code> / <code>--radius-sm</code></td><td><span data-token="--radius-md"></span> / <span data-token="--radius-sm"></span></td><td><span data-theme="dark"><span data-token="--radius-md"></span> / <span data-token="--radius-sm"></span></span></td></tr>
+          <tr><td>Panel padding / item padding</td><td><code>--space-1</code> / <code>--space-3</code></td><td><span data-token="--space-1"></span> / <span data-token="--space-3"></span></td><td><span data-theme="dark"><span data-token="--space-1"></span> / <span data-token="--space-3"></span></span></td></tr>
+          <tr><td>Layer</td><td><code>--z-dropdown</code></td><td><span data-token="--z-dropdown"></span></td><td><span data-theme="dark" data-token="--z-dropdown"></span></td></tr>
+          <tr><td>Enter motion</td><td><code>--duration-fast</code>, <code>--ease-enter</code></td><td><span data-token="--duration-fast"></span></td><td><span data-theme="dark" data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;button class="btn btn--sm" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="page-actions-1"&gt;
+  Actions&lt;span class="visually-hidden"&gt; for About us&lt;/span&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;ul class="menu" role="menu" id="page-actions-1" aria-label="Actions for About us" hidden&gt;…&lt;/ul&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>aria-haspopup="menu"</code>, <code>aria-expanded</code>, <code>aria-controls</code></td><td>Menu button semantics on the trigger (any <code>.btn</code>).</td></tr>
+        <tr><td><code>.menu</code> + <code>role="menu"</code></td><td>Floating panel, absolutely positioned, scales in.</td></tr>
+        <tr><td><code>.menu__item</code> + <code>role="menuitem"</code></td><td>One action (a button) or destination (a link).</td></tr>
+        <tr><td><code>.menu__divider</code></td><td>Hairline separator; <code>role="none" aria-hidden="true"</code>.</td></tr>
+        <tr><td><code>.menu__item[aria-disabled="true"]</code></td><td>Disabled look; prefer leaving the item out.</td></tr>
+        <tr><td><code>.menu--static</code></td><td>Documentation only: renders the menu in flow.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>No admin mock contains a menu. The rule on this page comes from the screens where one could have been used and was not:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> (page actions: "Open on the website", "Edit", "Remove", all visible)</li>
+        <li><a href="../../mocks/pages/admin-board/default.html">pages/admin-board/default</a> (four visible actions per director)</li>
+        <li><a href="../../mocks/dialogs/admin-page-remove/default.html">dialogs/admin-page-remove/default</a> (the confirmation a "Remove page" item would open)</li>
+        <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (sidebar footer with name and role as plain text; no account menu)</li>
+        <li><a href="../../mocks/pages/admin-profile/default.html">pages/admin-profile/default</a> (where signing out lives)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>No menu to correct.</b> The admin has no <code>.menu</code>, dropdown or <code>aria-haspopup</code> anywhere, so this page records a core component for later use rather than a correction.</li>
+        <li><b>No account menu.</b> The sidebar footer's <code>.user-info</code> shows "mira.fern" and "SystemAdministrator" as static text, and sign-out is a red "Logout" button on Profile. The system keeps sign-out on Profile as a secondary "Sign out" (see <a href="button.html">button</a>) and does not add an account menu.</li>
+        <li><b>Row actions stay visible.</b> Pages and Board already show their actions as visible buttons; the system keeps that and only changes their look (see <a href="button.html#sources">button drift</a>).</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

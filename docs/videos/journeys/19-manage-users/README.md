@@ -1,6 +1,6 @@
 # Journey 19 · Manage users
 
-> **Runtime:** about 1 min 45 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 47 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [19-manage-users.mp4](19-manage-users.mp4) · [Slides](slides.html) · **Audio:** [19-manage-users.mp3](19-manage-users.mp3) · [Transcript](script.md)
 
@@ -14,19 +14,19 @@ add, edit and delete users.
 By the end, the viewer can:
 
 - Search the Users list and page through it.
-- Add a user with Add User.
+- Add a user with Add user.
 - Edit a user, and delete one after confirming.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/admin-users-1280.png` | The Users list, page 1 |
-| `images/admin-users-page-2-1280.png` | The Users list, page 2 |
-| `images/admin-users-search-1280.png` | A search for mira, showing only mira.fern |
-| `images/admin-user-create-1280.png` | The Add New User form |
-| `images/admin-user-edit-1280.png` | The Edit User form |
-| `images/admin-user-delete-1280.png` | The Confirm Delete box |
+| `images/admin-users-1280.png` | The Users list, page 1: mira.fern and tavi.moss |
+| `images/admin-users-page-2-1280.png` | The Users list, page 2: neri.vale and oren.reed |
+| `images/admin-users-search-1280.png` | A search for mira in the Search by username box, showing only mira.fern |
+| `images/admin-user-create-1280.png` | The Add a user form |
+| `images/admin-user-edit-1280.png` | The Edit mira.fern form, with Save changes |
+| `images/admin-user-delete-1280.png` | The Delete the user mira.fern? box, with Keep the user and Delete user |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -36,9 +36,9 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | Time | Segment | Content |
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title; four everyday tasks |
-| 00:17-00:54 | Find a user | Users list, paging, search |
-| 00:54-01:28 | Add, edit and delete | Add User, edit, delete and confirm |
-| 01:28-01:45 | In short | Summary, thank you |
+| 00:17-00:55 | Find a user | Users list, paging, search |
+| 00:55-01:31 | Add, edit and delete | Add user, edit, delete and confirm |
+| 01:31-01:47 | In short | Summary, thank you |
 
 ## Demo commands
 

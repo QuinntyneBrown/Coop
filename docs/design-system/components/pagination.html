@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pagination — Coop design system</title>
-<meta name="description" content="Summary text and page buttons under a paged table.">
+<meta name="description" content="The row under a paged table in the Coop admin: a summary such as Showing 1–2 of 4 users, then Previous, page numbers and Next, with the current page marked.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,198 +31,327 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Navigation</p>
       <h1>Pagination</h1>
-      <p class="ds-lead">A summary of the visible range with previous, page-number and next buttons, shown under a paged table.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button&gt;</code></span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+      <p class="ds-lead">The row under a long table that says which part of the list is showing and moves between parts: "Showing 1–2 of 4 users", Previous, 1, 2, Next.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;nav&gt;</code> + <code>&lt;button&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
     </header>
 
     <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
-<p>Pagination sits under a table and lets people move between pages of results. It shows a text summary on the left ("Showing 1-2 of 4 users") and previous, page-number and next buttons on the right. The admin users list shows two users per page.</p>
-<ul>
-<li>Use it under a <a href="table.html">table</a> whose data is paged. It is not used for infinite lists.</li>
-<li>Only page numbers that exist are shown; the mocks show two pages.</li>
-</ul>
+      <p>Use pagination at the foot of a <a href="table.html">table</a> whose rows come a page at a time. In the admin that is the Users table, two people per page. The row says in words what is showing, and gives Previous, the page numbers and Next.</p>
+      <ul>
+        <li><b>Show it only when there is more than one page.</b> With one page the numbers say nothing; with no rows the <a href="empty-state.html">empty state</a> says it all ("No users found").</li>
+        <li><b>Use buttons</b> when the page changes in place, as it does in the admin today. If a page number ever goes into the address, the same classes go on <code>&lt;a href&gt;</code> links instead.</li>
+        <li><b>Not for steps.</b> Moving through a wizard uses Back and Next buttons with the <a href="step-indicator.html">step indicator</a>.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
-<div class="ds-anatomy">
-<figure class="ds-anatomy__figure"><div class="pagination" style="width: 100%;"><span aria-live="polite">Showing 1-2 of 4 users</span><nav aria-label="Pagination"><div class="page-controls"><button type="button" aria-label="Previous page" disabled><span class="material-icons" aria-hidden="true">chevron_left</span></button><button type="button" aria-label="Page 1" aria-current="page">1</button><button type="button" aria-label="Page 2">2</button><button type="button" aria-label="Next page"><span class="material-icons" aria-hidden="true">chevron_right</span></button></div></nav></div></figure>
-<ol class="ds-anatomy__list">
-<li><div><b>Container (<code>.pagination</code>)</b><small>Row with space between, <code>--space-3</code> by <code>--space-5</code> padding, muted <code>--text-body-sm</code> text.</small></div></li>
-<li><div><b>Summary</b><small>Range and total: "Showing 1-2 of 4 users".</small></div></li>
-<li><div><b>Controls (<code>.page-controls</code>)</b><small>Row of square buttons with <code>--space-1</code> gap, inside a <code>&lt;nav&gt;</code>.</small></div></li>
-<li><div><b>Previous and next</b><small>Chevron buttons; disabled at the first and last page.</small></div></li>
-<li><div><b>Page button</b><small>Min 32px square, <code>--radius-sm</code>, 1px <code>--color-border-strong</code> edge.</small></div></li>
-<li><div><b>Current page</b><small>Accent fill with <code>--color-fg-on-accent</code> label.</small></div></li>
-</ol>
-</div>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding-inline: var(--space-4); place-items: stretch;">
+          <nav class="pagination card" aria-label="Pagination, anatomy example" style="padding: var(--space-3) var(--space-4);">
+            <p>Showing 1–2 of 4 users</p>
+            <ul class="pagination__list">
+              <li><button class="pagination__link" type="button" disabled>Previous<span class="visually-hidden"> page</span></button></li>
+              <li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>1</button></li>
+              <li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>2</button></li>
+              <li><button class="pagination__link" type="button">Next<span class="visually-hidden"> page</span></button></li>
+            </ul>
+          </nav>
+          <span class="ds-callout" style="left: 14%; top: 18%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 62%; top: 18%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 72%; top: 18%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 80%; top: 18%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 89%; top: 18%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Summary</b><small>"Showing 1–2 of 4 users" in <code>--text-body-sm</code>, <code>--color-fg-muted</code>. A polite live region, so a change of page is announced.</small></div></li>
+          <li><div><b>Previous</b><small>A <code>.pagination__link</code> button with the word "Previous". Disabled on the first page.</small></div></li>
+          <li><div><b>Current page</b><small><code>aria-current="page"</code>: accent fill, <code>--color-fg-on-accent</code> number.</small></div></li>
+          <li><div><b>Other page</b><small>A 44px pill (<code>--target-comfortable</code>, <code>--radius-full</code>) with the number; "Page" is visually hidden so the name is "Page 2".</small></div></li>
+          <li><div><b>Next</b><small>The word "Next". Disabled on the last page.</small></div></li>
+        </ol>
+      </div>
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-<p>One variant. The first and last pages differ only in which chevron is disabled.</p>
-<h3>First page</h3>
-<div class="ds-example">
-<div class="ds-example__canvas">
-<div class="pagination" style="width: 100%;"><span aria-live="polite">Showing 1-2 of 4 users</span><nav aria-label="Pagination"><div class="page-controls"><button type="button" aria-label="Previous page" disabled><span class="material-icons" aria-hidden="true">chevron_left</span></button><button type="button" aria-label="Page 1" aria-current="page">1</button><button type="button" aria-label="Page 2">2</button><button type="button" aria-label="Next page"><span class="material-icons" aria-hidden="true">chevron_right</span></button></div></nav></div>
-</div>
-<div class="ds-example__caption"><span>Previous is disabled; page 1 is current.</span></div>
-<details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="pagination" style="width: 100%;"&gt;&lt;span aria-live="polite"&gt;Showing 1-2 of 4 users&lt;/span&gt;&lt;nav aria-label="Pagination"&gt;&lt;div class="page-controls"&gt;&lt;button type="button" aria-label="Previous page" disabled&gt;&lt;span class="material-icons" aria-hidden="true"&gt;chevron_left&lt;/span&gt;&lt;/button&gt;&lt;button type="button" aria-label="Page 1" aria-current="page"&gt;1&lt;/button&gt;&lt;button type="button" aria-label="Page 2"&gt;2&lt;/button&gt;&lt;button type="button" aria-label="Next page"&gt;&lt;span class="material-icons" aria-hidden="true"&gt;chevron_right&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;/nav&gt;&lt;/div&gt;</code></pre></details>
-</div>
-<h3>Last page</h3>
-<div class="ds-example">
-<div class="ds-example__canvas">
-<div class="pagination" style="width: 100%;"><span aria-live="polite">Showing 3-4 of 4 users</span><nav aria-label="Pagination"><div class="page-controls"><button type="button" aria-label="Previous page"><span class="material-icons" aria-hidden="true">chevron_left</span></button><button type="button" aria-label="Page 1">1</button><button type="button" aria-label="Page 2" aria-current="page">2</button><button type="button" aria-label="Next page" disabled><span class="material-icons" aria-hidden="true">chevron_right</span></button></div></nav></div>
-</div>
-<div class="ds-example__caption"><span>Next is disabled; page 2 is current.</span></div>
-</div>
+      <p>One variant: summary, Previous, every page number, Next. Admin lists are short, so all the numbers fit; there is no ellipsis and no page-size menu. If a list ever grows past seven pages, review this component before adding either.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="card card--flush">
+            <div class="table-wrap table-wrap--flush">
+              <table class="table">
+                <caption class="visually-hidden">Users, page 1 of 2</caption>
+                <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                  <tr><td>mira.fern</td><td>SystemAdministrator</td><td><span class="badge badge--success">Active</span></td></tr>
+                  <tr><td>tavi.moss</td><td>BoardMember</td><td><span class="badge badge--success">Active</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="pagination" aria-label="Pagination, users" style="border-top: var(--border-width-hairline) solid var(--color-border-default);">
+              <p aria-live="polite">Showing 1–2 of 4 users</p>
+              <ul class="pagination__list">
+                <li><button class="pagination__link" type="button" disabled>Previous<span class="visually-hidden"> page</span></button></li>
+                <li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>1</button></li>
+                <li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>2</button></li>
+                <li><button class="pagination__link" type="button">Next<span class="visually-hidden"> page</span></button></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The Users table, page 1 of 2. The pagination sits inside the table's flush card, below a hairline.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;nav class="pagination" aria-label="Pagination, users"&gt;
+  &lt;p aria-live="polite"&gt;Showing 1–2 of 4 users&lt;/p&gt;
+  &lt;ul class="pagination__list"&gt;
+    &lt;li&gt;&lt;button class="pagination__link" type="button" disabled&gt;Previous&lt;span class="visually-hidden"&gt; page&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="pagination__link" type="button" aria-current="page"&gt;&lt;span class="visually-hidden"&gt;Page &lt;/span&gt;1&lt;/button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="pagination__link" type="button"&gt;&lt;span class="visually-hidden"&gt;Page &lt;/span&gt;2&lt;/button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="pagination__link" type="button"&gt;Next&lt;span class="visually-hidden"&gt; page&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre></details>
+      </div>
+      <h3>Last page</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <nav class="pagination card" aria-label="Pagination, users, last page" style="padding: var(--space-3) var(--space-4); flex: 1;">
+            <p>Showing 3–4 of 4 users</p>
+            <ul class="pagination__list">
+              <li><button class="pagination__link" type="button">Previous<span class="visually-hidden"> page</span></button></li>
+              <li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>1</button></li>
+              <li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>2</button></li>
+              <li><button class="pagination__link" type="button" disabled>Next<span class="visually-hidden"> page</span></button></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Page 2 of 2: Next is disabled and Previous is live. The buttons keep their places, so nothing moves under the pointer.</span></div>
+      </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="Pagination has one size: buttons are at least 32px square with a 14px label."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">Pagination has one size: buttons are at least 32px square with a 14px label.</p>
+    <section class="ds-section" id="sizes" data-na="one size"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size. Every button is at least 44px square (<code>--target-comfortable</code>) because the people paging through the list may tap less precisely.</p>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
-<p>Hover and focus are forced with <code>data-state</code>.</p>
-<div class="ds-matrix"><table>
-<thead><tr><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current</th><th scope="col">Disabled</th></tr></thead>
-<tbody><tr>
-<td><div class="page-controls"><button type="button" aria-label="Page 2">2</button></div></td>
-<td><div class="page-controls"><button type="button" aria-label="Page 2" data-state="hover">2</button></div></td>
-<td><div class="page-controls"><button type="button" aria-label="Page 2" data-state="focus">2</button></div></td>
-<td><div class="page-controls"><button type="button" aria-label="Page 1" aria-current="page">1</button></div></td>
-<td><div class="page-controls"><button type="button" aria-label="Previous page" disabled><span class="material-icons" aria-hidden="true">chevron_left</span></button></div></td>
-</tr></tbody></table></div>
-<ul>
-<li>Current is <code>aria-current="page"</code>; the stylesheet also styles the mocks' <code>.active</code> class.</li>
-<li>Disabled uses the native attribute at 50% opacity; the mocks use 40%.</li>
-<li>No loading or ellipsis state is implemented: the mocks never show more than two page numbers.</li>
-</ul>
+      <p>Hover and focus are forced here with <code>data-state</code>; real pages get them from <code>:hover</code> and <code>:focus-visible</code>. Current uses <code>aria-current="page"</code>; disabled uses the native attribute.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Page number</th>
+            <td><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>2</button></td>
+            <td><button class="pagination__link" type="button" data-state="hover"><span class="visually-hidden">Page </span>2</button></td>
+            <td><button class="pagination__link" type="button" data-state="focus"><span class="visually-hidden">Page </span>2</button></td>
+            <td><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>1</button></td>
+            <td>Never disabled</td></tr>
+          <tr><th scope="row">Previous / Next</th>
+            <td><button class="pagination__link" type="button">Next<span class="visually-hidden"> page</span></button></td>
+            <td><button class="pagination__link" type="button" data-state="hover">Next<span class="visually-hidden"> page</span></button></td>
+            <td><button class="pagination__link" type="button" data-state="focus">Next<span class="visually-hidden"> page</span></button></td>
+            <td>Not applicable</td>
+            <td><button class="pagination__link" type="button" disabled>Previous<span class="visually-hidden"> page</span></button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><nav class="pagination card" aria-label="Pagination, light theme" style="padding: var(--space-3);"><p>Showing 3–4 of 4 users</p><ul class="pagination__list"><li><button class="pagination__link" type="button">Previous<span class="visually-hidden"> page</span></button></li><li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>1</button></li><li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>2</button></li><li><button class="pagination__link" type="button" disabled>Next<span class="visually-hidden"> page</span></button></li></ul></nav></div>
+        <div data-theme="dark"><nav class="pagination card" aria-label="Pagination, dark theme" style="padding: var(--space-3);"><p>Showing 3–4 of 4 users</p><ul class="pagination__list"><li><button class="pagination__link" type="button">Previous<span class="visually-hidden"> page</span></button></li><li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>1</button></li><li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>2</button></li><li><button class="pagination__link" type="button" disabled>Next<span class="visually-hidden"> page</span></button></li></ul></nav></div>
+      </div>
+      <ul>
+        <li><b>Loading</b>: while the next page loads, the pressed button keeps focus and the table body shows a <a href="spinner.html">loading row</a>. The summary changes when the rows arrive, not before.</li>
+        <li><b>One page or none</b>: the whole row is left out. Do not show "Showing 0–0 of 0 users".</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
-<ul>
-<li>No <code>@media</code> rule targets the pagination in the captured CSS. The row is flex with space between.</li>
-<li>With two pages the summary and controls fit side by side at 320px. If many pages are ever added, the control row is not designed to wrap and must be specified first.</li>
-</ul>
+      <ul>
+        <li>The row wraps (<code>flex-wrap</code>). From about 30rem the summary sits on the left and the buttons on the right; narrower, the buttons drop under the summary.</li>
+        <li>The button list wraps too. Previous, two numbers and Next need about 15rem. In the Users card on a 320px screen they just fit on one line; where less room is left, as in the narrow example below, Next wraps to a second row and stays in reach. Nothing scrolls sideways at 320px CSS width or at 400% zoom.</li>
+        <li>The table above scrolls sideways inside <code>.table-wrap</code> on a phone; the pagination below it does not scroll and stays in view under the table.</li>
+      </ul>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="max-width: 20rem;">
+          <nav class="pagination card" aria-label="Pagination at 320px" style="padding: var(--space-3);"><p>Showing 1–2 of 4 users</p><ul class="pagination__list"><li><button class="pagination__link" type="button" disabled>Previous<span class="visually-hidden"> page</span></button></li><li><button class="pagination__link" type="button" aria-current="page"><span class="visually-hidden">Page </span>1</button></li><li><button class="pagination__link" type="button"><span class="visually-hidden">Page </span>2</button></li><li><button class="pagination__link" type="button">Next<span class="visually-hidden"> page</span></button></li></ul></nav>
+        </div>
+        <div class="ds-example__caption"><span>In a narrow space the buttons wrap under the summary, and Next can wrap to its own row.</span></div>
+      </div>
     </section>
 
-    <section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2>
-      <p class="ds-na">The product ships one light appearance; there are no theme variants.</p>
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The current page reads <code>--color-accent</code> and <code>--color-fg-on-accent</code>, the same pair as a primary <a href="button.html">button</a>, so it re-themes with the accent. Other buttons use <code>--color-fg-default</code> on transparent with a <code>--color-bg-subtle</code> hover; the summary uses <code>--color-fg-muted</code>. All are semantic tokens with light and dark values; the component has no colours of its own.</p>
     </section>
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
-<h3>Role and pattern</h3>
-<p>A <code>&lt;nav aria-label="Pagination"&gt;</code> landmark with buttons. Page controls are buttons here because the app swaps table rows without navigating; if pages have their own URLs use links. The mocks use bare buttons with glyph labels and no landmark; the label and landmark are requirements.</p>
-<h3>Keyboard</h3>
-<div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through previous, each page, and next. Disabled buttons are skipped.</td></tr><tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Goes to that page.</td></tr></tbody></table></div>
-<h3>Focus</h3>
-<p>Shared focus ring on <code>:focus-visible</code>. After going to a page, keep focus on the same control or move it to the table caption (requirement).</p>
-<h3>Labelling</h3>
-<p>Previous and next need <code>aria-label</code>, because the mocks' glyph labels (a single chevron character) are read as "less-than" or nothing. Page buttons label themselves "Page 2" when the visible text is only a digit. The current button has <code>aria-current="page"</code>. The summary is a polite live region so the new range is announced.</p>
-<h3>Contrast</h3>
-<div class="ds-example__canvas ds-example__canvas--stack">
-<div class="ds-pair"><span>Summary text on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Page label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Current label on accent</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
-<div class="ds-pair"><span>Button edge on surface</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
-<div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
-</div>
-<h3>Motion</h3>
-<p>None.</p>
-<h3>Touch</h3>
-<p>Buttons are at least 32px square with a 4px gap, above the 24px minimum (<code>--target-min</code>) but below the 44px comfortable target; keep to two or three controls beside each other on phones.</p>
+      <h3>Role and pattern</h3>
+      <p>There is no APG widget for pagination; it is a navigation landmark around a list of native buttons, as the APG <a href="https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/navigation.html">navigation landmark</a> example describes. The current page has <code>aria-current="page"</code>, so it is announced as "Page 1, current page". The summary is a polite live region.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through Previous, the numbers and Next. Disabled buttons are skipped.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Shows that page. Focus stays on the pressed button.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared 2px <code>--color-focus-ring</code> with a 2px offset, which clears the round button. If the pressed button becomes disabled (Next on the last page), move focus to the current page number so it is not lost.</p>
+      <h3>Labelling</h3>
+      <p>Label the landmark with what it pages: <code>aria-label="Pagination, users"</code>. Previous and Next show their words and add a visually hidden "page"; numbers add a visually hidden "Page" before the number. Visible text stays at the start of each name (WCAG 2.5.3).</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Current page number on accent</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current page fill on card</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Page number on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Page number on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Summary on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>Disabled buttons use <code>--color-fg-disabled</code>; WCAG exempts inactive controls from contrast, and the word stays readable enough to show where Next will be.</p>
+      <h3>Motion</h3>
+      <p>The hover background fades over <code>--duration-fast</code>; reduced motion zeroes it. Changing page does not scroll the page or animate the table.</p>
+      <h3>Touch</h3>
+      <p>Every button is at least 44 × 44px with <code>--space-1</code> between them, above the 24px minimum and the 44px comfortable target.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
-<ul>
-<li>Summary pattern: "Showing {first}-{last} of {total} {things}", for example "Showing 3-4 of 4 users".</li>
-<li>Page buttons show the number; chevrons show previous and next. Their names are "Page 2", "Previous page" and "Next page".</li>
-<li>Hide the control when there is only one page; show the summary alone.</li>
-</ul>
+      <ul>
+        <li>Summary: "Showing 1–2 of 4 users", with an en dash in the range and the list's own noun ("users", "documents").</li>
+        <li>Buttons: "Previous" and "Next", in words. Never «, », "Prev" or arrows alone.</li>
+        <li>Numbers are plain digits with tabular figures, so the buttons do not change width.</li>
+      </ul>
     </section>
 
     <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
-<div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="page-controls"><button type="button" aria-label="Previous page" disabled><span class="material-icons" aria-hidden="true">chevron_left</span></button><button type="button" aria-label="Page 1" aria-current="page">1</button></div></div><figcaption>Name chevron buttons and mark the current page with <code>aria-current</code>.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="page-controls"><button type="button" disabled>&lsaquo;</button><button type="button" class="active">1</button></div></div><figcaption>Do not use a bare glyph as the only label, as the mocks do; there is no accessible name.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><div class="page-controls"><button type="button" aria-label="Page 1">1</button><button type="button" aria-label="Page 2" aria-current="page">2</button></div></div><figcaption>Disable previous on the first page and next on the last, with the native attribute.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="page-controls"><button type="button" aria-label="Page 1" aria-current="page">1</button><button type="button" aria-label="Page 2" aria-current="page">2</button></div></div><figcaption>Do not mark more than one page as current.</figcaption></figure></div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="pagination__list"><li><button class="pagination__link" type="button">Previous<span class="visually-hidden"> page</span></button></li><li><button class="pagination__link" type="button">Next<span class="visually-hidden"> page</span></button></li></ul></div><figcaption>Say Previous and Next in words.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="pagination__list"><li><button class="pagination__link" type="button">«</button></li><li><button class="pagination__link" type="button">»</button></li></ul></div><figcaption>« and » as the only label, as on the Users page: a screen reader reads "left-pointing double angle quotation mark", and the marks are small and easy to misread.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;button class="pagination__link" aria-current="page"&gt;</code></div><figcaption>Mark the current page with <code>aria-current="page"</code>; the fill follows from it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;button class="active"&gt;1&lt;/button&gt;</code></div><figcaption>The current page shown only by a colour class. It looks right, but a screen reader hears no difference between 1 and 2.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="empty" style="padding: var(--space-4);"><p class="empty__title">No users found</p></div></div><figcaption>With no rows, show the empty state and leave the pagination out.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p class="text-muted">Showing 0–0 of 0 users</p></div><figcaption>A summary for an empty list, as the Users empty and no-results states show today.</figcaption></figure>
+      </div>
     </section>
 
     <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody>
-<tr><td>Summary text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span> </td></tr>
-<tr><td>Button surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span> </td></tr>
-<tr><td>Button edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span> </td></tr>
-<tr><td>Button label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span> </td></tr>
-<tr><td>Current background</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span> </td></tr>
-<tr><td>Current label</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span> </td></tr>
-<tr><td>Hover background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span> </td></tr>
-<tr><td>Container padding</td><td><code>--space-3</code> / <code>--space-5</code></td><td><span data-token="--space-3"></span> <span data-token="--space-5"></span> </td></tr>
-<tr><td>Button gap</td><td><code>--space-1</code></td><td><span data-token="--space-1"></span> </td></tr>
-<tr><td>Button radius</td><td><code>--radius-sm</code></td><td><span data-token="--radius-sm"></span> </td></tr>
-<tr><td>Font</td><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span> </td></tr>
-</tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Current page fill</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Current page number</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+          <tr><td>Button label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Hover background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Disabled label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Summary</td><td><code>--color-fg-muted</code>, <code>--text-body-sm</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Button size</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Button shape</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+          <tr><td>Button label font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Gap between buttons / row gap / row padding</td><td><code>--space-1</code> / <code>--space-3</code> / <code>--space-3</code> <code>--space-4</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-3"></span> / <span data-token="--space-3"></span> <span data-token="--space-4"></span></td></tr>
+          <tr><td>Hover transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
-<pre><code>&lt;div class="pagination"&gt;
-  &lt;span aria-live="polite"&gt;Showing 1-2 of 4 users&lt;/span&gt;
-  &lt;nav aria-label="Pagination"&gt;
-    &lt;div class="page-controls"&gt;
-      &lt;button type="button" aria-label="Previous page" disabled&gt;...&lt;/button&gt;
-      &lt;button type="button" aria-label="Page 1" aria-current="page"&gt;1&lt;/button&gt;
-      &lt;button type="button" aria-label="Page 2"&gt;2&lt;/button&gt;
-      &lt;button type="button" aria-label="Next page"&gt;...&lt;/button&gt;
-    &lt;/div&gt;
+      <pre><code>&lt;div class="card card--flush"&gt;
+  &lt;div class="table-wrap table-wrap--flush"&gt;&lt;table class="table"&gt; … &lt;/table&gt;&lt;/div&gt;
+  &lt;nav class="pagination" aria-label="Pagination, users"&gt;
+    &lt;p aria-live="polite"&gt;Showing 3–4 of 4 users&lt;/p&gt;
+    &lt;ul class="pagination__list"&gt;
+      &lt;li&gt;&lt;button class="pagination__link" type="button"&gt;Previous&lt;span class="visually-hidden"&gt; page&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;button class="pagination__link" type="button"&gt;&lt;span class="visually-hidden"&gt;Page &lt;/span&gt;1&lt;/button&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;button class="pagination__link" type="button" aria-current="page"&gt;&lt;span class="visually-hidden"&gt;Page &lt;/span&gt;2&lt;/button&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;button class="pagination__link" type="button" disabled&gt;Next&lt;span class="visually-hidden"&gt; page&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/nav&gt;
 &lt;/div&gt;</code></pre>
-<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
-<tr><td><code>.pagination</code></td><td>Summary and controls row.</td></tr>
-<tr><td><code>.page-controls</code></td><td>Container for the buttons; styles its child buttons.</td></tr>
-<tr><td><code>aria-current="page"</code></td><td>Current page: accent fill. Also styled for <code>.active</code>.</td></tr>
-<tr><td><code>disabled</code></td><td>Unavailable: 50% opacity, not focusable.</td></tr>
-</tbody></table></div>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.pagination</code></td><td>On the <code>&lt;nav&gt;</code>: wrapping row, summary and buttons pushed apart, small muted text.</td></tr>
+        <tr><td><code>.pagination__list</code></td><td>On the <code>&lt;ul&gt;</code>: wrapping row of buttons, <code>--space-1</code> apart, no bullets.</td></tr>
+        <tr><td><code>.pagination__link</code></td><td>On each <code>&lt;button&gt;</code> (or <code>&lt;a&gt;</code>): 44px pill, label font, tabular figures.</td></tr>
+        <tr><td><code>aria-current="page"</code></td><td>The page showing: accent fill.</td></tr>
+        <tr><td><code>disabled</code> / <code>aria-disabled="true"</code></td><td>Previous on the first page, Next on the last: disabled colour, no hover. Use <code>aria-disabled</code> on a link.</td></tr>
+        <tr><td><code>.visually-hidden</code></td><td>Adds "Page" and "page" to the names without showing them.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
+      </tbody></table>
+      <p>Gap: <code>.pagination</code> has no top border of its own. Inside a flush table card, add a hairline above it (<code>border-top: var(--border-width-hairline) solid var(--color-border-default)</code>), as the example does.</p>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
-<p>Extracted from these mocks:</p>
-<ul><li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (page 1, previous disabled)</li><li><a href="../../mocks/pages/admin-users/page-2.html">pages/admin-users/page-2</a> (page 2, next disabled)</li></ul>
-<h3>Drift</h3>
-<p>Where the mocks differ from each other or fail WCAG 2.2 AA, the design system resolves it as follows.</p>
-<ul><li>Previous and next are a bare glyph with no label; the system requires <code>aria-label</code> and uses a Material chevron.</li><li>Current page is an <code>.active</code> class only; the system requires <code>aria-current="page"</code>.</li><li>Button edge is the light divider colour (1.2:1); the system uses <code>--color-border-strong</code> (3:1).</li><li>Disabled opacity is 0.4 in the mocks; the system uses 0.5 like the other disabled controls.</li><li>Buttons are 6px 10px padded with no minimum size and a 13px label; the system sets a 32px minimum and 14px text.</li><li>No <code>&lt;nav&gt;</code> landmark or live region in the mocks; both are required.</li></ul>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (page 1 of 2: summary, « disabled, 1 current, 2, »)</li>
+        <li><a href="../../mocks/pages/admin-users/page-2.html">pages/admin-users/page-2</a> (page 2 of 2: « live, 2 current, » disabled)</li>
+        <li><a href="../../mocks/pages/admin-users/empty.html">pages/admin-users/empty</a> (summary "Showing 0-0 of 0 users" with no buttons)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Markup.</b> The admin uses <code>div.pagination</code> with a <code>span</code> summary and <code>div.page-controls</code> of bare buttons: no <code>&lt;nav&gt;</code> landmark, no list and no live region. The system uses <code>nav.pagination</code>, <code>ul.pagination__list</code>, <code>.pagination__link</code> and a polite summary.</li>
+        <li><b>Labels.</b> Previous and next are the characters « and » with no accessible name; numbers are bare digits. The system shows "Previous" and "Next" and names numbers "Page 1".</li>
+        <li><b>Current page.</b> Marked only by <code>button.active</code> with a green fill. The system uses <code>aria-current="page"</code> and the violet accent.</li>
+        <li><b>Size.</b> Buttons are about 30px tall (6px by 10px padding, 14px text), 4px apart, with a 6px radius and a grey border. The system uses 44px pills with no border.</li>
+        <li><b>Disabled.</b> Disabled buttons get a grey fill and a darker grey border. The system only greys the label.</li>
+        <li><b>Empty list.</b> The empty and no-results states still show "Showing 0-0 of 0 users". The system leaves the pagination out when there is one page or none.</li>
+        <li><b>Copy.</b> The range uses a hyphen ("1-2"); the system uses an en dash ("1–2"). The admin font is Outfit; the system uses its own rounded system fonts.</li>
+      </ul>
     </section>
 
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

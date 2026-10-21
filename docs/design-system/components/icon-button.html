@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Icon button — Coop design system</title>
-<meta name="description" content="A square, text-free button for common actions such as the notification bell, the menu toggle, edit and delete.">
+<meta name="description" content="Icon buttons in the Coop admin: ghost, secondary and danger tones for row Edit and Delete and dialog Close, always named with aria-label, with an optional tooltip.">
 <link rel="stylesheet" href="../tokens/tokens.css">
-<link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="ds-shell">
-    <nav class="ds-nav" aria-label="Design system">
-    <div class="ds-nav__brand"><a href="../index.html">Coop design system</a></div>
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
     <details open><summary>Foundations</summary><ul>
       <li><a href="../foundations/color.html">Color</a></li>
       <li><a href="../foundations/typography.html">Typography</a></li>
@@ -32,61 +31,344 @@
     <details open><summary>Components</summary><ul>
       <li><a href="../components/button.html">Button</a></li>
       <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
       <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
       <li><a href="../components/checkbox.html">Checkbox</a></li>
-      <li><a href="../components/search-bar.html">Search bar</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
       <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
       <li><a href="../components/top-bar.html">Top bar</a></li>
-      <li><a href="../components/bottom-tab-bar.html">Bottom tab bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
       <li><a href="../components/tabs.html">Tabs</a></li>
-      <li><a href="../components/filter-chips.html">Filter chips</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
       <li><a href="../components/pagination.html">Pagination</a></li>
-      <li><a href="../components/stepper.html">Stepper</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
       <li><a href="../components/card.html">Card</a></li>
       <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
       <li><a href="../components/table.html">Table</a></li>
-      <li><a href="../components/list-item.html">List item</a></li>
+      <li><a href="../components/list.html">List</a></li>
       <li><a href="../components/description-list.html">Description list</a></li>
       <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
       <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
       <li><a href="../components/metric-card.html">Metric card</a></li>
-      <li><a href="../components/alert.html">Alert</a></li>
-      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
       <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
-      <li><a href="../patterns/dialogs.html">Dialogs</a></li>
-      <li><a href="../patterns/navigation.html">Navigation and app shell</a></li>
-      <li><a href="../patterns/feedback.html">Feedback and empty states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
     </ul></details>
   </nav>
+
   <main id="main" class="ds-main">
     <header class="ds-header">
       <p class="ds-kicker">Component · Actions</p>
       <h1>Icon button</h1>
-      <p class="ds-lead">A square, text-free button for common actions such as the notification bell, the menu toggle, edit and delete.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button&gt;</code></span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+      <p class="ds-lead">An icon button is a square button with only an icon: Edit and Delete at the end of a user's row, Delete on a document card, Close in a dialog header. Its name lives in <code>aria-label</code>, so every one says exactly what it acts on.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button&gt;</code> + <code>aria-label</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
     </header>
-<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2><p>Use an icon button where the icon is universally understood and space is tight: top bar (menu, notifications), table rows (edit, delete) and viewer close. Use a <a href="button.html">button</a> with a label when the action is not obvious.</p><ul><li><code>menu</code> (hamburger) opens the sidebar on compact screens.</li><li><code>notifications</code> is the bell in the top bar.</li><li><code>edit</code> and <code>delete</code> open the matching dialog from a table row.</li><li><code>close</code> leaves the document viewer.</li></ul></section>
-<section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2><div class="ds-anatomy"><figure class="ds-anatomy__figure"><button class="icon-btn" type="button" aria-label="Edit user"><span class="material-icons" aria-hidden="true">edit</span></button></figure><ol class="ds-anatomy__list"><li><div><b>Icon</b><small>A Material Icons glyph at 1.5rem, <code>aria-hidden</code>, inherits <code>--color-fg-default</code>.</small></div></li><li><div><b>Container</b><small>Transparent, borderless, at least 2.5rem square (<code>--icon-btn-size</code>), <code>--radius-sm</code> corners.</small></div></li><li><div><b>Accessible name</b><small><code>aria-label</code> with the verb and object. Required.</small></div></li></ol></div></section>
-<section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2><p>There is one look; only the glyph changes.</p><div class="ds-example"><div class="ds-example__canvas "><button class="icon-btn" type="button" aria-label="Open menu"><span class="material-icons" aria-hidden="true">menu</span></button><button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button><button class="icon-btn" type="button" aria-label="Edit user"><span class="material-icons" aria-hidden="true">edit</span></button><button class="icon-btn" type="button" aria-label="Delete user"><span class="material-icons" aria-hidden="true">delete</span></button><button class="icon-btn" type="button" aria-label="Close viewer"><span class="material-icons" aria-hidden="true">close</span></button></div><div class="ds-example__caption"><span>The glyphs used in the product.</span></div><details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;button class="icon-btn" type="button" aria-label="Edit user"&gt;
-  &lt;span class="material-icons" aria-hidden="true"&gt;edit&lt;/span&gt;
-&lt;/button&gt;</code></pre></details></div></section>
-<section class="ds-section" id="sizes" data-na="The mocks show one icon-button size."><h2><a href="#sizes">Sizes</a></h2><p>There is a single size: 2.5rem square with a 1.5rem glyph.</p></section>
-<section class="ds-section" id="states"><h2><a href="#states">States</a></h2><p>Hover and active forced with <code>data-state</code>; focus uses the shared ring.</p><div class="ds-matrix"><table><thead><tr><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th></tr></thead><tbody><tr><td><button class="icon-btn" type="button" aria-label="Edit user"><span class="material-icons" aria-hidden="true">edit</span></button></td><td><button class="icon-btn" type="button" aria-label="Edit user" data-state="hover"><span class="material-icons" aria-hidden="true">edit</span></button></td><td><button class="icon-btn" type="button" aria-label="Edit user" data-state="focus"><span class="material-icons" aria-hidden="true">edit</span></button></td><td><button class="icon-btn" type="button" aria-label="Edit user" data-state="active"><span class="material-icons" aria-hidden="true">edit</span></button></td><td><button class="icon-btn" type="button" aria-label="Edit user" disabled><span class="material-icons" aria-hidden="true">edit</span></button></td></tr></tbody></table></div><p>Hover fills <code>--color-bg-subtle</code>; active fills <code>--color-bg-subtle-hover</code>; disabled is 50% opaque.</p></section>
-<section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2><p>The mocks define no <code>@media</code> rule for this component, so it does not change at the 640, 768 or 1024 breakpoints. The hamburger button is hidden or shown by the top bar layout, not by this component; see the <a href="top-bar.html">top bar</a>.</p></section>
-<section class="ds-section" id="theming" data-na="The product ships one light appearance; there are no theme variants."><h2><a href="#theming">Theming</a></h2><p>The product ships one light appearance, so this component has no theme variants. It reads semantic tokens only; see the tokens section.</p></section>
-<section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2><h3>Role and pattern</h3><p>Native <code>&lt;button type="button"&gt;</code>: the WAI-ARIA Button pattern.</p><h3>Keyboard</h3><div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd></td><td>Moves focus to the button.</td></tr><tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates it.</td></tr></tbody></table></div><h3>Focus</h3><p>One shared ring: <code>--focus-ring-width</code> solid <code>--color-focus-ring</code> at <code>--focus-ring-offset</code>, shown on <code>:focus-visible</code>. The mocks removed the browser outline (<code>outline: none</code>) and relied on a border-colour change; the design system restores a visible ring.</p><h3>Labelling</h3><p>Every icon button needs an <code>aria-label</code> describing the action and, in rows, its object ("Edit user"). The mocks of the admin pages ship icon buttons with a glyph name and no label; the design system requires the label. Some review-only labels in the mocks (for example "dashboard notification bell") restate the test id rather than the action and are replaced with "Notifications" and "Open menu".</p><h3>Contrast</h3><div class="ds-example__canvas ds-example__canvas--stack"><div class="ds-pair"><span>Glyph on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="3"></span></div><div class="ds-pair"><span>Glyph on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="3"></span></div><div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div></div><h3>Motion</h3><p>Background colour transitions over <code>--duration-base</code>.</p><h3>Touch</h3><p>2.5rem square exceeds the 24px WCAG 2.2 minimum.</p></section>
-<section class="ds-section" id="content"><h2><a href="#content">Content</a></h2><ul><li>The label is a verb, optionally with the object: "Edit user", "Delete document".</li><li>Do not put the glyph name in the label ("delete").</li><li>The bell and menu are labelled by purpose: "Notifications", "Open menu".</li></ul></section>
-<section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2><div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Delete user"><span class="material-icons" aria-hidden="true">delete</span></button></div><figcaption>Icon button with a verb and object label.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button"><span class="material-icons">delete</span></button></div><figcaption>No accessible name. A screen reader reads the ligature text as the word &quot;delete&quot; only by accident, and the glyph is not hidden.</figcaption></figure><figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Notifications"><span class="material-icons" aria-hidden="true">notifications</span></button></div><figcaption>Purpose label for toolbar icons.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="dashboard notification bell"><span class="material-icons" aria-hidden="true">notifications</span></button></div><figcaption>A test id used as a label. Describe the action.</figcaption></figure></div></section>
-<section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody><tr><td>Glyph colour</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr><tr><td>Hover background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr><tr><td>Active background</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr><tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr><tr><td>Radius</td><td><code>--radius-sm</code></td><td><span data-token="--radius-sm"></span></td></tr><tr><td>Transition</td><td><code>--duration-base</code></td><td><span data-token="--duration-base"></span></td></tr></tbody></table></div></section>
-<section class="ds-section" id="code"><h2><a href="#code">Code</a></h2><pre><code>&lt;button class="icon-btn" type="button" aria-label="Edit user"&gt;
-  &lt;span class="material-icons" aria-hidden="true"&gt;edit&lt;/span&gt;
-&lt;/button&gt;</code></pre><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody><tr><td><code>.icon-btn</code></td><td>Square, transparent, 2.5rem.</td></tr><tr><td><code>aria-label</code></td><td>Required accessible name.</td></tr><tr><td><code>data-state</code></td><td>Documentation only.</td></tr></tbody></table></div></section>
-<section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2><p>Extracted from these mocks:</p><ul><li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (edit and delete in rows)</li><li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (hamburger and bell)</li><li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (delete and viewer close)</li></ul><h3>Drift</h3><ul><li>Admin mocks emit the glyph with no <code>aria-label</code>; public mocks carry review-only labels such as &quot;dashboard hamburger menu&quot;. The system requires a real action label.</li><li>The mocks' glyphs were not <code>aria-hidden</code>; the system hides them.</li></ul></section>
-    <footer class="ds-footer"><span>Coop design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#main">Back to top</a></footer>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The icon button is a <a href="button.html">button</a> with the <code>.btn--icon</code> modifier: it keeps the button's height, becomes a circle as wide as it is tall, and drops the visible label. There is no separate CSS; tone and size come from the usual button modifiers.</p>
+      <ul>
+        <li><b>Use it</b> for small, repeated actions whose icon is plain from context: Edit (pencil) and Delete (bin) on every row of Users, Delete on each document card, Close (×) in a dialog header.</li>
+        <li><b>Do not use it</b> for the main action of a view, or for any action a person might not recognise from the icon alone. "New page", "Save page" and "Send" keep their words.</li>
+        <li><b>Prefer a labelled button</b> when there is room. On Pages and Board, where each card has space, "Edit" and "Remove" are labelled buttons; icon buttons are for tables and tight headers.</li>
+      </ul>
+      <p>Every icon button has an <code>aria-label</code> that names the action and, in a list, the item: "Edit mira.fern", "Delete Meeting notes.pdf". A <a href="tooltip.html">tooltip</a> that shows the same words on hover and focus is optional and recommended for anything less common than Close.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <span class="tooltip-anchor"><button class="btn btn--icon" type="button" aria-label="Edit mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><span class="tooltip" data-state="visible" aria-hidden="true">Edit mira.fern</span></span>
+          <span class="ds-callout" style="left: 54%; top: 66%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 41%; top: 44%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 60%; top: 6%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Container</b><small>A circle: width equals <code>--btn-height</code> (36, 44 or 52px), <code>--radius-full</code>, hairline border for the secondary tone.</small></div></li>
+          <li><div><b>Icon</b><small>Stroke SVG, 1.25em, <code>currentColor</code>, <code>aria-hidden="true"</code>.</small></div></li>
+          <li><div><b>Tooltip (optional)</b><small><code>.tooltip</code> inside a <code>.tooltip-anchor</code>; repeats the accessible name on hover and focus.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Three tones, chosen by where the button sits and what it does.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button>
+          <button class="btn btn--icon" type="button" aria-label="New conversation"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="btn btn--danger btn--icon" type="button" aria-label="Delete Meeting notes.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span>Ghost (<code>.btn--ghost.btn--icon</code>), secondary (<code>.btn.btn--icon</code>) and danger (<code>.btn--danger.btn--icon</code>).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern"&gt;…&lt;/button&gt;
+&lt;button class="btn btn--icon" type="button" aria-label="New conversation"&gt;…&lt;/button&gt;
+&lt;button class="btn btn--danger btn--icon" type="button" aria-label="Delete Meeting notes.pdf"&gt;…&lt;/button&gt;</code></pre></details>
+      </div>
+      <ul>
+        <li><b>Ghost</b> is the default for icon buttons. It has no fill or edge until hover, so a row of them stays calm: Edit in a table row, Close in a dialog header, Back to the conversation list on a phone.</li>
+        <li><b>Secondary</b> has the hairline edge of a secondary button. Use it when the button stands alone in a header and needs to look pressable at rest: "New conversation" beside the Messages heading.</li>
+        <li><b>Danger</b> is the solid red fill. Use it only for an icon-only Delete that opens a confirmation dialog, where the colour and the bin are the only cues because there are no words. Never combine it with <code>.btn--ghost</code>: the ghost rule clears the fill but keeps the danger label colour, so the icon disappears.</li>
+      </ul>
+      <h3>In a table row and a dialog header</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="table-wrap" style="width: 100%;"><table class="table"><caption class="visually-hidden">Users</caption>
+            <thead><tr><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><span class="cluster" style="gap: var(--space-2); flex-wrap: nowrap;"><span class="avatar avatar--sm" aria-hidden="true">M</span>mira.fern</span></td><td>SystemAdministrator</td><td><span class="badge badge--success">Active</span></td><td><span class="cluster" style="gap: var(--space-2); flex-wrap: nowrap;"><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete mira.fern"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></span></td></tr>
+              <tr><td><span class="cluster" style="gap: var(--space-2); flex-wrap: nowrap;"><span class="avatar avatar--sm" aria-hidden="true">T</span>tavi.moss</span></td><td>BoardMember</td><td><span class="badge badge--success">Active</span></td><td><span class="cluster" style="gap: var(--space-2); flex-wrap: nowrap;"><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="dialog dialog--static" style="width: 100%; max-width: 32rem;"><div class="dialog__panel" role="dialog" aria-labelledby="ib-dialog-title">
+            <div class="dialog__header"><h3 class="dialog__title" id="ib-dialog-title">New document</h3><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <div class="dialog__body"><p class="text-muted">Add a notice, bylaw or report for members to read.</p></div>
+          </div></div>
+        </div>
+        <div class="ds-example__caption"><span>Small ghost Edit and small danger Delete end each Users row, each named for its user. Close is a medium ghost button in the dialog header; the dialog's name tells a screen reader what it closes.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;td&gt;
+  &lt;button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit mira.fern"&gt;…&lt;/button&gt;
+  &lt;button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete mira.fern"&gt;…&lt;/button&gt;
+&lt;/td&gt;</code></pre></details>
+      </div>
+      <h3>With a tooltip</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="padding-top: var(--space-12);">
+          <span class="tooltip-anchor"><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><span class="tooltip" aria-hidden="true">Edit tavi.moss</span></span>
+          <span class="tooltip-anchor"><button class="btn btn--icon" type="button" aria-label="New conversation"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><span class="tooltip" aria-hidden="true">New conversation</span></span>
+        </div>
+        <div class="ds-example__caption"><span>Hover or tab to either button to see its tooltip. The tooltip repeats the accessible name, so it is <code>aria-hidden</code>; when a tooltip adds something the name does not say, give it an <code>id</code> and point <code>aria-describedby</code> at it instead.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="tooltip-anchor"&gt;
+  &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Edit tavi.moss"&gt;…&lt;/button&gt;
+  &lt;span class="tooltip" aria-hidden="true"&gt;Edit tavi.moss&lt;/span&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>The circle is as wide as the button is tall. Small (36px) sits in table rows and on document cards; medium (44px) is for dialog headers and page headers; large (52px) is available but not used in the admin.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit, small"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button>
+          <button class="btn btn--ghost btn--icon" type="button" aria-label="Edit, medium"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button>
+          <button class="btn btn--ghost btn--icon btn--lg" type="button" aria-label="Edit, large"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button>
+          <button class="btn btn--icon btn--sm" type="button" aria-label="New conversation, small"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="btn btn--icon" type="button" aria-label="New conversation, medium"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="btn btn--icon btn--lg" type="button" aria-label="New conversation, large"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span>36, 44 and 52px squares from <code>--control-height-sm/md/lg</code>. The icon scales with the size's font (<code>--font-size-sm/md/lg</code>).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The same six states as a button. Pointer and focus states are forced with <code>data-state</code>; real pages get them from <code>:hover</code>, <code>:focus-visible</code>, <code>:active</code>, <code>disabled</code> and <code>aria-busy</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Tone</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Ghost</th>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td>
+            <td><button class="btn btn--ghost btn--icon" type="button" aria-label="Close" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></td></tr>
+          <tr><th scope="row">Secondary</th>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td>
+            <td><button class="btn btn--icon" type="button" aria-label="New conversation" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></td></tr>
+          <tr><th scope="row">Danger</th>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td>
+            <td><button class="btn btn--danger btn--icon" type="button" aria-label="Delete Courtyard plan.pdf" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern, light theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern, light theme, hover" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--icon" type="button" aria-label="New conversation, light theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="btn btn--danger btn--icon" type="button" aria-label="Delete mira.fern, light theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern, dark theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--ghost btn--icon" type="button" aria-label="Edit mira.fern, dark theme, hover" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--icon" type="button" aria-label="New conversation, dark theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="btn btn--danger btn--icon" type="button" aria-label="Delete mira.fern, dark theme"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div></div>
+      </div>
+      <ul>
+        <li><b>Disabled</b>: Close is disabled while a dialog saves, as in the New document dialog, so the request cannot be abandoned half-way. Nothing else disables an icon button; an action a role cannot take is left out, not greyed.</li>
+        <li><b>Loading</b> (<code>aria-busy="true"</code>) hides the icon behind the spinner. It is rare for an icon button, because Edit and Delete open a dialog whose own buttons carry the busy state.</li>
+        <li><b>Pressed</b> (<code>aria-pressed</code>) is supported by the button CSS but no icon button in the admin toggles.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Icon buttons never shrink or wrap their content; the circle keeps its size at every width and at 400% zoom.</li>
+        <li>In a Users row the action cell keeps Edit and Delete side by side with <code>--space-2</code> between them. Below 768px the table scrolls inside its <code>.table-wrap</code> rather than the page.</li>
+        <li>On a document card the Delete button stays at the end of the card's row; the title and date wrap instead.</li>
+        <li>Tooltips are hover and focus enhancements; on touch screens the <code>aria-label</code> is what assistive technology reads, and the icon must be clear without the tooltip.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>An icon button reads exactly the same component tokens as a button: <code>--btn-bg</code>, <code>--btn-fg</code>, <code>--btn-border</code>, <code>--btn-bg-hover</code>, <code>--btn-bg-active</code> and <code>--btn-height</code>. <code>.btn--icon</code> only sets the width to <code>--btn-height</code> and removes the padding. In dark, ghost and secondary icons switch to the light <code>--color-fg-default</code>, and danger becomes <code>--palette-red-300</code> with a dark icon. The tooltip reads <code>--color-bg-inverse</code> and <code>--color-fg-inverse</code>, which flip between themes so it always contrasts with the page.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;button type="button"&gt;</code> (WAI-ARIA APG Button pattern) with <code>aria-label</code>. The SVG is <code>aria-hidden="true"</code> and contains no text, so the label is the only name. A tooltip follows the APG Tooltip pattern loosely: it appears on hover and focus, never holds a control and hides on <kbd>Esc</kbd>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves focus to and from the button; focus shows the tooltip if there is one.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the button: opens the edit or delete dialog, or closes the dialog.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Hides a visible tooltip without moving focus. In a dialog, also closes the dialog, the same as Close.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared focus ring follows the circle (outline on a round element), offset by <code>--focus-ring-offset</code>. When an Edit or Delete dialog closes, focus returns to the icon button that opened it; if the row was deleted, focus moves to the next row's Edit button or, on the last row, to the table's heading.</p>
+      <h3>Labelling</h3>
+      <p>The <code>aria-label</code> is a verb plus the item: "Edit mira.fern", "Delete Meeting notes.pdf", "Delete tavi.moss". A bare "Edit" or "Delete" is not enough in a list, because a screen reader's button list shows them all at once. Close is the one exception: its dialog's name gives the context. Never let an icon font's ligature ("edit", "delete") become the name.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Ghost and secondary icon on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Ghost icon in dialogs</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Icon on hover fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="3"></span></div>
+        <div class="ds-pair"><span>Secondary edge on surface</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Icon on danger</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="3"></span></div>
+        <div class="ds-pair"><span>Danger fill on surface</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Tooltip text</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring in dialogs</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <p>Icons are non-text graphics, so they need 3:1 (WCAG 1.4.11); every pair above also clears 4.5:1 in both themes. A ghost button has no edge at rest, so its icon alone must meet 3:1 against the surface.</p>
+      <h3>Motion</h3>
+      <p>Fill and edge transition over <code>--duration-fast</code>; the tooltip fades in after a short delay. Reduced motion zeroes the durations, so both simply appear.</p>
+      <h3>Touch</h3>
+      <p>Small icon buttons are 36px circles and medium are 44px, both above the 24px minimum; medium meets the 44px comfortable target. Adjacent icon buttons sit <code>--space-2</code> apart so a tap meant for Edit does not land on Delete.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The <code>aria-label</code> is a verb in sentence case plus the item's visible name: "Edit mira.fern", "Delete Courtyard plan.pdf".</li>
+        <li>Use one icon per meaning across the whole admin: pencil for Edit, bin for Delete and Remove, × for Close, plus for New. The same icon never means two things.</li>
+        <li>Tooltips repeat the label word for word, so what a sighted person reads is what a screen reader says.</li>
+        <li>If an action needs explaining, it is not an icon button; give it a label.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></button><button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete tavi.moss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>Each row's buttons are named for their user: "Edit tavi.moss", "Delete tavi.moss".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="btn btn--ghost btn--icon btn--sm" role="img" aria-label="Illustration: an edit button named only by its icon word"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/></svg></span><span class="btn btn--ghost btn--icon btn--sm" role="img" aria-label="Illustration: a delete button named only by its icon word"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></span></div><figcaption>The Users rows as implemented: no <code>aria-label</code>, so every row's buttons are announced "edit" and "delete" from the icon font, with no user.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete Meeting notes.pdf"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div><figcaption>A red icon-only Delete uses <code>.btn--danger.btn--icon</code> and opens a confirmation dialog.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="btn btn--ghost btn--danger btn--icon btn--sm" role="img" aria-label="Illustration: a delete button whose icon has vanished"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></span></div><figcaption>Combining <code>.btn--ghost</code> and <code>.btn--danger</code> to imitate the documents page's red outline-free bin: the fill goes, the light icon stays, and the button disappears.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button">Send</button></div><figcaption>The main action of a view keeps its word, even when an icon would fit.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="btn btn--primary btn--icon btn--sm" role="img" aria-label="Illustration: an unnamed plus button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></div><figcaption>A small primary plus with no name, as beside the Messages heading: it outranks "Send" and says nothing to a screen reader.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Ghost and secondary icon</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Secondary fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Secondary edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Hover fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Active fill</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Danger fill</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Danger fill, hover</td><td><code>--color-danger-solid-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td></tr>
+          <tr><td>Danger icon</td><td><code>--color-fg-on-danger</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td></tr>
+          <tr><td>Tooltip fill / text</td><td><code>--color-bg-inverse</code> / <code>--color-fg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Size sm / md / lg</td><td><code>--control-height-sm/md/lg</code></td><td><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span> / <span data-token="--control-height-lg"></span></td><td><span data-theme="dark"><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span> / <span data-token="--control-height-lg"></span></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-full</code></td><td><span data-token="--radius-full"></span></td><td><span data-theme="dark" data-token="--radius-full"></span></td></tr>
+          <tr><td>Gap between icon buttons</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span></td><td><span data-theme="dark" data-token="--space-2"></span></td></tr>
+          <tr><td>Tooltip layer / radius</td><td><code>--z-tooltip</code> / <code>--radius-sm</code></td><td><span data-token="--z-tooltip"></span> / <span data-token="--radius-sm"></span></td><td><span data-theme="dark"><span data-token="--z-tooltip"></span> / <span data-token="--radius-sm"></span></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td><span data-token="--duration-fast"></span></td><td><span data-theme="dark" data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;!-- A Users row --&gt;
+&lt;button class="btn btn--ghost btn--icon btn--sm" type="button" aria-label="Edit mira.fern"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M4 20h4l10-10-4-4L4 16v4zM13 7l4 4"/&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;button class="btn btn--danger btn--icon btn--sm" type="button" aria-label="Delete mira.fern"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- With an optional tooltip --&gt;
+&lt;span class="tooltip-anchor"&gt;
+  &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+  &lt;span class="tooltip" aria-hidden="true"&gt;Close&lt;/span&gt;
+&lt;/span&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.btn.btn--icon</code></td><td>Square, padding removed, width equals height, round. Secondary tone.</td></tr>
+        <tr><td><code>.btn--ghost</code></td><td>Ghost tone: no fill or edge until hover.</td></tr>
+        <tr><td><code>.btn--danger</code></td><td>Danger tone: solid red. Never together with <code>.btn--ghost</code>.</td></tr>
+        <tr><td><code>.btn--sm</code> <code>.btn--lg</code></td><td>36px or 52px; omit for 44px.</td></tr>
+        <tr><td><code>aria-label</code></td><td>Required: verb plus item.</td></tr>
+        <tr><td><code>.tooltip-anchor</code> + <code>.tooltip</code></td><td>Optional tooltip on hover and focus; <code>aria-hidden="true"</code> when it repeats the label.</td></tr>
+        <tr><td><code>disabled</code>, <code>aria-busy="true"</code></td><td>As for <a href="button.html#states">button</a>.</td></tr>
+        <tr><td><code>data-state="hover|focus|active"</code>, <code>.tooltip[data-state="visible"]</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (Edit and Delete <code>.icon-btn</code> in each row)</li>
+        <li><a href="../../mocks/dialogs/admin-user-delete/default.html">dialogs/admin-user-delete/default</a> (the dialog Delete opens)</li>
+        <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (red Delete <code>.icon-btn.delete-doc-btn</code> on each document card)</li>
+        <li><a href="../../mocks/dialogs/admin-document-create/default.html">dialogs/admin-document-create/default</a> and <a href="../../mocks/dialogs/admin-document-create/busy.html">busy</a> (44px Close with <code>aria-label</code>, disabled while saving)</li>
+        <li><a href="../../mocks/dialogs/admin-document-viewer/default.html">dialogs/admin-document-viewer/default</a> (Close with no name)</li>
+        <li><a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> (where labelled "Edit" and "Remove" are preferred to icons)</li>
+        <li><a href="../../mocks/pages/admin-messaging/default.html">pages/admin-messaging/default</a> and <a href="../../mocks/pages/admin-messaging/chat.html">chat</a> (small primary plus, icon-only Send and Back)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <ul>
+        <li><b>Class.</b> The admin uses <code>.icon-btn</code>: no fill or border, 4px padding around a 24px Material Icons glyph (a 32px target), a grey hover fill or none, and a square 8px radius on some screens. The system uses <code>.btn.btn--icon</code> with a tone and size modifier: a 36px or 44px circle with a stroke SVG.</li>
+        <li><b>No names.</b> Users' Edit and Delete and the document viewer's Close have no <code>aria-label</code>; their names come from the icon-font ligature ("edit", "delete", "close") and never name the user or document. Only the New document dialog's Close is labelled. The system requires "Edit mira.fern", "Delete Meeting notes.pdf", "Close".</li>
+        <li><b>Quiet red Delete.</b> Documents colours <code>.delete-doc-btn</code> red with a pale red hover. The system has no quiet danger tone; the Delete trigger is <code>.btn--danger.btn--icon</code> (solid), and Users' Delete matches it so the same action looks the same on both screens.</li>
+        <li><b>Nested in a link.</b> Each document card is a <code>div</code> with <code>role="link"</code> and <code>tabindex="0"</code> that contains the Delete button, so one control sits inside another. Here the card's title is the link and Delete is a sibling; see <a href="link.html">link</a>.</li>
+        <li><b>Messages.</b> "New conversation" is an unnamed <code>.btn-primary.btn-sm</code> plus, and Send and Back are unnamed icon-only buttons. The system makes New conversation a named secondary icon button, Back a named ghost icon button, and Send a labelled primary button.</li>
+        <li><b>No tooltips.</b> No admin icon button shows its name on hover. The system offers an optional <code>.tooltip</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
   </main>
 </div>
 <script src="../assets/ds.js"></script>

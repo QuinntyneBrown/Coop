@@ -1,0 +1,17 @@
+.login-brand {
+  gap: var(--space-2);
+}
+
+.login-brand .logo {
+  margin-bottom: 0;
+}
+
+.login-centred {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.login-heading {
+  font: var(--text-h2);
+  text-align: center;
+}

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Textarea — Coop design system</title>
+<meta name="description" content="Multi-line inputs for the Coop admin: maintenance request descriptions, website introductions, photo descriptions and page text. Every state, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Textarea</h1>
+      <p class="ds-lead">A multi-line box for words that need room: what is wrong in a maintenance request, the introduction on the home page, a photo description, the text of a whole page.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;textarea&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Put <code>.textarea</code> on a native <code>&lt;textarea&gt;</code> inside a <a href="form-field.html">form field</a>. Use it whenever a good answer is a sentence or more. For a few words (a title, a name) use a <a href="text-field.html">text field</a>.</p>
+      <p>It appears in three admin dialogs:</p>
+      <ul>
+        <li><b>New maintenance request</b>: "Description", under the request's title.</li>
+        <li><b>Website editor</b> (Edit hero and the other website sections): "Introduction (optional)" and "Photo description", three rows each.</li>
+        <li><b>Page editor</b> (New page, Edit page): "Photo description" (three rows) and "Page text" (eight rows), with help that lists the simple HTML tags the page accepts.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: 100%; max-width: 24rem;"><label class="field__label" for="ta-anatomy">Photo description</label><div class="field__help" id="ta-anatomy-help">Describe the photo for people who cannot see it.</div><textarea class="textarea" id="ta-anatomy" rows="3" aria-describedby="ta-anatomy-help">Our brick building with balconies and a rooftop garden. Two women chat on a bench out front.</textarea></div>
+          <span class="ds-callout" style="left: 4%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 4%; top: 26%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 62%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 94%; top: 90%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small>A short noun phrase in sentence case, from the <a href="form-field.html">form field</a>.</small></div></li>
+          <li><div><b>Help (optional)</b><small>Says who reads the text or what it may contain.</small></div></li>
+          <li><div><b>Text</b><small><code>--text-body</code> (16px) with <code>--line-height-relaxed</code> for easier reading back.</small></div></li>
+          <li><div><b>Resize handle</b><small>Vertical only (<code>resize: vertical</code>); the box never gets wider than its field.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>One look. What changes is the label, the help and the number of rows.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="ta-var-desc">Description</label><textarea class="textarea" id="ta-var-desc" rows="3" required>Water drips from the kitchen tap all night, even when it is turned off tight.</textarea></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ta-var-intro">Introduction <span class="optional">(optional)</span></label><textarea class="textarea" id="ta-var-intro" rows="3">Bright apartments, a rooftop garden, and neighbours who look out for one another. Run by the women who live here.</textarea></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ta-var-body">Page text</label><div class="field__help" id="ta-var-body-help">Plain words work. For headings and lists use simple HTML: <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>.</div><textarea class="textarea" id="ta-var-body" rows="8" required aria-describedby="ta-var-body-help">&lt;p&gt;Older women built this place. We still run it.&lt;/p&gt;</textarea></div>
+        </div>
+        <div class="ds-example__caption"><span>A maintenance request description, an optional introduction and the long page text with its help.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="page-body"&gt;Page text&lt;/label&gt;
+  &lt;div class="field__help" id="page-body-help"&gt;Plain words work. For headings and lists use simple HTML: …&lt;/div&gt;
+  &lt;textarea class="textarea" id="page-body" name="body" rows="8" required
+            aria-describedby="page-body-help"&gt;&lt;/textarea&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>There is no size modifier. Height comes from <code>rows</code>, with a floor of 2.5 × <code>--control-height-md</code> (110px) so even a short box is an easy target.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="ta-size-3">Photo description</label><textarea class="textarea" id="ta-size-3" rows="3">A sunny lobby with a tall arched window, a plum armchair, a lamp and a noticeboard full of colourful notices.</textarea></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ta-size-8">Page text</label><textarea class="textarea" id="ta-size-8" rows="8"></textarea></div>
+        </div>
+        <div class="ds-example__caption"><span><code>rows="3"</code> for descriptions and introductions, <code>rows="8"</code> for a whole page of text.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Same states and tokens as the <a href="text-field.html">text field</a>. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Textarea</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Read-only</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Description</th>
+            <td><textarea class="textarea" rows="3" aria-label="Description, default">The courtyard gate does not latch.</textarea></td>
+            <td><textarea class="textarea" rows="3" aria-label="Description, hover" data-state="hover">The courtyard gate does not latch.</textarea></td>
+            <td><textarea class="textarea" rows="3" aria-label="Description, focus" data-state="focus">The courtyard gate does not latch.</textarea></td>
+            <td><textarea class="textarea" rows="3" aria-label="Description, invalid" aria-invalid="true"></textarea></td>
+            <td><textarea class="textarea" rows="3" aria-label="Description, read-only" readonly>The courtyard gate does not latch.</textarea></td>
+            <td><textarea class="textarea" rows="3" aria-label="Description, disabled" disabled>The courtyard gate does not latch.</textarea></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field" style="width: 100%;"><label class="field__label" for="ta-th-light-alt">Photo description</label><div class="field__help" id="ta-th-light-alt-help">Describe the photo for people who cannot see it.</div><textarea class="textarea" id="ta-th-light-alt" rows="3" aria-invalid="true" aria-describedby="ta-th-light-alt-error ta-th-light-alt-help"></textarea><div class="field__error" id="ta-th-light-alt-error">Describe this photo for people who cannot see it.</div></div><div class="field" style="width: 100%;"><label class="field__label" for="ta-th-light-intro">Introduction <span class="optional">(optional)</span></label><textarea class="textarea" id="ta-th-light-intro" rows="3" readonly>Bright apartments, a rooftop garden, and neighbours who look out for one another.</textarea></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field" style="width: 100%;"><label class="field__label" for="ta-th-dark-alt">Photo description</label><div class="field__help" id="ta-th-dark-alt-help">Describe the photo for people who cannot see it.</div><textarea class="textarea" id="ta-th-dark-alt" rows="3" aria-invalid="true" aria-describedby="ta-th-dark-alt-error ta-th-dark-alt-help"></textarea><div class="field__error" id="ta-th-dark-alt-error">Describe this photo for people who cannot see it.</div></div><div class="field" style="width: 100%;"><label class="field__label" for="ta-th-dark-intro">Introduction <span class="optional">(optional)</span></label><textarea class="textarea" id="ta-th-dark-intro" rows="3" readonly>Bright apartments, a rooftop garden, and neighbours who look out for one another.</textarea></div></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b> applies to a required textarea left empty: the page text, a photo description when the page has a photo, a maintenance description.</li>
+        <li><b>Read-only</b> is the saving state: while the dialog says "Saving…", the text stays on screen, readable and selectable, until the save finishes.</li>
+        <li><b>Disabled</b> is for a box that does not apply right now. Do not use it while saving.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Full width of the field at every size; in a dialog that is the whole dialog body.</li>
+        <li>Rows stay the same on phones and desktops. The box can be dragged taller; it never scrolls sideways, even at 320px or 400% zoom.</li>
+        <li>Long words, pasted web addresses and HTML tags wrap inside the box.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Shares <code>--field-bg</code> and <code>--field-border</code> with <code>.input</code>, so every state and both themes match the text field exactly. The only textarea-specific values are the minimum height and <code>--line-height-relaxed</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;textarea&gt;</code> (a multi-line textbox), labelled by <code>&lt;label for&gt;</code>. Help and error join through <code>aria-describedby</code>, error first.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to the next or previous field. Tab never inserts a tab character.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Inserts a new line. It does not submit the dialog, so half a page cannot be saved by accident.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus border plus the shared ring with no offset, as on the text field. After a failed save, the error summary's link moves focus into the textarea.</p>
+      <h3>Labelling</h3>
+      <p>Every textarea has a visible <code>&lt;label for&gt;</code>. Help that lists HTML tags is plain text in <code>.field__help</code>, read after the label, so a screen reader user hears which tags are allowed before typing.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on textarea</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text, read-only</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Help in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Border on card</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Border in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Invalid border</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Border and ring transition over <code>--duration-fast</code>; zeroed under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>At least 110px tall and full width: the biggest target in the dialog.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Label with a short noun phrase: "Description", "Introduction", "Photo description", "Page text".</li>
+        <li>Help says who reads the text or what it may hold: "Describe the photo for people who cannot see it." "Plain words work."</li>
+        <li>Errors say what to write: "Write something for the page", "Describe this photo for people who cannot see it". Not "Required".</li>
+        <li>No minimum length and no counter; the admin sets no limits that need one.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ta-do-label">Description</label><textarea class="textarea" id="ta-do-label" rows="3"></textarea></div></div><figcaption>A <code>&lt;label for&gt;</code> and a set number of rows: clicking "Description" focuses the box, and the box is tall enough to invite a sentence or two.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><span class="field__label">Description</span><textarea class="textarea" rows="2" aria-label="Description"></textarea></div></div><figcaption>New maintenance request puts the name in <code>aria-label</code>, leaves the visible label unconnected and sets no <code>rows</code>.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ta-do-error">Page text</label><textarea class="textarea" id="ta-do-error" rows="3" aria-invalid="true" aria-describedby="ta-do-error-msg"></textarea><div class="field__error" id="ta-do-error-msg">Write something for the page.</div></div></div><figcaption>Say what to write, and tie it to the box with <code>aria-describedby</code>, as the page editor does.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ta-dont-error">Description</label><textarea class="textarea" id="ta-dont-error" rows="3" aria-invalid="true"></textarea></div></div><figcaption>New maintenance request shows an empty, touched description with a red border and no words at all.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ta-do-font">Page text</label><textarea class="textarea" id="ta-do-font" rows="3">&lt;p&gt;Older women built this place. We still run it.&lt;/p&gt;</textarea></div></div><figcaption>The page text uses the same 16px body type as every other field.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ta-dont-font">Page text</label><textarea class="textarea" id="ta-dont-font" rows="3" style="font: var(--text-code);">&lt;p&gt;Older women built this place. We still run it.&lt;/p&gt;</textarea></div></div><figcaption>The page editor switches the page text to 14px monospace, which is harder to read for the people who write the pages.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Background, read-only</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Border, focus</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Border, invalid</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Minimum height</td><td><code>--control-height-md</code> × 2.5</td><td><span data-token="--control-height-md"></span> × 2.5</td><td><span data-theme="dark"><span data-token="--control-height-md"></span> × 2.5</span></td></tr>
+          <tr><td>Text font</td><td><code>--text-body</code></td><td><span data-token="--text-body"></span></td><td><span data-theme="dark" data-token="--text-body"></span></td></tr>
+          <tr><td>Line height</td><td><code>--line-height-relaxed</code></td><td><span data-token="--line-height-relaxed"></span></td><td><span data-theme="dark" data-token="--line-height-relaxed"></span></td></tr>
+          <tr><td>Padding / radius</td><td><code>--space-2</code> <code>--space-3</code> / <code>--radius-md</code></td><td><span data-token="--space-2"></span> <span data-token="--space-3"></span> / <span data-token="--radius-md"></span></td><td><span data-theme="dark"><span data-token="--space-2"></span> <span data-token="--space-3"></span> / <span data-token="--radius-md"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="hero-photo-alt"&gt;Photo description&lt;/label&gt;
+  &lt;div class="field__help" id="hero-photo-alt-help"&gt;Describe the photo for people who cannot see it.&lt;/div&gt;
+  &lt;textarea class="textarea" id="hero-photo-alt" name="alt" rows="3" required
+            aria-invalid="true" aria-describedby="hero-photo-alt-error hero-photo-alt-help"&gt;&lt;/textarea&gt;
+  &lt;div class="field__error" id="hero-photo-alt-error"&gt;Describe this photo for people who cannot see it.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.textarea</code></td><td>Multi-line field; vertical resize; relaxed line height; 110px minimum height.</td></tr>
+        <tr><td><code>rows</code></td><td>Visible height: 3 for descriptions and introductions, 8 for page text.</td></tr>
+        <tr><td><code>aria-invalid="true"</code></td><td>Invalid border and ring; pair with a <code>.field__error</code>.</td></tr>
+        <tr><td><code>readonly</code></td><td>Sunken background; used while saving.</td></tr>
+        <tr><td><code>data-state="hover|focus|disabled"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these admin mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/admin-maintenance-create/default.html">dialogs/admin-maintenance-create/default</a> and <a href="../../mocks/dialogs/admin-maintenance-create/invalid.html">invalid</a> (description)</li>
+        <li><a href="../../mocks/dialogs/admin-content-editor/default.html">dialogs/admin-content-editor/default</a>, <a href="../../mocks/dialogs/admin-content-editor/invalid.html">invalid</a> and <a href="../../mocks/dialogs/admin-content-editor/busy.html">busy</a> (introduction, photo description with help and error)</li>
+        <li><a href="../../mocks/dialogs/admin-page-editor/default.html">dialogs/admin-page-editor/default</a>, <a href="../../mocks/dialogs/admin-page-editor/edit.html">edit</a>, <a href="../../mocks/dialogs/admin-page-editor/invalid.html">invalid</a> and <a href="../../mocks/dialogs/admin-page-editor/busy.html">busy</a> (page text, photo description)</li>
+      </ul>
+      <h3>Drift from the implemented admin</h3>
+      <p>The implemented admin is green, set in Outfit, light theme only; this page adopts the system's violet, rounded system fonts and both themes. Textarea-specific drift:</p>
+      <ul>
+        <li><b>Type.</b> The page editor sets the page text in 14px monospace with a 180px minimum height; the photo description is 15px with a 96px minimum; New maintenance request uses 14px with an 80 to 100px minimum. The system uses 16px <code>--text-body</code>, <code>--line-height-relaxed</code> and one 110px minimum, with height set by <code>rows</code>.</li>
+        <li><b>Labelling.</b> New maintenance request's "Description" has a label without <code>for</code> and an <code>aria-label</code> copy, and no <code>rows</code>. The page and website editors label correctly.</li>
+        <li><b>Errors.</b> New maintenance request shows only a red border on a touched empty description, with no text. The page and website editors use <code>aria-invalid</code>, <code>.field-error</code> and <code>aria-describedby</code>, matching the system apart from the Material icon.</li>
+        <li><b>Help position.</b> The editors put <code>.field-help</code> below the textarea at 13px; the system puts <code>.field__help</code> above it at 14px.</li>
+        <li><b>Saving state.</b> The page editor leaves textareas editable while "Saving…"; the website editor disables them. The system makes them read-only.</li>
+        <li><b>Focus and border.</b> Same as the <a href="text-field.html#sources">text field</a>: no outline, a pale border under 3:1 and an 8px radius.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-20</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

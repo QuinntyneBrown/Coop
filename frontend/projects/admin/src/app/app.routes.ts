@@ -30,18 +30,17 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
   },
-  {
-    path: 'profile',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/profiles/profiles.component').then((m) => m.ProfilesComponent),
-  },
   // Routes with sidebar layout
   {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profiles/profiles.component').then((m) => m.ProfilesComponent),
+      },
       {
         path: 'dashboard',
         loadComponent: () =>

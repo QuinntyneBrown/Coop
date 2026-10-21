@@ -12,19 +12,19 @@ A new member, a board member, or someone on staff. Each one needs an invitation 
 
 ## Create an invitation
 
-Start on the Invitations page. Tap Invitations in the menu. Here you see every invitation, with its token, its type, when it expires, and its status.
+Start on the Invitations page. Tap Invitations in the menu. Here you see every invitation, with its code, who it is for, when it expires, and its status.
 
 [pause 2s]
 
-To invite someone, tap Create Invitation. A short form opens.
+To invite someone, tap Create invitation. A short form opens.
 
 [pause 1s]
 
-Choose the type: Member, Board Member, or Staff. Then pick the date it expires. Tap Create.
+Choose what they are joining as: Member, Board member, or Staff. Then pick the date it expires. Tap Create invitation again.
 
 [pause 2s]
 
-The Invitation Created box shows the new token. Tap Copy, and pass it on to the person you are inviting. Then tap Close.
+The Invitation created box shows the new code. Tap the copy button beside it, and pass it on to the person you are inviting. Then tap Done.
 
 [pause 2s]
 
@@ -36,7 +36,7 @@ The new invitation now shows on the list. Its status tells you where it is. Acti
 
 ## In short
 
-So, in short. Tap Create Invitation. Choose a type and a date, and tap Create. Copy the token and pass it on.
+So, in short. Tap Create invitation. Choose who they are joining as and a date, and tap Create invitation again. Copy the code and pass it on.
 
 [pause 1s]
 
