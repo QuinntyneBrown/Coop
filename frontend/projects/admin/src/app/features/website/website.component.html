@@ -31,7 +31,7 @@
         <div class="alert__body">
           <span>We couldn't load the website content. Check your connection and try again.</span>
           <div class="alert__actions">
-            <button type="button" class="btn btn--sm" (click)="load()" data-testid="website-retry">
+            <button type="button" libButton size="sm" (click)="load()" data-testid="website-retry">
               <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
@@ -62,7 +62,7 @@
                     </div>
                     <button
                       type="button"
-                      class="btn"
+                      libButton
                       [attr.aria-label]="'Edit ' + block.name"
                       (click)="openEditor(block, $event)"
                     >
@@ -141,7 +141,7 @@
       <div class="dialog__footer">
         <button
           type="button"
-          class="btn"
+          libButton
           [disabled]="saving()"
           (click)="closeEditor()"
           data-testid="content-editor-cancel"
@@ -150,7 +150,8 @@
         </button>
         <button
           type="submit"
-          class="btn btn--primary"
+          libButton
+          variant="primary"
           [disabled]="saving()"
           [attr.aria-busy]="saving() ? 'true' : null"
           data-testid="content-editor-save"
@@ -217,7 +218,8 @@
                 <div class="cluster">
                   <button
                     type="button"
-                    class="btn btn--sm"
+                    libButton
+                    size="sm"
                     [attr.aria-label]="'Move ' + name + ' up'"
                     [attr.data-move]="path + '.' + i + '.up'"
                     [disabled]="first"
@@ -227,7 +229,8 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn--sm"
+                    libButton
+                    size="sm"
                     [attr.aria-label]="'Move ' + name + ' down'"
                     [attr.data-move]="path + '.' + i + '.down'"
                     [disabled]="last"
@@ -237,7 +240,9 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn--danger btn--sm"
+                    libButton
+                    variant="danger"
+                    size="sm"
                     [attr.aria-label]="'Remove ' + name"
                     (click)="removeItem(target, field, path, i)"
                   >
@@ -250,7 +255,8 @@
         </ol>
         <button
           type="button"
-          class="btn content-list__add"
+          libButton
+          class="content-list__add"
           [attr.data-add]="path"
           (click)="addItem(target, field, path)"
         >
@@ -278,7 +284,8 @@
             <div class="photo-picker__actions">
               <button
                 type="button"
-                class="btn btn--primary"
+                libButton
+                variant="primary"
                 aria-haspopup="dialog"
                 [id]="fieldId(path + '.src')"
                 [attr.aria-describedby]="

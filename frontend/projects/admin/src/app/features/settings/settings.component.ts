@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [ReactiveFormsModule, IconComponent],
+  imports: [ReactiveFormsModule, IconComponent, ButtonComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

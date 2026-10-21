@@ -8,7 +8,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import type { WebsitePageDraft } from '../../core/models/website-page-draft';
@@ -37,7 +37,7 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, PhotoPickerComponent, IconComponent],
+  imports: [FormsModule, PhotoPickerComponent, IconComponent, ButtonComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

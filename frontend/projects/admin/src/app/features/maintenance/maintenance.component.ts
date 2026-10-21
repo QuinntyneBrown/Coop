@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { MaintenanceStep } from './maintenance-step';
@@ -17,7 +17,7 @@ import { nextMaintenanceStep } from './next-maintenance-step';
 @Component({
   selector: 'app-maintenance',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

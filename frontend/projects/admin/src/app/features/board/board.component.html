@@ -8,7 +8,8 @@
   </div>
   <button
     type="button"
-    class="btn btn--primary"
+    libButton
+    variant="primary"
     (click)="openEditor(null, $event)"
     data-testid="board-add-button"
   >
@@ -47,7 +48,7 @@
         <div class="alert__body">
           <span>We couldn't load the board list. Check your connection and try again.</span>
           <div class="alert__actions">
-            <button type="button" class="btn btn--sm" (click)="load()" data-testid="board-retry">
+            <button type="button" libButton size="sm" (click)="load()" data-testid="board-retry">
               <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
@@ -90,7 +91,7 @@
                 <div class="cluster">
                   <button
                     type="button"
-                    class="btn"
+                    libButton
                     [attr.aria-label]="'Move ' + director.name + ' up'"
                     [disabled]="first || moving()"
                     (click)="move(i, -1)"
@@ -100,7 +101,7 @@
                   </button>
                   <button
                     type="button"
-                    class="btn"
+                    libButton
                     [attr.aria-label]="'Move ' + director.name + ' down'"
                     [disabled]="last || moving()"
                     (click)="move(i, 1)"
@@ -110,7 +111,7 @@
                   </button>
                   <button
                     type="button"
-                    class="btn"
+                    libButton
                     [attr.aria-label]="'Edit ' + director.name"
                     (click)="openEditor(i, $event)"
                     data-testid="director-edit"
@@ -119,7 +120,8 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn--danger"
+                    libButton
+                    variant="danger"
                     [attr.aria-label]="'Remove ' + director.name"
                     (click)="confirmRemove(i, $event)"
                     data-testid="director-remove"
@@ -142,7 +144,7 @@
             each director with their role, such as President or Treasurer.
           </p>
           <div class="empty__actions">
-            <button type="button" class="btn btn--primary" (click)="openEditor(null, $event)">
+            <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
               <svg libIcon="person-add"></svg>Add director
             </button>
           </div>
@@ -272,7 +274,7 @@
     <div class="dialog__footer">
       <button
         type="button"
-        class="btn"
+        libButton
         [disabled]="saving()"
         (click)="closeEditor()"
         data-testid="director-editor-cancel"
@@ -281,7 +283,8 @@
       </button>
       <button
         type="submit"
-        class="btn btn--primary"
+        libButton
+        variant="primary"
         [disabled]="saving()"
         [attr.aria-busy]="saving() ? 'true' : null"
         data-testid="director-editor-save"
@@ -324,7 +327,7 @@
     <div class="dialog__footer">
       <button
         type="button"
-        class="btn"
+        libButton
         autofocus
         [disabled]="removeBusy()"
         (click)="closeRemove()"
@@ -334,7 +337,8 @@
       </button>
       <button
         type="button"
-        class="btn btn--danger"
+        libButton
+        variant="danger"
         [disabled]="removeBusy()"
         [attr.aria-busy]="removeBusy() ? 'true' : null"
         (click)="remove()"

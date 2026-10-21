@@ -9,7 +9,7 @@ import {
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
-import { IconComponent, IconName } from 'components';
+import { ButtonComponent, IconComponent, IconName } from 'components';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { documentTypeLabel } from './document-type-label';
@@ -17,7 +17,7 @@ import { documentTypeLabel } from './document-type-label';
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [DatePipe, FormsModule, IconComponent],
+  imports: [DatePipe, FormsModule, IconComponent, ButtonComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

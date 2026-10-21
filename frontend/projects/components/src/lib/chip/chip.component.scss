@@ -1,0 +1,39 @@
+// Chip (docs/design-system/components/chip.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-height-sm);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-default);
+  font: var(--text-label);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  background: var(--color-bg-subtle);
+}
+
+:host([aria-pressed='true']) {
+  background: var(--color-accent-subtle);
+  border-color: var(--color-accent);
+  color: var(--color-fg-accent);
+}
+
+:host(:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    border: var(--border-width-hairline) solid CanvasText;
+  }
+}

@@ -8,14 +8,14 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
 
 @Component({
   selector: 'app-assets',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [CommonModule, IconComponent, ButtonComponent],
   templateUrl: './assets.component.html',
   styleUrl: './assets.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -33,7 +33,10 @@
         <div class="wizard__actions">
           <button
             type="button"
-            class="btn btn--primary btn--lg btn--block"
+            libButton
+            variant="primary"
+            size="lg"
+            block
             data-testid="onboarding-get-started-btn"
             (click)="nextStep()"
           >
@@ -105,7 +108,10 @@
           <div class="wizard__actions">
             <button
               type="button"
-              class="btn btn--primary btn--lg btn--block"
+              libButton
+              variant="primary"
+              size="lg"
+              block
               data-testid="onboarding-next-btn"
               (click)="nextStep()"
             >
@@ -113,7 +119,8 @@
             </button>
             <button
               type="button"
-              class="btn btn--ghost"
+              libButton
+              variant="ghost"
               data-testid="onboarding-skip-btn"
               (click)="nextStep()"
             >
@@ -121,7 +128,8 @@
             </button>
             <button
               type="button"
-              class="btn btn--ghost"
+              libButton
+              variant="ghost"
               data-testid="onboarding-back-btn"
               (click)="prevStep()"
             >
@@ -158,7 +166,10 @@
           <div class="wizard__actions">
             <button
               type="button"
-              class="btn btn--primary btn--lg btn--block"
+              libButton
+              variant="primary"
+              size="lg"
+              block
               data-testid="onboarding-go-to-dashboard-btn"
               (click)="finish()"
             >
@@ -166,7 +177,8 @@
             </button>
             <button
               type="button"
-              class="btn btn--ghost"
+              libButton
+              variant="ghost"
               data-testid="onboarding-back-btn"
               (click)="prevStep()"
             >

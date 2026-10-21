@@ -24,7 +24,7 @@
               <div class="alert__body">
                 <span>We couldn't load the photos. Try again.</span>
                 <div class="alert__actions">
-                  <button type="button" class="btn btn--sm" (click)="load()">
+                  <button type="button" libButton size="sm" (click)="load()">
                     <svg libIcon="try-again"></svg>Try again
                   </button>
                 </div>
@@ -68,7 +68,7 @@
           }
         }
         <div class="picture-list__add">
-          <label class="btn btn--sm" [attr.aria-disabled]="uploading() || null"
+          <label libButton size="sm" [attr.aria-disabled]="uploading() || null"
             ><svg libIcon="upload"></svg>Upload a new photo<input
               class="visually-hidden"
               id="photo-upload-field"
@@ -99,7 +99,7 @@
     <div class="dialog__footer">
       <button
         type="button"
-        class="btn"
+        libButton
         [disabled]="uploading()"
         (click)="close()"
         data-testid="photo-picker-cancel"

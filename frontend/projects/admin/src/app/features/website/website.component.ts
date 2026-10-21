@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import type { ContentRecord } from '../../core/models/content-record';
 import type { SiteContent } from '../../core/models/site-content';
 import { PUBLIC_SITE_URL } from '../../core/public-site-url';
@@ -40,7 +40,7 @@ type LoadStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-website',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent],
+  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent, ButtonComponent],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

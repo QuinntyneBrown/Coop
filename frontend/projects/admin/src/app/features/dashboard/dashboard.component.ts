@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { AuthService } from '../../core/services/auth.service';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { MessagingService } from '../../core/services/messaging.service';
@@ -12,7 +12,7 @@ import { DocumentService } from '../../core/services/document.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, IconComponent],
+  imports: [CommonModule, RouterLink, IconComponent, ButtonComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

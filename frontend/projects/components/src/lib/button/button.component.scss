@@ -1,0 +1,156 @@
+// Button and icon button (docs/design-system/components/button.html,
+// icon-button.html). Rules come from docs/design-system/assets/components.css
+// in their order there; see ADR 0010 for how they are written.
+
+:host {
+  --btn-bg: var(--color-bg-surface);
+  --btn-fg: var(--color-fg-default);
+  --btn-border: var(--color-border-strong);
+  --btn-bg-hover: var(--color-bg-subtle);
+  --btn-bg-active: var(--color-bg-subtle-hover);
+  --btn-height: var(--control-height-md);
+  --btn-padding: var(--space-4);
+  --btn-font-size: var(--font-size-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--btn-height);
+  padding: 0 var(--btn-padding);
+  font: var(--text-label);
+  font-size: var(--btn-font-size);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: var(--border-width-hairline) solid var(--btn-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  background: var(--btn-bg-hover);
+  color: var(--btn-fg);
+  text-decoration: none;
+}
+
+:host(:active) {
+  background: var(--btn-bg-active);
+  transform: translateY(1px);
+}
+
+:host(:disabled),
+:host([aria-disabled='true']) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+:host(:where(.btn--primary)) {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-fg-on-accent);
+  --btn-border: var(--color-accent);
+  --btn-bg-hover: var(--color-accent-hover);
+  --btn-bg-active: var(--color-accent-active);
+}
+
+:host(:where(.btn--primary):hover) {
+  border-color: var(--color-accent-hover);
+  box-shadow: var(--shadow-1);
+}
+
+:host(:where(.btn--danger)) {
+  --btn-bg: var(--color-danger-solid);
+  --btn-fg: var(--color-fg-on-danger);
+  --btn-border: var(--color-danger-solid);
+  --btn-bg-hover: var(--color-danger-solid-hover);
+  --btn-bg-active: var(--color-danger-solid-hover);
+}
+
+:host(:where(.btn--ghost)) {
+  --btn-bg: transparent;
+  --btn-border: transparent;
+}
+
+:host(:where(.btn--sm)) {
+  --btn-height: var(--control-height-sm);
+  --btn-padding: var(--space-3);
+  --btn-font-size: var(--font-size-sm);
+}
+
+:host(:where(.btn--lg)) {
+  --btn-height: var(--control-height-lg);
+  --btn-padding: var(--space-6);
+  --btn-font-size: var(--font-size-lg);
+}
+
+// A full-width button wraps its label rather than scrolling the page on a narrow phone.
+:host(:where(.btn--block)) {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+}
+
+:host(:where(.btn--icon)) {
+  padding: 0;
+  width: var(--btn-height);
+}
+
+:host([aria-busy='true']) {
+  color: transparent;
+  pointer-events: none;
+}
+
+:host([aria-busy='true'])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1.25em;
+  height: 1.25em;
+  border: var(--border-width-thick) solid var(--btn-fg);
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: spin calc(var(--duration-loop) / 2) linear infinite;
+}
+
+// Where the button sits.
+:where(.alert__actions) :host(a),
+:where(.alert__actions) :host(button) {
+  color: inherit;
+  font: var(--text-label);
+}
+
+// A label around a hidden file input shows the input's focus ring.
+.photo-picker__actions :host(:has(input:focus-visible)),
+.picture-list__add :host(:has(input:focus-visible)) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    border: var(--border-width-hairline) solid CanvasText;
+  }
+
+  :host(:where(.btn--primary)) {
+    background: Highlight;
+    color: HighlightText;
+  }
+}

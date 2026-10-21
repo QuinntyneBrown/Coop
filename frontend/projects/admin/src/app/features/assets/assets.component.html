@@ -18,7 +18,8 @@
       />
     </div>
     <button
-      class="btn btn--primary"
+      libButton
+      variant="primary"
       type="button"
       aria-haspopup="dialog"
       data-testid="assets-upload-button"
@@ -79,7 +80,9 @@
       <div class="dialog__header">
         <h2 class="dialog__title" id="asset-upload-title">Upload File</h2>
         <button
-          class="btn btn--ghost btn--icon"
+          libButton
+          variant="ghost"
+          iconOnly
           type="button"
           aria-label="Close"
           (click)="showUploadDialog = false"
@@ -118,7 +121,7 @@
       </div>
       <div class="dialog__footer">
         <button
-          class="btn"
+          libButton
           type="button"
           data-testid="upload-cancel"
           (click)="showUploadDialog = false"
@@ -126,7 +129,8 @@
           Cancel
         </button>
         <button
-          class="btn btn--primary"
+          libButton
+          variant="primary"
           type="button"
           data-testid="upload-confirm"
           [attr.aria-busy]="uploadProgressValue >= 0 || null"
@@ -170,12 +174,13 @@
         </dl>
       </div>
       <div class="dialog__footer">
-        <button class="btn btn--primary" type="button" data-testid="asset-download-button">
+        <button libButton variant="primary" type="button" data-testid="asset-download-button">
           <svg libIcon="download"></svg>Download
         </button>
-        <button class="btn" type="button" (click)="selectedAsset = null">Close</button>
+        <button libButton type="button" (click)="selectedAsset = null">Close</button>
         <button
-          class="btn btn--danger"
+          libButton
+          variant="danger"
           type="button"
           aria-haspopup="dialog"
           data-testid="asset-delete-button"
@@ -211,7 +216,7 @@
       </div>
       <div class="dialog__footer">
         <button
-          class="btn"
+          libButton
           type="button"
           autofocus
           data-testid="asset-delete-cancel"
@@ -220,7 +225,8 @@
           Cancel
         </button>
         <button
-          class="btn btn--danger"
+          libButton
+          variant="danger"
           type="button"
           data-testid="asset-delete-confirm"
           (click)="confirmDeleteAsset()"

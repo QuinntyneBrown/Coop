@@ -14,7 +14,7 @@
           [attr.data-selected]="selectedRole?.roleId === role.roleId ? 'true' : null"
         >
           <button
-            class="chip"
+            libChip
             type="button"
             [attr.aria-pressed]="selectedRole?.roleId === role.roleId"
             (click)="selectRole(role)"
@@ -34,7 +34,7 @@
         <h2 class="card__title" id="privileges-title" data-testid="privileges-panel-title">
           {{ plainName(selectedRole.name) }} privileges
         </h2>
-        <button class="btn btn--sm" type="button" data-testid="add-privilege-button">
+        <button libButton size="sm" type="button" data-testid="add-privilege-button">
           <svg libIcon="add"></svg>Add Privilege
         </button>
       </div>

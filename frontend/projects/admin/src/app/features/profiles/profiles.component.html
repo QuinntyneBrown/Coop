@@ -9,7 +9,9 @@
         My Profiles
       </h2>
       <button
-        class="btn btn--ghost btn--sm"
+        libButton
+        variant="ghost"
+        size="sm"
         type="button"
         data-testid="profiles-edit-link"
         (click)="enterEditMode()"
@@ -58,9 +60,7 @@
         </h2>
         <div class="cluster" data-testid="profile-avatar">
           <span class="avatar avatar--xl" aria-hidden="true">{{ getInitials() }}</span>
-          <button class="btn" type="button" data-testid="profile-change-avatar">
-            Change Avatar
-          </button>
+          <button libButton type="button" data-testid="profile-change-avatar">Change Avatar</button>
         </div>
         <div class="field">
           <label class="field__label" for="pf-first">First Name</label>
@@ -122,10 +122,10 @@
           </div>
         }
         <div class="form-actions">
-          <button type="button" class="btn" data-testid="profile-cancel" (click)="cancelEdit()">
+          <button type="button" libButton data-testid="profile-cancel" (click)="cancelEdit()">
             Cancel
           </button>
-          <button type="submit" class="btn btn--primary" data-testid="profile-save">
+          <button type="submit" libButton variant="primary" data-testid="profile-save">
             Save Changes
           </button>
         </div>
@@ -159,7 +159,8 @@
         </div>
         <div class="cluster">
           <button
-            class="btn btn--primary"
+            libButton
+            variant="primary"
             type="button"
             data-testid="profile-edit-btn"
             (click)="enterEditMode()"
@@ -167,7 +168,7 @@
             <svg libIcon="edit"></svg>Edit Profile
           </button>
           <button
-            class="btn"
+            libButton
             type="button"
             data-testid="profile-change-password-btn"
             [attr.aria-expanded]="showPasswordForm"
@@ -175,7 +176,7 @@
           >
             <svg libIcon="lock"></svg>Change Password
           </button>
-          <button class="btn" type="button" data-testid="profile-logout-btn" (click)="logout()">
+          <button libButton type="button" data-testid="profile-logout-btn" (click)="logout()">
             <svg libIcon="sign-out"></svg>Logout
           </button>
         </div>
@@ -220,7 +221,8 @@
         </div>
         <div class="form-actions">
           <button
-            class="btn btn--primary"
+            libButton
+            variant="primary"
             type="button"
             data-testid="profile-update-password-btn"
             (click)="updatePassword()"

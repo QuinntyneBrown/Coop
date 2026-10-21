@@ -9,13 +9,13 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { InvitationService } from '../../core/services/invitation.service';
 
 @Component({
   selector: 'app-invitations',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
   templateUrl: './invitations.component.html',
   styleUrl: './invitations.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -7,7 +7,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { IconComponent } from 'components';
+import { ButtonComponent, IconComponent } from 'components';
 import { ApiService } from '../../../core/services/api.service';
 import { DigitalAssetService } from '../../../core/services/digital-asset.service';
 import type { LibraryPhoto } from './library-photo';
@@ -26,7 +26,7 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-photo-picker',
   standalone: true,
-  imports: [IconComponent],
+  imports: [IconComponent, ButtonComponent],
   templateUrl: './photo-picker.component.html',
   styleUrl: './photo-picker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
