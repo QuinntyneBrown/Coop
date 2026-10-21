@@ -132,7 +132,8 @@ public class DemoResetTests
 
         var admin = await host.CreateClientAsAsync("admin", "Admin123!");
         var assets = await admin.GetFromJsonAsync<JsonElement>("/api/digitalasset/page/100/0");
-        Assert.Equal(11, assets.GetProperty("totalCount").GetInt32());
+        // The eleven public photographs and one private maintenance photo.
+        Assert.Equal(12, assets.GetProperty("totalCount").GetInt32());
     }
 
     private static async Task AssertServesSvgAsync(HttpClient client, string address)
@@ -142,5 +143,79 @@ public class DemoResetTests
         response.EnsureSuccessStatusCode();
         Assert.Equal("image/svg+xml", response.Content.Headers.ContentType?.MediaType);
         Assert.StartsWith("<svg", await response.Content.ReadAsStringAsync());
+    }
+
+    [Fact]
+    public async Task Given_the_demo_state_when_the_admin_screens_load_then_each_has_fictional_content()
+    {
+        using var host = new CliTestHost();
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes")).ExitCode);
+        var admin = await host.CreateClientAsAsync("admin", "Admin123!");
+
+        var requests = (await admin.GetFromJsonAsync<JsonElement>("/api/maintenancerequest")).GetProperty("maintenanceRequests").EnumerateArray().ToArray();
+        Assert.Equal(new[] { 0, 1, 2, 3 }, requests.Select(r => r.GetProperty("status").GetInt32()).Order());
+        Assert.All(requests, r => Assert.NotEmpty(r.GetProperty("comments").EnumerateArray()));
+        Assert.Contains(requests, r => r.GetProperty("digitalAssets").GetArrayLength() > 0);
+
+        foreach (var (path, property) in new[] { ("/api/notice", "notices"), ("/api/bylaw", "byLaws"), ("/api/report", "reports") })
+        {
+            var documents = (await admin.GetFromJsonAsync<JsonElement>(path)).GetProperty(property).EnumerateArray().ToArray();
+            Assert.Contains(documents, d => d.GetProperty("published").GetBoolean());
+            Assert.Contains(documents, d => !d.GetProperty("published").GetBoolean());
+        }
+
+        var office = Guid.Empty;
+        var conversations = (await admin.GetFromJsonAsync<JsonElement>($"/api/conversations/by-profile/{office}")).GetProperty("conversations").EnumerateArray().ToArray();
+        Assert.NotEmpty(conversations);
+        var unread = await admin.GetFromJsonAsync<JsonElement>($"/api/messages/unread-count/{office}");
+        Assert.True(unread.GetProperty("count").GetInt32() > 0);
+
+        var theme = (await admin.GetFromJsonAsync<JsonElement>("/api/theme/default")).GetProperty("theme");
+        Assert.Contains("--primary-color", theme.GetProperty("cssCustomProperties").GetString());
+
+        var invitations = (await admin.GetFromJsonAsync<JsonElement>("/api/invitationtoken")).GetProperty("invitationTokens").EnumerateArray().ToArray();
+        Assert.Contains(invitations, i => i.GetProperty("value").GetString() == "valid-invitation-token");
+        Assert.True(invitations.Length >= 3);
+
+        var users = (await admin.GetFromJsonAsync<JsonElement>("/api/user")).GetProperty("users").EnumerateArray().ToArray();
+        Assert.Equal(5, users.Length);
+        foreach (var user in users)
+            Assert.False(user.TryGetProperty("password", out _));
+    }
+
+    [Fact]
+    public async Task Given_the_demo_reset_has_run_when_it_runs_again_then_the_database_holds_the_same_records()
+    {
+        using var host = new CliTestHost();
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes")).ExitCode);
+        var first = await CountAsync(host);
+
+        Assert.Equal(0, (await host.RunAsync("db", "reset", "--demo", "--yes")).ExitCode);
+
+        Assert.Equal(first, await CountAsync(host));
+        Assert.NotNull(await host.SignInAsync("support", "Support123!"));
+    }
+
+    private static async Task<string> CountAsync(CliTestHost host)
+    {
+        var admin = await host.CreateClientAsAsync("admin", "Admin123!");
+        var counts = new List<string>();
+        foreach (var (path, property) in new[]
+        {
+            ("/api/user", "users"), ("/api/role", "roles"), ("/api/profiles", "profiles"), ("/api/pages", "pages"),
+            ("/api/board-of-directors", "directors"), ("/api/maintenancerequest", "maintenanceRequests"),
+            ("/api/notice", "notices"), ("/api/bylaw", "byLaws"), ("/api/report", "reports"),
+            ("/api/invitationtoken", "invitationTokens"), ("/api/theme", "themes"),
+            ($"/api/conversations/by-profile/{Guid.Empty}", "conversations"),
+        })
+        {
+            var body = await admin.GetFromJsonAsync<JsonElement>(path);
+            counts.Add($"{property}={body.GetProperty(property).GetArrayLength()}");
+        }
+        var assets = await admin.GetFromJsonAsync<JsonElement>("/api/digitalasset/page/100/0");
+        counts.Add($"assets={assets.GetProperty("totalCount").GetInt32()}");
+        var siteContent = await host.CreateAnonymousClient().GetStringAsync("/api/site-content");
+        counts.Add($"siteContentLength={siteContent.Length}");
+        return string.Join(", ", counts);
     }
 }

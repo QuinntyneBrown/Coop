@@ -110,7 +110,7 @@ Every command takes the global `--connection <connection string>` option and
 | `asset upload --file` | `coop asset upload --file lobby.png` | `CreateDigitalAssetRequest` |
 | `asset remove --id` | `coop asset remove --id 3f2c…` | `RemoveDigitalAssetRequest` |
 | `theme list` | `coop theme list` | `GetThemesRequest` |
-| `theme create --css-file [--default]` | `coop theme create --css-file theme.json --default` | `CreateThemeRequest` |
+| `theme create --css-file [--default]` | `coop theme create --css-file theme.css --default` | `CreateThemeRequest` |
 | `theme update --id --css-file [--default]` / `theme remove --id` | `coop theme remove --id 7a1e…` | `UpdateThemeRequest`, `RemoveThemeRequest` |
 | `notice`/`bylaw`/`report list` | `coop notice list` | `GetNoticesRequest`, `GetByLawsRequest`, `GetReportsRequest` |
 | `<type> create --name [--body] [--asset-id] [--publish]` | `coop notice create --name "Window cleaning" --body "Tuesday 9 am." --publish` | `CreateNoticeRequest` (…), `PublishDocumentRequest` |
@@ -199,9 +199,9 @@ tokens and JSON content), then `DemoSeed.SeedAsync(context, hasher, apiUrl)`:
 | Site content | `SiteContentSeed.Create` with every photo at `{api-url}/digitalasset/serve/{id}` |
 | Pages | "About us" and "Living here", each with a hero photo asset and its description |
 | Board | four directors with portrait photo assets |
-| Maintenance | one request in each status (New, Received, Started, Completed) from the member, with comments from the member and the office and a photo on one |
+| Maintenance | one request in each status (New, Received, Started, Completed) from the member, with comments from the member and the office, and a photo on one stored as its own asset, because the API serves maintenance photos only to the household and the office |
 | Documents | published and draft notices, bylaws and reports |
-| Messages | a conversation between the member and the office, the last message unread |
+| Messages | a conversation between the member and the office, the last message unread; the admin app reads the office's conversations under the empty profile id, so the office takes part under that id |
 | Themes | one default theme |
 | Invitations | the startup seed's tokens and a Board member invitation that expires in 2027 |
 

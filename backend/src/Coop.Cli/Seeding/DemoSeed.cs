@@ -5,6 +5,10 @@ using Coop.Application.CMS.Dtos;
 using Coop.Application.CMS.SiteContent;
 using Coop.Domain.Assets;
 using Coop.Domain.CMS;
+using Coop.Domain.Documents;
+using Coop.Domain.Maintenance;
+using Coop.Domain.Messaging;
+using Coop.Domain.Onboarding;
 using Coop.Domain.Identity;
 using Coop.Domain.Profiles;
 using Coop.Infrastructure.Persistence;
@@ -31,6 +35,11 @@ public static class DemoSeed
         await SeedSiteContentAsync(context, photos);
         await SeedPagesAsync(context, photos);
         await SeedBoardAsync(context, photos);
+        await SeedMaintenanceAsync(context);
+        await SeedDocumentsAsync(context);
+        await SeedMessagesAsync(context);
+        await SeedThemeAsync(context);
+        await SeedInvitationsAsync(context);
     }
 
     /// <summary>Stores each photograph as a digital asset and returns its address by file name (L2-REQ-103 AC5).</summary>
@@ -150,5 +159,130 @@ public static class DemoSeed
         user.AddProfile(profile);
         user.SetCurrentProfileId(profile.ProfileId);
         user.SetDefaultProfileId(profile.ProfileId);
+    }
+
+    /// <summary>One request in each status, from the member, with comments from the member and the office (L2-REQ-103 AC6).</summary>
+    private static async Task SeedMaintenanceAsync(CoopDbContext context)
+    {
+        var member = await context.Members.SingleAsync(m => m.Lastname == "Okafor");
+        var office = await context.StaffMembers.SingleAsync(s => s.Lastname == "Raman");
+        // A maintenance photo is private to the household and the office, so it is its own asset, not a public one.
+        var lobby = await context.DigitalAssets.AsNoTracking().SingleAsync(a => a.Name == "lobby.svg");
+        var lobbyPhoto = new DigitalAsset { Name = "lobby-light.svg", ContentType = lobby.ContentType, Bytes = lobby.Bytes, Width = lobby.Width, Height = lobby.Height };
+        context.DigitalAssets.Add(lobbyPhoto);
+
+        MaintenanceRequest Request(string title, string description, string comment)
+        {
+            var request = new MaintenanceRequest
+            {
+                RequestedByProfileId = member.ProfileId,
+                RequestedByName = member.Fullname,
+                Title = title,
+                Description = description,
+                Phone = member.PhoneNumber,
+                UnitNumber = member.UnitNumber,
+            };
+            request.Comments.Add(new MaintenanceRequestComment { MaintenanceRequestId = request.MaintenanceRequestId, CreatedByProfileId = member.ProfileId, Body = comment });
+            context.MaintenanceRequests.Add(request);
+            return request;
+        }
+
+        void OfficeComment(MaintenanceRequest request, string body)
+            => request.Comments.Add(new MaintenanceRequestComment { MaintenanceRequestId = request.MaintenanceRequestId, CreatedByProfileId = office.ProfileId, Body = body });
+
+        Request("Kitchen tap drips", "The cold tap in the kitchen drips all night, even when it is turned off tight.", "Mornings are best for me to let someone in.");
+
+        var light = Request("Lobby light flickering", "The ceiling light by the mailboxes flickers on and off in the evening.", "It is worst after dark, when the lobby is busy.");
+        light.DigitalAssets.Add(new MaintenanceRequestDigitalAsset { MaintenanceRequestId = light.MaintenanceRequestId, DigitalAssetId = lobbyPhoto.DigitalAssetId });
+        light.Receive(office.ProfileId);
+        OfficeComment(light, "Thank you, Rosalind. The electrician is booked for Thursday.");
+
+        var balcony = Request("Balcony door sticks", "The balcony door is hard to slide open and closed.", "I need both hands to open it.");
+        balcony.Receive(office.ProfileId);
+        balcony.WorkDetails = "Clean and adjust the door rollers.";
+        context.StoredEvents.Add(balcony.Start(office.ProfileId));
+        OfficeComment(balcony, "Our handyperson has started and will finish tomorrow.");
+
+        var radiator = Request("Bedroom radiator cold", "The radiator in the bedroom stays cold when the heat is on.", "The living room radiator works fine.");
+        radiator.Receive(office.ProfileId);
+        radiator.WorkDetails = "Bled the radiator and checked the valve. It heats up evenly now.";
+        context.StoredEvents.Add(radiator.Start(office.ProfileId));
+        context.StoredEvents.Add(radiator.Complete(office.ProfileId));
+        OfficeComment(radiator, "All done. Please let us know if it goes cold again.");
+
+        await context.SaveChangesAsync();
+    }
+
+    /// <summary>Published and draft notices, bylaws and reports.</summary>
+    private static async Task SeedDocumentsAsync(CoopDbContext context)
+    {
+        var windows = new Notice { Name = "Window cleaning on Tuesday", Body = "Window cleaners will be on the building from 9 am to 3 pm on Tuesday. Please close your blinds if you would like privacy." };
+        windows.Publish();
+        var meeting = new Notice { Name = "Annual general meeting", Body = "Our annual general meeting is in the lounge on the first Saturday of next month at 2 pm. Tea and cake to follow." };
+        meeting.Publish();
+        var garden = new Notice { Name = "Garden committee sign-up", Body = "The garden committee is looking for new members for the spring planting." };
+
+        var occupancy = new ByLaw { Name = "Occupancy bylaw" };
+        occupancy.Publish();
+        var pets = new ByLaw { Name = "Pet bylaw (draft revision)" };
+
+        var annual = new Report { Name = "2025 annual report", Body = "A summary of the co-op's year: repairs completed, finances and the work of each committee." };
+        annual.Publish();
+        var budget = new Report { Name = "2027 budget (draft)", Body = "The board's draft budget for members to discuss at the general meeting." };
+
+        context.Notices.AddRange(windows, meeting, garden);
+        context.ByLaws.AddRange(occupancy, pets);
+        context.Reports.AddRange(annual, budget);
+        await context.SaveChangesAsync();
+    }
+
+    /// <summary>
+    /// A conversation between the member and the office. The admin app reads
+    /// the office's conversations under the empty profile id.
+    /// </summary>
+    private static async Task SeedMessagesAsync(CoopDbContext context)
+    {
+        var member = await context.Members.SingleAsync(m => m.Lastname == "Okafor");
+        var office = Guid.Empty;
+        var conversation = new Conversation();
+        conversation.Profiles.Add(new ConversationProfile { ConversationId = conversation.ConversationId, ProfileId = member.ProfileId });
+        conversation.Profiles.Add(new ConversationProfile { ConversationId = conversation.ConversationId, ProfileId = office });
+
+        Message Say(Guid from, Guid to, string body, bool read)
+        {
+            var message = new Message { ConversationId = conversation.ConversationId, FromProfileId = from, ToProfileId = to, Body = body, Read = read };
+            conversation.Messages.Add(message);
+            return message;
+        }
+
+        Say(member.ProfileId, office, "Hello, could I book the guest suite for my sister on the 14th and 15th?", true);
+        Say(office, member.ProfileId, "Hello Rosalind, the guest suite is free on those nights. I have put your name down.", true);
+        Say(member.ProfileId, office, "Thank you so much. Where do I pick up the key?", false);
+
+        context.Conversations.Add(conversation);
+        await context.SaveChangesAsync();
+    }
+
+    /// <summary>The default theme, in the form the admin Settings screen saves.</summary>
+    private static async Task SeedThemeAsync(CoopDbContext context)
+    {
+        context.Themes.Add(new Theme
+        {
+            CssCustomProperties = "--primary-color: #3D8A5A; --background-color: #F5F4F1; --accent-color: #3D8A5A; --text-color: #1A1918",
+            IsDefault = true,
+        });
+        await context.SaveChangesAsync();
+    }
+
+    /// <summary>An invitation for a new board member, beside the startup seed's member invitations.</summary>
+    private static async Task SeedInvitationsAsync(CoopDbContext context)
+    {
+        context.InvitationTokens.Add(new InvitationToken
+        {
+            Value = "board-welcome-2027",
+            Type = InvitationTokenType.BoardMember,
+            ExpirationDate = new DateTime(2027, 6, 30, 0, 0, 0, DateTimeKind.Utc),
+        });
+        await context.SaveChangesAsync();
     }
 }
