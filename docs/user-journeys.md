@@ -1,53 +1,62 @@
 # User Journeys
 
-User journeys implemented in Coop, taken from the Playwright suite, ordered by value provided, highest first.
+User journeys implemented in Coop, taken from the Playwright suite. The number
+is the journey's rank by value provided, highest first, and matches its video
+in [`docs/videos/journeys/`](videos/journeys/).
 
-## Members (admin site, member view)
+Coop has two sites (ADR 0016):
 
-Members sign in on the admin site and see only the member areas (L2-REQ-112).
-
-| Journey | Description |
-| --- | --- |
-| Submit a maintenance request | Create a request with details and photos. |
-| Follow a maintenance request | Filter own requests, check status, comment, add a photo. |
-| Read new notices | Choose how notices reach you; read them on the dashboard and in Documents. |
-| Sign in | Follow Member sign in from the public site to the admin login. |
-| Message the office | Read own conversations and send messages. |
-| View the dashboard | See greeting, counts, own recent requests and notices. |
-| Register | Create an account with an invitation on the admin site. |
-| Onboard | Welcome, profile, unit selection, confirmation, or skip. |
-| Manage my profile | Edit details, set a picture, choose notices, switch profiles. |
-| Change my password | Update the password from My profile. |
-| Sign out | Sign out from My profile. |
+- the **public site**, read-only and anonymous (L2-REQ-110);
+- the **admin site**, which everyone who signs in uses. Members see only the
+  member areas: Dashboard, Maintenance, Documents, Messages and My profile
+  (L2-REQ-112). The office (staff, board members, system administrators and
+  support) sees every area.
 
 ## Visitors (public site)
 
-The public site is read-only and anonymous (L2-REQ-110).
+| # | Journey | Description |
+| --- | --- | --- |
+| 6 | Read documents | Filter published documents by type and open one in the viewer. |
+| 10 | Browse the home page | Read the hero, the home page sections, the board, notices and the footer. |
+| 11 | Read a website page | Open a page the office added from the site navigation. |
+| 14 | Use the phone menu | Open and close the navigation on a small screen. |
 
-| Journey | Description |
-| --- | --- |
-| Read documents | Filter documents by type and open the viewer. |
-| Browse the home page | Read the hero, blocks, board, events and footer. |
-| Read a website page | Open a content page from the site navigation. |
-| Use the phone menu | Open and close navigation on a small screen. |
+## Everyone who signs in (admin site)
 
-## Admin app (office)
+| # | Journey | Description |
+| --- | --- | --- |
+| 4 | Sign in | Follow Member sign in from the public site to the admin login, or reach Forgot password. |
+| 8 | Register | Create an account with an invitation from the office. |
+| 13 | Change my password | Update the password from My profile. |
+| 15 | Sign out | Sign out from My profile. |
 
-| Journey | Description |
-| --- | --- |
-| Handle maintenance requests | Filter, comment, start, finish and view photos. |
-| Send a notice to members | Publish a notice document to all members. |
-| Invite members | Create invitations and track their status. |
-| Manage users | Search, page through, add, edit and delete users. |
-| Manage documents | Create, search, filter and delete documents. |
-| Message members | Start conversations, search and send messages. |
-| Admin sign in and register | Sign in, register, or reach forgot password. |
-| View the admin dashboard | Metrics, recent requests, notices and quick actions. |
-| Edit website content | Edit home page blocks, lists and photos. |
-| Manage website pages | Create, edit and remove public content pages. |
-| Manage roles and privileges | Select a role and toggle its privileges. |
-| Manage the board of directors | Add, edit, reorder and remove directors. |
-| Manage profiles | Select a profile, edit it, set a board title. |
-| Manage digital assets | Upload, search, view and delete images and files. |
-| Customize the theme | Change, save or reset theme colours by scope. |
-| Change admin password | Update the administrator's password. |
+## Members (admin site, member view)
+
+| # | Journey | Description |
+| --- | --- | --- |
+| 1 | Submit a maintenance request | Create a request with details and photos. |
+| 2 | Follow a maintenance request | Filter own requests, check status, read and add comments, add a photo. |
+| 3 | Read new notices | Choose how notices reach you; read them on the dashboard and in Documents. |
+| 5 | Message the office | Read own conversations and reply. |
+| 7 | View the dashboard | See own counts, recent requests, notices and actions. |
+| 9 | Onboard | Welcome, profile, unit selection and confirmation, or skip. |
+| 12 | Manage my profile | Edit details, set or remove a picture, choose how notices arrive. |
+
+## Office (admin site, every area)
+
+| # | Journey | Description |
+| --- | --- | --- |
+| 16 | Handle maintenance requests | Filter, read details and photos, comment, receive, start and finish. |
+| 17 | Send a notice to members | Publish a notice and send it to members who asked for notices. |
+| 18 | Invite members | Create invitations, copy the token and track their status. |
+| 19 | Manage users | Search, page through, add, edit and delete users. |
+| 20 | Manage documents | Create, search, filter by tab and delete documents. |
+| 21 | Message members | Start conversations, search them and send messages. |
+| 22 | View the office dashboard | Metrics, recent requests, notices and quick actions. |
+| 23 | Edit website content | Edit the header, footer and home page blocks, lists and photos. |
+| 24 | Manage website pages | Create, edit and remove public website pages. |
+| 25 | Manage roles and privileges | Select a role and toggle its privileges. |
+| 26 | Manage the board of directors | Add, edit, reorder and remove directors. |
+| 27 | Manage profiles | Select a profile, edit it, set a photo and a board title. |
+| 28 | Manage digital assets | Upload, search, view, download and delete images and files. |
+| 29 | Customize the theme | Change, save or reset theme colours by scope. |

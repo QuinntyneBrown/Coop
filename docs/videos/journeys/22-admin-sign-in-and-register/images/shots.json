@@ -1,6 +1,0 @@
-[
-  {"name": "admin-login", "mock": "pages/admin-login/default.html", "phone": false},
-  {"name": "admin-login-error", "mock": "pages/admin-login/error.html", "phone": false},
-  {"name": "admin-register", "mock": "pages/admin-register/default.html", "phone": false},
-  {"name": "admin-forgot-password", "mock": "pages/admin-forgot-password/default.html", "phone": false}
-]
