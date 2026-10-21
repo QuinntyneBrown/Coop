@@ -10,29 +10,29 @@
 <div class="stack">
   <div role="status" aria-live="polite">
     @if (notice()) {
-      <div class="alert alert--success">
-        <svg appIcon="success"></svg>
-        <div class="alert__body" data-testid="website-notice">{{ notice() }}</div>
+      <div libAlert tone="success">
+        <svg libIcon="success"></svg>
+        <div libAlertBody data-testid="website-notice">{{ notice() }}</div>
       </div>
     }
   </div>
 
   @switch (status()) {
     @case ('loading') {
-      <div class="card card--flush">
-        <div class="loading" role="status" aria-live="polite" data-testid="website-loading">
-          <span class="spinner" aria-hidden="true"></span>Loading the website content…
+      <div libCard flush>
+        <div libLoading role="status" aria-live="polite" data-testid="website-loading">
+          <span libSpinner></span>Loading the website content…
         </div>
       </div>
     }
     @case ('error') {
-      <div class="alert alert--danger" role="alert" data-testid="website-error">
-        <svg appIcon="error"></svg>
-        <div class="alert__body">
+      <div libAlert tone="danger" role="alert" data-testid="website-error">
+        <svg libIcon="error"></svg>
+        <div libAlertBody>
           <span>We couldn't load the website content. Check your connection and try again.</span>
-          <div class="alert__actions">
-            <button type="button" class="btn btn--sm" (click)="load()" data-testid="website-retry">
-              <svg appIcon="try-again"></svg>Try again
+          <div libAlertActions>
+            <button type="button" libButton size="sm" (click)="load()" data-testid="website-retry">
+              <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
         </div>
@@ -42,27 +42,27 @@
       @for (group of groups; track group.id) {
         <section class="section stack" [attr.aria-labelledby]="'website-group-' + group.id">
           <h2 [id]="'website-group-' + group.id">{{ group.name }}</h2>
-          <ul class="list website-blocks">
+          <ul libList class="website-blocks">
             @for (block of group.blocks; track block.id) {
               @let value = blockValue(block);
               @let photo = block.photo?.(value);
               <li data-testid="website-block">
-                <article class="card">
+                <article libCard>
                   <div class="cluster cluster--between">
                     <div class="cluster block-card__identity">
                       @if (photo) {
-                        <div class="picture-list__thumb block-card__thumb">
+                        <div libPictureListThumb class="block-card__thumb">
                           <img [src]="previewUrl(photo)" width="160" height="120" alt="" />
                         </div>
                       }
                       <div class="block-card__text">
-                        <h3 class="card__title">{{ block.name }}</h3>
+                        <h3 libCardTitle>{{ block.name }}</h3>
                         <p class="text-muted block-card__summary">{{ block.summary(value) }}</p>
                       </div>
                     </div>
                     <button
                       type="button"
-                      class="btn"
+                      libButton
                       [attr.aria-label]="'Edit ' + block.name"
                       (click)="openEditor(block, $event)"
                     >
@@ -81,17 +81,17 @@
 
 <dialog
   #editorDialog
-  class="dialog"
+  libDialog
   aria-labelledby="content-editor-title"
   aria-describedby="content-editor-intro"
   (close)="onEditorClosed()"
   data-testid="content-editor"
 >
   @if (editing(); as block) {
-    <form class="dialog__panel" (submit)="save($event)" novalidate>
-      <div class="dialog__header">
+    <form libDialogPanel (submit)="save($event)" novalidate>
+      <div libDialogHeader>
         <div class="dialog-heading">
-          <h2 class="dialog__title" id="content-editor-title" data-testid="content-editor-heading">
+          <h2 libDialogTitle id="content-editor-title" data-testid="content-editor-heading">
             Edit {{ block.name }}
           </h2>
           <p class="text-muted dialog-intro" id="content-editor-intro">
@@ -99,18 +99,18 @@
           </p>
         </div>
       </div>
-      <div class="dialog__body stack">
+      <div libDialogBody class="stack">
         @if (errorList().length > 0) {
           <div
-            class="alert alert--danger form-summary"
+            libAlert
+            tone="danger"
+            class="form-summary"
             role="alert"
             data-testid="content-editor-errors"
           >
-            <svg appIcon="error"></svg>
-            <div class="alert__body">
-              <p class="alert__title">
-                Something needs attention before your changes can be saved.
-              </p>
+            <svg libIcon="error"></svg>
+            <div libAlertBody>
+              <p libAlertTitle>Something needs attention before your changes can be saved.</p>
               <ol>
                 @for (error of errorList(); track error.id) {
                   <li>
@@ -122,9 +122,9 @@
           </div>
         }
         @if (saveFailed()) {
-          <div class="alert alert--danger" role="alert">
-            <svg appIcon="error"></svg>
-            <div class="alert__body" data-testid="content-editor-failed">
+          <div libAlert tone="danger" role="alert">
+            <svg libIcon="error"></svg>
+            <div libAlertBody data-testid="content-editor-failed">
               We couldn't save your changes. Try again.
             </div>
           </div>
@@ -138,10 +138,10 @@
           />
         }
       </div>
-      <div class="dialog__footer">
+      <div libDialogFooter>
         <button
           type="button"
-          class="btn"
+          libButton
           [disabled]="saving()"
           (click)="closeEditor()"
           data-testid="content-editor-cancel"
@@ -150,7 +150,8 @@
         </button>
         <button
           type="submit"
-          class="btn btn--primary"
+          libButton
+          variant="primary"
           [disabled]="saving()"
           [attr.aria-busy]="saving() ? 'true' : null"
           data-testid="content-editor-save"
@@ -189,7 +190,7 @@
     @case ('list') {
       <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <ol class="list content-list__items">
+        <ol libList class="content-list__items">
           @for (
             item of target[field.key];
             track $index;
@@ -198,7 +199,7 @@
             @let legend = itemLegend(field, i);
             @let name = legend.toLowerCase();
             <li [attr.data-item]="path + '.' + i">
-              <fieldset class="card stack">
+              <fieldset libCard class="stack">
                 <legend>{{ legend }}</legend>
                 <div class="stack" [class.content-fieldset__row]="field.columns">
                   @for (sub of field.fields; track sub.key) {
@@ -217,27 +218,31 @@
                 <div class="cluster">
                   <button
                     type="button"
-                    class="btn btn--sm"
+                    libButton
+                    size="sm"
                     [attr.aria-label]="'Move ' + name + ' up'"
                     [attr.data-move]="path + '.' + i + '.up'"
                     [disabled]="first"
                     (click)="moveItem(target, field, path, i, -1)"
                   >
-                    <svg appIcon="move-up"></svg>Move up
+                    <svg libIcon="move-up"></svg>Move up
                   </button>
                   <button
                     type="button"
-                    class="btn btn--sm"
+                    libButton
+                    size="sm"
                     [attr.aria-label]="'Move ' + name + ' down'"
                     [attr.data-move]="path + '.' + i + '.down'"
                     [disabled]="last"
                     (click)="moveItem(target, field, path, i, 1)"
                   >
-                    <svg appIcon="move-down"></svg>Move down
+                    <svg libIcon="move-down"></svg>Move down
                   </button>
                   <button
                     type="button"
-                    class="btn btn--danger btn--sm"
+                    libButton
+                    variant="danger"
+                    size="sm"
                     [attr.aria-label]="'Remove ' + name"
                     (click)="removeItem(target, field, path, i)"
                   >
@@ -250,11 +255,12 @@
         </ol>
         <button
           type="button"
-          class="btn content-list__add"
+          libButton
+          class="content-list__add"
           [attr.data-add]="path"
           (click)="addItem(target, field, path)"
         >
-          <svg appIcon="add"></svg>Add {{ field.itemName }}
+          <svg libIcon="add"></svg>Add {{ field.itemName }}
         </button>
       </fieldset>
     }
@@ -265,20 +271,21 @@
       @let altError = errors()[path + '.alt'];
       <fieldset class="stack">
         <legend>{{ field.label }}</legend>
-        <div class="photo-picker">
+        <div libPhotoPicker>
           @if (photo.src) {
-            <div class="picture-list__thumb photo-field__thumb">
+            <div libPictureListThumb class="photo-field__thumb">
               <img [src]="previewUrl(photo.src)" width="160" height="120" alt="" />
             </div>
           }
-          <div class="photo-picker__body">
-            <p class="list__title" [id]="id + '-name'">
+          <div libPhotoPickerBody>
+            <p libListTitle [id]="id + '-name'">
               {{ photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet' }}
             </p>
-            <div class="photo-picker__actions">
+            <div libPhotoPickerActions>
               <button
                 type="button"
-                class="btn btn--primary"
+                libButton
+                variant="primary"
                 aria-haspopup="dialog"
                 [id]="fieldId(path + '.src')"
                 [attr.aria-describedby]="
@@ -286,20 +293,20 @@
                 "
                 (click)="choosePhoto(photo, path)"
               >
-                <svg appIcon="photo"></svg>Choose photo
+                <svg libIcon="photo"></svg>Choose photo
               </button>
             </div>
             @if (srcError) {
-              <p class="field__error" [id]="id + '-src-error'">
+              <p libFieldError [id]="id + '-src-error'">
                 <span data-testid="field-error">{{ srcError }}</span>
               </p>
             }
           </div>
         </div>
-        <div class="field">
-          <label class="field__label" [for]="altId">Photo description</label>
+        <div libFormField>
+          <label libFieldLabel [for]="altId">Photo description</label>
           <textarea
-            class="textarea"
+            libTextarea
             [id]="altId"
             rows="3"
             [(ngModel)]="photo.alt"
@@ -307,11 +314,11 @@
             [attr.aria-invalid]="altError ? 'true' : null"
             [attr.aria-describedby]="altId + '-help' + (altError ? ' ' + altId + '-error' : '')"
           ></textarea>
-          <p class="field__help" [id]="altId + '-help'">
+          <p libFieldHelp [id]="altId + '-help'">
             Describe the photo for people who cannot see it.
           </p>
           @if (altError) {
-            <p class="field__error" [id]="altId + '-error'">
+            <p libFieldError [id]="altId + '-error'">
               <span data-testid="field-error">{{ altError }}</span>
             </p>
           }
@@ -319,12 +326,12 @@
       </fieldset>
     }
     @default {
-      <div class="field">
-        <label class="field__label" [for]="id">{{ field.label }}</label>
+      <div libFormField>
+        <label libFieldLabel [for]="id">{{ field.label }}</label>
         @switch (field.kind) {
           @case ('choice') {
             <select
-              class="select"
+              libSelect
               [id]="id"
               [(ngModel)]="target[field.key]"
               [ngModelOptions]="{ standalone: true }"
@@ -337,7 +344,7 @@
           }
           @case ('textarea') {
             <textarea
-              class="textarea"
+              libTextarea
               [id]="id"
               rows="3"
               [(ngModel)]="target[field.key]"
@@ -348,7 +355,7 @@
           }
           @case ('lines') {
             <textarea
-              class="textarea"
+              libTextarea
               [id]="id"
               rows="4"
               [(ngModel)]="target[field.key]"
@@ -359,7 +366,7 @@
           }
           @case ('address') {
             <input
-              class="input"
+              libTextField
               [id]="id"
               type="text"
               inputmode="url"
@@ -373,7 +380,7 @@
           }
           @default {
             <input
-              class="input"
+              libTextField
               [id]="id"
               type="text"
               autocomplete="off"
@@ -385,10 +392,10 @@
           }
         }
         @if (field.help) {
-          <p class="field__help" [id]="id + '-help'">{{ field.help }}</p>
+          <p libFieldHelp [id]="id + '-help'">{{ field.help }}</p>
         }
         @if (error) {
-          <p class="field__error" [id]="id + '-error'">
+          <p libFieldError [id]="id + '-error'">
             <span data-testid="field-error">{{ error }}</span>
           </p>
         }

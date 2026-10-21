@@ -1,0 +1,42 @@
+// Table (docs/design-system/components/table.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-body-sm);
+}
+
+:host ::ng-deep th,
+:host ::ng-deep td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+  vertical-align: middle;
+}
+
+:host ::ng-deep th {
+  background: var(--color-bg-surface-sunken);
+  font: var(--text-label);
+  color: var(--color-fg-muted);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+:host ::ng-deep tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+:host ::ng-deep tbody tr:hover {
+  background: var(--color-bg-subtle);
+}
+
+// Row headers read as the first cell of their row, not as another column header.
+:host ::ng-deep th[scope='row'] {
+  background: none;
+  position: static;
+  white-space: normal;
+  font: var(--text-label);
+  color: var(--color-fg-default);
+}

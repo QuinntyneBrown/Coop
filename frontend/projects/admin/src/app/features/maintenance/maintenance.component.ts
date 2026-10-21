@@ -8,16 +8,97 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AlertBodyComponent,
+  AlertComponent,
+  AvatarComponent,
+  BadgeComponent,
+  BadgeTone,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DescriptionListComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  DividerComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+  LoadingComponent,
+  PictureListGridComponent,
+  PictureListItemComponent,
+  PictureListNoteComponent,
+  PictureListThumbComponent,
+  SelectComponent,
+  SpinnerComponent,
+  TabComponent,
+  TabPanelComponent,
+  TabsComponent,
+  TextFieldComponent,
+  TextareaComponent,
+} from 'components';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { MaintenanceStep } from './maintenance-step';
 import { nextMaintenanceStep } from './next-maintenance-step';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-maintenance',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    DescriptionListComponent,
+    DividerComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+    PictureListGridComponent,
+    PictureListItemComponent,
+    PictureListNoteComponent,
+    PictureListThumbComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    TextareaComponent,
+    TabComponent,
+    TabPanelComponent,
+    TabsComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -64,7 +145,10 @@ export class MaintenanceComponent implements OnInit {
 
   commentControl = this.fb.control('');
 
-  private readonly createDialog = viewChild.required<ElementRef<HTMLDialogElement>>('createDialog');
+  private readonly createDialog = viewChild.required<unknown, ElementRef<HTMLDialogElement>>(
+    'createDialog',
+    { read: ElementRef },
+  );
 
   ngOnInit(): void {
     this.loadRequests();
@@ -219,23 +303,23 @@ export class MaintenanceComponent implements OnInit {
     return status || 'New';
   }
 
-  getStatusClass(status: any): string {
+  getStatusTone(status: any): BadgeTone {
     const label = this.getStatusLabel(status).toLowerCase();
     switch (label) {
       case 'new':
       case 'created':
-        return 'badge--warning';
+        return 'warning';
       case 'received':
-        return 'badge--neutral';
+        return 'neutral';
       case 'started':
       case 'inprogress':
-        return 'badge--info';
+        return 'info';
       case 'completed':
       case 'complete':
       case 'done':
-        return 'badge--success';
+        return 'success';
       default:
-        return 'badge--neutral';
+        return 'neutral';
     }
   }
 }

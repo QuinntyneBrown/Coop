@@ -324,6 +324,15 @@
         <tr><td><code>.stat</code>, <code>.stat__label</code>, <code>.stat__value</code></td><td>Label above a large tabular number, 4px apart. Usable on its own.</td></tr>
         <tr><td><code>aria-busy="true"</code> + <code>.skeleton</code></td><td>Loading: a skeleton bar in place of the value, with visually hidden "Loading".</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/metric-card/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>MetricCardIconComponent</code></td><td><code>span[libMetricCardIcon]</code></td><td><code>tone</code>: <code>accent</code>, <code>warning</code>, <code>success</code>, <code>info</code> (default <code>accent</code>)</td></tr>
+        <tr><td><code>MetricCardComponent</code></td><td><code>div[libMetricCard]</code></td><td>None</td></tr>
+        <tr><td><code>StatLabelComponent</code></td><td><code>span[libStatLabel]</code></td><td>None</td></tr>
+        <tr><td><code>StatValueComponent</code></td><td><code>span[libStatValue]</code></td><td>None</td></tr>
+        <tr><td><code>StatComponent</code></td><td><code>span[libStat]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -1,0 +1,10 @@
+// Search field (docs/design-system/components/search-field.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// A labelled search input with a leading magnifier.
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}

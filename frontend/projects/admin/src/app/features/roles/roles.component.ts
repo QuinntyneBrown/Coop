@@ -1,13 +1,31 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  ChipComponent,
+  IconComponent,
+  SwitchComponent,
+  TableComponent,
+  TableWrapComponent,
+} from 'components';
 import { RoleService } from '../../core/services/role.service';
 import { PrivilegeService } from '../../core/services/privilege.service';
 import { plainName } from '../../core/plain-name';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-roles',
   standalone: true,
-  imports: [IconComponent],
+  imports: [
+    IconComponent,
+    ButtonComponent,
+    ChipComponent,
+    CardComponent,
+    CardTitleComponent,
+    TableComponent,
+    TableWrapComponent,
+    SwitchComponent,
+  ],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

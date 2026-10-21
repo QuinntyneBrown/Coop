@@ -1,0 +1,18 @@
+// Tabs (docs/design-system/components/tabs.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+  scrollbar-width: thin;
+}
+
+// Pill tabs: a filter row whose options are tabs (All / New / Received / Started / Completed).
+:host(:where(.tabs--pill)) {
+  border-bottom: 0;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  overflow: visible;
+}

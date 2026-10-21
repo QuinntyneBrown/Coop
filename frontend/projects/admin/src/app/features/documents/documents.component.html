@@ -3,11 +3,11 @@
     <h1 data-testid="documents-page-title">Documents</h1>
   </div>
   <div class="cluster page-actions">
-    <div class="search" role="search">
+    <div libSearchField>
       <label class="visually-hidden" for="documents-search">Search documents</label>
-      <svg appIcon="search"></svg>
+      <svg libIcon="search"></svg>
       <input
-        class="input"
+        libTextField
         id="documents-search"
         type="search"
         placeholder="Search documents..."
@@ -18,31 +18,31 @@
       />
     </div>
     <button
-      class="btn btn--primary"
+      libButton
+      variant="primary"
       type="button"
       data-testid="documents-new-button"
       (click)="openCreateDialog()"
     >
-      <svg appIcon="add"></svg>New Document
+      <svg libIcon="add"></svg>New Document
     </button>
   </div>
 </div>
 
 <div role="status" aria-live="polite">
   @if (statusMessage) {
-    <div class="alert alert--success" data-testid="documents-status">
-      <svg appIcon="success"></svg>
-      <div class="alert__body">{{ statusMessage }}</div>
+    <div libAlert tone="success" data-testid="documents-status">
+      <svg libIcon="success"></svg>
+      <div libAlertBody>{{ statusMessage }}</div>
     </div>
   }
 </div>
 
-<div class="tabs tabs--pill" role="tablist" aria-label="Filter documents by kind">
+<div libTabs pill aria-label="Filter documents by kind">
   @for (tab of filterTabs; track tab.filter) {
     <button
-      class="tabs__tab"
+      libTab
       type="button"
-      role="tab"
       aria-controls="documents-panel"
       [id]="'documents-tab-' + tab.filter"
       [attr.aria-selected]="activeFilter === tab.filter"
@@ -55,15 +55,10 @@
   }
 </div>
 
-<div
-  class="tabs__panel"
-  role="tabpanel"
-  id="documents-panel"
-  [attr.aria-labelledby]="'documents-tab-' + activeFilter"
->
+<div libTabPanel id="documents-panel" [attr.aria-labelledby]="'documents-tab-' + activeFilter">
   @if (loading) {
-    <div class="loading" role="status" data-testid="documents-loading">
-      <span class="spinner" aria-hidden="true"></span>Loading documents…
+    <div libLoading role="status" data-testid="documents-loading">
+      <span libSpinner></span>Loading documents…
     </div>
   }
 
@@ -71,11 +66,11 @@
     <ul class="grid grid--auto documents-list" aria-label="Documents" data-testid="documents-list">
       @for (doc of filteredDocuments; track doc) {
         <li>
-          <article class="card" data-testid="document-card">
+          <article libCard data-testid="document-card">
             <div class="cluster">
-              <span class="avatar" aria-hidden="true"><svg [appIcon]="getDocIcon(doc)"></svg></span>
+              <span libAvatar aria-hidden="true"><svg [libIcon]="getDocIcon(doc)"></svg></span>
               <div class="document-card__info">
-                <h2 class="card__title document-card__title" data-testid="document-title">
+                <h2 libCardTitle class="document-card__title" data-testid="document-title">
                   <button type="button" class="document-card__open" (click)="openDocument(doc)">
                     {{ doc.name || doc.title }}
                   </button>
@@ -89,21 +84,22 @@
                 </p>
               </div>
               <span
-                class="badge"
-                [class.badge--success]="getStatusLabel(doc) === 'Published'"
-                [class.badge--warning]="getStatusLabel(doc) !== 'Published'"
+                libBadge
+                [tone]="getStatusLabel(doc) === 'Published' ? 'success' : 'warning'"
                 data-testid="document-status-badge"
               >
                 {{ getStatusLabel(doc) }}
               </span>
               <button
-                class="btn btn--ghost btn--icon"
+                libButton
+                variant="ghost"
+                iconOnly
                 type="button"
                 [attr.aria-label]="'Delete ' + (doc.name || doc.title)"
                 data-testid="document-delete-button"
                 (click)="confirmDeleteDocument(doc, $event)"
               >
-                <svg appIcon="delete"></svg>
+                <svg libIcon="delete"></svg>
               </button>
             </div>
           </article>
@@ -113,9 +109,11 @@
   }
 
   @if (!loading && filteredDocuments.length === 0) {
-    <div class="card empty" data-testid="documents-empty-state">
-      <div class="empty__icon"><svg appIcon="documents"></svg></div>
-      <p class="empty__text">No documents found</p>
+    <div libCard flush data-testid="documents-empty-state">
+      <div libEmptyState>
+        <div libEmptyStateIcon><svg libIcon="documents"></svg></div>
+        <p libEmptyStateText>No documents found</p>
+      </div>
     </div>
   }
 </div>
@@ -123,32 +121,34 @@
 <!-- Create/Edit Document Dialog -->
 <dialog
   #documentDialog
-  class="dialog"
+  libDialog
   aria-labelledby="document-dialog-heading"
   data-testid="document-dialog"
   (cancel)="onDocumentDialogCancel($event)"
   (close)="showDocumentDialog = false"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="document-dialog-heading" data-testid="document-dialog-title">
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="document-dialog-heading" data-testid="document-dialog-title">
         {{ editingDocument ? 'Edit Document' : 'New Document' }}
       </h2>
       <button
         type="button"
-        class="btn btn--ghost btn--icon"
+        libButton
+        variant="ghost"
+        iconOnly
         aria-label="Close"
         [disabled]="saving"
         (click)="closeDocumentDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
-    <div class="dialog__body stack">
-      <div class="field">
-        <label class="field__label" for="document-dialog-title-input">Title</label>
+    <div libDialogBody class="stack">
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-title-input">Title</label>
         <input
-          class="input"
+          libTextField
           id="document-dialog-title-input"
           type="text"
           autocomplete="off"
@@ -156,10 +156,10 @@
           [(ngModel)]="dialogDoc.title"
         />
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-type">Type</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-type">Type</label>
         <select
-          class="select"
+          libSelect
           id="document-dialog-type"
           data-testid="document-dialog-type"
           [(ngModel)]="dialogDoc.type"
@@ -169,20 +169,20 @@
           <option value="Report">Report</option>
         </select>
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-content">Content</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-content">Content</label>
         <textarea
-          class="textarea"
+          libTextarea
           id="document-dialog-content"
           rows="4"
           data-testid="document-dialog-content"
           [(ngModel)]="dialogDoc.content"
         ></textarea>
       </div>
-      <div class="field">
-        <label class="field__label" for="document-dialog-status">Status</label>
+      <div libFormField>
+        <label libFieldLabel for="document-dialog-status">Status</label>
         <select
-          class="select"
+          libSelect
           id="document-dialog-status"
           data-testid="document-dialog-status"
           [(ngModel)]="dialogDoc.status"
@@ -192,8 +192,8 @@
         </select>
       </div>
       @if (dialogDoc.type === 'Notice' && dialogDoc.status === 'Published') {
-        <div class="field">
-          <label class="checkbox" for="notice-send">
+        <div libFormField>
+          <label libCheckbox for="notice-send">
             <input
               id="notice-send"
               type="checkbox"
@@ -202,23 +202,23 @@
               [(ngModel)]="dialogDoc.send"
               [disabled]="saving"
             />
-            <span class="checkbox__text">Also send to members by email and text</span>
+            <span libCheckboxText>Also send to members by email and text</span>
           </label>
-          <p id="notice-send-hint" class="field__help">
+          <p id="notice-send-hint" libFieldHelp>
             Only members who asked for new notices on their profile get one.
           </p>
         </div>
       }
       @if (dialogError) {
-        <div class="alert alert--danger" role="alert" data-testid="document-dialog-error">
-          <svg appIcon="error"></svg>
-          <div class="alert__body">{{ dialogError }}</div>
+        <div libAlert tone="danger" role="alert" data-testid="document-dialog-error">
+          <svg libIcon="error"></svg>
+          <div libAlertBody>{{ dialogError }}</div>
         </div>
       }
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
-        class="btn"
+        libButton
         type="button"
         data-testid="document-dialog-cancel"
         [disabled]="saving"
@@ -227,7 +227,8 @@
         Cancel
       </button>
       <button
-        class="btn btn--primary"
+        libButton
+        variant="primary"
         type="button"
         data-testid="document-dialog-save"
         [disabled]="saving"
@@ -243,35 +244,38 @@
 <!-- Delete Document Dialog -->
 <dialog
   #deleteDocDialog
-  class="dialog"
+  libDialog
   role="alertdialog"
   aria-labelledby="document-delete-heading"
   aria-describedby="document-delete-message"
   data-testid="document-delete-dialog"
   (close)="showDeleteDocDialog = false"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <div class="dialog__icon dialog__icon--danger" aria-hidden="true">
-        <svg appIcon="delete"></svg>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
+        <svg libIcon="delete"></svg>
       </div>
-      <h2 class="dialog__title" id="document-delete-heading">Confirm Delete</h2>
+      <h2 libDialogTitle id="document-delete-heading">Confirm Delete</h2>
       <button
         type="button"
-        class="btn btn--ghost btn--icon"
+        libButton
+        variant="ghost"
+        iconOnly
         aria-label="Close"
         (click)="closeDeleteDocDialog()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
-    <div class="dialog__body">
+    <div libDialogBody>
       <p id="document-delete-message">Are you sure you want to delete this document?</p>
     </div>
-    <div class="dialog__footer">
-      <button class="btn" type="button" autofocus (click)="closeDeleteDocDialog()">Cancel</button>
+    <div libDialogFooter>
+      <button libButton type="button" autofocus (click)="closeDeleteDocDialog()">Cancel</button>
       <button
-        class="btn btn--danger"
+        libButton
+        variant="danger"
         type="button"
         data-testid="document-delete-confirm"
         (click)="deleteDocument()"
@@ -285,27 +289,29 @@
 <!-- Document Viewer -->
 <dialog
   #viewerDialog
-  class="dialog"
+  libDialog
   aria-labelledby="document-viewer-title"
   data-testid="document-viewer"
   (close)="selectedDocument = null"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="document-viewer-title" data-testid="document-viewer-title">
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="document-viewer-title" data-testid="document-viewer-title">
         {{ selectedDocument?.name || selectedDocument?.title }}
       </h2>
       <button
-        class="btn btn--ghost btn--icon"
+        libButton
+        variant="ghost"
+        iconOnly
         type="button"
         aria-label="Close"
         data-testid="document-viewer-close"
         (click)="closeDocument()"
       >
-        <svg appIcon="close"></svg>
+        <svg libIcon="close"></svg>
       </button>
     </div>
-    <div class="dialog__body stack" data-testid="document-viewer-content">
+    <div libDialogBody class="stack" data-testid="document-viewer-content">
       <p>
         {{
           selectedDocument?.body ||
@@ -315,9 +321,9 @@
         }}
       </p>
     </div>
-    <div class="dialog__footer">
-      <button class="btn btn--primary" type="button" data-testid="document-download-btn">
-        <svg appIcon="download"></svg>Download
+    <div libDialogFooter>
+      <button libButton variant="primary" type="button" data-testid="document-download-btn">
+        <svg libIcon="download"></svg>Download
       </button>
     </div>
   </div>

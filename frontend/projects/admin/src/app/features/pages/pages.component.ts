@@ -8,6 +8,42 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateActionsComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  EmptyStateTitleComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  ListComponent,
+  ListTitleComponent,
+  LoadingComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent as LibPhotoPickerComponent,
+  PictureListThumbComponent,
+  SpinnerComponent,
+  TextFieldComponent,
+  TextareaComponent,
+} from 'components';
 import { PageService } from '../../core/services/page.service';
 import type { WebsitePage } from '../../core/models/website-page';
 import type { WebsitePageDraft } from '../../core/models/website-page-draft';
@@ -16,7 +52,6 @@ import { PhotoPickerComponent } from '../website/photo-picker/photo-picker.compo
 import type { PickedPhoto } from '../website/photo-picker/picked-photo';
 import type { PageFormErrors } from './page-form-errors';
 import { validatePageDraft } from './validate-page-draft';
-import { IconComponent } from '../../shared/components/icon.component';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 
@@ -37,15 +72,58 @@ const emptyDraft = (): WebsitePageDraft => ({
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [FormsModule, PhotoPickerComponent, IconComponent],
+  imports: [
+    FormsModule,
+    PhotoPickerComponent,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateActionsComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    EmptyStateTitleComponent,
+    ListComponent,
+    ListTitleComponent,
+    PhotoPickerActionsComponent,
+    PhotoPickerBodyComponent,
+    PictureListThumbComponent,
+    LibPhotoPickerComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
+    TextareaComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagesComponent implements OnInit {
   private readonly pageService = inject(PageService);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
-  private readonly removeDialog = viewChild<ElementRef<HTMLDialogElement>>('removeDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
+  private readonly removeDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'removeDialog',
+    { read: ElementRef },
+  );
   private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly pages = signal<WebsitePage[]>([]);

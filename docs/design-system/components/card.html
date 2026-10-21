@@ -409,6 +409,12 @@
         <tr><td><code>.stack</code>, <code>.cluster</code>, <code>.cluster--between</code>, <code>.grid--auto</code></td><td>Layout inside and around cards (see <a href="layout.html">layout primitives</a>).</td></tr>
         <tr><td><code>aria-current="true"</code></td><td>Marks the profile in use, together with an "Active" badge.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/card/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>CardTitleComponent</code></td><td><code>h2[libCardTitle]</code>, <code>h3[libCardTitle]</code></td><td>None</td></tr>
+        <tr><td><code>CardComponent</code></td><td><code>div[libCard]</code>, <code>section[libCard]</code>, <code>article[libCard]</code>, <code>form[libCard]</code>, <code>fieldset[libCard]</code></td><td><code>flush</code> (boolean attribute)</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

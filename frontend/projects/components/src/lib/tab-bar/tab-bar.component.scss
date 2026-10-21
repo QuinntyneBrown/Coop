@@ -1,0 +1,53 @@
+// Tab bar (docs/design-system/components/tab-bar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// The admin's navigation on phones; hidden from 768px, where the sidebar takes over.
+:host {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  min-height: var(--layout-tabbar-height);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--color-bg-surface);
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+:host ::ng-deep a {
+  flex: 1;
+  min-width: 0;
+  padding-inline: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-0-5);
+  min-height: var(--target-comfortable);
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  font: var(--text-caption);
+  font-weight: var(--font-weight-medium);
+  position: relative;
+}
+
+:host ::ng-deep a:hover {
+  color: var(--color-fg-default);
+}
+
+:host ::ng-deep a[aria-current='page'] {
+  color: var(--color-fg-accent);
+}
+
+@media (min-width: 48rem) {
+  :host(:not(.tabbar--static)) {
+    display: none;
+  }
+}
+
+@media print {
+  :host {
+    display: none !important;
+  }
+}

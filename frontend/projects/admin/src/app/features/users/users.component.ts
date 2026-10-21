@@ -7,14 +7,61 @@ import {
   viewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  PaginationComponent,
+  PaginationLinkComponent,
+  PaginationListComponent,
+  SearchFieldComponent,
+  SelectComponent,
+  TableComponent,
+  TableWrapComponent,
+  TextFieldComponent,
+} from 'components';
 import { UserService } from '../../core/services/user.service';
 import { userRoleNames } from '../../core/user-role-names';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [ReactiveFormsModule, IconComponent],
+  imports: [
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    TableComponent,
+    TableWrapComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    PaginationComponent,
+    PaginationLinkComponent,
+    PaginationListComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -22,8 +69,13 @@ import { IconComponent } from '../../shared/components/icon.component';
 export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
-  private readonly userDialog = viewChild<ElementRef<HTMLDialogElement>>('userDialog');
-  private readonly deleteDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDialog');
+  private readonly userDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>('userDialog', {
+    read: ElementRef,
+  });
+  private readonly deleteDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'deleteDialog',
+    { read: ElementRef },
+  );
 
   Math = Math;
   roleNames = userRoleNames;

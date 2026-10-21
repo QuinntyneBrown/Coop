@@ -1,6 +1,7 @@
 # 0009. The admin loads the design system from docs
 
-- Status: Accepted
+- Status: Accepted; the "CSS source" part is superseded by
+  [0010](0010-design-system-components-in-the-library.md)
 - Date: 2026-10-20
 
 ## Context

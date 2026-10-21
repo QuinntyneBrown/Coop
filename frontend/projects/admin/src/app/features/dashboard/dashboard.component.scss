@@ -1,3 +1,11 @@
+// The dashboard's row of metric cards
+// (docs/design-system/components/metric-card.html). Used only here.
+.metric-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+}
+
 .dashboard {
   gap: var(--space-6);
   padding-bottom: var(--space-6);

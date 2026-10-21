@@ -11,6 +11,37 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
+import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  ListComponent,
+  ListTitleComponent,
+  LoadingComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent as LibPhotoPickerComponent,
+  PictureListThumbComponent,
+  SelectComponent,
+  SpinnerComponent,
+  TextFieldComponent,
+  TextareaComponent,
+} from 'components';
 import type { ContentRecord } from '../../core/models/content-record';
 import type { SiteContent } from '../../core/models/site-content';
 import { PUBLIC_SITE_URL } from '../../core/public-site-url';
@@ -23,7 +54,6 @@ import { readPath, writePath } from './content-path';
 import { moveItem } from './move-item';
 import type { PickedPhoto } from './photo-picker/picked-photo';
 import { PhotoPickerComponent } from './photo-picker/photo-picker.component';
-import { IconComponent } from '../../shared/components/icon.component';
 import { validateBlock } from './validate-block';
 
 type LoadStatus = 'loading' | 'ready' | 'error';
@@ -40,7 +70,40 @@ type LoadStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-website',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, PhotoPickerComponent, IconComponent],
+  imports: [
+    FormsModule,
+    NgTemplateOutlet,
+    PhotoPickerComponent,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    CardTitleComponent,
+    ListComponent,
+    ListTitleComponent,
+    PhotoPickerActionsComponent,
+    PhotoPickerBodyComponent,
+    PictureListThumbComponent,
+    LibPhotoPickerComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    TextareaComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './website.component.html',
   styleUrl: './website.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,7 +112,10 @@ export class WebsiteComponent implements OnInit {
   private readonly siteContent = inject(SiteContentService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
   private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly groups = [

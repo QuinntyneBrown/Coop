@@ -1,0 +1,8 @@
+// Sidebar user (docs/design-system/components/sidebar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}

@@ -1,0 +1,6 @@
+// Top bar spacer (docs/design-system/components/top-bar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  flex: 1;
+}

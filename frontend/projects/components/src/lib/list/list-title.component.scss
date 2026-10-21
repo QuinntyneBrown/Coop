@@ -1,0 +1,6 @@
+// List row title (docs/design-system/components/list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-label);
+}

@@ -1,15 +1,17 @@
 <div class="grid profiles">
   <section
-    class="card card--flush span-4"
+    libCard
+    flush
+    class="span-4"
     aria-labelledby="profiles-title"
     data-testid="profiles-panel"
   >
     <div class="cluster cluster--between profiles__header">
-      <h2 class="card__title" id="profiles-title" data-testid="profiles-panel-title">
-        My Profiles
-      </h2>
+      <h2 libCardTitle id="profiles-title" data-testid="profiles-panel-title">My Profiles</h2>
       <button
-        class="btn btn--ghost btn--sm"
+        libButton
+        variant="ghost"
+        size="sm"
         type="button"
         data-testid="profiles-edit-link"
         (click)="enterEditMode()"
@@ -17,26 +19,28 @@
         Edit
       </button>
     </div>
-    <ul class="list profiles__list">
+    <ul libList class="profiles__list">
       @for (p of profiles; track p; let i = $index) {
         <li
-          class="list__item profiles__item"
+          libListItem
+          class="profiles__item"
           data-testid="profile-card"
           [class.profiles__item--selected]="currentProfile === p"
           (click)="switchProfile(i)"
         >
-          <div class="list__body">
+          <div libListBody>
             <button
-              class="list__title profiles__select"
+              libListTitle
+              class="profiles__select"
               type="button"
               [attr.aria-current]="currentProfile === p || null"
             >
               {{ p.firstname || p.firstName }} {{ p.lastname || p.lastName }}
             </button>
-            <div class="list__meta">{{ getProfileTypeLabel(p) }}</div>
+            <div libListMeta>{{ getProfileTypeLabel(p) }}</div>
           </div>
           @if (i === 0) {
-            <span class="badge badge--success" data-testid="profile-active-badge">Active</span>
+            <span libBadge tone="success" data-testid="profile-active-badge">Active</span>
           }
         </li>
       }
@@ -46,26 +50,25 @@
   <div class="stack span-8">
     @if (editMode) {
       <form
-        class="card stack"
+        libCard
+        class="stack"
         aria-labelledby="edit-title"
         novalidate
         data-testid="profile-edit-panel"
         [formGroup]="profileForm"
         (ngSubmit)="saveProfile()"
       >
-        <h2 class="card__title" id="edit-title" data-testid="profile-edit-title">
+        <h2 libCardTitle id="edit-title" data-testid="profile-edit-title">
           Edit {{ getProfileTypeLabel(currentProfile).toLowerCase() }} profile
         </h2>
         <div class="cluster" data-testid="profile-avatar">
-          <span class="avatar avatar--xl" aria-hidden="true">{{ getInitials() }}</span>
-          <button class="btn" type="button" data-testid="profile-change-avatar">
-            Change Avatar
-          </button>
+          <span libAvatar size="xl" aria-hidden="true">{{ getInitials() }}</span>
+          <button libButton type="button" data-testid="profile-change-avatar">Change Avatar</button>
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-first">First Name</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-first">First Name</label>
           <input
-            class="input"
+            libTextField
             id="pf-first"
             type="text"
             autocomplete="given-name"
@@ -75,15 +78,15 @@
             [attr.aria-describedby]="firstNameInvalid ? 'pf-first-error' : null"
           />
           @if (firstNameInvalid) {
-            <p class="field__error" id="pf-first-error" data-testid="profile-first-name-error">
+            <p libFieldError id="pf-first-error" data-testid="profile-first-name-error">
               First name is required
             </p>
           }
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-last">Last Name</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-last">Last Name</label>
           <input
-            class="input"
+            libTextField
             id="pf-last"
             type="text"
             autocomplete="family-name"
@@ -93,15 +96,15 @@
             [attr.aria-describedby]="lastNameInvalid ? 'pf-last-error' : null"
           />
           @if (lastNameInvalid) {
-            <p class="field__error" id="pf-last-error" data-testid="profile-last-name-error">
+            <p libFieldError id="pf-last-error" data-testid="profile-last-name-error">
               Last name is required
             </p>
           }
         </div>
-        <div class="field">
-          <label class="field__label" for="pf-phone">Phone</label>
+        <div libFormField>
+          <label libFieldLabel for="pf-phone">Phone</label>
           <input
-            class="input"
+            libTextField
             id="pf-phone"
             type="tel"
             autocomplete="tel"
@@ -110,10 +113,10 @@
           />
         </div>
         @if (isBoardMember(currentProfile)) {
-          <div class="field">
-            <label class="field__label" for="pf-board-title">Board Title</label>
+          <div libFormField>
+            <label libFieldLabel for="pf-board-title">Board Title</label>
             <input
-              class="input"
+              libTextField
               id="pf-board-title"
               type="text"
               formControlName="boardTitle"
@@ -122,26 +125,26 @@
           </div>
         }
         <div class="form-actions">
-          <button type="button" class="btn" data-testid="profile-cancel" (click)="cancelEdit()">
+          <button type="button" libButton data-testid="profile-cancel" (click)="cancelEdit()">
             Cancel
           </button>
-          <button type="submit" class="btn btn--primary" data-testid="profile-save">
+          <button type="submit" libButton variant="primary" data-testid="profile-save">
             Save Changes
           </button>
         </div>
         <div role="status" aria-live="polite">
           @if (successMessage) {
-            <div class="alert alert--success" data-testid="profile-success-message">
-              <svg appIcon="success"></svg>
-              <div class="alert__body">{{ successMessage }}</div>
+            <div libAlert tone="success" data-testid="profile-success-message">
+              <svg libIcon="success"></svg>
+              <div libAlertBody>{{ successMessage }}</div>
             </div>
           }
         </div>
       </form>
     } @else {
-      <section class="card stack" aria-labelledby="profile-name">
+      <section libCard class="stack" aria-labelledby="profile-name">
         <div class="cluster">
-          <span class="avatar avatar--xl" aria-hidden="true" data-testid="profile-avatar">{{
+          <span libAvatar size="xl" aria-hidden="true" data-testid="profile-avatar">{{
             getInitials()
           }}</span>
           <h2 class="profiles__name" id="profile-name" data-testid="profile-display-name">
@@ -159,36 +162,37 @@
         </div>
         <div class="cluster">
           <button
-            class="btn btn--primary"
+            libButton
+            variant="primary"
             type="button"
             data-testid="profile-edit-btn"
             (click)="enterEditMode()"
           >
-            <svg appIcon="edit"></svg>Edit Profile
+            <svg libIcon="edit"></svg>Edit Profile
           </button>
           <button
-            class="btn"
+            libButton
             type="button"
             data-testid="profile-change-password-btn"
             [attr.aria-expanded]="showPasswordForm"
             (click)="showPasswordForm = !showPasswordForm"
           >
-            <svg appIcon="lock"></svg>Change Password
+            <svg libIcon="lock"></svg>Change Password
           </button>
-          <button class="btn" type="button" data-testid="profile-logout-btn" (click)="logout()">
-            <svg appIcon="sign-out"></svg>Logout
+          <button libButton type="button" data-testid="profile-logout-btn" (click)="logout()">
+            <svg libIcon="sign-out"></svg>Logout
           </button>
         </div>
       </section>
     }
 
     @if (showPasswordForm) {
-      <section class="card stack" aria-labelledby="password-title">
-        <h2 class="card__title" id="password-title">Change Password</h2>
-        <div class="field">
-          <label class="field__label" for="pw-current">Current Password</label>
+      <section libCard class="stack" aria-labelledby="password-title">
+        <h2 libCardTitle id="password-title">Change Password</h2>
+        <div libFormField>
+          <label libFieldLabel for="pw-current">Current Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-current"
             type="password"
             autocomplete="current-password"
@@ -196,10 +200,10 @@
             data-testid="profile-current-password"
           />
         </div>
-        <div class="field">
-          <label class="field__label" for="pw-new">New Password</label>
+        <div libFormField>
+          <label libFieldLabel for="pw-new">New Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-new"
             type="password"
             autocomplete="new-password"
@@ -207,10 +211,10 @@
             data-testid="profile-new-password"
           />
         </div>
-        <div class="field">
-          <label class="field__label" for="pw-confirm">Confirm New Password</label>
+        <div libFormField>
+          <label libFieldLabel for="pw-confirm">Confirm New Password</label>
           <input
-            class="input"
+            libTextField
             id="pw-confirm"
             type="password"
             autocomplete="new-password"
@@ -220,7 +224,8 @@
         </div>
         <div class="form-actions">
           <button
-            class="btn btn--primary"
+            libButton
+            variant="primary"
             type="button"
             data-testid="profile-update-password-btn"
             (click)="updatePassword()"

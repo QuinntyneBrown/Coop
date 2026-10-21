@@ -1,0 +1,28 @@
+// Metric card icon (docs/design-system/components/metric-card.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--size-avatar-lg);
+  height: var(--size-avatar-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-subtle);
+  color: var(--color-fg-accent);
+}
+
+:host(:where(.metric-card__icon--warning)) {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-fg);
+}
+
+:host(:where(.metric-card__icon--success)) {
+  background: var(--color-success-bg);
+  color: var(--color-success-fg);
+}
+
+:host(:where(.metric-card__icon--info)) {
+  background: var(--color-info-bg);
+  color: var(--color-info-fg);
+}

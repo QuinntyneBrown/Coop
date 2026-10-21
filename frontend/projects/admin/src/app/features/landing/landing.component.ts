@@ -2,6 +2,22 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import {
+  AvatarComponent,
+  ButtonComponent,
+  CardComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+  LogoMarkComponent,
+  NavLinkComponent,
+  SkipLinkComponent,
+  TopBarBrandComponent,
+  TopBarComponent,
+  TopBarSpacerComponent,
+} from 'components';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { DocumentService } from '../../core/services/document.service';
 import { BoardService } from '../../core/services/board.service';
@@ -10,7 +26,24 @@ import type { Director } from '../../core/models/director';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [DatePipe, RouterLink],
+  imports: [
+    DatePipe,
+    RouterLink,
+    ButtonComponent,
+    AvatarComponent,
+    CardComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+    LogoMarkComponent,
+    NavLinkComponent,
+    SkipLinkComponent,
+    TopBarBrandComponent,
+    TopBarComponent,
+    TopBarSpacerComponent,
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

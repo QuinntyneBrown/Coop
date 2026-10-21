@@ -8,14 +8,67 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  ButtonComponent,
+  CardComponent,
+  DescriptionListComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTitleComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  PictureListComponent,
+  PictureListGridComponent,
+  PictureListItemComponent,
+  PictureListNoteComponent,
+  PictureListThumbComponent,
+  ProgressComponent,
+  SearchFieldComponent,
+  TextFieldComponent,
+} from 'components';
 import { DigitalAssetService } from '../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-assets',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [
+    CommonModule,
+    IconComponent,
+    ButtonComponent,
+    CardComponent,
+    DescriptionListComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTitleComponent,
+    PictureListComponent,
+    PictureListGridComponent,
+    PictureListItemComponent,
+    PictureListNoteComponent,
+    PictureListThumbComponent,
+    ProgressComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './assets.component.html',
   styleUrl: './assets.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -31,9 +84,18 @@ export class AssetsComponent implements OnInit, AfterViewChecked {
   uploadProgressValue = -1;
   selectedFile: File | null = null;
 
-  private readonly uploadDialog = viewChild<ElementRef<HTMLDialogElement>>('uploadDialog');
-  private readonly detailDialog = viewChild<ElementRef<HTMLDialogElement>>('detailDialog');
-  private readonly deleteDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDialog');
+  private readonly uploadDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'uploadDialog',
+    { read: ElementRef },
+  );
+  private readonly detailDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'detailDialog',
+    { read: ElementRef },
+  );
+  private readonly deleteDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'deleteDialog',
+    { read: ElementRef },
+  );
 
   // The flags above decide which dialog is open; the native dialogs follow them.
   // Closing runs first so the delete confirmation can replace the detail dialog.

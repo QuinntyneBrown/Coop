@@ -77,17 +77,19 @@ these locations and move existing files here as areas are touched:
 - `docs/mocks/` — static design reference
 - `docs/design-system/` — tokens, component styles, and pages for the admin
   site, adopted from the Shelfie design system; the admin app loads its
-  `tokens.css` and `components.css` directly (ADR 0009)
+  `tokens.css` directly (ADR 0009), and `components.css` is the design
+  reference that the library's components implement (ADR 0010)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing
   the areas they cover
 - `docs/videos/` — narrated videos (script, slides, captions, MP3/MP4)
 - `docs/pitch/` — board pitch page, handout, and slide deck
 - `tools/` — video tooling (`video-audio/`, `video-build/`)
 
-All areas have moved to this layout. The `api` and `components` libraries in
-`frontend/projects/` are still scaffolds, `backend/tests/` holds only
-`Coop.Api.Tests`, and `Coop.Cli` does not exist yet. Update this note and
-`README.md` when that changes.
+All areas have moved to this layout. The `api` library in `frontend/projects/`
+is still a scaffold; the `components` library holds the design system's
+presentation components that the admin uses, and the public app does not use
+it yet. `backend/tests/` holds only `Coop.Api.Tests`, and `Coop.Cli` does not
+exist yet. Update this note and `README.md` when that changes.
 
 See `README.md` for setup and development commands.
 
@@ -153,6 +155,16 @@ test-project patterns when adding coverage.
 
 - Preserve the mock's visual classes and accessible state semantics in the
   application.
+- Build each design-system presentation component once, in the `components`
+  library at `frontend/projects/components/src/lib`, with its own class,
+  template and styles, and export it from `public-api.ts`. App templates use
+  these components (for example `<button libButton variant="primary">`)
+  instead of writing the design system's markup by hand. A component may stay
+  in an app only if it needs the `api` project, holds feature logic, or is
+  used once and is only layout; list it in the library's detailed design
+  (`docs/detailed-designs/admin-app/components-library/`) with the reason
+  (ADR 0010). Components that use the `api` project stay in the apps. The
+  CMS-driven public app is the exception and keeps its own styles.
 - Keep business rules and view-model logic in plain TypeScript beside the
   feature, not in templates or shared visual components.
 - Keep component styles encapsulated and global styles limited to shared

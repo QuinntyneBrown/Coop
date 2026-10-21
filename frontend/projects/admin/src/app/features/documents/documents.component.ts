@@ -9,25 +9,102 @@ import {
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
+import {
+  AlertBodyComponent,
+  AlertComponent,
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  CheckboxComponent,
+  CheckboxTextComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  IconName,
+  LoadingComponent,
+  SearchFieldComponent,
+  SelectComponent,
+  SpinnerComponent,
+  TabComponent,
+  TabPanelComponent,
+  TabsComponent,
+  TextFieldComponent,
+  TextareaComponent,
+} from 'components';
 import { DocumentService } from '../../core/services/document.service';
 import { noticeNotSentMessage, noticeSentMessage } from './notice-messages';
 import { documentTypeLabel } from './document-type-label';
-import { IconComponent } from '../../shared/components/icon.component';
-import { IconName } from '../../shared/components/icon-name';
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [DatePipe, FormsModule, IconComponent],
+  imports: [
+    DatePipe,
+    FormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    CheckboxComponent,
+    CheckboxTextComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    TextareaComponent,
+    TabComponent,
+    TabPanelComponent,
+    TabsComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class DocumentsComponent implements OnInit {
   private documentService = inject(DocumentService);
-  private readonly documentDialog = viewChild<ElementRef<HTMLDialogElement>>('documentDialog');
-  private readonly deleteDocDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDocDialog');
-  private readonly viewerDialog = viewChild<ElementRef<HTMLDialogElement>>('viewerDialog');
+  private readonly documentDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'documentDialog',
+    { read: ElementRef },
+  );
+  private readonly deleteDocDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'deleteDocDialog',
+    { read: ElementRef },
+  );
+  private readonly viewerDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'viewerDialog',
+    { read: ElementRef },
+  );
 
   readonly filterTabs = [
     { filter: 'all', label: 'All Documents' },

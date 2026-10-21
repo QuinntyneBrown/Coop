@@ -1,0 +1,60 @@
+// Radio option (docs/design-system/components/radio-group.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  cursor: pointer;
+  font: var(--text-body);
+  padding-block: var(--space-1);
+  min-height: var(--target-min);
+}
+
+:host ::ng-deep input {
+  appearance: none;
+  flex: none;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  margin: var(--space-0-5) 0 0;
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-surface);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+:host ::ng-deep input:hover {
+  border-color: var(--color-fg-muted);
+}
+
+:host ::ng-deep input:checked {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+:host ::ng-deep input:checked::before {
+  content: '';
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-fg-on-accent);
+}
+
+:host ::ng-deep input:disabled {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-default);
+  cursor: not-allowed;
+}
+
+:host ::ng-deep input:disabled + * {
+  color: var(--color-fg-disabled);
+}
+
+:host ::ng-deep input[aria-invalid='true'] {
+  border-color: var(--color-danger-solid);
+}

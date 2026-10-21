@@ -1,0 +1,71 @@
+// Badge (docs/design-system/components/badge.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  min-height: var(--target-min);
+  border-radius: var(--radius-full);
+  font: var(--text-overline);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-muted);
+  white-space: nowrap;
+}
+
+:host::before {
+  content: '';
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+:host(:where(.badge--info)) {
+  background: var(--color-info-bg);
+  color: var(--color-info-fg);
+}
+
+:host(:where(.badge--success)) {
+  background: var(--color-success-bg);
+  color: var(--color-success-fg);
+}
+
+:host(:where(.badge--warning)) {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-fg);
+}
+
+:host(:where(.badge--count)) {
+  min-width: var(--target-min);
+  justify-content: center;
+  padding-inline: var(--space-1);
+  background: var(--color-danger-solid);
+  color: var(--color-fg-on-danger);
+  font-variant-numeric: tabular-nums;
+}
+
+:host(:where(.badge--count))::before {
+  display: none;
+}
+
+// Badge tones the admin statuses need.
+:host(:where(.badge--danger)) {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-fg);
+}
+
+:host(:where(.badge--neutral)) {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-muted);
+}
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    border: var(--border-width-hairline) solid CanvasText;
+  }
+}

@@ -303,6 +303,15 @@
         <tr><td><code>.empty__text</code></td><td>Muted, 36ch max.</td></tr>
         <tr><td><code>.empty__actions</code></td><td>Centred, wrapping button row.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/empty-state/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>EmptyStateActionsComponent</code></td><td><code>div[libEmptyStateActions]</code></td><td>None</td></tr>
+        <tr><td><code>EmptyStateIconComponent</code></td><td><code>div[libEmptyStateIcon]</code>, <code>span[libEmptyStateIcon]</code></td><td>None</td></tr>
+        <tr><td><code>EmptyStateTextComponent</code></td><td><code>p[libEmptyStateText]</code></td><td>None</td></tr>
+        <tr><td><code>EmptyStateTitleComponent</code></td><td><code>h2[libEmptyStateTitle]</code></td><td>None</td></tr>
+        <tr><td><code>EmptyStateComponent</code></td><td><code>div[libEmptyState]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

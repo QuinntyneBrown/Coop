@@ -1,11 +1,27 @@
-// Below 768px the design system hides the sidebar behind the tab bar's More
-// dialog. The admin has no More dialog yet, so the sidebar stays in flow above
-// the page on phones and every section remains reachable.
-@media (max-width: 47.99rem) {
-  .sidebar {
-    display: flex;
-    width: 100%;
-    border-right: 0;
-    border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+// The app shell, used only here (docs/design-system/components/sidebar.html).
+// Phones: one column with the bottom tab bar. From 768px the sidebar sits
+// beside the content.
+.app-shell {
+  min-height: 100dvh;
+}
+
+.app-shell__main {
+  min-width: 0;
+  padding-inline: var(--layout-margin);
+  padding-bottom: var(--space-12);
+}
+
+.has-tabbar {
+  padding-bottom: calc(var(--layout-tabbar-height) + var(--space-6));
+}
+
+@media (min-width: 48rem) {
+  .has-tabbar {
+    padding-bottom: 0;
+  }
+
+  .app-shell {
+    display: grid;
+    grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr);
   }
 }

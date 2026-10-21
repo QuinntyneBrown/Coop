@@ -10,6 +10,37 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  AlertTitleComponent,
+  AvatarComponent,
+  AvatarImageComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogIconComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateActionsComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  EmptyStateTitleComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  LoadingComponent,
+  SpinnerComponent,
+  TextFieldComponent,
+} from 'components';
 import { BoardService } from '../../core/services/board.service';
 import type { Director } from '../../core/models/director';
 import type { DirectorDraft } from '../../core/models/director-draft';
@@ -18,7 +49,6 @@ import { directorFromDraft } from './director-from-draft';
 import { initialsOf } from './initials-of';
 import { moveDirector } from './move-director';
 import { validateDirectorDraft } from './validate-director-draft';
-import { IconComponent } from '../../shared/components/icon.component';
 
 type ListStatus = 'loading' | 'ready' | 'error';
 
@@ -36,7 +66,38 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [FormsModule, IconComponent],
+  imports: [
+    FormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    AvatarImageComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateActionsComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    EmptyStateTitleComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    AlertTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogIconComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,8 +106,14 @@ export class BoardComponent implements OnInit {
   private readonly boardService = inject(BoardService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
-  private readonly editorDialog = viewChild<ElementRef<HTMLDialogElement>>('editorDialog');
-  private readonly removeDialog = viewChild<ElementRef<HTMLDialogElement>>('removeDialog');
+  private readonly editorDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'editorDialog',
+    { read: ElementRef },
+  );
+  private readonly removeDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'removeDialog',
+    { read: ElementRef },
+  );
 
   readonly initialsOf = initialsOf;
 

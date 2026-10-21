@@ -140,10 +140,10 @@ provenance, and known differences from the requirements.
 | Public app | `frontend/projects/public` | Angular public and member application ([README](frontend/projects/public/README.md)) |
 | Admin app | `frontend/projects/admin` | Angular administration application ([README](frontend/projects/admin/README.md)) |
 | API library | `frontend/projects/api` | Angular library for service contracts and injection tokens; scaffold only so far |
-| Component library | `frontend/projects/components` | Angular library for design-system components; scaffold only so far |
+| Component library | `frontend/projects/components` | Angular library with the design system's presentation components and global foundations, used by the admin app (ADR 0010) |
 | E2E suite | `e2e` | Playwright projects for the public and admin apps; `tests/` express intent, `pages/` own selectors, `fixtures/` hold test data |
 | Design reference | `docs/mocks` | Static HTML references of both applications, with capture scripts and a manifest |
-| Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages for the admin site, adopted from the Shelfie design system; light and dark themes; loaded by the admin app |
+| Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages for the admin site, adopted from the Shelfie design system; light and dark themes; the admin app loads its tokens, and `components.css` is the design reference for the components library |
 | Requirements | `docs/specs` | L1 high-level and L2 detailed requirements with acceptance criteria |
 | Videos | `docs/videos`, `tools/` | Narrated videos built from a script and slides; tools in `tools/video-audio` and `tools/video-build` |
 | Board pitch | `docs/pitch` | Picture-first pitch page, one-page handout, and slide deck for the OWN board |

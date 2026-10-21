@@ -1,0 +1,12 @@
+// Checkbox text (docs/design-system/components/checkbox.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+:host ::ng-deep small {
+  color: var(--color-fg-muted);
+}

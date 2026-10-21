@@ -1,0 +1,32 @@
+// Navigation link (docs/design-system/components/sidebar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-comfortable);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  font: var(--text-label);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+  text-decoration: none;
+}
+
+:host([aria-current='page']) {
+  background: var(--color-accent-subtle);
+  color: var(--color-fg-accent);
+}
+
+.sidebar__nav :host {
+  width: 100%;
+}

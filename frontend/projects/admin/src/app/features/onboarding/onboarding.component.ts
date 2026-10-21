@@ -1,12 +1,34 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  ButtonComponent,
+  CardComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  LogoMarkComponent,
+  RadioComponent,
+  RadioTextComponent,
+  StepIndicatorComponent,
+  TextFieldComponent,
+} from 'components';
 import { ProfileService } from '../../core/services/profile.service';
 
 @Component({
   selector: 'app-onboarding',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    ButtonComponent,
+    CardComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    RadioComponent,
+    RadioTextComponent,
+    TextFieldComponent,
+    LogoMarkComponent,
+    StepIndicatorComponent,
+  ],
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

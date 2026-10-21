@@ -26,7 +26,7 @@ styles, beside the breakpoint the components already used.
 | Component | Narrow layout |
 |-----------|---------------|
 | `LayoutComponent` | The layout becomes a column: the menu sits above the screen instead of being hidden. |
-| `SidebarComponent` | The menu stops being fixed to the left edge, takes the full width and its natural height, and keeps every link and the signed-in user. |
+| `SidebarComponent` (`app-sidebar`, which draws the components library's `aside[libSidebar]`) | The menu stops being fixed to the left edge, takes the full width and its natural height, and keeps every link and the signed-in user. The phone rule sits in `layout/sidebar.component.scss`. |
 | `TopbarComponent` | The title and the search row wrap; the search field takes the full width and may shrink. |
 
 ### Admin screens

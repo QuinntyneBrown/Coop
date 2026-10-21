@@ -1,0 +1,32 @@
+// Divider (docs/design-system/components/divider.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  color: var(--color-fg-muted);
+  font: var(--text-body-sm);
+  text-align: center;
+}
+
+:host::before,
+:host::after {
+  content: '';
+  flex: 1;
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+:host(:where(.divider--rule)) {
+  display: block;
+  height: 0;
+  border: 0;
+  border-top: var(--border-width-hairline) solid var(--color-border-default);
+  margin-block: var(--space-4);
+}
+
+:host(:where(.divider--rule))::before,
+:host(:where(.divider--rule))::after {
+  content: none;
+}

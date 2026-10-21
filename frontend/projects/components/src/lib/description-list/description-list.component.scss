@@ -1,0 +1,37 @@
+// Description list (docs/design-system/components/description-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1) var(--space-6);
+  margin: 0;
+}
+
+:host ::ng-deep dt {
+  font: var(--text-label);
+  color: var(--color-fg-muted);
+}
+
+:host ::ng-deep dd {
+  margin: 0 0 var(--space-3);
+  color: var(--color-fg-default);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 40rem) {
+  :host(:where(.dl--horizontal)) {
+    grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr);
+    gap: 0 var(--space-6);
+  }
+
+  :host(:where(.dl--horizontal)) ::ng-deep dd {
+    margin-bottom: 0;
+  }
+
+  :host(:where(.dl--horizontal)) ::ng-deep dt,
+  :host(:where(.dl--horizontal)) ::ng-deep dd {
+    padding-block: var(--space-2);
+    border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+  }
+}

@@ -1,0 +1,10 @@
+// Photo picker body (docs/design-system/components/photo-picker.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  flex: 1;
+  min-width: 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

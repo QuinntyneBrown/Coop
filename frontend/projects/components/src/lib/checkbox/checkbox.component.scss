@@ -1,0 +1,77 @@
+// Checkbox (docs/design-system/components/checkbox.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  cursor: pointer;
+  font: var(--text-body);
+  padding-block: var(--space-1);
+  min-height: var(--target-min);
+}
+
+:host ::ng-deep input {
+  appearance: none;
+  flex: none;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  margin: var(--space-0-5) 0 0;
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+:host ::ng-deep input:hover {
+  border-color: var(--color-fg-muted);
+}
+
+:host ::ng-deep input:checked,
+:host ::ng-deep input:indeterminate {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+:host ::ng-deep input:checked::before {
+  content: '';
+  width: calc(var(--size-icon-md) * 0.3);
+  height: calc(var(--size-icon-md) * 0.55);
+  margin-top: calc(-1 * var(--space-0-5));
+  border: solid var(--color-fg-on-accent);
+  border-width: 0 var(--border-width-thick) var(--border-width-thick) 0;
+  rotate: 45deg;
+}
+
+:host ::ng-deep input:indeterminate::before {
+  content: '';
+  width: calc(var(--size-icon-md) * 0.5);
+  height: var(--border-width-thick);
+  background: var(--color-fg-on-accent);
+}
+
+:host ::ng-deep input:disabled {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-default);
+  cursor: not-allowed;
+}
+
+:host ::ng-deep input:disabled + * {
+  color: var(--color-fg-disabled);
+}
+
+:host ::ng-deep input[aria-invalid='true'] {
+  border-color: var(--color-danger-solid);
+}
+
+@media (forced-colors: active) {
+  :host ::ng-deep input {
+    forced-color-adjust: none;
+    border: var(--border-width-hairline) solid CanvasText;
+  }
+}

@@ -1,0 +1,13 @@
+// Pagination (docs/design-system/components/pagination.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-body-sm);
+  color: var(--color-fg-muted);
+}

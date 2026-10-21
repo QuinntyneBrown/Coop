@@ -7,13 +7,37 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import {
+  AlertActionsComponent,
+  AlertBodyComponent,
+  AlertComponent,
+  ButtonComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
+  IconComponent,
+  InlineStatusComponent,
+  LoadingComponent,
+  PictureListAddComponent,
+  PictureListChoiceComponent,
+  PictureListComponent,
+  PictureListGridComponent,
+  SpinnerComponent,
+} from 'components';
 import { ApiService } from '../../../core/services/api.service';
 import { DigitalAssetService } from '../../../core/services/digital-asset.service';
 import type { LibraryPhoto } from './library-photo';
 import { measurePhoto } from './measure-photo';
 import type { PickedPhoto } from './picked-photo';
 import { photoFileError } from './photo-file-error';
-import { IconComponent } from '../../../shared/components/icon.component';
 
 type LibraryStatus = 'loading' | 'ready' | 'error';
 
@@ -26,7 +50,31 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-photo-picker',
   standalone: true,
-  imports: [IconComponent],
+  imports: [
+    IconComponent,
+    ButtonComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    PictureListAddComponent,
+    PictureListChoiceComponent,
+    PictureListComponent,
+    PictureListGridComponent,
+    AlertActionsComponent,
+    AlertBodyComponent,
+    AlertComponent,
+    InlineStatusComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './photo-picker.component.html',
   styleUrl: './photo-picker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,7 +82,9 @@ type LibraryStatus = 'loading' | 'ready' | 'error';
 export class PhotoPickerComponent {
   private readonly assets = inject(DigitalAssetService);
   private readonly api = inject(ApiService);
-  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
+  private readonly dialog = viewChild.required<unknown, ElementRef<HTMLDialogElement>>('dialog', {
+    read: ElementRef,
+  });
 
   readonly picked = output<PickedPhoto>();
 

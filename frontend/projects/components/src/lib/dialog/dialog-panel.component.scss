@@ -1,0 +1,37 @@
+// Dialog panel (docs/design-system/components/dialog.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  width: 100%;
+  max-width: 32rem;
+  max-height: calc(100dvh - var(--space-12));
+  overflow: auto;
+  background: var(--color-bg-surface-raised);
+  color: var(--color-fg-default);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  box-shadow: var(--shadow-4);
+  animation: slide-up var(--duration-slow) var(--ease-enter);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 40rem) {
+  :host {
+    border-radius: var(--radius-lg);
+    animation-name: scale-in;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    translate: 0 var(--space-4);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+}

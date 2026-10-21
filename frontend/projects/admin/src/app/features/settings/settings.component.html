@@ -5,25 +5,30 @@
 </div>
 <div role="status" aria-live="polite">
   @if (successMsg) {
-    <div class="alert alert--success settings-alert" data-testid="settings-success-message">
-      <svg appIcon="success"></svg>
-      <div class="alert__body">{{ successMsg }}</div>
+    <div libAlert tone="success" class="settings-alert" data-testid="settings-success-message">
+      <svg libIcon="success"></svg>
+      <div libAlertBody>{{ successMsg }}</div>
     </div>
   }
 </div>
 @if (errorMsg) {
-  <div class="alert alert--danger settings-alert" role="alert" data-testid="settings-error-message">
-    <svg appIcon="error"></svg>
-    <div class="alert__body">{{ errorMsg }}</div>
+  <div
+    libAlert
+    tone="danger"
+    class="settings-alert"
+    role="alert"
+    data-testid="settings-error-message"
+  >
+    <svg libIcon="error"></svg>
+    <div libAlertBody>{{ errorMsg }}</div>
   </div>
 }
 
-<div class="tabs" role="tablist" aria-label="Settings">
+<div libTabs aria-label="Settings">
   @for (tab of tabs; track tab.id) {
     <button
-      class="tabs__tab"
+      libTab
       type="button"
-      role="tab"
       [id]="'settings-tab-' + tab.id"
       [attr.aria-selected]="activeTab === tab.id"
       [attr.aria-controls]="'settings-panel-' + tab.id"
@@ -37,8 +42,7 @@
 </div>
 
 <div
-  class="tabs__panel"
-  role="tabpanel"
+  libTabPanel
   tabindex="0"
   [id]="'settings-panel-' + activeTab"
   [attr.aria-labelledby]="'settings-tab-' + activeTab"
@@ -46,15 +50,16 @@
   <!-- Theme Tab -->
   @if (activeTab === 'theme') {
     <div class="grid">
-      <div class="card stack span-7">
-        <h2 class="card__title" data-testid="theme-heading">Theme Customization</h2>
+      <div libCard class="stack span-7">
+        <h2 libCardTitle data-testid="theme-heading">Theme Customization</h2>
         <p class="text-muted" data-testid="theme-subtitle">
           Choose the colours for the app. The preview shows your changes before you save.
         </p>
-        <div class="field">
-          <label class="field__label" for="theme-scope">Scope</label>
+        <div libFormField>
+          <label libFieldLabel for="theme-scope">Scope</label>
           <select
-            class="select theme-scope"
+            libSelect
+            class="theme-scope"
             id="theme-scope"
             data-testid="theme-scope-select"
             [formControl]="scopeControl"
@@ -65,8 +70,8 @@
         </div>
         <form class="stack" novalidate [formGroup]="themeForm">
           @for (colour of colours; track colour.control) {
-            <div class="field">
-              <label class="field__label" [for]="'theme-' + colour.id">{{ colour.label }}</label>
+            <div libFormField>
+              <label libFieldLabel [for]="'theme-' + colour.id">{{ colour.label }}</label>
               <div class="cluster theme-colour">
                 <span
                   class="theme-swatch"
@@ -75,7 +80,7 @@
                   [style.background]="themeForm.value[colour.control]"
                 ></span>
                 <input
-                  class="input"
+                  libTextField
                   type="text"
                   autocomplete="off"
                   spellcheck="false"
@@ -89,7 +94,8 @@
         </form>
         <div class="form-actions theme-actions">
           <button
-            class="btn btn--ghost"
+            libButton
+            variant="ghost"
             type="button"
             data-testid="theme-reset-default"
             (click)="resetTheme()"
@@ -97,7 +103,8 @@
             Reset to Default
           </button>
           <button
-            class="btn btn--primary"
+            libButton
+            variant="primary"
             type="button"
             data-testid="theme-save-button"
             (click)="saveTheme()"
@@ -107,11 +114,12 @@
         </div>
       </div>
       <section
-        class="card stack span-5"
+        libCard
+        class="stack span-5"
         aria-labelledby="theme-preview-title"
         data-testid="theme-preview"
       >
-        <h2 class="card__title" id="theme-preview-title">Preview</h2>
+        <h2 libCardTitle id="theme-preview-title">Preview</h2>
         <div class="theme-preview" [style.background]="themeForm.value.backgroundColor">
           <p class="theme-preview__header" [style.background]="themeForm.value.primaryColor">
             OWN Housing Co-op
@@ -132,16 +140,16 @@
 
   <!-- Content Tab -->
   @if (activeTab === 'content') {
-    <div class="card stack">
-      <h2 class="card__title">Content Management</h2>
+    <div libCard class="stack">
+      <h2 libCardTitle>Content Management</h2>
       <p class="text-muted">Manage your cooperative's content and CMS settings.</p>
     </div>
   }
 
   <!-- Account Tab -->
   @if (activeTab === 'account') {
-    <div class="card stack">
-      <h2 class="card__title">Account Settings</h2>
+    <div libCard class="stack">
+      <h2 libCardTitle>Account Settings</h2>
       <p class="text-muted">Manage your account preferences and security settings.</p>
     </div>
   }

@@ -1,0 +1,40 @@
+// Step indicator (docs/design-system/components/step-indicator.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// A row of dots and "Step N of M"; the dots are decorative, the text is the information.
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: 0;
+  font: var(--text-caption);
+  color: var(--color-fg-muted);
+}
+
+.steps__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.steps__dot {
+  display: block;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transition:
+    width var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
+}
+
+.steps__dot--done {
+  background: var(--color-accent);
+  opacity: 0.5;
+}
+
+.steps__dot--current {
+  width: var(--space-5);
+  background: var(--color-accent);
+}

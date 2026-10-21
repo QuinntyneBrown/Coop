@@ -1,0 +1,23 @@
+// Text field (docs/design-system/components/text-field.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+@use 'text-control';
+
+:host {
+  @include text-control.base;
+}
+
+@include text-control.states;
+
+// In a search field: room for the magnifier, and a pill shape.
+.search :host {
+  padding-left: calc(var(--space-3) + var(--size-icon-md) + var(--space-2));
+  padding-right: calc(var(--control-height-md) + var(--space-1));
+  border-radius: var(--radius-full);
+}
+
+.search :host::-webkit-search-cancel-button {
+  display: none;
+}
+
+@include text-control.forced-colors;

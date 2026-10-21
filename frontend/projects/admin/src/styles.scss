@@ -1,34 +1,11 @@
-// The admin loads docs/design-system/tokens/tokens.css and
-// docs/design-system/assets/components.css before this file (see angular.json).
-// Keep only what those stylesheets do not cover for the running app.
+// The admin loads docs/design-system/tokens/tokens.css and the components
+// library's styles/foundations.scss before this file (see angular.json); the
+// library's components carry their own styles (ADR 0010). Keep only what those
+// do not cover for the running app.
 
 button,
 input,
 select,
 textarea {
   font: inherit;
-}
-
-// Native <dialog> adapter. Dialogs open with showModal() and use the design
-// system's .dialog > .dialog__panel structure: a bottom sheet on phones and a
-// centred panel from 40rem. The dialog element itself fills the viewport so
-// .dialog can place the panel; ::backdrop replaces the mocks' .backdrop.
-dialog.dialog {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-fg-default);
-  overflow: visible;
-}
-
-dialog.dialog:not([open]) {
-  display: none;
-}
-
-dialog.dialog::backdrop {
-  background: var(--color-bg-backdrop);
 }

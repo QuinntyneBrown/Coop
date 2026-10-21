@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Design-system components library
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(screens, "Feature screens", "Angular standalone components", "Login, Dashboard, Users, Pages and the other screens; feature logic and services")
+  Component(layout, "LayoutComponent and SidebarComponent", "Angular standalone components", "App shell, sidebar with the signed-in user, phone tab bar")
+  Component(globals, "Global styles", "CSS and SCSS", "tokens.css, foundations.scss, styles.scss")
+}
+Container_Boundary(library, "components library (frontend/projects/components)") {
+  Component(presentation, "Presentation components", "Angular standalone components", "button[libButton], div[libFormField], dialog[libDialog] and the rest; template and encapsulated .scss each")
+  Component(icon, "IconComponent", "Angular standalone component", "svg[libIcon] with the names in icon-name.ts")
+  Component(foundations, "foundations.scss", "SCSS", "Base element styles, focus ring, utilities and layout primitives")
+}
+Container_Boundary(designSystem, "Design system (docs/design-system)") {
+  Component(tokens, "tokens.css", "CSS custom properties", "Colour, type, space and motion tokens by role")
+  Component(reference, "components.css", "CSS", "Design reference loaded by the mocks and the design system's pages")
+}
+Rel(screens, presentation, "Draws its markup with")
+Rel(screens, icon, "Draws icons with")
+Rel(layout, presentation, "Draws the sidebar and tab bar with")
+Rel(globals, foundations, "Loads")
+Rel(globals, tokens, "Loads")
+Rel(presentation, tokens, "Styles with tokens by role")
+Rel(presentation, reference, "Carries the rules of", "same classes")
+@enduml

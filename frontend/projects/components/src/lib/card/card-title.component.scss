@@ -1,0 +1,16 @@
+// Card title (docs/design-system/components/card.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-h4);
+  margin-bottom: var(--space-4);
+}
+
+.stack > :host {
+  margin-bottom: 0;
+}
+
+.card--flush > :host {
+  padding: var(--space-4) var(--space-4) 0;
+  margin-bottom: 0;
+}

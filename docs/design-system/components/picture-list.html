@@ -298,6 +298,17 @@
         <tr><td><code>.picture-list__add</code></td><td>The upload: a <code>label.btn</code> around a hidden file input, with its focus ring.</td></tr>
         <tr><td><code>.picture-list__item--failed</code>, <code>__thumb[aria-busy]</code>, <code>__remove</code>, <code>--featured</code></td><td>Available in <code>components.css</code> but not used by the admin: it shows upload progress and errors in the status line, and deletes from the Asset details dialog.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/picture-list/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>PictureListAddComponent</code></td><td><code>div[libPictureListAdd]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListChoiceComponent</code></td><td><code>button[libPictureListChoice]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListGridComponent</code></td><td><code>ul[libPictureListGrid]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListItemComponent</code></td><td><code>li[libPictureListItem]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListNoteComponent</code></td><td><code>span[libPictureListNote]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListThumbComponent</code></td><td><code>div[libPictureListThumb]</code>, <code>span[libPictureListThumb]</code>, <code>a[libPictureListThumb]</code></td><td>None</td></tr>
+        <tr><td><code>PictureListComponent</code></td><td><code>div[libPictureList]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -1,0 +1,7 @@
+// Field help (docs/design-system/components/form-field.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-body-sm);
+  color: var(--color-fg-muted);
+}

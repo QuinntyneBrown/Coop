@@ -1,15 +1,16 @@
-.logo-mark__tile {
-  fill: var(--color-accent);
+// The host only wraps the library's aside, which is the grid item of the app shell.
+:host {
+  display: contents;
 }
 
-.logo-mark__left {
-  fill: var(--color-accent-subtle);
-}
-
-.logo-mark__right {
-  fill: var(--color-accent-subtle-hover);
-}
-
-.logo-mark__top {
-  fill: var(--color-bg-surface);
+// Below 768px the design system hides the sidebar behind the tab bar's More
+// dialog. The admin has no More dialog yet, so the sidebar stays in flow above
+// the page on phones and every section remains reachable.
+@media (max-width: 47.99rem) {
+  .sidebar {
+    display: flex;
+    width: 100%;
+    border-right: 0;
+    border-bottom: var(--border-width-hairline) solid var(--color-border-default);
+  }
 }

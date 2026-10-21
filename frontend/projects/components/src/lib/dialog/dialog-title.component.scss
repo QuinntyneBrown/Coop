@@ -1,0 +1,13 @@
+// Dialog title (docs/design-system/components/dialog.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-h4);
+  flex: 1;
+}
+
+@media (min-width: 40rem) {
+  :host {
+    font: var(--text-h3);
+  }
+}

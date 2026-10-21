@@ -2,19 +2,7 @@
   <div class="auth-card stack">
     <div class="stack login-brand" data-testid="login-hero-panel">
       <div class="logo">
-        <span class="logo-mark" aria-hidden="true">
-          <svg
-            viewBox="0 0 48 48"
-            aria-hidden="true"
-            focusable="false"
-            data-testid="login-hero-icon"
-          >
-            <rect width="48" height="48" rx="14" style="fill: var(--color-accent)" />
-            <circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle)" />
-            <circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover)" />
-            <circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface)" />
-          </svg>
-        </span>
+        <span libLogoMark data-testid="login-hero-icon"></span>
       </div>
       <p class="text-caption login-centred">
         <span data-testid="login-hero-title">OWN Housing Co-op</span> ·
@@ -22,7 +10,7 @@
       </p>
     </div>
 
-    <div class="card stack" data-testid="login-form-panel">
+    <div libCard class="stack" data-testid="login-form-panel">
       <h1 class="login-heading" data-testid="login-heading">Welcome back</h1>
       <p class="text-muted login-centred" data-testid="login-subtitle">
         Sign in to your account to continue
@@ -36,16 +24,16 @@
         (ngSubmit)="onSubmit()"
       >
         @if (loginError) {
-          <div class="alert alert--danger" role="alert" data-testid="login-form-error">
-            <svg appIcon="error"></svg>
-            <div class="alert__body">{{ loginError }}</div>
+          <div libAlert tone="danger" role="alert" data-testid="login-form-error">
+            <svg libIcon="error"></svg>
+            <div libAlertBody>{{ loginError }}</div>
           </div>
         }
 
-        <div class="field">
-          <label class="field__label" for="username">Username</label>
+        <div libFormField>
+          <label libFieldLabel for="username">Username</label>
           <input
-            class="input"
+            libTextField
             id="username"
             type="text"
             autocomplete="username"
@@ -58,16 +46,16 @@
             [attr.aria-describedby]="usernameInvalid ? 'username-error' : null"
           />
           @if (usernameInvalid) {
-            <p class="field__error" id="username-error" data-testid="login-username-error">
+            <p libFieldError id="username-error" data-testid="login-username-error">
               Username is required
             </p>
           }
         </div>
 
-        <div class="field">
-          <label class="field__label" for="password">Password</label>
+        <div libFormField>
+          <label libFieldLabel for="password">Password</label>
           <input
-            class="input"
+            libTextField
             id="password"
             type="password"
             autocomplete="current-password"
@@ -78,23 +66,26 @@
             [attr.aria-describedby]="passwordInvalid ? 'password-error' : null"
           />
           @if (passwordInvalid) {
-            <p class="field__error" id="password-error" data-testid="login-password-error">
+            <p libFieldError id="password-error" data-testid="login-password-error">
               Password is required
             </p>
           }
         </div>
 
         <div class="cluster cluster--between">
-          <label class="checkbox">
+          <label libCheckbox>
             <input type="checkbox" formControlName="rememberMe" data-testid="login-remember-me" />
-            <span class="checkbox__text">Remember me</span>
+            <span libCheckboxText>Remember me</span>
           </label>
           <a routerLink="/forgot-password" data-testid="login-forgot-password">Forgot password?</a>
         </div>
 
         <button
           type="submit"
-          class="btn btn--primary btn--lg btn--block"
+          libButton
+          variant="primary"
+          size="lg"
+          block
           data-testid="login-submit"
           [disabled]="loading"
           [attr.aria-busy]="loading || null"

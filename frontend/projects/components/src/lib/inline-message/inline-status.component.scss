@@ -1,0 +1,10 @@
+// Inline status (docs/design-system/components/inline-message.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-body-sm);
+  color: var(--color-fg-muted);
+}

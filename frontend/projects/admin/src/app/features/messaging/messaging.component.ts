@@ -8,14 +8,73 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  ButtonComponent,
+  CardComponent,
+  CardTitleComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  EmptyStateComponent,
+  EmptyStateIconComponent,
+  EmptyStateTextComponent,
+  FieldHelpComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  ListBodyComponent,
+  ListComponent,
+  ListItemComponent,
+  ListMetaComponent,
+  ListTitleComponent,
+  LoadingComponent,
+  SearchFieldComponent,
+  SpinnerComponent,
+  TextFieldComponent,
+} from 'components';
 import { MessagingService } from '../../core/services/messaging.service';
 import { AuthService } from '../../core/services/auth.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-messaging',
   standalone: true,
-  imports: [DatePipe, ReactiveFormsModule, FormsModule, IconComponent],
+  imports: [
+    DatePipe,
+    ReactiveFormsModule,
+    FormsModule,
+    IconComponent,
+    ButtonComponent,
+    AvatarComponent,
+    BadgeComponent,
+    CardComponent,
+    CardTitleComponent,
+    EmptyStateComponent,
+    EmptyStateIconComponent,
+    EmptyStateTextComponent,
+    ListBodyComponent,
+    ListComponent,
+    ListItemComponent,
+    ListMetaComponent,
+    ListTitleComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    FieldHelpComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SearchFieldComponent,
+    TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './messaging.component.html',
   styleUrl: './messaging.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -23,8 +82,10 @@ import { IconComponent } from '../../shared/components/icon.component';
 export class MessagingComponent implements OnInit {
   private messagingService = inject(MessagingService);
   private authService = inject(AuthService);
-  private readonly newConversationDialog =
-    viewChild<ElementRef<HTMLDialogElement>>('newConversationDialog');
+  private readonly newConversationDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'newConversationDialog',
+    { read: ElementRef },
+  );
 
   conversations: any[] = [];
   filteredConversations: any[] = [];

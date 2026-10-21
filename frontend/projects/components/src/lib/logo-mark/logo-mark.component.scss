@@ -1,0 +1,51 @@
+// Logo mark (docs/design-system/components/logo-mark.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// The app icon, drawn as its own rounded tile. Grid centring keeps it exact at every size.
+:host {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-avatar-xl);
+  height: var(--size-avatar-xl);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo-mark__tile {
+  fill: var(--color-accent);
+}
+
+.logo-mark__left {
+  fill: var(--color-accent-subtle);
+}
+
+.logo-mark__right {
+  fill: var(--color-accent-subtle-hover);
+}
+
+.logo-mark__top {
+  fill: var(--color-bg-surface);
+}
+
+// Where the mark sits.
+.sidebar__brand :host {
+  width: var(--size-avatar-sm);
+  height: var(--size-avatar-sm);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+
+.topbar__brand :host {
+  width: var(--size-avatar-sm);
+  height: var(--size-avatar-sm);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}

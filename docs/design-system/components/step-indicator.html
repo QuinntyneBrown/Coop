@@ -270,6 +270,11 @@
         <tr><td><code>.steps__dots</code></td><td>The decorative dots; always <code>aria-hidden="true"</code>.</td></tr>
         <tr><td><code>.steps__dot</code>, <code>.steps__dot--done</code>, <code>.steps__dot--current</code></td><td>A step to come, a step already passed, the step being shown.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/step-indicator/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>StepIndicatorComponent</code></td><td><code>p[libStepIndicator]</code></td><td><code>current</code>: number (required); <code>total</code>: number (required)</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -247,6 +247,11 @@
         <tr><td><code>.divider--rule</code></td><td>With <code>.divider</code> on an <code>&lt;hr&gt;</code>: a single hairline with <code>--space-4</code> above and below; the side lines are removed.</td></tr>
       </tbody></table>
       <p>Put <code>.divider</code> on a <code>&lt;div&gt;</code>, not a <code>&lt;p&gt;</code>: the base style caps every paragraph at <code>--layout-measure</code>, so a paragraph divider stops short of the card's edge in a wide card.</p>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/divider/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>DividerComponent</code></td><td><code>hr[libDivider]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

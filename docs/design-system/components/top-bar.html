@@ -303,6 +303,13 @@
         <tr><td><code>a.avatar.avatar--sm</code></td><td>Link to My profile; <code>aria-current="page"</code> when on it.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/top-bar/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>TopBarBrandComponent</code></td><td><code>span[libTopBarBrand]</code></td><td>None</td></tr>
+        <tr><td><code>TopBarSpacerComponent</code></td><td><code>span[libTopBarSpacer]</code></td><td>None</td></tr>
+        <tr><td><code>TopBarComponent</code></td><td><code>header[libTopBar]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

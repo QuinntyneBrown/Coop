@@ -5,7 +5,7 @@
   "compilerOptions": {
     "paths": {
       "api": ["./dist/api"],
-      "components": ["./dist/components"]
+      "components": ["./projects/components/src/public-api.ts"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

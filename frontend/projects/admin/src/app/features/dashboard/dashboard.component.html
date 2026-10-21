@@ -6,112 +6,98 @@
 </div>
 <div class="stack dashboard">
   <div class="metric-grid" data-testid="dashboard-metric-cards">
-    <div class="card metric-card" data-testid="metric-open-requests">
-      <span class="metric-card__icon metric-card__icon--warning" aria-hidden="true"
-        ><svg appIcon="maintenance"></svg
-      ></span>
-      <span class="stat">
-        <span class="stat__label">Open Requests</span>
-        <span class="stat__value" data-testid="metric-value">{{ requestsCount }}</span>
+    <div libMetricCard data-testid="metric-open-requests">
+      <span libMetricCardIcon tone="warning"><svg libIcon="maintenance"></svg></span>
+      <span libStat>
+        <span libStatLabel>Open Requests</span>
+        <span libStatValue data-testid="metric-value">{{ requestsCount }}</span>
       </span>
     </div>
-    <div class="card metric-card" data-testid="metric-unread-messages">
-      <span class="metric-card__icon metric-card__icon--info" aria-hidden="true"
-        ><svg appIcon="messages"></svg
-      ></span>
-      <span class="stat">
-        <span class="stat__label">Unread Messages</span>
-        <span class="stat__value" data-testid="metric-value">{{ messagesCount }}</span>
+    <div libMetricCard data-testid="metric-unread-messages">
+      <span libMetricCardIcon tone="info"><svg libIcon="messages"></svg></span>
+      <span libStat>
+        <span libStatLabel>Unread Messages</span>
+        <span libStatValue data-testid="metric-value">{{ messagesCount }}</span>
       </span>
     </div>
-    <div class="card metric-card" data-testid="metric-documents">
-      <span class="metric-card__icon" aria-hidden="true"><svg appIcon="documents"></svg></span>
-      <span class="stat">
-        <span class="stat__label">Documents</span>
-        <span class="stat__value" data-testid="metric-value">{{ documentsCount }}</span>
+    <div libMetricCard data-testid="metric-documents">
+      <span libMetricCardIcon><svg libIcon="documents"></svg></span>
+      <span libStat>
+        <span libStatLabel>Documents</span>
+        <span libStatValue data-testid="metric-value">{{ documentsCount }}</span>
       </span>
     </div>
-    <div class="card metric-card" data-testid="metric-active-members">
-      <span class="metric-card__icon metric-card__icon--success" aria-hidden="true"
-        ><svg appIcon="users"></svg
-      ></span>
-      <span class="stat">
-        <span class="stat__label">Active Members</span>
-        <span class="stat__value" data-testid="metric-value">{{ membersCount }}</span>
+    <div libMetricCard data-testid="metric-active-members">
+      <span libMetricCardIcon tone="success"><svg libIcon="users"></svg></span>
+      <span libStat>
+        <span libStatLabel>Active Members</span>
+        <span libStatValue data-testid="metric-value">{{ membersCount }}</span>
       </span>
     </div>
   </div>
 
-  <section
-    class="card card--flush"
-    aria-labelledby="dash-requests"
-    data-testid="dashboard-recent-maintenance"
-  >
+  <section libCard flush aria-labelledby="dash-requests" data-testid="dashboard-recent-maintenance">
     <div class="cluster cluster--between dashboard__section-header">
-      <h2 class="card__title" id="dash-requests">Recent Maintenance Requests</h2>
+      <h2 libCardTitle id="dash-requests">Recent Maintenance Requests</h2>
       <a routerLink="/maintenance" data-testid="dashboard-view-all-requests">View all</a>
     </div>
-    <ul class="list dashboard__list">
+    <ul libList class="dashboard__list">
       @for (req of recentRequests; track req) {
-        <li class="list__item" data-testid="dashboard-maintenance-item">
-          <div class="list__body">
-            <div class="list__title">{{ req.title }}</div>
-            <div class="list__meta">
+        <li libListItem data-testid="dashboard-maintenance-item">
+          <div libListBody>
+            <div libListTitle>{{ req.title }}</div>
+            <div libListMeta>
               <span data-testid="dashboard-maintenance-date">{{
                 req.date || req.createdOn | date: 'mediumDate'
               }}</span>
             </div>
           </div>
-          <span class="badge" [ngClass]="getStatusClass(req.status)" data-testid="status-badge">{{
+          <span libBadge [tone]="getStatusTone(req.status)" data-testid="status-badge">{{
             req.status || 'New'
           }}</span>
         </li>
       }
       @if (recentRequests.length === 0) {
-        <li class="list__item list__meta">No recent requests</li>
+        <li libListItem><span libListMeta>No recent requests</span></li>
       }
     </ul>
   </section>
 
-  <section class="card" aria-labelledby="dash-quick" data-testid="dashboard-quick-actions">
-    <h2 class="card__title" id="dash-quick">Quick Actions</h2>
+  <section libCard aria-labelledby="dash-quick" data-testid="dashboard-quick-actions">
+    <h2 libCardTitle id="dash-quick">Quick Actions</h2>
     <div class="cluster">
-      <a routerLink="/maintenance" class="btn" data-testid="quick-action-maintenance"
-        ><svg appIcon="maintenance"></svg>New Maintenance</a
+      <a routerLink="/maintenance" libButton data-testid="quick-action-maintenance"
+        ><svg libIcon="maintenance"></svg>New Maintenance</a
       >
-      <a routerLink="/documents" class="btn" data-testid="quick-action-document"
-        ><svg appIcon="documents"></svg>Create Document</a
+      <a routerLink="/documents" libButton data-testid="quick-action-document"
+        ><svg libIcon="documents"></svg>Create Document</a
       >
-      <a routerLink="/messages" class="btn" data-testid="quick-action-message"
-        ><svg appIcon="messages"></svg>New Message</a
+      <a routerLink="/messages" libButton data-testid="quick-action-message"
+        ><svg libIcon="messages"></svg>New Message</a
       >
-      <a routerLink="/invitations" class="btn" data-testid="quick-action-invitation"
-        ><svg appIcon="invitations"></svg>Send Invitation</a
+      <a routerLink="/invitations" libButton data-testid="quick-action-invitation"
+        ><svg libIcon="invitations"></svg>Send Invitation</a
       >
     </div>
   </section>
 
-  <section
-    class="card card--flush"
-    aria-labelledby="dash-notices"
-    data-testid="dashboard-recent-notices"
-  >
+  <section libCard flush aria-labelledby="dash-notices" data-testid="dashboard-recent-notices">
     <div class="cluster cluster--between dashboard__section-header">
-      <h2 class="card__title" id="dash-notices">Recent Notices</h2>
+      <h2 libCardTitle id="dash-notices">Recent Notices</h2>
     </div>
-    <ul class="list dashboard__list">
+    <ul libList class="dashboard__list">
       @for (notice of recentNotices; track notice) {
-        <li class="list__item">
-          <div class="list__body">
-            <div class="list__title">{{ notice.title }}</div>
-            <div class="list__meta">
+        <li libListItem>
+          <div libListBody>
+            <div libListTitle>{{ notice.title }}</div>
+            <div libListMeta>
               {{ notice.publishedOn || notice.createdOn | date: 'mediumDate' }}
             </div>
           </div>
         </li>
       }
       @if (recentNotices.length === 0) {
-        <li class="list__item list__meta">No recent notices</li>
+        <li libListItem><span libListMeta>No recent notices</span></li>
       }
     </ul>
   </section>

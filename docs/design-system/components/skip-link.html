@@ -257,6 +257,11 @@
         <tr><td><code>href="#main"</code></td><td>The target; the page's <code>&lt;main&gt;</code> carries <code>id="main"</code>.</td></tr>
         <tr><td><code>data-state="focus"</code></td><td>Documentation only: shows it as if focused.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/skip-link/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>SkipLinkComponent</code></td><td><code>a[libSkipLink]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -172,7 +172,7 @@
             ],
             "styles": [
               "../docs/design-system/tokens/tokens.css",
-              "../docs/design-system/assets/components.css",
+              "projects/components/src/styles/foundations.scss",
               "projects/admin/src/styles.scss"
             ],
             "scripts": []
@@ -292,6 +292,13 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/components/tsconfig.spec.json",
+            "runner": "vitest"
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

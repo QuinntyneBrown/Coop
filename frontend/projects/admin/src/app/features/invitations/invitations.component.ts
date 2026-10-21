@@ -9,13 +9,48 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  BadgeComponent,
+  BadgeTone,
+  ButtonComponent,
+  DialogBodyComponent,
+  DialogComponent,
+  DialogFooterComponent,
+  DialogHeaderComponent,
+  DialogPanelComponent,
+  DialogTitleComponent,
+  FieldLabelComponent,
+  FormFieldComponent,
+  IconComponent,
+  SelectComponent,
+  TableComponent,
+  TableWrapComponent,
+  TextFieldComponent,
+} from 'components';
 import { InvitationService } from '../../core/services/invitation.service';
-import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-invitations',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IconComponent,
+    ButtonComponent,
+    BadgeComponent,
+    TableComponent,
+    TableWrapComponent,
+    FieldLabelComponent,
+    FormFieldComponent,
+    SelectComponent,
+    TextFieldComponent,
+    DialogBodyComponent,
+    DialogComponent,
+    DialogFooterComponent,
+    DialogHeaderComponent,
+    DialogPanelComponent,
+    DialogTitleComponent,
+  ],
   templateUrl: './invitations.component.html',
   styleUrl: './invitations.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -30,8 +65,13 @@ export class InvitationsComponent implements OnInit, AfterViewChecked {
   createdToken = '';
   invForm: FormGroup = this.fb.group({ type: ['Member'], expires: [''] });
 
-  private readonly createDialog = viewChild<ElementRef<HTMLDialogElement>>('createDialog');
-  private readonly tokenDialog = viewChild<ElementRef<HTMLDialogElement>>('tokenDialog');
+  private readonly createDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
+    'createDialog',
+    { read: ElementRef },
+  );
+  private readonly tokenDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>('tokenDialog', {
+    read: ElementRef,
+  });
 
   // The flags above decide which dialog is open; the native dialogs follow them.
   ngAfterViewChecked(): void {
@@ -101,10 +141,10 @@ export class InvitationsComponent implements OnInit, AfterViewChecked {
     return 'Active';
   }
 
-  getStatusClass(inv: any): string {
+  getStatusTone(inv: any): BadgeTone {
     const status = this.getStatus(inv);
-    if (status === 'Active') return 'badge--success';
-    if (status === 'Expired') return 'badge--danger';
-    return 'badge--neutral';
+    if (status === 'Active') return 'success';
+    if (status === 'Expired') return 'danger';
+    return 'neutral';
   }
 }

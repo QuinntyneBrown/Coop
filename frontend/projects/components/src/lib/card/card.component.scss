@@ -1,0 +1,21 @@
+// Card (docs/design-system/components/card.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+@use 'card';
+
+// A legend that generates no box is never drawn on the card border, even when the fieldset is a
+// flex .stack (WebKit resets float on flex items).
+:host(fieldset) > ::ng-deep legend {
+  display: contents;
+}
+
+:host {
+  @include card.surface;
+}
+
+:host(:where(.card--flush)) {
+  padding: 0;
+  overflow: hidden;
+}
+
+@include card.forced-colors;

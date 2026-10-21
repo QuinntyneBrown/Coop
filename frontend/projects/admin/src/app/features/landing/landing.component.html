@@ -1,19 +1,12 @@
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="topbar landing-topbar" data-testid="landing-navbar">
-  <span class="topbar__brand">
-    <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-        <rect width="48" height="48" rx="14" style="fill: var(--color-accent)" />
-        <circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle)" />
-        <circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover)" />
-        <circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface)" />
-      </svg>
-    </span>
+<a libSkipLink href="#main">Skip to content</a>
+<header libTopBar class="landing-topbar" data-testid="landing-navbar">
+  <span libTopBarBrand>
+    <span libLogoMark></span>
     OWN Housing Co-op
   </span>
-  <span class="topbar__spacer"></span>
-  <a routerLink="/login" class="nav-link" data-testid="landing-login-link">Sign In</a>
-  <a routerLink="/register" class="btn btn--primary" data-testid="landing-register-link"
+  <span libTopBarSpacer></span>
+  <a routerLink="/login" libNavLink data-testid="landing-login-link">Sign In</a>
+  <a routerLink="/register" libButton variant="primary" data-testid="landing-register-link"
     >Register</a
   >
 </header>
@@ -30,7 +23,7 @@
       }}
     </p>
     <div class="cluster">
-      <a routerLink="/register" class="btn btn--primary btn--lg" data-testid="landing-hero-cta"
+      <a routerLink="/register" libButton variant="primary" size="lg" data-testid="landing-hero-cta"
         >Get Started</a
       >
     </div>
@@ -42,14 +35,14 @@
     data-testid="landing-board-section"
   >
     <h2 id="landing-board">Board of Directors</h2>
-    <div class="card card--flush">
-      <ul class="list">
+    <div libCard flush>
+      <ul libList>
         @for (member of boardMembers; track member) {
-          <li class="list__item" data-testid="landing-board-member">
-            <span class="avatar" aria-hidden="true">{{ getInitials(member.name) }}</span>
-            <div class="list__body">
-              <h3 class="list__title">{{ member.name }}</h3>
-              <p class="list__meta">{{ member.title }}</p>
+          <li libListItem data-testid="landing-board-member">
+            <span libAvatar aria-hidden="true">{{ getInitials(member.name) }}</span>
+            <div libListBody>
+              <h3 libListTitle>{{ member.name }}</h3>
+              <p libListMeta>{{ member.title }}</p>
             </div>
           </li>
         }
@@ -63,15 +56,15 @@
     data-testid="landing-notices-section"
   >
     <h2 id="landing-news">Announcements</h2>
-    <div class="card card--flush">
-      <ul class="list">
+    <div libCard flush>
+      <ul libList>
         @for (notice of notices; track notice) {
-          <li class="list__item" data-testid="landing-notice-card">
-            <div class="list__body stack landing-notice">
-              <h3 class="list__title">{{ notice.title }}</h3>
+          <li libListItem data-testid="landing-notice-card">
+            <div libListBody class="stack landing-notice">
+              <h3 libListTitle>{{ notice.title }}</h3>
               <p>{{ notice.body || notice.description }}</p>
               <p
-                class="list__meta"
+                libListMeta
                 data-testid="landing-notice-date"
                 [textContent]="noticeDate(notice) | date: 'mediumDate'"
               ></p>

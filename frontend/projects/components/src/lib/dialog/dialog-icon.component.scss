@@ -1,0 +1,16 @@
+// Dialog icon (docs/design-system/components/dialog.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: grid;
+  place-items: center;
+  width: var(--size-avatar-md);
+  height: var(--size-avatar-md);
+  border-radius: var(--radius-full);
+  flex: none;
+}
+
+:host(:where(.dialog__icon--danger)) {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-icon);
+}

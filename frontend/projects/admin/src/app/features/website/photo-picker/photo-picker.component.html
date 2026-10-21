@@ -1,31 +1,31 @@
 <dialog
   #dialog
-  class="dialog"
+  libDialog
   aria-labelledby="photo-picker-title"
   aria-describedby="photo-picker-intro"
   data-testid="photo-picker"
 >
-  <div class="dialog__panel">
-    <div class="dialog__header">
-      <h2 class="dialog__title" id="photo-picker-title">Choose a photo</h2>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <h2 libDialogTitle id="photo-picker-title">Choose a photo</h2>
     </div>
-    <div class="dialog__body stack">
+    <div libDialogBody class="stack">
       <p id="photo-picker-intro">Pick a photo from the Assets library, or upload a new one.</p>
-      <div class="picture-list">
+      <div libPictureList>
         @switch (status()) {
           @case ('loading') {
-            <div class="loading" role="status" aria-live="polite">
-              <span class="spinner" aria-hidden="true"></span>Loading photos…
+            <div libLoading role="status" aria-live="polite">
+              <span libSpinner></span>Loading photos…
             </div>
           }
           @case ('error') {
-            <div class="alert alert--danger" role="alert">
-              <svg appIcon="error"></svg>
-              <div class="alert__body">
+            <div libAlert tone="danger" role="alert">
+              <svg libIcon="error"></svg>
+              <div libAlertBody>
                 <span>We couldn't load the photos. Try again.</span>
-                <div class="alert__actions">
-                  <button type="button" class="btn btn--sm" (click)="load()">
-                    <svg appIcon="try-again"></svg>Try again
+                <div libAlertActions>
+                  <button type="button" libButton size="sm" (click)="load()">
+                    <svg libIcon="try-again"></svg>Try again
                   </button>
                 </div>
               </div>
@@ -33,12 +33,12 @@
           }
           @case ('ready') {
             @if (photos().length > 0) {
-              <ul class="picture-list__grid" aria-label="Photos in the Assets library">
+              <ul libPictureListGrid aria-label="Photos in the Assets library">
                 @for (photo of photos(); track photo.id) {
                   <li>
                     <button
                       type="button"
-                      class="picture-list__choice"
+                      libPictureListChoice
                       [class.photo-option--current]="photo.src === current()"
                       [attr.aria-pressed]="photo.src === current()"
                       (click)="choose(photo)"
@@ -48,7 +48,7 @@
                       <span class="photo-option__name">{{ photo.name }}</span>
                       @if (photo.src === current()) {
                         <span class="cluster photo-option__tag"
-                          ><svg appIcon="check" class="icon--sm"></svg>Current</span
+                          ><svg libIcon="check" size="sm"></svg>Current</span
                         >
                       }
                     </button>
@@ -56,20 +56,20 @@
                 }
               </ul>
             } @else {
-              <div class="empty" data-testid="photo-picker-empty-box">
-                <div class="empty__icon" aria-hidden="true">
-                  <svg appIcon="photo" class="icon--lg"></svg>
+              <div libEmptyState data-testid="photo-picker-empty-box">
+                <div libEmptyStateIcon aria-hidden="true">
+                  <svg libIcon="photo" size="lg"></svg>
                 </div>
-                <p class="empty__text" data-testid="photo-picker-empty">
+                <p libEmptyStateText data-testid="photo-picker-empty">
                   No photos in the library yet. Upload one below.
                 </p>
               </div>
             }
           }
         }
-        <div class="picture-list__add">
-          <label class="btn btn--sm" [attr.aria-disabled]="uploading() || null"
-            ><svg appIcon="upload"></svg>Upload a new photo<input
+        <div libPictureListAdd>
+          <label libButton size="sm" [attr.aria-disabled]="uploading() || null"
+            ><svg libIcon="upload"></svg>Upload a new photo<input
               class="visually-hidden"
               id="photo-upload-field"
               name="file"
@@ -83,23 +83,23 @@
               (change)="upload($event)"
           /></label>
         </div>
-        <p class="field__help" id="photo-upload-help">JPEG, PNG or WebP, up to 10 MB.</p>
+        <p libFieldHelp id="photo-upload-help">JPEG, PNG or WebP, up to 10 MB.</p>
         @if (uploading()) {
-          <p class="inline-status" role="status" aria-live="polite">
-            <span class="spinner spinner--sm" aria-hidden="true"></span>Uploading…
+          <p libInlineStatus role="status" aria-live="polite">
+            <span libSpinner size="sm"></span>Uploading…
           </p>
         }
         @if (uploadError()) {
-          <p class="field__error" id="photo-upload-error" role="alert">
+          <p libFieldError id="photo-upload-error" role="alert">
             <span data-testid="photo-picker-upload-error">{{ uploadError() }}</span>
           </p>
         }
       </div>
     </div>
-    <div class="dialog__footer">
+    <div libDialogFooter>
       <button
         type="button"
-        class="btn"
+        libButton
         [disabled]="uploading()"
         (click)="close()"
         data-testid="photo-picker-cancel"
