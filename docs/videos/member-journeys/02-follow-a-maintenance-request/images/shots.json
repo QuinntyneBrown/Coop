@@ -1,0 +1,7 @@
+[
+  {"name": "member-maintenance", "mock": "pages/admin-member-maintenance/default.html", "phone": false},
+  {"name": "member-maintenance-completed", "mock": "pages/admin-member-maintenance/default.html", "phone": false, "js": "document.querySelector('#mt-tab-all').setAttribute('aria-selected', 'false'); document.querySelector('#mt-tab-completed').setAttribute('aria-selected', 'true'); document.querySelector('#mt-panel li.list__item').remove();"},
+  {"name": "member-maintenance-detail", "mock": "pages/admin-member-maintenance/detail.html", "phone": false, "height": 900},
+  {"name": "member-maintenance-comments", "mock": "pages/admin-member-maintenance/comments.html", "phone": false},
+  {"name": "member-maintenance-detail-photos", "mock": "pages/admin-member-maintenance/detail-photos.html", "phone": false, "height": 1000}
+]

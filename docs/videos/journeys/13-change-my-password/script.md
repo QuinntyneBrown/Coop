@@ -26,7 +26,7 @@ Then tap the Change password button at the bottom. The page says Your password i
 
 ## If something is wrong
 
-If the two new passwords are not the same, the page tells you. The new passwords don't match. Type them again, slowly.
+If the two new passwords are not the same, the page tells you. The new passwords don't match. Type the same password in both boxes, slowly.
 
 [pause 2s]
 

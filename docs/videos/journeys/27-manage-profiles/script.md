@@ -16,17 +16,17 @@ Start with Profiles, in the menu on the left. Under My Profiles, you see each pr
 
 [pause 2s]
 
-Select a profile, and a form opens beside the list. You can change the first name, the last name and the phone number. Change Avatar sets a new picture.
+Select a profile, and a form opens beside the list. You can change the first name, the last name and the phone number. Choose a photo sets a new picture.
 
 [pause 2s]
 
-When you are done, choose Save Changes. Or choose Cancel to leave it as it was.
+When you are done, choose Save changes. A green note says Your profile is saved. Or choose Cancel to leave it as it was.
 
 [pause 2s]
 
 ## Set a board title
 
-A board member profile has one more box, Board Title. Type the title here, such as Treasurer, and choose Save Changes. A green note says Profile updated successfully.
+A board member profile has one more box, Board title. Type the title here, such as Treasurer, and choose Save changes.
 
 [pause 2s]
 

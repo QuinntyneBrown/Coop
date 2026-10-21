@@ -1,0 +1,6 @@
+[
+  {"name": "member-messaging", "mock": "pages/admin-member-messaging/default.html", "phone": true},
+  {"name": "member-messaging-chat", "mock": "pages/admin-member-messaging/chat.html", "phone": false},
+  {"name": "member-messaging-typed", "mock": "pages/admin-member-messaging/chat.html", "phone": false, "js": "document.getElementById('chat-message').value = 'Thank you, Thursday at 10 is fine.';"},
+  {"name": "member-messaging-read", "mock": "pages/admin-member-messaging/default.html", "phone": false, "js": "document.querySelector('.list__item .badge').remove();"}
+]

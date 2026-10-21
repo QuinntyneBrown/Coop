@@ -16,7 +16,7 @@ Start on the Documents page. Here you see every document, with its type, its dat
 
 [pause 2s]
 
-Tap New Document. A short form opens.
+Tap New document. A short form opens.
 
 [pause 1s]
 

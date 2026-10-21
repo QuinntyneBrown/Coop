@@ -1,6 +1,6 @@
 # Journey 18 · Invite members
 
-> **Runtime:** about 1 min 39 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 34 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [18-invite-members.mp4](18-invite-members.mp4) · [Slides](slides.html) · **Audio:** [18-invite-members.mp3](18-invite-members.mp3) · [Transcript](script.md)
 

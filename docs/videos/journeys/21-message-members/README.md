@@ -1,6 +1,6 @@
 # Journey 21 · Message members
 
-> **Runtime:** about 1 min 31 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 30 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [21-message-members.mp4](21-message-members.mp4) · [Slides](slides.html) · **Audio:** [21-message-members.mp3](21-message-members.mp3) · [Transcript](script.md)
 
@@ -14,7 +14,7 @@ a conversation and send a message.
 By the end, the viewer can:
 
 - Find a conversation on the Messages page, or search for one.
-- Open the New Conversation box and enter a Recipient.
+- Open the New conversation box and enter the member's username as Recipient.
 - Type a message and send it.
 
 ## Code / assets on screen

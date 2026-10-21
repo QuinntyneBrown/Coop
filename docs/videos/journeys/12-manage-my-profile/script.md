@@ -12,11 +12,11 @@ Your profile holds your name, your email, your phone number and your picture. Yo
 
 ## Your details
 
-Sign in, then tap Profile at the bottom of the screen. On a computer, choose My profile in the menu. You see your name, your picture, your username, your email, your phone and your address.
+Sign in, then tap Profile at the bottom of the screen. On a computer, choose My profile in the list on the left. You see your name, your picture, your username, your email, your phone, your address, and how new notices reach you.
 
 [pause 2s]
 
-To change something, tap Edit profile. Now you can type a new first name, last name, email or phone number.
+To change something, tap Edit profile. A box opens called Edit member profile. Now you can type a new first name, last name, email or phone number.
 
 [pause 1s]
 

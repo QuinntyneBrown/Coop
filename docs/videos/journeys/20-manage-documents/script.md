@@ -26,7 +26,7 @@ Looking for something? Type a word in the Search by title box. If nothing matche
 
 ## Add and delete
 
-To add a document, tap New Document. Give it a title, choose the type, and write the content. Choose Draft or Published, then tap Save document.
+To add a document, tap New document. Give it a title, choose the type, and write the content. Choose Draft or Published, then tap Save document.
 
 [pause 2s]
 
@@ -36,7 +36,7 @@ To remove a document, tap the delete button on it. You are asked if you are sure
 
 ## In short
 
-So, in short. Use the tabs or search to find a document. New Document to add one. Delete, then confirm, to remove one.
+So, in short. Use the tabs or search to find a document. New document to add one. Delete, then confirm, to remove one.
 
 [pause 1s]
 

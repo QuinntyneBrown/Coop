@@ -1,6 +1,6 @@
 # Journey 26 · Manage the board of directors
 
-> **Runtime:** about 1 min 35 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 32 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [26-manage-the-board-of-directors.mp4](26-manage-the-board-of-directors.mp4) · [Slides](slides.html) · **Audio:** [26-manage-the-board-of-directors.mp3](26-manage-the-board-of-directors.mp3) · [Transcript](script.md)
 

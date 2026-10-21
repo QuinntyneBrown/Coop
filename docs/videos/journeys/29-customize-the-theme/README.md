@@ -1,6 +1,6 @@
 # Journey 29 · Customize the theme
 
-> **Runtime:** about 1 min 18 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 21 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [29-customize-the-theme.mp4](29-customize-the-theme.mp4) · [Slides](slides.html) · **Audio:** [29-customize-the-theme.mp3](29-customize-the-theme.mp3) · [Transcript](script.md)
 
@@ -21,9 +21,8 @@ By the end, the viewer can:
 
 | File | What to show |
 | --- | --- |
-| `images/admin-settings-theme-1280.png` | The Theme tab: Scope, four colours, Preview, Reset to Default and Save Theme |
+| `images/admin-settings-theme-1280.png` | The Theme tab: Scope, four colours, Preview, Reset to default and Save theme |
 | `images/admin-settings-theme-changed-1280.png` | Primary Color changed to plum, #6B3F60 |
-| `images/admin-settings-theme-preview-1280.png` | A close-up of the Preview with the plum header |
 | `images/admin-settings-theme-saved-1280.png` | Theme saved successfully |
 
 All screens are static design mocks under `docs/mocks/`, captured by
@@ -37,7 +36,7 @@ The mocks have no typed passwords, changed colours or saved notes, so
 | --- | --- | --- |
 | 00:00-00:08 | Welcome | Title |
 | 00:08-00:51 | Change the colours | Settings, Scope, four colours, Preview |
-| 00:51-01:05 | Save or reset | Save Theme; Reset to Default |
+| 00:51-01:05 | Save or reset | Save theme; Reset to default |
 | 01:05-01:18 | In short | Summary, thank you |
 
 ## Demo commands

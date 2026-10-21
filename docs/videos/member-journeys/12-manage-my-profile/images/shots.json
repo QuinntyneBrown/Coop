@@ -1,0 +1,8 @@
+[
+  {"name": "admin-member-dashboard", "mock": "pages/admin-member-dashboard/default.html"},
+  {"name": "admin-member-profile", "mock": "pages/admin-member-profile/default.html", "phone": true},
+  {"name": "admin-member-profile-edit", "mock": "pages/admin-member-profile/edit.html"},
+  {"name": "admin-member-profile-saved", "mock": "pages/admin-member-profile/saved.html"},
+  {"name": "admin-member-profile-photo-preview", "mock": "pages/admin-member-profile/photo-preview.html"},
+  {"name": "admin-member-profile-photo-saved", "mock": "pages/admin-member-profile/photo-saved.html"}
+]

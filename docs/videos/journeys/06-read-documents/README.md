@@ -1,6 +1,6 @@
 # Journey 06 · Read documents
 
-> **Runtime:** about 1 min 31 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** none (published documents are open to all)
+> **Runtime:** about 1 min 27 s · **Audience:** visitors and members, many of whom barely use the web · **Prerequisites:** none (published documents are open to all)
 
 **Video:** [06-read-documents.mp4](06-read-documents.mp4) · [Slides](slides.html) · **Audio:** [06-read-documents.mp3](06-read-documents.mp3) · [Transcript](script.md)
 

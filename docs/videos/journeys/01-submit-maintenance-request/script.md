@@ -12,7 +12,7 @@ A dripping tap, a light that flickers, a window that will not close. Telling the
 
 ## Send a request
 
-First, sign in on the co-op's members' site. Then start on the Requests page. On a phone, tap Requests at the bottom of the screen. On a computer, choose Maintenance in the menu. Here you see every request you have sent, and where each one is.
+First, sign in to the co-op's site. Then start on the Requests page. On a phone, tap Requests at the bottom of the screen. On a computer, choose Maintenance in the menu. Here you see every request you have sent, and where each one is.
 
 [pause 2s]
 

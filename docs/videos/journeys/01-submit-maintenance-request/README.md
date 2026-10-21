@@ -1,6 +1,6 @@
 # Journey 01 · Submit a maintenance request
 
-> **Runtime:** about 1 min 50 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 48 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [01-submit-maintenance-request.mp4](01-submit-maintenance-request.mp4) · [Slides](slides.html) · **Audio:** [01-submit-maintenance-request.mp3](01-submit-maintenance-request.mp3) · [Transcript](script.md)
 

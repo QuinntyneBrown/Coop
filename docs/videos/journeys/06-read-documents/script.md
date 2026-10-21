@@ -2,7 +2,7 @@
 
 ## Welcome
 
-Hello. This short video shows how a member finds and reads the co-op's documents.
+Hello. This short video shows how anyone can find and read the co-op's documents.
 
 [pause 2s]
 
@@ -30,7 +30,7 @@ If you would like a copy, tap Download. To close it, tap the cross in the corner
 
 [pause 2s]
 
-If you are a member, the same documents are also on the members' site. After you sign in, choose Documents.
+If you are a member, you can also find them after you sign in. Choose Documents on the left, or at the bottom of a phone screen.
 
 [pause 2s]
 

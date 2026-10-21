@@ -1,6 +1,6 @@
 # Journey 16 · Handle maintenance requests
 
-> **Runtime:** about 1 min 50 s · **Audience:** co-op office staff · **Prerequisites:** an admin account
+> **Runtime:** about 1 min 52 s · **Audience:** co-op office staff · **Prerequisites:** an admin account
 
 **Video:** [16-handle-maintenance-requests.mp4](16-handle-maintenance-requests.mp4) · [Slides](slides.html) · **Audio:** [16-handle-maintenance-requests.mp3](16-handle-maintenance-requests.mp3) · [Transcript](script.md)
 

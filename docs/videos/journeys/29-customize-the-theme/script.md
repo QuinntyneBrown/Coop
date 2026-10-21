@@ -2,13 +2,13 @@
 
 ## Welcome
 
-Hello. This short video is for the co-op office. It shows how to change the colours of the app.
+Hello. This short video is for the co-op office. It shows how to change the colours of the public website.
 
 [pause 2s]
 
 ## Change the colours
 
-Start with Settings, in the menu on the left. The Theme tab opens first, with Theme Customization.
+Start with Settings, in the menu on the left. The Theme tab opens first.
 
 [pause 2s]
 
@@ -16,7 +16,7 @@ First, choose a Scope. Global or Default.
 
 [pause 1s]
 
-Then there are four colours: Primary Color, Background Color, Accent Color and Text Color. Each one has a small square showing the colour, and a box with its code. Type a new code to change it.
+Then there are four colours: Primary colour, Background colour, Accent colour and Text colour. Each one has a small colour picker, and a box with its six-character code. Type a new code, or use the picker, to change it.
 
 [pause 2s]
 
@@ -26,11 +26,11 @@ On the right, the Preview shows how the new colours look together, before anythi
 
 ## Save or reset
 
-When you are happy, choose Save Theme. The new colours stay, even after the page reloads.
+When you are happy, choose Save theme. A green note says the theme is saved, and the public website now uses these colours.
 
 [pause 2s]
 
-If you want to start again, choose Reset to Default.
+If you want to start again, choose Reset to default.
 
 [pause 2s]
 

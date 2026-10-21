@@ -1,6 +1,6 @@
 # Journey 08 · Register
 
-> **Runtime:** about 1 min 55 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** an invitation code from the office
+> **Runtime:** about 1 min 48 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** an invitation code from the office
 
 **Video:** [08-register.mp4](08-register.mp4) · [Slides](slides.html) · **Audio:** [08-register.mp3](08-register.mp3) · [Transcript](script.md)
 

@@ -6,7 +6,7 @@ Hello. This short video is for the co-op office. It shows how to keep the co-op'
 
 [pause 2s]
 
-Photos for the website, plans and notes all live in Digital Assets.
+Photos for the website, plans and notes all live in Assets.
 
 [pause 2s]
 
@@ -16,21 +16,21 @@ Start with Assets, in the menu on the left. Every file shows as a card, with its
 
 [pause 2s]
 
-To add a file, choose Upload. Pick the file from your computer, then choose Upload again. Choose Cancel if you change your mind.
+To add a file, choose Upload. Choose a file from your computer, such as a photo or a PDF, then choose Upload again. Choose Cancel if you change your mind.
 
 [pause 2s]
 
-To find a file, type part of its name in the Search assets box. The cards narrow down as you type.
+To find a file, type part of its name in the search box at the top. The cards narrow down as you type.
 
 [pause 2s]
 
 ## View and delete
 
-To look at a file, select its card. Asset Details opens, with its name, size and date. Choose Download to save a copy, or Close to go back.
+To look at a file, choose Details on its card. A window opens with its name, its size and when it was uploaded. Choose Download to save a copy, or Close to go back.
 
 [pause 2s]
 
-To remove a file, choose Delete. You are asked, are you sure? Choose Delete again to confirm, or Cancel to keep it.
+To remove a file, choose Delete in that window. You are asked to make sure, because this cannot be undone. Choose Delete asset to confirm, or Cancel to keep it.
 
 [pause 2s]
 

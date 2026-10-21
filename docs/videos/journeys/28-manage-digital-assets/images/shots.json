@@ -1,7 +1,7 @@
 [
   {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false},
   {"name": "admin-asset-upload", "mock": "dialogs/admin-asset-upload/default.html", "phone": false},
+  {"name": "admin-assets-search", "mock": "pages/admin-assets/default.html", "phone": false, "js": "const q = 'courtyard'; const box = document.querySelector('#assets-search'); box.value = q; box.setAttribute('value', q); document.querySelectorAll('.picture-list__item').forEach((e) => { if (!e.textContent.toLowerCase().includes(q)) e.remove(); }); document.querySelector('.page-header .subtitle').textContent = '1 asset';"},
   {"name": "admin-asset-detail", "mock": "dialogs/admin-asset-detail/default.html", "phone": false},
-  {"name": "admin-asset-delete", "mock": "dialogs/admin-asset-delete/default.html", "phone": false},
-  {"name": "admin-assets-search", "mock": "pages/admin-assets/default.html", "phone": false, "js": "const q = 'courtyard'; const box = document.querySelector('[data-testid=assets-search]'); box.value = q; box.setAttribute('value', q); document.querySelectorAll('[data-testid=asset-card]').forEach((e) => { if (!e.textContent.toLowerCase().includes(q)) e.remove(); }); for (const e of document.querySelectorAll('*')) { if (e.children.length === 0 && e.textContent.trim() === '2 assets') e.textContent = '1 asset'; }"}
+  {"name": "admin-asset-delete", "mock": "dialogs/admin-asset-delete/default.html", "phone": false}
 ]

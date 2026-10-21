@@ -1,8 +1,8 @@
-# 02 · The admin desk, on the Shelfie design
+# 02 · The admin site, on the Shelfie design
 
-> **Runtime:** about 3 min (estimated from the script) · **Audience:** board members and office staff · **Prerequisites:** none
+> **Runtime:** 2 min 48 s · **Audience:** board members and office staff · **Prerequisites:** none
 
-**Video:** 02-admin-design-update.mp4 (not built yet) · [Slides](slides.html) · **Audio:** 02-admin-design-update.mp3 (not built yet) · [Transcript](script.md)
+**Video:** [02-admin-design-update.mp4](02-admin-design-update.mp4) · [Slides](slides.html) · **Audio:** [02-admin-design-update.mp3](02-admin-design-update.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
@@ -27,7 +27,7 @@ By the end, the viewer can:
 | `images/admin-user-dialog-light-1280.png` | Native dialog |
 | `images/admin-dashboard-light-360.png`, `images/admin-users-light-360.png` | Phone width |
 
-All screenshots are of the running Angular admin (`ng serve admin`) answered by the Playwright mock API, not of the static mocks.
+Screenshots are captured from the admin mocks in `docs/mocks` with `python tools/video-build/capture-mocks.py docs/videos/02-admin-design-update` (see `images/shots.json`).
 
 ## Run sheet
 

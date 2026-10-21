@@ -1,6 +1,6 @@
 # Journey 19 · Manage users
 
-> **Runtime:** about 1 min 47 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 45 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [19-manage-users.mp4](19-manage-users.mp4) · [Slides](slides.html) · **Audio:** [19-manage-users.mp3](19-manage-users.mp3) · [Transcript](script.md)
 

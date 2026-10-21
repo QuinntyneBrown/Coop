@@ -1,6 +1,6 @@
 # 01 · A website and a helping hand for OWN
 
-> **Runtime:** about 4 min 15 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
+> **Runtime:** about 4 min 5 s · **Audience:** the OWN board and members who barely use the web · **Prerequisites:** none
 
 **Video:** [01-own-board-overview.mp4](01-own-board-overview.mp4) · [Slides](slides.html) · **Audio:** [01-own-board-overview.mp3](01-own-board-overview.mp3) · [Transcript](script.md)
 

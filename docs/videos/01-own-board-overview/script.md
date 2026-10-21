@@ -18,7 +18,7 @@ First, a website that is beautiful and easy to read. This is the home page we bu
 
 [pause 2s]
 
-Second, OWN runs it. Nobody else. Someone in your office signs in to a simple admin desk. Every purple tag on this screen marks a part of the website that the office can change by themselves. The words, the photos, the menu.
+Second, OWN runs it. Nobody else. Someone in your office signs in to the admin site. It is the same site members sign in to, but the office also sees the office areas. Every purple tag on this screen marks a part of the website that the office can change by themselves. The words, the photos, the menu.
 
 Today, the office can change the colours, and keep a library of photos. The office can also add and remove whole pages, and edit the list of your board of directors. So when you hold your yearly election, the new directors can appear on the website the same afternoon. No programmer needed.
 

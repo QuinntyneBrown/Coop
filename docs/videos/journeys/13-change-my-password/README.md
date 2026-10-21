@@ -1,6 +1,6 @@
 # Journey 13 · Change my password
 
-> **Runtime:** about 1 min 39 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 37 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [13-change-my-password.mp4](13-change-my-password.mp4) · [Slides](slides.html) · **Audio:** [13-change-my-password.mp3](13-change-my-password.mp3) · [Transcript](script.md)
 

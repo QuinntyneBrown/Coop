@@ -1,6 +1,6 @@
 # Journey 10 · Browse the home page
 
-> **Runtime:** about 1 min 36 s · **Audience:** members, applicants and visitors; no account needed · **Prerequisites:** none
+> **Runtime:** about 1 min 41 s · **Audience:** members, applicants and visitors; no account needed · **Prerequisites:** none
 
 **Video:** [10-browse-the-home-page.mp4](10-browse-the-home-page.mp4) · [Slides](slides.html) · **Audio:** [10-browse-the-home-page.mp3](10-browse-the-home-page.mp3) · [Transcript](script.md)
 

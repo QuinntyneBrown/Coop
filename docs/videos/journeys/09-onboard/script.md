@@ -30,7 +30,7 @@ Step three is Select your unit. Tap the unit where you live. It is marked when y
 
 ## You are home
 
-Your own home page opens. It greets you by name, and shows your requests, your messages and the latest notices.
+Your own home page opens. It greets you by name. It shows your open requests, your unread messages and your documents, then your recent requests and the latest notices.
 
 [pause 2s]
 

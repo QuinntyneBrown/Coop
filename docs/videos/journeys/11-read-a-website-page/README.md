@@ -1,6 +1,6 @@
 # Journey 11 · Read a website page
 
-> **Runtime:** about 1 min 22 s · **Audience:** members, applicants and visitors; no account needed · **Prerequisites:** none
+> **Runtime:** about 1 min 32 s · **Audience:** members, applicants and visitors; no account needed · **Prerequisites:** none
 
 **Video:** [11-read-a-website-page.mp4](11-read-a-website-page.mp4) · [Slides](slides.html) · **Audio:** [11-read-a-website-page.mp3](11-read-a-website-page.mp3) · [Transcript](script.md)
 

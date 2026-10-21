@@ -1,6 +1,6 @@
 # Journey 25 · Manage roles and privileges
 
-> **Runtime:** about 1 min 27 s · **Audience:** co-op office staff · **Prerequisites:** an office account
+> **Runtime:** about 1 min 29 s · **Audience:** co-op office staff · **Prerequisites:** an office account
 
 **Video:** [25-manage-roles-and-privileges.mp4](25-manage-roles-and-privileges.mp4) · [Slides](slides.html) · **Audio:** [25-manage-roles-and-privileges.mp3](25-manage-roles-and-privileges.mp3) · [Transcript](script.md)
 

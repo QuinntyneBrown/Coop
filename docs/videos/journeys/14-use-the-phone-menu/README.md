@@ -1,6 +1,6 @@
 # Journey 14 · Use the phone menu
 
-> **Runtime:** about 1 min 15 s · **Audience:** visitors and members on a phone · **Prerequisites:** none
+> **Runtime:** about 1 min 17 s · **Audience:** visitors and members on a phone · **Prerequisites:** none
 
 **Video:** [14-use-the-phone-menu.mp4](14-use-the-phone-menu.mp4) · [Slides](slides.html) · **Audio:** [14-use-the-phone-menu.mp3](14-use-the-phone-menu.mp3) · [Transcript](script.md)
 

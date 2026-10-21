@@ -1,6 +1,6 @@
 # Journey 23 · Edit website content
 
-> **Runtime:** about 1 min 43 s · **Audience:** co-op office staff · **Prerequisites:** an office account
+> **Runtime:** about 1 min 44 s · **Audience:** co-op office staff · **Prerequisites:** an office account
 
 **Video:** [23-edit-website-content.mp4](23-edit-website-content.mp4) · [Slides](slides.html) · **Audio:** [23-edit-website-content.mp3](23-edit-website-content.mp3) · [Transcript](script.md)
 

@@ -2,7 +2,7 @@
 
 ## Welcome
 
-Hello. This short video shows how office staff decide what each role in the system may do.
+Hello. This short video is for the co-op office. It shows how to decide what each role in the system may do.
 
 [pause 2s]
 
@@ -12,35 +12,35 @@ A role is a group of people, such as staff or board members. Its privileges say 
 
 ## Choose a role
 
-Select Roles and Privileges in the menu on the left. The Roles list is on the left of the page.
+Select Roles and Privileges in the menu on the left. The roles are at the top of the page.
 
 [pause 1s]
 
-There are five: System Administrator, Member, Staff, Board Member, and Support. Select one to see its privileges.
+There are five: System Administrator, Member, Staff, Board Member, and Support. Select one to see what it may do.
 
 [pause 2s]
 
 ## Turn privileges on or off
 
-The table shows one row for each kind of record, such as User, Maintenance Request, Document, and Profile.
+The table below shows one row for each area of the admin, such as User, Maintenance request, Document, and Profile.
 
 [pause 1s]
 
-For each one there are four boxes: Read, Write, Create, and Delete. A tick means the role may do that.
+For each one there are four switches: Read, Write, Create, and Delete. A switch that is on means the role may do that.
 
 [pause 2s]
 
-Select a box to turn it on or off. The change stays when you come back to the role later.
+Select a switch to turn it on or off. The change stays when you come back to the role later.
 
 [pause 2s]
 
-For example, the Member role has a row for Maintenance Request only.
+For example, the Member role has a row for Maintenance request only.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Select Roles and Privileges. Choose a role. Tick or untick the boxes for what that role may do.
+So, in short. Select Roles and Privileges. Choose a role. Turn on the switches for what that role may do.
 
 [pause 1s]
 

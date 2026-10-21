@@ -1,6 +1,6 @@
 # Journey 28 · Manage digital assets
 
-> **Runtime:** about 1 min 27 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 33 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [28-manage-digital-assets.mp4](28-manage-digital-assets.mp4) · [Slides](slides.html) · **Audio:** [28-manage-digital-assets.mp3](28-manage-digital-assets.mp3) · [Transcript](script.md)
 
@@ -13,18 +13,18 @@ how to upload, find, look at and delete them.
 
 By the end, the viewer can:
 
-- Upload a file to Digital Assets.
+- Upload a file to Assets.
 - Find a file with Search assets.
-- Open Asset Details, download a copy, and delete a file.
+- Open the details window, download a copy, and delete a file.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/admin-assets-1280.png` | The Digital Assets page with search, Upload and file cards |
+| `images/admin-assets-1280.png` | The Assets page with search, Upload and file cards |
 | `images/admin-assets-search-1280.png` | A search for courtyard, showing only Courtyard plan.pdf |
 | `images/admin-asset-upload-1280.png` | The Upload File dialog |
-| `images/admin-asset-detail-1280.png` | Asset Details for Courtyard plan.pdf |
+| `images/admin-asset-detail-1280.png` | the details window for Courtyard plan.pdf |
 | `images/admin-asset-delete-1280.png` | The Confirm Delete dialog |
 
 All screens are static design mocks under `docs/mocks/`, captured by
@@ -36,7 +36,7 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title; pictures and files in one place |
 | 00:17-00:49 | Upload and find | Assets page, Upload, Search assets |
-| 00:49-01:13 | View and delete | Asset Details, Download, Delete and confirm |
+| 00:49-01:13 | View and delete | the details window, Download, Delete and confirm |
 | 01:13-01:27 | In short | Summary, thank you |
 
 ## Demo commands

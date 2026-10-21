@@ -1,0 +1,8 @@
+[
+  {"name": "admin-dashboard-light", "mock": "pages/admin-dashboard/default.html", "phone": true},
+  {"name": "admin-roles-light", "mock": "pages/admin-roles/default.html", "phone": false},
+  {"name": "admin-maintenance-light", "mock": "pages/admin-maintenance/default.html", "phone": false},
+  {"name": "admin-users-dark", "mock": "pages/admin-users/default.html", "phone": false, "js": "document.documentElement.dataset.theme = 'dark';"},
+  {"name": "admin-user-dialog-light", "mock": "dialogs/admin-user-create/default.html", "phone": false},
+  {"name": "admin-users-light", "mock": "pages/admin-users/default.html", "phone": true}
+]

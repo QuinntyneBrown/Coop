@@ -26,7 +26,7 @@ Looking for someone? Type part of their username in the search box. If nobody ma
 
 ## Add, edit and delete
 
-To add someone, tap Add User. Fill in the Username, choose a Role, and set a Password. Then tap Add user.
+To add someone, tap Add user. Fill in the Username, choose a Role, and set a Password. Then tap Add user.
 
 [pause 2s]
 
@@ -40,7 +40,7 @@ To remove a user, tap the delete button on their row. You are asked if you are s
 
 ## In short
 
-So, in short. Search or page through to find someone. Add User to add. Edit to change. Delete, then confirm, to remove.
+So, in short. Search or page through to find someone. Add user to add. Edit to change. Delete, then confirm, to remove.
 
 [pause 1s]
 

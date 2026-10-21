@@ -20,7 +20,7 @@ Looking for one? Type a word in the box that says Search by subject. Clear the s
 
 [pause 2s]
 
-To start a new one, tap the add button beside Conversations. The New Conversation box opens. Type who it is for in Recipient, then tap Start.
+To start a new one, tap the add button beside Conversations. The New Conversation box opens. In Recipient, type the username of the member you want to message, then tap Start.
 
 [pause 2s]
 

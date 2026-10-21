@@ -1,4 +1,4 @@
-# 02 · The admin desk, on the Shelfie design
+# 02 · The admin site, on the Shelfie design
 
 ## Welcome
 
@@ -6,7 +6,7 @@ Hello again. This is a short update for the board.
 
 [pause 2s]
 
-The admin desk, where your office looks after the website, requests, documents and members, has a new look. Every screen you are about to see is the real admin desk, running today. It is not a drawing.
+The admin site has a new look. Everyone signs in there. A member sees her own requests, documents, messages and profile, and the office also sees the areas where it looks after the website, requests, documents and members. Every screen you are about to see shows the admin site as it is today.
 
 [pause 2s]
 
@@ -26,7 +26,7 @@ Buttons are rounder and bigger, and every one of them is a comfortable target to
 
 ## Light or dark
 
-Next, light and dark. The admin desk now follows the setting on your device. If the office works in the evening, and a dark screen is easier on the eyes, the whole desk turns dark by itself. The contrast stays strong in both.
+Next, light and dark. The admin site now follows the setting on your device. If the office works in the evening, and a dark screen is easier on the eyes, the whole site turns dark by itself. The contrast stays strong in both.
 
 [pause 2s]
 
@@ -44,7 +44,7 @@ The new design starts from the small screen. On a phone, everything stacks into 
 
 ## What did not change
 
-Now, what did not change. The words on the screens, and the way each task works, are the same as before. Nobody needs to learn anything new. The design system lives in one place in the repository, and the admin desk loads it from there, so the look stays consistent from screen to screen.
+Now, what did not change. The words on the screens, and the way each task works, are the same as before. Nobody needs to learn anything new. The design system lives in one place in the repository, and the admin site loads it from there, so the look stays consistent from screen to screen.
 
 [pause 2s]
 

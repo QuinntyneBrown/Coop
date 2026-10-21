@@ -1,6 +1,6 @@
 # Journey 22 · View the office dashboard
 
-> **Runtime:** about 1 min 31 s · **Audience:** co-op office staff · **Prerequisites:** an office account
+> **Runtime:** about 1 min 34 s · **Audience:** co-op office staff · **Prerequisites:** an office account
 
 **Video:** [22-view-the-office-dashboard.mp4](22-view-the-office-dashboard.mp4) · [Slides](slides.html) · **Audio:** [22-view-the-office-dashboard.mp3](22-view-the-office-dashboard.mp3) · [Transcript](script.md)
 
@@ -14,7 +14,7 @@ part shows, so a glance tells them how the day looks.
 By the end, the viewer can:
 
 - Read the four metric cards.
-- Follow recent maintenance requests and notices, and open View all.
+- Follow recent maintenance requests and notices, and open View all requests.
 - Use a quick action to start a common task.
 
 ## Code / assets on screen
@@ -33,7 +33,7 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | --- | --- | --- |
 | 00:00-00:14 | Welcome | Title; the co-op today in one place |
 | 00:14-00:32 | At a glance | Greeting and four numbers |
-| 00:32-00:57 | Requests and notices | Statuses, View all, Recent Notices |
+| 00:32-00:57 | Requests and notices | Statuses, View all requests, Recent notices |
 | 00:57-01:17 | Quick actions | Four quick actions; the side menu |
 | 01:17-01:31 | In short | Recap, thank you |
 

@@ -30,7 +30,7 @@ If the member added photos, they show under Photos.
 
 ## Move it along
 
-On a new request, choose Receive Request. This tells the member someone is on it.
+On a new request, choose Receive request. This tells the member someone is on it.
 
 [pause 2s]
 

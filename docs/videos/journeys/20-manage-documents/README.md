@@ -1,6 +1,6 @@
 # Journey 20 · Manage documents
 
-> **Runtime:** about 1 min 30 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
+> **Runtime:** about 1 min 29 s · **Audience:** co-op office staff · **Prerequisites:** an office (admin) account
 
 **Video:** [20-manage-documents.mp4](20-manage-documents.mp4) · [Slides](slides.html) · **Audio:** [20-manage-documents.mp3](20-manage-documents.mp3) · [Transcript](script.md)
 

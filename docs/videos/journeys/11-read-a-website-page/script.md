@@ -30,7 +30,7 @@ To go back, tap Home, or any link at the top.
 
 ## If a page is missing
 
-If a page has been taken down, you see a note that says, we can't find that page. Nothing is broken. Just pick another link.
+If a page has been taken down, you see a note that says, we can't find that page. Nothing is broken. Tap Go to the home page, or pick another link.
 
 [pause 2s]
 

@@ -26,7 +26,7 @@ Next comes Recent Maintenance Requests. Each one shows its title, its date, and 
 
 [pause 1s]
 
-Select View all to see every request.
+Select View all requests to see every request.
 
 [pause 2s]
 
@@ -36,7 +36,7 @@ At the bottom, Recent Notices lists the latest notices, such as the autumn court
 
 ## Quick actions
 
-The Quick Actions save a few steps. New Maintenance, Create Document, New Message, and Send Invitation each take you straight to that task.
+The Quick Actions save a few steps. New maintenance request, Create document, New message, and Send invitation each take you straight to that task.
 
 [pause 2s]
 

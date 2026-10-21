@@ -26,7 +26,7 @@ To add one, select New page. A form opens.
 
 [pause 1s]
 
-Give the page a title. If you like, paste the address of a photo from the Assets library, and describe the photo for people who cannot see it.
+Give the page a title. If you like, select Choose photo to pick a photo from the Assets library, and describe the photo for people who cannot see it.
 
 [pause 1s]
 

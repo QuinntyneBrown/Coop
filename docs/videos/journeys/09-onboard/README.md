@@ -1,6 +1,6 @@
 # Journey 09 · Onboard
 
-> **Runtime:** about 1 min 22 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a newly created member account
+> **Runtime:** about 1 min 31 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a newly created member account
 
 **Video:** [09-onboard.mp4](09-onboard.mp4) · [Slides](slides.html) · **Audio:** [09-onboard.mp3](09-onboard.mp3) · [Transcript](script.md)
 
