@@ -73,21 +73,21 @@ public static class DemoSeed
 
     private static async Task SeedPagesAsync(CoopDbContext context, IReadOnlyDictionary<string, string> photos)
     {
-        var about = new Page();
-        about.Update(
-            "About us",
+        var history = new Page();
+        history.Update(
+            "Our history",
             photos["lobby.svg"],
             "The front lobby, with a comfortable armchair beside a sunny window.",
             "<h2>Our story</h2><p>A group of older women in the neighbourhood wanted somewhere affordable to grow older among friends. They formed a co-operative, found a builder and opened the doors in 1997.</p>"
             + "<h2>How we are run</h2><p>Every member has a vote at general meetings. Members elect a board of directors from among themselves each spring, and committees look after the garden, the building and social events.</p>");
-        var livingHere = new Page();
-        livingHere.Update(
-            "Living here",
+        var garden = new Page();
+        garden.Update(
+            "The rooftop garden",
             photos["garden.svg"],
             "A woman in a sun hat waters planters of flowers and herbs on the rooftop, the city skyline behind her.",
-            "<h2>Your home</h2><p>Bachelor, one-bedroom and two-bedroom apartments, each with a balcony or a big window. Most rents are geared to income.</p>"
-            + "<h2>Getting involved</h2><p>Members give a few hours a month to a committee of their choice. There is always tea in the lounge on Tuesday afternoons.</p>");
-        context.Pages.AddRange(about, livingHere);
+            "<h2>Growing together</h2><p>The garden committee plants herbs, tomatoes and flowers on the roof each spring. Raised beds mean nobody has to kneel.</p>"
+            + "<h2>Lending a hand</h2><p>Members water in turns through the summer. Sign up on the noticeboard in the lobby, or just come up for a sit in the sun.</p>");
+        context.Pages.AddRange(history, garden);
         await context.SaveChangesAsync();
     }
 

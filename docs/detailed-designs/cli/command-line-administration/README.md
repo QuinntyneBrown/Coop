@@ -205,7 +205,7 @@ tokens and JSON content), then `DemoSeed.SeedAsync(context, hasher, apiUrl)`:
 | Profiles | the member's Member profile renamed to a fictional resident with a unit; a StaffMember profile for `staff` and a BoardMember profile for `board`, each current and default |
 | Assets | each embedded photograph as a `DigitalAsset` (`image/svg+xml`) with its width and height |
 | Site content | `SiteContentSeed.Create` with every photo at `{api-url}/digitalasset/serve/{id}` |
-| Pages | "About us" and "Living here", each with a hero photo asset and its description |
+| Pages | "Our history" and "The rooftop garden", each with a hero photo asset and its description |
 | Board | four directors with portrait photo assets |
 | Maintenance | one request in each status (New, Received, Started, Completed) from the member, with comments from the member and the office, and a photo on one stored as its own asset, because the API serves maintenance photos only to the household and the office |
 | Documents | published and draft notices, bylaws and reports |
