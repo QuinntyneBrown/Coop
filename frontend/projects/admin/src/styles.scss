@@ -1,6 +1,7 @@
-// The admin loads docs/design-system/tokens/tokens.css and
-// docs/design-system/assets/components.css before this file (see angular.json).
-// Keep only what those stylesheets do not cover for the running app.
+// The admin loads docs/design-system/tokens/tokens.css and the components
+// library's styles/foundations.scss before this file (see angular.json); the
+// library's components carry their own styles (ADR 0010). Keep only what those
+// do not cover for the running app.
 
 button,
 input,

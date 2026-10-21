@@ -13,7 +13,7 @@ the [root README](../README.md) for the full stack and the
 | `public`     | `projects/public`     | Public and member application, served on port 4201 ([README](projects/public/README.md)) |
 | `admin`      | `projects/admin`      | Administration application, served on port 4200 ([README](projects/admin/README.md))     |
 | `api`        | `projects/api`        | Library for service contracts and injection tokens ([README](projects/api/README.md))    |
-| `components` | `projects/components` | Library for design-system components ([README](projects/components/README.md))           |
+| `components` | `projects/components` | Design-system components used by the admin ([README](projects/components/README.md))     |
 
 The API only allows CORS requests from `http://localhost:4200` and
 `http://localhost:4201`, so keep those ports.
@@ -42,6 +42,11 @@ The API must be running on `http://localhost:5000`.
   Use separate template and style files for Angular components.
 - Keep component styles encapsulated and global styles limited to shared
   foundations and utilities.
+- Use the design system's presentation components from the `components`
+  library (`import { ButtonComponent } from 'components'`) rather than
+  writing their markup by hand. The workspace `tsconfig.json` maps
+  `components` to the library's source, so serving, building and testing an
+  app needs no library build first.
 - Follow the mocks in [`docs/mocks`](../docs/mocks/README.md): preserve their
   visual classes and accessible state semantics, and change the mock first when
   a design change is intentional.

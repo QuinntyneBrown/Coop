@@ -172,7 +172,7 @@
             ],
             "styles": [
               "../docs/design-system/tokens/tokens.css",
-              "../docs/design-system/assets/components.css",
+              "projects/components/src/styles/foundations.scss",
               "projects/admin/src/styles.scss"
             ],
             "scripts": []
