@@ -5,7 +5,7 @@
 // not. Only JPEG, PNG and WebP pictures up to 10 MB are accepted, a replaced
 // or removed picture is no longer served, re-posting or re-removing returns
 // the profile unchanged. (Showing it beside messages left with the public
-// messaging page and is deferred for the admin, ADR 0012.)
+// messaging page and is deferred for the admin, ADR 0016.)
 
 using System.Net;
 using System.Net.Http.Headers;

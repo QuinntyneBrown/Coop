@@ -90,8 +90,8 @@ address for the sign-in links.
 
 Since 21 October 2026 the public site has no member pages, register or
 forgot-password screens: members sign in and stay on the admin site, and
-those public addresses open the admin login (L2-REQ-102, L2-REQ-103, ADR
-0012, `docs/detailed-designs/admin-app/member-areas-by-role/`). The parts of
+those public addresses open the admin login (L2-REQ-110, L2-REQ-111, ADR
+0016, `docs/detailed-designs/admin-app/member-areas-by-role/`). The parts of
 this design about the register, forgot-password and member pages and the
 `authGuard` describe the state before that change.
 

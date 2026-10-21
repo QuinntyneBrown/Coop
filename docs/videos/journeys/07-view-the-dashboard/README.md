@@ -1,6 +1,6 @@
 # Journey 07 · View the dashboard
 
-> **Runtime:** about 1 min 50 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0012)
+> **Runtime:** about 1 min 50 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016)
 
 **Video:** [07-view-the-dashboard.mp4](07-view-the-dashboard.mp4) · [Slides](slides.html) · **Audio:** [07-view-the-dashboard.mp3](07-view-the-dashboard.mp3) · [Transcript](script.md)
 

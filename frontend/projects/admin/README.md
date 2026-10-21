@@ -1,7 +1,7 @@
 # Coop Admin
 
 Angular admin site for Coop. Everyone who signs in uses it, and each person sees
-the areas their role allows (ADR 0012):
+the areas their role allows (ADR 0016):
 
 - the **office** (Staff, BoardMember, SystemAdministrator or Support) gets every
   area: maintenance triage, document publishing, website pages, the Board of

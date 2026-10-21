@@ -18,13 +18,13 @@ box "Backend — Coop API" #FEF3C7
   database "CoopDbContext" as db
 end box
 member -> screen : New request; title, what is wrong, Add photos
-screen --> member : chosen photos listed with Remove  [L2-REQ-107 AC3]
+screen --> member : chosen photos listed with Remove  [L2-REQ-115 AC3]
 member -> screen : Send request
-screen --> member : "Sending…", controls disabled  [L2-REQ-107 AC4]
+screen --> member : "Sending…", controls disabled  [L2-REQ-115 AC4]
 screen -> service : createMaintenanceRequest(form)
 service -> controller : POST api/maintenancerequest
 controller -> create : Send(CreateMaintenanceRequestRequest)
-create -> db : requested by the caller's current profile  [L2-REQ-106 AC4]
+create -> db : requested by the caller's current profile  [L2-REQ-114 AC4]
 controller --> screen : 200 { maintenanceRequest }
 loop each chosen photo
   screen -> service : addPhoto(id, file)

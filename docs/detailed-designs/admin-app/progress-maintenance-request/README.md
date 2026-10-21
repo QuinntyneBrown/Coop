@@ -89,7 +89,7 @@ re-applies the list filter. On failure it leaves the status unchanged and sets
 
 ### The member's view
 
-Members see the same admin screen, without the steps (L2-REQ-107). The status
+Members see the same admin screen, without the steps (L2-REQ-115). The status
 reads "New", "Received", "Started" or "Completed", the same words as the
 office, and the filters are All, New, Received, Started and Completed
 (L2-REQ-088). The public Requests page that said "Done" was removed on 21

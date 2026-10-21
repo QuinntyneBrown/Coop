@@ -5,7 +5,7 @@ import { LayoutComponent } from './layout/layout.component';
 /**
  * Addresses of the member pages, register and forgot-password the public site
  * once had. Members now do everything that needs signing in on the admin site,
- * so each of these opens the admin login (L2-REQ-102, L2-REQ-103, ADR 0012).
+ * so each of these opens the admin login (L2-REQ-110, L2-REQ-111, ADR 0016).
  */
 const ADMIN_SITE_ADDRESSES = [
   'dashboard',

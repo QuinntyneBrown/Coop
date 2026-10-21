@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-104, L2-REQ-106, L2-REQ-044
+// Traces to: L2-REQ-112, L2-REQ-114, L2-REQ-044
 // Description: A member who has just registered is welcomed on the admin
 // site's onboarding: a focused wizard without the admin menu that creates
 // their own member profile and ends on their dashboard.

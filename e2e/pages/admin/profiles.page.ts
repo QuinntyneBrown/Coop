@@ -25,7 +25,7 @@ export class ProfilesPage {
   readonly firstNameError: Locator;
   readonly lastNameError: Locator;
 
-  // My profile: picture and notice choice (L2-REQ-108)
+  // My profile: picture and notice choice (L2-REQ-116)
   readonly editButton: Locator;
   readonly displayName: Locator;
   readonly photo: Locator;

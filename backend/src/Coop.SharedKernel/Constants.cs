@@ -20,7 +20,7 @@ public static class Constants
 
         public static readonly string[] All = { Member, Staff, BoardMember, SystemAdministrator, Support };
 
-        /// <summary>The office: holding any one of these opens the office's areas of the admin site (ADR 0012).</summary>
+        /// <summary>The office: holding any one of these opens the office's areas of the admin site (ADR 0016).</summary>
         public static readonly string[] Office = { Staff, BoardMember, SystemAdministrator, Support };
     }
 

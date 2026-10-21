@@ -25,7 +25,7 @@ public class GetMaintenanceRequestByIdHandler : IRequestHandler<GetMaintenanceRe
         var mr = await _context.MaintenanceRequests.Include(m => m.Comments).Include(m => m.DigitalAssets)
             .SingleAsync(m => m.MaintenanceRequestId == request.MaintenanceRequestId, cancellationToken);
 
-        // Only the household that asked and the office see a request (L2-REQ-106).
+        // Only the household that asked and the office see a request (L2-REQ-114).
         if (!await MaintenanceRequestAccess.CanReadAsync(_context, _authorization, _user, mr, cancellationToken))
             throw new UnauthorizedAccessException("Access denied.");
 

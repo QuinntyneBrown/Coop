@@ -2,6 +2,7 @@ using Coop.Api;
 using Coop.Api.Middleware;
 using Coop.Domain.Identity;
 using Coop.Infrastructure.Persistence;
+using Coop.Infrastructure.Persistence.Seeding;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

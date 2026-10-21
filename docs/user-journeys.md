@@ -4,7 +4,7 @@ User journeys implemented in Coop, taken from the Playwright suite, ordered by v
 
 ## Members (admin site, member view)
 
-Members sign in on the admin site and see only the member areas (L2-REQ-104).
+Members sign in on the admin site and see only the member areas (L2-REQ-112).
 
 | Journey | Description |
 | --- | --- |
@@ -22,7 +22,7 @@ Members sign in on the admin site and see only the member areas (L2-REQ-104).
 
 ## Visitors (public site)
 
-The public site is read-only and anonymous (L2-REQ-102).
+The public site is read-only and anonymous (L2-REQ-110).
 
 | Journey | Description |
 | --- | --- |

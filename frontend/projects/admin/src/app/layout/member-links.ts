@@ -1,6 +1,6 @@
 import { SidebarLink } from './sidebar-link';
 
-/** A member's sidebar: only the member areas (L2-REQ-104). */
+/** A member's sidebar: only the member areas (L2-REQ-112). */
 export const MEMBER_LINKS: SidebarLink[] = [
   { path: '/dashboard', label: 'Dashboard', icon: 'dashboard', testId: 'dashboard' },
   { path: '/maintenance', label: 'Maintenance', icon: 'maintenance', testId: 'maintenance' },

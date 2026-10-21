@@ -1,8 +1,8 @@
 // Acceptance Test
-// Traces to: L2-REQ-102, L2-REQ-108
+// Traces to: L2-REQ-110, L2-REQ-116
 // Description: The public BFF keeps its anonymous endpoints and the ones the
 // admin app calls, and no longer serves the endpoints only the removed public
-// member pages called (ADR 0012).
+// member pages called (ADR 0016).
 
 using System.Net;
 using System.Net.Http.Json;

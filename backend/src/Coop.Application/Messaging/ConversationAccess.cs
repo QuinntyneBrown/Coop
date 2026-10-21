@@ -10,7 +10,7 @@ namespace Coop.Application.Messaging;
 /// <summary>
 /// Who may use a conversation: the people whose profiles take part in it and
 /// the office (Write or higher on the Message aggregate). A member may name
-/// only their own profiles, or the empty profile id (L2-REQ-106).
+/// only their own profiles, or the empty profile id (L2-REQ-114).
 /// </summary>
 public static class ConversationAccess
 {

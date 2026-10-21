@@ -6,7 +6,7 @@ import { REFLOW_WIDTH, ReflowPage } from '../../pages/reflow.page';
 
 test.use({ viewport: { width: REFLOW_WIDTH, height: 800 } });
 
-// The public site is anonymous; it has no member screens (L2-REQ-102).
+// The public site is anonymous; it has no member screens (L2-REQ-110).
 const anonymousScreens = ['/', '/pages/how-to-apply', '/documents'];
 
 test.describe('Reflow at 400% zoom', () => {

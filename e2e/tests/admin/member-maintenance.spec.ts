@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-107, L2-REQ-106, L2-REQ-088, L2-REQ-089, L2-REQ-021, L2-REQ-028
+// Traces to: L2-REQ-115, L2-REQ-114, L2-REQ-088, L2-REQ-089, L2-REQ-021, L2-REQ-028
 // Description: A member uses the admin Maintenance screen: only their own
 // requests, plain-words statuses, no office steps, sending a request with
 // photos, adding a photo later, and comments.

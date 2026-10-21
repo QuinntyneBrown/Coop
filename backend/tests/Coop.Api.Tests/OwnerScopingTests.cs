@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-106
+// Traces to: L2-REQ-114
 // Description: Through the API a member reads and changes only their own
 // maintenance requests, comments, conversations, messages and profiles, and
 // only published documents; another household's are refused with 403, and

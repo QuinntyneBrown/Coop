@@ -18,7 +18,7 @@ public class GetDocumentsHandler : IRequestHandler<GetDocumentsRequest, GetDocum
 
     public async Task<GetDocumentsResponse> Handle(GetDocumentsRequest request, CancellationToken cancellationToken)
     {
-        // Drafts are the office's work in progress; a member reads published documents only (L2-REQ-106).
+        // Drafts are the office's work in progress; a member reads published documents only (L2-REQ-114).
         var office = await CallerAccess.HoldsWriteAsync(_authorization, _user, Constants.Aggregates.Notice);
         var d = await _context.Documents.Where(x => !x.IsDeleted && (office || x.Published)).ToListAsync(cancellationToken);
         return new GetDocumentsResponse { Documents = d.Select(DocumentDto.FromDocument).ToList() };

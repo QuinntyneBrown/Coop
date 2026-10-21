@@ -93,8 +93,8 @@ warnings were already reported before this change.
 ## Members move to the admin site
 
 On 21 October 2026 the public member screens were removed, because members
-now do everything that needs signing in on the admin site (L2-REQ-102,
-L2-REQ-103): the pages `public-dashboard`, `public-maintenance`,
+now do everything that needs signing in on the admin site (L2-REQ-110,
+L2-REQ-111): the pages `public-dashboard`, `public-maintenance`,
 `public-messaging`, `public-profile`, `public-onboarding`, `public-register`
 and `public-forgot-password`, the dialogs `public-maintenance-create`,
 `public-maintenance-detail` and `public-profile-switcher`, and the

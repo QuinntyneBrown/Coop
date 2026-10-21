@@ -12,7 +12,7 @@ Narrated videos made from a script, a slide deck and captions. See the
 
 ## Journeys
 
-One short video per user journey in [`docs/user-journeys.md`](../user-journeys.md). Since 21 October 2026 the member journeys show the admin site's member view; the public site is read-only (ADR 0012).
+One short video per user journey in [`docs/user-journeys.md`](../user-journeys.md). Since 21 October 2026 the member journeys show the admin site's member view; the public site is read-only (ADR 0016).
 
 | Video | Journey | Runtime |
 | --- | --- | --- |

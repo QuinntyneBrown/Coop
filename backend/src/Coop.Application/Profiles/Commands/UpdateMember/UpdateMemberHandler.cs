@@ -25,7 +25,7 @@ public class UpdateMemberHandler : IRequestHandler<UpdateMemberRequest, UpdateMe
     {
         var member = await _context.Members.SingleAsync(m => m.ProfileId == request.ProfileId, cancellationToken);
 
-        // A member changes only their own profile (L2-REQ-106).
+        // A member changes only their own profile (L2-REQ-114).
         if (member.UserId != CallerAccess.UserId(_user) && !await ProfileAccess.IsOfficeAsync(_authorization, _user))
             throw new UnauthorizedAccessException("Access denied.");
 

@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-102, L2-REQ-103, L2-REQ-101
+// Traces to: L2-REQ-110, L2-REQ-111, L2-REQ-101
 // Description: The public site is read-only and anonymous: old member
 // addresses, register and forgot-password open the admin login, the
 // documents page has no signed-in parts even with an old token in the

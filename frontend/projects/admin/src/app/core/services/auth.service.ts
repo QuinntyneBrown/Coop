@@ -56,7 +56,7 @@ export class AuthService {
   /**
    * True when the signed-in person holds an office role, as the server says
    * (GET api/user/current); asked once per sign-in. A failed answer counts as
-   * a member, so only the member areas show (L2-REQ-104).
+   * a member, so only the member areas show (L2-REQ-112).
    */
   get office$(): Observable<boolean> {
     this.office ??= this.getCurrentUserFromApi().pipe(

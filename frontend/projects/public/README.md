@@ -3,7 +3,7 @@
 Angular public website for Coop. It serves the CMS-driven public site (landing
 page, website pages, published documents, board members). It is read-only and
 anonymous: members sign in, register and do everything that needs signing in
-on the [admin site](../admin/README.md) (L2-REQ-102, ADR 0012).
+on the [admin site](../admin/README.md) (L2-REQ-110, ADR 0016).
 
 It is the `public` project of the [frontend workspace](../../README.md) and
 talks to the Coop API at `http://localhost:5000/api`.

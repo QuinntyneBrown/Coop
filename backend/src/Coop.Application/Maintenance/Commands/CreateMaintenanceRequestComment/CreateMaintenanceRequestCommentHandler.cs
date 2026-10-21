@@ -24,7 +24,7 @@ public class CreateMaintenanceRequestCommentHandler : IRequestHandler<CreateMain
 
     public async Task<CreateMaintenanceRequestCommentResponse> Handle(CreateMaintenanceRequestCommentRequest request, CancellationToken cancellationToken)
     {
-        // Only the household that asked and the office comment on a request (L2-REQ-106).
+        // Only the household that asked and the office comment on a request (L2-REQ-114).
         var mr = await _context.MaintenanceRequests.SingleAsync(m => m.MaintenanceRequestId == request.MaintenanceRequestId, cancellationToken);
         if (!await MaintenanceRequestAccess.CanReadAsync(_context, _authorization, _user, mr, cancellationToken))
             throw new UnauthorizedAccessException("Access denied.");

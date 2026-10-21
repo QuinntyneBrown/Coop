@@ -25,9 +25,9 @@ auth -> users : GET api/user/current
 users -> current : Send(GetCurrentUserRequest)
 current --> auth : user with roles [Member]
 auth --> sidebar : false
-sidebar --> member : Dashboard, Maintenance, Documents, Messages, My profile  [L2-REQ-104 AC1]
+sidebar --> member : Dashboard, Maintenance, Documents, Messages, My profile  [L2-REQ-112 AC1]
 member -> guard : types /users
 guard -> auth : office$ (cached)
 auth --> guard : false
-guard --> member : /dashboard opens instead  [L2-REQ-104 AC3]
+guard --> member : /dashboard opens instead  [L2-REQ-112 AC3]
 @enduml

@@ -1,4 +1,4 @@
-# 0012. Members use the admin site, and its areas are restricted by role
+# 0016. Members use the admin site, and its areas are restricted by role
 
 - Status: Accepted
 - Date: 2026-10-21

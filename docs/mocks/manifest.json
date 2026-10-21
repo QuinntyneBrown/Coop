@@ -864,9 +864,9 @@
       "route": "/dashboard",
       "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
       "requirements": [
-        "L2-REQ-104",
-        "L2-REQ-106",
-        "L2-REQ-109"
+        "L2-REQ-112",
+        "L2-REQ-114",
+        "L2-REQ-117"
       ],
       "note": "The dashboard as a member sees it: the member sidebar, their own requests, no Active members count and no office quick actions.",
       "states": [
@@ -891,9 +891,9 @@
         "L2-REQ-030",
         "L2-REQ-088",
         "L2-REQ-089",
-        "L2-REQ-106",
-        "L2-REQ-107",
-        "L2-REQ-109"
+        "L2-REQ-114",
+        "L2-REQ-115",
+        "L2-REQ-117"
       ],
       "note": "Only the member's own requests; no lifecycle steps or Edit description; Add a photo on the detail.",
       "states": [
@@ -923,8 +923,8 @@
       "requirements": [
         "L2-REQ-021",
         "L2-REQ-089",
-        "L2-REQ-107",
-        "L2-REQ-109"
+        "L2-REQ-115",
+        "L2-REQ-117"
       ],
       "note": "The create dialog with its working photo picker.",
       "opens_from": "admin-member-maintenance",
@@ -946,8 +946,8 @@
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
       "requirements": [
         "L2-REQ-035",
-        "L2-REQ-104",
-        "L2-REQ-109"
+        "L2-REQ-112",
+        "L2-REQ-117"
       ],
       "note": "Read only for members: published documents, no create, delete, publish or send.",
       "states": [
@@ -970,8 +970,8 @@
         "L2-REQ-036",
         "L2-REQ-037",
         "L2-REQ-038",
-        "L2-REQ-106",
-        "L2-REQ-109"
+        "L2-REQ-114",
+        "L2-REQ-117"
       ],
       "note": "Only the member's own conversations.",
       "states": [
@@ -996,9 +996,9 @@
         "L2-REQ-015",
         "L2-REQ-091",
         "L2-REQ-092",
-        "L2-REQ-106",
-        "L2-REQ-108",
-        "L2-REQ-109"
+        "L2-REQ-114",
+        "L2-REQ-116",
+        "L2-REQ-117"
       ],
       "note": "The member's own profile with the profile picture and the New notices choice.",
       "states": [

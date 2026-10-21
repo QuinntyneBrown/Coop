@@ -8,8 +8,8 @@ a profile and onboarding) and signed in on the admin site's login screen
 (L2-REQ-101), yet the admin sign-in never reached those public pages. This
 feature finishes the move: the public site becomes read-only and anonymous,
 and everything a person does while signed in happens on the admin site. What
-each person can see there depends on their role (L1-REQ-018, L1-REQ-021,
-ADR 0012).
+each person can see there depends on their role (L1-REQ-018, L1-REQ-022,
+ADR 0016).
 
 The screens are drawn in `docs/mocks/pages/admin-member-dashboard/`,
 `admin-member-maintenance/`, `admin-member-documents/`,
@@ -50,7 +50,7 @@ observable of `boolean`, built once per sign-in from `GET /api/user/current`
 (`getCurrentUserFromApi`) and replayed to every reader. `isOffice(user)`
 (`core/is-office.ts`) is true when the user's `roles` names one of
 `OFFICE_ROLES` (`core/office-roles.ts`). A failed request yields `false`, so
-the app falls back to the member areas (L2-REQ-104 AC8); the API still
+the app falls back to the member areas (L2-REQ-112 AC8); the API still
 refuses anything else. `logout()` and `login()` drop the cached answer.
 
 The token's `Role` claims carry the same names, but the admin does not
@@ -72,8 +72,8 @@ Documents, Messages and Profile, the member areas, and is unchanged.
 nine office routes of `app.routes.ts`. It reads `office$` and returns `true`
 for the office and `router.createUrlTree(['/dashboard'])` for a member, so a
 typed address opens the dashboard and the office screen never renders
-(L2-REQ-104 AC3). The choice of the dashboard over a "not available" screen
-is recorded in ADR 0012: it adds no screen, and the dashboard is where the
+(L2-REQ-112 AC3). The choice of the dashboard over a "not available" screen
+is recorded in ADR 0016: it adds no screen, and the dashboard is where the
 member starts anyway.
 
 ### Member screens
@@ -94,7 +94,7 @@ as before.
   here), listed with "Remove", and sent one by one after the request through
   `MaintenanceService.addPhoto` (`POST /api/maintenance-requests/{id}/photos`).
   While sending, the submit button reads "Sending…" and the dialog's
-  controls are disabled. A member's detail has "Add a photo" (L2-REQ-107).
+  controls are disabled. A member's detail has "Add a photo" (L2-REQ-115).
   Statuses keep the office's words, New, Received, Started and Completed
   (L2-REQ-088). The Comments tab lists only the open request's comments; it
   used to list every comment the API returned. Empty Title and Description
@@ -117,7 +117,7 @@ as before.
 ### Server-side enforcement
 
 **Office areas.** `[OfficeOnly]` (`Coop.Application/Behaviors/OfficeOnlyAttribute.cs`)
-marks every request type of an office area (the list in L2-REQ-105 AC1).
+marks every request type of an office area (the list in L2-REQ-113 AC1).
 `OfficeOnlyBehavior<TRequest, TResponse>`
 (`Coop.Application/Behaviors/OfficeOnlyBehavior.cs`), registered in
 `Dependencies.cs` beside `ValidationBehavior` and
@@ -166,7 +166,7 @@ caller may see. The office for a record is Write on `MaintenanceRequest`,
 `app.routes.ts` keeps `''`, `pages/:slug`, `documents` and `login`. The
 addresses `dashboard`, `maintenance`, `messaging`, `profile`, `onboarding`,
 `register` and `forgot-password` each have `canActivate: [adminLoginGuard]`
-and no component, so they open the admin login (L2-REQ-102, L2-REQ-103).
+and no component, so they open the admin login (L2-REQ-110, L2-REQ-111).
 `AuthService`, `authGuard`, `authInterceptor` and the member services
 (`maintenance`, `messaging`, `profile`, `user`, `invitation` and
 `digital-asset`) are removed with the member pages; `app.config.ts` provides
@@ -192,12 +192,12 @@ belong to `MaintenanceRequestPhotosController` and stay.
 | Capability on the public site | Where it lives now |
 |---|---|
 | Sign in, sign out | Admin login and My profile → Sign out (unchanged) |
-| Register with an invitation, forgot password | Admin `/register` and `/forgot-password` (L2-REQ-103) |
+| Register with an invitation, forgot password | Admin `/register` and `/forgot-password` (L2-REQ-111) |
 | Onboarding | Admin `/onboarding`, reached after registering |
-| Dashboard: greeting, open requests, unread messages, recent requests | Admin dashboard, member view (L2-REQ-104 AC5) |
+| Dashboard: greeting, open requests, unread messages, recent requests | Admin dashboard, member view (L2-REQ-112 AC5) |
 | Dashboard: members count | Deferred: it reads the office's user list |
 | Submit a maintenance request | Admin Maintenance → New request |
-| Own requests, filters, detail, comments | Admin Maintenance, scoped (L2-REQ-106, L2-REQ-107) |
+| Own requests, filters, detail, comments | Admin Maintenance, scoped (L2-REQ-114, L2-REQ-115) |
 | Progress in plain words (L2-REQ-088) | Admin Maintenance and dashboard, with the office's words |
 | Photos on requests (L2-REQ-089) | Admin create dialog and "Add a photo" on the detail |
 | Read documents | Admin Documents, read only (the public list also stays) |
@@ -232,14 +232,14 @@ for removed pages are deleted and their behaviours are covered there.
 
 | L2 ID | Refines (L1) | Requirement |
 |-------|--------------|-------------|
-| `L2-REQ-102` | `L1-REQ-018` | The public app shall be read-only and anonymous, with no route, page, guard, interceptor or stored token that serves a signed-in member; every old member address opens the admin site's login screen. |
-| `L2-REQ-103` | `L1-REQ-018` | Registering with an invitation and asking for a password reset shall happen only on the admin site. |
-| `L2-REQ-104` | `L1-REQ-021` | The admin app shall show a member only the member areas and keep the office's areas out of their reach. |
-| `L2-REQ-105` | `L1-REQ-021` | The API shall refuse a signed-in member, with status 403, every request that belongs to an office area, even when the admin app is bypassed. |
-| `L2-REQ-106` | `L1-REQ-021` | On every admin screen a member can open, the API shall return a member only their own maintenance requests, comments, conversations, messages and profiles, and refuse with 403 any request that names another household's. |
-| `L2-REQ-107` | `L1-REQ-021` | The admin Maintenance screen shall give a member their own requests, sending a request, progress in plain words, comments and photos. |
-| `L2-REQ-108` | `L1-REQ-021` | The admin "My profile" screen shall give every signed-in person the profile picture and the notice choice for their own profile. |
-| `L2-REQ-109` | `L1-REQ-021` | Every admin screen a member can open shall meet WCAG 2.2 AA: keyboard access, visible focus, large targets and reflow at 400% zoom. |
+| `L2-REQ-110` | `L1-REQ-018` | The public app shall be read-only and anonymous, with no route, page, guard, interceptor or stored token that serves a signed-in member; every old member address opens the admin site's login screen. |
+| `L2-REQ-111` | `L1-REQ-018` | Registering with an invitation and asking for a password reset shall happen only on the admin site. |
+| `L2-REQ-112` | `L1-REQ-022` | The admin app shall show a member only the member areas and keep the office's areas out of their reach. |
+| `L2-REQ-113` | `L1-REQ-022` | The API shall refuse a signed-in member, with status 403, every request that belongs to an office area, even when the admin app is bypassed. |
+| `L2-REQ-114` | `L1-REQ-022` | On every admin screen a member can open, the API shall return a member only their own maintenance requests, comments, conversations, messages and profiles, and refuse with 403 any request that names another household's. |
+| `L2-REQ-115` | `L1-REQ-022` | The admin Maintenance screen shall give a member their own requests, sending a request, progress in plain words, comments and photos. |
+| `L2-REQ-116` | `L1-REQ-022` | The admin "My profile" screen shall give every signed-in person the profile picture and the notice choice for their own profile. |
+| `L2-REQ-117` | `L1-REQ-022` | Every admin screen a member can open shall meet WCAG 2.2 AA: keyboard access, visible focus, large targets and reflow at 400% zoom. |
 | `L2-REQ-101` | `L1-REQ-018` | The public app shall have no login screen of its own; every sign-in link and sign-in redirect on the public site shall open the admin site's login screen. |
 | `L2-REQ-088` | `L1-REQ-005` | The admin app's maintenance list and detail as a member sees them, and the member dashboard's recent requests, shall show the member each request's status in plain words. |
 | `L2-REQ-089` | `L1-REQ-005` | The system shall let a member attach photos to their own maintenance request and let the office see them, keeping the photos private to the requesting household and the office. |

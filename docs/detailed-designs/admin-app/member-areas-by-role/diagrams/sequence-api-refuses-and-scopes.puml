@@ -21,7 +21,7 @@ client -> middleware : with the member's JWT
 middleware -> controller : GetUsersRequest
 controller -> officeOnly : Send(GetUsersRequest) [OfficeOnly]
 officeOnly --> middleware : UnauthorizedAccessException (no office role)
-middleware --> client : 403 { message: "Access denied." }  [L2-REQ-105 AC1, AC5]
+middleware --> client : 403 { message: "Access denied." }  [L2-REQ-113 AC1, AC5]
 member -> client : GET api/maintenancerequest
 client -> middleware : with the member's JWT
 middleware -> controller : GetMaintenanceRequestsRequest
@@ -29,5 +29,5 @@ controller -> officeOnly : Send (not OfficeOnly)
 officeOnly -> handler : next()
 handler -> db : caller holds no Write on MaintenanceRequest: own profile ids
 handler -> db : requests WHERE RequestedByProfileId IN own ids
-handler --> client : 200 only the member's requests  [L2-REQ-106 AC1]
+handler --> client : 200 only the member's requests  [L2-REQ-114 AC1]
 @enduml

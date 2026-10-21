@@ -26,7 +26,7 @@ public class CreateMaintenanceRequestHandler : IRequestHandler<CreateMaintenance
     public async Task<CreateMaintenanceRequestResponse> Handle(CreateMaintenanceRequestRequest request, CancellationToken cancellationToken)
     {
         // A member's request is always made from their own current profile; the
-        // office may name another profile, and gets its own when it names none (L2-REQ-106).
+        // office may name another profile, and gets its own when it names none (L2-REQ-114).
         var requestedByProfileId = request.RequestedByProfileId;
         if (requestedByProfileId == Guid.Empty
             || !await CallerAccess.HoldsWriteAsync(_authorization, _user, Constants.Aggregates.MaintenanceRequest))

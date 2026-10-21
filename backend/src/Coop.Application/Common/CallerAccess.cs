@@ -9,7 +9,7 @@ namespace Coop.Application.Common;
 
 /// <summary>
 /// What the API knows about the signed-in caller: their user, the profiles
-/// they own, whether they are the office (an office role, ADR 0012) and
+/// they own, whether they are the office (an office role, ADR 0016) and
 /// whether they hold Write on an aggregate (the office for a record).
 /// </summary>
 public static class CallerAccess

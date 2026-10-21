@@ -23,7 +23,7 @@ public class GetProfilesHandler : IRequestHandler<GetProfilesRequest, GetProfile
 
     public async Task<GetProfilesResponse> Handle(GetProfilesRequest request, CancellationToken cancellationToken)
     {
-        // A member lists only their own profiles; the office lists everyone's (L2-REQ-106).
+        // A member lists only their own profiles; the office lists everyone's (L2-REQ-114).
         Guid? userId = await ProfileAccess.IsOfficeAsync(_authorization, _user) ? null : CallerAccess.UserId(_user) ?? Guid.Empty;
         var profiles = await _context.Profiles.Where(p => !p.IsDeleted && (userId == null || p.UserId == userId)).ToListAsync(cancellationToken);
         return new GetProfilesResponse { Profiles = profiles.Select(ProfileDto.FromProfile).ToList() };

@@ -34,7 +34,7 @@ export class DocumentsPage {
   // Loading
   readonly loadingSpinner: Locator;
 
-  // Layout: the logo only; no signed-in parts (L2-REQ-102)
+  // Layout: the logo only; no signed-in parts (L2-REQ-110)
   readonly topBar: Locator;
   readonly logo: Locator;
   readonly notificationBell: Locator;

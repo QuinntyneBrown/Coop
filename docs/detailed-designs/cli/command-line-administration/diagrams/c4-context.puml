@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Command-Line Administration
+
+Person(operator, "Operator", "Power user on the machine that holds the database")
+Person(admin, "Office administrator", "Manages the co-op in the admin app")
+Person(visitor, "Visitor", "Reads the public site")
+System(coop, "Coop", "Cooperative management platform: admin app, public site, API and command-line tool")
+
+Rel(operator, coop, "Resets the database and manages users, roles, invitations and content from a terminal", "Command line")
+Rel(admin, coop, "Manages the same records in the admin app", "HTTPS")
+Rel(visitor, coop, "Sees the content the operator or administrator published", "HTTPS")
+@enduml

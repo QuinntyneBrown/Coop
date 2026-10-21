@@ -26,7 +26,7 @@ const signedInScreens = [
   '/invitations',
   '/settings',
 ];
-// The member areas, as a member sees them (L2-REQ-109 AC4).
+// The member areas, as a member sees them (L2-REQ-117 AC4).
 const memberScreens = ['/dashboard', '/onboarding', '/change-password', '/profile', '/maintenance', '/documents', '/messages'];
 
 test.describe('Reflow at 400% zoom', () => {

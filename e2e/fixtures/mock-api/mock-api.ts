@@ -64,12 +64,12 @@ const badRequest = (message: string): MockResponse => ({ status: 400, body: { me
 const unauthorized = (): MockResponse => ({ status: 401, body: { message: 'Unauthorized' } });
 const forbidden = (): MockResponse => ({ status: 403, body: { message: 'Access denied.' } });
 
-/** The office's roles; anyone else signed in is a member (L2-REQ-104, ADR 0012). */
+/** The office's roles; anyone else signed in is a member (L2-REQ-112, ADR 0016). */
 export const OFFICE_ROLES = ['SystemAdministrator', 'BoardMember', 'Staff', 'Support'];
 
 export const isOffice = (user: MockUser) => OFFICE_ROLES.includes(user.role);
 
-/** Routes of the office areas: like the API, they answer a member with 403 (L2-REQ-105). */
+/** Routes of the office areas: like the API, they answer a member with 403 (L2-REQ-113). */
 const OFFICE_ROUTES = new Set([
   'GET user',
   'GET user/page/:size/:index',
@@ -831,7 +831,7 @@ export class MockApi {
     );
 
     // Documents (admin app)
-    // Like the API, drafts are the office's: anyone else reads published documents only (L2-REQ-106).
+    // Like the API, drafts are the office's: anyone else reads published documents only (L2-REQ-114).
     const readable = (user: MockUser | null) =>
       docs().filter((d) => (user && isOffice(user)) || d.published);
     this.on('GET', 'document', (ctx) => ok({ documents: readable(ctx.user) }), true);
@@ -940,7 +940,7 @@ export class MockApi {
     });
 
     // Maintenance requests (admin app). Like the API, a member sees only the
-    // requests their household made, and their comments (L2-REQ-106).
+    // requests their household made, and their comments (L2-REQ-114).
     const visibleTo = (user: MockUser) =>
       requests().filter((r) => isOffice(user) || r.ownerUserId === user.userId);
     this.on('GET', 'maintenancerequest', (ctx) =>
@@ -1030,7 +1030,7 @@ export class MockApi {
         .sort((a, b) => a.createdOn.localeCompare(b.createdOn))
         .map((m) => this.messageView(m));
 
-    // Like the API, a member uses only the conversations they take part in (L2-REQ-106).
+    // Like the API, a member uses only the conversations they take part in (L2-REQ-114).
     const canUse = (user: MockUser, c: MockConversation) =>
       isOffice(user) || c.participantUserIds.includes(user.userId);
     this.on('GET', 'conversations/by-profile/:id', (ctx) =>

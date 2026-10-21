@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
   private profileService = inject(ProfileService);
   private documentService = inject(DocumentService);
 
-  /** The office's counts and actions are left out for members (L2-REQ-104 AC5). */
+  /** The office's counts and actions are left out for members (L2-REQ-112 AC5). */
   office = false;
   displayName = '';
   requestsCount = 0;

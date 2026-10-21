@@ -12,7 +12,7 @@ test.describe('Authentication', () => {
   });
 
   test.describe('Anonymous access', () => {
-    // Old member addresses are covered in no-member-pages.spec.ts (L2-REQ-101 AC5, L2-REQ-102).
+    // Old member addresses are covered in no-member-pages.spec.ts (L2-REQ-101 AC5, L2-REQ-110).
     test('should allow anonymous access to landing page', async ({ page }) => {
       await page.goto('/');
       await expect(page).not.toHaveURL(/\/login/);

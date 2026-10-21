@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-108, L2-REQ-091, L2-REQ-092, L2-REQ-106
+// Traces to: L2-REQ-116, L2-REQ-091, L2-REQ-092, L2-REQ-114
 // Description: On the admin site's My profile a member sees only their own
 // profile, sets, replaces and removes their picture, and chooses how new
 // notices reach them.

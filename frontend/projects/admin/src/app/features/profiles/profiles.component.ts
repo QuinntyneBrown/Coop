@@ -84,7 +84,7 @@ export class ProfilesComponent implements OnInit {
   showPasswordForm = false;
   successMessage = '';
 
-  // The picture and the notice choice on the person's own profile (L2-REQ-108).
+  // The picture and the notice choice on the person's own profile (L2-REQ-116).
   chosenPhoto: File | null = null;
   previewUrl = '';
   savingPhoto = false;

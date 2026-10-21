@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Command-Line Administration
+
+Person(operator, "Operator", "Power user on the machine that holds the database")
+Person(admin, "Office administrator")
+System_Boundary(coop, "Coop") {
+  Container(cli, "Coop.Cli", ".NET console tool", "db, user, role, invitation, site-content, page, board, asset, theme and document commands")
+  Container(api, "Coop.Api", "ASP.NET Core", "REST API used by both apps")
+  Container(adminApp, "Admin application", "Angular", "Admin screens")
+  Container(core, "Coop.Application and Coop.Infrastructure", ".NET libraries", "Handlers, validators, behaviors, AddCoopCore, SeedData")
+  ContainerDb(db, "Coop database", "SQLite", "coop.db")
+}
+Rel(operator, cli, "Runs commands", "Terminal")
+Rel(admin, adminApp, "Uses", "HTTPS")
+Rel(adminApp, api, "Calls", "JSON/HTTPS")
+Rel(cli, core, "Sends MediatR requests in process")
+Rel(api, core, "Sends MediatR requests in process")
+Rel(core, db, "Reads and writes", "EF Core")
+@enduml

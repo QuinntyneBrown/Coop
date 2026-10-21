@@ -47,7 +47,7 @@ def notice(app,name,parent,req,patch,variant='success',note=''):
     return s
 
 for app in ['public','admin']:
-    if app=='public':  # the public site has no signed-in features; of its captured screens only the documents list remains (L2-REQ-102)
+    if app=='public':  # the public site has no signed-in features; of its captured screens only the documents list remains (L2-REQ-110)
         s=add(app,'documents',[35],dict(documents=DOCS,filteredDocuments=DOCS,loading=False,activeFilter='all',selectedDocument=None))
         state(s); state(s,'loading',dict(documents=[],filteredDocuments=[],loading=True)); state(s,'empty',dict(documents=[],filteredDocuments=[]),note='Fetch failures reach this same empty presentation.')
         for f,doc in zip(['notices','bylaws','reports'],DOCS): state(s,f,dict(activeFilter=f,filteredDocuments=[doc]))

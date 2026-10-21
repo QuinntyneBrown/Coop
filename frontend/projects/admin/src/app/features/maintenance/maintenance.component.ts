@@ -116,7 +116,7 @@ export class MaintenanceComponent implements OnInit {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
 
-  /** The office moves requests along; a member only reports and follows them (L2-REQ-107). */
+  /** The office moves requests along; a member only reports and follows them (L2-REQ-115). */
   office = false;
   submitted = false;
   sending = false;

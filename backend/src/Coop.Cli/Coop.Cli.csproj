@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>coop</AssemblyName>
+    <RootNamespace>Coop.Cli</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coop.Application\Coop.Application.csproj" />
+    <ProjectReference Include="..\Coop.Infrastructure\Coop.Infrastructure.csproj" />
+    <ProjectReference Include="..\Coop.Domain\Coop.Domain.csproj" />
+    <ProjectReference Include="..\Coop.SharedKernel\Coop.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- The public app's photographs, linked rather than copied, for the demo reset (L2-REQ-103 AC5). -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\frontend\projects\public\public\own\*.svg" LinkBase="Photos" LogicalName="Photos.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

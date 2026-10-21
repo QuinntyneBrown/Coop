@@ -31,7 +31,7 @@ By the end, the viewer can:
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
-Members sign in on the admin site and see only the member areas (ADR 0012),
+Members sign in on the admin site and see only the member areas (ADR 0016),
 so the member screens come from the `admin-member-*` mocks. The mocks have no
 state for a request the member has just sent, so `shots.json` fills in the
 form, renames the chosen photo, adds Water under the kitchen sink to the list,

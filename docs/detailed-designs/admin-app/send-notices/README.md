@@ -116,7 +116,7 @@ set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
 ### Choosing on My profile
 
 Since 21 October 2026 members choose on the admin app's My profile
-(`frontend/projects/admin/src/app/features/profiles/`, L2-REQ-108); the public
+(`frontend/projects/admin/src/app/features/profiles/`, L2-REQ-116); the public
 profile page is removed (see
 `docs/detailed-designs/admin-app/member-areas-by-role/`). `ProfilesComponent`:
 

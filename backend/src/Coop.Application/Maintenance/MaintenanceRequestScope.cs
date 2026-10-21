@@ -9,7 +9,7 @@ namespace Coop.Application.Maintenance;
 /// <summary>
 /// Which requesting profiles a caller may see in a list: null for the office
 /// (Write or higher on MaintenanceRequest), otherwise the caller's own
-/// profiles (L2-REQ-106).
+/// profiles (L2-REQ-114).
 /// </summary>
 public static class MaintenanceRequestScope
 {

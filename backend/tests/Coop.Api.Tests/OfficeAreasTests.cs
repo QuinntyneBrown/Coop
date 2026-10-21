@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-105, L2-REQ-103
+// Traces to: L2-REQ-113, L2-REQ-111
 // Description: A signed-in member is refused (403) every request of an office
 // area, even with the admin app bypassed; the office keeps its access, and
 // registering with an invitation stays anonymous.

@@ -1,7 +1,7 @@
 # Photos on maintenance requests
 
 **Status:** Moved to the admin site on 21 October 2026. Members now do this on
-the admin Maintenance screen's create dialog and the member's request detail (L2-REQ-107); the public member pages are removed (L2-REQ-102, ADR 0012). The API
+the admin Maintenance screen's create dialog and the member's request detail (L2-REQ-115); the public member pages are removed (L2-REQ-110, ADR 0016). The API
 part of this design still holds. The design of the admin screens is
 `docs/detailed-designs/admin-app/member-areas-by-role/README.md`; the public
 screens, mocks and tests described below are kept for the record only.

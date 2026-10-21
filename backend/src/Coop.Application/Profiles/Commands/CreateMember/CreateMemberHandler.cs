@@ -23,7 +23,7 @@ public class CreateMemberHandler : IRequestHandler<CreateMemberRequest, CreateMe
 
     public async Task<CreateMemberResponse> Handle(CreateMemberRequest request, CancellationToken cancellationToken)
     {
-        // A member creates a profile only for themselves, as in onboarding (L2-REQ-106).
+        // A member creates a profile only for themselves, as in onboarding (L2-REQ-114).
         var userId = await ProfileAccess.IsOfficeAsync(_authorization, _user) ? request.UserId : CallerAccess.UserId(_user);
 
         var member = new Member

@@ -96,7 +96,7 @@ export class DocumentsComponent implements OnInit {
   private documentService = inject(DocumentService);
   private authService = inject(AuthService);
 
-  /** Documents are read only for members (L2-REQ-104 AC6). */
+  /** Documents are read only for members (L2-REQ-112 AC6). */
   office = false;
   private readonly documentDialog = viewChild<unknown, ElementRef<HTMLDialogElement>>(
     'documentDialog',

@@ -3,7 +3,7 @@ import type { MockApi } from '../mock-api/mock-api';
 
 /**
  * Helpers that seed test data straight into the mock API. The public site is
- * anonymous (L2-REQ-102), so nothing here signs in.
+ * anonymous (L2-REQ-110), so nothing here signs in.
  */
 export class ApiHelper {
   constructor(private mockApi: MockApi) {}

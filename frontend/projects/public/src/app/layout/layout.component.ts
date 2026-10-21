@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 /**
  * The plain layout of the public documents page: a top bar with the co-op's
  * logo and name, and the page. The public site has no signed-in parts
- * (L2-REQ-102).
+ * (L2-REQ-110).
  */
 @Component({
   selector: 'app-layout',

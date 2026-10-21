@@ -28,7 +28,7 @@ By the end, the viewer can:
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
-Members sign in on the admin site and see only the member areas (ADR 0012),
+Members sign in on the admin site and see only the member areas (ADR 0016),
 so the screens come from the `admin-member-maintenance` mocks. The mocks have
 no filtered state, so `shots.json` selects Completed and hides the other
 request with a short script before the screenshot. On a phone the open request
