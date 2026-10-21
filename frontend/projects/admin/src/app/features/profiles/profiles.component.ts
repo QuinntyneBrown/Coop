@@ -15,7 +15,10 @@ import {
   ButtonComponent,
   CardComponent,
   CardTitleComponent,
+  CheckboxComponent,
+  CheckboxTextComponent,
   FieldErrorComponent,
+  FieldHelpComponent,
   FieldLabelComponent,
   FormFieldComponent,
   IconComponent,
@@ -24,11 +27,16 @@ import {
   ListItemComponent,
   ListMetaComponent,
   ListTitleComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent,
   TextFieldComponent,
 } from 'components';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
 import { plainName } from '../../core/plain-name';
+import { photoFileError } from '../maintenance/photo-file-error';
+import { noticeChoiceError, noticeChoiceLabel } from './notice-choice';
 
 @Component({
   selector: 'app-profiles',
@@ -41,6 +49,12 @@ import { plainName } from '../../core/plain-name';
     BadgeComponent,
     CardComponent,
     CardTitleComponent,
+    CheckboxComponent,
+    CheckboxTextComponent,
+    FieldHelpComponent,
+    PhotoPickerActionsComponent,
+    PhotoPickerBodyComponent,
+    PhotoPickerComponent,
     ListBodyComponent,
     ListComponent,
     ListItemComponent,
@@ -70,12 +84,25 @@ export class ProfilesComponent implements OnInit {
   showPasswordForm = false;
   successMessage = '';
 
+  // The picture and the notice choice on the person's own profile (L2-REQ-108).
+  chosenPhoto: File | null = null;
+  previewUrl = '';
+  savingPhoto = false;
+  photoError = '';
+  photoStatus = '';
+  noticeByEmail = false;
+  noticeByText = false;
+  noticesError = '';
+  readonly noticeChoiceLabel = noticeChoiceLabel;
+
   profileForm: FormGroup = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: [''],
     phone: [''],
     boardTitle: [''],
+    noticeByEmail: [false],
+    noticeByText: [false],
   });
 
   currentPasswordCtrl = new FormControl('');
@@ -94,6 +121,76 @@ export class ProfilesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProfiles();
+    this.profileService.getNoticeChoice().subscribe({
+      next: (choice) => {
+        this.noticeByEmail = choice.noticeByEmail;
+        this.noticeByText = choice.noticeByText;
+      },
+      error: () => {},
+    });
+  }
+
+  /** The picture shown in the circle: the previewed photo, else the saved one. */
+  get photoAddress(): string {
+    return this.previewUrl || this.profileService.avatarAddress(this.currentProfile);
+  }
+
+  choosePhoto(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+    this.photoStatus = '';
+    this.photoError = photoFileError(file) ?? '';
+    if (this.photoError) return;
+    this.cancelPhoto();
+    this.chosenPhoto = file;
+    this.previewUrl = URL.createObjectURL(file);
+  }
+
+  savePhoto(): void {
+    const profileId = this.currentProfile?.profileId;
+    if (!profileId || !this.chosenPhoto) return;
+    this.savingPhoto = true;
+    this.photoError = '';
+    this.profileService.uploadAvatar(profileId, this.chosenPhoto).subscribe({
+      next: (resp: any) => {
+        this.savingPhoto = false;
+        this.currentProfile = { ...this.currentProfile, avatarUrl: resp?.profile?.avatarUrl };
+        this.cancelPhoto();
+        this.photoStatus = 'Your photo is saved.';
+      },
+      error: () => {
+        this.savingPhoto = false;
+        this.photoError = 'Your photo was not saved. Please try again.';
+      },
+    });
+  }
+
+  cancelPhoto(): void {
+    if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
+    this.previewUrl = '';
+    this.chosenPhoto = null;
+    this.photoError = '';
+  }
+
+  removePhoto(): void {
+    const profileId = this.currentProfile?.profileId;
+    if (!profileId) return;
+    this.savingPhoto = true;
+    this.photoError = '';
+    this.photoStatus = '';
+    this.profileService.removeAvatar(profileId).subscribe({
+      next: () => {
+        this.savingPhoto = false;
+        this.currentProfile = { ...this.currentProfile, avatarUrl: null };
+        this.photoStatus = 'Your photo is removed.';
+      },
+      error: () => {
+        this.savingPhoto = false;
+        this.photoError = 'Your photo was not removed. Please try again.';
+      },
+    });
   }
 
   private loadProfiles(): void {
@@ -116,6 +213,8 @@ export class ProfilesComponent implements OnInit {
         lastName: this.currentProfile.lastname || this.currentProfile.lastName || '',
         email: this.currentProfile.email || '',
         phone: this.currentProfile.phoneNumber || this.currentProfile.phone || '',
+        noticeByEmail: this.noticeByEmail,
+        noticeByText: this.noticeByText,
       });
     }
   }
@@ -123,6 +222,7 @@ export class ProfilesComponent implements OnInit {
   cancelEdit(): void {
     this.editMode = false;
     this.successMessage = '';
+    this.noticesError = '';
   }
 
   saveProfile(): void {
@@ -130,6 +230,14 @@ export class ProfilesComponent implements OnInit {
     if (this.profileForm.invalid) {
       return;
     }
+    const form = this.profileForm.value;
+    this.noticesError = noticeChoiceError({
+      email: form.email || '',
+      phone: form.phone || '',
+      noticeByEmail: !!form.noticeByEmail,
+      noticeByText: !!form.noticeByText,
+    });
+    if (this.noticesError) return;
     const data = {
       ...this.currentProfile,
       firstname: this.profileForm.value.firstName,
@@ -139,25 +247,30 @@ export class ProfilesComponent implements OnInit {
       email: this.profileForm.value.email,
       phoneNumber: this.profileForm.value.phone,
     };
+    const choice = { noticeByEmail: !!form.noticeByEmail, noticeByText: !!form.noticeByText };
+    // As before, the profile counts as saved even when the update fails (design-system drift D21).
     this.profileService.updateProfile(data).subscribe({
+      next: () => this.profileSaved(data, choice),
+      error: () => this.profileSaved(data, choice),
+    });
+  }
+
+  private profileSaved(data: any, choice: { noticeByEmail: boolean; noticeByText: boolean }): void {
+    this.currentProfile = { ...this.currentProfile, ...data };
+    // Update the profiles array to persist changes
+    const idx = this.profiles.indexOf(
+      this.profiles.find((p: any) => p.profileId === this.currentProfile.profileId) ||
+        this.profiles[0],
+    );
+    if (idx >= 0) this.profiles[idx] = this.currentProfile;
+    this.profileService.saveNoticeChoice(choice).subscribe({
       next: () => {
-        this.successMessage = 'Profile updated successfully';
-        this.currentProfile = { ...this.currentProfile, ...data };
-        // Update the profiles array to persist changes
-        const idx = this.profiles.indexOf(
-          this.profiles.find((p: any) => p.profileId === this.currentProfile.profileId) ||
-            this.profiles[0],
-        );
-        if (idx >= 0) this.profiles[idx] = this.currentProfile;
+        this.noticeByEmail = choice.noticeByEmail;
+        this.noticeByText = choice.noticeByText;
+        this.successMessage = 'Your profile is saved.';
       },
       error: () => {
-        this.successMessage = 'Profile updated successfully';
-        this.currentProfile = { ...this.currentProfile, ...data };
-        const idx = this.profiles.indexOf(
-          this.profiles.find((p: any) => p.profileId === this.currentProfile.profileId) ||
-            this.profiles[0],
-        );
-        if (idx >= 0) this.profiles[idx] = this.currentProfile;
+        this.noticesError = 'How you get notices was not saved. Please try again.';
       },
     });
   }

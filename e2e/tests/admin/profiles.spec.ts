@@ -54,8 +54,7 @@ test.describe('Profile Management', () => {
       await expect(profilesPage.editPanel).toBeVisible();
     });
 
-    test('should show avatar and change avatar button', async () => {
-      await profilesPage.selectProfile(0);
+    test('should show the avatar and a control to choose a photo for it', async () => {
       await expect(profilesPage.avatar).toBeVisible();
       await expect(profilesPage.changeAvatarButton).toBeVisible();
     });
