@@ -26,6 +26,8 @@ const signedInScreens = [
   '/invitations',
   '/settings',
 ];
+// The member areas, as a member sees them (L2-REQ-109 AC4).
+const memberScreens = ['/dashboard', '/onboarding', '/change-password', '/profile', '/maintenance', '/documents', '/messages'];
 
 test.describe('Reflow at 400% zoom', () => {
   for (const path of anonymousScreens) {
@@ -41,6 +43,16 @@ test.describe('Reflow at 400% zoom', () => {
       authenticatedPage,
     }) => {
       const reflow = new ReflowPage(authenticatedPage);
+      await reflow.open(path);
+      await reflow.expectReflows();
+    });
+  }
+
+  for (const path of memberScreens) {
+    test(`Given a signed-in member on ${path} at 320 px wide, then it reflows without horizontal scrolling`, async ({
+      memberPage,
+    }) => {
+      const reflow = new ReflowPage(memberPage);
       await reflow.open(path);
       await reflow.expectReflows();
     });
