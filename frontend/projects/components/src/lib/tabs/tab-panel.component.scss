@@ -1,0 +1,6 @@
+// Tab panel (docs/design-system/components/tabs.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  padding-top: var(--space-6);
+}

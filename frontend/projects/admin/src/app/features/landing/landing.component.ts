@@ -11,6 +11,12 @@ import {
   ListItemComponent,
   ListMetaComponent,
   ListTitleComponent,
+  LogoMarkComponent,
+  NavLinkComponent,
+  SkipLinkComponent,
+  TopBarBrandComponent,
+  TopBarComponent,
+  TopBarSpacerComponent,
 } from 'components';
 import { JsonContentService } from '../../core/services/json-content.service';
 import { DocumentService } from '../../core/services/document.service';
@@ -31,6 +37,12 @@ import type { Director } from '../../core/models/director';
     ListItemComponent,
     ListMetaComponent,
     ListTitleComponent,
+    LogoMarkComponent,
+    NavLinkComponent,
+    SkipLinkComponent,
+    TopBarBrandComponent,
+    TopBarComponent,
+    TopBarSpacerComponent,
   ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',

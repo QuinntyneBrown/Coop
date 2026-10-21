@@ -1,0 +1,11 @@
+// Top bar brand (docs/design-system/components/top-bar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  font: var(--text-h4);
+  color: var(--color-fg-default);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}

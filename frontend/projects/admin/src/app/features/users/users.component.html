@@ -108,7 +108,7 @@
       </tbody>
     </table>
   </div>
-  <nav class="pagination" aria-label="Pages of users" data-testid="users-pagination">
+  <nav libPagination aria-label="Pages of users" data-testid="users-pagination">
     <p aria-live="polite" data-testid="users-pagination-info">
       Showing {{ totalCount ? (page - 1) * pageSize + 1 : 0 }}-{{
         Math.min(page * pageSize, totalCount)
@@ -116,10 +116,10 @@
       of {{ totalCount }} users
     </p>
     @if (totalPages > 1) {
-      <ul class="pagination__list">
+      <ul libPaginationList>
         <li>
           <button
-            class="pagination__link"
+            libPaginationLink
             type="button"
             aria-label="Previous page"
             [disabled]="page <= 1"
@@ -132,7 +132,7 @@
         @for (p of pages; track p) {
           <li>
             <button
-              class="pagination__link"
+              libPaginationLink
               type="button"
               [attr.aria-label]="'Page ' + p"
               [attr.aria-current]="p === page ? 'page' : null"
@@ -145,7 +145,7 @@
         }
         <li>
           <button
-            class="pagination__link"
+            libPaginationLink
             type="button"
             aria-label="Next page"
             [disabled]="page >= totalPages"

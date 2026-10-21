@@ -24,12 +24,11 @@
   </div>
 }
 
-<div class="tabs" role="tablist" aria-label="Settings">
+<div libTabs aria-label="Settings">
   @for (tab of tabs; track tab.id) {
     <button
-      class="tabs__tab"
+      libTab
       type="button"
-      role="tab"
       [id]="'settings-tab-' + tab.id"
       [attr.aria-selected]="activeTab === tab.id"
       [attr.aria-controls]="'settings-panel-' + tab.id"
@@ -43,8 +42,7 @@
 </div>
 
 <div
-  class="tabs__panel"
-  role="tabpanel"
+  libTabPanel
   tabindex="0"
   [id]="'settings-panel-' + activeTab"
   [attr.aria-labelledby]="'settings-tab-' + activeTab"

@@ -1,12 +1,20 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { IconComponent, SkipLinkComponent, TabBarComponent } from 'components';
 import { SidebarComponent } from './sidebar.component';
-import { BottomTabBarComponent } from '../shared/components/bottom-tab-bar.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, BottomTabBarComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    IconComponent,
+    SidebarComponent,
+    SkipLinkComponent,
+    TabBarComponent,
+  ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

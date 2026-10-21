@@ -1,0 +1,38 @@
+// Pagination link (docs/design-system/components/pagination.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--target-comfortable);
+  min-height: var(--target-comfortable);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid transparent;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-fg-default);
+  font: var(--text-label);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+  text-decoration: none;
+}
+
+:host([aria-current='page']) {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-fg-on-accent);
+}
+
+:host([aria-disabled='true']),
+:host(:disabled) {
+  color: var(--color-fg-disabled);
+  cursor: not-allowed;
+  background: none;
+}

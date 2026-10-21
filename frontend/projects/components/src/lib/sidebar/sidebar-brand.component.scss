@@ -1,0 +1,17 @@
+// Sidebar brand (docs/design-system/components/sidebar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-h4);
+  color: var(--color-fg-default);
+  text-decoration: none;
+}
+
+:host(:hover) {
+  color: var(--color-fg-default);
+  text-decoration: none;
+}

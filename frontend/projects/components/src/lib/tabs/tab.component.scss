@@ -1,0 +1,71 @@
+// Tab (docs/design-system/components/tabs.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-comfortable);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: none;
+  color: var(--color-fg-muted);
+  font: var(--text-label);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+:host(:hover) {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+}
+
+:host([aria-selected='true']) {
+  color: var(--color-fg-accent);
+}
+
+:host([aria-selected='true'])::after {
+  content: '';
+  position: absolute;
+  left: var(--space-2);
+  right: var(--space-2);
+  bottom: 0;
+  height: var(--border-width-thick);
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+}
+
+:host(:focus-visible) {
+  outline-offset: calc(-1 * var(--focus-ring-width));
+}
+
+:host(:disabled),
+:host([aria-disabled='true']) {
+  color: var(--color-fg-disabled);
+  cursor: not-allowed;
+  background: none;
+}
+
+.tabs--pill :host {
+  border-radius: var(--radius-full);
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-default);
+  min-height: var(--control-height-sm);
+  padding: 0 var(--space-3);
+}
+
+.tabs--pill :host([aria-selected='true']) {
+  background: var(--color-accent-subtle);
+  border-color: var(--color-accent);
+  color: var(--color-fg-accent);
+}
+
+.tabs--pill :host([aria-selected='true'])::after {
+  content: none;
+}

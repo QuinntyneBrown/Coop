@@ -13,12 +13,11 @@
   </button>
 </div>
 
-<div class="tabs tabs--pill" role="tablist" aria-label="Filter requests by status">
+<div libTabs pill aria-label="Filter requests by status">
   @for (filter of filters; track filter.key) {
     <button
-      class="tabs__tab"
+      libTab
       type="button"
-      role="tab"
       aria-controls="mt-panel"
       [attr.aria-selected]="activeFilter === filter.key"
       [attr.data-testid]="'maintenance-filter-' + filter.testId"
@@ -97,11 +96,10 @@
   @if (selectedRequest) {
     <div class="span-7">
       <section libCard aria-labelledby="rq-title" data-testid="maintenance-detail-panel">
-        <div class="tabs" role="tablist" [attr.aria-label]="selectedRequest.title">
+        <div libTabs [attr.aria-label]="selectedRequest.title">
           <button
-            class="tabs__tab"
+            libTab
             type="button"
-            role="tab"
             aria-controls="rq-panel"
             [attr.aria-selected]="activeTab === 'details'"
             data-testid="maintenance-tab-details"
@@ -110,9 +108,8 @@
             Details
           </button>
           <button
-            class="tabs__tab"
+            libTab
             type="button"
-            role="tab"
             aria-controls="rq-panel"
             [attr.aria-selected]="activeTab === 'comments'"
             data-testid="maintenance-tab-comments"
@@ -121,7 +118,7 @@
             Comments
           </button>
         </div>
-        <div class="tabs__panel stack" role="tabpanel" id="rq-panel">
+        <div libTabPanel class="stack" id="rq-panel">
           <div class="cluster cluster--between">
             <h2
               libCardTitle

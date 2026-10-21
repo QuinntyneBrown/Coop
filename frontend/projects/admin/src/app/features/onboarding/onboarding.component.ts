@@ -6,8 +6,10 @@ import {
   CardComponent,
   FieldLabelComponent,
   FormFieldComponent,
+  LogoMarkComponent,
   RadioComponent,
   RadioTextComponent,
+  StepIndicatorComponent,
   TextFieldComponent,
 } from 'components';
 import { ProfileService } from '../../core/services/profile.service';
@@ -24,6 +26,8 @@ import { ProfileService } from '../../core/services/profile.service';
     RadioComponent,
     RadioTextComponent,
     TextFieldComponent,
+    LogoMarkComponent,
+    StepIndicatorComponent,
   ],
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.scss',

@@ -1,0 +1,31 @@
+// Sidebar (docs/design-system/components/sidebar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+// Phones: hidden; the bottom tab bar navigates. From 768px the sidebar sits beside the content.
+:host {
+  --sidebar-bg: var(--color-bg-surface);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: var(--layout-sidebar-width);
+  max-width: 100%;
+  padding: var(--space-4) var(--space-3);
+  background: var(--sidebar-bg);
+  border-right: var(--border-width-hairline) solid var(--color-border-default);
+}
+
+@media (min-width: 48rem) {
+  .app-shell :host {
+    display: flex;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    overflow-y: auto;
+  }
+}
+
+@media print {
+  :host {
+    display: none !important;
+  }
+}

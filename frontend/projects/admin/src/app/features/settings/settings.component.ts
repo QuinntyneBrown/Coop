@@ -10,6 +10,9 @@ import {
   FormFieldComponent,
   IconComponent,
   SelectComponent,
+  TabComponent,
+  TabPanelComponent,
+  TabsComponent,
   TextFieldComponent,
 } from 'components';
 import { ThemeService } from '../../core/services/theme.service';
@@ -29,6 +32,9 @@ import { ThemeService } from '../../core/services/theme.service';
     FormFieldComponent,
     SelectComponent,
     TextFieldComponent,
+    TabComponent,
+    TabPanelComponent,
+    TabsComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',

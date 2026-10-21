@@ -1,0 +1,10 @@
+<span class="steps__dots" aria-hidden="true">
+  @for (s of steps(); track s) {
+    <span
+      class="steps__dot"
+      [class.steps__dot--done]="current() > s"
+      [class.steps__dot--current]="current() === s"
+    ></span>
+  }
+</span>
+<ng-content />

@@ -1,23 +1,43 @@
 import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AvatarComponent, IconComponent } from 'components';
+import {
+  AvatarComponent,
+  IconComponent,
+  LogoMarkComponent,
+  NavLinkComponent,
+  SidebarBrandComponent,
+  SidebarComponent as LibSidebarComponent,
+  SidebarFooterComponent,
+  SidebarNavComponent,
+  SidebarUserComponent,
+  SidebarUserNameComponent,
+  SidebarUserRoleComponent,
+} from 'components';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
 import { SidebarLink } from './sidebar-link';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector -- the design system styles .app-shell > .sidebar, so the host must be the aside
-  selector: 'aside[appSidebar]',
+  selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, IconComponent, AvatarComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    AvatarComponent,
+    IconComponent,
+    LibSidebarComponent,
+    LogoMarkComponent,
+    NavLinkComponent,
+    SidebarBrandComponent,
+    SidebarFooterComponent,
+    SidebarNavComponent,
+    SidebarUserComponent,
+    SidebarUserNameComponent,
+    SidebarUserRoleComponent,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  host: {
-    class: 'sidebar',
-    'aria-label': 'Admin',
-    'data-testid': 'sidebar',
-  },
 })
 export class SidebarComponent implements OnInit {
   private authService = inject(AuthService);

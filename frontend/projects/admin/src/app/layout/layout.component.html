@@ -1,8 +1,34 @@
-<a class="skip-link" href="#main">Skip to content</a>
+<a libSkipLink href="#main">Skip to content</a>
 <div class="app-shell has-tabbar">
-  <aside appSidebar></aside>
+  <app-sidebar></app-sidebar>
   <main id="main" class="app-shell__main" tabindex="-1">
     <router-outlet></router-outlet>
   </main>
 </div>
-<app-bottom-tab-bar></app-bottom-tab-bar>
+<nav libTabBar aria-label="Admin sections, phone" data-testid="bottom-tab-bar">
+  <a routerLink="/dashboard" routerLinkActive ariaCurrentWhenActive="page" data-testid="tab-home">
+    <svg libIcon="home"></svg>Home
+  </a>
+  <a
+    routerLink="/maintenance"
+    routerLinkActive
+    ariaCurrentWhenActive="page"
+    data-testid="tab-requests"
+  >
+    <svg libIcon="maintenance"></svg>Requests
+  </a>
+  <a routerLink="/documents" routerLinkActive ariaCurrentWhenActive="page" data-testid="tab-docs">
+    <svg libIcon="documents"></svg>Documents
+  </a>
+  <a
+    routerLink="/messaging"
+    routerLinkActive
+    ariaCurrentWhenActive="page"
+    data-testid="tab-messages"
+  >
+    <svg libIcon="messages"></svg>Messages
+  </a>
+  <a routerLink="/profile" routerLinkActive ariaCurrentWhenActive="page" data-testid="tab-profile">
+    <svg libIcon="profile"></svg>Profile
+  </a>
+</nav>

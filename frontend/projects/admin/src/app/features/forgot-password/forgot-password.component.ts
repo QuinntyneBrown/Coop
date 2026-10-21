@@ -7,6 +7,7 @@ import {
   CardComponent,
   FieldLabelComponent,
   FormFieldComponent,
+  LogoMarkComponent,
   TextFieldComponent,
 } from 'components';
 
@@ -21,6 +22,7 @@ import {
     FieldLabelComponent,
     FormFieldComponent,
     TextFieldComponent,
+    LogoMarkComponent,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',

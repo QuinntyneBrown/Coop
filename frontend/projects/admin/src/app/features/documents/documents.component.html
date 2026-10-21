@@ -38,12 +38,11 @@
   }
 </div>
 
-<div class="tabs tabs--pill" role="tablist" aria-label="Filter documents by kind">
+<div libTabs pill aria-label="Filter documents by kind">
   @for (tab of filterTabs; track tab.filter) {
     <button
-      class="tabs__tab"
+      libTab
       type="button"
-      role="tab"
       aria-controls="documents-panel"
       [id]="'documents-tab-' + tab.filter"
       [attr.aria-selected]="activeFilter === tab.filter"
@@ -56,12 +55,7 @@
   }
 </div>
 
-<div
-  class="tabs__panel"
-  role="tabpanel"
-  id="documents-panel"
-  [attr.aria-labelledby]="'documents-tab-' + activeFilter"
->
+<div libTabPanel id="documents-panel" [attr.aria-labelledby]="'documents-tab-' + activeFilter">
   @if (loading) {
     <div libLoading role="status" data-testid="documents-loading">
       <span libSpinner></span>Loading documents…

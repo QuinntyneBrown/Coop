@@ -12,6 +12,7 @@ import {
   FieldLabelComponent,
   FormFieldComponent,
   IconComponent,
+  LogoMarkComponent,
   TextFieldComponent,
 } from 'components';
 import { AuthService } from '../../core/services/auth.service';
@@ -33,6 +34,7 @@ import { AuthService } from '../../core/services/auth.service';
     FieldLabelComponent,
     FormFieldComponent,
     TextFieldComponent,
+    LogoMarkComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
