@@ -51,7 +51,7 @@ def navlinks(s,case):
     if name in ['profile','profiles']:
         for t in ['profile-edit-btn','profiles-edit-link']:tid(t,name,'edit')
         for t in ['profile-cancel-btn','profile-cancel']:tid(t,name)
-        tid('profile-change-password-btn',name,'password');tid('profile-logout-btn','login')
+        tid('profile-change-password-btn',name,'password');links['[data-testid="profile-logout-btn"]']=href('admin-login')
         if app=='public':tid('profile-switcher','profile-switcher')
     if name=='users':
         for t,d in [('users-add-button','user-create'),('user-edit-button','user-edit'),('user-delete-button','user-delete'),('user-dialog-cancel','users'),('user-delete-cancel','users')]:tid(t,d)
@@ -113,6 +113,7 @@ def main():
                 page.add_style_tag(content=(ROOT/'assets/fonts.css').read_text().replace('url(fonts/','url('+ (ROOT/'assets/fonts').as_uri()+'/'))
                 routes={t['route']:href(t['id']) for t in screens if t['kind']=='page' and t['app']==s['app']}
                 if s['app']=='admin':routes['/messaging']=href('admin-messaging')
+                else:routes['http://localhost:4200/login']=href('admin-login')
                 data=page.evaluate(exporter,dict(screen=s,state=case,routes=routes,links=navlinks(s,case)))
                 styles=[]
                 for css in data['styles']:
