@@ -1,6 +1,8 @@
 using System.CommandLine;
 using Coop.Application.Identity;
 using Coop.Application.Identity.Commands.CreateUser;
+using Coop.Cli.Seeding;
+using Coop.Domain.Identity;
 using Coop.Infrastructure.Persistence;
 using Coop.Infrastructure.Persistence.Seeding;
 using Coop.SharedKernel;
@@ -20,6 +22,12 @@ public static class DbCommands
 
     public static Command Create(CliRunner cli)
     {
+        var demo = new Option<bool>("--demo") { Description = "One sign-in per role and fictional content for every screen" };
+        var apiUrl = new Option<string>("--api-url")
+        {
+            Description = "The API address the demo photos are served from",
+            DefaultValueFactory = _ => DemoSeed.DefaultApiUrl,
+        };
         var newInstance = new Option<bool>("--new-instance") { Description = "Roles, privileges, one administrator and the baseline site content only" };
         var adminUsername = new Option<string?>("--admin-username") { Description = "The new instance's administrator username" };
         var adminPassword = new Option<string?>("--admin-password") { Description = "The new instance's administrator password" };
@@ -27,12 +35,24 @@ public static class DbCommands
 
         var reset = new Command("reset", "Delete the database and create it again")
         {
-            newInstance, adminUsername, adminPassword, yes,
+            demo, apiUrl, newInstance, adminUsername, adminPassword, yes,
         };
         cli.SetAction(reset, async context =>
         {
-            if (!context.Value(newInstance))
-                throw new CliException("Choose --new-instance.");
+            if (context.Value(demo) == context.Value(newInstance))
+                throw new CliException("Choose either --demo or --new-instance.");
+            if (context.Value(demo))
+            {
+                if (!context.Value(yes))
+                    throw new CliException(ConfirmMessage);
+                var demoDb = context.Services.GetRequiredService<CoopDbContext>();
+                await RecreateAsync(demoDb);
+                await SeedData.SeedAsync(demoDb, context.Services.GetRequiredService<IPasswordHasher>());
+                await DemoSeed.SeedAsync(demoDb, context.Services.GetRequiredService<IPasswordHasher>(), context.Required(apiUrl));
+                context.Output.WriteLine("The database now holds the demo state. Sign in as admin, member, staff, board or support; the passwords are in backend/README.md.");
+                return;
+            }
+
             var administrator = new CreateUserRequest
             {
                 Username = context.Value(adminUsername) ?? throw new CliException("--admin-username is required with --new-instance."),
