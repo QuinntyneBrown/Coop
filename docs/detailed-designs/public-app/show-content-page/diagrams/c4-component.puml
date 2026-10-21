@@ -5,7 +5,7 @@ title Components — Show a website page
 
 Container_Boundary(publicApp, "Public application") {
   Component(content, "ContentPageComponent", "Angular standalone component", "Routed page at pages/:slug: banner, hero, body, loading, error and not-found states")
-  Component(header, "SiteHeaderComponent", "Angular standalone component", "Brand, section links, one link per page, Member sign in, phone menu")
+  Component(header, "SiteHeaderComponent", "Angular standalone component", "Brand, section links, one link per page, Member sign in (admin login), phone menu")
   Component(footer, "SiteFooterComponent", "Angular standalone component", "Contact details and site links")
   Component(siteContent, "SITE_CONTENT", "Plain TypeScript constant", "Site name, section links and footer copy")
   Component(service, "PageService", "Angular service", "GET pages, GET pages/{slug}")

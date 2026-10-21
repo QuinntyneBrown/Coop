@@ -111,7 +111,7 @@ screen.
 | L2 ID | Refines (L1) | Requirement |
 |-------|--------------|-------------|
 | `L2-REQ-053` | `L1-REQ-013` | The system shall provide a public-facing web app whose content and presentation are driven by CMS-managed data. |
-| `L2-REQ-066` | `L1-REQ-015` | The public app header at desktop breakpoints shall display the Co-op mark, site name, horizontal navigation links to CMS pages, and a "Member sign in" button. |
+| `L2-REQ-066` | `L1-REQ-015` | The public app header at desktop breakpoints shall display the Co-op mark, site name, horizontal navigation links to CMS pages, and a "Member sign in" button that opens the admin site's login screen (`L2-REQ-101`). |
 | `L2-REQ-067` | `L1-REQ-015` | The public app header below LG (1024) shall collapse navigation into a labelled "Menu" button. |
 | `L2-REQ-068` | `L1-REQ-016` | The home page shall open with a CMS-driven hero at XL (1440): an eyebrow line, a large title, a lead paragraph, two calls to action and a hero photograph with a badge. |
 | `L2-REQ-069` | `L1-REQ-016` | The hero shall reflow to one column below LG (1024). |

@@ -1,0 +1,45 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Members sign in on the admin site
+
+class "admin-login-url.ts" as url <<constant>> {
+  +ADMIN_LOGIN_URL: string = "http://localhost:4200/login"
+}
+class "admin-login.guard.ts" as loginGuard <<CanActivateFn>> {
+  +adminLoginGuard(): false
+}
+class "auth.guard.ts" as authGuard <<CanActivateFn>> {
+  +authGuard(route, state): boolean
+}
+class SITE_DEFAULTS <<constant>> {
+  +header.signInLink: SiteLink
+  +footer.memberLinks: SiteLink[]
+}
+class RegisterComponent {
+  +adminLoginUrl: string
+}
+class ForgotPasswordComponent {
+  +adminLoginUrl: string
+}
+class SiteLinkDirective {
+  +target: { href, external }
+}
+
+loginGuard ..> url : location.assign
+authGuard ..> loginGuard : signed out
+SITE_DEFAULTS ..> url
+RegisterComponent ..> url
+ForgotPasswordComponent ..> url
+SiteLinkDirective ..> SITE_DEFAULTS : renders as plain href
+@enduml

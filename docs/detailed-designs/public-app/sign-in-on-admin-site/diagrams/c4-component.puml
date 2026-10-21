@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Members sign in on the admin site
+
+Person(visitor, "Visitor or member", "Older woman using the public site")
+Container_Boundary(publicApp, "Public application") {
+  Component(siteHeader, "SiteHeaderComponent", "Angular standalone component", "Member sign in in the header and the phone menu")
+  Component(siteFooter, "SiteFooterComponent", "Angular standalone component", "Member sign in in the For members column")
+  Component(register, "RegisterComponent / ForgotPasswordComponent", "Angular standalone components", "Sign in links")
+  Component(defaults, "SITE_DEFAULTS", "Plain TypeScript constant", "Built-in header and footer links")
+  Component(url, "ADMIN_LOGIN_URL", "Plain TypeScript constant", "Address of the admin login screen (ADR 0010)")
+  Component(loginGuard, "adminLoginGuard", "Angular route guard", "Route /login: leaves for the admin login")
+  Component(authGuard, "authGuard", "Angular route guard", "Member pages: signed out leaves for the admin login")
+}
+Container(adminApp, "Admin application", "Angular", "Login screen at /login")
+
+Rel(visitor, siteHeader, "Activates Member sign in")
+Rel(visitor, siteFooter, "Activates Member sign in")
+Rel(visitor, register, "Activates Sign in")
+Rel(siteHeader, defaults, "Reads Member sign in from")
+Rel(siteFooter, defaults, "Reads Member sign in from")
+Rel(defaults, url, "Uses")
+Rel(register, url, "Uses")
+Rel(loginGuard, url, "Uses")
+Rel(authGuard, loginGuard, "Delegates signed-out visitors to")
+Rel(url, adminApp, "Addresses", "HTTPS")
+Rel(loginGuard, adminApp, "location.assign", "HTTPS")
+@enduml

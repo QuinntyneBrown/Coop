@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Signed-out visitor or /login goes to the admin login
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Public application" #E0F2FE
+  participant "Router" as router
+  participant "authGuard" as auth
+  participant "adminLoginGuard" as guard
+end box
+box "Frontend — Admin application" #FEF3C7
+  participant "Login screen" as admin
+end box
+alt Member page (/dashboard, /profile, ...)
+  actor -> router : Open member page
+  router -> auth : canActivate
+  alt Signed in (auth_token in storage)
+    auth --> router : true
+    router --> actor : Member page
+  else Signed out
+    auth -> guard : adminLoginGuard()  [L2-REQ-101 AC5]
+  end
+else /login
+  actor -> router : Open /login
+  router -> guard : canActivate  [L2-REQ-101 AC2]
+end
+guard -> admin : location.assign(ADMIN_LOGIN_URL)
+guard --> router : false (navigation cancelled)
+admin --> actor : Admin login screen
+@enduml
