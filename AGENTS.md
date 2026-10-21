@@ -163,7 +163,8 @@ test-project patterns when adding coverage.
   in an app only if it needs the `api` project, holds feature logic, or is
   used once and is only layout; list it in the library's detailed design
   (`docs/detailed-designs/admin-app/components-library/`) with the reason
-  (ADR 0010).
+  (ADR 0010). Components that use the `api` project stay in the apps. The
+  CMS-driven public app is the exception and keeps its own styles.
 - Keep business rules and view-model logic in plain TypeScript beside the
   feature, not in templates or shared visual components.
 - Keep component styles encapsulated and global styles limited to shared

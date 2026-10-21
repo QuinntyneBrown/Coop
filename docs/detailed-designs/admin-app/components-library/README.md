@@ -62,7 +62,7 @@ start with `foundations/`.
 | `AlertBodyComponent` | `div[libAlertBody]` | none | default | `alert.html` |
 | `AlertTitleComponent` | `p[libAlertTitle]` | none | default | `alert.html` |
 | `AlertComponent` | `div[libAlert]` | `tone` (required) | default | `alert.html` |
-| `AvatarImageComponent` | `img[libAvatarImage]` | none | default | `avatar.html` |
+| `AvatarImageComponent` | `img[libAvatarImage]` | none | none | `avatar.html` |
 | `AvatarComponent` | `span[libAvatar], img[libAvatar]` | `size` | default | `avatar.html` |
 | `BadgeComponent` | `span[libBadge]` | `tone`, `count` | default | `badge.html` |
 | `ButtonComponent` | `button[libButton], a[libButton], label[libButton]` | `variant`, `size`, `block`, `iconOnly` | default | `button.html` |
@@ -79,7 +79,7 @@ start with `foundations/`.
 | `DialogPanelComponent` | `div[libDialogPanel], form[libDialogPanel]` | none | default | `dialog.html` |
 | `DialogTitleComponent` | `h2[libDialogTitle]` | none | default | `dialog.html` |
 | `DialogComponent` | `dialog[libDialog]` | none | default | `dialog.html` |
-| `DividerComponent` | `hr[libDivider]` | none | default | `divider.html` |
+| `DividerComponent` | `hr[libDivider]` | none | none | `divider.html` |
 | `EmptyStateActionsComponent` | `div[libEmptyStateActions]` | none | default | `empty-state.html` |
 | `EmptyStateIconComponent` | `div[libEmptyStateIcon], span[libEmptyStateIcon]` | none | default | `empty-state.html` |
 | `EmptyStateTextComponent` | `p[libEmptyStateText]` | none | default | `empty-state.html` |
@@ -139,7 +139,7 @@ start with `foundations/`.
 | `TabPanelComponent` | `div[libTabPanel]` | none | default | `tabs.html` |
 | `TabComponent` | `button[libTab]` | none | default | `tabs.html` |
 | `TabsComponent` | `div[libTabs]` | `pill` | default | `tabs.html` |
-| `TextFieldComponent` | `input[libTextField]` | none | default | `text-field.html` |
+| `TextFieldComponent` | `input[libTextField]` | none | none | `text-field.html` |
 | `TextareaComponent` | `textarea[libTextarea]` | none | default | `textarea.html` |
 | `TopBarBrandComponent` | `span[libTopBarBrand]` | none | default | `top-bar.html` |
 | `TopBarSpacerComponent` | `span[libTopBarSpacer]` | none | default | `top-bar.html` |
