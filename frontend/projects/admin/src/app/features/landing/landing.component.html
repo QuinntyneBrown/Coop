@@ -42,19 +42,30 @@
     data-testid="landing-board-section"
   >
     <h2 id="landing-board">Board of Directors</h2>
-    <div class="card card--flush">
-      <ul class="list">
-        @for (member of boardMembers; track member) {
-          <li class="list__item" data-testid="landing-board-member">
-            <span class="avatar" aria-hidden="true">{{ getInitials(member.name) }}</span>
-            <div class="list__body">
-              <h3 class="list__title">{{ member.name }}</h3>
-              <p class="list__meta">{{ member.title }}</p>
-            </div>
-          </li>
-        }
-      </ul>
-    </div>
+    @if (boardMembers.length === 0) {
+      <div class="card">
+        <div class="empty" data-testid="landing-board-empty">
+          <h3 class="empty__title">No board members listed yet</h3>
+          <p class="empty__text">
+            The board of directors will appear here once the office adds them.
+          </p>
+        </div>
+      </div>
+    } @else {
+      <div class="card card--flush">
+        <ul class="list">
+          @for (member of boardMembers; track member) {
+            <li class="list__item" data-testid="landing-board-member">
+              <span class="avatar" aria-hidden="true">{{ getInitials(member.name) }}</span>
+              <div class="list__body">
+                <h3 class="list__title">{{ member.name }}</h3>
+                <p class="list__meta">{{ member.title }}</p>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
   </section>
 
   <section
@@ -63,22 +74,31 @@
     data-testid="landing-notices-section"
   >
     <h2 id="landing-news">Announcements</h2>
-    <div class="card card--flush">
-      <ul class="list">
-        @for (notice of notices; track notice) {
-          <li class="list__item" data-testid="landing-notice-card">
-            <div class="list__body stack landing-notice">
-              <h3 class="list__title">{{ notice.title }}</h3>
-              <p>{{ notice.body || notice.description }}</p>
-              <p
-                class="list__meta"
-                data-testid="landing-notice-date"
-                [textContent]="noticeDate(notice) | date: 'mediumDate'"
-              ></p>
-            </div>
-          </li>
-        }
-      </ul>
-    </div>
+    @if (notices.length === 0) {
+      <div class="card">
+        <div class="empty" data-testid="landing-notices-empty">
+          <h3 class="empty__title">No announcements yet</h3>
+          <p class="empty__text">News from the co-op will appear here when the office posts it.</p>
+        </div>
+      </div>
+    } @else {
+      <div class="card card--flush">
+        <ul class="list">
+          @for (notice of notices; track notice) {
+            <li class="list__item" data-testid="landing-notice-card">
+              <div class="list__body stack landing-notice">
+                <h3 class="list__title">{{ notice.title }}</h3>
+                <p>{{ notice.body || notice.description }}</p>
+                <p
+                  class="list__meta"
+                  data-testid="landing-notice-date"
+                  [textContent]="noticeDate(notice) | date: 'mediumDate'"
+                ></p>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
   </section>
 </main>
