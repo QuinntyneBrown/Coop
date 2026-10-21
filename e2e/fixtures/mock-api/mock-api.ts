@@ -964,9 +964,12 @@ export class MockApi {
       return { status: 200, bytes: PHOTO_PNG, contentType: 'image/png' };
     });
 
-    // Maintenance requests (admin app)
-    this.on('GET', 'maintenancerequest', () =>
-      ok({ maintenanceRequests: requests().map((r) => this.maintenanceView(r)) }),
+    // Maintenance requests (admin app). Like the API, a member sees only the
+    // requests their household made, and their comments (L2-REQ-106).
+    const visibleTo = (user: MockUser) =>
+      requests().filter((r) => isOffice(user) || r.ownerUserId === user.userId);
+    this.on('GET', 'maintenancerequest', (ctx) =>
+      ok({ maintenanceRequests: visibleTo(ctx.user!).map((r) => this.maintenanceView(r)) }),
     );
     this.on('GET', 'maintenancerequest/my', (ctx) =>
       ok({
@@ -975,14 +978,13 @@ export class MockApi {
           .map((r) => this.maintenanceView(r)),
       }),
     );
-    this.on('GET', 'maintenancerequest/page/:size/:index', (_ctx, [size, index]) => {
+    this.on('GET', 'maintenancerequest/page/:size/:index', (ctx, [size, index]) => {
       const n = Number(size);
       const start = Number(index) * n;
+      const visible = visibleTo(ctx.user!);
       return ok({
-        maintenanceRequests: requests()
-          .slice(start, start + n)
-          .map((r) => this.maintenanceView(r)),
-        totalCount: s.maintenanceRequests.length,
+        maintenanceRequests: visible.slice(start, start + n).map((r) => this.maintenanceView(r)),
+        totalCount: visible.length,
       });
     });
     this.on('PUT', 'maintenancerequest/receive', transition('Received'));
@@ -1002,9 +1004,11 @@ export class MockApi {
       };
     this.on('PUT', 'maintenancerequest/start', step('Started', 'Only a received request can be started.'));
     this.on('PUT', 'maintenancerequest/complete', step('Completed', 'Only a started request can be finished.'));
-    this.on('GET', 'maintenancerequest/:id', (_ctx, [id]) => {
+    this.on('GET', 'maintenancerequest/:id', (ctx, [id]) => {
       const request = findRequest(id);
-      return request ? ok({ maintenanceRequest: this.maintenanceView(request) }) : notFound();
+      if (!request) return notFound();
+      if (!visibleTo(ctx.user!).includes(request)) return forbidden();
+      return ok({ maintenanceRequest: this.maintenanceView(request) });
     });
     this.on('POST', 'maintenancerequest', (ctx) => {
       const request = this.createMaintenanceRequest(ctx.user!, ctx.body ?? {});
@@ -1022,12 +1026,19 @@ export class MockApi {
       s.maintenanceRequests = s.maintenanceRequests.filter((r) => r.maintenanceRequestId !== id);
       return ok();
     });
-    this.on('GET', 'maintenancerequestcomment', () =>
-      ok({ comments: s.comments.map((c) => this.commentView(c)) }),
-    );
+    this.on('GET', 'maintenancerequestcomment', (ctx) => {
+      const visible = visibleTo(ctx.user!).map((r) => r.maintenanceRequestId);
+      return ok({
+        comments: s.comments
+          .filter((c) => visible.includes(c.maintenanceRequestId))
+          .map((c) => this.commentView(c)),
+      });
+    });
     this.on('POST', 'maintenancerequestcomment', (ctx) => {
       const { maintenanceRequestId, body } = ctx.body ?? {};
-      if (!findRequest(maintenanceRequestId)) return notFound();
+      const request = findRequest(maintenanceRequestId);
+      if (!request) return notFound();
+      if (!visibleTo(ctx.user!).includes(request)) return forbidden();
       const comment = this.addComment(ctx.user!, maintenanceRequestId, body ?? '');
       return ok({ comment: this.commentView(comment) });
     });

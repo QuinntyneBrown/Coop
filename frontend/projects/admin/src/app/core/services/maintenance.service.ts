@@ -59,6 +59,13 @@ export class MaintenanceService {
     return this.api.get('/maintenancerequestcomment');
   }
 
+  /** Attaches a photo to a request; only the household that asked may (L2-REQ-089). */
+  addPhoto(requestId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.api.upload(`/maintenance-requests/${requestId}/photos`, formData);
+  }
+
   addDigitalAsset(requestId: string, formData: FormData): Observable<any> {
     return this.api.upload('/maintenancerequestdigitalasset', formData);
   }

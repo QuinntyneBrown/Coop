@@ -43,6 +43,26 @@ export class MaintenancePage {
   readonly commentInput: Locator;
   readonly commentSendButton: Locator;
 
+  // Page and detail photos
+  readonly pageAlert: Locator;
+  readonly emptyState: Locator;
+  readonly addPhotoInput: Locator;
+  readonly addPhotoStatus: Locator;
+  readonly addPhotoError: Locator;
+
+  // Create dialog
+  readonly createButton: Locator;
+  readonly createDialog: Locator;
+  readonly titleInput: Locator;
+  readonly descriptionInput: Locator;
+  readonly titleError: Locator;
+  readonly descriptionError: Locator;
+  readonly photoInput: Locator;
+  readonly photoHint: Locator;
+  readonly chosenPhotos: Locator;
+  readonly photoError: Locator;
+  readonly submitButton: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -80,6 +100,24 @@ export class MaintenancePage {
     this.commentItems = page.getByTestId('maintenance-comment');
     this.commentInput = page.getByTestId('maintenance-comment-input');
     this.commentSendButton = page.getByTestId('maintenance-comment-send');
+
+    this.pageAlert = page.getByTestId('maintenance-page-alert');
+    this.emptyState = page.getByTestId('maintenance-empty-state');
+    this.addPhotoInput = page.getByTestId('maintenance-add-photo');
+    this.addPhotoStatus = page.getByTestId('maintenance-add-photo-status');
+    this.addPhotoError = page.getByTestId('maintenance-add-photo-error');
+
+    this.createButton = page.getByTestId('maintenance-create-btn');
+    this.createDialog = page.getByTestId('maintenance-create-modal');
+    this.titleInput = page.getByTestId('maintenance-title-input');
+    this.descriptionInput = page.getByTestId('maintenance-description-input');
+    this.titleError = page.getByTestId('maintenance-title-error');
+    this.descriptionError = page.getByTestId('maintenance-description-error');
+    this.photoInput = page.getByTestId('maintenance-photo-upload');
+    this.photoHint = page.getByTestId('maintenance-photo-hint');
+    this.chosenPhotos = page.getByTestId('maintenance-chosen-photo');
+    this.photoError = page.getByTestId('maintenance-photo-error');
+    this.submitButton = page.getByTestId('maintenance-submit-btn');
   }
 
   async goto() {
@@ -157,5 +195,32 @@ export class MaintenancePage {
     const badge = this.requestCards.getByTestId('request-status-badge').filter({ hasText: status }).first();
     await expect(badge).toBeVisible();
     return badge.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
+
+  /** A small PNG, or any other file, as the photo pickers receive it. */
+  static photo(name = 'leak.png', mimeType = 'image/png', size = 68) {
+    return { name, mimeType, buffer: Buffer.alloc(size, 1) };
+  }
+
+  async openCreate() {
+    await this.createButton.click();
+    await expect(this.createDialog).toBeVisible();
+  }
+
+  async fillRequest(title: string, description: string) {
+    await this.titleInput.fill(title);
+    await this.descriptionInput.fill(description);
+  }
+
+  async choosePhotos(...files: { name: string; mimeType: string; buffer: Buffer }[]) {
+    await this.photoInput.setInputFiles(files);
+  }
+
+  async submit() {
+    await this.submitButton.click();
+  }
+
+  async addPhotoToOpenRequest(file = MaintenancePage.photo()) {
+    await this.addPhotoInput.setInputFiles(file);
   }
 }

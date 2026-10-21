@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { concatMap, from, last } from 'rxjs';
 import {
   AlertBodyComponent,
   AlertComponent,
@@ -28,6 +29,8 @@ import {
   EmptyStateComponent,
   EmptyStateIconComponent,
   EmptyStateTextComponent,
+  FieldErrorComponent,
+  FieldHelpComponent,
   FieldLabelComponent,
   FormFieldComponent,
   IconComponent,
@@ -49,10 +52,12 @@ import {
   TextFieldComponent,
   TextareaComponent,
 } from 'components';
+import { AuthService } from '../../core/services/auth.service';
 import { MaintenanceService } from '../../core/services/maintenance.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { MaintenanceStep } from './maintenance-step';
 import { nextMaintenanceStep } from './next-maintenance-step';
+import { photoFileError } from './photo-file-error';
 
 @Component({
   selector: 'app-maintenance',
@@ -84,6 +89,8 @@ import { nextMaintenanceStep } from './next-maintenance-step';
     AlertComponent,
     LoadingComponent,
     SpinnerComponent,
+    FieldErrorComponent,
+    FieldHelpComponent,
     FieldLabelComponent,
     FormFieldComponent,
     SelectComponent,
@@ -106,7 +113,18 @@ import { nextMaintenanceStep } from './next-maintenance-step';
 export class MaintenanceComponent implements OnInit {
   private maintenanceService = inject(MaintenanceService);
   private profileService = inject(ProfileService);
+  private authService = inject(AuthService);
   private fb = inject(FormBuilder);
+
+  /** The office moves requests along; a member only reports and follows them (L2-REQ-107). */
+  office = false;
+  submitted = false;
+  sending = false;
+  chosenPhotos: File[] = [];
+  photoError = '';
+  pageAlert = '';
+  addingPhoto = false;
+  addPhotoError = '';
 
   requests: any[] = [];
   filteredRequests: any[] = [];
@@ -151,7 +169,13 @@ export class MaintenanceComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.authService.office$.subscribe((office) => (this.office = office));
     this.loadRequests();
+  }
+
+  /** Shows a field's error once the form has been sent. */
+  fieldInvalid(name: 'title' | 'description'): boolean {
+    return this.submitted && this.createForm.controls[name].invalid;
   }
 
   private loadRequests(): void {
@@ -229,11 +253,35 @@ export class MaintenanceComponent implements OnInit {
 
   openCreate(): void {
     this.showCreateModal = true;
+    this.pageAlert = '';
     this.createDialog().nativeElement.showModal();
   }
 
   closeCreate(): void {
     this.createDialog().nativeElement.close();
+    this.createForm.reset();
+    this.chosenPhotos = [];
+    this.photoError = '';
+    this.submitted = false;
+    this.sending = false;
+  }
+
+  choosePhotos(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.photoError = '';
+    for (const file of Array.from(input.files ?? [])) {
+      const error = photoFileError(file);
+      if (error) {
+        this.photoError = error;
+      } else {
+        this.chosenPhotos.push(file);
+      }
+    }
+    input.value = '';
+  }
+
+  removePhoto(index: number): void {
+    this.chosenPhotos.splice(index, 1);
   }
 
   selectRequest(req: any): void {
@@ -258,10 +306,17 @@ export class MaintenanceComponent implements OnInit {
         });
       }
     }
+    this.addPhotoError = '';
     if (req.maintenanceRequestId) {
       this.maintenanceService.getComments(req.maintenanceRequestId).subscribe({
         next: (data: any) => {
-          this.comments = Array.isArray(data) ? data : data?.comments || [];
+          const all = Array.isArray(data)
+            ? data
+            : data?.comments || data?.maintenanceRequestComments || [];
+          this.comments = all.filter(
+            (c: any) =>
+              !c.maintenanceRequestId || c.maintenanceRequestId === req.maintenanceRequestId,
+          );
         },
         error: () => {},
       });
@@ -281,14 +336,67 @@ export class MaintenanceComponent implements OnInit {
   }
 
   submitRequest(): void {
+    this.submitted = true;
     if (this.createForm.invalid) return;
+    this.sending = true;
     this.maintenanceService.createMaintenanceRequest(this.createForm.value).subscribe({
-      next: () => {
-        this.closeCreate();
-        this.createForm.reset();
-        this.loadRequests();
+      next: (data: any) => {
+        const id = data?.maintenanceRequest?.maintenanceRequestId ?? data?.maintenanceRequestId;
+        if (!this.chosenPhotos.length || !id) {
+          this.closeCreate();
+          this.loadRequests();
+          return;
+        }
+        // Each photo follows the request; one that fails leaves the request sent (L2-REQ-089 AC4).
+        from(this.chosenPhotos)
+          .pipe(
+            concatMap((file) => this.maintenanceService.addPhoto(id, file)),
+            last(),
+          )
+          .subscribe({
+            next: () => {
+              this.closeCreate();
+              this.loadRequests();
+            },
+            error: () => {
+              this.closeCreate();
+              this.pageAlert =
+                'Your request was sent, but a photo could not be added. Open the request to try again.';
+              this.loadRequests();
+            },
+          });
       },
-      error: () => {},
+      error: () => {
+        this.sending = false;
+      },
+    });
+  }
+
+  addPhotoToRequest(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    const request = this.selectedRequest;
+    if (!file || !request?.maintenanceRequestId) return;
+    this.addPhotoError = photoFileError(file) ?? '';
+    if (this.addPhotoError) return;
+    this.addingPhoto = true;
+    this.maintenanceService.addPhoto(request.maintenanceRequestId, file).subscribe({
+      next: () => {
+        this.maintenanceService.getMaintenanceRequestById(request.maintenanceRequestId).subscribe({
+          next: (data: any) => {
+            this.addingPhoto = false;
+            const updated = data?.maintenanceRequest ?? data;
+            Object.assign(request, updated);
+            this.selectRequest(request);
+          },
+          error: () => (this.addingPhoto = false),
+        });
+      },
+      error: () => {
+        this.addingPhoto = false;
+        this.addPhotoError = 'The photo could not be added. Please try again.';
+      },
     });
   }
 
