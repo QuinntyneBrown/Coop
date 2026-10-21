@@ -336,6 +336,15 @@
         <tr><td><code>aria-current="true"</code></td><td>On the title link of the row whose detail is on screen. Pair it with <code>--color-accent-subtle</code> on the row; <code>components.css</code> has no class for this yet.</td></tr>
         <tr><td><code>.badge--count</code> + <code>.visually-hidden</code></td><td>An unread count that a screen reader hears as "2 unread".</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/list/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>ListBodyComponent</code></td><td><code>div[libListBody]</code>, <code>span[libListBody]</code></td><td>None</td></tr>
+        <tr><td><code>ListItemComponent</code></td><td><code>li[libListItem]</code>, <code>button[libListItem]</code></td><td>None</td></tr>
+        <tr><td><code>ListMetaComponent</code></td><td><code>div[libListMeta]</code>, <code>span[libListMeta]</code>, <code>p[libListMeta]</code></td><td>None</td></tr>
+        <tr><td><code>ListTitleComponent</code></td><td><code>div[libListTitle]</code>, <code>span[libListTitle]</code>, <code>p[libListTitle]</code>, <code>h3[libListTitle]</code>, <code>button[libListTitle]</code></td><td>None</td></tr>
+        <tr><td><code>ListComponent</code></td><td><code>ul[libList]</code>, <code>ol[libList]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

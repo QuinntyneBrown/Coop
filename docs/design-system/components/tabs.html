@@ -392,6 +392,13 @@
         <tr><td><code>.tabs__panel</code> + <code>role="tabpanel"</code></td><td>The panel; <code>hidden</code> when its tab is not selected.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/tabs/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>TabPanelComponent</code></td><td><code>div[libTabPanel]</code></td><td>None</td></tr>
+        <tr><td><code>TabComponent</code></td><td><code>button[libTab]</code></td><td>None</td></tr>
+        <tr><td><code>TabsComponent</code></td><td><code>div[libTabs]</code></td><td><code>pill</code> (boolean attribute)</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

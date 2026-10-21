@@ -344,6 +344,11 @@
         <tr><td><code>disabled</code>, <code>aria-busy="true"</code></td><td>As for <a href="button.html#states">button</a>.</td></tr>
         <tr><td><code>data-state="hover|focus|active"</code>, <code>.tooltip[data-state="visible"]</code></td><td>Documentation only: forces a state in static pages.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/button/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>ButtonComponent</code></td><td><code>button[libButton]</code>, <code>a[libButton]</code>, <code>label[libButton]</code></td><td><code>iconOnly</code> (boolean attribute) draws the square icon button; name it with <code>aria-label</code></td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

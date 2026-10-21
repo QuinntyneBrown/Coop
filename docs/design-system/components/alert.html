@@ -320,6 +320,14 @@
         <tr><td><code>.form-summary</code></td><td>Error list for a long form; see <a href="form-layout.html">form layout</a>.</td></tr>
         <tr><td><code>role="status"</code> / <code>role="alert"</code></td><td>Polite for success; assertive for danger; none for context shown at load.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/alert/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>AlertActionsComponent</code></td><td><code>div[libAlertActions]</code></td><td>None</td></tr>
+        <tr><td><code>AlertBodyComponent</code></td><td><code>div[libAlertBody]</code></td><td>None</td></tr>
+        <tr><td><code>AlertTitleComponent</code></td><td><code>p[libAlertTitle]</code></td><td>None</td></tr>
+        <tr><td><code>AlertComponent</code></td><td><code>div[libAlert]</code></td><td><code>tone</code>: <code>success</code>, <code>danger</code> (required)</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

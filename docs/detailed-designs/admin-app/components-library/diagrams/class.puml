@@ -1,0 +1,68 @@
+@startuml
+title Class structure — Design-system components library
+hide empty members
+skinparam classAttributeIconSize 0
+
+package "components library" {
+  class ButtonComponent <<button[libButton]>> {
+    +variant: ButtonVariant = 'secondary'
+    +size: ButtonSize = 'md'
+    +block: boolean
+    +iconOnly: boolean
+  }
+  class IconComponent <<svg[libIcon]>> {
+    +libIcon: IconName
+    +size: IconSize = 'md'
+  }
+  class BadgeComponent <<span[libBadge]>> {
+    +tone?: BadgeTone
+    +count: boolean
+  }
+  class FormFieldComponent <<div[libFormField]>>
+  class FieldLabelComponent <<label[libFieldLabel]>>
+  class FieldErrorComponent <<p[libFieldError]>>
+  class TextFieldComponent <<input[libTextField]>>
+  class DialogComponent <<dialog[libDialog]>>
+  class DialogPanelComponent <<form[libDialogPanel]>>
+  class StepIndicatorComponent <<p[libStepIndicator]>> {
+    +current: number
+    +total: number
+    #steps: number[]
+  }
+  enum ButtonVariant {
+    secondary
+    primary
+    danger
+    ghost
+  }
+  enum BadgeTone {
+    neutral
+    info
+    success
+    warning
+    danger
+  }
+}
+
+package "admin application" {
+  class MaintenanceComponent <<app-maintenance>> {
+    -requestDialog: ElementRef<HTMLDialogElement>
+    +getStatusTone(status): BadgeTone
+  }
+  class OnboardingComponent <<app-onboarding>>
+  class SidebarComponent <<app-sidebar>>
+}
+
+ButtonComponent ..> ButtonVariant
+BadgeComponent ..> BadgeTone
+FormFieldComponent o-- FieldLabelComponent : content
+FormFieldComponent o-- TextFieldComponent : content
+FormFieldComponent o-- FieldErrorComponent : content
+DialogComponent o-- DialogPanelComponent : content
+MaintenanceComponent ..> ButtonComponent
+MaintenanceComponent ..> BadgeComponent
+MaintenanceComponent ..> FormFieldComponent
+MaintenanceComponent ..> DialogComponent : showModal()
+OnboardingComponent ..> StepIndicatorComponent
+SidebarComponent ..> IconComponent
+@enduml

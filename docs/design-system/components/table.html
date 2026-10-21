@@ -333,6 +333,12 @@
         <tr><td><code>tabindex="0" role="region" aria-labelledby</code></td><td>On the wrapper when the table has nothing focusable and may scroll.</td></tr>
         <tr><td><code>tr[data-state="hover"]</code></td><td>Documentation only: forces the row hover.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/table/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>TableWrapComponent</code></td><td><code>div[libTableWrap]</code></td><td><code>flush</code> (boolean attribute)</td></tr>
+        <tr><td><code>TableComponent</code></td><td><code>table[libTable]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -454,6 +454,18 @@
         <tr><td><code>.sidebar--static</code></td><td>Documentation only: visible in flow at every width, with a border and <code>--radius-lg</code>.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/nav-link/</code>, <code>frontend/projects/components/src/lib/sidebar/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>NavLinkComponent</code></td><td><code>a[libNavLink]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarBrandComponent</code></td><td><code>a[libSidebarBrand]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarFooterComponent</code></td><td><code>div[libSidebarFooter]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarNavComponent</code></td><td><code>nav[libSidebarNav]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarUserNameComponent</code></td><td><code>span[libSidebarUserName]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarUserRoleComponent</code></td><td><code>span[libSidebarUserRole]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarUserComponent</code></td><td><code>div[libSidebarUser]</code></td><td>None</td></tr>
+        <tr><td><code>SidebarComponent</code></td><td><code>aside[libSidebar]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

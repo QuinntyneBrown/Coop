@@ -287,6 +287,11 @@
         <tr><td><code>&lt;dt&gt;</code> / <code>&lt;dd&gt;</code></td><td>Direct children of the list, in pairs. Do not wrap pairs in <code>&lt;div&gt;</code>: a wrapper becomes one grid cell and breaks the columns.</td></tr>
         <tr><td><code>.text-muted</code> on <code>&lt;dd&gt;</code></td><td>For "Not given".</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/description-list/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>DescriptionListComponent</code></td><td><code>dl[libDescriptionList]</code></td><td><code>horizontal</code> (boolean attribute)</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -439,6 +439,17 @@
         <tr><td><code>.dialog--static</code></td><td>Documentation only: draws the dialog in the page flow.</td></tr>
         <tr><td><code>role="dialog"</code> <code>aria-modal="true"</code> <code>aria-labelledby</code></td><td>Required in the product; <code>aria-describedby</code> when there is a description.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/dialog/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>DialogBodyComponent</code></td><td><code>div[libDialogBody]</code></td><td>None</td></tr>
+        <tr><td><code>DialogFooterComponent</code></td><td><code>div[libDialogFooter]</code></td><td>None</td></tr>
+        <tr><td><code>DialogHeaderComponent</code></td><td><code>div[libDialogHeader]</code></td><td>None</td></tr>
+        <tr><td><code>DialogIconComponent</code></td><td><code>div[libDialogIcon]</code></td><td>None</td></tr>
+        <tr><td><code>DialogPanelComponent</code></td><td><code>div[libDialogPanel]</code>, <code>form[libDialogPanel]</code></td><td>None</td></tr>
+        <tr><td><code>DialogTitleComponent</code></td><td><code>h2[libDialogTitle]</code></td><td>None</td></tr>
+        <tr><td><code>DialogComponent</code></td><td><code>dialog[libDialog]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

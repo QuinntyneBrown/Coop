@@ -269,6 +269,14 @@
         <tr><td><code>.field__error</code></td><td>Error text with a ⚠ glyph below the control; give it an <code>id</code> and list it first in <code>aria-describedby</code>. Replaces <code>.error-message</code> and <code>.field-error</code>.</td></tr>
         <tr><td><code>aria-invalid="true"</code> on the control</td><td>Danger border and inset ring on the control. Replaces the <code>.invalid</code> class and Angular's <code>.ng-touched.ng-invalid</code> styling.</td></tr>
       </tbody></table>
+      <h3 id="angular">Angular</h3>
+      <p>The admin draws this with the <code>components</code> library (<code>frontend/projects/components/src/lib/form-field/</code>), imported from <code>'components'</code>. The selector is an attribute on the native element, which keeps its role, keyboard behaviour and form binding; the host carries the classes above. See ADR 0010.</p>
+      <table class="ds-table"><thead><tr><th scope="col">Component</th><th scope="col">Selector</th><th scope="col">Inputs</th></tr></thead><tbody>
+        <tr><td><code>FieldErrorComponent</code></td><td><code>p[libFieldError]</code></td><td>None</td></tr>
+        <tr><td><code>FieldHelpComponent</code></td><td><code>p[libFieldHelp]</code></td><td>None</td></tr>
+        <tr><td><code>FieldLabelComponent</code></td><td><code>label[libFieldLabel]</code>, <code>legend[libFieldLabel]</code></td><td>None</td></tr>
+        <tr><td><code>FormFieldComponent</code></td><td><code>div[libFormField]</code></td><td>None</td></tr>
+      </tbody></table>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
