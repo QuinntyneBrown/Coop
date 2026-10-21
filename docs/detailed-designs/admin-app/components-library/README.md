@@ -38,7 +38,9 @@ part has its own class in a kebab-case file with a separate template and
 stylesheet, for example `button/button.component.ts`,
 `button/button.component.html` and `button/button.component.scss`. Small
 union types for inputs sit beside them (`button/button-variant.ts`). Every
-folder has a vitest spec.
+folder has a vitest spec and a Storybook stories file
+(`button/button.stories.ts`) that shows the component's variants and states
+on its native host element; `npm run storybook` serves them (ADR 0016).
 
 All components are standalone, use `ChangeDetectionStrategy.OnPush` and
 signal inputs, and have no outputs: events come from the native host

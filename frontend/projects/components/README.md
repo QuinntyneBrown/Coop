@@ -29,9 +29,19 @@ From `frontend/`:
 npx ng build components
 npx ng test components --watch=false
 npx ng lint components
+npm run storybook          # stories on http://localhost:6006
+npm run build-storybook    # static build in dist/storybook/components
 ```
 
 Put each class, interface, type alias, and enum in its own kebab-case file, use
 separate template and style files, and export the public surface from
 `src/public-api.ts`. Keep business rules out of these components; they do not
 use the `api` project.
+
+Each folder has a `<folder>.stories.ts` beside its spec
+([ADR 0016](../../../docs/adr/0016-storybook-for-the-components-library.md)).
+When you add or change a component, update its stories: one story per variant
+and state that the component implements on its design-system page, a template
+that writes the native host element (`<button libButton>`), and `argTypes`
+with the options of its union types. Storybook is not in CI, so run
+`npm run build-storybook` after the change.
