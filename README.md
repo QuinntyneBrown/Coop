@@ -2,9 +2,9 @@
 
 <p align="center">
   <strong>Cooperative housing, managed.</strong><br>
-  A cooperative residential management platform with a public-facing web app
-  for members and an admin backend for staff, board members, and system
-  administrators.
+  A cooperative residential management platform with a read-only public
+  website and an admin site where members, staff, board members, and system
+  administrators each see the areas their role allows.
 </p>
 
 <p align="center">
@@ -30,7 +30,8 @@
 
 Coop is built around the day-to-day work of running a housing cooperative:
 
-- members raise maintenance requests, read published notices, bylaws, and
+- members sign in on the admin site, where they see only their own areas:
+  they raise maintenance requests, read published notices, bylaws, and
   reports, and message staff;
 - staff and board members triage requests, publish documents, and manage
   invitations and onboarding;
@@ -123,7 +124,7 @@ accounts and the backend layout.
 ### Design reference (static mocks)
 
 Open any page under [docs/mocks/pages](docs/mocks/pages/), for example
-`docs/mocks/pages/public-register/default.html`, directly from disk. No server is
+`docs/mocks/pages/admin-member-dashboard/default.html`, directly from disk. No server is
 required. See the [mock README](docs/mocks/README.md) for capture setup,
 provenance, and known differences from the requirements.
 
@@ -137,8 +138,8 @@ provenance, and known differences from the requirements.
 | Domain layer | `backend/src/Coop.Domain` | Entities, enums, aggregates, and authorization rules with no infrastructure dependency |
 | Infrastructure | `backend/src/Coop.Infrastructure` | EF Core with SQLite, `CoopDbContext`, identity services, notifications |
 | Shared kernel | `backend/src/Coop.SharedKernel` | Constants and authentication primitives shared across layers |
-| Public app | `frontend/projects/public` | Angular public and member application ([README](frontend/projects/public/README.md)) |
-| Admin app | `frontend/projects/admin` | Angular administration application ([README](frontend/projects/admin/README.md)) |
+| Public app | `frontend/projects/public` | Angular public website: home page, website pages and documents, read-only and anonymous ([README](frontend/projects/public/README.md)) |
+| Admin app | `frontend/projects/admin` | Angular admin site for the office and members, with areas restricted by role (ADR 0012) ([README](frontend/projects/admin/README.md)) |
 | API library | `frontend/projects/api` | Angular library for service contracts and injection tokens; scaffold only so far |
 | Component library | `frontend/projects/components` | Angular library with the design system's presentation components and global foundations, used by the admin app (ADR 0010) |
 | E2E suite | `e2e` | Playwright projects for the public and admin apps; `tests/` express intent, `pages/` own selectors, `fixtures/` hold test data |

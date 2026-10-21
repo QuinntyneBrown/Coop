@@ -2,27 +2,36 @@
 
 User journeys implemented in Coop, taken from the Playwright suite, ordered by value provided, highest first.
 
-## Public (member) app
+## Members (admin site, member view)
+
+Members sign in on the admin site and see only the member areas (L2-REQ-104).
 
 | Journey | Description |
 | --- | --- |
 | Submit a maintenance request | Create a request with details and photos. |
-| Follow a maintenance request | Filter requests, check status, comment, view photos. |
-| Read new notices | See notices sent by administrators. |
-| Sign in | Members sign in; protected pages redirect to login. |
-| Message the office | Read conversations and send messages. |
-| Read documents | Filter documents by type and open the viewer. |
-| View the dashboard | See greeting, metrics, recent requests and notifications. |
-| Register | Create a new member account. |
+| Follow a maintenance request | Filter own requests, check status, comment, add a photo. |
+| Read new notices | Choose how notices reach you; read them on the dashboard and in Documents. |
+| Sign in | Follow Member sign in from the public site to the admin login. |
+| Message the office | Read own conversations and send messages. |
+| View the dashboard | See greeting, counts, own recent requests and notices. |
+| Register | Create an account with an invitation on the admin site. |
 | Onboard | Welcome, profile, unit selection, confirmation, or skip. |
+| Manage my profile | Edit details, set a picture, choose notices, switch profiles. |
+| Change my password | Update the password from My profile. |
+| Sign out | Sign out from My profile. |
+
+## Visitors (public site)
+
+The public site is read-only and anonymous (L2-REQ-102).
+
+| Journey | Description |
+| --- | --- |
+| Read documents | Filter documents by type and open the viewer. |
 | Browse the home page | Read the hero, blocks, board, events and footer. |
 | Read a website page | Open a content page from the site navigation. |
-| Manage my profile | Edit details, set a picture, switch profiles. |
-| Change my password | Update the password from the profile page. |
 | Use the phone menu | Open and close navigation on a small screen. |
-| Sign out | Log out from the profile page. |
 
-## Admin app
+## Admin app (office)
 
 | Journey | Description |
 | --- | --- |

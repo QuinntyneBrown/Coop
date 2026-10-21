@@ -6,8 +6,9 @@ The public site has no login screen of its own. Members sign in on the admin
 site's login screen (`docs/mocks/pages/admin-login/`), and every sign-in link
 and sign-in redirect on the public site takes the visitor there. The public
 mocks draw the links unchanged; only their target is the admin login
-(`docs/mocks/pages/public-landing/`, `public-page/`, `public-register/` and
-`public-forgot-password/`).
+(`docs/mocks/pages/public-landing/` and `public-page/`; the
+`public-register/` and `public-forgot-password/` mocks were removed on 21
+October 2026 with those screens).
 
 The feature belongs to the public-app subsystem of Coop. It changes no
 backend endpoint and no admin screen.
