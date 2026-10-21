@@ -93,7 +93,7 @@ these locations and move existing files here as areas are touched:
 All areas have moved to this layout. The `api` library in `frontend/projects/`
 is still a scaffold; the `components` library holds the design system's
 presentation components that the admin uses, with a Storybook stories file
-beside each component (ADR 0016), and the public app does not use it yet.
+beside each component (ADR 0017), and the public app does not use it yet.
 `backend/tests/` holds `Coop.Api.Tests` and `Coop.Cli.Tests`.
 `Coop.Cli` resets the database (demo state or new instance) and administers
 users, roles, invitations and the public site content through the application

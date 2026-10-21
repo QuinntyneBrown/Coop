@@ -180,7 +180,7 @@ provenance, and known differences from the requirements.
 | Public app | `frontend/projects/public` | Angular public website: home page, website pages and documents, read-only and anonymous ([README](frontend/projects/public/README.md)) |
 | Admin app | `frontend/projects/admin` | Angular admin site for the office and members, with areas restricted by role (ADR 0016) ([README](frontend/projects/admin/README.md)) |
 | API library | `frontend/projects/api` | Angular library for service contracts and injection tokens; scaffold only so far |
-| Component library | `frontend/projects/components` | Angular library with the design system's presentation components and global foundations, used by the admin app (ADR 0010), with Storybook stories (ADR 0016) |
+| Component library | `frontend/projects/components` | Angular library with the design system's presentation components and global foundations, used by the admin app (ADR 0010), with Storybook stories (ADR 0017) |
 | E2E suite | `e2e` | Playwright projects for the public and admin apps; `tests/` express intent, `pages/` own selectors, `fixtures/` hold test data |
 | Design reference | `docs/mocks` | Static HTML references of both applications, with capture scripts and a manifest |
 | Design system | `docs/design-system` | Tokens, component styles, and foundation, component and pattern pages for the admin site, adopted from the Shelfie design system; light and dark themes; the admin app loads its tokens, and `components.css` is the design reference for the components library |
@@ -234,7 +234,7 @@ Development conventions:
 | Backend tests | `dotnet test .\backend\Coop.sln` | Acceptance tests through the API with an in-memory database (`backend/tests/Coop.Api.Tests`, `backend/tests/Coop.Cli.Tests`) |
 | Frontend build | `npm run build` from `frontend` | Build the public and admin applications and the shared libraries |
 | Frontend unit tests | `npm test` from `frontend` | Angular Vitest tests |
-| Storybook build | `npm run build-storybook` from `frontend` | Build the components library's stories to `frontend/dist/storybook/components`; local only, not in CI (ADR 0016) |
+| Storybook build | `npm run build-storybook` from `frontend` | Build the components library's stories to `frontend/dist/storybook/components`; local only, not in CI (ADR 0017) |
 | Playwright | `npm test` from `e2e` | End-to-end behavior for both apps against an in-process mock of the API |
 | Public Playwright | `npm run test:public` from `e2e` | The public app on :4201 |
 | Admin Playwright | `npm run test:admin` from `e2e` | The admin app on :4200 |

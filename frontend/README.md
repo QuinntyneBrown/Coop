@@ -28,6 +28,8 @@ npm run build:public
 npm run build:admin
 npm run build          # builds every project
 npm test               # Vitest
+npm run storybook      # components library stories, http://localhost:6006
+npm run build-storybook
 npm run lint
 npm run format
 ```

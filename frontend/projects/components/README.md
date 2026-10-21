@@ -39,7 +39,7 @@ separate template and style files, and export the public surface from
 use the `api` project.
 
 Each folder has a `<folder>.stories.ts` beside its spec
-([ADR 0016](../../../docs/adr/0016-storybook-for-the-components-library.md)).
+([ADR 0017](../../../docs/adr/0017-storybook-for-the-components-library.md)).
 When you add or change a component, update its stories: one story per variant
 and state that the component implements on its design-system page, a template
 that writes the native host element (`<button libButton>`), and `argTypes`

@@ -1,4 +1,4 @@
-# 0016. Storybook for the components library
+# 0017. Storybook for the components library
 
 - Status: Accepted
 - Date: 2026-10-21
