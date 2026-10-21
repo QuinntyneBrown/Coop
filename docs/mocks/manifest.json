@@ -26,74 +26,6 @@
       }
     },
     {
-      "id": "public-register",
-      "kind": "page",
-      "title": "Public \u00b7 Register",
-      "app": "public",
-      "route": "/register",
-      "source": "frontend/projects/public/src/app/pages/register/register.component.ts",
-      "requirements": [
-        "L2-REQ-001",
-        "L2-REQ-044",
-        "L2-REQ-077"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "invalid",
-        "mismatch",
-        "submitting",
-        "error"
-      ],
-      "not_applicable": {
-        "loading": "The component loads no data on entry, so there is no loading presentation.",
-        "empty": "This is a form or action screen with no collection, so there is no empty presentation."
-      }
-    },
-    {
-      "id": "public-forgot-password",
-      "kind": "page",
-      "title": "Public \u00b7 Forgot Password",
-      "app": "public",
-      "route": "/forgot-password",
-      "source": "frontend/projects/public/src/app/pages/forgot-password/forgot-password.component.ts",
-      "requirements": [
-        "L2-REQ-001"
-      ],
-      "note": "Submit handler is a stub. There is no implemented reset request, busy indicator, or confirmation. Requirement linkage is contextual; self-service reset is not specified by L2-REQ-001.",
-      "states": [
-        "default"
-      ],
-      "not_applicable": {
-        "loading": "The submit handler is a stub, so there is no busy or loading presentation.",
-        "empty": "This is a form or action screen with no collection, so there is no empty presentation.",
-        "error": "The submit handler is a stub, so no failure feedback is implemented."
-      }
-    },
-    {
-      "id": "public-dashboard",
-      "kind": "page",
-      "title": "Public \u00b7 Dashboard",
-      "app": "public",
-      "route": "/dashboard",
-      "source": "frontend/projects/public/src/app/pages/dashboard/dashboard.component.ts",
-      "requirements": [
-        "L2-REQ-009",
-        "L2-REQ-030",
-        "L2-REQ-038"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "empty",
-        "partial"
-      ],
-      "not_applicable": {
-        "loading": "Dashboard cards render zero counts until data arrives; no loading presentation is implemented.",
-        "error": "A failed request leaves an empty section (see the partial state); no error banner is implemented."
-      }
-    },
-    {
       "id": "public-documents",
       "kind": "page",
       "title": "Public \u00b7 Documents",
@@ -135,216 +67,6 @@
       "not_applicable": {
         "busy": "The dialog closes on submit and shows no pending indicator in the source.",
         "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
-      }
-    },
-    {
-      "id": "public-maintenance",
-      "kind": "page",
-      "title": "Public \u00b7 Maintenance",
-      "app": "public",
-      "route": "/maintenance",
-      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
-      "requirements": [
-        "L2-REQ-021",
-        "L2-REQ-025",
-        "L2-REQ-030",
-        "L2-REQ-088",
-        "L2-REQ-089"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "loading",
-        "empty",
-        "new",
-        "received",
-        "started",
-        "done",
-        "no-results",
-        "photo-failed"
-      ],
-      "not_applicable": {
-        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
-      }
-    },
-    {
-      "id": "public-maintenance-create",
-      "kind": "dialog",
-      "title": "Public \u00b7 Maintenance Create",
-      "app": "public",
-      "route": "/maintenance",
-      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
-      "requirements": [
-        "L2-REQ-021",
-        "L2-REQ-089"
-      ],
-      "note": "",
-      "opens_from": "public-maintenance",
-      "states": [
-        "default",
-        "invalid",
-        "photos",
-        "sending",
-        "photo-invalid"
-      ],
-      "not_applicable": {}
-    },
-    {
-      "id": "public-maintenance-detail",
-      "kind": "dialog",
-      "title": "Public \u00b7 Maintenance Detail",
-      "app": "public",
-      "route": "/maintenance",
-      "source": "frontend/projects/public/src/app/pages/maintenance/maintenance.component.ts",
-      "requirements": [
-        "L2-REQ-028",
-        "L2-REQ-029",
-        "L2-REQ-030",
-        "L2-REQ-088",
-        "L2-REQ-089"
-      ],
-      "note": "",
-      "opens_from": "public-maintenance",
-      "states": [
-        "default",
-        "empty",
-        "photos",
-        "adding-photo",
-        "photo-error"
-      ],
-      "not_applicable": {
-        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
-        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
-      }
-    },
-    {
-      "id": "public-messaging",
-      "kind": "page",
-      "title": "Public \u00b7 Messaging",
-      "app": "public",
-      "route": "/messaging",
-      "source": "frontend/projects/public/src/app/pages/messaging/messaging.component.ts",
-      "requirements": [
-        "L2-REQ-036",
-        "L2-REQ-037",
-        "L2-REQ-038",
-        "L2-REQ-091"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "loading",
-        "empty",
-        "chat",
-        "chat-empty",
-        "read",
-        "chat-photo"
-      ],
-      "not_applicable": {
-        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
-      }
-    },
-    {
-      "id": "public-onboarding",
-      "kind": "page",
-      "title": "Public \u00b7 Onboarding",
-      "app": "public",
-      "route": "/onboarding",
-      "source": "frontend/projects/public/src/app/pages/onboarding/onboarding.component.ts",
-      "requirements": [
-        "L2-REQ-014"
-      ],
-      "note": "No blocking validation, busy state, or API failure screen is implemented in the step navigation.",
-      "states": [
-        "default",
-        "profile",
-        "unit",
-        "unit-selected",
-        "success"
-      ],
-      "not_applicable": {
-        "loading": "Step navigation is local; the source shows no loading presentation.",
-        "empty": "Steps always render their fixed content; there is no empty presentation.",
-        "error": "The source shows no failure feedback in step navigation."
-      }
-    },
-    {
-      "id": "public-profile",
-      "kind": "page",
-      "title": "Public \u00b7 Profile",
-      "app": "public",
-      "route": "/profile",
-      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
-      "requirements": [
-        "L2-REQ-015",
-        "L2-REQ-016",
-        "L2-REQ-018",
-        "L2-REQ-019",
-        "L2-REQ-091",
-        "L2-REQ-092"
-      ],
-      "note": "",
-      "states": [
-        "default",
-        "empty",
-        "edit",
-        "password",
-        "password-invalid",
-        "password-error",
-        "photo",
-        "photo-preview",
-        "photo-saving",
-        "photo-invalid",
-        "photo-too-large",
-        "photo-error",
-        "photo-removed",
-        "notices-invalid"
-      ],
-      "not_applicable": {
-        "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
-        "error": "Save failures are not surfaced distinctly; the saved notification can appear after a failed save."
-      }
-    },
-    {
-      "id": "public-profile-switcher",
-      "kind": "dialog",
-      "title": "Public \u00b7 Profile Switcher",
-      "app": "public",
-      "route": "/profile",
-      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
-      "requirements": [
-        "L2-REQ-018"
-      ],
-      "note": "",
-      "opens_from": "public-profile",
-      "states": [
-        "default"
-      ],
-      "not_applicable": {
-        "busy": "The dialog closes on submit and shows no pending indicator in the source.",
-        "invalid": "The dialog has no validation or the source shows no distinct invalid presentation."
-      }
-    },
-    {
-      "id": "public-profile-saved",
-      "kind": "notification",
-      "title": "Public \u00b7 Profile Saved",
-      "app": "public",
-      "route": "/profile",
-      "source": "frontend/projects/public/src/app/pages/profile/profile.component.ts",
-      "requirements": [
-        "L2-REQ-015",
-        "L2-REQ-092"
-      ],
-      "note": "The source also shows success after an API save failure.",
-      "opens_from": "public-profile",
-      "states": [
-        "success"
-      ],
-      "not_applicable": {
-        "info": "The source implements no info notification for this screen.",
-        "warning": "The source implements only its success feedback; there is no warning notification.",
-        "danger": "The source implements only its success feedback; there is no danger notification."
       }
     },
     {
@@ -1132,6 +854,170 @@
         "success": "The source implements no success notification for this screen.",
         "warning": "The source implements only its info feedback; there is no warning notification.",
         "danger": "The source implements only its info feedback; there is no danger notification."
+      }
+    },
+    {
+      "id": "admin-member-dashboard",
+      "kind": "page",
+      "title": "Admin \u00b7 Member Dashboard",
+      "app": "admin",
+      "route": "/dashboard",
+      "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
+      "requirements": [
+        "L2-REQ-104",
+        "L2-REQ-106",
+        "L2-REQ-109"
+      ],
+      "note": "The dashboard as a member sees it: the member sidebar, their own requests, no Active members count and no office quick actions.",
+      "states": [
+        "default",
+        "empty"
+      ],
+      "not_applicable": {
+        "loading": "Dashboard cards render zero counts until data arrives; no loading presentation is implemented.",
+        "error": "A failed request leaves an empty section; no error banner is implemented.",
+        "forbidden": "Every member may open the dashboard; it is where a member lands when they type an office address."
+      }
+    },
+    {
+      "id": "admin-member-maintenance",
+      "kind": "page",
+      "title": "Admin \u00b7 Member Maintenance",
+      "app": "admin",
+      "route": "/maintenance",
+      "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021",
+        "L2-REQ-030",
+        "L2-REQ-088",
+        "L2-REQ-089",
+        "L2-REQ-106",
+        "L2-REQ-107",
+        "L2-REQ-109"
+      ],
+      "note": "Only the member's own requests; no lifecycle steps or Edit description; Add a photo on the detail.",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "detail",
+        "detail-completed",
+        "detail-photos",
+        "adding-photo",
+        "photo-error",
+        "comments",
+        "photo-failed"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner.",
+        "forbidden": "Another household's request is never listed; opening it by address is refused by the API and shows nothing."
+      }
+    },
+    {
+      "id": "admin-member-maintenance-create",
+      "kind": "dialog",
+      "title": "Admin \u00b7 Member Maintenance Create",
+      "app": "admin",
+      "route": "/maintenance",
+      "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
+      "requirements": [
+        "L2-REQ-021",
+        "L2-REQ-089",
+        "L2-REQ-107",
+        "L2-REQ-109"
+      ],
+      "note": "The create dialog with its working photo picker.",
+      "opens_from": "admin-member-maintenance",
+      "states": [
+        "default",
+        "invalid",
+        "photos",
+        "photo-invalid",
+        "busy"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "admin-member-documents",
+      "kind": "page",
+      "title": "Admin \u00b7 Member Documents",
+      "app": "admin",
+      "route": "/documents",
+      "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
+      "requirements": [
+        "L2-REQ-035",
+        "L2-REQ-104",
+        "L2-REQ-109"
+      ],
+      "note": "Read only for members: published documents, no create, delete, publish or send.",
+      "states": [
+        "default",
+        "loading",
+        "empty"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "admin-member-messaging",
+      "kind": "page",
+      "title": "Admin \u00b7 Member Messaging",
+      "app": "admin",
+      "route": "/messages",
+      "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
+      "requirements": [
+        "L2-REQ-036",
+        "L2-REQ-037",
+        "L2-REQ-038",
+        "L2-REQ-106",
+        "L2-REQ-109"
+      ],
+      "note": "Only the member's own conversations.",
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "chat"
+      ],
+      "not_applicable": {
+        "error": "A failed fetch renders the empty presentation; the source has no distinct error screen or banner."
+      }
+    },
+    {
+      "id": "admin-member-profile",
+      "kind": "page",
+      "title": "Admin \u00b7 Member Profile",
+      "app": "admin",
+      "route": "/profile",
+      "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
+      "requirements": [
+        "L2-REQ-004",
+        "L2-REQ-015",
+        "L2-REQ-091",
+        "L2-REQ-092",
+        "L2-REQ-106",
+        "L2-REQ-108",
+        "L2-REQ-109"
+      ],
+      "note": "The member's own profile with the profile picture and the New notices choice.",
+      "states": [
+        "default",
+        "edit",
+        "notices-invalid",
+        "saved",
+        "photo-preview",
+        "photo-saving",
+        "photo-saved",
+        "photo-invalid",
+        "photo-too-large",
+        "photo-error",
+        "photo-removed"
+      ],
+      "not_applicable": {
+        "loading": "The profile renders directly from loaded values; the source has no loading presentation.",
+        "empty": "A signed-in member always has their account name; a missing profile shows the account name only.",
+        "error": "Save and photo failures are shown in place (notices-invalid, photo-error)."
       }
     },
     {

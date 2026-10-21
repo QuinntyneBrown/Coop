@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Member Documents · loading</title>
+<meta name="mock:screen" content="admin-member-documents">
+<meta name="mock:kind" content="page">
+<meta name="mock:state" content="loading">
+<meta name="mock:requirements" content="L2-REQ-035, L2-REQ-104, L2-REQ-109">
+<link rel="stylesheet" href="../../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+<script src="../../assets/mock.js" defer></script>
+</head>
+<body>
+<a class="mock-skip" href="#main">Skip to content</a>
+<div class="app-shell has-tabbar">
+  <header class="topbar">
+    <a class="topbar__brand" href="../../pages/admin-member-dashboard/default.html"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span>OWN Housing Co-op</a>
+    <span class="topbar__spacer"></span>
+    <a class="avatar avatar--sm" href="../../pages/admin-member-profile/default.html" aria-label="My profile, Oren Reed">OR</a>
+  </header>
+  <aside class="sidebar" aria-label="Admin">
+    <a class="sidebar__brand" href="../../pages/admin-member-dashboard/default.html"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span>OWN Housing Co-op</a>
+    <nav class="sidebar__nav" aria-label="Admin sections">
+      <a class="nav-link" href="../../pages/admin-member-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</a>
+      <a class="nav-link" href="../../pages/admin-member-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>Maintenance</a>
+      <a class="nav-link" href="../../pages/admin-member-documents/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>Documents</a>
+      <a class="nav-link" href="../../pages/admin-member-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Messages</a>
+      <a class="nav-link" href="../../pages/admin-member-profile/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>My profile</a>
+    </nav>
+    <div class="sidebar__footer"><span class="avatar avatar--sm" aria-hidden="true">OR</span><div class="sidebar__user"><span class="sidebar__user-name">Oren Reed</span><span class="sidebar__user-role">Member</span></div></div>
+  </aside>
+  <main id="main" class="app-shell__main">
+<div class="page-header">
+  <div><h1>Documents</h1><p class="subtitle">Notices, bylaws and reports from the office.</p></div>
+  <div class="search" role="search" style="flex: 1 1 14rem; min-width: 0;"><label class="visually-hidden" for="documents-search">Search documents</label><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="documents-search" type="search" placeholder="Search by title" autocomplete="off" spellcheck="false"></div>
+</div>
+<div class="tabs tabs--pill" role="tablist" aria-label="Filter documents by kind">
+  <button class="tabs__tab" type="button" role="tab" id="doc-tab-default" aria-selected="true" aria-controls="documents-panel">All documents</button>
+  <button class="tabs__tab" type="button" role="tab" id="doc-tab-notices" aria-selected="false" aria-controls="documents-panel" tabindex="-1">Notices</button>
+  <button class="tabs__tab" type="button" role="tab" id="doc-tab-bylaws" aria-selected="false" aria-controls="documents-panel" tabindex="-1">Bylaws</button>
+  <button class="tabs__tab" type="button" role="tab" id="doc-tab-reports" aria-selected="false" aria-controls="documents-panel" tabindex="-1">Reports</button>
+</div>
+<div class="tabs__panel" role="tabpanel" id="documents-panel" aria-labelledby="doc-tab-default" tabindex="0" style="margin-top: var(--space-4);">
+<div class="loading" role="status"><span class="spinner" aria-hidden="true"></span>Loading documents…</div>
+</div>
+  </main>
+</div>
+<nav class="tabbar" aria-label="Admin sections, phone">
+  <a href="../../pages/admin-member-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</a>
+  <a href="../../pages/admin-member-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>Requests</a>
+  <a href="../../pages/admin-member-documents/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>Documents</a>
+  <a href="../../pages/admin-member-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Messages</a>
+  <a href="../../pages/admin-member-profile/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Profile</a>
+</nav>
+
+<aside class="mock-bar"><details><summary>Admin · Member Documents · loading — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html">default</a> <a href="loading.html" aria-current="page">loading</a> <a href="empty.html">empty</a> <a href="../../dialogs/admin-document-viewer/default.html">Document Viewer</a></nav><p class="mock-note">Design-system mock of the Coop admin as a member sees it (role Member). The sidebar and the phone tab bar list only the member areas; typing the address of an office area, such as /users, opens the dashboard instead. Forms do not submit; use the state links to review outcomes.</p><p class="mock-note"><code>frontend/projects/admin/src/app/features/documents/documents.component.ts</code></p></details></aside>
+</body>
+</html>
