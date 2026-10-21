@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Documents.Queries.GetNoticesPage;
 
+[OfficeOnly]
 public class GetNoticesPageRequest : IRequest<GetNoticesPageResponse>
 {
     public int PageSize { get; set; } = 10;

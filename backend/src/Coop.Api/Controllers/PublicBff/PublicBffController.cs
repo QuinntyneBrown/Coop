@@ -2,8 +2,7 @@ using Coop.Application.Common.Interfaces;
 using Coop.Application.Documents.Queries.GetPublishedByLaws;
 using Coop.Application.Documents.Queries.GetPublishedNotices;
 using Coop.Application.Documents.Queries.GetPublishedReports;
-using Coop.Application.Identity.Commands.Authenticate;
-using Coop.Application.Identity.Commands.CreateUser;
+using Coop.Application.Identity.Commands.RegisterMember;
 using Coop.Application.Maintenance.Commands.CreateMaintenanceRequest;
 using Coop.Application.Maintenance.Commands.CreateMaintenanceRequestComment;
 using Coop.Application.Maintenance.Queries.GetCurrentUserMaintenanceRequests;
@@ -12,7 +11,6 @@ using Coop.Application.Messaging.Commands.CreateConversation;
 using Coop.Application.Messaging.Commands.SendMessage;
 using Coop.Application.Messaging.Queries.GetConversationsByProfile;
 using Coop.Application.Messaging.Queries.GetMessagesByConversation;
-using Coop.Application.Onboarding.Commands.ValidateInvitationToken;
 using Coop.Application.Profiles.Dtos;
 using Coop.Application.Profiles.Queries.GetBoardMembers;
 using Coop.Application.Profiles.Queries.GetMembers;
@@ -64,50 +62,20 @@ public class PublicBffController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        // Validate the invitation token
-        try
+        var result = await _mediator.Send(new RegisterMemberRequest
         {
-            var validation = await _mediator.Send(new ValidateInvitationTokenRequest { Value = request.InvitationToken });
-            if (!validation.Success)
-                return BadRequest(new { message = "Invalid invitation token." });
-        }
-        catch
-        {
-            return BadRequest(new { message = "Invalid invitation token." });
-        }
-
-        // Create the user if not exists
-        var existingUser = await _context.Users.AnyAsync(u => u.Username == request.Username);
-        if (!existingUser)
-        {
-            await _mediator.Send(new CreateUserRequest
-            {
-                Username = request.Username,
-                Password = request.Password,
-                RoleIds = new List<Guid>()
-            });
-        }
-
-        // Authenticate to get token
-        AuthenticateResponse authResult;
-        try
-        {
-            authResult = await _mediator.Send(new AuthenticateRequest
-            {
-                Username = request.Username,
-                Password = request.Password
-            });
-        }
-        catch
-        {
-            return BadRequest(new { message = "Registration failed." });
-        }
+            InvitationToken = request.InvitationToken,
+            Username = request.Username,
+            Password = request.Password
+        });
+        if (result.Error is not null)
+            return BadRequest(new { message = result.Error });
 
         return Ok(new
         {
-            token = authResult.AccessToken,
-            accessToken = authResult.AccessToken,
-            userId = authResult.UserId.ToString(),
+            token = result.AccessToken,
+            accessToken = result.AccessToken,
+            userId = result.UserId.ToString(),
             username = request.Username,
             roles = new[] { "Member" }
         });
@@ -509,13 +477,6 @@ public class PublicBffController : ControllerBase
             lastMessageAt = DateTime.UtcNow.ToString("o"),
             unreadCount = 0,
         });
-    }
-
-    [HttpDelete("api/conversations/{id}")]
-    public async Task<IActionResult> DeleteConversation(Guid id)
-    {
-        await _mediator.Send(new Application.Messaging.Commands.DeleteConversation.DeleteConversationRequest { ConversationId = id });
-        return Ok();
     }
 
     [HttpGet("api/conversations/{conversationId}/messages")]

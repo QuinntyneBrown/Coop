@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Assets.Queries.GetDigitalAssetsPage;
 
+[OfficeOnly]
 public class GetDigitalAssetsPageRequest : IRequest<GetDigitalAssetsPageResponse>
 {
     public int PageSize { get; set; } = 10;

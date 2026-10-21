@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Documents.Commands.UpdateReport;
 
+[OfficeOnly]
 public class UpdateReportRequest : IRequest<UpdateReportResponse>
 {
     public Guid DocumentId { get; set; }

@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Maintenance.Queries.GetMaintenanceRequestCommentsPage;
 
+[OfficeOnly]
 public class GetMaintenanceRequestCommentsPageRequest : IRequest<GetMaintenanceRequestCommentsPageResponse>
 {
     public int PageSize { get; set; } = 10;

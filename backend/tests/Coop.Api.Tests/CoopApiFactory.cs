@@ -70,6 +70,31 @@ public class CoopApiFactory : WebApplicationFactory<Program>
     public Task<HttpClient> CreateMemberClientAsync() => CreateClientAsAsync(MemberUsername, MemberPassword);
 
     /// <summary>
+    /// Signs in as a fictional member of the office staff, seeding that
+    /// user with the Staff role and a staff profile on first use.
+    /// </summary>
+    public async Task<HttpClient> CreateStaffClientAsync()
+    {
+        const string username = "staff";
+        const string password = "Staff123!";
+        using (var scope = Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
+            if (!await context.Users.AnyAsync(u => u.Username == username))
+            {
+                var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+                var salt = RandomNumberGenerator.GetBytes(16);
+                var user = new User { Username = username, Salt = salt, Password = hasher.HashPassword(salt, password) };
+                user.Roles.Add(await context.Roles.SingleAsync(r => r.Name == Constants.Roles.Staff));
+                context.Users.Add(user);
+                context.StaffMembers.Add(new StaffMember { UserId = user.UserId, Firstname = "Dolores", Lastname = "Office" });
+                await context.SaveChangesAsync();
+            }
+        }
+        return await CreateClientAsAsync(username, password);
+    }
+
+    /// <summary>
     /// Signs in as a member of another household, seeding that fictional
     /// member with the Member role and profile on first use.
     /// </summary>

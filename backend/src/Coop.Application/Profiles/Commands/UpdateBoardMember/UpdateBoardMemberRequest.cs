@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Profiles.Commands.UpdateBoardMember;
 
+[OfficeOnly]
 public class UpdateBoardMemberRequest : IRequest<UpdateBoardMemberResponse>
 {
     public Guid ProfileId { get; set; }

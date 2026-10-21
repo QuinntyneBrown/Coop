@@ -1,7 +1,9 @@
+using Coop.Application.Behaviors;
 using MediatR;
 
 namespace Coop.Application.Maintenance.Commands.UpdateMaintenanceRequest;
 
+[OfficeOnly]
 public class UpdateMaintenanceRequestRequest : IRequest<UpdateMaintenanceRequestResponse>
 {
     public Guid MaintenanceRequestId { get; set; }
