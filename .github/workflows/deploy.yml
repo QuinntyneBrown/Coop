@@ -1,0 +1,87 @@
+name: Deploy
+
+# Publishes Coop to Azure on every push to main: the API to an App Service
+# web app and the admin and public apps to two web apps on the same plan
+# (ADR 0022). Each web app's publish profile is a repository secret.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  api:
+    name: Publish API
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: backend/global.json
+      - run: dotnet publish src/Coop.Api/Coop.Api.csproj --configuration Release --output publish
+      - uses: azure/webapps-deploy@v3
+        with:
+          app-name: coop-esplanade-api
+          publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE }}
+          package: backend/publish
+
+  frontend:
+    name: Build admin and public apps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: admin
+          path: frontend/dist/admin/browser
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: frontend/dist/public/browser
+
+  admin:
+    name: Publish admin app (app.esplanade.technology)
+    needs: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: admin
+          path: admin
+      - uses: azure/webapps-deploy@v3
+        with:
+          app-name: coop-esplanade-app
+          publish-profile: ${{ secrets.AZURE_ADMIN_PUBLISH_PROFILE }}
+          package: admin
+
+  public:
+    name: Publish public site (own.esplanade.technology)
+    needs: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public
+      - uses: azure/webapps-deploy@v3
+        with:
+          app-name: coop-esplanade-own
+          publish-profile: ${{ secrets.AZURE_PUBLIC_PUBLISH_PROFILE }}
+          package: public

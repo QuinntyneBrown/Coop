@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:5000/api';
+  private readonly API_URL = environment.apiUrl;
 
   loadTheme(): void {
     this.http

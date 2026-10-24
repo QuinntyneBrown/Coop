@@ -76,13 +76,25 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/public/src/environments/environment.ts",
+                  "with": "projects/public/src/environments/environment.development.ts"
+                }
+              ]
             },
             "testing": {
               "aot": false,
               "optimization": false,
               "extractLicenses": false,
-              "polyfills": ["zone.js", "zone.js/testing"]
+              "polyfills": ["zone.js", "zone.js/testing"],
+              "fileReplacements": [
+                {
+                  "replace": "projects/public/src/environments/environment.ts",
+                  "with": "projects/public/src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -196,13 +208,25 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/admin/src/environments/environment.ts",
+                  "with": "projects/admin/src/environments/environment.development.ts"
+                }
+              ]
             },
             "testing": {
               "aot": false,
               "optimization": false,
               "extractLicenses": false,
-              "polyfills": ["zone.js", "zone.js/testing"]
+              "polyfills": ["zone.js", "zone.js/testing"],
+              "fileReplacements": [
+                {
+                  "replace": "projects/admin/src/environments/environment.ts",
+                  "with": "projects/admin/src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap, catchError, map, of, shareReplay } from 'rxjs';
 import { isOffice } from '../is-office';
+import { environment } from '../../../environments/environment';
 
 export interface AuthTokenResponse {
   token: string;
@@ -20,7 +21,7 @@ export interface CurrentUser {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:5000/api';
+  private readonly API_URL = environment.apiUrl;
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
   private office?: Observable<boolean>;
