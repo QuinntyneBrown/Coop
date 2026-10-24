@@ -1,0 +1,118 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — The Website area
+
+package "Coop.Domain.CMS" {
+  class JsonContent {
+    +string Name  : SiteContent | SiteContentDraft | BoardOfDirectors
+    +string Json
+  }
+  class Page {
+    +bool Published
+    +string Sections  : JSON list of blocks
+    +string Body  : legacy, emptied by the migration
+    +Update(title, heroImageUrl, heroImageAlt, sections, published)
+    +MigrateBody()
+  }
+}
+
+package "Coop.Application.CMS" {
+  class SiteContentRules {
+    +{static} Name = "SiteContent"
+    +{static} DraftName = "SiteContentDraft"
+  }
+  abstract class HomeSectionDto {
+    +bool Hidden
+  }
+  class HomeContentDto {
+    +List<HomeSectionDto> Sections
+  }
+  HomeContentDto o-- HomeSectionDto
+  HomeSectionDto <|-- HeroDto
+  HomeSectionDto <|-- GlanceDto
+  HomeSectionDto <|-- AboutDto
+  HomeSectionDto <|-- GalleryDto
+  HomeSectionDto <|-- FeaturesDto
+  HomeSectionDto <|-- NoticesDto
+  HomeSectionDto <|-- BoardDto
+  HomeSectionDto <|-- QuoteDto
+  HomeSectionDto <|-- VisitDto
+  abstract class PageBlockDto
+  PageBlockDto <|-- HeadingBlockDto
+  PageBlockDto <|-- ParagraphBlockDto
+  PageBlockDto <|-- BulletsBlockDto
+  PageBlockDto <|-- PhotoBlockDto
+  PageBlockDto <|-- LinkBlockDto
+  PageBlockDto <|-- HtmlBlockDto
+  class PageDto {
+    +bool Published
+    +List<PageBlockDto> Sections
+  }
+  PageDto o-- PageBlockDto
+  class SaveSiteContentRequest <<Write on JsonContent>>
+  class GetSiteContentDraftRequest <<OfficeOnly>>
+  class PublishSiteContentRequest <<OfficeOnly, Write on JsonContent>>
+  class DiscardSiteContentDraftRequest <<OfficeOnly, Write on JsonContent>>
+  class IssuePreviewTokenRequest <<OfficeOnly>>
+  class GetSiteContentPreviewRequest {
+    +string Token
+  }
+  class GetPagesRequest {
+    +string? PreviewToken
+  }
+  interface IPreviewTokenService {
+    +Issue() : (Token, ExpiresOn)
+    +IsValid(token) : bool
+  }
+}
+
+package "Coop.Infrastructure" {
+  class PreviewTokenService
+  class SeedData {
+    +MigrateSiteContentAsync()
+    +MigratePageBodiesAsync()
+  }
+  IPreviewTokenService <|.. PreviewTokenService
+}
+
+package "Admin application" {
+  class AppPaths <<registry>>
+  class AppTitleStrategy
+  class WebsiteComponent
+  class SiteTreeComponent
+  class PageEditorComponent {
+    +mode : home | menu | page
+    +sections : SectionDefinition[]
+    +selected : SectionDefinition
+    +draft : ContentRecord
+    +save(), move(), hide(), addBlock(), removeBlock()
+  }
+  class SectionDefinition {
+    +kind, name, placement, anchor
+    +fields : ContentField[]
+    +linked? : notices | board
+  }
+  class PublishBarComponent
+  class PreviewPaneComponent
+  class SiteContentService {
+    +getDraft() : { siteContent, hasDraft }
+    +save(), publish(), discard(), previewToken()
+    +hasDraft : signal
+  }
+  PageEditorComponent o-- SectionDefinition
+  PageEditorComponent --> SiteContentService
+  PageEditorComponent --> PreviewPaneComponent
+  PublishBarComponent --> SiteContentService
+  WebsiteComponent --> SiteTreeComponent
+  WebsiteComponent --> PublishBarComponent
+}
+@enduml

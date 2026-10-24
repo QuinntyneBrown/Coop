@@ -1,0 +1,31 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Render the home page from sections
+
+Container_Boundary(publicApp, "Public application") {
+  Component(landing, "LandingComponent", "Angular", "@for section of home().sections, @switch on kind; skips hidden")
+  Component(templates, "Section templates", "landing.component.html", "hero, glance, about, gallery, features, notices, board, quote, visit, each with its id")
+  Component(service, "SiteContentService", "Angular service", "One GET api/site-content[?preview]; previewState signal")
+  Component(merge, "mergeContent, mergeHomeSections, SITE_DEFAULTS", "Plain TypeScript", "Published sections over the default of each kind; unknown kinds dropped; defaults when missing")
+  Component(board, "BoardService", "Angular service", "GET api/board-of-directors; directorsFrom(response)")
+  Component(docs, "DocumentService", "Angular service", "GET api/notice|bylaw|report/published merged, newest first")
+  Component(pages, "PageService", "Angular service", "GET api/pages[?preview], api/pages/{slug}[?preview]")
+  Component(banner, "PreviewBannerComponent", "Angular", "Preview or expired banner on every page")
+}
+Container_Boundary(api, "Coop API") {
+  Component(siteContent, "SiteContentController", "ASP.NET Core", "Published copy; ?preview={token} reads the draft")
+  Component(boardCtl, "BoardOfDirectorsController", "ASP.NET Core", "GET api/board-of-directors")
+  Component(docCtl, "NoticeController, ByLawController, ReportController", "ASP.NET Core", "GET {kind}/published, anonymous")
+  Component(pagesCtl, "PagesController", "ASP.NET Core", "Published pages; ?preview={token} includes unpublished")
+}
+Rel(landing, service, "Reads the merged content")
+Rel(landing, templates, "Renders by kind")
+Rel(service, merge, "Merges with")
+Rel(landing, board, "Reads the directors")
+Rel(landing, banner, "Shows in preview mode")
+Rel(service, siteContent, "Calls", "JSON/HTTPS")
+Rel(board, boardCtl, "Calls", "JSON/HTTPS")
+Rel(docs, docCtl, "Calls", "JSON/HTTPS")
+Rel(pages, pagesCtl, "Calls", "JSON/HTTPS")
+@enduml

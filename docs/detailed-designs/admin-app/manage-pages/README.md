@@ -2,12 +2,12 @@
 
 ## Overview
 
+> **Changed on 24 October 2026.** Pages are now managed from the Website area's site tree and page editor (`../website-area/`, ADR 0020): a page is a Page banner plus body blocks, has a `Published` flag, and the "Pages" screen and its editor dialog are retired. This design keeps the API rules that still hold (slugs, idempotent creation, authorization) and marks what moved.
+
 Website pages are the content pages of the public site (About us, How to
 apply, and whatever else the office decides) that visitors reach from the
-header navigation. Office administrators add, edit and remove them from the
-"Pages" screen of the admin application at `/pages`, drawn in
-`docs/mocks/pages/admin-pages/` with its dialogs in
-`docs/mocks/dialogs/admin-page-editor/` and
+header navigation. Office administrators add, edit and remove them from the Website area of the admin application (`/website/pages/{pageId}`, `/website/pages/new`), drawn in
+`docs/mocks/pages/admin-page-editor/` with the remove dialog in
 `docs/mocks/dialogs/admin-page-remove/`. The public application renders each
 page at `/pages/{slug}` (see `../../public-app/show-content-page/`).
 
@@ -18,7 +18,7 @@ rather than as a named JSON block.
 Terms used in this design:
 
 - **website page** — page of the public site with a title, an optional hero
-  photograph address with its description and an HTML body, stored as a `Page` entity
+  photograph address with its description, a `Published` flag and a body of blocks (`Sections`, JSON), stored as a `Page` entity; a body written before blocks existed is one `html` block
 - **slug** — URL segment derived from the page title, for example `about-us`
   for "About us"; the public route is `/pages/{slug}`
 - **hero photograph address** — URL of a photograph, usually one served by
@@ -100,8 +100,11 @@ so an existing development database works without a reset.
 
 ### Admin application
 
-`PagesComponent` (`frontend/projects/admin/src/app/features/cms/pages/`,
-`pages.component.ts`, `.html`, `.scss`) is the routed screen at `/pages`,
+`PagesComponent` is retired. Pages are edited by `PageEditorComponent`
+(`features/website/page-editor/`) in its `page` mode, described in
+`../website-area/`; the paragraphs below record the former screen for the
+rules that carried over (the photo picker, the client checks and the
+service). `PagesComponent` was the routed screen at `/pages`,
 reached from the "Pages" sidebar link. It owns these signals: `pages`,
 `status` (`loading`, `ready`, `error`), `notice` (the last success message),
 `draft` (the fields of the editor), `errors` (per-field messages), `saving`,

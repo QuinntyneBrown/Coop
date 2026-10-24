@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Render the home page from sections
+
+Person(visitor, "Visitor", "Reads the public home page")
+Person(office, "Office", "Orders, hides and edits the home page sections in the admin app")
+System(coop, "Coop", "Cooperative management platform: admin app, public site and API")
+
+Rel(visitor, coop, "Opens the home page and sees the published sections in their published order", "HTTPS")
+Rel(office, coop, "Moves, hides and edits sections in a draft and publishes", "HTTPS")
+@enduml

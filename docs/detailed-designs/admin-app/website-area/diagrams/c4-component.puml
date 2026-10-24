@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — The Website area
+
+Container_Boundary(adminApp, "Admin application") {
+  Component(registry, "app-paths, app-titles, AppTitleStrategy", "Plain TypeScript, TitleStrategy", "Every route path and title")
+  Component(sidebar, "SidebarComponent", "Angular", "Grouped office links from office-link-groups.ts")
+  Component(landing, "WebsiteComponent", "Angular", "/website: publish bar and site tree as cards")
+  Component(tree, "SiteTreeComponent", "Angular", "Home, Pages (+ Add a page), Menu and footer, Board of directors, Photos, Look")
+  Component(editor, "PageEditorComponent", "Angular", "Sections, section form, preview; home, menu-and-footer and page modes")
+  Component(sections, "home-sections, menu-sections, page-blocks, fields/*", "Plain TypeScript", "Section kinds, placement sentences, field kinds, validateBlock, readPath, moveItem")
+  Component(publishBar, "PublishBarComponent", "Angular", "Unpublished-changes sentence; Preview site, Publish, Discard with dialogs")
+  Component(preview, "PreviewPaneComponent", "Angular", "iframe on the public site with the preview token")
+  Component(board, "BoardComponent", "Angular", "/website/board with the photo picker")
+  Component(service, "SiteContentService, PageService, BoardService, PreviewTokenService", "Angular services", "The API calls and the hasDraft signal")
+}
+Container_Boundary(api, "Coop API") {
+  Component(controller, "SiteContentController, PagesController", "ASP.NET Core controllers", "Translate HTTP to requests; GET is anonymous")
+  Component(behaviors, "OfficeOnlyBehavior, ValidationBehavior, ResourceOperationAuthorizationBehavior", "MediatR pipeline", "Office only; kind-by-kind rules; Write on JsonContent or Page")
+  Component(handlers, "SaveSiteContent, GetSiteContentDraft, PublishSiteContent, DiscardSiteContentDraft, IssuePreviewToken, GetSiteContentPreview, GetPages, GetPageBySlug, CreatePage, UpdatePage", "MediatR handlers", "Draft and published entries; published-only pages for visitors")
+  Component(tokens, "PreviewTokenService", "Infrastructure.Identity", "HMAC-signed expiry, 60 minutes")
+  Component(seed, "SeedData.MigrateSiteContentAsync, MigratePageBodiesAsync", "Infrastructure.Seeding", "Earlier shapes rewritten once on startup")
+  ComponentDb(db, "CoopDbContext", "EF Core", "JsonContents, Pages")
+}
+Rel(sidebar, registry, "Reads paths and titles")
+Rel(landing, tree, "Shows")
+Rel(landing, publishBar, "Shows")
+Rel(editor, sections, "Draws forms from")
+Rel(editor, preview, "Shows")
+Rel(editor, publishBar, "Shows")
+Rel(editor, service, "Loads the draft, saves, counts notices and directors")
+Rel(publishBar, service, "Publishes, discards, asks for a preview token")
+Rel(preview, service, "Asks for a preview token")
+Rel(board, service, "Loads and saves the list")
+Rel(service, controller, "Calls", "JSON/HTTPS")
+Rel(controller, behaviors, "Sends requests through")
+Rel(behaviors, handlers, "Then")
+Rel(handlers, tokens, "Issues and checks preview tokens")
+Rel(handlers, db, "Reads and writes")
+Rel(seed, db, "Rewrites on startup")
+@enduml

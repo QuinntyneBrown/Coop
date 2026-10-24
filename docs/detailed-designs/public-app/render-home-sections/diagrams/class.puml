@@ -1,0 +1,92 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Render the home page from sections
+
+package "core/site-content" {
+  class SiteContent {
+    +header : SiteHeaderContent
+    +footer : SiteFooterContent
+    +home : HomeContent
+  }
+  class HomeContent {
+    +sections : HomeSection[]
+  }
+  class "HomeSection (union by kind)" as HomeSection {
+    +kind : HomeSectionKind
+    +hidden? : boolean
+  }
+  class HeroContent
+  class GlanceContent
+  class AboutContent
+  class GalleryContent
+  class FeaturesContent
+  class NoticesContent
+  class BoardContent
+  class QuoteContent
+  class VisitContent
+  HomeSection <|-- HeroContent
+  HomeSection <|-- GlanceContent
+  HomeSection <|-- AboutContent
+  HomeSection <|-- GalleryContent
+  HomeSection <|-- FeaturesContent
+  HomeSection <|-- NoticesContent
+  HomeSection <|-- BoardContent
+  HomeSection <|-- QuoteContent
+  HomeSection <|-- VisitContent
+  SiteContent o-- HomeContent
+  HomeContent o-- HomeSection
+  class "SITE_DEFAULTS" as defaults <<const>>
+  class "mergeContent(defaults, published)" as merge <<function>>
+  class "mergeHomeSections(defaults, published)" as mergeSections <<function>>
+  merge ..> mergeSections : home.sections
+}
+
+package "core/services" {
+  class SiteContentService {
+    +content : Signal<SiteContent>
+    +previewToken : string | null
+    +previewState : Signal<'none'|'draft'|'expired'>
+  }
+  class BoardService {
+    +getDirectors() : Observable<DirectorView[]>
+  }
+  class DocumentService {
+    +getPublishedDocuments() : Observable<CoopDocument[]>
+  }
+  class PageService {
+    +getAll(), getBySlug(slug) : with ?preview when set
+  }
+  SiteContentService ..> merge
+}
+
+package "pages/landing" {
+  class LandingComponent {
+    +home : Signal<HomeContent>
+    +visible : Signal<HomeSection[]>
+    +directors : Signal<DirectorView[]>
+    +notices : Signal<NoticeView[]>
+  }
+  class DirectorView
+  class NoticeView
+  class "directorsFrom(response)" as directorsFrom <<function>>
+  class "noticeViewFrom(notice)" as noticeViewFrom <<function>>
+  LandingComponent --> SiteContentService
+  LandingComponent --> BoardService
+  LandingComponent ..> directorsFrom
+  LandingComponent ..> noticeViewFrom
+}
+
+package "layout" {
+  class PreviewBannerComponent
+  PreviewBannerComponent --> SiteContentService
+}
+@enduml

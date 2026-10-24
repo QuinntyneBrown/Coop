@@ -1,0 +1,49 @@
+@startuml
+title UML sequence behaviour — Preview the draft on the public site
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office" as actor
+box "Frontend — Admin application" #E0F2FE
+  participant "PageEditorComponent" as editor
+  participant "PreviewPaneComponent" as pane
+  participant "PreviewTokenService" as tokens
+end box
+box "Frontend — Public application" #DCFCE7
+  participant "SiteContentService (public)" as pub
+  participant "PreviewBannerComponent" as banner
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  participant "IssuePreviewTokenHandler" as issue
+  participant "GetSiteContentPreviewHandler" as read
+  participant "PreviewTokenService (API)" as hmac
+  database "CoopDbContext" as db
+end box
+actor -> editor : open the editor
+editor -> tokens : token()
+tokens -> controller : POST api/site-content/preview-token (bearer)
+controller -> issue : Send(IssuePreviewTokenRequest)  [OfficeOnly, L2-REQ-128]
+issue -> hmac : Issue(): expiry + HMAC(JwtKey)  [ADR 0019]
+controller --> tokens : 200 { token, expiresOn }
+editor -> pane : src = {public}/?preview={token}#top
+pane -> pub : the public app loads with ?preview
+pub -> controller : GET api/site-content?preview={token} (anonymous)
+controller -> read : Send(GetSiteContentPreviewRequest)
+read -> hmac : IsValid(token)
+alt valid
+  read -> db : SiteContentDraft, else SiteContent
+  controller --> pub : 200 { siteContent }
+  pub -> banner : "Preview. You are looking at unpublished changes. Visitors see the published website."  [L2-REQ-125 AC5]
+else expired or altered
+  controller --> pub : 403
+  pub -> controller : GET api/site-content (published)
+  pub -> banner : "This preview link has expired. You are looking at the published website…"  [L2-REQ-125 AC6]
+end
+actor -> editor : select "Who we are"
+editor -> pane : fragment = #about (the frame scrolls)
+actor -> editor : "Save to draft"
+editor -> pane : reload the frame (new token when the old one is older than 60 minutes)
+@enduml

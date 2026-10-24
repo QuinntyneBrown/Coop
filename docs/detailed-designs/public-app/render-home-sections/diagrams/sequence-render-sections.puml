@@ -1,0 +1,39 @@
+@startuml
+title UML sequence behaviour — Render the home page from the published sections
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as visitor
+box "Frontend — Public application" #E0F2FE
+  participant "LandingComponent" as landing
+  participant "SiteContentService" as service
+  participant "mergeHomeSections" as merge
+  participant "BoardService" as board
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  participant "BoardOfDirectorsController" as boardCtl
+  participant "NoticeController" as notice
+  database "CoopDbContext" as db
+end box
+visitor -> landing : open /
+landing -> landing : render SITE_DEFAULTS.home.sections in the default order
+service -> controller : GET api/site-content (once per load, anonymous)
+controller -> db : SiteContent entry
+controller --> service : { siteContent } with home.sections
+service -> merge : mergeHomeSections(defaults, published)
+merge --> service : published order and hidden flags; each kind's missing values filled from its default; unknown kinds dropped  [L2-REQ-122 AC1, AC5]
+service --> landing : content signal
+landing -> landing : @for section of visible sections; @switch section.kind; skip hidden  [L2-REQ-122 AC2]
+landing -> board : getDirectors()
+board -> boardCtl : GET api/board-of-directors
+boardCtl --> landing : { directors } (the only board source)  [L2-REQ-124 AC6]
+landing -> notice : GET api/notice/published
+notice --> landing : { notices }
+landing --> visitor : sections in the published order, each with its id (top, glance, about, life, features, events, board, quote, visit)
+alt api/site-content fails or home.sections is missing
+  service --> landing : SITE_DEFAULTS  [L2-REQ-122 AC4]
+end
+@enduml

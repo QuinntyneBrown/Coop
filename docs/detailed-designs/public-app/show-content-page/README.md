@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Changed on 24 October 2026.** A page body is a list of blocks (`sections`: Heading, Paragraph, Bullet list, Photo, Link button, Existing content) rendered in order, visitors see published pages only, and preview mode shows unpublished pages (`L2-REQ-123`, `L2-REQ-125`; `../render-home-sections/`). The `[innerHTML]` body below is now the Existing content block.
+
 A website page is a content page of the public site (About us, How to apply,
 and so on) that the office adds from the admin application (see
 `../../admin-app/manage-pages/`). The public application renders each page at

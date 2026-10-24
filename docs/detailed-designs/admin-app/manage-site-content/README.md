@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Changed on 24 October 2026.** The Website screen and its editor dialog are replaced by the Website area and the page editor (`../website-area/`, ADR 0020); saves write a draft that is published from the publish bar (ADR 0018); the home page content is an ordered list `home.sections` (ADR 0021, `../../public-app/render-home-sections/`). The DTOs, validators, rules and seed described below hold, with the home DTO as a list of polymorphic sections and the admin screen moved.
+
 Every image, link and piece of text that a visitor sees on the public site's
 header, home page, website pages and footer comes from content that office
 administrators publish in the admin application (`L1-REQ-020`). Before this
@@ -54,7 +56,7 @@ The `SiteContent` entry holds one JSON object with three parts:
 |------|-------------------|
 | `header` | `siteName`, `siteSubtitle`, `menuLinks[]`, `signInLink`, `visitLink` |
 | `footer` | `contactHeading`, `organisation`, `area`, `phone`, `email`, `siteLinksHeading`, `siteLinks[]`, `memberLinksHeading`, `memberLinks[]`, `copyright`, `websiteLine` |
-| `home` | `hero` (`eyebrow`, `title`, `lead`, `badge`, `primaryAction`, `secondaryAction`, `photo`), `glance` (`figures[]` of `value`, `label`), `about` (`eyebrow`, `title`, `lead`, `values[]` of `icon`, `title`, `text`), `gallery` (`eyebrow`, `title`, `photos[]` of `photo`, `caption`, `size`), `features` (`rows[]` of `eyebrow`, `title`, `items[]`, `photo`), `notices` (`eyebrow`, `title`, `lead`, `emptyMessage`), `board` (`eyebrow`, `title`), `quote` (`text`, `attribution`, `photo`), `visit` (`eyebrow`, `title`, `lead`, `phone`, `hours`, `action`) |
+| `home` | `sections[]`, each with a `kind` and an optional `hidden`, in page order: `hero` (`eyebrow`, `title`, `lead`, `badge`, `primaryAction`, `secondaryAction`, `photo`), `glance` (`figures[]` of `value`, `label`), `about` (`eyebrow`, `title`, `lead`, `values[]` of `icon`, `title`, `text`), `gallery` (`eyebrow`, `title`, `photos[]` of `photo`, `caption`, `size`), `features` (`rows[]` of `eyebrow`, `title`, `items[]`, `photo`), `notices` (`eyebrow`, `title`, `lead`, `emptyMessage`), `board` (`eyebrow`, `title`), `quote` (`text`, `attribution`, `photo`), `visit` (`eyebrow`, `title`, `lead`, `phone`, `hours`, `action`) |
 
 A link is `{ label, href }` and a photo is `{ src, alt, width, height }`. A
 value card's `icon` is one of `members`, `affordable` and `company`; a gallery
