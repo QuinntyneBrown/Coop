@@ -1,6 +1,6 @@
 .landing-topbar {
   gap: var(--space-2);
-  /* At 400% zoom and on phones the links drop below the name rather than run off the edge (L2-REQ-090). */
+  /* If even the logo and links cannot share a row, the links drop below rather than run off the edge (L2-REQ-090). */
   flex-wrap: wrap;
   /* Room above and below a wrapped row, and corners that still read as a capsule on one row
      but stay a rounded panel when the bar wraps to two. */
@@ -13,6 +13,20 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+/* Below the width the whole bar needs, show only the logo so the bar stays on one row. The name
+   stays for screen readers and is the page's heading just below. */
+@media (max-width: 31rem) {
+  .landing-topbar__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 .landing-notice {
