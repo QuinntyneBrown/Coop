@@ -11,6 +11,7 @@
 
 import { test, expect } from "../../fixtures/admin/api.fixture";
 import type { MockApi } from "../../fixtures/mock-api/mock-api";
+import { homeSection } from "../../fixtures/mock-api/home-section";
 import { PageEditorPage } from "../../pages/admin/page-editor.page";
 
 /** The site content the office edits: the draft when a save wrote one, else the published copy (L2-REQ-121). */
@@ -110,7 +111,7 @@ test.describe("Page editor", () => {
       await expect(editor.field("Title")).toHaveValue(
         "Come home to the co-op.",
       );
-      expect(draft(mockApi).home.hero.title).toBe(
+      expect(homeSection(draft(mockApi), "hero").title).toBe(
         "A home of our own, in the heart of Toronto.",
       );
 
@@ -149,7 +150,9 @@ test.describe("Page editor", () => {
       await expect(editor.notice).toHaveText(
         "Saved to your draft. Publish when you are ready for visitors to see it.",
       );
-      expect(draft(mockApi).home.hero.title).toBe("Come home to the co-op.");
+      expect(homeSection(draft(mockApi), "hero").title).toBe(
+        "Come home to the co-op.",
+      );
 
       await api.post("site-content/publish", {});
       const home = await editor.openPublicHomePage();
@@ -178,7 +181,7 @@ test.describe("Page editor", () => {
         "aria-invalid",
         "true",
       );
-      expect(draft(mockApi).home.hero.title).toBe(
+      expect(homeSection(draft(mockApi), "hero").title).toBe(
         "A home of our own, in the heart of Toronto.",
       );
     });
@@ -191,7 +194,9 @@ test.describe("Page editor", () => {
       await expect(editor.fieldError("Address", "Main button")).toHaveText(
         "Use a page on this site, a web address, an e-mail address or a phone number.",
       );
-      expect(draft(mockApi).home.hero.primaryAction.href).toBe("/#visit");
+      expect(homeSection(draft(mockApi), "hero").primaryAction.href).toBe(
+        "/#visit",
+      );
     });
 
     test("keeps the entered values and explains when the save fails", async ({
@@ -212,7 +217,9 @@ test.describe("Page editor", () => {
       mockApi.failing.clear();
       await editor.save();
       await expect(editor.notice).toBeVisible();
-      expect(draft(mockApi).home.visit.title).toBe("Drop in any weekday.");
+      expect(homeSection(draft(mockApi), "visit").title).toBe(
+        "Drop in any weekday.",
+      );
     });
   });
 
@@ -266,7 +273,7 @@ test.describe("Page editor", () => {
       await editor.save();
 
       await expect(editor.notice).toBeVisible();
-      expect(draft(mockApi).home.features.rows[0].items).toEqual([
+      expect(homeSection(draft(mockApi), "features").rows[0].items).toEqual([
         "Step-free entrance",
         "Two lifts",
       ]);
@@ -372,7 +379,7 @@ test.describe("Page editor", () => {
         .fill("Neighbours at the garden party.");
       await editor.save();
       await expect(editor.notice).toBeVisible();
-      const photo = draft(mockApi).home.hero.photo;
+      const photo = homeSection(draft(mockApi), "hero").photo;
       expect(photo.src).toBe(
         `http://localhost:5000/api/digitalasset/serve/${asset.digitalAssetId}`,
       );
@@ -411,7 +418,7 @@ test.describe("Page editor", () => {
       const uploaded = mockApi.store.assets.find(
         (a) => a.name === "beatrix.png",
       )!;
-      expect(draft(mockApi).home.quote.photo.src).toBe(
+      expect(homeSection(draft(mockApi), "quote").photo.src).toBe(
         `http://localhost:5000/api/digitalasset/serve/${uploaded.digitalAssetId}`,
       );
     });

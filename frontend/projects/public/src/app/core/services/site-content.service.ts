@@ -4,6 +4,7 @@ import { Observable, catchError, map, of, switchMap, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { PreviewService } from './preview.service';
 import { mergeContent } from '../site-content/merge-content';
+import { mergeHomeSections } from '../site-content/merge-home-sections';
 import { SITE_DEFAULTS } from '../site-content/site-defaults';
 import type { SiteContent } from '../site-content/site-content';
 
@@ -31,7 +32,7 @@ export class SiteContentService {
           this.preview.expire();
           return this.request();
         }),
-        map((response) => mergeContent(SITE_DEFAULTS, response?.siteContent)),
+        map((response) => merge(response?.siteContent)),
         catchError(() => of(SITE_DEFAULTS)),
       )
       .subscribe((content) => this.state.set(content));
@@ -40,4 +41,14 @@ export class SiteContentService {
   private request(): Observable<{ siteContent?: unknown } | null> {
     return of(null).pipe(switchMap(() => this.api.get<{ siteContent?: unknown }>('site-content')));
   }
+}
+
+/** The published content over the defaults: value by value, and the home sections in the published order. */
+function merge(published: unknown): SiteContent {
+  const content = mergeContent(SITE_DEFAULTS, published);
+  const home = (published as { home?: { sections?: unknown } } | null | undefined)?.home;
+  return {
+    ...content,
+    home: { sections: mergeHomeSections(SITE_DEFAULTS.home.sections, home?.sections) },
+  };
 }

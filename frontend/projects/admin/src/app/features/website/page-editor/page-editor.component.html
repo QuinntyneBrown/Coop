@@ -100,8 +100,12 @@
           <div libCard class="stack">
             <h2 libCardTitle>Sections</h2>
             <ol libSectionList aria-label="Sections in the order visitors see them">
-              @for (section of sections; track section.kind) {
-                <li libSectionListItem data-testid="section-item">
+              @for (section of sections(); track section.kind) {
+                <li
+                  libSectionListItem
+                  [hiddenSection]="isHidden(section)"
+                  data-testid="section-item"
+                >
                   <button
                     libSectionListButton
                     type="button"
@@ -111,9 +115,63 @@
                   >
                     {{ section.name }}
                   </button>
+                  @if (isHidden(section)) {
+                    <span libBadge tone="neutral" data-testid="section-hidden-badge">Hidden</span>
+                  }
                 </li>
               }
             </ol>
+            @if (mode === 'home') {
+              <div libSectionListTools role="group" aria-label="Selected section">
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy()"
+                  (click)="toggleHidden()"
+                  data-testid="section-hide"
+                >
+                  <svg [libIcon]="isHidden(selected()) ? 'show' : 'hide'"></svg
+                  >{{ isHidden(selected()) ? 'Show section' : 'Hide section' }}
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy() || !canMove(-1)"
+                  (click)="move(-1)"
+                  data-testid="section-move-up"
+                >
+                  <svg libIcon="move-up"></svg>Move up
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy() || !canMove(1)"
+                  (click)="move(1)"
+                  data-testid="section-move-down"
+                >
+                  <svg libIcon="move-down"></svg>Move down
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+              </div>
+              <div role="status" aria-live="polite">
+                @if (toolStatus()) {
+                  <p libInlineStatus data-testid="section-tools-status">
+                    <svg libIcon="success" size="sm"></svg>{{ toolStatus() }}
+                  </p>
+                }
+              </div>
+              @if (toolFailed()) {
+                <div libAlert tone="danger" role="alert" data-testid="section-tools-failed">
+                  <svg libIcon="error"></svg>
+                  <div libAlertBody>We couldn't save your changes. Try again.</div>
+                </div>
+              }
+            }
           </div>
         </section>
 

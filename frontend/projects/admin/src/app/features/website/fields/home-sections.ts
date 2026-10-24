@@ -12,7 +12,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Welcome banner',
     placement: 'Appears first on the home page, under the menu.',
     anchor: 'top',
-    path: 'home.hero',
     fields: [
       eyebrow(),
       title(),
@@ -28,7 +27,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Numbers at a glance',
     placement: 'Appears under the welcome banner, as three large numbers.',
     anchor: 'glance',
-    path: 'home.glance',
     fields: [
       {
         kind: 'list',
@@ -46,7 +44,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Who we are',
     placement: 'Appears under the numbers, with three value cards.',
     anchor: 'about',
-    path: 'home.about',
     fields: [
       eyebrow(),
       title(),
@@ -79,7 +76,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'A look around',
     placement: 'Appears under “Who we are”, as a grid of photos with captions.',
     anchor: 'life',
-    path: 'home.gallery',
     fields: [
       eyebrow(),
       title(),
@@ -111,7 +107,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Our building and community',
     placement: 'Appears under the photos, as rows with a photo beside a checklist.',
     anchor: 'features',
-    path: 'home.features',
     fields: [
       {
         kind: 'list',
@@ -133,7 +128,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: "What's on",
     placement: 'Appears under “Our building and community”, with the published notices.',
     anchor: 'events',
-    path: 'home.notices',
     linked: 'notices',
     fields: [
       eyebrow(),
@@ -147,7 +141,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Board of directors',
     placement: 'Appears under “What’s on”, with one card per director.',
     anchor: 'board',
-    path: 'home.board',
     linked: 'board',
     fields: [eyebrow(), title()],
   },
@@ -156,7 +149,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'A word from a member',
     placement: 'Appears under the board, as a large quotation with a photo.',
     anchor: 'quote',
-    path: 'home.quote',
     fields: [paragraph('text', 'Quotation', true), text('attribution', 'Who said it'), photo()],
   },
   {
@@ -164,7 +156,6 @@ export const HOME_SECTIONS: SectionDefinition[] = [
     name: 'Visit or apply',
     placement: 'Appears last on the home page, above the footer.',
     anchor: 'visit',
-    path: 'home.visit',
     fields: [
       eyebrow(),
       title(),

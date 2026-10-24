@@ -1,7 +1,7 @@
 namespace Coop.Application.CMS.Dtos;
 
 /// <summary>The "Visit or apply" band.</summary>
-public class VisitDto
+public class VisitDto : HomeSectionDto
 {
     public string Eyebrow { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;

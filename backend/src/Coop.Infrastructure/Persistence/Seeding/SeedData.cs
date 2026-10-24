@@ -31,6 +31,59 @@ public static class SeedData
         await SeedBoardAsync(context);
         await SeedJsonContentAsync(context);
         await SeedSiteContentAsync(context, SiteContentSeed.Create());
+        await MigrateHomeSectionsAsync(context);
+    }
+
+    /// <summary>The home page kinds in the order the public site showed them before `home.sections` existed.</summary>
+    private static readonly string[] HomeSectionKinds = { "hero", "glance", "about", "gallery", "features", "notices", "board", "quote", "visit" };
+
+    /// <summary>
+    /// Rewrites a site content or draft entry in the earlier shape (<c>home.hero</c>,
+    /// <c>home.glance</c>, …) into <c>home.sections</c> in the default order with
+    /// no section hidden, once; an entry already in the new shape is left alone
+    /// (L2-REQ-122 AC7, ADR 0021).
+    /// </summary>
+    public static async Task MigrateHomeSectionsAsync(CoopDbContext context)
+    {
+        var names = new[] { SiteContentRules.Name, SiteContentRules.DraftName };
+        var entries = await context.JsonContents.Where(j => names.Contains(j.Name) && !j.IsDeleted).ToListAsync();
+        var changed = false;
+        foreach (var entry in entries)
+        {
+            var migrated = MigrateHomeSections(entry.Json);
+            if (migrated is null) continue;
+            entry.Json = migrated;
+            changed = true;
+        }
+        if (changed)
+            await context.SaveChangesAsync();
+    }
+
+    /// <summary>The JSON with <c>home.sections</c> built from the earlier keys, or null when nothing needs to change.</summary>
+    public static string? MigrateHomeSections(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json)) return null;
+        System.Text.Json.Nodes.JsonNode? root;
+        try { root = System.Text.Json.Nodes.JsonNode.Parse(json); }
+        catch (System.Text.Json.JsonException) { return null; }
+        if (root?["home"] is not System.Text.Json.Nodes.JsonObject home || home["sections"] is System.Text.Json.Nodes.JsonArray)
+            return null;
+
+        var sections = new System.Text.Json.Nodes.JsonArray();
+        foreach (var kind in HomeSectionKinds)
+        {
+            if (home[kind] is not System.Text.Json.Nodes.JsonObject section) continue;
+            home.Remove(kind);
+            var moved = new System.Text.Json.Nodes.JsonObject { ["kind"] = kind };
+            foreach (var (key, value) in section.ToList())
+            {
+                section.Remove(key);
+                moved[key] = value;
+            }
+            sections.Add(moved);
+        }
+        home["sections"] = sections;
+        return root.ToJsonString(new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
     }
 
     /// <summary>The five predefined roles with their privileges (L2-REQ-012), when no role exists.</summary>

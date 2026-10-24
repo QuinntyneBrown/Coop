@@ -53,6 +53,8 @@ export class LandingPage {
 
   // Footer
   readonly previewBanner: Locator;
+  /** The home page sections, in the order they render. */
+  readonly sections: Locator;
 
   readonly footer: Locator;
   readonly footerPhone: Locator;
@@ -103,6 +105,7 @@ export class LandingPage {
     this.boardMembers = page.getByTestId("landing-board-member");
 
     this.previewBanner = page.getByTestId("preview-banner");
+    this.sections = page.locator("main > section");
 
     this.footer = page.getByTestId("site-footer");
     this.footerPhone = page.getByTestId("site-footer-phone");
@@ -114,6 +117,11 @@ export class LandingPage {
     await this.page.goto(`/${search}`);
     // CMS content renders after the mocked API responds; wait for requests to settle.
     await this.page.waitForLoadState("networkidle");
+  }
+
+  /** The ids of the rendered sections, in order; "" for one without an id. */
+  async sectionIds(): Promise<string[]> {
+    return this.sections.evaluateAll((sections) => sections.map((s) => s.id));
   }
 
   async expectLoaded() {

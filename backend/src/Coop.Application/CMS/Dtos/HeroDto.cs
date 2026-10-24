@@ -1,7 +1,7 @@
 namespace Coop.Application.CMS.Dtos;
 
 /// <summary>The home page hero.</summary>
-public class HeroDto
+public class HeroDto : HomeSectionDto
 {
     public string Eyebrow { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;

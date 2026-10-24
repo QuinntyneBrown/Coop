@@ -27,6 +27,7 @@ public static class SiteContentRules
     public const string UnsafePhotoMessage = "Use a photo from the Assets library or a page address on this site.";
     public const string MissingPhotoDescriptionMessage = "Describe this photo for people who cannot see it";
     public const string LongPhotoDescriptionMessage = "Keep the description under 250 characters";
+    public const string RepeatedSectionMessage = "Each home page section may appear once.";
 
     /// <summary>
     /// A site path starting with one "/" (optionally with a #section), an

@@ -12,6 +12,7 @@ import { test, expect } from "../../fixtures/admin/api.fixture";
 import { PageEditorPage } from "../../pages/admin/page-editor.page";
 import { PublishBarComponent } from "../../pages/admin/publish-bar.component";
 import { WebsitePage } from "../../pages/admin/website.page";
+import { homeSection } from "../../fixtures/mock-api/home-section";
 
 const PUBLISHED_TITLE = "A home of our own, in the heart of Toronto.";
 const PREVIEW_ADDRESS = /^http:\/\/localhost:4201\/\?preview=[^#]+/;
@@ -55,7 +56,7 @@ test.describe("Publish bar", () => {
 
   test("the office edits the draft when one exists", async ({ mockApi }) => {
     mockApi.saveDraft((content) => {
-      content["home"].hero.title = "Only in the draft.";
+      homeSection(content, "hero").title = "Only in the draft.";
     });
     await editor.gotoHome();
     await editor.expectLoaded();

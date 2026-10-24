@@ -83,9 +83,9 @@ public class DemoResetTests
 
         var content = (await anonymous.GetFromJsonAsync<JsonElement>("/api/site-content")).GetProperty("siteContent");
         var home = content.GetProperty("home");
-        var photos = new List<JsonElement> { home.GetProperty("hero").GetProperty("photo"), home.GetProperty("quote").GetProperty("photo") };
-        photos.AddRange(home.GetProperty("gallery").GetProperty("photos").EnumerateArray().Select(p => p.GetProperty("photo")));
-        photos.AddRange(home.GetProperty("features").GetProperty("rows").EnumerateArray().Select(r => r.GetProperty("photo")));
+        var photos = new List<JsonElement> { home.GetProperty("sections")[0].GetProperty("photo"), home.GetProperty("sections")[7].GetProperty("photo") };
+        photos.AddRange(home.GetProperty("sections")[3].GetProperty("photos").EnumerateArray().Select(p => p.GetProperty("photo")));
+        photos.AddRange(home.GetProperty("sections")[4].GetProperty("rows").EnumerateArray().Select(r => r.GetProperty("photo")));
         Assert.Equal(10, photos.Count);
 
         foreach (var photo in photos)
@@ -107,7 +107,7 @@ public class DemoResetTests
         var content = (await host.CreateAnonymousClient().GetFromJsonAsync<JsonElement>("/api/site-content")).GetProperty("siteContent");
 
         Assert.StartsWith("https://coop.example/api/digitalasset/serve/",
-            content.GetProperty("home").GetProperty("hero").GetProperty("photo").GetProperty("src").GetString());
+            content.GetProperty("home").GetProperty("sections")[0].GetProperty("photo").GetProperty("src").GetString());
     }
 
     [Fact]

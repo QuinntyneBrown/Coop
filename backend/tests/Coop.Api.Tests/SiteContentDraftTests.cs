@@ -37,13 +37,13 @@ public class SiteContentDraftTests
     private static async Task<JsonObject> SaveDraftAsync(CoopApiFactory factory, HttpClient admin, string title)
     {
         var content = await PublishedAsync(factory);
-        content["home"]!["hero"]!["title"] = title;
+        content["home"]!["sections"]![0]!["title"] = title;
         var response = await SaveAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         return (await response.Content.ReadFromJsonAsync<JsonObject>())!;
     }
 
-    private static string HeroTitle(JsonNode content) => content["home"]!["hero"]!["title"]!.GetValue<string>();
+    private static string HeroTitle(JsonNode content) => content["home"]!["sections"]![0]!["title"]!.GetValue<string>();
 
     private static async Task<int> DraftRowsAsync(CoopApiFactory factory)
     {

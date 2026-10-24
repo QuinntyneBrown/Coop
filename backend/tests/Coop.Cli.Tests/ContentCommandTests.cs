@@ -46,18 +46,18 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
     public async Task Given_a_draft_when_the_operator_publishes_then_visitors_see_it_and_a_repeat_says_there_is_nothing_to_publish()
     {
         var content = (await SiteContentAsync()).DeepClone();
-        content["home"]!["hero"]!["title"] = "Published from the command line.";
+        content["home"]!["sections"]![0]!["title"] = "Published from the command line.";
         var imported = await _host.RunAsync("site-content", "import", "--file", FileWith("draft.json", content.ToJsonString()), "--draft");
         Assert.Equal(0, imported.ExitCode);
         Assert.Contains("The site content is saved as a draft. Run site-content publish to publish it.", imported.Output);
         Assert.True((await DraftAsync())["hasDraft"]!.GetValue<bool>());
-        Assert.NotEqual("Published from the command line.", (await SiteContentAsync())["home"]!["hero"]!["title"]!.GetValue<string>());
+        Assert.NotEqual("Published from the command line.", (await SiteContentAsync())["home"]!["sections"]![0]!["title"]!.GetValue<string>());
 
         var published = await _host.RunAsync("site-content", "publish");
 
         Assert.Equal(0, published.ExitCode);
         Assert.Contains("The site content is published.", published.Output);
-        Assert.Equal("Published from the command line.", (await SiteContentAsync())["home"]!["hero"]!["title"]!.GetValue<string>());
+        Assert.Equal("Published from the command line.", (await SiteContentAsync())["home"]!["sections"]![0]!["title"]!.GetValue<string>());
         Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
 
         var again = await _host.RunAsync("site-content", "publish");
@@ -123,7 +123,7 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
     {
         var content = await SiteContentAsync();
         content["header"]!["siteName"] = "OWN Housing Co-operative";
-        content["home"]!["hero"]!["title"] = "A home of our own.";
+        content["home"]!["sections"]![0]!["title"] = "A home of our own.";
 
         var result = await _host.RunAsync("site-content", "import", "--file", FileWith("edited.json", content.ToJsonString()));
 
@@ -131,7 +131,7 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         Assert.Contains("The site content is published.", result.Output);
         var saved = await SiteContentAsync();
         Assert.Equal("OWN Housing Co-operative", saved["header"]!["siteName"]!.GetValue<string>());
-        Assert.Equal("A home of our own.", saved["home"]!["hero"]!["title"]!.GetValue<string>());
+        Assert.Equal("A home of our own.", saved["home"]!["sections"]![0]!["title"]!.GetValue<string>());
         Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
     }
 
@@ -141,7 +141,7 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         var before = await SiteContentAsync();
         var content = before.DeepClone();
         content["header"]!["visitLink"]!["href"] = "javascript:alert(1)";
-        content["home"]!["hero"]!["photo"]!["alt"] = "";
+        content["home"]!["sections"]![0]!["photo"]!["alt"] = "";
 
         var result = await _host.RunAsync("site-content", "import", "--file", FileWith("unsafe.json", content.ToJsonString()));
 

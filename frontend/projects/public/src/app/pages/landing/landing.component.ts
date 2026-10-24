@@ -21,9 +21,11 @@ import { boardMembersFrom, boardMembersFromApi, noticeViewFrom } from './landing
 
 /**
  * The public home page, drawn in docs/mocks/pages/public-landing/ (states
- * `default` and `menu`). Every text, link and photograph is the published site
- * content (L2-REQ-094, L2-REQ-096) over the built-in defaults (L2-REQ-100); the
- * board list and notices come from their own CMS content.
+ * `default`, `menu`, `hidden` and `reordered`). Every text, link and photograph
+ * is the published site content (L2-REQ-094, L2-REQ-096) over the built-in
+ * defaults (L2-REQ-100), rendered section by section in the published order
+ * by kind (L2-REQ-122, ADR 0021); the board list and notices come from their
+ * own content.
  * The header (with the phone menu) and footer are the shared site components.
  */
 @Component({
@@ -39,7 +41,10 @@ export class LandingComponent implements OnInit {
   private readonly api = inject(ApiService);
 
   readonly content = inject(SiteContentService).content;
-  readonly home = computed(() => this.content().home);
+  /** The home sections visitors see: the published order without the hidden ones (L2-REQ-122). */
+  readonly sections = computed(() =>
+    this.content().home.sections.filter((section) => !section.hidden),
+  );
   readonly showPhotoUnavailable = showPhotoUnavailable;
   readonly telHref = telHref;
   /** Value-card colours follow position. */

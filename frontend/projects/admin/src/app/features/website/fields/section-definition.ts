@@ -11,8 +11,8 @@ export interface SectionDefinition {
   placement: string;
   /** The id of the public section the preview scrolls to. */
   anchor: string;
-  /** Where the section's values sit in the site content, for example `home.hero`. */
-  path: string;
+  /** Where the section's values sit in the site content, for example `header`; a home page section lives in `home.sections` by its kind (L2-REQ-122). */
+  path?: string;
   fields: ContentField[];
   /** For a section whose items come from another screen (L2-REQ-124). */
   linked?: LinkedSectionKind;

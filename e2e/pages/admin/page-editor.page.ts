@@ -21,7 +21,13 @@ export class PageEditorPage {
   readonly editor: Locator;
 
   readonly sectionsPane: Locator;
+  readonly sectionItems: Locator;
   readonly sectionButtons: Locator;
+  readonly hideButton: Locator;
+  readonly moveUpButton: Locator;
+  readonly moveDownButton: Locator;
+  readonly toolsStatus: Locator;
+  readonly toolsError: Locator;
   readonly formPane: Locator;
   readonly previewPane: Locator;
   readonly sectionHeading: Locator;
@@ -61,7 +67,13 @@ export class PageEditorPage {
     this.editor = page.getByTestId("page-editor");
 
     this.sectionsPane = page.getByTestId("editor-sections");
+    this.sectionItems = page.getByTestId("section-item");
     this.sectionButtons = page.getByTestId("section-button");
+    this.hideButton = page.getByTestId("section-hide");
+    this.moveUpButton = page.getByTestId("section-move-up");
+    this.moveDownButton = page.getByTestId("section-move-down");
+    this.toolsStatus = page.getByTestId("section-tools-status");
+    this.toolsError = page.getByTestId("section-tools-failed");
     this.formPane = page.getByTestId("editor-form");
     this.previewPane = page.getByTestId("editor-preview");
     this.sectionHeading = page.getByTestId("section-heading");
@@ -112,6 +124,16 @@ export class PageEditorPage {
 
   sectionButton(name: string): Locator {
     return this.sectionButtons.filter({ hasText: name });
+  }
+
+  /** The list row of a section, with its name and any Hidden badge. */
+  sectionItem(name: string): Locator {
+    return this.sectionItems.filter({ has: this.sectionButton(name) });
+  }
+
+  /** The section names in the order the list shows them. */
+  async sectionNames(): Promise<string[]> {
+    return this.sectionButtons.allInnerTexts();
   }
 
   async selectSection(name: string) {

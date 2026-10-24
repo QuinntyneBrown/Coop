@@ -5,8 +5,12 @@ namespace Coop.Cli;
 /// <summary>Reads and writes the files and JSON the operator gives the tool.</summary>
 public static class CliFiles
 {
-    /// <summary>The API's own JSON shape: camel-case names (L2-REQ-108 AC1).</summary>
-    public static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { WriteIndented = true };
+    /// <summary>The API's own JSON shape: camel-case names, a section's "kind" in any position (L2-REQ-108 AC1, L2-REQ-122).</summary>
+    public static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web)
+    {
+        WriteIndented = true,
+        AllowOutOfOrderMetadataProperties = true,
+    };
 
     public static string ReadText(string path)
         => File.Exists(path) ? File.ReadAllText(path) : throw new CliException($"No file at \"{path}\".");

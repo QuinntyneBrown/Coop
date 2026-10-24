@@ -81,7 +81,7 @@ public class NewInstanceResetTests
 
         var siteContent = await host.CreateAnonymousClient().GetFromJsonAsync<JsonElement>("/api/site-content");
         Assert.Equal("OWN Housing Co-op", siteContent.GetProperty("siteContent").GetProperty("header").GetProperty("siteName").GetString());
-        Assert.Equal("/own/hero.svg", siteContent.GetProperty("siteContent").GetProperty("home").GetProperty("hero").GetProperty("photo").GetProperty("src").GetString());
+        Assert.Equal("/own/hero.svg", siteContent.GetProperty("siteContent").GetProperty("home").GetProperty("sections")[0].GetProperty("photo").GetProperty("src").GetString());
 
         await AssertEmptyAsync(admin, "/api/invitationtoken", "invitationTokens");
         await AssertEmptyAsync(admin, "/api/pages", "pages");

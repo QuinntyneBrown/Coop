@@ -18,6 +18,9 @@ import {
   AlertBodyComponent,
   AlertComponent,
   AlertTitleComponent,
+  SectionListToolsComponent,
+  InlineStatusComponent,
+  BadgeComponent,
   BreadcrumbComponent,
   ButtonComponent,
   CardComponent,
@@ -62,10 +65,16 @@ import { DocumentService } from '../../../core/services/document.service';
 import { SiteContentService } from '../../../core/services/site-content.service';
 import { fromDraft, toDraft } from '../fields/block-draft';
 import type { ContentField } from '../fields/content-field';
+import {
+  isHomeSectionHidden,
+  moveHomeSection,
+  setHomeSectionHidden,
+} from '../fields/home-section-tools';
 import { HOME_SECTIONS } from '../fields/home-sections';
 import { itemLegend } from '../fields/item-legend';
 import { MENU_SECTIONS } from '../fields/menu-sections';
 import { moveItem } from '../fields/move-item';
+import { orderedSections } from '../fields/ordered-sections';
 import type { SectionDefinition } from '../fields/section-definition';
 import { readSection, writeSection } from '../fields/section-store';
 import { validateBlock } from '../fields/validate-block';
@@ -132,6 +141,9 @@ type LoadStatus = 'loading' | 'ready' | 'error';
     SectionListComponent,
     SectionListItemComponent,
     SectionListButtonComponent,
+    SectionListToolsComponent,
+    InlineStatusComponent,
+    BadgeComponent,
     PlacementNoteComponent,
     LinkedSummaryComponent,
     LinkedSummaryTextComponent,
@@ -161,14 +173,21 @@ export class PageEditorComponent implements OnInit {
     this.mode === 'menu'
       ? 'The menu at the top and the footer at the bottom of every page.'
       : 'The home page, section by section, in the order visitors see it.';
-  readonly sections: SectionDefinition[] = this.mode === 'menu' ? MENU_SECTIONS : HOME_SECTIONS;
+  private readonly definitions: SectionDefinition[] =
+    this.mode === 'menu' ? MENU_SECTIONS : HOME_SECTIONS;
 
   readonly status = signal<LoadStatus>('loading');
   /** The content as last saved. */
   readonly content = signal<SiteContent | null>(null);
   /** The content with every section's unsaved edits, so switching sections loses nothing (L2-REQ-119 AC8). */
   private working: SiteContent | null = null;
-  readonly selected = signal<SectionDefinition>(this.sections[0]);
+  /** The sections in the order visitors see them, from the saved content (L2-REQ-120 AC1). */
+  readonly sections = computed(() => orderedSections(this.content() ?? {}, this.definitions));
+  readonly selected = signal<SectionDefinition>(this.definitions[0]);
+  /** Whether a section tool is saving, and what the last one did (L2-REQ-120 AC2, AC3, AC7). */
+  readonly toolBusy = signal(false);
+  readonly toolStatus = signal('');
+  readonly toolFailed = signal(false);
   /** The selected section as the form binds it; lists of lines are one text while editing. */
   readonly draft = signal<ContentRecord>({});
   readonly errors = signal<Record<string, string>>({});
@@ -197,7 +216,7 @@ export class PageEditorComponent implements OnInit {
       next: (content) => {
         this.content.set(content);
         this.working = content;
-        this.select(this.sections[0], false);
+        this.select(this.sections()[0], false);
         this.status.set('ready');
       },
       error: () => this.status.set('error'),
@@ -282,6 +301,78 @@ export class PageEditorComponent implements OnInit {
       error: () => {
         this.saving.set(false);
         this.saveFailed.set(true);
+      },
+    });
+  }
+
+  /** True for a home page section the office hid (L2-REQ-120 AC3). */
+  isHidden(section: SectionDefinition): boolean {
+    return !section.path && isHomeSectionHidden(this.content() ?? {}, section.kind);
+  }
+
+  /** The 1-based place of a section in the list. */
+  position(section: SectionDefinition): number {
+    return this.sections().indexOf(section) + 1;
+  }
+
+  canMove(offset: -1 | 1): boolean {
+    const index = this.sections().indexOf(this.selected());
+    return index + offset >= 0 && index + offset < this.sections().length;
+  }
+
+  /** Swaps the selected section with its neighbour and saves the order to the draft at once (L2-REQ-120 AC2). */
+  move(offset: -1 | 1): void {
+    const section = this.selected();
+    const direction = offset < 0 ? 'up' : 'down';
+    const other = offset < 0 ? 'down' : 'up';
+    this.applyTool(
+      (content) => moveHomeSection(content, section.kind, offset),
+      () => `“${section.name}” moved ${direction} to position ${this.position(section)}.`,
+      // Focus stays on the same button while it is enabled, else moves to the other one.
+      [
+        `[data-testid="section-move-${direction}"]:not(:disabled)`,
+        `[data-testid="section-move-${other}"]`,
+      ],
+    );
+  }
+
+  /** Hides or shows the selected section and saves the draft at once (L2-REQ-120 AC3). */
+  toggleHidden(): void {
+    const section = this.selected();
+    const hidden = !this.isHidden(section);
+    this.applyTool(
+      (content) => setHomeSectionHidden(content, section.kind, hidden),
+      () =>
+        hidden
+          ? `“${section.name}” is hidden in your draft. Its photos and captions are kept.`
+          : `“${section.name}” is shown again in your draft.`,
+    );
+  }
+
+  /** Saves a change to the order or visibility; the list only changes once the draft is saved (L2-REQ-120 AC7). */
+  private applyTool(
+    change: (content: SiteContent) => SiteContent,
+    message: () => string,
+    focusAfter: string[] = [],
+  ): void {
+    const saved = this.content();
+    if (!saved || !this.working) return;
+    this.toolBusy.set(true);
+    this.toolFailed.set(false);
+    this.toolStatus.set('');
+    const working = this.working;
+    this.siteContent.save(change(saved)).subscribe({
+      next: (content) => {
+        this.content.set(content);
+        this.working = change(working);
+        this.toolBusy.set(false);
+        this.toolStatus.set(message());
+        this.preview()?.reload();
+        if (focusAfter.length > 0) this.focus(...focusAfter);
+      },
+      error: () => {
+        this.toolBusy.set(false);
+        this.toolFailed.set(true);
       },
     });
   }

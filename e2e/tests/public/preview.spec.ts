@@ -8,6 +8,7 @@
 import { test, expect } from "../../fixtures/mock-api/mock-api.fixture";
 import { LandingPage } from "../../pages/public/landing.page";
 import { REFLOW_WIDTH, ReflowPage } from "../../pages/reflow.page";
+import { homeSection } from "../../fixtures/mock-api/home-section";
 
 const PUBLISHED_TITLE = "A home of our own, in the heart of Toronto.";
 
@@ -17,7 +18,7 @@ test.describe("Preview mode", () => {
   test.beforeEach(async ({ page, mockApi }) => {
     landing = new LandingPage(page);
     mockApi.saveDraft((content) => {
-      content["home"].hero.title = "Only in the draft.";
+      homeSection(content, "hero").title = "Only in the draft.";
     });
   });
 
