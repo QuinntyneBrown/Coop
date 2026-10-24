@@ -34,14 +34,25 @@ const websiteRoutes: Routes = [
         (m) => m.PageEditorComponent,
       ),
   },
+  { path: 'pages', redirectTo: '', pathMatch: 'full' },
   {
-    path: 'pages',
-    title: APP_TITLES.websitePages,
+    path: 'pages/new',
+    title: APP_TITLES.websitePageNew,
+    data: { mode: 'page' },
     loadComponent: () =>
-      import('./features/website/pages/pages.component').then((m) => m.PagesComponent),
+      import('./features/website/page-editor/page-editor.component').then(
+        (m) => m.PageEditorComponent,
+      ),
   },
-  { path: 'pages/new', redirectTo: 'pages', pathMatch: 'full' },
-  { path: 'pages/:pageId', redirectTo: 'pages', pathMatch: 'full' },
+  {
+    path: 'pages/:pageId',
+    title: APP_TITLES.websitePages,
+    data: { mode: 'page' },
+    loadComponent: () =>
+      import('./features/website/page-editor/page-editor.component').then(
+        (m) => m.PageEditorComponent,
+      ),
+  },
   {
     path: 'board',
     title: APP_TITLES.websiteBoard,

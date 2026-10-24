@@ -18,11 +18,45 @@
           />
         </div>
       }
-      <article
-        class="own-container own-prose"
-        [innerHTML]="page()!.body"
-        data-testid="page-body"
-      ></article>
+      <article class="own-container own-prose" data-testid="page-body">
+        @for (block of page()!.sections; track $index) {
+          @switch (block.kind) {
+            @case ('heading') {
+              <h2>{{ block.text }}</h2>
+            }
+            @case ('paragraph') {
+              <p>{{ block.text }}</p>
+            }
+            @case ('bullets') {
+              <ul>
+                @for (item of block.items; track $index) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            }
+            @case ('photo') {
+              <img
+                [src]="block.photo.src"
+                [width]="block.photo.width"
+                [height]="block.photo.height"
+                [alt]="block.photo.alt"
+                (error)="showPhotoUnavailable($event)"
+                loading="lazy"
+              />
+            }
+            @case ('link') {
+              <p>
+                <a class="own-btn own-btn--secondary" [href]="block.href" [appSiteLink]="block">{{
+                  block.label
+                }}</a>
+              </p>
+            }
+            @case ('html') {
+              <div [innerHTML]="block.html"></div>
+            }
+          }
+        }
+      </article>
     }
     @case ('loading') {
       <section class="own-page-banner" aria-labelledby="page-title">

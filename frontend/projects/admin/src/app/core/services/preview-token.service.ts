@@ -29,12 +29,12 @@ export class PreviewTokenService {
     });
   }
 
-  /** The public site in preview mode, at a section when given; the public site itself until a token arrives. */
-  address(anchor = ''): string {
+  /** A public page in preview mode, at a section when given; the page itself until a token arrives. */
+  address(anchor = '', path = '/'): string {
     const token = this.tokenState();
     const fragment = anchor ? `#${anchor}` : '';
     return token
-      ? `${PUBLIC_SITE_URL}/?preview=${encodeURIComponent(token)}${fragment}`
-      : `${PUBLIC_SITE_URL}/${fragment}`;
+      ? `${PUBLIC_SITE_URL}${path}?preview=${encodeURIComponent(token)}${fragment}`
+      : `${PUBLIC_SITE_URL}${path}${fragment}`;
   }
 }

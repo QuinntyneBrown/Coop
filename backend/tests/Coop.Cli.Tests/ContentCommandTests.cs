@@ -189,8 +189,13 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
 
         var created = await _host.RunAsync("page", "create", "--title", "Our garden", "--body-file", body, "--hero-image-url", "/own/garden.svg", "--hero-image-alt", "Planters on the roof.");
         Assert.Equal(0, created.ExitCode);
+        // A new page is not in the menu until it is published (L2-REQ-123 AC7, L2-REQ-127 AC5).
+        Assert.Equal(HttpStatusCode.NotFound, (await anonymous.GetAsync("/api/pages/our-garden")).StatusCode);
+        Assert.Matches(@"/pages/our-garden\s+Our garden\s+no", (await _host.RunAsync("page", "list")).Output);
+        Assert.Equal(0, (await _host.RunAsync("page", "update", "--slug", "our-garden", "--published")).ExitCode);
+        Assert.Matches(@"/pages/our-garden\s+Our garden\s+yes", (await _host.RunAsync("page", "list")).Output);
         var page = (await anonymous.GetFromJsonAsync<JsonElement>("/api/pages/our-garden")).GetProperty("page");
-        Assert.Equal("<p>Tomatoes and marigolds.</p>", page.GetProperty("body").GetString());
+        Assert.Equal("<p>Tomatoes and marigolds.</p>", page.GetProperty("sections")[0].GetProperty("html").GetString());
         Assert.Equal("Planters on the roof.", page.GetProperty("heroImageAlt").GetString());
 
         var repeated = await _host.RunAsync("page", "create", "--title", "Our garden", "--body-file", FileWith("other.html", "<p>Other.</p>"));
@@ -201,7 +206,8 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         var updated = await _host.RunAsync("page", "update", "--slug", "our-garden", "--title", "Our rooftop garden");
         Assert.Equal(0, updated.ExitCode);
         var renamed = (await anonymous.GetFromJsonAsync<JsonElement>("/api/pages/our-rooftop-garden")).GetProperty("page");
-        Assert.Equal("<p>Tomatoes and marigolds.</p>", renamed.GetProperty("body").GetString());
+        Assert.Equal("<p>Tomatoes and marigolds.</p>", renamed.GetProperty("sections")[0].GetProperty("html").GetString());
+        Assert.True(renamed.GetProperty("published").GetBoolean());
         Assert.Equal("/own/garden.svg", renamed.GetProperty("heroImageUrl").GetString());
 
         Assert.Equal(0, (await _host.RunAsync("page", "remove", "--slug", "our-rooftop-garden")).ExitCode);

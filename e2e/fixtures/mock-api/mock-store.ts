@@ -137,13 +137,20 @@ export interface MockJsonContent {
   content: Record<string, unknown>;
 }
 
+/** One block of a page's body (L2-REQ-123). */
+export interface MockPageBlock {
+  kind: "heading" | "paragraph" | "bullets" | "photo" | "link" | "html";
+  [value: string]: unknown;
+}
+
 export interface MockPage {
   pageId: string;
   title: string;
   slug: string;
   heroImageUrl: string | null;
   heroImageAlt: string | null;
-  body: string;
+  sections: MockPageBlock[];
+  published: boolean;
   createdOn: string;
 }
 
@@ -542,10 +549,33 @@ export function createSeedStore(): MockStore {
       heroImageUrl: "/own/garden.svg",
       heroImageAlt:
         "A woman in a sun hat waters planters of flowers and herbs on the rooftop.",
-      body:
-        '<p class="own-lead">Membership is open to women aged 55 and over. Applying takes one form and one visit.</p>' +
-        "<h2>Who can apply</h2><ul><li>Women aged 55 or over.</li><li>A willingness to take part.</li></ul>" +
-        "<h2>What happens next</h2><p>Send the form to the office, then come for a visit and a cup of tea.</p>",
+      sections: [
+        {
+          kind: "paragraph",
+          text: "Membership is open to women aged 55 and over. Applying takes one form and one visit.",
+        },
+        { kind: "heading", text: "Who can apply" },
+        {
+          kind: "bullets",
+          items: ["Women aged 55 or over.", "A willingness to take part."],
+        },
+        { kind: "heading", text: "What happens next" },
+        {
+          kind: "paragraph",
+          text: "Send the form to the office, then come for a visit and a cup of tea.",
+        },
+        {
+          kind: "photo",
+          photo: {
+            src: "/own/lobby.svg",
+            alt: "The front lobby.",
+            width: 800,
+            height: 600,
+          },
+        },
+        { kind: "link", label: "Send us a note", href: "/#contact" },
+      ],
+      published: true,
       createdOn: hoursAgo(300),
     },
   ];

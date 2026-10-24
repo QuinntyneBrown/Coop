@@ -127,3 +127,6 @@ export * from './lib/preview-pane/preview-pane-header.component';
 export * from './lib/preview-pane/preview-pane-title.component';
 export * from './lib/preview-pane/preview-pane-note.component';
 export * from './lib/preview-pane/preview-pane-frame.component';
+export * from './lib/block-card/block-card.component';
+export * from './lib/block-card/block-card-kind.component';
+export * from './lib/block-card/block-card-preview.component';

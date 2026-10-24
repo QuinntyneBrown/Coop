@@ -32,6 +32,24 @@ public static class SeedData
         await SeedJsonContentAsync(context);
         await SeedSiteContentAsync(context, SiteContentSeed.Create());
         await MigrateHomeSectionsAsync(context);
+        await MigratePageBodiesAsync(context);
+    }
+
+    /// <summary>
+    /// Wraps the HTML body of a page written before blocks existed into one
+    /// Existing content block and clears the body, once; a page already in
+    /// blocks is left alone (L2-REQ-123 AC4).
+    /// </summary>
+    public static async Task MigratePageBodiesAsync(CoopDbContext context)
+    {
+        var pages = await context.Pages.Where(p => p.Body != string.Empty).ToListAsync();
+        if (pages.Count == 0) return;
+        foreach (var page in pages)
+        {
+            page.Sections = Coop.Application.CMS.Pages.PageSections.Serialize(Coop.Application.CMS.Pages.PageSections.FromBody(page.Body));
+            page.Body = string.Empty;
+        }
+        await context.SaveChangesAsync();
     }
 
     /// <summary>The home page kinds in the order the public site showed them before `home.sections` existed.</summary>

@@ -106,7 +106,7 @@ function isWebAddress(value: string): boolean {
   return /^https?:\/\/[^/\s]+/i.test(value);
 }
 
-function linkError(link: any): string | null {
+export function linkError(link: any): string | null {
   const label = String(link.label ?? "");
   const href = String(link.href ?? "");
   if (!label.trim() || label.length > 100) return "Fill in the link label";
@@ -116,7 +116,7 @@ function linkError(link: any): string | null {
   return null;
 }
 
-function photoError(photo: any): string | null {
+export function photoError(photo: any): string | null {
   const src = String(photo.src ?? "");
   const alt = String(photo.alt ?? "");
   if (!src || src.length > 2048 || !isSafeImageAddress(src))

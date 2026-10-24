@@ -10,6 +10,7 @@ import {
   type MockMaintenanceRequest,
   type MockMessage,
   type MockPage,
+  type MockPageBlock,
   type MockPhoto,
   type MockPrivilege,
   type MockProfile,
@@ -17,7 +18,11 @@ import {
   type MockUser,
   slugOf,
 } from "./mock-store";
-import { siteContentError } from "./site-content-rules";
+import {
+  linkError as linkBlockError,
+  photoError as photoBlockError,
+  siteContentError,
+} from "./site-content-rules";
 
 export const API_ORIGIN = "http://localhost:5000";
 export const API_BASE = `${API_ORIGIN}/api`;
@@ -39,6 +44,41 @@ const PHOTO_PNG = Buffer.from(
 /** Photo rules shared with the API (L2-REQ-089). */
 const PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_PHOTO_BYTES = 10 * 1024 * 1024;
+
+/** The blocks a request carries, else its body as one Existing content block (L2-REQ-123 AC4). */
+function sectionsFrom(sections: unknown, body: unknown): MockPageBlock[] {
+  if (Array.isArray(sections) && sections.length > 0)
+    return sections as MockPageBlock[];
+  const html = String(body ?? "");
+  return html.trim() ? [{ kind: "html", html }] : [];
+}
+
+/** The API's block rules (PageBlockValidator, L2-REQ-123 AC3): the first problem, or null. */
+function blockError(block: any): string | null {
+  const text = String(block?.text ?? "");
+  switch (block?.kind) {
+    case "heading":
+    case "paragraph":
+      if (!text.trim())
+        return `Fill in “${block.kind === "heading" ? "Heading" : "Paragraph"}”`;
+      return text.length > 2000 ? "Text too long" : null;
+    case "bullets":
+      return Array.isArray(block.items) &&
+        block.items.some((i: unknown) => String(i).trim())
+        ? null
+        : "Write at least one item";
+    case "photo":
+      return photoBlockError(block.photo);
+    case "link":
+      return linkBlockError(block);
+    case "html":
+      return String(block.html ?? "").trim()
+        ? null
+        : "Write something for the page";
+    default:
+      return "Unknown block kind";
+  }
+}
 
 type Handler = (ctx: RequestContext, params: string[]) => MockResponse;
 
@@ -607,10 +647,16 @@ export class MockApi {
 
   // ── Store mutations shared by HTTP handlers and fixtures ─────────
 
-  /** Adds a page, or returns the page that already has the title's slug (ADR 0002). */
+  /**
+   * Adds a page, or returns the page that already has the title's slug (ADR 0002).
+   * A `body` without `sections` becomes one Existing content block; a page is
+   * published unless told otherwise (L2-REQ-123).
+   */
   createPage(data: {
     title: string;
-    body: string;
+    body?: string;
+    sections?: MockPageBlock[];
+    published?: boolean;
     heroImageUrl?: string | null;
     heroImageAlt?: string | null;
   }): MockPage {
@@ -624,7 +670,8 @@ export class MockApi {
       heroImageUrl: data.heroImageUrl?.trim() || null,
       heroImageAlt:
         (data.heroImageUrl?.trim() && data.heroImageAlt?.trim()) || null,
-      body: data.body,
+      sections: sectionsFrom(data.sections, data.body),
+      published: data.published ?? true,
       createdOn: new Date().toISOString(),
     };
     this.store.pages.push(page);
@@ -1369,7 +1416,8 @@ export class MockApi {
       },
     );
 
-    // Website pages (L2-REQ-080, L2-REQ-081)
+    // Website pages (L2-REQ-080, L2-REQ-081, L2-REQ-123): blocks, a Published flag,
+    // published-only reads unless the office or a preview token asks
     const pageErrors = (b: any): string[] => {
       const errors: string[] = [];
       const title = String(b?.title ?? "");
@@ -1377,28 +1425,41 @@ export class MockApi {
       else if (!slugOf(title))
         errors.push("The title needs at least one letter or number.");
       else if (title.length > 120) errors.push("The title is too long.");
-      if (!String(b?.body ?? "")) errors.push("Write something for the page");
       const alt = String(b?.heroImageAlt ?? "");
       if (String(b?.heroImageUrl ?? "").trim() && !alt.trim())
         errors.push("Describe this photo for people who cannot see it");
       if (alt.length > 250)
         errors.push("Keep the description under 250 characters");
+      for (const block of b?.sections ?? []) {
+        const error = blockError(block);
+        if (error) errors.push(error);
+      }
       return errors;
     };
+    const seesUnpublished = (ctx: RequestContext) =>
+      (ctx.user && isOffice(ctx.user)) ||
+      this.previewTokenIsValid(ctx.query.get("preview"));
     const pagesSorted = () =>
       [...s.pages].sort((a, b) => a.createdOn.localeCompare(b.createdOn));
     this.on(
       "GET",
       "pages",
-      () => ok({ pages: pagesSorted().map((p) => this.pageView(p)) }),
+      (ctx) => {
+        const all = seesUnpublished(ctx);
+        return ok({
+          pages: pagesSorted()
+            .filter((p) => all || p.published)
+            .map((p) => this.pageView(p)),
+        });
+      },
       true,
     );
     this.on(
       "GET",
       "pages/:slug",
-      (_ctx, [slug]) => {
+      (ctx, [slug]) => {
         const page = s.pages.find((p) => p.slug === slug);
-        return page
+        return page && (page.published || seesUnpublished(ctx))
           ? ok({ page: this.pageView(page) })
           : notFound("Page not found.");
       },
@@ -1414,6 +1475,8 @@ export class MockApi {
           this.createPage({
             title: b.title,
             body: b.body,
+            sections: b.sections,
+            published: b.published === true,
             heroImageUrl: b.heroImageUrl,
             heroImageAlt: b.heroImageAlt,
           }),
@@ -1436,7 +1499,8 @@ export class MockApi {
       page.heroImageUrl = String(b.heroImageUrl ?? "").trim() || null;
       page.heroImageAlt =
         (page.heroImageUrl && String(b.heroImageAlt ?? "").trim()) || null;
-      page.body = b.body;
+      page.sections = sectionsFrom(b.sections, b.body);
+      page.published = b.published === true;
       return ok({ page: this.pageView(page) });
     });
     this.on("DELETE", "pages/:id", (ctx, [id]) => {

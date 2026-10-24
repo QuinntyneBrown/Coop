@@ -46,11 +46,13 @@ export class PreviewPaneComponent implements OnInit {
 
   /** The id of the section the frame scrolls to. */
   readonly anchor = input('');
+  /** The public page shown: the home page unless a website page's address is given. */
+  readonly path = input('/');
 
   /** Counts the reloads, so a save shows the new draft in the frame. */
   private readonly reloads = signal(0);
 
-  readonly address = computed(() => this.previewToken.address(this.anchor()));
+  readonly address = computed(() => this.previewToken.address(this.anchor(), this.path()));
 
   /**
    * The frame's source: the same address with a reload count, so a save shows the new draft even

@@ -1,4 +1,5 @@
 import { type Locator, type Page, expect } from "@playwright/test";
+import { ContentPage } from "../public/content-page.page";
 import { LandingPage } from "../public/landing.page";
 
 /** The public app the Playwright config serves beside the admin app. */
@@ -28,6 +29,21 @@ export class PageEditorPage {
   readonly moveDownButton: Locator;
   readonly toolsStatus: Locator;
   readonly toolsError: Locator;
+  readonly removeBlockButton: Locator;
+
+  readonly pageTitleInput: Locator;
+  readonly pageAddress: Locator;
+  readonly pageAddressNote: Locator;
+  readonly pageUnpublished: Locator;
+  readonly pagePublished: Locator;
+  readonly pageHeroChoose: Locator;
+  readonly pageHeroRemove: Locator;
+  readonly pageHeroName: Locator;
+  readonly pageHeroAlt: Locator;
+  readonly removePageButton: Locator;
+  readonly removeDialog: Locator;
+  readonly removeConfirm: Locator;
+  readonly removeCancel: Locator;
   readonly formPane: Locator;
   readonly previewPane: Locator;
   readonly sectionHeading: Locator;
@@ -74,6 +90,21 @@ export class PageEditorPage {
     this.moveDownButton = page.getByTestId("section-move-down");
     this.toolsStatus = page.getByTestId("section-tools-status");
     this.toolsError = page.getByTestId("section-tools-failed");
+    this.removeBlockButton = page.getByTestId("section-remove");
+
+    this.pageTitleInput = page.getByTestId("page-title-input");
+    this.pageAddress = page.getByTestId("page-address");
+    this.pageAddressNote = page.getByTestId("page-address-note");
+    this.pageUnpublished = page.getByTestId("page-unpublished");
+    this.pagePublished = page.getByTestId("page-published");
+    this.pageHeroChoose = page.getByTestId("page-hero-choose");
+    this.pageHeroRemove = page.getByTestId("page-hero-remove");
+    this.pageHeroName = page.getByTestId("page-hero-name");
+    this.pageHeroAlt = page.getByTestId("page-hero-alt-input");
+    this.removePageButton = page.getByTestId("page-remove");
+    this.removeDialog = page.getByTestId("page-remove-dialog");
+    this.removeConfirm = page.getByTestId("page-remove-confirm");
+    this.removeCancel = page.getByTestId("page-remove-cancel");
     this.formPane = page.getByTestId("editor-form");
     this.previewPane = page.getByTestId("editor-preview");
     this.sectionHeading = page.getByTestId("section-heading");
@@ -117,6 +148,30 @@ export class PageEditorPage {
     await this.page.waitForLoadState("networkidle");
   }
 
+  async gotoPage(pageId: string) {
+    await this.page.goto(`/website/pages/${pageId}`);
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  async gotoNewPage() {
+    await this.page.goto("/website/pages/new");
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  /** One of the "Add to the page" buttons. */
+  addBlockButton(
+    kind: "heading" | "paragraph" | "bullets" | "photo" | "link",
+  ): Locator {
+    return this.page.getByTestId(`section-add-${kind}`);
+  }
+
+  async openPublicPage(slug: string): Promise<ContentPage> {
+    const tab = await this.page.context().newPage();
+    await tab.goto(`${PUBLIC_APP_URL}pages/${slug}`);
+    await tab.waitForLoadState("networkidle");
+    return new ContentPage(tab);
+  }
+
   async expectLoaded(title = "Home") {
     await expect(this.title).toHaveText(title);
     await expect(this.editor).toBeVisible();
@@ -146,7 +201,10 @@ export class PageEditorPage {
     const scope = within
       ? this.formPane.getByRole("group", { name: within, exact: true })
       : this.formPane;
-    return scope.getByLabel(label, { exact: true });
+    // The form itself is labelled by the section heading, so only controls count.
+    return scope
+      .getByLabel(label, { exact: true })
+      .and(scope.locator("input, textarea, select"));
   }
 
   /** The inline error under a field. */

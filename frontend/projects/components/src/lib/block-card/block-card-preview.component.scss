@@ -1,0 +1,12 @@
+// The start of a block's text in its card. (docs/design-system/components/block-card.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  margin: 0;
+  font: var(--text-body);
+  color: var(--color-fg-default);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

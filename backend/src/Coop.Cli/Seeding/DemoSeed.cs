@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Coop.Application.CMS.Board;
 using Coop.Application.CMS.Dtos;
+using Coop.Application.CMS.Pages;
 using Coop.Application.CMS.SiteContent;
 using Coop.Domain.Assets;
 using Coop.Domain.CMS;
@@ -78,15 +79,27 @@ public static class DemoSeed
             "Our history",
             photos["lobby.svg"],
             "The front lobby, with a comfortable armchair beside a sunny window.",
-            "<h2>Our story</h2><p>A group of older women in the neighbourhood wanted somewhere affordable to grow older among friends. They formed a co-operative, found a builder and opened the doors in 1997.</p>"
-            + "<h2>How we are run</h2><p>Every member has a vote at general meetings. Members elect a board of directors from among themselves each spring, and committees look after the garden, the building and social events.</p>");
+            PageSections.Serialize(new PageBlockDto[]
+            {
+                new HeadingBlockDto { Text = "Our story" },
+                new ParagraphBlockDto { Text = "A group of older women in the neighbourhood wanted somewhere affordable to grow older among friends. They formed a co-operative, found a builder and opened the doors in 1997." },
+                new HeadingBlockDto { Text = "How we are run" },
+                new ParagraphBlockDto { Text = "Every member has a vote at general meetings. Members elect a board of directors from among themselves each spring, and committees look after the garden, the building and social events." },
+            }),
+            published: true);
         var garden = new Page();
         garden.Update(
             "The rooftop garden",
             photos["garden.svg"],
             "A woman in a sun hat waters planters of flowers and herbs on the rooftop, the city skyline behind her.",
-            "<h2>Growing together</h2><p>The garden committee plants herbs, tomatoes and flowers on the roof each spring. Raised beds mean nobody has to kneel.</p>"
-            + "<h2>Lending a hand</h2><p>Members water in turns through the summer. Sign up on the noticeboard in the lobby, or just come up for a sit in the sun.</p>");
+            PageSections.Serialize(new PageBlockDto[]
+            {
+                new HeadingBlockDto { Text = "Growing together" },
+                new ParagraphBlockDto { Text = "The garden committee plants herbs, tomatoes and flowers on the roof each spring. Raised beds mean nobody has to kneel." },
+                new HeadingBlockDto { Text = "Lending a hand" },
+                new BulletsBlockDto { Items = new() { "Members water in turns through the summer.", "Sign up on the noticeboard in the lobby, or just come up for a sit in the sun." } },
+            }),
+            published: true);
         context.Pages.AddRange(history, garden);
         await context.SaveChangesAsync();
     }
