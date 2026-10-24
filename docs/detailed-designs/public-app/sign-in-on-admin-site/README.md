@@ -17,7 +17,8 @@ Terms used in this design:
 
 - **admin login** — the login screen of the admin application, the `login`
   route of `frontend/projects/admin/src/app/app.routes.ts`, served at
-  `http://localhost:4200/login` in development
+  `http://localhost:4200/login` in development and
+  `https://app.esplanade.technology/login` when deployed
 - **admin login address** — `ADMIN_LOGIN_URL`, the one place in the public
   app that holds that address (ADR 0011)
 - **sign-in link** — "Member sign in" in the header, the phone menu and the
@@ -30,7 +31,8 @@ Terms used in this design:
 
 **Where the address lives.** `ADMIN_LOGIN_URL`
 (`frontend/projects/public/src/app/core/services/admin-login-url.ts`) holds
-`http://localhost:4200/login`, beside `api.service.ts`, whose API base URL
+`http://localhost:4200/login` in development and
+`https://app.esplanade.technology/login` when deployed, beside `api.service.ts`, whose API base URL
 is held the same way. No other file spells the address (ADR 0011).
 
 **Header, menu and footer.** `SITE_DEFAULTS`
