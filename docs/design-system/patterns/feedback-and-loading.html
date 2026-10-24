@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -260,11 +267,11 @@
       <div class="ds-table-wrap"><table class="ds-table">
         <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mocks</th></tr></thead>
         <tbody>
-          <tr><td>Loading</td><td>A spinner and words where the content will be, or a skeleton in its shape.</td><td><a href="../../mocks/pages/admin-maintenance/loading.html">admin-maintenance/loading</a>, <a href="../../mocks/pages/admin-documents/loading.html">admin-documents/loading</a>, <a href="../../mocks/pages/admin-pages/loading.html">admin-pages/loading</a>, <a href="../../mocks/pages/admin-board/loading.html">admin-board/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">admin-website/loading</a></td></tr>
-          <tr><td>Busy</td><td>A busy button; the form read-only; the dialog footer and close button disabled.</td><td><a href="../../mocks/dialogs/admin-page-editor/busy.html">admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-page-remove/busy.html">admin-page-remove/busy</a>, <a href="../../mocks/dialogs/admin-director-remove/busy.html">admin-director-remove/busy</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">admin-document-create/busy</a></td></tr>
+          <tr><td>Loading</td><td>A spinner and words where the content will be, or a skeleton in its shape.</td><td><a href="../../mocks/pages/admin-maintenance/loading.html">admin-maintenance/loading</a>, <a href="../../mocks/pages/admin-documents/loading.html">admin-documents/loading</a>, <a href="../../mocks/pages/admin-page-editor/loading.html">admin-pages/loading</a>, <a href="../../mocks/pages/admin-board/loading.html">admin-board/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">admin-website/loading</a></td></tr>
+          <tr><td>Busy</td><td>A busy button; the form read-only; the dialog footer and close button disabled.</td><td><a href="../../mocks/pages/admin-page-editor/busy.html">admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-page-remove/busy.html">admin-page-remove/busy</a>, <a href="../../mocks/dialogs/admin-director-remove/busy.html">admin-director-remove/busy</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">admin-document-create/busy</a></td></tr>
           <tr><td>Uploading</td><td>A labelled progress bar with a percentage.</td><td><a href="../../mocks/dialogs/admin-asset-upload/busy.html">admin-asset-upload/busy</a>, <a href="../../mocks/dialogs/admin-photo-picker/uploading.html">admin-photo-picker/uploading</a></td></tr>
           <tr><td>Success</td><td>A success alert that names the thing, at the top of the list or page.</td><td><a href="../../mocks/notifications/admin-page-saved/success.html">admin-page-saved/success</a>, <a href="../../mocks/notifications/admin-notice-sent/success.html">admin-notice-sent/success</a>, <a href="../../mocks/notifications/admin-board-saved/success.html">admin-board-saved/success</a>, <a href="../../mocks/notifications/admin-website-saved/success.html">admin-website-saved/success</a></td></tr>
-          <tr><td>Failed</td><td>A danger alert that says what did not happen and how to try again.</td><td><a href="../../mocks/dialogs/admin-page-editor/failed.html">admin-page-editor/failed</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">admin-document-create/send-error</a>, <a href="../../mocks/dialogs/admin-photo-picker/upload-failed.html">admin-photo-picker/upload-failed</a></td></tr>
+          <tr><td>Failed</td><td>A danger alert that says what did not happen and how to try again.</td><td><a href="../../mocks/pages/admin-page-editor/publish-failed.html">admin-page-editor/failed</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">admin-document-create/send-error</a>, <a href="../../mocks/dialogs/admin-photo-picker/upload-failed.html">admin-photo-picker/upload-failed</a></td></tr>
           <tr><td>Something new</td><td>A count on the navigation item and the metric card.</td><td><a href="../../mocks/notifications/admin-dashboard-unread/info.html">admin-dashboard-unread/info</a></td></tr>
         </tbody>
       </table></div>
@@ -348,8 +355,8 @@
       <p>Extracted from these admin mocks:</p>
       <ul>
         <li><a href="../../mocks/pages/admin-maintenance/loading.html">pages/admin-maintenance/loading</a>, <a href="../../mocks/pages/admin-documents/loading.html">pages/admin-documents/loading</a>, <a href="../../mocks/pages/admin-messaging/loading.html">pages/admin-messaging/loading</a></li>
-        <li><a href="../../mocks/pages/admin-pages/loading.html">pages/admin-pages/loading</a>, <a href="../../mocks/pages/admin-board/loading.html">pages/admin-board/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">pages/admin-website/loading</a></li>
-        <li><a href="../../mocks/dialogs/admin-page-editor/busy.html">dialogs/admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-page-editor/failed.html">failed</a>; <a href="../../mocks/dialogs/admin-page-remove/busy.html">dialogs/admin-page-remove/busy</a>; <a href="../../mocks/dialogs/admin-director-editor/busy.html">dialogs/admin-director-editor/busy</a></li>
+        <li><a href="../../mocks/pages/admin-page-editor/loading.html">pages/admin-pages/loading</a>, <a href="../../mocks/pages/admin-board/loading.html">pages/admin-board/loading</a>, <a href="../../mocks/pages/admin-website/loading.html">pages/admin-website/loading</a></li>
+        <li><a href="../../mocks/pages/admin-page-editor/busy.html">dialogs/admin-page-editor/busy</a>, <a href="../../mocks/pages/admin-page-editor/publish-failed.html">failed</a>; <a href="../../mocks/dialogs/admin-page-remove/busy.html">dialogs/admin-page-remove/busy</a>; <a href="../../mocks/dialogs/admin-director-editor/busy.html">dialogs/admin-director-editor/busy</a></li>
         <li><a href="../../mocks/dialogs/admin-document-create/busy.html">dialogs/admin-document-create/busy</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">send-error</a>; <a href="../../mocks/dialogs/admin-asset-upload/busy.html">dialogs/admin-asset-upload/busy</a>; <a href="../../mocks/dialogs/admin-photo-picker/uploading.html">dialogs/admin-photo-picker/uploading</a>, <a href="../../mocks/dialogs/admin-photo-picker/upload-failed.html">upload-failed</a></li>
         <li><a href="../../mocks/notifications/admin-page-saved/success.html">notifications/admin-page-saved/success</a>, <a href="../../mocks/notifications/admin-notice-sent/success.html">admin-notice-sent/success</a>, <a href="../../mocks/notifications/admin-theme-saved/success.html">admin-theme-saved/success</a>, <a href="../../mocks/notifications/admin-password-saved/success.html">admin-password-saved/success</a>, <a href="../../mocks/notifications/admin-profile-saved/success.html">admin-profile-saved/success</a>, <a href="../../mocks/notifications/admin-dashboard-unread/info.html">admin-dashboard-unread/info</a></li>
       </ul>

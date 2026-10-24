@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section list — Coop design system</title>
+<meta name="description" content="The section list of the Coop admin page editor: sections in public order with show or hide and move controls.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Coop DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/search-field.html">Search field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/photo-picker.html">Photo picker</a></li>
+      <li><a href="../components/sidebar.html">Sidebar navigation</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/tab-bar.html">Tab bar</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/step-indicator.html">Step indicator</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout primitives</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/metric-card.html">Metric card</a></li>
+      <li><a href="../components/picture-list.html">Picture list</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/progress.html">Progress</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/wizard-step.html">Wizard step</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Section list</h1>
+      <p class="ds-lead">The page editor's left pane: the page's sections in the order visitors see them, one selected, with Hide, Move up and Move down acting on it.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Native <code>&lt;ol&gt;</code> of buttons</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The section list is the left pane of the page editor: the page's sections in the order visitors see them, numbered, with one selected. The tools under the list act on the selected section: Hide (or Show), Move up and Move down. The list <em>is</em> the page: moving a section reorders the public page, hiding it removes it from the public page without losing its text. For a website page the first item is the fixed Page banner and the rest are body blocks, with Remove and an "Add to the page" row of block kinds.</p>
+      <ul>
+        <li><b>Use it</b> in the page editor for Home, Menu and footer and website pages.</li>
+        <li><b>Do not use it</b> for lists inside a section (menu links, gallery photos): those keep the per-item Move up, Move down and Remove buttons of the <a href="form-layout.html">form layout</a>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="max-width: 20rem;">
+          <ol class="section-list" aria-label="Sections in the order visitors see them">
+<li class="section-list__item"><button class="section-list__button" type="button">Welcome banner</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Numbers at a glance</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Who we are</button></li>
+<li class="section-list__item section-list__item--hidden"><button class="section-list__button" type="button" aria-current="true">A look around</button><span class="badge badge--neutral">Hidden</span></li>
+</ol>
+<div class="section-list__tools" role="group" aria-label="Selected section">
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg>Show section<span class="visually-hidden">: A look around</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: A look around</span></button>
+  <button class="btn btn--sm" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: A look around</span></button>
+</div>
+          <span class="ds-callout" style="left: 2%; top: 4%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 70%; top: 58%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 2%; top: 78%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Item</b><small>A <code>&lt;button class="section-list__button"&gt;</code> with a CSS counter for its position; the selected one has <code>aria-current="true"</code>.</small></div></li>
+          <li><div><b>Hidden badge</b><small>A neutral <a href="badge.html">badge</a> "Hidden" beside a struck-through name: the section stays in the list but not on the public page.</small></div></li>
+          <li><div><b>Tools</b><small>A <code>role="group"</code> "Selected section" with Hide or Show, Move up and Move down; the first and last positions disable the move that cannot happen.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p><b>Home</b>: nine movable, hideable sections. <b>Menu and footer</b>: two fixed sections and no tools. <b>Website page</b>: the fixed Page banner (<code>.section-list__item--fixed</code>, a bullet instead of a number), body blocks with Remove, and the "Add to the page" row (<code>.section-list__add</code>).</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+          <div class="card"><ol class="section-list" aria-label="Sections in the order visitors see them">
+<li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Welcome banner</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Numbers at a glance</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Who we are</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">A look around</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Our building and community</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">What's on</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Board of directors</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">A word from a member</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Visit or apply</button></li>
+</ol>
+<div class="section-list__tools" role="group" aria-label="Selected section">
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"/></svg>Hide section<span class="visually-hidden">: Welcome banner</span></button>
+  <button class="btn btn--sm" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Welcome banner</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Welcome banner</span></button>
+</div></div>
+          <div class="card"><ol class="section-list" aria-label="Sections of the page"><li class="section-list__item section-list__item--fixed"><button class="section-list__button" type="button" aria-current="true">Page banner</button></li><li class="section-list__item"><button class="section-list__button" type="button">Heading: Who can apply</button></li><li class="section-list__item"><button class="section-list__button" type="button">Bullet list</button></li></ol>
+<div class="section-list__tools" role="group" aria-label="Selected section"><button class="btn btn--sm" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"/></svg>Hide section<span class="visually-hidden">: Page banner</span></button><button class="btn btn--sm" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Page banner</span></button><button class="btn btn--sm" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Page banner</span></button><button class="btn btn--sm btn--danger" type="button" disabled>Remove<span class="visually-hidden">: Page banner</span></button></div>
+<div class="section-list__add" role="group" aria-label="Add to the page"><span class="section-list__add-label">Add to the page</span><button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5v14M13 5v14M5 12h8M17 9l2-1v11"/></svg>Heading</button><button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Paragraph</button><button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>Photo</button></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Left: the home page. Right: a website page with its fixed banner and the add row.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="one size"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size: 44px items in <code>--text-label</code>, small buttons in the tools.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Items have default, hover, focus, selected and hidden states, forced here with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Theme</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th><th scope="col">Hidden</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Light</th>
+            <td data-theme="light"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button">Who we are</button></li></ol></td>
+            <td data-theme="light"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" data-state="hover">Who we are</button></li></ol></td>
+            <td data-theme="light"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" data-state="focus">Who we are</button></li></ol></td>
+            <td data-theme="light"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Who we are</button></li></ol></td>
+            <td data-theme="light"><ol class="section-list"><li class="section-list__item section-list__item--hidden"><button class="section-list__button" type="button">Who we are</button><span class="badge badge--neutral">Hidden</span></li></ol></td></tr>
+          <tr><th scope="row">Dark</th>
+            <td data-theme="dark"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button">Who we are</button></li></ol></td>
+            <td data-theme="dark"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" data-state="hover">Who we are</button></li></ol></td>
+            <td data-theme="dark"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" data-state="focus">Who we are</button></li></ol></td>
+            <td data-theme="dark"><ol class="section-list"><li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Who we are</button></li></ol></td>
+            <td data-theme="dark"><ol class="section-list"><li class="section-list__item section-list__item--hidden"><button class="section-list__button" type="button">Who we are</button><span class="badge badge--neutral">Hidden</span></li></ol></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes"><div data-theme="light"><ol class="section-list" aria-label="Sections in the order visitors see them">
+<li class="section-list__item"><button class="section-list__button" type="button">Welcome banner</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Numbers at a glance</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Who we are</button></li>
+<li class="section-list__item section-list__item--hidden"><button class="section-list__button" type="button">A look around</button><span class="badge badge--neutral">Hidden</span></li>
+</ol>
+<div class="section-list__tools" role="group" aria-label="Selected section">
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"/></svg>Hide section<span class="visually-hidden">: Who we are</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Who we are</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Who we are</span></button>
+</div></div><div data-theme="dark"><ol class="section-list" aria-label="Sections in the order visitors see them">
+<li class="section-list__item"><button class="section-list__button" type="button">Welcome banner</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Numbers at a glance</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Who we are</button></li>
+<li class="section-list__item section-list__item--hidden"><button class="section-list__button" type="button">A look around</button><span class="badge badge--neutral">Hidden</span></li>
+</ol>
+<div class="section-list__tools" role="group" aria-label="Selected section">
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"/></svg>Hide section<span class="visually-hidden">: Who we are</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Who we are</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Who we are</span></button>
+</div></div></div>
+      <ul>
+        <li><b>Moved</b>: after Move up or Move down an <a href="inline-message.html">inline status</a> under the tools says "“Who we are” moved up to position 2." and focus stays on the same button while it is enabled, else on the other move button.</li>
+        <li><b>Saving</b>: moving and hiding save the draft at once; the buttons are disabled while the API answers.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>From 64rem the list is the 16rem left pane of the page editor and sticks to the top while the form scrolls. Below 64rem, and at 400% zoom, it is the Sections tab, full width.</li>
+        <li>Long names wrap; the tools wrap onto several lines at 320px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The same tokens as the sidebar link: <code>--color-fg-muted</code> for items, <code>--color-bg-subtle</code> on hover, <code>--color-accent-subtle</code> and <code>--color-fg-accent</code> when selected, <code>--color-fg-subtle</code> for numbers and hidden names.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>An ordered list of buttons, so the numbering is real list semantics and each item is a native button; <code>aria-current="true"</code> marks the selected section. The tools are a labelled <code>role="group"</code>, and every button's visible label is completed with the section's name in visually hidden text ("Move up: Who we are"). This is deliberately not a drag-and-drop list: moving by button works with a keyboard, a switch and a shaky hand.</p>
+      <h3>Keyboard</h3>
+            <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody><tr><td><kbd>Tab</kbd></td><td>Through the items in order, then the tools.</td></tr><tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Selects the section and shows its form in the Edit pane; on a tool, performs it.</td></tr></tbody></table>
+      <h3>Focus</h3>
+      <p>The shared focus ring. After a move, focus stays on the moved section's tool; after Hide, on the Show button that replaces it.</p>
+      <h3>Labelling</h3>
+      <p>The list is labelled "Sections in the order visitors see them". "Hidden" is a visible badge, not colour alone, and the name is also struck through.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Item on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected item</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Number and hidden name</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Background fades over <code>--duration-fast</code>; a moved item simply re-renders in its new place.</p>
+      <h3>Touch</h3>
+      <p>44px items; the tools are small buttons but still 36px tall with <code>--space-2</code> between them, and each has a wide label.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Section names are the names visitors would use: "Welcome banner", "Numbers at a glance", "A look around". Never "hero", "glance block" or "CTA".</li>
+        <li>Body blocks are named by kind and start of text: "Heading: Who can apply", "Paragraph", "Bullet list", "Photo", "Link button: Send us a note", "Existing content".</li>
+        <li>Tools are "Hide section" and "Show section", "Move up", "Move down", "Remove".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ol class="section-list" aria-label="Sections in the order visitors see them">
+<li class="section-list__item"><button class="section-list__button" type="button">Welcome banner</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button" aria-current="true">Numbers at a glance</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">Who we are</button></li>
+<li class="section-list__item"><button class="section-list__button" type="button">A look around</button></li>
+</ol>
+<div class="section-list__tools" role="group" aria-label="Selected section">
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"/></svg>Hide section<span class="visually-hidden">: Numbers at a glance</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Move up<span class="visually-hidden">: Numbers at a glance</span></button>
+  <button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Move down<span class="visually-hidden">: Numbers at a glance</span></button>
+</div></div><figcaption>Numbers, names and buttons: the order is explicit and changes with two buttons.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ol class="section-list" aria-label="Don't example"><li class="section-list__item"><button class="section-list__button" type="button">hero</button></li><li class="section-list__item"><button class="section-list__button" type="button">glance</button></li></ol></div><figcaption>Kind names from the data ("hero", "glance") and no tools, leaving the order to drag and drop.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Item</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Hover fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Selected fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Selected text</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Number, hidden</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Tools rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Font</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Item height</td><td><code>--target-min</code></td><td colspan="2"><span data-token="--target-min"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+<pre><code>&lt;ol class="section-list" aria-label="Sections in the order visitors see them"&gt;
+  &lt;li class="section-list__item"&gt;&lt;button class="section-list__button" type="button" aria-current="true"&gt;Welcome banner&lt;/button&gt;&lt;/li&gt;
+  &lt;li class="section-list__item section-list__item--hidden"&gt;&lt;button class="section-list__button" type="button"&gt;A look around&lt;/button&gt;&lt;span class="badge badge--neutral"&gt;Hidden&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="section-list__tools" role="group" aria-label="Selected section"&gt;
+  &lt;button class="btn btn--sm" type="button"&gt;Hide section&lt;span class="visually-hidden"&gt;: Welcome banner&lt;/span&gt;&lt;/button&gt;
+  &lt;button class="btn btn--sm" type="button" disabled&gt;Move up&lt;span class="visually-hidden"&gt;: Welcome banner&lt;/span&gt;&lt;/button&gt;
+  &lt;button class="btn btn--sm" type="button"&gt;Move down&lt;span class="visually-hidden"&gt;: Welcome banner&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.section-list</code></td><td>The numbered list.</td></tr>
+        <tr><td><code>.section-list__item</code>, <code>--hidden</code>, <code>--fixed</code></td><td>An item; struck through with a badge; a bullet instead of a number.</td></tr>
+        <tr><td><code>.section-list__button</code>, <code>aria-current="true"</code></td><td>The selectable name; the selected one.</td></tr>
+        <tr><td><code>.section-list__tools</code>, <code>.section-list__add</code>, <code>.section-list__add-label</code></td><td>The tool row and the add row.</td></tr>
+        <tr><td>Angular</td><td><code>SectionListComponent</code> (<code>ol[libSectionList]</code>), <code>SectionListItemComponent</code> (<code>li[libSectionListItem]</code>, inputs <code>hidden</code>, <code>fixed</code>), <code>SectionListButtonComponent</code> (<code>button[libSectionListButton]</code>), <code>SectionListToolsComponent</code> (<code>div[libSectionListTools]</code>), <code>SectionListAddComponent</code> (<code>div[libSectionListAdd]</code>).</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Drawn for the Website area (content management, re-imagined), 24 October 2026, from these mocks:</p>
+      <ul><li><a href="../../mocks/pages/admin-page-editor/default.html">pages/admin-page-editor/default</a> (home sections)</li><li><a href="../../mocks/pages/admin-page-editor/hidden.html">pages/admin-page-editor/hidden</a> (a hidden section)</li><li><a href="../../mocks/pages/admin-page-editor/moving.html">pages/admin-page-editor/moving</a> (after a move)</li><li><a href="../../mocks/pages/admin-page-editor/page.html">pages/admin-page-editor/page</a> (a page with blocks)</li></ul>
+      <p>The component is new to this system and written in the Shelfie visual language.</p>
+      <h3>Drift from the implemented admin</h3>
+      <ul><li><b>Blocks as cards with Edit.</b> The implemented Website screen listed blocks as cards in two groups, each opening a dialog; the order lived in code. The system lists sections in one numbered list that is the page order (drift D32).</li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Coop design system · adopted from the Shelfie design system for the Coop admin site · <a href="../../mocks/index.html">docs/mocks</a> · 2026-10-24</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

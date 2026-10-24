@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -251,9 +258,9 @@
       <div class="ds-table-wrap"><table class="ds-table">
         <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mocks</th></tr></thead>
         <tbody>
-          <tr><td>First use</td><td>Icon, "No [things] yet", one sentence on what the list is for, the primary action.</td><td><a href="../../mocks/pages/admin-pages/empty.html">admin-pages/empty</a>, <a href="../../mocks/pages/admin-board/empty.html">admin-board/empty</a>, <a href="../../mocks/pages/admin-assets/empty.html">admin-assets/empty</a>, <a href="../../mocks/pages/admin-documents/empty.html">admin-documents/empty</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-invitations/empty.html">admin-invitations/empty</a></td></tr>
+          <tr><td>First use</td><td>Icon, "No [things] yet", one sentence on what the list is for, the primary action.</td><td><a href="../../mocks/pages/admin-page-editor/page-new.html">admin-pages/empty</a>, <a href="../../mocks/pages/admin-board/empty.html">admin-board/empty</a>, <a href="../../mocks/pages/admin-assets/empty.html">admin-assets/empty</a>, <a href="../../mocks/pages/admin-documents/empty.html">admin-documents/empty</a>, <a href="../../mocks/pages/admin-maintenance/empty.html">admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-invitations/empty.html">admin-invitations/empty</a></td></tr>
           <tr><td>No results</td><td>Search icon, "No [things] match “term”", a hint, "Clear search" or "Show all".</td><td><a href="../../mocks/pages/admin-users/no-results.html">admin-users/no-results</a>, <a href="../../mocks/pages/admin-documents/no-results.html">admin-documents/no-results</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">admin-maintenance/no-results</a>, <a href="../../mocks/pages/admin-assets/no-results.html">admin-assets/no-results</a>, <a href="../../mocks/pages/admin-messaging/no-results.html">admin-messaging/no-results</a></td></tr>
-          <tr><td>Error</td><td>Danger alert in place of the list, with "Try again".</td><td><a href="../../mocks/pages/admin-pages/error.html">admin-pages/error</a>, <a href="../../mocks/pages/admin-board/error.html">admin-board/error</a>, <a href="../../mocks/pages/admin-website/error.html">admin-website/error</a></td></tr>
+          <tr><td>Error</td><td>Danger alert in place of the list, with "Try again".</td><td><a href="../../mocks/pages/admin-page-editor/error.html">admin-pages/error</a>, <a href="../../mocks/pages/admin-board/error.html">admin-board/error</a>, <a href="../../mocks/pages/admin-website/error.html">admin-website/error</a></td></tr>
           <tr><td>Empty card</td><td>The card's heading and one muted line, with a link to the list.</td><td><a href="../../mocks/pages/admin-dashboard/empty.html">admin-dashboard/empty</a>, <a href="../../mocks/pages/admin-dashboard/partial.html">admin-dashboard/partial</a></td></tr>
           <tr><td>Nothing selected</td><td>A muted line in the reading pane.</td><td><a href="../../mocks/pages/admin-messaging/default.html">admin-messaging/default</a>, <a href="../../mocks/pages/admin-messaging/empty.html">admin-messaging/empty</a></td></tr>
           <tr><td>Partly empty</td><td>A role with no privileges, a request with no comments: one line where the list would be.</td><td><a href="../../mocks/pages/admin-roles/no-privileges.html">admin-roles/no-privileges</a>, <a href="../../mocks/pages/admin-maintenance/comments-empty.html">admin-maintenance/comments-empty</a></td></tr>
@@ -337,7 +344,7 @@
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
       <p>Extracted from these admin mocks:</p>
       <ul>
-        <li><a href="../../mocks/pages/admin-pages/empty.html">pages/admin-pages/empty</a>, <a href="../../mocks/pages/admin-pages/error.html">error</a>; <a href="../../mocks/pages/admin-board/empty.html">pages/admin-board/empty</a>, <a href="../../mocks/pages/admin-board/error.html">error</a>; <a href="../../mocks/pages/admin-website/error.html">pages/admin-website/error</a></li>
+        <li><a href="../../mocks/pages/admin-page-editor/page-new.html">pages/admin-pages/empty</a>, <a href="../../mocks/pages/admin-page-editor/error.html">error</a>; <a href="../../mocks/pages/admin-board/empty.html">pages/admin-board/empty</a>, <a href="../../mocks/pages/admin-board/error.html">error</a>; <a href="../../mocks/pages/admin-website/error.html">pages/admin-website/error</a></li>
         <li><a href="../../mocks/pages/admin-maintenance/empty.html">pages/admin-maintenance/empty</a>, <a href="../../mocks/pages/admin-maintenance/no-results.html">no-results</a>, <a href="../../mocks/pages/admin-maintenance/comments-empty.html">comments-empty</a></li>
         <li><a href="../../mocks/pages/admin-documents/empty.html">pages/admin-documents/empty</a>, <a href="../../mocks/pages/admin-documents/no-results.html">no-results</a>; <a href="../../mocks/pages/admin-assets/empty.html">pages/admin-assets/empty</a>, <a href="../../mocks/pages/admin-assets/no-results.html">no-results</a></li>
         <li><a href="../../mocks/pages/admin-users/empty.html">pages/admin-users/empty</a>, <a href="../../mocks/pages/admin-users/no-results.html">no-results</a>; <a href="../../mocks/pages/admin-invitations/empty.html">pages/admin-invitations/empty</a>; <a href="../../mocks/pages/admin-roles/empty.html">pages/admin-roles/empty</a>, <a href="../../mocks/pages/admin-roles/no-privileges.html">no-privileges</a></li>

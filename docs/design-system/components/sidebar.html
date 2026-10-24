@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sidebar navigation — Coop design system</title>
-<meta name="description" content="The Coop admin sidebar and app shell: the OWN Housing Co-op brand, links to all thirteen admin sections with the current one marked, and the signed-in person at the foot. Beside the page from 768px; phones use the tab bar.">
+<meta name="description" content="The Coop admin sidebar and app shell: the OWN Housing Co-op brand, links to the admin sections grouped as Dashboard, Website, Community, Operations, Access and Settings, with the current one marked, and the signed-in person at the foot. Beside the page from 768px; phones use the tab bar.">
 <link rel="stylesheet" href="../tokens/tokens.css">
 <link rel="stylesheet" href="../assets/components.css">
 <link rel="stylesheet" href="../assets/ds.css">
@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -91,7 +98,7 @@
     <header class="ds-header">
       <p class="ds-kicker">Component · Navigation</p>
       <h1>Sidebar navigation</h1>
-      <p class="ds-lead">The admin's main way around. A column beside every signed-in page that names the co-op, lists all thirteen sections in the same order every time, marks where you are, and shows who is signed in.</p>
+      <p class="ds-lead">The admin's main way around. A column beside every signed-in page that names the co-op, lists the sections in the same order every time, grouped since 24 October 2026 as Dashboard, Website, Community (Documents, Messages, Profiles), Operations (Maintenance), Access (Users, Roles and privileges, Invitations) and Settings, marks where you are, and shows who is signed in.</p>
       <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;header&gt;</code> + <code>&lt;nav&gt;</code> of links</span></div>
       <ul class="ds-toc">
         <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
@@ -118,7 +125,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
       <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
       <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
       <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
@@ -148,7 +155,7 @@
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <h3>Default: one list of thirteen sections</h3>
+      <h3>Default: the sections, grouped</h3>
       <p>This is how the admin ships. The order follows how often staff use each section, from Dashboard and Maintenance down to Settings, and it never changes between pages. It is the list for the office: staff, board members, system administrators and support.</p>
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--canvas">
@@ -158,7 +165,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
       <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
       <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
       <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
@@ -209,7 +216,7 @@
         </div>
       </div>
       <h3>With section headings</h3>
-      <p>Thirteen links is a long list to scan. <code>.sidebar__group</code> adds a small heading above a run of related links. The admin does not use headings today; if it adopts them, keep the same thirteen links and keep each heading short. The grouping shown here is an example only.</p>
+      <p>Thirteen links is a long list to scan. <code>.sidebar__group</code> adds a small heading above a run of related links. The admin uses them since 24 October 2026 (Community, Operations, Access), with Dashboard, Website and Settings outside a group; keep the same thirteen links and keep each heading short. The grouping shown here is an example only.</p>
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--canvas">
           <header class="sidebar sidebar--static">
@@ -223,7 +230,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <p class="sidebar__group">Website</p>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <p class="sidebar__group">People</p>
       <a class="nav-link" href="../../mocks/pages/admin-users/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></svg>Users</a>
       <a class="nav-link" href="../../mocks/pages/admin-roles/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>Roles &amp; Privileges</a>
@@ -255,7 +262,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
       <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
       <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
       <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
@@ -309,7 +316,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
       <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
       <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
       <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
@@ -328,7 +335,7 @@
       <a class="nav-link" href="../../mocks/pages/admin-dashboard/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
       <a class="nav-link" href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3.5a5 5 0 0 0-4.8 6.6l-6.2 6.2a1.8 1.8 0 0 0 0 2.5l1.7 1.7a1.8 1.8 0 0 0 2.5 0l6.2-6.2a5 5 0 0 0 6.6-4.8l-3 3-3.2-.8-.8-3.2 3-3a5 5 0 0 0-2 0z"/></svg>Maintenance</a>
       <a class="nav-link" href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4zM14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
-      <a class="nav-link" href="../../mocks/pages/admin-pages/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
+      <a class="nav-link" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>Pages</a>
       <a class="nav-link" href="../../mocks/pages/admin-board/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.5"/><circle cx="19" cy="10" r="2.5"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.5 3.5 0 0 1 5-3.2M22.5 19a3.5 3.5 0 0 0-5-3.2"/></svg>Board</a>
       <a class="nav-link" href="../../mocks/pages/admin-website/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
       <a class="nav-link" href="../../mocks/pages/admin-messaging/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></svg>Messages</a>
