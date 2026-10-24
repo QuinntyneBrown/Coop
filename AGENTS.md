@@ -80,6 +80,7 @@ these locations and move existing files here as areas are touched:
 - `docs/specs/` — L1/L2 requirements
 - `docs/detailed-designs/` — detailed designs
 - `docs/mocks/` — static design reference
+- `docs/proposals/` — proposals and effort estimates; not requirements
 - `docs/design-system/` — tokens, component styles, and pages for the admin
   site, adopted from the Shelfie design system; the admin app loads its
   `tokens.css` directly (ADR 0009), and `components.css` is the design
