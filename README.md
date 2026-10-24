@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/design-system/assets/coop-mark.svg" alt="Coop logo" width="120" height="120">
+</p>
+
 <h1 align="center">Coop</h1>
 
 <p align="center">
