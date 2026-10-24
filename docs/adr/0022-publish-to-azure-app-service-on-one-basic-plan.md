@@ -52,5 +52,12 @@ sites.
 - The API still creates and seeds the database on startup (ADR 0012), so
   the first deployment seeds the fictional demo users on the production
   database. Resetting or replacing that data is `Coop.Cli`'s job.
-- Rotating a publish profile means downloading it again and updating the
-  secret; the workflow does not use federated credentials.
+- Publish profiles only carry credentials while SCM basic-auth publishing
+  is allowed on the web app (`basicPublishingCredentialsPolicies/scm`,
+  off by default on new apps), and the Azure CLI redacts them; fetch them
+  through the ARM `publishxml` call. Rotating one means fetching it again
+  and updating the secret; the workflow does not use federated credentials.
+- The API runs from its package (`WEBSITE_RUN_FROM_PACKAGE=1`), so each
+  deployment is mounted whole instead of copied file by file under the
+  running process, which once left it serving mismatched assemblies.
+  `/home/site/wwwroot` is therefore read-only; the database stays in `/home`.
