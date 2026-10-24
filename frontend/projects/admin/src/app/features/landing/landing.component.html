@@ -2,13 +2,15 @@
 <header libTopBar class="landing-topbar" data-testid="landing-navbar">
   <span libTopBarBrand>
     <span libLogoMark></span>
-    OWN Housing Co-op
+    <span class="landing-topbar__name">OWN Housing Co-op</span>
   </span>
   <span libTopBarSpacer></span>
-  <a routerLink="/login" libNavLink data-testid="landing-login-link">Sign In</a>
-  <a routerLink="/register" libButton variant="primary" data-testid="landing-register-link"
-    >Register</a
-  >
+  <span class="landing-topbar__actions">
+    <a routerLink="/login" libNavLink data-testid="landing-login-link">Sign In</a>
+    <a routerLink="/register" libButton variant="primary" data-testid="landing-register-link"
+      >Register</a
+    >
+  </span>
 </header>
 
 <main id="main" class="container">
