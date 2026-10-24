@@ -1,6 +1,6 @@
 # Journey 27 · Manage profiles
 
-> **Runtime:** about 1 min 22 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 21 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [27-manage-profiles.mp4](27-manage-profiles.mp4) · [Slides](slides.html) · **Audio:** [27-manage-profiles.mp3](27-manage-profiles.mp3) · [Transcript](script.md)
 

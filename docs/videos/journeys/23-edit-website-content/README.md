@@ -1,30 +1,38 @@
 # Journey 23 · Edit website content
 
-> **Runtime:** about 1 min 44 s · **Audience:** co-op office staff · **Prerequisites:** an office account
+> **Runtime:** about 2 min 37 s · **Audience:** co-op office staff · **Prerequisites:** an office account
 
 **Video:** [23-edit-website-content.mp4](23-edit-website-content.mp4) · [Slides](slides.html) · **Audio:** [23-edit-website-content.mp3](23-edit-website-content.mp3) · [Transcript](script.md)
 
 ## Why this video exists
 
 The public website is how many future members first meet the co-op. This
-video shows staff how to change its words, lists and photos safely.
+video shows staff how to change its words, sections, menu and photos in a
+draft, preview it, and publish it when they are ready.
+
 
 ## Learning objectives
 
 By the end, the viewer can:
 
-- Open Website and find the part to change.
-- Edit a block and save it, or cancel.
-- Reorder, remove and add list items, and choose or upload a photo with a description.
+- Open Website and find a part in the site tree.
+- Edit a home page section and select Save to draft, or Undo changes.
+- Hide, show and reorder sections, and change the board through Manage directors.
+- Change the menu links in Menu and footer.
+- Preview the draft, then Publish it or Discard changes.
 
 ## Code / assets on screen
 
 | File | What to show |
 | --- | --- |
-| `images/admin-website-1280.png` | The Website page with every block |
-| `images/admin-content-editor-1280.png` | The Edit Hero form |
-| `images/admin-content-editor-list-1280.png` | The Edit Header form with menu links |
-| `images/admin-photo-picker-1280.png` | The Choose a photo window |
+| `images/admin-website-1280.png` | The Website site tree with unpublished changes |
+| `images/admin-home-saved-1280.png` | The Home editor after Save to draft |
+| `images/admin-home-hidden-1280.png` | A section with the Hidden badge |
+| `images/admin-home-board-1280.png` | The Board of directors section and Manage directors |
+| `images/admin-menu-footer-1280.png` | The Menu and footer editor with menu links |
+| `images/public-preview-1280.png` | The public site with the preview banner |
+| `images/admin-publish-confirm-1280.png` | The Publish your changes? box |
+| `images/admin-discard-confirm-1280.png` | The Discard your unpublished changes? box |
 
 All screens are static design mocks under `docs/mocks/`, captured by
 `tools/video-build/capture-mocks.py` from the list in `images/shots.json`.
@@ -33,11 +41,12 @@ All screens are static design mocks under `docs/mocks/`, captured by
 
 | Time | Segment | Content |
 | --- | --- | --- |
-| 00:00-00:14 | Welcome | Title; live as soon as you save |
-| 00:14-00:54 | Edit a block | Website list, Edit, Save changes, Cancel |
-| 00:54-01:10 | Lists | Move up, Move down, Remove, Add menu link |
-| 01:10-01:28 | Photos | Choose photo, upload, describe |
-| 01:28-01:43 | In short | Recap, thank you |
+| 00:00-00:18 | Welcome | Title; draft first, then publish |
+| 00:18-00:40 | The Website area | Site tree and the publish bar |
+| 00:40-01:31 | Edit the home page | Sections, Save to draft, Hide section, Board of directors |
+| 01:31-01:47 | Menu and footer | Move up, Move down, Remove, Add menu link |
+| 01:47-02:22 | Preview and publish | Preview site, Publish, Discard changes |
+| 02:22-02:37 | In short | Recap, thank you |
 
 ## Demo commands
 
@@ -46,14 +55,13 @@ From the repository root, in PowerShell:
 ```powershell
 python tools/video-build/capture-mocks.py docs/videos/journeys/23-edit-website-content
 node tools/video-audio/generate-audio.mjs docs/videos/journeys/23-edit-website-content --dry-run
-node tools/video-audio/generate-audio.mjs docs/videos/journeys/23-edit-website-content --engine kokoro
+node tools/video-audio/generate-audio.mjs docs/videos/journeys/23-edit-website-content
 node tools/video-build/build-video.mjs docs/videos/journeys/23-edit-website-content --check
 node tools/video-build/build-video.mjs docs/videos/journeys/23-edit-website-content
 ```
 
-The audio uses the same Kokoro voice (`af_heart`, speed 0.8) as
-[video 01](../../01-own-board-overview/README.md); setup is in the header of
-`tools/video-audio/generate-audio.mjs`.
+The audio uses the default free edge-tts narrator voice; setup is in the
+header of `tools/video-audio/generate-audio.mjs`.
 
 ## Pitfalls
 

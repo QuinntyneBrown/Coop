@@ -12,7 +12,7 @@ Photos for the website, plans and notes all live in Assets.
 
 ## Upload and find
 
-Start with Assets, in the menu on the left. Every file shows as a card, with its name, its size and the date it was added.
+Start with Website, in the menu on the left, then choose Photos. The Assets page opens. Every file shows as a card, with its name, its size and the date it was added.
 
 [pause 2s]
 

@@ -1,6 +1,6 @@
 # Journey 12 · Manage my profile
 
-> **Runtime:** about 2 min 1 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 2 min 4 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [12-manage-my-profile.mp4](12-manage-my-profile.mp4) · [Slides](slides.html) · **Audio:** [12-manage-my-profile.mp3](12-manage-my-profile.mp3) · [Transcript](script.md)
 
@@ -38,7 +38,7 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | 00:18-01:03 | Your details | Profile, Edit profile, notices, Save changes |
 | 01:03-01:33 | Your picture | Preview, Save photo, Remove photo |
 | 01:33-01:43 | Switch profile | My profiles |
-| 01:43-02:01 | In short | Three steps, thank you |
+| 01:43-02:04 | In short | Three steps, thank you |
 
 ## Demo commands
 

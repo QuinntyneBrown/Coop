@@ -8,7 +8,9 @@ rank by value provided, highest first, and matches its video in
 
 Signing in, registering, changing a password and signing out are shared with
 the office and are listed under "Everyone who signs in" in
-[`user-journeys.md`](user-journeys.md).
+[`user-journeys.md`](user-journeys.md). Before signing in, members read the
+public site like any visitor: the home page, the website pages and the
+published documents.
 
 | # | Journey | Description |
 | --- | --- | --- |

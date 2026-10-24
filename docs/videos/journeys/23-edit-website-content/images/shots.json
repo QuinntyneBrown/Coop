@@ -1,6 +1,10 @@
 [
-  {"name": "admin-website", "mock": "pages/admin-website/default.html", "phone": false},
-  {"name": "admin-content-editor", "mock": "dialogs/admin-content-editor/default.html", "phone": false},
-  {"name": "admin-content-editor-list", "mock": "dialogs/admin-content-editor/list.html", "phone": false, "scroll": 1006},
-  {"name": "admin-photo-picker", "mock": "dialogs/admin-photo-picker/default.html", "phone": false}
+  {"name": "admin-website", "mock": "pages/admin-website/unpublished.html", "phone": false},
+  {"name": "admin-home-saved", "mock": "pages/admin-page-editor/saved.html", "phone": false},
+  {"name": "admin-home-hidden", "mock": "pages/admin-page-editor/hidden.html", "phone": false},
+  {"name": "admin-home-board", "mock": "pages/admin-page-editor/board.html", "phone": false},
+  {"name": "admin-menu-footer", "mock": "pages/admin-page-editor/menu.html", "phone": false},
+  {"name": "public-preview", "mock": "pages/public-landing/preview.html", "phone": false},
+  {"name": "admin-publish-confirm", "mock": "dialogs/admin-publish-confirm/default.html", "phone": false},
+  {"name": "admin-discard-confirm", "mock": "dialogs/admin-discard-confirm/default.html", "phone": false}
 ]

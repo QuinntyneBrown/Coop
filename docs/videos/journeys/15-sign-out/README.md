@@ -1,6 +1,6 @@
 # Journey 15 · Sign out
 
-> **Runtime:** about 1 min 10 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 1 min 9 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [15-sign-out.mp4](15-sign-out.mp4) · [Slides](slides.html) · **Audio:** [15-sign-out.mp3](15-sign-out.mp3) · [Transcript](script.md)
 

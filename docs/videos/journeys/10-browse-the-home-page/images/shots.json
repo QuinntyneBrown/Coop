@@ -1,8 +1,11 @@
 [
   {"name": "public-landing", "mock": "pages/public-landing/default.html", "phone": true, "height": 940},
+  {"name": "public-landing-glance", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 706, "height": 220},
   {"name": "public-landing-about", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 906, "height": 705},
+  {"name": "public-landing-gallery", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 1611, "height": 1023},
   {"name": "public-landing-blocks", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 2634, "height": 1036},
   {"name": "public-landing-events", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 3670, "height": 626},
   {"name": "public-landing-board", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4296, "height": 574},
+  {"name": "public-landing-quote", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4870, "height": 544},
   {"name": "public-landing-footer", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 5414, "height": 1041}
 ]

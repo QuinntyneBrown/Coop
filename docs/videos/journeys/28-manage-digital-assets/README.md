@@ -1,6 +1,6 @@
 # Journey 28 · Manage digital assets
 
-> **Runtime:** about 1 min 33 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
+> **Runtime:** about 1 min 37 s · **Audience:** co-op office staff who look after the admin site · **Prerequisites:** an administrator account
 
 **Video:** [28-manage-digital-assets.mp4](28-manage-digital-assets.mp4) · [Slides](slides.html) · **Audio:** [28-manage-digital-assets.mp3](28-manage-digital-assets.mp3) · [Transcript](script.md)
 
@@ -35,9 +35,9 @@ All screens are static design mocks under `docs/mocks/`, captured by
 | Time | Segment | Content |
 | --- | --- | --- |
 | 00:00-00:17 | Welcome | Title; pictures and files in one place |
-| 00:17-00:49 | Upload and find | Assets page, Upload, Search assets |
-| 00:49-01:13 | View and delete | the details window, Download, Delete and confirm |
-| 01:13-01:27 | In short | Summary, thank you |
+| 00:17-00:53 | Upload and find | Website, then Photos; Assets page, Upload, Search assets |
+| 00:53-01:18 | View and delete | the details window, Download, Delete and confirm |
+| 01:18-01:37 | In short | Summary, thank you |
 
 ## Demo commands
 

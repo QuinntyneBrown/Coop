@@ -1,4 +1,4 @@
 [
   {"name": "admin-dashboard", "mock": "pages/admin-dashboard/default.html", "phone": false, "height": 752},
-  {"name": "admin-dashboard-lower", "mock": "pages/admin-dashboard/default.html", "phone": false, "scroll": 216, "height": 720}
+  {"name": "admin-dashboard-lower", "mock": "pages/admin-dashboard/default.html", "phone": false, "scroll": 350, "height": 720}
 ]

@@ -20,7 +20,15 @@ First, a website that is beautiful and easy to read. This is the home page we bu
 
 Second, OWN runs it. Nobody else. Someone in your office signs in to the admin site. It is the same site members sign in to, but the office also sees the office areas. Every purple tag on this screen marks a part of the website that the office can change by themselves. The words, the photos, the menu.
 
-Today, the office can change the colours, and keep a library of photos. The office can also add and remove whole pages, and edit the list of your board of directors. So when you hold your yearly election, the new directors can appear on the website the same afternoon. No programmer needed.
+All of it lives in one place, called Website. It lists everything a visitor sees, laid out the way they see it. The home page, the pages, the menu and footer, the board of directors, the photos and the look.
+
+On the home page, the office can change the words of each section, move a section up or down, or hide it for a while. A hidden section is marked Hidden, and its words and photos are kept.
+
+The office can also add a whole page. Each page starts with a banner, a title and a photo, and then a heading, a paragraph, a list or a photo, one after another. A tick box, show this page in the website menu, lets the office write a page before anyone can see it.
+
+Changes go into a draft first. Preview site shows the draft, with a banner that says it is a preview. When it looks right, the office presses Publish, and visitors see it. Or Discard changes, to start again.
+
+And when you hold your yearly election, the office updates the board of directors in one list, and the new directors appear on the website the same afternoon. No programmer needed.
 
 [pause 2s]
 
@@ -46,7 +54,7 @@ Sixth, your own face. A member can add her own profile picture, change it, or ta
 
 ## Today and next
 
-So, in short. All six things work today. The home page, the pages and the board list the office edits, the colours and the photo library, notices by email or text, repair requests with photos, bigger text, and profile pictures. Coming next is connecting a real email and text message service, so those notices actually go out.
+So, in short. All six things work today. The home page and the pages the office edits and publishes, the board list, the colours and the photo library, notices by email or text, repair requests with photos, bigger text, and profile pictures. Coming next is connecting a real email and text message service, so those notices actually go out.
 
 [pause 2s]
 

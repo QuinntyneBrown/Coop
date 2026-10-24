@@ -1,6 +1,6 @@
 # Member journey 12 · Manage my profile
 
-> **Runtime:** about 2 min 21 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
+> **Runtime:** about 2 min 18 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account
 
 **Video:** [12-manage-my-profile.mp4](12-manage-my-profile.mp4) · [Slides](slides.html) · **Audio:** [12-manage-my-profile.mp3](12-manage-my-profile.mp3) · [Transcript](script.md)
 

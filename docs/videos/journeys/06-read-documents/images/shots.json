@@ -4,5 +4,6 @@
   {"name": "public-documents-bylaws", "mock": "pages/public-documents/bylaws.html", "phone": true},
   {"name": "public-documents-reports", "mock": "pages/public-documents/reports.html", "phone": true},
   {"name": "public-document-viewer", "mock": "dialogs/public-document-viewer/default.html", "phone": true},
+  {"name": "public-documents-error", "mock": "pages/public-documents/error.html", "phone": true},
   {"name": "admin-member-documents", "mock": "pages/admin-member-documents/default.html", "phone": false}
 ]

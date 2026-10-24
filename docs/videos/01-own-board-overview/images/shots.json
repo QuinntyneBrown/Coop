@@ -7,15 +7,14 @@
   {"name": "admin-member-profile-edit", "mock": "pages/admin-member-profile/edit.html", "phone": true, "scroll": 336},
   {"name": "admin-member-profile-photo-preview", "mock": "pages/admin-member-profile/photo-preview.html", "phone": true, "scroll": 250},
   {"name": "admin-maintenance-detail-submitter-photo", "mock": "pages/admin-maintenance/detail-submitter-photo.html", "phone": false},
-  {"name": "admin-pages", "mock": "pages/admin-pages/default.html", "phone": false},
   {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
   {"name": "admin-documents-notices", "mock": "pages/admin-documents/notices.html", "phone": false},
   {"name": "admin-document-create-send", "mock": "dialogs/admin-document-create/send.html", "phone": false},
-  {"name": "admin-maintenance-detail-new", "mock": "pages/admin-maintenance/detail-new.html", "phone": false},
-  {"name": "admin-maintenance-detail-received", "mock": "pages/admin-maintenance/detail-received.html", "phone": false},
   {"name": "admin-maintenance-detail-started", "mock": "pages/admin-maintenance/detail-started.html", "phone": false},
-  {"name": "admin-settings", "mock": "pages/admin-settings/default.html", "phone": false},
-  {"name": "admin-assets", "mock": "pages/admin-assets/default.html", "phone": false,
-   "js": "const names = ['Rooftop garden.jpg', 'Courtyard tea.jpg']; const pic = '<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"1.5\"/><path d=\"M21 15l-5-5-11 9\"/>'; document.querySelectorAll('.picture-list__item').forEach((li, i) => { li.querySelector('p').textContent = names[i]; li.querySelector('.picture-list__note').textContent = '180 KB · Tue 13 Oct'; li.querySelector('.picture-list__thumb svg').innerHTML = pic; li.querySelector('.picture-list__actions button').setAttribute('aria-label', 'Details for ' + names[i]); });"},
-  {"name": "admin-landing", "mock": "pages/admin-landing/default.html", "phone": false}
+  {"name": "admin-website", "mock": "pages/admin-website/default.html", "phone": false},
+  {"name": "admin-page-editor-hidden", "mock": "pages/admin-page-editor/hidden.html", "phone": false},
+  {"name": "admin-page-editor-page", "mock": "pages/admin-page-editor/page.html", "phone": false},
+  {"name": "admin-page-editor-page-new", "mock": "pages/admin-page-editor/page-new.html", "phone": false, "scroll": 330},
+  {"name": "admin-publish-confirm", "mock": "dialogs/admin-publish-confirm/default.html", "phone": false},
+  {"name": "public-landing-preview", "mock": "pages/public-landing/preview.html", "phone": false}
 ]
