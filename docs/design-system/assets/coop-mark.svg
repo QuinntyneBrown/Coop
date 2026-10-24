@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 40 40" role="img" aria-label="Coop">
+  <rect width="40" height="40" rx="11" fill="#1F4D3A"/>
+  <path d="M9.5 18.5 20 10l10.5 8.5" fill="none" stroke="#F6F4EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="16.25" cy="25.5" r="5.25" fill="none" stroke="#F6F4EE" stroke-width="2.75"/>
+  <circle cx="23.75" cy="25.5" r="5.25" fill="none" stroke="#E8875F" stroke-width="2.75"/>
+</svg>
