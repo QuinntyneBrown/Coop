@@ -100,7 +100,7 @@ so an existing development database works without a reset.
 
 ### Admin application
 
-`PagesComponent` (`frontend/projects/admin/src/app/features/pages/`,
+`PagesComponent` (`frontend/projects/admin/src/app/features/cms/pages/`,
 `pages.component.ts`, `.html`, `.scss`) is the routed screen at `/pages`,
 reached from the "Pages" sidebar link. It owns these signals: `pages`,
 `status` (`loading`, `ready`, `error`), `notice` (the last success message),

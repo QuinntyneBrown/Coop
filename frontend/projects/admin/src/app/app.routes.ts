@@ -11,17 +11,18 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./features/login/login.component').then((m) => m.LoginComponent),
+    loadComponent: () =>
+      import('./features/access/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'register',
     loadComponent: () =>
-      import('./features/register/register.component').then((m) => m.RegisterComponent),
+      import('./features/access/register/register.component').then((m) => m.RegisterComponent),
   },
   {
     path: 'forgot-password',
     loadComponent: () =>
-      import('./features/forgot-password/forgot-password.component').then(
+      import('./features/access/forgot-password/forgot-password.component').then(
         (m) => m.ForgotPasswordComponent,
       ),
   },
@@ -29,7 +30,9 @@ export const routes: Routes = [
     path: 'onboarding',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
+      import('./features/access/onboarding/onboarding.component').then(
+        (m) => m.OnboardingComponent,
+      ),
   },
   // Routes with sidebar layout
   {
@@ -40,7 +43,9 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./features/profiles/profiles.component').then((m) => m.ProfilesComponent),
+          import('./features/community/profiles/profiles.component').then(
+            (m) => m.ProfilesComponent,
+          ),
       },
       {
         path: 'dashboard',
@@ -50,37 +55,41 @@ export const routes: Routes = [
       {
         path: 'maintenance',
         loadComponent: () =>
-          import('./features/maintenance/maintenance.component').then(
+          import('./features/operations/maintenance/maintenance.component').then(
             (m) => m.MaintenanceComponent,
           ),
       },
       {
         path: 'documents',
         loadComponent: () =>
-          import('./features/documents/documents.component').then((m) => m.DocumentsComponent),
+          import('./features/community/documents/documents.component').then(
+            (m) => m.DocumentsComponent,
+          ),
       },
       {
         path: 'pages',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/pages/pages.component').then((m) => m.PagesComponent),
+          import('./features/cms/pages/pages.component').then((m) => m.PagesComponent),
       },
       {
         path: 'board',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/board/board.component').then((m) => m.BoardComponent),
+          import('./features/community/board/board.component').then((m) => m.BoardComponent),
       },
       {
         path: 'website',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/website/website.component').then((m) => m.WebsiteComponent),
+          import('./features/cms/website/website.component').then((m) => m.WebsiteComponent),
       },
       {
         path: 'messages',
         loadComponent: () =>
-          import('./features/messaging/messaging.component').then((m) => m.MessagingComponent),
+          import('./features/community/messaging/messaging.component').then(
+            (m) => m.MessagingComponent,
+          ),
       },
       {
         path: 'messaging',
@@ -91,38 +100,40 @@ export const routes: Routes = [
         path: 'users',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/users/users.component').then((m) => m.UsersComponent),
+          import('./features/access/users/users.component').then((m) => m.UsersComponent),
       },
       {
         path: 'roles',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/roles/roles.component').then((m) => m.RolesComponent),
+          import('./features/access/roles/roles.component').then((m) => m.RolesComponent),
       },
       {
         path: 'profiles',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/profiles/profiles.component').then((m) => m.ProfilesComponent),
+          import('./features/community/profiles/profiles.component').then(
+            (m) => m.ProfilesComponent,
+          ),
       },
       {
         path: 'assets',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/assets/assets.component').then((m) => m.AssetsComponent),
+          import('./features/operations/assets/assets.component').then((m) => m.AssetsComponent),
       },
       {
         path: 'invitations',
         canActivate: [officeGuard],
         loadComponent: () =>
-          import('./features/invitations/invitations.component').then(
+          import('./features/access/invitations/invitations.component').then(
             (m) => m.InvitationsComponent,
           ),
       },
       {
         path: 'change-password',
         loadComponent: () =>
-          import('./features/change-password/change-password.component').then(
+          import('./features/access/change-password/change-password.component').then(
             (m) => m.ChangePasswordComponent,
           ),
       },

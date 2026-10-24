@@ -135,7 +135,7 @@ alternative text.
 
 ### Admin application
 
-`WebsiteComponent` (`frontend/projects/admin/src/app/features/website/`,
+`WebsiteComponent` (`frontend/projects/admin/src/app/features/cms/website/`,
 `website.component.ts`, `.html`, `.scss`) is the routed screen at `/website`,
 reached from the "Website" sidebar link after "Board". It owns these signals:
 `content` (the loaded site content), `status` (`loading`, `ready`, `error`),

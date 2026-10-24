@@ -95,7 +95,7 @@ set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
 
 ### Admin application
 
-`DocumentsComponent` (`frontend/projects/admin/src/app/features/documents/`):
+`DocumentsComponent` (`frontend/projects/admin/src/app/features/community/documents/`):
 
 - When the dialog's type is Notice and its status is Published, a checkbox
   "Also send to members by email and text" (`dialogDoc.send`, unticked)
@@ -116,7 +116,7 @@ set, or `Notices:Email:PickupDirectory` is set for local runs and tests, and
 ### Choosing on My profile
 
 Since 21 October 2026 members choose on the admin app's My profile
-(`frontend/projects/admin/src/app/features/profiles/`, L2-REQ-116); the public
+(`frontend/projects/admin/src/app/features/community/profiles/`, L2-REQ-116); the public
 profile page is removed (see
 `docs/detailed-designs/admin-app/member-areas-by-role/`). `ProfilesComponent`:
 
