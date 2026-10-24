@@ -1,10 +1,12 @@
 // Acceptance Test
 // Traces to: L2-REQ-094, L2-REQ-097, L2-REQ-098, L2-REQ-099, L2-REQ-100
 // Description: The site content through the API: the seeded content read
-// anonymously, whole-content replacement stored as the SiteContent JSON
-// content entry, idempotent re-sending, the field rules (required values,
-// safe links and photo addresses, photo descriptions, lengths), refusal of
-// members and anonymous callers, and a re-run seed keeping saved content.
+// anonymously, whole-content replacement saved to the draft and published
+// into the SiteContent JSON content entry, idempotent re-sending, the field
+// rules (required values, safe links and photo addresses, photo
+// descriptions, lengths), refusal of members and anonymous callers, and a
+// re-run seed keeping saved content. The draft itself is covered by
+// SiteContentDraftTests.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -32,6 +34,17 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
 
     private static Task<HttpResponseMessage> SaveContentAsync(HttpClient client, JsonNode siteContent)
         => client.PutAsJsonAsync("/api/site-content", new JsonObject { ["siteContent"] = siteContent.DeepClone() });
+
+    /// <summary>Saves to the draft and publishes it, so visitors see the content (L2-REQ-121).</summary>
+    private static async Task<HttpResponseMessage> SaveAndPublishAsync(HttpClient client, JsonNode siteContent)
+    {
+        var saved = await SaveContentAsync(client, siteContent);
+        if (!saved.IsSuccessStatusCode)
+            return saved;
+        var published = await client.PostAsync("/api/site-content/publish", null);
+        Assert.Equal(HttpStatusCode.OK, published.StatusCode);
+        return saved;
+    }
 
     private static JsonNode At(JsonNode node, string path)
     {
@@ -107,7 +120,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         });
         Set(content, "header.menuLinks", new JsonArray(new JsonObject { ["label"] = "Our garden", ["href"] = "/pages/our-garden" }));
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var anonymous = _factory.CreateAnonymousClient();
@@ -131,8 +144,8 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         var content = await GetContentAsync(admin);
         Set(content, "footer.copyright", "© 2026 OWN Housing Co-operative Inc.");
 
-        var first = await SaveContentAsync(admin, content);
-        var second = await SaveContentAsync(admin, content);
+        var first = await SaveAndPublishAsync(admin, content);
+        var second = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, first.StatusCode);
         Assert.Equal(HttpStatusCode.OK, second.StatusCode);
 
@@ -156,7 +169,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         }
         Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync("/api/site-content")).StatusCode);
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var published = await GetContentAsync(_factory.CreateAnonymousClient());
         Assert.Equal("OWN Housing Co-op", At(published, "header.siteName").GetValue<string>());
@@ -168,7 +181,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
         Set(content, "header.siteSubtitle", "A home for older women since 1997");
-        Assert.Equal(HttpStatusCode.OK, (await SaveContentAsync(admin, content)).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await SaveAndPublishAsync(admin, content)).StatusCode);
 
         using (var scope = _factory.Services.CreateScope())
         {
@@ -221,7 +234,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         var content = await GetContentAsync(admin);
         Set(content, path, value);
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var published = await GetContentAsync(_factory.CreateAnonymousClient());
         Assert.Equal(value, At(published, path).GetValue<string>());

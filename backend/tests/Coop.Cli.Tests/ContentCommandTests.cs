@@ -1,8 +1,9 @@
 // Acceptance Test
-// Traces to: L2-REQ-108, L2-REQ-099, L2-REQ-080, L2-REQ-086, L2-REQ-040, L2-REQ-041, L2-REQ-042, L2-REQ-045
-// Description: site content and board export and import as JSON, pages,
-// assets and themes through the same handlers and validators as the API,
-// checked through the API.
+// Traces to: L2-REQ-108, L2-REQ-127, L2-REQ-099, L2-REQ-080, L2-REQ-086, L2-REQ-040, L2-REQ-041, L2-REQ-042, L2-REQ-045
+// Description: site content and board export and import as JSON, the site
+// content draft published, discarded, exported and imported, pages, assets
+// and themes through the same handlers and validators as the API, checked
+// through the API.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -34,6 +35,75 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         return JsonNode.Parse(body)!["siteContent"]!;
     }
 
+    /// <summary>The office's view: the draft when one exists, with hasDraft.</summary>
+    private async Task<JsonNode> DraftAsync()
+    {
+        var admin = await _host.CreateClientAsAsync("admin", "Admin123!");
+        return JsonNode.Parse(await admin.GetStringAsync("/api/site-content?draft=true"))!;
+    }
+
+    [Fact]
+    public async Task Given_a_draft_when_the_operator_publishes_then_visitors_see_it_and_a_repeat_says_there_is_nothing_to_publish()
+    {
+        var content = (await SiteContentAsync()).DeepClone();
+        content["home"]!["hero"]!["title"] = "Published from the command line.";
+        var imported = await _host.RunAsync("site-content", "import", "--file", FileWith("draft.json", content.ToJsonString()), "--draft");
+        Assert.Equal(0, imported.ExitCode);
+        Assert.Contains("The site content is saved as a draft. Run site-content publish to publish it.", imported.Output);
+        Assert.True((await DraftAsync())["hasDraft"]!.GetValue<bool>());
+        Assert.NotEqual("Published from the command line.", (await SiteContentAsync())["home"]!["hero"]!["title"]!.GetValue<string>());
+
+        var published = await _host.RunAsync("site-content", "publish");
+
+        Assert.Equal(0, published.ExitCode);
+        Assert.Contains("The site content is published.", published.Output);
+        Assert.Equal("Published from the command line.", (await SiteContentAsync())["home"]!["hero"]!["title"]!.GetValue<string>());
+        Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
+
+        var again = await _host.RunAsync("site-content", "publish");
+        Assert.Equal(0, again.ExitCode);
+        Assert.Contains("There are no unpublished changes.", again.Output);
+    }
+
+    [Fact]
+    public async Task Given_a_draft_when_the_operator_discards_it_then_the_published_content_stands_and_a_repeat_is_harmless()
+    {
+        var before = await SiteContentAsync();
+        var content = before.DeepClone();
+        content["header"]!["siteName"] = "Never published";
+        Assert.Equal(0, (await _host.RunAsync("site-content", "import", "--file", FileWith("discard.json", content.ToJsonString()), "--draft")).ExitCode);
+
+        var discarded = await _host.RunAsync("site-content", "discard");
+
+        Assert.Equal(0, discarded.ExitCode);
+        Assert.Contains("The unpublished changes were discarded.", discarded.Output);
+        Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
+        Assert.True(JsonNode.DeepEquals(before, await SiteContentAsync()));
+
+        var again = await _host.RunAsync("site-content", "discard");
+        Assert.Equal(0, again.ExitCode);
+        Assert.Contains("There are no unpublished changes.", again.Output);
+    }
+
+    [Fact]
+    public async Task Given_a_draft_when_the_operator_exports_with_draft_then_the_draft_is_written_else_the_published_content()
+    {
+        var content = (await SiteContentAsync()).DeepClone();
+        content["footer"]!["copyright"] = "Draft copyright";
+        Assert.Equal(0, (await _host.RunAsync("site-content", "import", "--file", FileWith("export-draft.json", content.ToJsonString()), "--draft")).ExitCode);
+
+        var draft = await _host.RunAsync("site-content", "export", "--draft");
+        var published = await _host.RunAsync("site-content", "export");
+
+        Assert.Equal(0, draft.ExitCode);
+        Assert.Equal("Draft copyright", JsonNode.Parse(draft.Output)!["footer"]!["copyright"]!.GetValue<string>());
+        Assert.True(JsonNode.DeepEquals(await SiteContentAsync(), JsonNode.Parse(published.Output)));
+
+        Assert.Equal(0, (await _host.RunAsync("site-content", "discard")).ExitCode);
+        var noDraft = await _host.RunAsync("site-content", "export", "--draft");
+        Assert.True(JsonNode.DeepEquals(await SiteContentAsync(), JsonNode.Parse(noDraft.Output)));
+    }
+
     [Fact]
     public async Task Given_published_site_content_when_the_operator_exports_it_then_the_json_matches_the_api()
     {
@@ -58,9 +128,11 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         var result = await _host.RunAsync("site-content", "import", "--file", FileWith("edited.json", content.ToJsonString()));
 
         Assert.Equal(0, result.ExitCode);
+        Assert.Contains("The site content is published.", result.Output);
         var saved = await SiteContentAsync();
         Assert.Equal("OWN Housing Co-operative", saved["header"]!["siteName"]!.GetValue<string>());
         Assert.Equal("A home of our own.", saved["home"]!["hero"]!["title"]!.GetValue<string>());
+        Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
     }
 
     [Fact]

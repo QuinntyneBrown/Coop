@@ -64,6 +64,11 @@ public class OfficeAreasTests : IClassFixture<CoopApiFactory>
         { "POST", "/api/theme" },
         { "PUT", "/api/theme" },
         { "POST", "/api/jsoncontent" },
+        // The site content draft, publishing and preview tokens
+        { "GET", "/api/site-content?draft=true" },
+        { "POST", "/api/site-content/publish" },
+        { "DELETE", "/api/site-content/draft" },
+        { "POST", "/api/site-content/preview-token" },
         // Audit trail
         { "GET", "/api/storedevent" },
         // Maintenance office work

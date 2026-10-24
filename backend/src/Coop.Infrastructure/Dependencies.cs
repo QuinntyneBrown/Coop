@@ -46,6 +46,7 @@ public static class Dependencies
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<ITokenBuilder, TokenBuilder>();
+        services.AddScoped<IPreviewTokenService, PreviewTokenService>();
         services.AddScoped<INotificationService, NotificationService>();
         // Notice emails go out through SMTP when it is configured; otherwise every message is only logged (ADR 0008).
         var noticeEmail = configuration.GetSection(NoticeEmailOptions.SectionName).Get<NoticeEmailOptions>() ?? new NoticeEmailOptions();

@@ -8,8 +8,14 @@ namespace Coop.Application.CMS.SiteContent;
 /// </summary>
 public static class SiteContentRules
 {
-    /// <summary>The JSON content entry that holds the site content.</summary>
+    /// <summary>The JSON content entry that holds the published site content.</summary>
     public const string Name = "SiteContent";
+
+    /// <summary>The JSON content entry that holds the unpublished draft, present only while one exists (ADR 0018).</summary>
+    public const string DraftName = "SiteContentDraft";
+
+    /// <summary>How long a preview token lets the public site read the draft (L2-REQ-125 AC1).</summary>
+    public static readonly TimeSpan PreviewTokenLifetime = TimeSpan.FromMinutes(60);
 
     public const int TextMaxLength = 2000;
     public const int LinkLabelMaxLength = 100;

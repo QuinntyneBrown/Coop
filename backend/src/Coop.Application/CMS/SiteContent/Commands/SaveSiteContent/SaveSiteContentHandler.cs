@@ -2,10 +2,10 @@ using System.Text.Json;
 using Coop.Application.Common.Interfaces;
 using Coop.Domain.CMS;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Application.CMS.SiteContent.Commands.SaveSiteContent;
 
+/// <summary>Writes the draft entry and leaves the published copy alone (L2-REQ-121 AC1, ADR 0018).</summary>
 public class SaveSiteContentHandler : IRequestHandler<SaveSiteContentRequest, SaveSiteContentResponse>
 {
     private static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web);
@@ -15,17 +15,16 @@ public class SaveSiteContentHandler : IRequestHandler<SaveSiteContentRequest, Sa
 
     public async Task<SaveSiteContentResponse> Handle(SaveSiteContentRequest request, CancellationToken cancellationToken)
     {
-        var content = await _context.JsonContents
-            .FirstOrDefaultAsync(x => x.Name == SiteContentRules.Name && !x.IsDeleted, cancellationToken);
-        if (content is null)
+        var draft = await SiteContentStore.FindAsync(_context, SiteContentRules.DraftName, cancellationToken);
+        if (draft is null)
         {
-            content = new JsonContent { Name = SiteContentRules.Name };
-            _context.JsonContents.Add(content);
+            draft = new JsonContent { Name = SiteContentRules.DraftName };
+            _context.JsonContents.Add(draft);
         }
 
-        content.Json = JsonSerializer.Serialize(request.SiteContent, Options);
+        draft.Json = JsonSerializer.Serialize(request.SiteContent, Options);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new SaveSiteContentResponse { SiteContent = request.SiteContent };
+        return new SaveSiteContentResponse { SiteContent = request.SiteContent, HasDraft = true };
     }
 }
