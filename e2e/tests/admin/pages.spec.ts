@@ -26,7 +26,7 @@ test.describe('Pages', () => {
       const seeded = mockApi.store.pages[0];
       await pages.goto();
       await pages.expectPageLoaded();
-      await sidebar.expectActiveLink('pages');
+      await sidebar.expectActiveLink('website');
       await expect(pages.cards).toHaveCount(1);
       await expect(pages.cardAddress(seeded.title)).toHaveText(`/pages/${seeded.slug}`);
       await expect(pages.card(seeded.title).getByTestId('page-card-edit')).toBeVisible();

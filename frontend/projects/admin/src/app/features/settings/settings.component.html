@@ -1,3 +1,11 @@
+@if (asLook) {
+  <nav aria-label="Breadcrumb">
+    <ol libBreadcrumb>
+      <li><a [routerLink]="paths.website">Website</a></li>
+      <li aria-current="page">Look</li>
+    </ol>
+  </nav>
+}
 <div class="page-header">
   <div>
     <h1 data-testid="settings-page-title">Settings</h1>

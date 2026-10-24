@@ -5,7 +5,7 @@ import { LandingPage } from '../public/landing.page';
 const PUBLIC_APP_URL = 'http://localhost:4201/';
 
 /**
- * The admin "Board" screen (`/board`), drawn in docs/mocks/pages/admin-board/
+ * The admin "Board of directors" screen (`/website/board`), drawn in docs/mocks/pages/admin-board/
  * with its dialogs in dialogs/admin-director-editor/ and
  * dialogs/admin-director-remove/. Owns every selector; tests only state intent.
  */
@@ -73,12 +73,12 @@ export class BoardPage {
   }
 
   async goto() {
-    await this.page.goto('/board');
+    await this.page.goto('/website/board');
     await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {
-    await expect(this.title).toHaveText('Board of Directors');
+    await expect(this.title).toHaveText('Board of directors');
     await expect(this.addButton).toBeVisible();
   }
 

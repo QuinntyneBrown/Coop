@@ -1,0 +1,95 @@
+<nav libSiteTree [cards]="cards()" aria-label="Website">
+  <ul libSiteTreeList>
+    <li>
+      <a
+        libSiteTreeLink
+        [routerLink]="paths.websiteHome"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        data-testid="site-tree-home"
+      >
+        <svg libIcon="home"></svg>{{ titles.websiteHome }}
+      </a>
+    </li>
+    <li data-testid="site-tree-pages">
+      <span libSiteTreeGroup><svg libIcon="pages"></svg>{{ titles.websitePages }}</span>
+      <ul libSiteTreeList nested>
+        @if (status() === 'loading') {
+          <li>
+            <div libLoading role="status" aria-live="polite" data-testid="site-tree-pages-loading">
+              <span libSpinner size="sm"></span>Loading pages…
+            </div>
+          </li>
+        }
+        @for (page of pages(); track page.pageId) {
+          <li>
+            <a
+              libSiteTreeLink
+              [routerLink]="paths.websitePage(page.pageId)"
+              routerLinkActive
+              ariaCurrentWhenActive="page"
+              data-testid="site-tree-page"
+              >{{ page.title }}</a
+            >
+          </li>
+        }
+        <li>
+          <a
+            libSiteTreeLink
+            add
+            [routerLink]="paths.websitePageNew"
+            routerLinkActive
+            ariaCurrentWhenActive="page"
+            data-testid="site-tree-add-page"
+          >
+            <svg libIcon="add"></svg>{{ titles.websitePageNew }}
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a
+        libSiteTreeLink
+        [routerLink]="paths.websiteMenu"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        data-testid="site-tree-menu"
+      >
+        <svg libIcon="documents"></svg>{{ titles.websiteMenu }}
+      </a>
+    </li>
+    <li>
+      <a
+        libSiteTreeLink
+        [routerLink]="paths.websiteBoard"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        data-testid="site-tree-board"
+      >
+        <svg libIcon="board"></svg>{{ titles.websiteBoard }}
+      </a>
+    </li>
+    <li>
+      <a
+        libSiteTreeLink
+        [routerLink]="paths.websitePhotos"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        data-testid="site-tree-photos"
+      >
+        <svg libIcon="photo"></svg>{{ titles.websitePhotos }}
+      </a>
+    </li>
+    <li>
+      <a
+        libSiteTreeLink
+        [routerLink]="paths.websiteLook"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        data-testid="site-tree-look"
+      >
+        <svg libIcon="look"></svg>{{ titles.websiteLook }}
+      </a>
+    </li>
+  </ul>
+</nav>

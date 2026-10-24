@@ -32,8 +32,8 @@ import {
   PictureListGridComponent,
   SpinnerComponent,
 } from 'components';
-import { ApiService } from '../../../../core/services/api.service';
-import { DigitalAssetService } from '../../../../core/services/digital-asset.service';
+import { ApiService } from '../../../core/services/api.service';
+import { DigitalAssetService } from '../../../core/services/digital-asset.service';
 import type { LibraryPhoto } from './library-photo';
 import { measurePhoto } from './measure-photo';
 import type { PickedPhoto } from './picked-photo';

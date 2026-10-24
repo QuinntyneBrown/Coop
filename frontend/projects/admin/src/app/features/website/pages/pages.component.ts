@@ -48,8 +48,8 @@ import { PageService } from '../../../core/services/page.service';
 import type { WebsitePage } from '../../../core/models/website-page';
 import type { WebsitePageDraft } from '../../../core/models/website-page-draft';
 import { PUBLIC_SITE_URL } from '../../../core/public-site-url';
-import { PhotoPickerComponent } from '../website/photo-picker/photo-picker.component';
-import type { PickedPhoto } from '../website/photo-picker/picked-photo';
+import { PhotoPickerComponent } from '../photo-picker/photo-picker.component';
+import type { PickedPhoto } from '../photo-picker/picked-photo';
 import type { PageFormErrors } from './page-form-errors';
 import { validatePageDraft } from './validate-page-draft';
 

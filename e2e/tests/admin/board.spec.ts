@@ -26,7 +26,7 @@ test.describe('Board of Directors', () => {
     test('shows the directors from the sidebar in the order the home page shows them', async () => {
       await board.goto();
       await board.expectPageLoaded();
-      await sidebar.expectActiveLink('board');
+      await sidebar.expectActiveLink('website');
       await expect(board.names).toHaveText(SEEDED);
       await expect(board.cardTitle('Rosalind Petrov')).toHaveText('Treasurer');
       await expect(board.moveUpButton(SEEDED[0])).toBeDisabled();

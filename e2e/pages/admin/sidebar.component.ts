@@ -12,19 +12,18 @@ export class SidebarComponent {
   readonly dashboardLink: Locator;
   readonly maintenanceLink: Locator;
   readonly documentsLink: Locator;
-  readonly pagesLink: Locator;
-  readonly boardLink: Locator;
   readonly websiteLink: Locator;
   readonly messagesLink: Locator;
   readonly usersLink: Locator;
   readonly rolesLink: Locator;
   readonly profilesLink: Locator;
-  readonly assetsLink: Locator;
   readonly invitationsLink: Locator;
   readonly settingsLink: Locator;
   readonly profileLink: Locator;
   /** Every section link, in the order the sidebar lists them. */
   readonly navLinks: Locator;
+  /** The group headings between the links (L2-REQ-118 AC1). */
+  readonly groupHeadings: Locator;
 
   // User info at bottom
   readonly userInfo: Locator;
@@ -42,18 +41,16 @@ export class SidebarComponent {
     this.dashboardLink = page.getByTestId('sidebar-nav-dashboard');
     this.maintenanceLink = page.getByTestId('sidebar-nav-maintenance');
     this.documentsLink = page.getByTestId('sidebar-nav-documents');
-    this.pagesLink = page.getByTestId('sidebar-nav-pages');
-    this.boardLink = page.getByTestId('sidebar-nav-board');
     this.websiteLink = page.getByTestId('sidebar-nav-website');
     this.messagesLink = page.getByTestId('sidebar-nav-messages');
     this.usersLink = page.getByTestId('sidebar-nav-users');
     this.rolesLink = page.getByTestId('sidebar-nav-roles');
     this.profilesLink = page.getByTestId('sidebar-nav-profiles');
-    this.assetsLink = page.getByTestId('sidebar-nav-assets');
     this.invitationsLink = page.getByTestId('sidebar-nav-invitations');
     this.settingsLink = page.getByTestId('sidebar-nav-settings');
     this.profileLink = page.getByTestId('sidebar-nav-profile');
     this.navLinks = this.sidebar.locator('nav a');
+    this.groupHeadings = this.sidebar.getByTestId('sidebar-group');
 
     this.userInfo = page.getByTestId('sidebar-user-info');
     this.userAvatar = page.getByTestId('sidebar-user-avatar');
@@ -71,6 +68,11 @@ export class SidebarComponent {
     await expect(this.navLinks).toHaveText(labels);
   }
 
+  /** The sidebar shows exactly these group headings, in this order. */
+  async expectGroupHeadings(labels: string[]) {
+    await expect(this.groupHeadings).toHaveText(labels);
+  }
+
   async expectUserInfo(name: string, role: string) {
     await expect(this.userInfo).toBeVisible();
     await expect(this.userName).toHaveText(name);
@@ -82,14 +84,11 @@ export class SidebarComponent {
       | 'dashboard'
       | 'maintenance'
       | 'documents'
-      | 'pages'
-      | 'board'
       | 'website'
       | 'messages'
       | 'users'
       | 'roles'
       | 'profiles'
-      | 'assets'
       | 'invitations'
       | 'settings',
   ) {
@@ -97,14 +96,11 @@ export class SidebarComponent {
       dashboard: this.dashboardLink,
       maintenance: this.maintenanceLink,
       documents: this.documentsLink,
-      pages: this.pagesLink,
-      board: this.boardLink,
       website: this.websiteLink,
       messages: this.messagesLink,
       users: this.usersLink,
       roles: this.rolesLink,
       profiles: this.profilesLink,
-      assets: this.assetsLink,
       invitations: this.invitationsLink,
       settings: this.settingsLink,
     };

@@ -7,6 +7,7 @@ import {
   NavLinkComponent,
   SidebarBrandComponent,
   SidebarComponent as LibSidebarComponent,
+  SidebarGroupComponent,
   SidebarFooterComponent,
   SidebarNavComponent,
   SidebarUserComponent,
@@ -15,9 +16,10 @@ import {
 } from 'components';
 import { AuthService } from '../core/services/auth.service';
 import { userRoleNames } from '../core/user-role-names';
-import { MEMBER_LINKS } from './member-links';
-import { OFFICE_LINKS } from './office-links';
-import { SidebarLink } from './sidebar-link';
+import { APP_PATHS } from '../core/app-paths';
+import { MEMBER_LINK_GROUPS } from './member-links';
+import { OFFICE_LINK_GROUPS } from './office-link-groups';
+import { SidebarGroup } from './sidebar-group';
 
 @Component({
   selector: 'app-sidebar',
@@ -32,6 +34,7 @@ import { SidebarLink } from './sidebar-link';
     NavLinkComponent,
     SidebarBrandComponent,
     SidebarFooterComponent,
+    SidebarGroupComponent,
     SidebarNavComponent,
     SidebarUserComponent,
     SidebarUserNameComponent,
@@ -47,15 +50,17 @@ export class SidebarComponent implements OnInit {
 
   readonly role = signal('');
 
+  readonly dashboardPath = APP_PATHS.dashboard;
+
   /** Member areas until the server says the person is the office. */
-  readonly links = signal<SidebarLink[]>(MEMBER_LINKS);
+  readonly groups = signal<SidebarGroup[]>(MEMBER_LINK_GROUPS);
 
   ngOnInit(): void {
     this.authService
       .getCurrentUserFromApi()
       .subscribe((response) => this.role.set(userRoleNames(response?.user)));
     this.authService.office$.subscribe((office) =>
-      this.links.set(office ? OFFICE_LINKS : MEMBER_LINKS),
+      this.groups.set(office ? OFFICE_LINK_GROUPS : MEMBER_LINK_GROUPS),
     );
   }
 

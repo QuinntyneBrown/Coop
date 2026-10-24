@@ -1,7 +1,13 @@
+<nav aria-label="Breadcrumb">
+  <ol libBreadcrumb>
+    <li><a [routerLink]="paths.website">Website</a></li>
+    <li aria-current="page">Photos</li>
+  </ol>
+</nav>
 <div class="page-header">
   <div>
-    <h1 data-testid="assets-page-title">Digital Assets</h1>
-    <p class="subtitle" data-testid="assets-info">{{ assets.length }} assets</p>
+    <h1 data-testid="assets-page-title">Photos</h1>
+    <p class="subtitle" data-testid="assets-info">{{ assets.length }} photos and files</p>
   </div>
   <div class="cluster">
     <div libSearchField class="assets-search">

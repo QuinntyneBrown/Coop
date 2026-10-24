@@ -81,7 +81,7 @@ export class PagesPage {
   }
 
   async goto() {
-    await this.page.goto('/pages');
+    await this.page.goto('/website/pages');
     await this.page.waitForLoadState('networkidle');
   }
 

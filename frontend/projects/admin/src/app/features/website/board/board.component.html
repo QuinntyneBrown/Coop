@@ -1,9 +1,15 @@
+<nav aria-label="Breadcrumb">
+  <ol libBreadcrumb>
+    <li><a [routerLink]="paths.website">Website</a></li>
+    <li aria-current="page">Board of directors</li>
+  </ol>
+</nav>
 <div class="page-header">
   <div>
-    <h1 data-testid="board-title">Board of Directors</h1>
+    <h1 data-testid="board-title">Board of directors</h1>
     <p class="subtitle">
-      The directors the home page shows under "Meet the board", in this order. Changes are live on
-      the website as soon as you save.
+      The directors the home page shows under "Board of directors", in this order. The list is live
+      on the website as soon as you save; the section's heading is edited under Home.
     </p>
   </div>
   <button
@@ -17,137 +23,151 @@
   </button>
 </div>
 
-<div class="stack">
-  <div role="status" aria-live="polite">
-    @if (notice()) {
-      <div libAlert tone="success">
-        <svg libIcon="success"></svg>
-        <div libAlertBody data-testid="board-notice">{{ notice() }}</div>
-      </div>
-    }
-  </div>
-
-  @if (listError()) {
-    <div libAlert tone="danger" role="alert">
-      <svg libIcon="error"></svg>
-      <div libAlertBody data-testid="board-save-error">{{ listError() }}</div>
-    </div>
-  }
-
-  @switch (status()) {
-    @case ('loading') {
-      <div libCard flush>
-        <div libLoading role="status" aria-live="polite" data-testid="board-loading">
-          <span libSpinner></span>Loading the board list…
+<div libWebsiteShell>
+  <app-site-tree />
+  <div class="stack">
+    <div role="status" aria-live="polite">
+      @if (notice()) {
+        <div libAlert tone="success">
+          <svg libIcon="success"></svg>
+          <div libAlertBody data-testid="board-notice">{{ notice() }}</div>
         </div>
+      }
+    </div>
+
+    @if (listError()) {
+      <div libAlert tone="danger" role="alert">
+        <svg libIcon="error"></svg>
+        <div libAlertBody data-testid="board-save-error">{{ listError() }}</div>
       </div>
     }
-    @case ('error') {
-      <div libAlert tone="danger" role="alert" data-testid="board-error">
-        <svg libIcon="error"></svg>
-        <div libAlertBody>
-          <span>We couldn't load the board list. Check your connection and try again.</span>
-          <div libAlertActions>
-            <button type="button" libButton size="sm" (click)="load()" data-testid="board-retry">
-              <svg libIcon="try-again"></svg>Try again
-            </button>
+
+    @switch (status()) {
+      @case ('loading') {
+        <div libCard flush>
+          <div libLoading role="status" aria-live="polite" data-testid="board-loading">
+            <span libSpinner></span>Loading the board list…
           </div>
         </div>
-      </div>
-    }
-    @case ('ready') {
-      @if (directors().length > 0) {
-        <ol class="stack board-list" aria-label="Board of Directors" data-testid="board-list">
-          @for (
-            director of directors();
-            track $index;
-            let i = $index, first = $first, last = $last
-          ) {
-            <li data-testid="director-card">
-              <article libCard class="stack" [attr.aria-labelledby]="'director-' + i">
-                <div class="cluster director-card__identity">
-                  <span libAvatar size="lg" aria-hidden="true"
-                    >{{ initialsOf(director.name) }}
-                    @if (director.photoUrl) {
-                      <img libAvatarImage [src]="director.photoUrl" width="56" height="56" alt="" />
-                    }
-                  </span>
-                  <div class="director-card__text">
-                    <h2 libCardTitle [id]="'director-' + i" data-testid="director-card-name">
-                      {{ director.name }}
-                    </h2>
-                    <p class="text-muted">
-                      <span data-testid="director-card-title">{{ director.title }}</span> ·
-                      <span>{{ director.photoUrl ? 'With a photo' : 'No photo' }}</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="cluster">
-                  <button
-                    type="button"
-                    libButton
-                    [attr.aria-label]="'Move ' + director.name + ' up'"
-                    [disabled]="first || moving()"
-                    (click)="move(i, -1)"
-                    data-testid="director-move-up"
-                  >
-                    <svg libIcon="move-up"></svg>Move up
-                  </button>
-                  <button
-                    type="button"
-                    libButton
-                    [attr.aria-label]="'Move ' + director.name + ' down'"
-                    [disabled]="last || moving()"
-                    (click)="move(i, 1)"
-                    data-testid="director-move-down"
-                  >
-                    <svg libIcon="move-down"></svg>Move down
-                  </button>
-                  <button
-                    type="button"
-                    libButton
-                    [attr.aria-label]="'Edit ' + director.name"
-                    (click)="openEditor(i, $event)"
-                    data-testid="director-edit"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    libButton
-                    variant="danger"
-                    [attr.aria-label]="'Remove ' + director.name"
-                    (click)="confirmRemove(i, $event)"
-                    data-testid="director-remove"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </article>
-            </li>
-          }
-        </ol>
-      } @else {
-        <div libCard flush data-testid="board-empty">
-          <div libEmptyState>
-            <div libEmptyStateIcon aria-hidden="true">
-              <svg libIcon="board" size="lg"></svg>
-            </div>
-            <h2 libEmptyStateTitle>No directors listed yet</h2>
-            <p libEmptyStateText>
-              Until you add the directors here, the home page shows the board member profiles. Add
-              each director with their role, such as President or Treasurer.
-            </p>
-            <div libEmptyStateActions>
-              <button type="button" libButton variant="primary" (click)="openEditor(null, $event)">
-                <svg libIcon="person-add"></svg>Add director
+      }
+      @case ('error') {
+        <div libAlert tone="danger" role="alert" data-testid="board-error">
+          <svg libIcon="error"></svg>
+          <div libAlertBody>
+            <span>We couldn't load the board list. Check your connection and try again.</span>
+            <div libAlertActions>
+              <button type="button" libButton size="sm" (click)="load()" data-testid="board-retry">
+                <svg libIcon="try-again"></svg>Try again
               </button>
             </div>
           </div>
         </div>
       }
+      @case ('ready') {
+        @if (directors().length > 0) {
+          <ol class="stack board-list" aria-label="Board of Directors" data-testid="board-list">
+            @for (
+              director of directors();
+              track $index;
+              let i = $index, first = $first, last = $last
+            ) {
+              <li data-testid="director-card">
+                <article libCard class="stack" [attr.aria-labelledby]="'director-' + i">
+                  <div class="cluster director-card__identity">
+                    <span libAvatar size="lg" aria-hidden="true"
+                      >{{ initialsOf(director.name) }}
+                      @if (director.photoUrl) {
+                        <img
+                          libAvatarImage
+                          [src]="director.photoUrl"
+                          width="56"
+                          height="56"
+                          alt=""
+                        />
+                      }
+                    </span>
+                    <div class="director-card__text">
+                      <h2 libCardTitle [id]="'director-' + i" data-testid="director-card-name">
+                        {{ director.name }}
+                      </h2>
+                      <p class="text-muted">
+                        <span data-testid="director-card-title">{{ director.title }}</span> ·
+                        <span>{{ director.photoUrl ? 'With a photo' : 'No photo' }}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="cluster">
+                    <button
+                      type="button"
+                      libButton
+                      [attr.aria-label]="'Move ' + director.name + ' up'"
+                      [disabled]="first || moving()"
+                      (click)="move(i, -1)"
+                      data-testid="director-move-up"
+                    >
+                      <svg libIcon="move-up"></svg>Move up
+                    </button>
+                    <button
+                      type="button"
+                      libButton
+                      [attr.aria-label]="'Move ' + director.name + ' down'"
+                      [disabled]="last || moving()"
+                      (click)="move(i, 1)"
+                      data-testid="director-move-down"
+                    >
+                      <svg libIcon="move-down"></svg>Move down
+                    </button>
+                    <button
+                      type="button"
+                      libButton
+                      [attr.aria-label]="'Edit ' + director.name"
+                      (click)="openEditor(i, $event)"
+                      data-testid="director-edit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      libButton
+                      variant="danger"
+                      [attr.aria-label]="'Remove ' + director.name"
+                      (click)="confirmRemove(i, $event)"
+                      data-testid="director-remove"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </article>
+              </li>
+            }
+          </ol>
+        } @else {
+          <div libCard flush data-testid="board-empty">
+            <div libEmptyState>
+              <div libEmptyStateIcon aria-hidden="true">
+                <svg libIcon="board" size="lg"></svg>
+              </div>
+              <h2 libEmptyStateTitle>No directors listed yet</h2>
+              <p libEmptyStateText>
+                Until you add the directors here, the home page shows the board member profiles. Add
+                each director with their role, such as President or Treasurer.
+              </p>
+              <div libEmptyStateActions>
+                <button
+                  type="button"
+                  libButton
+                  variant="primary"
+                  (click)="openEditor(null, $event)"
+                >
+                  <svg libIcon="person-add"></svg>Add director
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      }
     }
-  }
+  </div>
 </div>
 
 <dialog

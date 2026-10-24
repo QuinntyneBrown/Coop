@@ -10,7 +10,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
+  BreadcrumbComponent,
+  WebsiteShellComponent,
   AlertActionsComponent,
   AlertBodyComponent,
   AlertComponent,
@@ -41,7 +44,9 @@ import {
   SpinnerComponent,
   TextFieldComponent,
 } from 'components';
+import { APP_PATHS } from '../../../core/app-paths';
 import { BoardService } from '../../../core/services/board.service';
+import { SiteTreeComponent } from '../site-tree/site-tree.component';
 import type { Director } from '../../../core/models/director';
 import type { DirectorDraft } from '../../../core/models/director-draft';
 import type { DirectorFormErrors } from './director-form-errors';
@@ -57,8 +62,8 @@ const emptyDraft = (): DirectorDraft => ({ name: '', title: '', photoUrl: '' });
 const SAVE_FAILED = "We couldn't save the board list. Try again.";
 
 /**
- * The Board of Directors list the home page shows (L2-REQ-085), drawn in
- * docs/mocks/pages/admin-board/ with the editor and remove dialogs in
+ * The Board of Directors list the home page shows (L2-REQ-085), under the
+ * Website area beside the site tree (L2-REQ-118), drawn in docs/mocks/pages/admin-board/ with the editor and remove dialogs in
  * docs/mocks/dialogs/admin-director-editor/ and admin-director-remove/. Every
  * change saves the whole list straight away. Both dialogs are native <dialog>
  * elements: focus is trapped, Escape closes, and the page behind is inert.
@@ -68,6 +73,10 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
   standalone: true,
   imports: [
     FormsModule,
+    RouterLink,
+    BreadcrumbComponent,
+    WebsiteShellComponent,
+    SiteTreeComponent,
     IconComponent,
     ButtonComponent,
     AvatarComponent,
@@ -116,6 +125,7 @@ export class BoardComponent implements OnInit {
   );
 
   readonly initialsOf = initialsOf;
+  readonly paths = APP_PATHS;
 
   readonly directors = signal<Director[]>([]);
   readonly status = signal<ListStatus>('loading');

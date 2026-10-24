@@ -1,7 +1,60 @@
 import { Routes } from '@angular/router';
+import { APP_PATHS } from './core/app-paths';
+import { APP_TITLES } from './core/app-titles';
 import { authGuard } from './core/guards/auth.guard';
 import { officeGuard } from './core/guards/office.guard';
 import { LayoutComponent } from './layout/layout.component';
+
+/** A route path without its leading slash, as the router config wants it. */
+const segment = (path: string) => path.slice(1);
+
+/** The Website area (L2-REQ-118, ADR 0020): one office-only branch under /website. */
+const websiteRoutes: Routes = [
+  {
+    path: '',
+    title: APP_TITLES.website,
+    loadComponent: () =>
+      import('./features/website/website.component').then((m) => m.WebsiteComponent),
+  },
+  {
+    path: 'home',
+    title: APP_TITLES.websiteHome,
+    loadComponent: () =>
+      import('./features/website/blocks/blocks.component').then((m) => m.BlocksComponent),
+  },
+  {
+    path: 'menu-and-footer',
+    title: APP_TITLES.websiteMenu,
+    loadComponent: () =>
+      import('./features/website/blocks/blocks.component').then((m) => m.BlocksComponent),
+  },
+  {
+    path: 'pages',
+    title: APP_TITLES.websitePages,
+    loadComponent: () =>
+      import('./features/website/pages/pages.component').then((m) => m.PagesComponent),
+  },
+  { path: 'pages/new', redirectTo: 'pages', pathMatch: 'full' },
+  { path: 'pages/:pageId', redirectTo: 'pages', pathMatch: 'full' },
+  {
+    path: 'board',
+    title: APP_TITLES.websiteBoard,
+    loadComponent: () =>
+      import('./features/website/board/board.component').then((m) => m.BoardComponent),
+  },
+  {
+    path: 'photos',
+    title: APP_TITLES.websitePhotos,
+    loadComponent: () =>
+      import('./features/website/photos/photos.component').then((m) => m.PhotosComponent),
+  },
+  {
+    path: 'look',
+    title: APP_TITLES.websiteLook,
+    loadComponent: () =>
+      import('./features/settings/settings.component').then((m) => m.SettingsComponent),
+  },
+];
 
 export const routes: Routes = [
   {
@@ -10,24 +63,28 @@ export const routes: Routes = [
       import('./features/landing/landing.component').then((m) => m.LandingComponent),
   },
   {
-    path: 'login',
+    path: segment(APP_PATHS.login),
+    title: APP_TITLES.login,
     loadComponent: () =>
       import('./features/access/login/login.component').then((m) => m.LoginComponent),
   },
   {
-    path: 'register',
+    path: segment(APP_PATHS.register),
+    title: APP_TITLES.register,
     loadComponent: () =>
       import('./features/access/register/register.component').then((m) => m.RegisterComponent),
   },
   {
-    path: 'forgot-password',
+    path: segment(APP_PATHS.forgotPassword),
+    title: APP_TITLES.forgotPassword,
     loadComponent: () =>
       import('./features/access/forgot-password/forgot-password.component').then(
         (m) => m.ForgotPasswordComponent,
       ),
   },
   {
-    path: 'onboarding',
+    path: segment(APP_PATHS.onboarding),
+    title: APP_TITLES.onboarding,
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/access/onboarding/onboarding.component').then(
@@ -41,51 +98,47 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'profile',
+        path: segment(APP_PATHS.profile),
+        title: APP_TITLES.profile,
         loadComponent: () =>
           import('./features/community/profiles/profiles.component').then(
             (m) => m.ProfilesComponent,
           ),
       },
       {
-        path: 'dashboard',
+        path: segment(APP_PATHS.dashboard),
+        title: APP_TITLES.dashboard,
         loadComponent: () =>
           import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
-        path: 'maintenance',
+        path: segment(APP_PATHS.maintenance),
+        title: APP_TITLES.maintenance,
         loadComponent: () =>
           import('./features/operations/maintenance/maintenance.component').then(
             (m) => m.MaintenanceComponent,
           ),
       },
       {
-        path: 'documents',
+        path: segment(APP_PATHS.documents),
+        title: APP_TITLES.documents,
         loadComponent: () =>
           import('./features/community/documents/documents.component').then(
             (m) => m.DocumentsComponent,
           ),
       },
       {
-        path: 'pages',
+        path: segment(APP_PATHS.website),
         canActivate: [officeGuard],
-        loadComponent: () =>
-          import('./features/cms/pages/pages.component').then((m) => m.PagesComponent),
+        children: websiteRoutes,
       },
+      // The addresses the Website area replaced (L2-REQ-118 AC4).
+      { path: 'pages', redirectTo: segment(APP_PATHS.website), pathMatch: 'full' },
+      { path: 'board', redirectTo: segment(APP_PATHS.websiteBoard), pathMatch: 'full' },
+      { path: 'assets', redirectTo: segment(APP_PATHS.websitePhotos), pathMatch: 'full' },
       {
-        path: 'board',
-        canActivate: [officeGuard],
-        loadComponent: () =>
-          import('./features/community/board/board.component').then((m) => m.BoardComponent),
-      },
-      {
-        path: 'website',
-        canActivate: [officeGuard],
-        loadComponent: () =>
-          import('./features/cms/website/website.component').then((m) => m.WebsiteComponent),
-      },
-      {
-        path: 'messages',
+        path: segment(APP_PATHS.messages),
+        title: APP_TITLES.messages,
         loadComponent: () =>
           import('./features/community/messaging/messaging.component').then(
             (m) => m.MessagingComponent,
@@ -93,23 +146,26 @@ export const routes: Routes = [
       },
       {
         path: 'messaging',
-        redirectTo: 'messages',
+        redirectTo: segment(APP_PATHS.messages),
         pathMatch: 'full',
       },
       {
-        path: 'users',
+        path: segment(APP_PATHS.users),
+        title: APP_TITLES.users,
         canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/access/users/users.component').then((m) => m.UsersComponent),
       },
       {
-        path: 'roles',
+        path: segment(APP_PATHS.roles),
+        title: APP_TITLES.roles,
         canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/access/roles/roles.component').then((m) => m.RolesComponent),
       },
       {
-        path: 'profiles',
+        path: segment(APP_PATHS.profiles),
+        title: APP_TITLES.profiles,
         canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/community/profiles/profiles.component').then(
@@ -117,13 +173,8 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'assets',
-        canActivate: [officeGuard],
-        loadComponent: () =>
-          import('./features/operations/assets/assets.component').then((m) => m.AssetsComponent),
-      },
-      {
-        path: 'invitations',
+        path: segment(APP_PATHS.invitations),
+        title: APP_TITLES.invitations,
         canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/access/invitations/invitations.component').then(
@@ -131,14 +182,16 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'change-password',
+        path: segment(APP_PATHS.changePassword),
+        title: APP_TITLES.changePassword,
         loadComponent: () =>
           import('./features/access/change-password/change-password.component').then(
             (m) => m.ChangePasswordComponent,
           ),
       },
       {
-        path: 'settings',
+        path: segment(APP_PATHS.settings),
+        title: APP_TITLES.settings,
         canActivate: [officeGuard],
         loadComponent: () =>
           import('./features/settings/settings.component').then((m) => m.SettingsComponent),

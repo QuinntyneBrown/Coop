@@ -46,15 +46,15 @@ import type { ContentRecord } from '../../../core/models/content-record';
 import type { SiteContent } from '../../../core/models/site-content';
 import { PUBLIC_SITE_URL } from '../../../core/public-site-url';
 import { SiteContentService } from '../../../core/services/site-content.service';
-import { fromDraft, toDraft } from './block-draft';
-import type { ContentBlock } from './content-block';
-import { blocksIn, itemLegend } from './content-blocks';
-import type { ContentField } from './content-field';
-import { readPath, writePath } from './content-path';
-import { moveItem } from './move-item';
-import type { PickedPhoto } from './photo-picker/picked-photo';
-import { PhotoPickerComponent } from './photo-picker/photo-picker.component';
-import { validateBlock } from './validate-block';
+import { fromDraft, toDraft } from '../fields/block-draft';
+import type { ContentBlock } from '../fields/content-block';
+import { blocksIn, itemLegend } from '../fields/content-blocks';
+import type { ContentField } from '../fields/content-field';
+import { readPath, writePath } from '../fields/content-path';
+import { moveItem } from '../fields/move-item';
+import type { PickedPhoto } from '../photo-picker/picked-photo';
+import { PhotoPickerComponent } from '../photo-picker/photo-picker.component';
+import { validateBlock } from '../fields/validate-block';
 
 type LoadStatus = 'loading' | 'ready' | 'error';
 
@@ -68,7 +68,7 @@ type LoadStatus = 'loading' | 'ready' | 'error';
  * focus is trapped, Escape closes, and the page behind is inert.
  */
 @Component({
-  selector: 'app-website',
+  selector: 'app-blocks',
   standalone: true,
   imports: [
     FormsModule,
@@ -104,11 +104,11 @@ type LoadStatus = 'loading' | 'ready' | 'error';
     DialogPanelComponent,
     DialogTitleComponent,
   ],
-  templateUrl: './website.component.html',
-  styleUrl: './website.component.scss',
+  templateUrl: './blocks.component.html',
+  styleUrl: './blocks.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebsiteComponent implements OnInit {
+export class BlocksComponent implements OnInit {
   private readonly siteContent = inject(SiteContentService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);

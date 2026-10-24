@@ -46,6 +46,17 @@ const iconNames: IconName[] = [
   'try-again',
   'upload',
   'users',
+  'bullets',
+  'discard',
+  'heading',
+  'hide',
+  'link',
+  'look',
+  'paragraph',
+  'place',
+  'publish',
+  'show',
+  'warning',
   'website',
 ];
 

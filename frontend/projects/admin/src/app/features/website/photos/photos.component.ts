@@ -8,6 +8,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import {
   ButtonComponent,
   CardComponent,
@@ -34,15 +35,21 @@ import {
   ProgressComponent,
   SearchFieldComponent,
   TextFieldComponent,
+  BreadcrumbComponent,
 } from 'components';
+import { APP_PATHS } from '../../../core/app-paths';
 import { DigitalAssetService } from '../../../core/services/digital-asset.service';
 import { formatFileSize } from './format-file-size';
 
 @Component({
-  selector: 'app-assets',
+  selector: 'app-photos',
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
+    BreadcrumbComponent,
+    RouterLink,
+    BreadcrumbComponent,
     IconComponent,
     ButtonComponent,
     CardComponent,
@@ -69,13 +76,14 @@ import { formatFileSize } from './format-file-size';
     DialogPanelComponent,
     DialogTitleComponent,
   ],
-  templateUrl: './assets.component.html',
-  styleUrl: './assets.component.scss',
+  templateUrl: './photos.component.html',
+  styleUrl: './photos.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class AssetsComponent implements OnInit, AfterViewChecked {
+export class PhotosComponent implements OnInit, AfterViewChecked {
   private assetService = inject(DigitalAssetService);
   readonly formatFileSize = formatFileSize;
+  readonly paths = APP_PATHS;
   assets: any[] = [];
   filteredAssets: any[] = [];
   selectedAsset: any = null;

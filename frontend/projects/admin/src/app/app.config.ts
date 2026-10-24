@@ -1,7 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { TitleStrategy, provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { routes } from './app.routes';
+import { AppTitleStrategy } from './core/app-title-strategy';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -9,5 +10,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withXhr(), withInterceptors([authInterceptor])),
+    { provide: TitleStrategy, useClass: AppTitleStrategy },
   ],
 };

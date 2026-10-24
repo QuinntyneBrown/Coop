@@ -69,13 +69,13 @@ export class DigitalAssetsPage {
   }
 
   async goto() {
-    await this.page.goto('/assets');
+    await this.page.goto('/website/photos');
     // Lists render after the mocked API responds; wait for requests to settle.
     await this.page.waitForLoadState('networkidle');
   }
 
   async expectPageLoaded() {
-    await expect(this.pageTitle).toHaveText('Digital Assets');
+    await expect(this.pageTitle).toHaveText('Photos');
     await expect(this.uploadButton).toBeVisible();
   }
 

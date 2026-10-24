@@ -6,35 +6,51 @@ import { NavLinkComponent } from '../nav-link/nav-link.component';
 import { SidebarComponent } from './sidebar.component';
 import { SidebarBrandComponent } from './sidebar-brand.component';
 import { SidebarFooterComponent } from './sidebar-footer.component';
+import { SidebarGroupComponent } from './sidebar-group.component';
 import { SidebarNavComponent } from './sidebar-nav.component';
 import { SidebarUserComponent } from './sidebar-user.component';
 import { SidebarUserNameComponent } from './sidebar-user-name.component';
 import { SidebarUserRoleComponent } from './sidebar-user-role.component';
 
-// The admin's thirteen sections, in the order the sidebar always shows them.
-const sections = [
-  ['Dashboard', 'dashboard'],
-  ['Maintenance', 'maintenance'],
-  ['Documents', 'documents'],
-  ['Pages', 'pages'],
-  ['Board', 'board'],
-  ['Website', 'website'],
-  ['Messages', 'messages'],
-  ['Users', 'users'],
-  ['Roles &amp; Privileges', 'roles'],
-  ['Profiles', 'profiles'],
-  ['Assets', 'assets'],
-  ['Invitations', 'invitations'],
-  ['Settings', 'settings'],
+// The office's sections, grouped as the sidebar always shows them (L2-REQ-118 AC1).
+const groups: [heading: string | null, sections: [label: string, icon: string][]][] = [
+  [
+    null,
+    [
+      ['Dashboard', 'dashboard'],
+      ['Website', 'website'],
+    ],
+  ],
+  [
+    'Community',
+    [
+      ['Documents', 'documents'],
+      ['Messages', 'messages'],
+      ['Profiles', 'profiles'],
+    ],
+  ],
+  ['Operations', [['Maintenance', 'maintenance']]],
+  [
+    'Access',
+    [
+      ['Users', 'users'],
+      ['Roles and privileges', 'roles'],
+      ['Invitations', 'invitations'],
+    ],
+  ],
+  [null, [['Settings', 'settings']]],
 ];
 
-// The section links, with `current` marked as the page you are on (none when it is omitted).
+// The group headings and section links, with `current` marked as the page you are on.
 const navLinks = (current?: string) =>
-  sections
-    .map(
-      ([label, icon]) =>
-        `<a libNavLink href="#${icon}"${icon === current ? ' aria-current="page"' : ''}><svg libIcon="${icon}"></svg>${label}</a>`,
-    )
+  groups
+    .flatMap(([heading, sections]) => [
+      ...(heading ? [`<span libSidebarGroup aria-hidden="true">${heading}</span>`] : []),
+      ...sections.map(
+        ([label, icon]) =>
+          `<a libNavLink href="#${icon}"${icon === current ? ' aria-current="page"' : ''}><svg libIcon="${icon}"></svg>${label}</a>`,
+      ),
+    ])
     .join('\n          ');
 
 const sidebar = (current: string | undefined, name: string, role: string, style = '') => `
@@ -63,6 +79,7 @@ const meta: Meta<SidebarComponent> = {
         SidebarBrandComponent,
         SidebarNavComponent,
         SidebarFooterComponent,
+        SidebarGroupComponent,
         SidebarUserComponent,
         SidebarUserNameComponent,
         SidebarUserRoleComponent,

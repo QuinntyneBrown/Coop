@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { IconComponent, SkipLinkComponent, TabBarComponent } from 'components';
+import { APP_PATHS } from '../core/app-paths';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
@@ -19,4 +20,6 @@ import { SidebarComponent } from './sidebar.component';
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  readonly paths = APP_PATHS;
+}

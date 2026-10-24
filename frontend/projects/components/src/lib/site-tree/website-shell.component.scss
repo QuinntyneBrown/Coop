@@ -1,0 +1,14 @@
+// Website shell (docs/design-system/components/site-tree.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  :host {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+}
