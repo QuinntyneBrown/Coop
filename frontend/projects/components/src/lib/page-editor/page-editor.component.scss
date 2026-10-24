@@ -1,0 +1,14 @@
+// The page editor's three panes side by side from 64rem; tabs  (docs/design-system/components/section-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 64rem) {
+  :host {
+    grid-template-columns: 16rem minmax(0, 1fr) minmax(18rem, 1fr);
+    align-items: start;
+  }
+}

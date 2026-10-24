@@ -1,0 +1,9 @@
+// The first items as the public page orders them (docs/design-system/components/linked-summary.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-5);
+  color: var(--color-fg-muted);
+  font: var(--text-body-sm);
+}

@@ -1,0 +1,17 @@
+// The Sections, Edit and Preview tabs shown below 64rem (and a (docs/design-system/components/section-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  grid-column: 1 / -1;
+}
+
+:host ::ng-deep .tabs {
+  flex: 1;
+}
+
+@media (min-width: 64rem) {
+  :host {
+    display: none;
+  }
+}

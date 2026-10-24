@@ -1,0 +1,23 @@
+// Page editor pane (docs/design-system/components/section-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  :host([hidden]) {
+    display: block;
+  }
+
+  :host(:where(.page-editor__pane--sections)),
+  :host(:where(.page-editor__pane--preview)) {
+    position: sticky;
+    top: var(--space-4);
+  }
+}

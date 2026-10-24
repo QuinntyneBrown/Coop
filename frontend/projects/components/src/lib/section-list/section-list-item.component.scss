@@ -1,0 +1,22 @@
+// One section in the list; `hidden` strikes it through with it (docs/design-system/components/section-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+:host(:where(.section-list__item--hidden)) ::ng-deep .section-list__button {
+  color: var(--color-fg-subtle);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-fg-subtle);
+}
+
+:host(:where(.section-list__item--hidden)) ::ng-deep .section-list__button[aria-current='true'] {
+  color: var(--color-fg-accent);
+}
+
+:host(:where(.section-list__item--fixed)) ::ng-deep .section-list__button::before {
+  content: '•';
+}

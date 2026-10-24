@@ -1,9 +1,13 @@
+<nav aria-label="Breadcrumb">
+  <ol libBreadcrumb>
+    <li><a [routerLink]="paths.website">Website</a></li>
+    <li aria-current="page">{{ title }}</li>
+  </ol>
+</nav>
 <div class="page-header">
   <div>
-    <h1 data-testid="website-title">Home</h1>
-    <p class="subtitle">
-      Everything visitors read and see on the public website. Changes are live as soon as you save.
-    </p>
+    <h1 data-testid="editor-title">{{ title }}</h1>
+    <p class="subtitle">{{ subtitle }}</p>
   </div>
 </div>
 
@@ -12,7 +16,7 @@
     @if (notice()) {
       <div libAlert tone="success">
         <svg libIcon="success"></svg>
-        <div libAlertBody data-testid="website-notice">{{ notice() }}</div>
+        <div libAlertBody data-testid="editor-notice">{{ notice() }}</div>
       </div>
     }
   </div>
@@ -20,18 +24,19 @@
   @switch (status()) {
     @case ('loading') {
       <div libCard flush>
-        <div libLoading role="status" aria-live="polite" data-testid="website-loading">
-          <span libSpinner></span>Loading the website content…
+        <div libLoading role="status" aria-live="polite" data-testid="editor-loading">
+          <span libSpinner></span>Loading
+          {{ mode === 'menu' ? 'the menu and footer' : 'the home page' }}…
         </div>
       </div>
     }
     @case ('error') {
-      <div libAlert tone="danger" role="alert" data-testid="website-error">
+      <div libAlert tone="danger" role="alert" data-testid="editor-error">
         <svg libIcon="error"></svg>
         <div libAlertBody>
           <span>We couldn't load the website content. Check your connection and try again.</span>
           <div libAlertActions>
-            <button type="button" libButton size="sm" (click)="load()" data-testid="website-retry">
+            <button type="button" libButton size="sm" (click)="load()" data-testid="editor-retry">
               <svg libIcon="try-again"></svg>Try again
             </button>
           </div>
@@ -39,129 +44,201 @@
       </div>
     }
     @case ('ready') {
-      @for (group of groups; track group.id) {
-        <section class="section stack" [attr.aria-labelledby]="'website-group-' + group.id">
-          <h2 [id]="'website-group-' + group.id">{{ group.name }}</h2>
-          <ul libList class="website-blocks">
-            @for (block of group.blocks; track block.id) {
-              @let value = blockValue(block);
-              @let photo = block.photo?.(value);
-              <li data-testid="website-block">
-                <article libCard>
-                  <div class="cluster cluster--between">
-                    <div class="cluster block-card__identity">
-                      @if (photo) {
-                        <div libPictureListThumb class="block-card__thumb">
-                          <img [src]="previewUrl(photo)" width="160" height="120" alt="" />
-                        </div>
-                      }
-                      <div class="block-card__text">
-                        <h3 libCardTitle>{{ block.name }}</h3>
-                        <p class="text-muted block-card__summary">{{ block.summary(value) }}</p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      libButton
-                      [attr.aria-label]="'Edit ' + block.name"
-                      (click)="openEditor(block, $event)"
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </article>
-              </li>
-            }
-          </ul>
+      <div libPageEditor data-testid="page-editor">
+        <div libPageEditorTabs>
+          <div libTabs aria-label="Editor panes">
+            <button
+              libTab
+              type="button"
+              id="editor-tab-sections"
+              aria-controls="editor-pane-sections"
+              [attr.aria-selected]="tab() === 'sections'"
+              [attr.tabindex]="tab() === 'sections' ? null : -1"
+              (click)="tab.set('sections')"
+              data-testid="editor-tab-sections"
+            >
+              Sections
+            </button>
+            <button
+              libTab
+              type="button"
+              id="editor-tab-edit"
+              aria-controls="editor-pane-edit"
+              [attr.aria-selected]="tab() === 'edit'"
+              [attr.tabindex]="tab() === 'edit' ? null : -1"
+              (click)="tab.set('edit')"
+              data-testid="editor-tab-edit"
+            >
+              Edit
+            </button>
+            <button
+              libTab
+              type="button"
+              id="editor-tab-preview"
+              aria-controls="editor-pane-preview"
+              [attr.aria-selected]="tab() === 'preview'"
+              [attr.tabindex]="tab() === 'preview' ? null : -1"
+              (click)="tab.set('preview')"
+              data-testid="editor-tab-preview"
+            >
+              Preview
+            </button>
+          </div>
+        </div>
+
+        <section
+          libPageEditorPane
+          pane="sections"
+          id="editor-pane-sections"
+          role="tabpanel"
+          aria-labelledby="editor-tab-sections"
+          [hidden]="tab() !== 'sections'"
+          data-testid="editor-sections"
+        >
+          <div libCard class="stack">
+            <h2 libCardTitle>Sections</h2>
+            <ol libSectionList aria-label="Sections in the order visitors see them">
+              @for (section of sections; track section.kind) {
+                <li libSectionListItem data-testid="section-item">
+                  <button
+                    libSectionListButton
+                    type="button"
+                    [attr.aria-current]="selected().kind === section.kind ? 'true' : null"
+                    (click)="select(section)"
+                    data-testid="section-button"
+                  >
+                    {{ section.name }}
+                  </button>
+                </li>
+              }
+            </ol>
+          </div>
         </section>
-      }
+
+        <section
+          libPageEditorPane
+          pane="form"
+          id="editor-pane-edit"
+          role="tabpanel"
+          aria-labelledby="editor-tab-edit"
+          [hidden]="tab() !== 'edit'"
+          data-testid="editor-form"
+        >
+          @let section = selected();
+          <form
+            libCard
+            class="stack"
+            (submit)="save($event)"
+            novalidate
+            aria-labelledby="section-title"
+          >
+            <div class="section-form__head stack">
+              <h2 id="section-title" tabindex="-1" data-testid="section-heading">
+                {{ section.name }}
+              </h2>
+              <p libPlacementNote data-testid="section-placement">
+                <svg libIcon="place" size="sm"></svg><span>{{ section.placement }}</span>
+              </p>
+            </div>
+            @if (errorList().length > 0) {
+              <div
+                libAlert
+                tone="danger"
+                class="form-summary"
+                role="alert"
+                tabindex="-1"
+                data-testid="section-form-errors"
+              >
+                <svg libIcon="error"></svg>
+                <div libAlertBody>
+                  <p libAlertTitle>Something needs attention before your changes can be saved.</p>
+                  <ol>
+                    @for (error of errorList(); track error.id) {
+                      <li>
+                        <a [href]="'#' + error.id">{{ error.message }}</a>
+                      </li>
+                    }
+                  </ol>
+                </div>
+              </div>
+            }
+            @if (saveFailed()) {
+              <div libAlert tone="danger" role="alert">
+                <svg libIcon="error"></svg>
+                <div libAlertBody data-testid="section-form-failed">
+                  We couldn't save your changes. Try again.
+                </div>
+              </div>
+            }
+            @for (field of section.fields; track field.key) {
+              <ng-container
+                *ngTemplateOutlet="
+                  fieldTemplate;
+                  context: { $implicit: field, target: draft(), path: field.key }
+                "
+              />
+            }
+            @if (linkedSummary(); as summary) {
+              <div libLinkedSummary data-testid="linked-summary">
+                <div libLinkedSummaryText>
+                  <span libLinkedSummaryTitle data-testid="linked-summary-title">{{
+                    summary.title
+                  }}</span>
+                  @if (summary.items.length > 0) {
+                    <ul libLinkedSummaryList data-testid="linked-summary-items">
+                      @for (item of summary.items; track item) {
+                        <li>{{ item }}</li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="linked-summary__empty" data-testid="linked-summary-empty">
+                      {{ summary.empty }}
+                    </p>
+                  }
+                </div>
+                <a libButton [routerLink]="summary.linkPath" data-testid="linked-summary-link"
+                  >{{ summary.linkLabel }}<svg libIcon="open-in-new"></svg
+                ></a>
+              </div>
+            }
+            <div class="cluster">
+              <button
+                type="submit"
+                libButton
+                variant="primary"
+                [disabled]="saving()"
+                [attr.aria-busy]="saving() ? 'true' : null"
+                data-testid="section-save"
+              >
+                {{ saving() ? 'Saving…' : 'Save changes' }}
+              </button>
+              <button
+                type="button"
+                libButton
+                variant="ghost"
+                [disabled]="saving()"
+                (click)="undo()"
+                data-testid="section-undo"
+              >
+                Undo changes
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <div
+          libPageEditorPane
+          pane="preview"
+          id="editor-pane-preview"
+          role="tabpanel"
+          aria-labelledby="editor-tab-preview"
+          [hidden]="tab() !== 'preview'"
+          data-testid="editor-preview"
+        ></div>
+      </div>
     }
   }
 </div>
-
-<dialog
-  #editorDialog
-  libDialog
-  aria-labelledby="content-editor-title"
-  aria-describedby="content-editor-intro"
-  (close)="onEditorClosed()"
-  data-testid="content-editor"
->
-  @if (editing(); as block) {
-    <form libDialogPanel (submit)="save($event)" novalidate>
-      <div libDialogHeader>
-        <div class="dialog-heading">
-          <h2 libDialogTitle id="content-editor-title" data-testid="content-editor-heading">
-            Edit {{ block.name }}
-          </h2>
-          <p class="text-muted dialog-intro" id="content-editor-intro">
-            Changes show on the website as soon as you save.
-          </p>
-        </div>
-      </div>
-      <div libDialogBody class="stack">
-        @if (errorList().length > 0) {
-          <div
-            libAlert
-            tone="danger"
-            class="form-summary"
-            role="alert"
-            data-testid="content-editor-errors"
-          >
-            <svg libIcon="error"></svg>
-            <div libAlertBody>
-              <p libAlertTitle>Something needs attention before your changes can be saved.</p>
-              <ol>
-                @for (error of errorList(); track error.id) {
-                  <li>
-                    <a [href]="'#' + error.id">{{ error.message }}</a>
-                  </li>
-                }
-              </ol>
-            </div>
-          </div>
-        }
-        @if (saveFailed()) {
-          <div libAlert tone="danger" role="alert">
-            <svg libIcon="error"></svg>
-            <div libAlertBody data-testid="content-editor-failed">
-              We couldn't save your changes. Try again.
-            </div>
-          </div>
-        }
-        @for (field of block.fields; track field.key) {
-          <ng-container
-            *ngTemplateOutlet="
-              fieldTemplate;
-              context: { $implicit: field, target: draft(), path: field.key }
-            "
-          />
-        }
-      </div>
-      <div libDialogFooter>
-        <button
-          type="button"
-          libButton
-          [disabled]="saving()"
-          (click)="closeEditor()"
-          data-testid="content-editor-cancel"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          libButton
-          variant="primary"
-          [disabled]="saving()"
-          [attr.aria-busy]="saving() ? 'true' : null"
-          data-testid="content-editor-save"
-        >
-          {{ saving() ? 'Saving…' : 'Save changes' }}
-        </button>
-      </div>
-    </form>
-  }
-</dialog>
 
 <app-photo-picker (picked)="onPhotoPicked($event)" />
 
@@ -223,7 +300,7 @@
                     [attr.aria-label]="'Move ' + name + ' up'"
                     [attr.data-move]="path + '.' + i + '.up'"
                     [disabled]="first"
-                    (click)="moveItem(target, field, path, i, -1)"
+                    (click)="moveListItem(target, field, path, i, -1)"
                   >
                     <svg libIcon="move-up"></svg>Move up
                   </button>
@@ -234,7 +311,7 @@
                     [attr.aria-label]="'Move ' + name + ' down'"
                     [attr.data-move]="path + '.' + i + '.down'"
                     [disabled]="last"
-                    (click)="moveItem(target, field, path, i, 1)"
+                    (click)="moveListItem(target, field, path, i, 1)"
                   >
                     <svg libIcon="move-down"></svg>Move down
                   </button>

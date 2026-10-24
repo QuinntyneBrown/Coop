@@ -19,14 +19,20 @@ const websiteRoutes: Routes = [
   {
     path: 'home',
     title: APP_TITLES.websiteHome,
+    data: { mode: 'home' },
     loadComponent: () =>
-      import('./features/website/blocks/blocks.component').then((m) => m.BlocksComponent),
+      import('./features/website/page-editor/page-editor.component').then(
+        (m) => m.PageEditorComponent,
+      ),
   },
   {
     path: 'menu-and-footer',
     title: APP_TITLES.websiteMenu,
+    data: { mode: 'menu' },
     loadComponent: () =>
-      import('./features/website/blocks/blocks.component').then((m) => m.BlocksComponent),
+      import('./features/website/page-editor/page-editor.component').then(
+        (m) => m.PageEditorComponent,
+      ),
   },
   {
     path: 'pages',
