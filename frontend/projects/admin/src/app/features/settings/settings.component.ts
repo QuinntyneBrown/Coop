@@ -1,6 +1,8 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {
+  BreadcrumbComponent,
   AlertBodyComponent,
   AlertComponent,
   ButtonComponent,
@@ -15,6 +17,7 @@ import {
   TabsComponent,
   TextFieldComponent,
 } from 'components';
+import { APP_PATHS } from '../../core/app-paths';
 import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
@@ -22,6 +25,8 @@ import { ThemeService } from '../../core/services/theme.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
+    BreadcrumbComponent,
     IconComponent,
     ButtonComponent,
     CardComponent,
@@ -42,6 +47,9 @@ import { ThemeService } from '../../core/services/theme.service';
 })
 export class SettingsComponent implements OnInit {
   private themeService = inject(ThemeService);
+  /** Reached as "Look" from the Website area's site tree (L2-REQ-118 AC3). */
+  readonly asLook = inject(Router).url.startsWith(APP_PATHS.websiteLook);
+  readonly paths = APP_PATHS;
   private fb = inject(FormBuilder);
 
   activeTab = 'theme';

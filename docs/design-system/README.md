@@ -41,7 +41,7 @@ The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 a
 | [Switch](components/switch.html) | Inputs | in a table cell (privilege grid), with a label | off, on, hover, focus, disabled, not saved (reverts) | admin-roles |
 | [Form layout](components/form-layout.html) | Inputs | actions row, sign-in page, form beside a preview, error summary, danger zone | default, invalid, saving, failed | admin-login, admin-register, admin-change-password, admin-user-create, admin-settings |
 | [Photo picker](components/photo-picker.html) | Inputs | from the device, from the Assets library | no photo, with photo, focus, uploading, too large, wrong file, failed, disabled | admin-photo-picker, admin-director-editor, admin-profile |
-| [Sidebar navigation](components/sidebar.html) | Navigation | 13 links, with section headings, in `.app-shell` | default, hover, focus, current | admin-dashboard, admin-maintenance, admin-roles, admin-settings, admin-profile |
+| [Sidebar navigation](components/sidebar.html) | Navigation | grouped links (Dashboard, Website, Community, Operations, Access, Settings) with section headings, in `.app-shell`; member variant | default, hover, focus, current | admin-dashboard, admin-maintenance, admin-roles, admin-settings, admin-profile |
 | [Top bar](components/top-bar.html) | Navigation | admin phone header (brand + My profile link); core with `.topbar__nav` | brand and avatar default, hover, focus, current | admin-dashboard, admin-maintenance, admin-profiles |
 | [Tab bar](components/tab-bar.html) | Navigation | four tabs + More (opens every section in a dialog), with a count | default, hover, focus, current, More open | admin-dashboard, admin-maintenance, admin-documents, admin-messaging, admin-profile |
 | [Tabs](components/tabs.html) | Navigation | underline, underline with counts, pill filters · 44px/36px | default, hover, focus, selected, disabled | admin-settings, admin-maintenance, admin-documents |
@@ -71,13 +71,20 @@ The admin mocks in `docs/mocks` were rebuilt on this system on 20 October 2026 a
 | [Skeleton](components/skeleton.html) | Feedback | text, title, circle, block (core; not used in the admin yet) | loading, loaded | admin-dashboard, admin-users |
 | [Empty state](components/empty-state.html) | Feedback | first use, no results, nothing selected, error · full/compact | default, action focus, error | admin-users, admin-documents, admin-maintenance, admin-assets, admin-messaging |
 | [Error page](components/error-page.html) | Feedback | not found, no access, something went wrong, offline (core; not used in the admin yet) | default, focus, retrying | none; nearest admin-board, admin-pages, admin-website errors |
+| [Site tree](components/site-tree.html) | Navigation | column beside a screen, cards on the Website landing | default, hover, focus, current, add | admin-website, admin-board |
+| [Publish bar](components/publish-bar.html) | Feedback | everything published, unpublished changes | default, publishing, failed (in the dialog) | admin-website, admin-page-editor |
+| [Section list](components/section-list.html) | Data display | home sections, fixed menu and footer, page banner and body blocks with Add | default, hover, focus, selected, hidden, moved | admin-page-editor |
+| [Placement note](components/placement-note.html) | Feedback | one sentence per section | static | admin-page-editor |
+| [Linked summary](components/linked-summary.html) | Data display | with items, empty | link states | admin-page-editor (notices, board, linked-empty) |
+| [Preview pane](components/preview-pane.html) | Containers and overlays | home, website page | default, reloading, expired link | admin-page-editor, public-landing (preview) |
+| [Block card](components/block-card.html) | Data display | Heading, Paragraph, Bullet list, Photo, Link button, Existing content | static | admin-page-editor (page, page-existing) |
 
 ### Left out on purpose
 
 - **Shelfie-only pieces**: book cover, cover picker, cover gallery, book card, chapter row, sticker, sticker picker, swatch picker, streak, trophy, achievement badge, celebration, question and answer, chat bubble, feedback note, plus the e-mail foundation and the marketing-page pattern. Their tokens (cover pastels and tints, cover sizes), CSS, scripts (`aurora.js`) and images were not carried over.
 - **Shelfie generic components the admin does not use and that are not core**: hero, accordion, combobox, activity feed, suggestion.
 - **Public app components** (for example the old system's bottom tab bar for members): the public app is out of scope.
-- **Added for Coop admin**: sidebar navigation, tabs, pagination, checkbox, select, search field, icon button, spinner, description list, tooltip, divider and metric card. They are written in the same visual language and are new to this system.
+- **Added for Coop admin**: sidebar navigation, tabs, pagination, checkbox, select, search field, icon button, spinner, description list, tooltip, divider and metric card, and on 24 October 2026 the Website area pieces: site tree, publish bar, section list, placement note, linked summary, preview pane and block card. They are written in the same visual language and are new to this system.
 
 ## Patterns
 
@@ -135,6 +142,14 @@ Each row records where the implemented Angular admin (as captured in `docs/mocks
 | D27 | admin-settings | "Theme Customization" edits the *public website's* colours, with no contrast check | Treated as website content; this system's themes must pass `check_contrast.py` |
 | D28 | admin-maintenance | Maintenance statuses are New, Received, Started and Completed; the code also accepts "Complete" and "Done" | These four words everywhere: New (warning), Received (neutral), Started (info), Completed (success) |
 | D29 | admin-member-* | The admin showed every member all thirteen sections, though most refuse them | Sidebar **member** variant: Dashboard, Maintenance, Documents, Messages, My profile; office sections left out, not disabled (L2-REQ-112) |
+| D30 | admin-website, admin-pages, admin-board, admin-assets | Four unrelated sidebar links (Website, Pages, Board, Assets) for one public website; a flat list of thirteen links | One **Website** sidebar entry and a [site tree](components/site-tree.html) inside it; the sidebar grouped as Dashboard, Website, Community, Operations, Access, Settings |
+| D31 | admin-website, admin-pages, admin-board | Every save went live at once ("Changes are live as soon as you save"); no way to try a change safely | A draft and a published copy of the site content; the [publish bar](components/publish-bar.html) with Preview site, Publish and Discard changes; pages and the board list still save at once |
+| D32 | admin-website, admin-content-editor | Blocks as cards in two groups, each opening a dialog; the public order lived in code | The page editor screen: a [section list](components/section-list.html) in public order with Hide, Move up and Move down, the section form beside it, and a preview |
+| D33 | admin-website | Placement explained only by group headings and block names ("Hero", "At a glance") | A [placement note](components/placement-note.html) under each section heading; plain names ("Welcome banner", "Numbers at a glance") |
+| D34 | admin-content-editor | "What's on" and "Meet the board" edited headings only; nothing said what visitors would see or where to change it | A [linked summary](components/linked-summary.html) with the count, the first items and Manage notices or Manage directors |
+| D35 | admin-website | No preview; the public site was reachable only through a constant used for photo thumbnails | A [preview pane](components/preview-pane.html) in the editor and Preview site in the publish bar, both through a short-lived preview link |
+| D36 | admin-page-editor | The page body was one textarea of simple HTML | A page is a banner plus body blocks ([block card](components/block-card.html)); old HTML becomes one Existing content block |
+| D37 | admin-director-editor | A director's photo was a typed address | The photo picker, as everywhere else |
 
 ### Status in the app
 
@@ -151,6 +166,7 @@ On 20 October 2026 the admin moved onto this system without changing behaviour o
   - D24: the unit choice is a radio group; the `h1` and moving focus are open.
 - **Resolved on 21 October 2026:** D29, the role-filtered sidebar.
 - **Open:** D9 (error and confirmation wording), D15 (plain role names, Title Case labels), D23 (metric links, loading and "Not available"), D27, D28 (status words), and the sentence-case labels in D3.
+- **Website area (D30 to D37):** resolved in the admin on 24 October 2026 with the content management re-imagined work; the mocks in `docs/mocks` show the resolutions and the admin implements them (see `docs/detailed-designs/admin-app/website-area/`).
 
 ### Open questions
 
@@ -176,6 +192,7 @@ Not verified by tooling: a screen-reader pass, `forced-colors` rendering, and re
 
 ## Changelog
 
+- **2026-10-24**: Added the Website area components for content management re-imagined: site tree, publish bar, section list, placement note, linked summary, preview pane and block card, with their CSS in `components.css`; the sidebar page now describes the grouped sidebar. Drift D30 to D37 record what the earlier admin did. No tokens changed.
 - **2026-10-21**: Added the sidebar's member variant (five areas, "My profile") for members, who now use the admin site (ADR 0016, drift D29). No new tokens or components.
 - **2026-10-21**: The admin's presentation components are now built once in the Angular `components` library (`frontend/projects/components/src/lib`) and the admin no longer loads `components.css` (ADR 0010). Each component page names its Angular component under Code. No tokens or designs changed, and the drift items stay open.
 - **2026-10-20**: The Angular admin now loads this system (ADR 0009). Added the status of each drift item in the app.

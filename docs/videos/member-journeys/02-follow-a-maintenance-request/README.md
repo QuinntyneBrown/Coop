@@ -1,6 +1,6 @@
 # Member journey 02 · Follow a maintenance request
 
-> **Runtime:** about 1 min 56 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account with at least one request
+> **Runtime:** about 1 min 53 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** a member account with at least one request
 
 **Video:** [02-follow-a-maintenance-request.mp4](02-follow-a-maintenance-request.mp4) · [Slides](slides.html) · **Audio:** [02-follow-a-maintenance-request.mp3](02-follow-a-maintenance-request.mp3) · [Transcript](script.md)
 

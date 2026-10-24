@@ -9,16 +9,18 @@ import { SiteFooterComponent } from '../../layout/site-footer/site-footer.compon
 import { SiteHeaderComponent } from '../../layout/site-header/site-header.component';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { showPhotoUnavailable } from '../../core/site-content/show-photo-unavailable';
+import { SiteLinkDirective } from '../../core/site-content/site-link.directive';
 import type { ContentPageState } from './content-page-state';
 
 /**
  * A website page the office added, at /pages/:slug, drawn in
- * docs/mocks/pages/public-page/ (states default, loading, error, not-found).
+ * docs/mocks/pages/public-page/ (states default, loading, error, not-found):
+ * the banner, then the body blocks in order by kind (L2-REQ-123 AC6).
  */
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [RouterLink, SiteHeaderComponent, SiteFooterComponent],
+  imports: [RouterLink, SiteHeaderComponent, SiteFooterComponent, SiteLinkDirective],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

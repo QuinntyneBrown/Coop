@@ -1,0 +1,240 @@
+<nav aria-label="Breadcrumb">
+  <ol libBreadcrumb>
+    <li><a [routerLink]="paths.website">Website</a></li>
+    <li aria-current="page">Photos</li>
+  </ol>
+</nav>
+<div class="page-header">
+  <div>
+    <h1 data-testid="assets-page-title">Photos</h1>
+    <p class="subtitle" data-testid="assets-info">{{ assets.length }} photos and files</p>
+  </div>
+  <div class="cluster">
+    <div libSearchField class="assets-search">
+      <label class="visually-hidden" for="assets-search">Search assets</label>
+      <svg libIcon="search"></svg>
+      <input
+        libTextField
+        id="assets-search"
+        type="search"
+        placeholder="Search assets..."
+        autocomplete="off"
+        data-testid="assets-search"
+        (input)="onSearchAssets($event)"
+      />
+    </div>
+    <button
+      libButton
+      variant="primary"
+      type="button"
+      aria-haspopup="dialog"
+      data-testid="assets-upload-button"
+      (click)="openUploadDialog()"
+    >
+      <svg libIcon="upload"></svg>Upload
+    </button>
+  </div>
+</div>
+
+<div libCard data-testid="assets-grid">
+  @if (filteredAssets.length > 0) {
+    <div libPictureList>
+      <ul libPictureListGrid aria-label="Assets">
+        @for (asset of filteredAssets; track asset) {
+          <li libPictureListItem>
+            <button
+              class="asset-card"
+              type="button"
+              aria-haspopup="dialog"
+              data-testid="asset-card"
+              (click)="openAssetDetail(asset)"
+            >
+              <span libPictureListThumb class="asset-card__thumb" data-testid="asset-preview">
+                <svg libIcon="documents"></svg>
+              </span>
+              <span class="asset-card__name" data-testid="asset-name">{{ asset.name }}</span>
+              <span libPictureListNote>
+                <span data-testid="asset-size">{{
+                  formatFileSize(asset.contentLength ?? asset.size)
+                }}</span>
+                &middot;
+                <span data-testid="asset-date">{{ asset.createdOn | date: 'mediumDate' }}</span>
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  } @else {
+    <div libEmptyState>
+      <div libEmptyStateIcon><svg libIcon="upload"></svg></div>
+      <h2 libEmptyStateTitle>No assets uploaded yet</h2>
+    </div>
+  }
+</div>
+
+<!-- Upload Dialog -->
+<dialog
+  #uploadDialog
+  libDialog
+  aria-labelledby="asset-upload-title"
+  data-testid="upload-dialog"
+  (cancel)="$event.preventDefault(); showUploadDialog = false"
+>
+  @if (showUploadDialog) {
+    <div libDialogPanel>
+      <div libDialogHeader>
+        <h2 libDialogTitle id="asset-upload-title">Upload File</h2>
+        <button
+          libButton
+          variant="ghost"
+          iconOnly
+          type="button"
+          aria-label="Close"
+          (click)="showUploadDialog = false"
+        >
+          <svg libIcon="close"></svg>
+        </button>
+      </div>
+      <div libDialogBody class="stack">
+        <div libFormField>
+          <label libFieldLabel for="asset-upload-file">Choose a file</label>
+          <input
+            id="asset-upload-file"
+            type="file"
+            libTextField
+            aria-describedby="asset-upload-help"
+            data-testid="upload-file-input"
+            (change)="onFileSelected($event)"
+          />
+          <p libFieldHelp id="asset-upload-help">
+            Any file, such as a photo or a PDF, up to 28 MB.
+          </p>
+        </div>
+        @if (uploadProgressValue >= 0) {
+          <div
+            libProgress
+            aria-label="Upload progress"
+            [value]="uploadProgressValue"
+            data-testid="upload-progress"
+          ></div>
+        }
+      </div>
+      <div libDialogFooter>
+        <button
+          libButton
+          type="button"
+          data-testid="upload-cancel"
+          (click)="showUploadDialog = false"
+        >
+          Cancel
+        </button>
+        <button
+          libButton
+          variant="primary"
+          type="button"
+          data-testid="upload-confirm"
+          [attr.aria-busy]="uploadProgressValue >= 0 || null"
+          (click)="confirmUpload()"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  }
+</dialog>
+
+<!-- Asset Detail Dialog -->
+<dialog
+  #detailDialog
+  libDialog
+  aria-labelledby="asset-detail-title"
+  data-testid="asset-detail-dialog"
+  (cancel)="$event.preventDefault(); selectedAsset = null"
+>
+  @if (selectedAsset && !showDeleteAssetDialog) {
+    <div libDialogPanel>
+      <div libDialogHeader>
+        <h2 libDialogTitle id="asset-detail-title">Asset Details</h2>
+      </div>
+      <div libDialogBody class="stack">
+        <div data-testid="asset-detail-preview" libPictureListThumb class="asset-detail__preview">
+          <svg libIcon="documents"></svg>
+        </div>
+        <dl libDescriptionList>
+          <dt>File name</dt>
+          <dd data-testid="asset-detail-name">{{ selectedAsset.name }}</dd>
+          <dt>Size</dt>
+          <dd data-testid="asset-detail-size">
+            {{ formatFileSize(selectedAsset.contentLength ?? selectedAsset.size) }}
+          </dd>
+          <dt>Uploaded</dt>
+          <dd data-testid="asset-detail-date">
+            {{ selectedAsset.createdOn | date: 'MMM d, y, h:mm a' }}
+          </dd>
+        </dl>
+      </div>
+      <div libDialogFooter>
+        <button libButton variant="primary" type="button" data-testid="asset-download-button">
+          <svg libIcon="download"></svg>Download
+        </button>
+        <button libButton type="button" (click)="selectedAsset = null">Close</button>
+        <button
+          libButton
+          variant="danger"
+          type="button"
+          aria-haspopup="dialog"
+          data-testid="asset-delete-button"
+          (click)="openDeleteAssetDialog()"
+        >
+          <svg libIcon="delete"></svg>Delete
+        </button>
+      </div>
+    </div>
+  }
+</dialog>
+
+<!-- Delete Asset Dialog -->
+<dialog
+  #deleteDialog
+  libDialog
+  role="alertdialog"
+  aria-labelledby="asset-delete-title"
+  aria-describedby="asset-delete-desc"
+  data-testid="asset-delete-dialog"
+  (cancel)="$event.preventDefault(); showDeleteAssetDialog = false"
+>
+  @if (showDeleteAssetDialog) {
+    <div libDialogPanel>
+      <div libDialogHeader>
+        <div libDialogIcon>
+          <svg libIcon="delete"></svg>
+        </div>
+        <h2 libDialogTitle id="asset-delete-title">Confirm Delete</h2>
+      </div>
+      <div libDialogBody>
+        <p id="asset-delete-desc">Are you sure you want to delete this asset?</p>
+      </div>
+      <div libDialogFooter>
+        <button
+          libButton
+          type="button"
+          autofocus
+          data-testid="asset-delete-cancel"
+          (click)="showDeleteAssetDialog = false"
+        >
+          Cancel
+        </button>
+        <button
+          libButton
+          variant="danger"
+          type="button"
+          data-testid="asset-delete-confirm"
+          (click)="confirmDeleteAsset()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  }
+</dialog>

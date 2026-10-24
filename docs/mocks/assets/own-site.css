@@ -353,3 +353,9 @@ a:hover { color: var(--own-text); }
 .own-page__status { padding-block: var(--own-space-8) var(--own-space-9); font-size: var(--own-size-lead); color: var(--own-muted); }
 .own-page__missing { display: grid; gap: var(--own-space-5); justify-items: start; padding-block: var(--own-space-8) var(--own-space-9); }
 .own-page__missing h1 { font-size: var(--own-size-h2); }
+
+/* Preview mode: the public site rendering the admin draft says so at the top of every page. */
+.own-preview-banner { background: var(--own-plum, #5b3a6b); color: #fff; font-size: var(--own-size-small); }
+.own-preview-banner__inner { display: flex; align-items: center; gap: var(--own-space-3); padding-block: var(--own-space-3); }
+.own-preview-banner .own-icon { flex: none; }
+[data-theme="dark"] .own-preview-banner { background: #f0d7f7; color: #2b1a33; }

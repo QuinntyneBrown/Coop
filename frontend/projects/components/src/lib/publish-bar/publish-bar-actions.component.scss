@@ -1,0 +1,8 @@
+// The action row of the publish bar. (docs/design-system/components/publish-bar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

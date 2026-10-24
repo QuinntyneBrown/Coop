@@ -1,11 +1,11 @@
-import { type Locator, type Page, expect } from '@playwright/test';
-import { LandingPage } from '../public/landing.page';
+import { type Locator, type Page, expect } from "@playwright/test";
+import { LandingPage } from "../public/landing.page";
 
 /** The public app the Playwright config serves beside the admin app. */
-const PUBLIC_APP_URL = 'http://localhost:4201/';
+const PUBLIC_APP_URL = "http://localhost:4201/";
 
 /**
- * The admin "Board" screen (`/board`), drawn in docs/mocks/pages/admin-board/
+ * The admin "Board of directors" screen (`/website/board`), drawn in docs/mocks/pages/admin-board/
  * with its dialogs in dialogs/admin-director-editor/ and
  * dialogs/admin-director-remove/. Owns every selector; tests only state intent.
  */
@@ -27,7 +27,10 @@ export class BoardPage {
   readonly editorHeading: Locator;
   readonly nameInput: Locator;
   readonly titleInput: Locator;
-  readonly photoInput: Locator;
+  readonly photoChoose: Locator;
+  readonly photoRemove: Locator;
+  readonly photoName: Locator;
+  readonly picker: Locator;
   readonly editorErrors: Locator;
   readonly nameError: Locator;
   readonly titleError: Locator;
@@ -43,61 +46,66 @@ export class BoardPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.title = page.getByTestId('board-title');
-    this.addButton = page.getByTestId('board-add-button');
-    this.list = page.getByTestId('board-list');
-    this.cards = page.getByTestId('director-card');
-    this.names = this.cards.getByTestId('director-card-name');
-    this.empty = page.getByTestId('board-empty');
-    this.error = page.getByTestId('board-error');
-    this.saveError = page.getByTestId('board-save-error');
-    this.retryButton = page.getByTestId('board-retry');
-    this.notice = page.getByTestId('board-notice');
+    this.title = page.getByTestId("board-title");
+    this.addButton = page.getByTestId("board-add-button");
+    this.list = page.getByTestId("board-list");
+    this.cards = page.getByTestId("director-card");
+    this.names = this.cards.getByTestId("director-card-name");
+    this.empty = page.getByTestId("board-empty");
+    this.error = page.getByTestId("board-error");
+    this.saveError = page.getByTestId("board-save-error");
+    this.retryButton = page.getByTestId("board-retry");
+    this.notice = page.getByTestId("board-notice");
 
-    this.editor = page.getByTestId('director-editor');
-    this.editorHeading = page.getByTestId('director-editor-heading');
-    this.nameInput = page.getByTestId('director-name-input');
-    this.titleInput = page.getByTestId('director-title-input');
-    this.photoInput = page.getByTestId('director-photo-input');
-    this.editorErrors = page.getByTestId('director-editor-errors');
-    this.nameError = page.getByTestId('director-name-error');
-    this.titleError = page.getByTestId('director-title-error');
-    this.editorFailed = page.getByTestId('director-editor-failed');
-    this.cancelButton = page.getByTestId('director-editor-cancel');
-    this.saveButton = page.getByTestId('director-editor-save');
+    this.editor = page.getByTestId("director-editor");
+    this.editorHeading = page.getByTestId("director-editor-heading");
+    this.nameInput = page.getByTestId("director-name-input");
+    this.titleInput = page.getByTestId("director-title-input");
+    this.photoChoose = page.getByTestId("director-photo-choose");
+    this.photoRemove = page.getByTestId("director-photo-remove");
+    this.photoName = page.getByTestId("director-photo-name");
+    this.picker = page.getByTestId("photo-picker");
+    this.editorErrors = page.getByTestId("director-editor-errors");
+    this.nameError = page.getByTestId("director-name-error");
+    this.titleError = page.getByTestId("director-title-error");
+    this.editorFailed = page.getByTestId("director-editor-failed");
+    this.cancelButton = page.getByTestId("director-editor-cancel");
+    this.saveButton = page.getByTestId("director-editor-save");
 
-    this.removeDialog = page.getByTestId('director-remove-dialog');
-    this.removeHeading = page.getByTestId('director-remove-heading');
-    this.removeCancelButton = page.getByTestId('director-remove-cancel');
-    this.removeConfirmButton = page.getByTestId('director-remove-confirm');
+    this.removeDialog = page.getByTestId("director-remove-dialog");
+    this.removeHeading = page.getByTestId("director-remove-heading");
+    this.removeCancelButton = page.getByTestId("director-remove-cancel");
+    this.removeConfirmButton = page.getByTestId("director-remove-confirm");
   }
 
   async goto() {
-    await this.page.goto('/board');
-    await this.page.waitForLoadState('networkidle');
+    await this.page.goto("/website/board");
+    await this.page.waitForLoadState("networkidle");
   }
 
   async expectPageLoaded() {
-    await expect(this.title).toHaveText('Board of Directors');
+    await expect(this.title).toHaveText("Board of directors");
     await expect(this.addButton).toBeVisible();
   }
 
   card(name: string): Locator {
     return this.cards.filter({
-      has: this.page.getByTestId('director-card-name').getByText(name, { exact: true }),
+      has: this.page
+        .getByTestId("director-card-name")
+        .getByText(name, { exact: true }),
     });
   }
 
   cardTitle(name: string): Locator {
-    return this.card(name).getByTestId('director-card-title');
+    return this.card(name).getByTestId("director-card-title");
   }
 
   moveUpButton(name: string): Locator {
-    return this.card(name).getByTestId('director-move-up');
+    return this.card(name).getByTestId("director-move-up");
   }
 
   moveDownButton(name: string): Locator {
-    return this.card(name).getByTestId('director-move-down');
+    return this.card(name).getByTestId("director-move-down");
   }
 
   async openEditor() {
@@ -106,14 +114,24 @@ export class BoardPage {
   }
 
   async openEditorFor(name: string) {
-    await this.card(name).getByTestId('director-edit').click();
+    await this.card(name).getByTestId("director-edit").click();
     await expect(this.editor).toBeVisible();
   }
 
-  async fillEditor(fields: { name?: string; title?: string; photo?: string }) {
+  async fillEditor(fields: { name?: string; title?: string }) {
     if (fields.name !== undefined) await this.nameInput.fill(fields.name);
     if (fields.title !== undefined) await this.titleInput.fill(fields.title);
-    if (fields.photo !== undefined) await this.photoInput.fill(fields.photo);
+  }
+
+  /** Chooses a portrait from the photo picker by its file name (L2-REQ-124 AC5). */
+  async choosePhoto(fileName: string) {
+    await this.photoChoose.click();
+    await expect(this.picker).toBeVisible();
+    await this.picker
+      .getByTestId("photo-option")
+      .filter({ hasText: fileName })
+      .click();
+    await expect(this.picker).toBeHidden();
   }
 
   async save() {
@@ -121,7 +139,7 @@ export class BoardPage {
   }
 
   async openRemoveFor(name: string) {
-    await this.card(name).getByTestId('director-remove').click();
+    await this.card(name).getByTestId("director-remove").click();
     await expect(this.removeDialog).toBeVisible();
   }
 
@@ -129,14 +147,16 @@ export class BoardPage {
   async openPublicHomePage(): Promise<LandingPage> {
     const tab = await this.page.context().newPage();
     await tab.goto(PUBLIC_APP_URL);
-    await tab.waitForLoadState('networkidle');
+    await tab.waitForLoadState("networkidle");
     return new LandingPage(tab);
   }
 
   /** True when the document is wider than the viewport, i.e. horizontal scrolling is possible. */
   async hasHorizontalScroll(): Promise<boolean> {
     return this.page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth,
     );
   }
 }

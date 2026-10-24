@@ -1,0 +1,812 @@
+<nav aria-label="Breadcrumb">
+  <ol libBreadcrumb>
+    <li><a [routerLink]="paths.website">Website</a></li>
+    <li aria-current="page">{{ title() }}</li>
+  </ol>
+</nav>
+<div class="page-header">
+  <div>
+    <h1 data-testid="editor-title">{{ title() }}</h1>
+    <p class="subtitle">{{ subtitle }}</p>
+  </div>
+</div>
+
+<div class="stack">
+  @if (mode !== 'page') {
+    <app-publish-bar (discarded)="load()" />
+  }
+
+  <div role="status" aria-live="polite">
+    @if (notice()) {
+      <div libAlert tone="success">
+        <svg libIcon="success"></svg>
+        <div libAlertBody data-testid="editor-notice">{{ notice() }}</div>
+      </div>
+    }
+  </div>
+
+  @switch (status()) {
+    @case ('loading') {
+      <div libCard flush>
+        <div libLoading role="status" aria-live="polite" data-testid="editor-loading">
+          <span libSpinner></span>Loading
+          {{
+            mode === 'menu'
+              ? 'the menu and footer'
+              : mode === 'page'
+                ? 'the page'
+                : 'the home page'
+          }}…
+        </div>
+      </div>
+    }
+    @case ('error') {
+      <div libAlert tone="danger" role="alert" data-testid="editor-error">
+        <svg libIcon="error"></svg>
+        <div libAlertBody>
+          <span>We couldn't load the website content. Check your connection and try again.</span>
+          <div libAlertActions>
+            <button type="button" libButton size="sm" (click)="load()" data-testid="editor-retry">
+              <svg libIcon="try-again"></svg>Try again
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('ready') {
+      <div libPageEditor data-testid="page-editor">
+        <div libPageEditorTabs>
+          <div libTabs aria-label="Editor panes">
+            <button
+              libTab
+              type="button"
+              id="editor-tab-sections"
+              aria-controls="editor-pane-sections"
+              [attr.aria-selected]="tab() === 'sections'"
+              [attr.tabindex]="tab() === 'sections' ? null : -1"
+              (click)="tab.set('sections')"
+              data-testid="editor-tab-sections"
+            >
+              Sections
+            </button>
+            <button
+              libTab
+              type="button"
+              id="editor-tab-edit"
+              aria-controls="editor-pane-edit"
+              [attr.aria-selected]="tab() === 'edit'"
+              [attr.tabindex]="tab() === 'edit' ? null : -1"
+              (click)="tab.set('edit')"
+              data-testid="editor-tab-edit"
+            >
+              Edit
+            </button>
+            <button
+              libTab
+              type="button"
+              id="editor-tab-preview"
+              aria-controls="editor-pane-preview"
+              [attr.aria-selected]="tab() === 'preview'"
+              [attr.tabindex]="tab() === 'preview' ? null : -1"
+              (click)="tab.set('preview')"
+              data-testid="editor-tab-preview"
+            >
+              Preview
+            </button>
+          </div>
+        </div>
+
+        <section
+          libPageEditorPane
+          pane="sections"
+          id="editor-pane-sections"
+          role="tabpanel"
+          aria-labelledby="editor-tab-sections"
+          [hidden]="tab() !== 'sections'"
+          data-testid="editor-sections"
+        >
+          <div libCard class="stack">
+            <h2 libCardTitle>Sections</h2>
+            <ol libSectionList aria-label="Sections in the order visitors see them">
+              @for (section of sections(); track section.kind) {
+                <li
+                  libSectionListItem
+                  [hiddenSection]="isHidden(section)"
+                  data-testid="section-item"
+                >
+                  <button
+                    libSectionListButton
+                    type="button"
+                    [attr.aria-current]="selected().kind === section.kind ? 'true' : null"
+                    (click)="select(section)"
+                    data-testid="section-button"
+                  >
+                    {{ section.name }}
+                  </button>
+                  @if (isHidden(section)) {
+                    <span libBadge tone="neutral" data-testid="section-hidden-badge">Hidden</span>
+                  }
+                </li>
+              }
+            </ol>
+            @if (mode === 'page') {
+              <div libSectionListTools role="group" aria-label="Selected section">
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="isBanner(selected()) || !canMove(-1) || position(selected()) === 2"
+                  (click)="moveBlock(-1)"
+                  data-testid="section-move-up"
+                >
+                  <svg libIcon="move-up"></svg>Move up
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="isBanner(selected()) || !canMove(1)"
+                  (click)="moveBlock(1)"
+                  data-testid="section-move-down"
+                >
+                  <svg libIcon="move-down"></svg>Move down
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  variant="danger"
+                  type="button"
+                  [disabled]="isBanner(selected())"
+                  (click)="removeBlock()"
+                  data-testid="section-remove"
+                >
+                  Remove<span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+              </div>
+              <div libSectionListAdd role="group" aria-label="Add to the page">
+                <span libSectionListAddLabel>Add to the page</span>
+                @for (kind of blockKinds; track kind) {
+                  <button
+                    libButton
+                    size="sm"
+                    type="button"
+                    (click)="addBlock(kind)"
+                    [attr.data-testid]="'section-add-' + kind"
+                  >
+                    <svg [libIcon]="blockIcons[kind]"></svg>{{ blockLabel(kind) }}
+                  </button>
+                }
+              </div>
+              <div role="status" aria-live="polite">
+                @if (toolStatus()) {
+                  <p libInlineStatus data-testid="section-tools-status">
+                    <svg libIcon="success" size="sm"></svg>{{ toolStatus() }}
+                  </p>
+                }
+              </div>
+            }
+            @if (mode === 'home') {
+              <div libSectionListTools role="group" aria-label="Selected section">
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy()"
+                  (click)="toggleHidden()"
+                  data-testid="section-hide"
+                >
+                  <svg [libIcon]="isHidden(selected()) ? 'show' : 'hide'"></svg
+                  >{{ isHidden(selected()) ? 'Show section' : 'Hide section' }}
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy() || !canMove(-1)"
+                  (click)="move(-1)"
+                  data-testid="section-move-up"
+                >
+                  <svg libIcon="move-up"></svg>Move up
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+                <button
+                  libButton
+                  size="sm"
+                  type="button"
+                  [disabled]="toolBusy() || !canMove(1)"
+                  (click)="move(1)"
+                  data-testid="section-move-down"
+                >
+                  <svg libIcon="move-down"></svg>Move down
+                  <span class="visually-hidden">: {{ selected().name }}</span>
+                </button>
+              </div>
+              <div role="status" aria-live="polite">
+                @if (toolStatus()) {
+                  <p libInlineStatus data-testid="section-tools-status">
+                    <svg libIcon="success" size="sm"></svg>{{ toolStatus() }}
+                  </p>
+                }
+              </div>
+              @if (toolFailed()) {
+                <div libAlert tone="danger" role="alert" data-testid="section-tools-failed">
+                  <svg libIcon="error"></svg>
+                  <div libAlertBody>We couldn't save your changes. Try again.</div>
+                </div>
+              }
+            }
+          </div>
+        </section>
+
+        <section
+          libPageEditorPane
+          pane="form"
+          id="editor-pane-edit"
+          role="tabpanel"
+          aria-labelledby="editor-tab-edit"
+          [hidden]="tab() !== 'edit'"
+          data-testid="editor-form"
+        >
+          @let section = selected();
+          <form
+            libCard
+            class="stack"
+            (submit)="save($event)"
+            novalidate
+            aria-labelledby="section-title"
+          >
+            <div class="section-form__head stack">
+              <h2 id="section-title" tabindex="-1" data-testid="section-heading">
+                {{ section.name }}
+              </h2>
+              <p libPlacementNote data-testid="section-placement">
+                <svg libIcon="place" size="sm"></svg><span>{{ section.placement }}</span>
+              </p>
+            </div>
+            @if (errorList().length > 0) {
+              <div
+                libAlert
+                tone="danger"
+                class="form-summary"
+                role="alert"
+                tabindex="-1"
+                data-testid="section-form-errors"
+              >
+                <svg libIcon="error"></svg>
+                <div libAlertBody>
+                  <p libAlertTitle>Something needs attention before your changes can be saved.</p>
+                  <ol>
+                    @for (error of errorList(); track error.id) {
+                      <li>
+                        <a [href]="'#' + error.id">{{ error.message }}</a>
+                      </li>
+                    }
+                  </ol>
+                </div>
+              </div>
+            }
+            @if (saveFailed()) {
+              <div libAlert tone="danger" role="alert">
+                <svg libIcon="error"></svg>
+                <div libAlertBody data-testid="section-form-failed">
+                  We couldn't save your changes. Try again.
+                </div>
+              </div>
+            }
+            @if (mode === 'page' && isBanner(section)) {
+              @let page = banner();
+              @if (!page['published']) {
+                <p libInlineStatus data-testid="page-unpublished">
+                  <svg libIcon="hide" size="sm"></svg>Not in the website menu yet. Visitors cannot
+                  open it until you tick “Show this page in the website menu”.
+                </p>
+              }
+              <div libFormField>
+                <label libFieldLabel for="page-title-field">Page title</label>
+                <input
+                  libTextField
+                  id="page-title-field"
+                  name="title"
+                  type="text"
+                  autocomplete="off"
+                  [ngModel]="page['title']"
+                  (ngModelChange)="page['title'] = $event"
+                  [attr.aria-invalid]="errors()['title'] ? 'true' : null"
+                  [attr.aria-describedby]="errors()['title'] ? 'page-title-error' : null"
+                  data-testid="page-title-input"
+                />
+                @if (errors()['title']) {
+                  <p libFieldError id="page-title-error">
+                    <span data-testid="field-error">{{ errors()['title'] }}</span>
+                  </p>
+                }
+              </div>
+              @if (pageAddress(); as address) {
+                <p class="text-muted">
+                  Page address:
+                  <a [href]="publicSiteUrl + address" data-testid="page-address">
+                    {{ address }}<svg libIcon="open-in-new" size="sm"></svg
+                    ><span class="visually-hidden"> (opens the public page)</span>
+                  </a>
+                </p>
+              } @else {
+                <p class="text-muted" data-testid="page-address-note">
+                  The page address comes from the title, for example /pages/our-history.
+                </p>
+              }
+              <fieldset class="stack">
+                <legend>Photo <span class="optional">(optional)</span></legend>
+                <div libPhotoPicker>
+                  @if (page['heroImageUrl']) {
+                    <div libPictureListThumb class="page-photo__thumb">
+                      <img
+                        [src]="previewUrl(page['heroImageUrl'])"
+                        width="160"
+                        height="120"
+                        alt=""
+                        data-testid="page-hero-preview"
+                      />
+                    </div>
+                  }
+                  <div libPhotoPickerBody>
+                    <p libListTitle id="page-hero-name" data-testid="page-hero-name">
+                      {{ photoName(page['heroImageUrl']) }}
+                    </p>
+                    <div libPhotoPickerActions>
+                      <button
+                        type="button"
+                        libButton
+                        variant="primary"
+                        aria-haspopup="dialog"
+                        aria-describedby="page-hero-name"
+                        (click)="chooseBannerPhoto()"
+                        data-testid="page-hero-choose"
+                      >
+                        <svg libIcon="photo"></svg>Choose photo
+                      </button>
+                      @if (page['heroImageUrl']) {
+                        <button
+                          type="button"
+                          libButton
+                          variant="ghost"
+                          (click)="removeBannerPhoto()"
+                          data-testid="page-hero-remove"
+                        >
+                          <svg libIcon="delete"></svg>Remove photo
+                        </button>
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div libFormField>
+                  <label libFieldLabel for="page-hero-alt-field">Photo description</label>
+                  <p libFieldHelp id="page-hero-alt-help">
+                    Describe the photo for people who cannot see it.
+                  </p>
+                  <textarea
+                    libTextarea
+                    id="page-hero-alt-field"
+                    name="heroImageAlt"
+                    rows="3"
+                    [ngModel]="page['heroImageAlt']"
+                    (ngModelChange)="page['heroImageAlt'] = $event"
+                    [attr.aria-invalid]="errors()['heroImageAlt'] ? 'true' : null"
+                    [attr.aria-describedby]="
+                      errors()['heroImageAlt']
+                        ? 'page-hero-alt-help page-hero-alt-error'
+                        : 'page-hero-alt-help'
+                    "
+                    data-testid="page-hero-alt-input"
+                  ></textarea>
+                  @if (errors()['heroImageAlt']) {
+                    <p libFieldError id="page-hero-alt-error">
+                      <span data-testid="field-error">{{ errors()['heroImageAlt'] }}</span>
+                    </p>
+                  }
+                </div>
+              </fieldset>
+              <label libCheckbox>
+                <input
+                  type="checkbox"
+                  id="page-published"
+                  name="published"
+                  [ngModel]="page['published']"
+                  (ngModelChange)="page['published'] = $event"
+                  data-testid="page-published"
+                />
+                <span libCheckboxText
+                  >Show this page in the website menu<small
+                    >Untick it to write the page before visitors can see it.</small
+                  ></span
+                >
+              </label>
+            } @else {
+              @for (field of section.fields; track field.key) {
+                <ng-container
+                  *ngTemplateOutlet="
+                    fieldTemplate;
+                    context: { $implicit: field, target: draft(), path: field.key }
+                  "
+                />
+              }
+            }
+            @if (linkedSummary(); as summary) {
+              <div libLinkedSummary data-testid="linked-summary">
+                <div libLinkedSummaryText>
+                  <span libLinkedSummaryTitle data-testid="linked-summary-title">{{
+                    summary.title
+                  }}</span>
+                  @if (summary.items.length > 0) {
+                    <ul libLinkedSummaryList data-testid="linked-summary-items">
+                      @for (item of summary.items; track item) {
+                        <li>{{ item }}</li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="linked-summary__empty" data-testid="linked-summary-empty">
+                      {{ summary.empty }}
+                    </p>
+                  }
+                </div>
+                <a libButton [routerLink]="summary.linkPath" data-testid="linked-summary-link"
+                  >{{ summary.linkLabel }}<svg libIcon="open-in-new"></svg
+                ></a>
+              </div>
+            }
+            <div class="cluster">
+              <button
+                type="submit"
+                libButton
+                variant="primary"
+                [disabled]="saving()"
+                [attr.aria-busy]="saving() ? 'true' : null"
+                data-testid="section-save"
+              >
+                {{
+                  saving()
+                    ? 'Saving…'
+                    : mode !== 'page'
+                      ? 'Save changes'
+                      : page()
+                        ? 'Save page'
+                        : 'Create page'
+                }}
+              </button>
+              <button
+                type="button"
+                libButton
+                variant="ghost"
+                [disabled]="saving()"
+                (click)="undo()"
+                data-testid="section-undo"
+              >
+                Undo changes
+              </button>
+              @if (mode === 'page' && page()) {
+                <button
+                  type="button"
+                  libButton
+                  variant="danger"
+                  [disabled]="saving()"
+                  aria-haspopup="dialog"
+                  (click)="openRemove()"
+                  data-testid="page-remove"
+                >
+                  Remove page
+                </button>
+              }
+            </div>
+          </form>
+        </section>
+
+        <div
+          libPageEditorPane
+          pane="preview"
+          id="editor-pane-preview"
+          role="tabpanel"
+          aria-labelledby="editor-tab-preview"
+          [hidden]="tab() !== 'preview'"
+          data-testid="editor-preview"
+        >
+          <app-preview-pane [anchor]="selected().anchor" [path]="previewPath()" />
+        </div>
+      </div>
+    }
+  }
+</div>
+
+<app-photo-picker (picked)="onPhotoPicked($event)" />
+
+<dialog
+  #removeDialog
+  libDialog
+  role="alertdialog"
+  aria-labelledby="remove-title"
+  aria-describedby="remove-intro"
+  data-testid="page-remove-dialog"
+>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
+        <svg libIcon="delete"></svg>
+      </div>
+      <h2 libDialogTitle id="remove-title" data-testid="page-remove-heading">
+        Remove “{{ page()?.title }}”?
+      </h2>
+    </div>
+    <div libDialogBody class="stack">
+      <p id="remove-intro">It leaves the website straight away. You can add it again later.</p>
+      @if (removeFailed()) {
+        <div libAlert tone="danger" role="alert">
+          <svg libIcon="error"></svg>
+          <div libAlertBody>We couldn't remove the page. Try again.</div>
+        </div>
+      }
+    </div>
+    <div libDialogFooter>
+      <button
+        type="button"
+        libButton
+        autofocus
+        [disabled]="removeBusy()"
+        (click)="closeRemove()"
+        data-testid="page-remove-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        libButton
+        variant="danger"
+        [disabled]="removeBusy()"
+        [attr.aria-busy]="removeBusy() ? 'true' : null"
+        (click)="removePage()"
+        data-testid="page-remove-confirm"
+      >
+        {{ removeBusy() ? 'Removing…' : 'Remove page' }}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<!-- One field of a block, drawn by kind; groups and lists draw their own fields with it. -->
+<ng-template #fieldTemplate let-field let-target="target" let-path="path">
+  @let id = fieldId(path);
+  @let error = errors()[path];
+  @let describedBy =
+    ((field.help ? id + '-help ' : '') + (error ? id + '-error' : '')).trim() || null;
+  @switch (field.kind) {
+    @case ('group') {
+      <fieldset class="stack">
+        <legend>{{ field.label }}</legend>
+        <div class="stack" [class.content-fieldset__row]="field.columns">
+          @for (sub of field.fields; track sub.key) {
+            <ng-container
+              *ngTemplateOutlet="
+                fieldTemplate;
+                context: { $implicit: sub, target: target[field.key], path: path + '.' + sub.key }
+              "
+            />
+          }
+        </div>
+      </fieldset>
+    }
+    @case ('list') {
+      <fieldset class="stack">
+        <legend>{{ field.label }}</legend>
+        <ol libList class="content-list__items">
+          @for (
+            item of target[field.key];
+            track $index;
+            let i = $index, first = $first, last = $last
+          ) {
+            @let legend = itemLegend(field, i);
+            @let name = legend.toLowerCase();
+            <li [attr.data-item]="path + '.' + i">
+              <fieldset libCard class="stack">
+                <legend>{{ legend }}</legend>
+                <div class="stack" [class.content-fieldset__row]="field.columns">
+                  @for (sub of field.fields; track sub.key) {
+                    <ng-container
+                      *ngTemplateOutlet="
+                        fieldTemplate;
+                        context: {
+                          $implicit: sub,
+                          target: item,
+                          path: path + '.' + i + '.' + sub.key,
+                        }
+                      "
+                    />
+                  }
+                </div>
+                <div class="cluster">
+                  <button
+                    type="button"
+                    libButton
+                    size="sm"
+                    [attr.aria-label]="'Move ' + name + ' up'"
+                    [attr.data-move]="path + '.' + i + '.up'"
+                    [disabled]="first"
+                    (click)="moveListItem(target, field, path, i, -1)"
+                  >
+                    <svg libIcon="move-up"></svg>Move up
+                  </button>
+                  <button
+                    type="button"
+                    libButton
+                    size="sm"
+                    [attr.aria-label]="'Move ' + name + ' down'"
+                    [attr.data-move]="path + '.' + i + '.down'"
+                    [disabled]="last"
+                    (click)="moveListItem(target, field, path, i, 1)"
+                  >
+                    <svg libIcon="move-down"></svg>Move down
+                  </button>
+                  <button
+                    type="button"
+                    libButton
+                    variant="danger"
+                    size="sm"
+                    [attr.aria-label]="'Remove ' + name"
+                    (click)="removeItem(target, field, path, i)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </fieldset>
+            </li>
+          }
+        </ol>
+        <button
+          type="button"
+          libButton
+          class="content-list__add"
+          [attr.data-add]="path"
+          (click)="addItem(target, field, path)"
+        >
+          <svg libIcon="add"></svg>Add {{ field.itemName }}
+        </button>
+      </fieldset>
+    }
+    @case ('photo') {
+      @let photo = target[field.key];
+      @let srcError = errors()[path + '.src'];
+      @let altId = fieldId(path + '.alt');
+      @let altError = errors()[path + '.alt'];
+      <fieldset class="stack">
+        <legend>{{ field.label }}</legend>
+        <div libPhotoPicker>
+          @if (photo.src) {
+            <div libPictureListThumb class="photo-field__thumb">
+              <img [src]="previewUrl(photo.src)" width="160" height="120" alt="" />
+            </div>
+          }
+          <div libPhotoPickerBody>
+            <p libListTitle [id]="id + '-name'">
+              {{ photo.src ? 'Current photo: ' + fileName(photo.src) : 'No photo chosen yet' }}
+            </p>
+            <div libPhotoPickerActions>
+              <button
+                type="button"
+                libButton
+                variant="primary"
+                aria-haspopup="dialog"
+                [id]="fieldId(path + '.src')"
+                [attr.aria-describedby]="
+                  srcError ? id + '-name ' + id + '-src-error' : id + '-name'
+                "
+                (click)="choosePhoto(photo, path)"
+              >
+                <svg libIcon="photo"></svg>Choose photo
+              </button>
+            </div>
+            @if (srcError) {
+              <p libFieldError [id]="id + '-src-error'">
+                <span data-testid="field-error">{{ srcError }}</span>
+              </p>
+            }
+          </div>
+        </div>
+        <div libFormField>
+          <label libFieldLabel [for]="altId">Photo description</label>
+          <textarea
+            libTextarea
+            [id]="altId"
+            rows="3"
+            [(ngModel)]="photo.alt"
+            [ngModelOptions]="{ standalone: true }"
+            [attr.aria-invalid]="altError ? 'true' : null"
+            [attr.aria-describedby]="altId + '-help' + (altError ? ' ' + altId + '-error' : '')"
+          ></textarea>
+          <p libFieldHelp [id]="altId + '-help'">
+            Describe the photo for people who cannot see it.
+          </p>
+          @if (altError) {
+            <p libFieldError [id]="altId + '-error'">
+              <span data-testid="field-error">{{ altError }}</span>
+            </p>
+          }
+        </div>
+      </fieldset>
+    }
+    @default {
+      <div libFormField>
+        <label libFieldLabel [for]="id">{{ field.label }}</label>
+        @switch (field.kind) {
+          @case ('choice') {
+            <select
+              libSelect
+              [id]="id"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-describedby]="describedBy"
+            >
+              @for (option of field.options; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          }
+          @case ('textarea') {
+            <textarea
+              libTextarea
+              [id]="id"
+              rows="3"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            ></textarea>
+          }
+          @case ('lines') {
+            <textarea
+              libTextarea
+              [id]="id"
+              rows="4"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            ></textarea>
+          }
+          @case ('address') {
+            <input
+              libTextField
+              [id]="id"
+              type="text"
+              inputmode="url"
+              spellcheck="false"
+              autocomplete="off"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            />
+          }
+          @default {
+            <input
+              libTextField
+              [id]="id"
+              type="text"
+              autocomplete="off"
+              [(ngModel)]="target[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="error ? 'true' : null"
+              [attr.aria-describedby]="describedBy"
+            />
+          }
+        }
+        @if (field.help) {
+          <p libFieldHelp [id]="id + '-help'">{{ field.help }}</p>
+        }
+        @if (error) {
+          <p libFieldError [id]="id + '-error'">
+            <span data-testid="field-error">{{ error }}</span>
+          </p>
+        }
+      </div>
+    }
+  }
+</ng-template>

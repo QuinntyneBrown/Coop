@@ -145,8 +145,8 @@ dotnet run --project backend/src/Coop.Cli -- db reset --new-instance --admin-use
 | `user` | `list`, `create --username --password [--role]...`, `rename --username --new-username`, `set-password --username --password`, `add-role` / `remove-role --username --role`, `remove --username` |
 | `role` | `list`, `create --name`, `remove --name`, `grant` / `revoke --role --aggregate --access <Read\|Write\|Create\|Delete>` |
 | `invitation` | `list`, `create --value --type <Member\|BoardMember\|StaffMember> [--expires yyyy-mm-dd]`, `remove --value` |
-| `site-content` | `export [--file]`, `import --file` (JSON in the shape `GET /api/site-content` returns) |
-| `page` | `list`, `create --title --body-file [--hero-image-url --hero-image-alt]`, `update --slug [...]`, `remove --slug` |
+| `site-content` | `export [--file] [--draft]`, `import --file [--draft]` (JSON in the shape `GET /api/site-content` returns; without `--draft` the import is published at once), `publish`, `discard` |
+| `page` | `list` (with a Published column), `create --title --body-file [--hero-image-url --hero-image-alt --published]`, `update --slug [... --published]`, `remove --slug` (a body file becomes one Existing content block; a new page is out of the menu until `--published`) |
 | `board` | `export [--file]`, `import --file` (a JSON array of `name`, `title`, `photoUrl`) |
 | `asset` | `list`, `upload --file`, `remove --id` |
 | `theme` | `list`, `create --css-file [--default]`, `update --id --css-file [--default]`, `remove --id` |

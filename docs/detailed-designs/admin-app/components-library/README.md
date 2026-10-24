@@ -128,6 +128,36 @@ start with `foundations/`.
 | `SidebarNavComponent` | `nav[libSidebarNav]` | none | default | `sidebar.html` |
 | `SidebarUserNameComponent` | `span[libSidebarUserName]` | none | default | `sidebar.html` |
 | `SidebarUserRoleComponent` | `span[libSidebarUserRole]` | none | default | `sidebar.html` |
+| `SidebarGroupComponent` | `span[libSidebarGroup]` | none | default | `sidebar.html` |
+| `SiteTreeComponent` | `nav[libSiteTree]` | `cards` | default | `site-tree.html` |
+| `SiteTreeListComponent` | `ul[libSiteTreeList]` | `nested` | default | `site-tree.html` |
+| `SiteTreeLinkComponent` | `a[libSiteTreeLink]` | `add` | default | `site-tree.html` |
+| `SiteTreeGroupComponent` | `span[libSiteTreeGroup]` | none | default | `site-tree.html` |
+| `WebsiteShellComponent` | `div[libWebsiteShell]` | none | default | `site-tree.html` |
+| `PublishBarComponent` | `div[libPublishBar]` | `changes` | default | `publish-bar.html` |
+| `PublishBarTextComponent` | `p[libPublishBarText]` | none | default | `publish-bar.html` |
+| `PublishBarActionsComponent` | `div[libPublishBarActions]` | none | default | `publish-bar.html` |
+| `PageEditorComponent` | `div[libPageEditor]` | none | default | `section-list.html` |
+| `PageEditorTabsComponent` | `div[libPageEditorTabs]` | none | default | `section-list.html` |
+| `PageEditorPaneComponent` | `section[libPageEditorPane], div[libPageEditorPane]` | `pane` (required: `sections`, `form`, `preview`) | default | `section-list.html` |
+| `SectionListComponent` | `ol[libSectionList]` | none | default | `section-list.html` |
+| `SectionListItemComponent` | `li[libSectionListItem]` | `hiddenSection`, `fixed` | default | `section-list.html` |
+| `SectionListButtonComponent` | `button[libSectionListButton]` | none | default | `section-list.html` |
+| `SectionListToolsComponent` | `div[libSectionListTools]` | none | default | `section-list.html` |
+| `SectionListAddComponent` | `div[libSectionListAdd]` | none | default | `section-list.html` |
+| `PlacementNoteComponent` | `p[libPlacementNote]` | none | default | `placement-note.html` |
+| `LinkedSummaryComponent` | `div[libLinkedSummary]` | none | default | `linked-summary.html` |
+| `LinkedSummaryTextComponent` | `div[libLinkedSummaryText]` | none | default | `linked-summary.html` |
+| `LinkedSummaryTitleComponent` | `span[libLinkedSummaryTitle]` | none | default | `linked-summary.html` |
+| `LinkedSummaryListComponent` | `ul[libLinkedSummaryList]` | none | default | `linked-summary.html` |
+| `PreviewPaneComponent` | `section[libPreviewPane]` | none | default | `preview-pane.html` |
+| `PreviewPaneHeaderComponent` | `div[libPreviewPaneHeader]` | none | default | `preview-pane.html` |
+| `PreviewPaneTitleComponent` | `h2[libPreviewPaneTitle]` | none | default | `preview-pane.html` |
+| `PreviewPaneNoteComponent` | `p[libPreviewPaneNote]` | none | default | `preview-pane.html` |
+| `PreviewPaneFrameComponent` | `iframe[libPreviewPaneFrame]` | none | none | `preview-pane.html` |
+| `BlockCardComponent` | `article[libBlockCard]` | none | default | `block-card.html` |
+| `BlockCardKindComponent` | `span[libBlockCardKind]` | none | default | `block-card.html` |
+| `BlockCardPreviewComponent` | `p[libBlockCardPreview]` | none | default | `block-card.html` |
 | `SidebarUserComponent` | `div[libSidebarUser]` | none | default | `sidebar.html` |
 | `SidebarComponent` | `aside[libSidebar]` | none | default | `sidebar.html` |
 | `SkipLinkComponent` | `a[libSkipLink]` | none | default | `skip-link.html` |
@@ -249,10 +279,14 @@ standalone component's `imports`. Because the path points at the source:
 
 | Left in the app | Reason |
 |-----------------|--------|
-| The feature screens (`LoginComponent`, `UsersComponent`, `PagesComponent` and the rest) | They hold feature logic and call services from the app. |
+| The feature screens (`LoginComponent`, `UsersComponent`, `BoardComponent` and the rest) | They hold feature logic and call services from the app. |
 | `LayoutComponent` (`app-layout`) | Layout used once: the app shell grid with the sidebar, the main region and the phone tab bar. Its links come from the app's route list. |
 | `SidebarComponent` (`app-sidebar`) | Holds feature logic (the signed-in user, sign-out and the app's links). It draws the library's `aside[libSidebar]` and its parts. |
 | `PhotoPickerComponent` (`app-photo-picker`, in `features/website/photo-picker/`) | Calls the assets service and holds the choose-or-upload flow. It draws the library's picture list. |
+| `SiteTreeComponent` (`app-site-tree`, in `features/website/site-tree/`) | Loads the page list through `PageService` and reads the path registry; draws the library's site tree. |
+| `PublishBarComponent` (`app-publish-bar`, in `features/website/publish-bar/`) | Reads `hasDraft` from `SiteContentService`, calls publish and discard and owns their dialogs; draws the library's publish bar. |
+| `PreviewPaneComponent` (`app-preview-pane`, in `features/website/preview-pane/`) | Asks `PreviewTokenService` for a token and builds the public address; draws the library's preview pane. |
+| `PageEditorComponent` (`app-page-editor`, in `features/website/page-editor/`) | Feature logic: modes, section definitions, the draft, saving, moving, hiding, blocks and the linked summaries. |
 | `.wizard` (onboarding) | Used once and only layout. |
 | `.metric-grid` (dashboard) | Used once and only layout. |
 | `.app-shell` and `.has-tabbar` (layout) | Used once and only layout. |

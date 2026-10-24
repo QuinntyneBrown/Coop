@@ -1,10 +1,13 @@
 // Acceptance Test
-// Traces to: L2-REQ-094, L2-REQ-097, L2-REQ-098, L2-REQ-099, L2-REQ-100
+// Traces to: L2-REQ-094, L2-REQ-097, L2-REQ-098, L2-REQ-099, L2-REQ-100, L2-REQ-122
 // Description: The site content through the API: the seeded content read
-// anonymously, whole-content replacement stored as the SiteContent JSON
-// content entry, idempotent re-sending, the field rules (required values,
-// safe links and photo addresses, photo descriptions, lengths), refusal of
-// members and anonymous callers, and a re-run seed keeping saved content.
+// anonymously, whole-content replacement saved to the draft and published
+// into the SiteContent JSON content entry, idempotent re-sending, the field
+// rules (required values, safe links and photo addresses, photo
+// descriptions, lengths), refusal of members and anonymous callers, and a
+// re-run seed keeping saved content, home sections saved in order by kind
+// with hidden flags and an entry in the earlier shape migrated once. The
+// draft itself is covered by SiteContentDraftTests.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -32,6 +35,17 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
 
     private static Task<HttpResponseMessage> SaveContentAsync(HttpClient client, JsonNode siteContent)
         => client.PutAsJsonAsync("/api/site-content", new JsonObject { ["siteContent"] = siteContent.DeepClone() });
+
+    /// <summary>Saves to the draft and publishes it, so visitors see the content (L2-REQ-121).</summary>
+    private static async Task<HttpResponseMessage> SaveAndPublishAsync(HttpClient client, JsonNode siteContent)
+    {
+        var saved = await SaveContentAsync(client, siteContent);
+        if (!saved.IsSuccessStatusCode)
+            return saved;
+        var published = await client.PostAsync("/api/site-content/publish", null);
+        Assert.Equal(HttpStatusCode.OK, published.StatusCode);
+        return saved;
+    }
 
     private static JsonNode At(JsonNode node, string path)
     {
@@ -77,10 +91,10 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         Assert.Equal("Member sign in", At(content, "header.signInLink.label").GetValue<string>());
         Assert.Equal("/login", At(content, "header.signInLink.href").GetValue<string>());
         Assert.Equal("Visit or write", At(content, "footer.contactHeading").GetValue<string>());
-        Assert.Equal("A home of our own, in the heart of Toronto.", At(content, "home.hero.title").GetValue<string>());
-        Assert.Equal("/own/hero.svg", At(content, "home.hero.photo.src").GetValue<string>());
-        Assert.Equal(6, At(content, "home.gallery.photos").AsArray().Count);
-        Assert.Equal(2, At(content, "home.features.rows").AsArray().Count);
+        Assert.Equal("A home of our own, in the heart of Toronto.", At(content, "home.sections.0.title").GetValue<string>());
+        Assert.Equal("/own/hero.svg", At(content, "home.sections.0.photo.src").GetValue<string>());
+        Assert.Equal(6, At(content, "home.sections.3.photos").AsArray().Count);
+        Assert.Equal(2, At(content, "home.sections.4.rows").AsArray().Count);
 
         var photos = PhotosIn(content).ToList();
         Assert.Equal(10, photos.Count);
@@ -97,8 +111,8 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     {
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
-        Set(content, "home.hero.title", "Come home to the co-op.");
-        Set(content, "home.hero.photo", new JsonObject
+        Set(content, "home.sections.0.title", "Come home to the co-op.");
+        Set(content, "home.sections.0.photo", new JsonObject
         {
             ["src"] = "http://localhost:5000/api/digitalasset/serve/5f0c",
             ["alt"] = "Neighbours planting tomatoes in the rooftop garden.",
@@ -107,21 +121,21 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         });
         Set(content, "header.menuLinks", new JsonArray(new JsonObject { ["label"] = "Our garden", ["href"] = "/pages/our-garden" }));
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var anonymous = _factory.CreateAnonymousClient();
         var published = await GetContentAsync(anonymous);
-        Assert.Equal("Come home to the co-op.", At(published, "home.hero.title").GetValue<string>());
-        Assert.Equal("http://localhost:5000/api/digitalasset/serve/5f0c", At(published, "home.hero.photo.src").GetValue<string>());
-        Assert.Equal("Neighbours planting tomatoes in the rooftop garden.", At(published, "home.hero.photo.alt").GetValue<string>());
-        Assert.Equal(1600, At(published, "home.hero.photo.width").GetValue<int>());
+        Assert.Equal("Come home to the co-op.", At(published, "home.sections.0.title").GetValue<string>());
+        Assert.Equal("http://localhost:5000/api/digitalasset/serve/5f0c", At(published, "home.sections.0.photo.src").GetValue<string>());
+        Assert.Equal("Neighbours planting tomatoes in the rooftop garden.", At(published, "home.sections.0.photo.alt").GetValue<string>());
+        Assert.Equal(1600, At(published, "home.sections.0.photo.width").GetValue<int>());
         Assert.Equal("Our garden", At(published, "header.menuLinks.0.label").GetValue<string>());
         Assert.Single(At(published, "header.menuLinks").AsArray());
 
         var entry = await anonymous.GetFromJsonAsync<JsonElement>("/api/jsoncontent/name/SiteContent");
         var stored = JsonNode.Parse(entry.GetProperty("jsonContent").GetProperty("json").GetString()!)!;
-        Assert.Equal("Come home to the co-op.", At(stored, "home.hero.title").GetValue<string>());
+        Assert.Equal("Come home to the co-op.", At(stored, "home.sections.0.title").GetValue<string>());
     }
 
     [Fact]
@@ -131,8 +145,8 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         var content = await GetContentAsync(admin);
         Set(content, "footer.copyright", "© 2026 OWN Housing Co-operative Inc.");
 
-        var first = await SaveContentAsync(admin, content);
-        var second = await SaveContentAsync(admin, content);
+        var first = await SaveAndPublishAsync(admin, content);
+        var second = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, first.StatusCode);
         Assert.Equal(HttpStatusCode.OK, second.StatusCode);
 
@@ -156,7 +170,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         }
         Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync("/api/site-content")).StatusCode);
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var published = await GetContentAsync(_factory.CreateAnonymousClient());
         Assert.Equal("OWN Housing Co-op", At(published, "header.siteName").GetValue<string>());
@@ -168,7 +182,7 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
         Set(content, "header.siteSubtitle", "A home for older women since 1997");
-        Assert.Equal(HttpStatusCode.OK, (await SaveContentAsync(admin, content)).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await SaveAndPublishAsync(admin, content)).StatusCode);
 
         using (var scope = _factory.Services.CreateScope())
         {
@@ -212,16 +226,16 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     [InlineData("header.menuLinks.0.href", "http://example.test/garden")]
     [InlineData("header.menuLinks.0.href", "mailto:office@example.invalid")]
     [InlineData("header.menuLinks.0.href", "tel:+14165550142")]
-    [InlineData("home.hero.photo.src", "/own/garden.svg")]
-    [InlineData("home.hero.photo.src", "https://example.test/garden.jpg")]
-    [InlineData("home.hero.lead", "")]
+    [InlineData("home.sections.0.photo.src", "/own/garden.svg")]
+    [InlineData("home.sections.0.photo.src", "https://example.test/garden.jpg")]
+    [InlineData("home.sections.0.lead", "")]
     public async Task Given_a_safe_value_then_the_save_is_accepted(string path, string value)
     {
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
         Set(content, path, value);
 
-        var response = await SaveContentAsync(admin, content);
+        var response = await SaveAndPublishAsync(admin, content);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var published = await GetContentAsync(_factory.CreateAnonymousClient());
         Assert.Equal(value, At(published, path).GetValue<string>());
@@ -230,13 +244,13 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     [Theory]
     [InlineData("header.siteName", "")]
     [InlineData("header.siteName", "   ")]
-    [InlineData("home.hero.title", "")]
-    [InlineData("home.about.title", "")]
-    [InlineData("home.features.rows.0.title", "")]
-    [InlineData("home.quote.text", "")]
-    [InlineData("home.glance.figures.0.value", "")]
-    [InlineData("home.glance.figures.0.label", "")]
-    [InlineData("home.about.values.0.title", "")]
+    [InlineData("home.sections.0.title", "")]
+    [InlineData("home.sections.2.title", "")]
+    [InlineData("home.sections.4.rows.0.title", "")]
+    [InlineData("home.sections.7.text", "")]
+    [InlineData("home.sections.1.figures.0.value", "")]
+    [InlineData("home.sections.1.figures.0.label", "")]
+    [InlineData("home.sections.2.values.0.title", "")]
     [InlineData("header.menuLinks.0.label", "")]
     [InlineData("header.menuLinks.0.label", "long-label")]
     [InlineData("header.menuLinks.0.href", "")]
@@ -247,17 +261,17 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     [InlineData("header.menuLinks.0.href", "garden")]
     [InlineData("header.menuLinks.0.href", "long-href")]
     [InlineData("footer.memberLinks.0.href", "javascript:alert(1)")]
-    [InlineData("home.hero.primaryAction.href", "javascript:alert(1)")]
-    [InlineData("home.hero.photo.alt", "")]
-    [InlineData("home.hero.photo.alt", "long-alt")]
-    [InlineData("home.hero.photo.src", "")]
-    [InlineData("home.hero.photo.src", "javascript:alert(1)")]
-    [InlineData("home.hero.photo.src", "data:image/png;base64,AAAA")]
-    [InlineData("home.gallery.photos.0.photo.alt", "")]
-    [InlineData("home.quote.photo.alt", "")]
-    [InlineData("home.hero.lead", "long-text")]
-    [InlineData("home.about.values.0.icon", "rocket")]
-    [InlineData("home.gallery.photos.0.size", "huge")]
+    [InlineData("home.sections.0.primaryAction.href", "javascript:alert(1)")]
+    [InlineData("home.sections.0.photo.alt", "")]
+    [InlineData("home.sections.0.photo.alt", "long-alt")]
+    [InlineData("home.sections.0.photo.src", "")]
+    [InlineData("home.sections.0.photo.src", "javascript:alert(1)")]
+    [InlineData("home.sections.0.photo.src", "data:image/png;base64,AAAA")]
+    [InlineData("home.sections.3.photos.0.photo.alt", "")]
+    [InlineData("home.sections.7.photo.alt", "")]
+    [InlineData("home.sections.0.lead", "long-text")]
+    [InlineData("home.sections.2.values.0.icon", "rocket")]
+    [InlineData("home.sections.3.photos.0.size", "huge")]
     public async Task Given_content_that_breaks_a_rule_then_the_save_is_rejected_and_nothing_changes(string path, string value)
     {
         var admin = await _factory.CreateAdminClientAsync();
@@ -288,20 +302,94 @@ public class SiteContentTests : IClassFixture<CoopApiFactory>
     {
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
-        Set(content, "home.quote.photo.width", width);
+        Set(content, "home.sections.7.photo.width", width);
 
         var response = await SaveContentAsync(admin, content);
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]
-    public async Task Given_a_missing_block_then_the_save_is_rejected()
+    public async Task Given_a_repeated_section_kind_then_the_save_is_rejected()
     {
         var admin = await _factory.CreateAdminClientAsync();
         var content = await GetContentAsync(admin);
-        content["home"]!.AsObject().Remove("hero");
+        var sections = At(content, "home.sections").AsArray();
+        sections.Add(sections[0]!.DeepClone());
 
         var response = await SaveContentAsync(admin, content);
+
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Contains("Each home page section may appear once.", await response.Content.ReadAsStringAsync());
+    }
+
+    [Fact]
+    public async Task Given_a_section_of_an_unknown_kind_then_the_save_is_rejected()
+    {
+        var admin = await _factory.CreateAdminClientAsync();
+        var content = await GetContentAsync(admin);
+        At(content, "home.sections").AsArray().Add(new JsonObject { ["kind"] = "carousel", ["title"] = "Photos" });
+
+        var response = await SaveContentAsync(admin, content);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Given_sections_moved_and_one_hidden_then_the_saved_order_and_flag_are_kept_with_kind_in_any_position()
+    {
+        var admin = await _factory.CreateAdminClientAsync();
+        var content = await GetContentAsync(admin);
+        var sections = At(content, "home.sections").AsArray();
+        var about = sections[2]!.DeepClone().AsObject();
+        var gallery = sections[3]!.DeepClone().AsObject();
+        sections.RemoveAt(3);
+        sections.RemoveAt(2);
+        gallery["hidden"] = true;
+        // "kind" after the other values, as a client that spreads an object may send it.
+        var kind = gallery["kind"]!.DeepClone();
+        gallery.Remove("kind");
+        gallery["kind"] = kind;
+        sections.Insert(2, gallery);
+        sections.Insert(3, about);
+
+        var response = await SaveAndPublishAsync(admin, content);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var published = At(await GetContentAsync(_factory.CreateAnonymousClient()), "home.sections").AsArray();
+        Assert.Equal(new[] { "hero", "glance", "gallery", "about", "features", "notices", "board", "quote", "visit" }, published.Select(s => s!["kind"]!.GetValue<string>()));
+        Assert.True(published[2]!["hidden"]!.GetValue<bool>());
+        Assert.False(published[3]!["hidden"]!.GetValue<bool>());
+    }
+
+    [Fact]
+    public async Task Given_an_entry_in_the_earlier_shape_when_the_seed_runs_then_it_becomes_sections_in_the_default_order_once()
+    {
+        await using var fresh = new CoopApiFactory();
+        var legacy = """{"header":{"siteName":"Old"},"footer":{},"home":{"hero":{"title":"Old hero"},"visit":{"title":"Old visit"},"about":{"title":"Old about"}}}""";
+        using (var scope = fresh.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<CoopDbContext>();
+            var entry = await context.JsonContents.SingleAsync(j => j.Name == "SiteContent");
+            entry.Json = legacy;
+            context.JsonContents.Add(new Coop.Domain.CMS.JsonContent { Name = "SiteContentDraft", Json = legacy });
+            await context.SaveChangesAsync();
+
+            await SeedData.SeedAsync(context, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
+            var once = (await context.JsonContents.SingleAsync(j => j.Name == "SiteContent")).Json;
+            await SeedData.SeedAsync(context, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
+            Assert.Equal(once, (await context.JsonContents.SingleAsync(j => j.Name == "SiteContent")).Json);
+        }
+
+        foreach (var client in new[] { fresh.CreateAnonymousClient() })
+        {
+            var sections = At(await GetContentAsync(client), "home.sections").AsArray();
+            Assert.Equal(new[] { "hero", "about", "visit" }, sections.Select(s => s!["kind"]!.GetValue<string>()));
+            Assert.Equal("Old about", sections[1]!["title"]!.GetValue<string>());
+            Assert.All(sections, s => Assert.Null(s!["hidden"]));
+        }
+        var admin = await fresh.CreateAdminClientAsync();
+        var draft = await admin.GetFromJsonAsync<JsonObject>("/api/site-content?draft=true");
+        Assert.True(draft!["hasDraft"]!.GetValue<bool>());
+        Assert.Equal("Old hero", At(draft["siteContent"]!, "home.sections.0.title").GetValue<string>());
     }
 }

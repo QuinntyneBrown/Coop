@@ -1,6 +1,6 @@
 # Member journey 05 · Message the office
 
-> **Runtime:** about 1 min 44 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016), with a conversation
+> **Runtime:** about 1 min 40 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016), with a conversation
 
 **Video:** [05-message-the-office.mp4](05-message-the-office.mp4) · [Slides](slides.html) · **Audio:** [05-message-the-office.mp3](05-message-the-office.mp3) · [Transcript](script.md)
 

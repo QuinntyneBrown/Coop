@@ -1,0 +1,28 @@
+/* The page editor screen (docs/mocks/pages/admin-page-editor/). Components
+   come from docs/design-system; this file only lays them out. */
+
+.section-form__head {
+  margin-bottom: var(--space-2);
+}
+
+/* Short fields such as label and address sit side by side when there is room. */
+.content-fieldset__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+
+.content-list__items {
+  gap: var(--space-3);
+}
+
+.content-list__add {
+  align-self: flex-start;
+}
+
+.photo-field__thumb {
+  flex: 0 0 var(--space-24);
+}
+
+.linked-summary__empty {
+  color: var(--color-fg-muted);
+}

@@ -5,7 +5,10 @@ namespace Coop.Domain.CMS;
 
 /// <summary>
 /// A website page the office adds to the public site: a title, an optional hero
-/// photograph address with its description and an HTML body, reached at /pages/{Slug}.
+/// photograph address with its description and a body of blocks held as JSON,
+/// reached at /pages/{Slug} once it is published (L2-REQ-123). <see cref="Body"/>
+/// is the HTML of a page written before blocks existed, kept only until the
+/// startup seed rewrites it into one Existing content block.
 /// </summary>
 public class Page
 {
@@ -17,16 +20,22 @@ public class Page
     public string? HeroImageUrl { get; set; }
     public string? HeroImageAlt { get; set; }
     public string Body { get; set; } = string.Empty;
+    /// <summary>The body blocks as JSON (<c>[{ "kind": "heading", "text": "…" }, …]</c>).</summary>
+    public string Sections { get; set; } = "[]";
+    /// <summary>True when visitors can see the page in the menu and open it.</summary>
+    public bool Published { get; set; }
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
 
-    public void Update(string title, string? heroImageUrl, string? heroImageAlt, string body)
+    public void Update(string title, string? heroImageUrl, string? heroImageAlt, string sections, bool published)
     {
         Title = title.Trim();
         Slug = SlugFrom(title);
         HeroImageUrl = string.IsNullOrWhiteSpace(heroImageUrl) ? null : heroImageUrl.Trim();
         HeroImageAlt = HeroImageUrl is null || string.IsNullOrWhiteSpace(heroImageAlt) ? null : heroImageAlt.Trim();
-        Body = body;
+        Sections = sections;
+        Body = string.Empty;
+        Published = published;
     }
 
     public void Delete()

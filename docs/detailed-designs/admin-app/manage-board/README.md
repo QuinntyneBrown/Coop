@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Changed on 24 October 2026.** The Board screen lives under the Website area at `/website/board`, beside the site tree, and its editor chooses the portrait with the photo picker instead of a typed address (`../website-area/`, `L2-REQ-124`). The public home page reads the board from `api/board-of-directors` only (`../../public-app/render-home-sections/`). The API, the list rules and the tests below hold.
+
 The public home page lists the co-operative's directors under "Meet the board"
 (`L2-REQ-070`). Office administrators keep that list from the "Board" screen
 of the admin application at `/board`, drawn in `docs/mocks/pages/admin-board/`
@@ -88,9 +90,9 @@ change is needed.
 
 ### Admin application
 
-`BoardComponent` (`frontend/projects/admin/src/app/features/community/board/`,
-`board.component.ts`, `.html`, `.scss`) is the routed screen at `/board`,
-reached from the "Board" sidebar link. It owns these signals: `directors`,
+`BoardComponent` (`frontend/projects/admin/src/app/features/website/board/`,
+`board.component.ts`, `.html`, `.scss`) is the routed screen at `/website/board`,
+reached from the site tree's "Board of directors" (the former `/board` redirects there). It owns these signals: `directors`,
 `status` (`loading`, `ready`, `error`), `notice` (the last success message),
 `listError` (a failed move), `moving`, `editingIndex` (null while adding),
 `errors`, `saving`, `saveFailed` and `removingIndex`, plus the `draft` the
@@ -120,11 +122,10 @@ director swapped with a neighbour. The server rules stay authoritative.
 
 ### Public application
 
-Nothing changes. `LandingComponent` reads
-`api/jsoncontent/name/BoardOfDirectors` and shows one card per member in the
-listed order, with the photograph from `photoUrl` or the initials
-(`L2-REQ-070` AC2). When the list is empty it still falls back to the board
-member profiles (`L2-REQ-070` AC3).
+`LandingComponent` reads `api/board-of-directors` through `BoardService` and
+shows one card per director in the listed order, with the photograph from
+`photoUrl` or the initials (`L2-REQ-070` AC2). An empty list shows the
+section's heading only; there is no other board source (`L2-REQ-124` AC6).
 
 ### Tests
 

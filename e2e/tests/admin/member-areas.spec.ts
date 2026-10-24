@@ -10,18 +10,16 @@ import { DashboardPage } from '../../pages/admin/dashboard.page';
 
 const MEMBER_AREAS = ['Dashboard', 'Maintenance', 'Documents', 'Messages', 'My profile'];
 
+// The office's grouped sidebar (L2-REQ-118 AC1): Dashboard, Website, Community, Operations, Access, Settings.
 const OFFICE_SECTIONS = [
   'Dashboard',
-  'Maintenance',
-  'Documents',
-  'Pages',
-  'Board',
   'Website',
+  'Documents',
   'Messages',
-  'Users',
-  'Roles & Privileges',
   'Profiles',
-  'Assets',
+  'Maintenance',
+  'Users',
+  'Roles and privileges',
   'Invitations',
   'Settings',
 ];
@@ -58,12 +56,13 @@ test.describe('Member areas by role', () => {
       const sidebar = new SidebarComponent(authenticatedPage);
 
       await sidebar.expectLinks(OFFICE_SECTIONS);
+      await sidebar.expectGroupHeadings(['Community', 'Operations', 'Access']);
       await expect(sidebar.profileLink).toHaveCount(0);
     });
   });
 
   test.describe('Typed office addresses', () => {
-    for (const path of ['/pages', '/board', '/website', '/users', '/roles', '/profiles', '/assets', '/invitations', '/settings']) {
+    for (const path of ['/website', '/website/home', '/website/board', '/pages', '/board', '/assets', '/users', '/roles', '/profiles', '/invitations', '/settings']) {
       test(`Given a member, when they type ${path}, then the dashboard opens instead`, async ({ memberPage }) => {
         await memberPage.goto(path);
 

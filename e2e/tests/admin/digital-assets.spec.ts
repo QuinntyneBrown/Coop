@@ -19,11 +19,11 @@ test.describe('Digital Assets', () => {
     });
 
     test('should mark assets as active in sidebar', async () => {
-      await sidebar.expectActiveLink('assets');
+      await sidebar.expectActiveLink('website');
     });
 
-    test('should display page title as Digital Assets', async () => {
-      await expect(assetsPage.pageTitle).toHaveText('Digital Assets');
+    test('should display page title as Photos', async () => {
+      await expect(assetsPage.pageTitle).toHaveText('Photos');
     });
 
     test('should display search bar', async () => {
@@ -37,7 +37,7 @@ test.describe('Digital Assets', () => {
 
     test('should display asset count and size info', async () => {
       await expect(assetsPage.assetInfo).toBeVisible();
-      await expect(assetsPage.assetInfo).toContainText(/\d+ assets/);
+      await expect(assetsPage.assetInfo).toContainText(/\d+ photos and files/);
     });
   });
 

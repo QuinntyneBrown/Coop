@@ -6,31 +6,41 @@ Hello. This short video shows how office staff change the words and photos on th
 
 [pause 2s]
 
-Changes are live as soon as you save, so take your time.
+Your changes go into a draft first. Visitors only see them when you select Publish, so take your time.
 
 [pause 2s]
 
-## Edit a block
+## The Website area
 
-Select Website in the menu on the left. The page lists every part of the site, in order.
+Select Website in the menu on the left. The page lists everything visitors can see, laid out the way they see it.
 
 [pause 1s]
 
-First come the Header and Footer, on every page. Then the home page, from the Hero at the top down to Visit or apply.
+There is Home, then your Pages, then Menu and footer, and Board of directors. A bar at the top tells you whether everything is published or you have unpublished changes.
 
 [pause 2s]
 
-Each part has an Edit button. Select Edit beside Hero, and a form opens with the words already filled in.
+## Edit the home page
+
+Select Home. On the left are its sections, in order, from the Welcome banner down to Visit or apply.
 
 [pause 1s]
 
-Change the title or introduction in plain words. Then select Save changes. Cancel closes the form without saving.
+Choose a section, and its words are already filled in. Change the title or introduction in plain words, then select Save to draft. Undo changes puts back what you had.
 
 [pause 2s]
 
-## Lists
+To take a section off the page for now, select Hide section. It shows a Hidden badge, and its words and photos are kept. Move up and Move down change the order.
 
-Some parts hold a list. Edit the Header, and you see its menu links.
+[pause 2s]
+
+The Board of directors section shows who visitors will see. Select Manage directors to change the board. It comes from one list, so it stays the same everywhere.
+
+[pause 2s]
+
+## Menu and footer
+
+Select Menu and footer to change the links at the top and bottom of every page.
 
 [pause 1s]
 
@@ -38,19 +48,23 @@ Use Move up and Move down to change the order. Remove takes a link away, and Add
 
 [pause 2s]
 
-## Photos
+## Preview and publish
 
-To change a photo, select Choose photo. The Choose a photo window shows the photos in the Assets library.
+To check your work, select Preview site. A banner at the top says you are looking at unpublished changes. Visitors still see the published website.
 
-[pause 1s]
+[pause 2s]
 
-Pick one, or select Upload a new photo. Then describe the photo for people who cannot see it.
+When you are happy, select Publish. A box asks, Publish your changes? Select Publish, and visitors see your draft.
+
+[pause 2s]
+
+Changed your mind? Select Discard changes. Everything since the last publish is lost, and the website stays as it is.
 
 [pause 2s]
 
 ## In short
 
-So, in short. Select Website. Select Edit beside a part. Change the words, lists, or photo, and save.
+So, in short. Select Website. Choose a part and change it. Save to draft, preview, and publish.
 
 [pause 1s]
 

@@ -1,0 +1,13 @@
+// What the visitor will see in a section whose items are kept  (docs/design-system/components/linked-summary.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: var(--border-width-hairline) dashed var(--color-border-strong);
+}

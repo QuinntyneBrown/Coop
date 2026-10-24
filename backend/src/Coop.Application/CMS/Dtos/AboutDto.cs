@@ -1,7 +1,7 @@
 namespace Coop.Application.CMS.Dtos;
 
 /// <summary>The "Who we are" block.</summary>
-public class AboutDto
+public class AboutDto : HomeSectionDto
 {
     public string Eyebrow { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;

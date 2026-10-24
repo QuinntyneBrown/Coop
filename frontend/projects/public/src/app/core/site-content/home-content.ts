@@ -1,22 +1,6 @@
-import type { HeroContent } from './hero-content';
-import type { GlanceContent } from './glance-content';
-import type { AboutContent } from './about-content';
-import type { GalleryContent } from './gallery-content';
-import type { FeaturesContent } from './features-content';
-import type { NoticesContent } from './notices-content';
-import type { SectionHead } from './section-head';
-import type { QuoteContent } from './quote-content';
-import type { VisitContent } from './visit-content';
+import type { HomeSection } from './home-section';
 
-/** The home page blocks, in page order. */
+/** The home page sections in the order visitors see them (L2-REQ-122). */
 export interface HomeContent {
-  hero: HeroContent;
-  glance: GlanceContent;
-  about: AboutContent;
-  gallery: GalleryContent;
-  features: FeaturesContent;
-  notices: NoticesContent;
-  board: SectionHead;
-  quote: QuoteContent;
-  visit: VisitContent;
+  sections: HomeSection[];
 }

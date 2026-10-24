@@ -6,13 +6,13 @@ Hello. This short video shows how anyone can find and read the co-op's documents
 
 [pause 2s]
 
-By-Laws, reports and notices are all kept together, so you never have to search through paper.
+Notices, By-Laws and reports are all kept together, so you never have to search through paper.
 
 [pause 2s]
 
 ## Find a document
 
-Anyone can read them, without signing in. On the home page, scroll down to the bottom and tap Documents and bylaws. The Documents page lists everything, with the kind of document and its date.
+Anyone can read them, without signing in. On the home page, scroll down to the bottom and tap Documents and bylaws. The Documents page lists every document the office has published, newest first, with its kind and its date. Drafts stay with the office.
 
 [pause 2s]
 
@@ -27,6 +27,10 @@ Tap a document to open it. It opens on top of the page, so you can read it in fu
 [pause 2s]
 
 If you would like a copy, tap Download. To close it, tap the cross in the corner.
+
+[pause 2s]
+
+If the documents cannot load, the page says so. Check your connection, and tap Try again.
 
 [pause 2s]
 

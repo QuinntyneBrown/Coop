@@ -1,6 +1,9 @@
 [
   {"name": "admin-board", "mock": "pages/admin-board/default.html", "phone": false},
   {"name": "admin-director-add", "mock": "dialogs/admin-director-editor/default.html", "phone": false},
+  {"name": "admin-photo-picker", "mock": "dialogs/admin-photo-picker/default.html", "phone": false},
+  {"name": "admin-board-saved", "mock": "notifications/admin-board-saved/success.html", "phone": false},
   {"name": "admin-director-edit", "mock": "dialogs/admin-director-editor/edit.html", "phone": false},
-  {"name": "admin-director-remove", "mock": "dialogs/admin-director-remove/default.html", "phone": false}
+  {"name": "admin-director-remove", "mock": "dialogs/admin-director-remove/default.html", "phone": false},
+  {"name": "public-landing-board", "mock": "pages/public-landing/default.html", "phone": false, "scroll": 4296, "height": 574}
 ]

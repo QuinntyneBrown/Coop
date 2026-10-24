@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -115,7 +122,7 @@
     <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
       <div class="ds-example"><div class="ds-example__canvas">
         <span class="inline-status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 15v5h16v-5"/></svg>Meeting notes.pdf · 2 KB</span>
-        <a class="btn" href="../../mocks/dialogs/admin-page-editor/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</a>
+        <a class="btn" href="../../mocks/pages/admin-page-editor/page.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New page</a>
         <nav class="tabbar tabbar--static" aria-label="Icon size example" style="flex: 1 1 18rem;"><a href="../../mocks/pages/admin-dashboard/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg>Dashboard</a><a href="../../mocks/pages/admin-maintenance/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Requests</a><a href="../../mocks/pages/admin-documents/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a></nav>
       </div><div class="ds-example__caption"><span>sm 16px beside small text (file details, list metadata); md 20px by default (buttons, sidebar links, alerts, toasts; inside a button it is 1.25em, so it grows with the label); lg 24px in the phone tab bar, metric cards and empty states.</span></div></div>
     </section>
@@ -188,7 +195,7 @@
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources and drift</a></h2>
-      <p>The icon style is adopted from the Shelfie design system. The set is taken from the icons the admin mocks use: <a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (sidebar, metric cards, quick actions, tab bar), <a href="../../mocks/pages/admin-board/default.html">pages/admin-board/default</a> (move up, move down, edit, remove), <a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> (open on the website), <a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (edit and delete row actions), <a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (upload) and <a href="../../mocks/dialogs/admin-asset-detail/default.html">dialogs/admin-asset-detail/default</a> (download).</p>
+      <p>The icon style is adopted from the Shelfie design system. The set is taken from the icons the admin mocks use: <a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> (sidebar, metric cards, quick actions, tab bar), <a href="../../mocks/pages/admin-board/default.html">pages/admin-board/default</a> (move up, move down, edit, remove), <a href="../../mocks/pages/admin-page-editor/page.html">pages/admin-pages/default</a> (open on the website), <a href="../../mocks/pages/admin-users/default.html">pages/admin-users/default</a> (edit and delete row actions), <a href="../../mocks/pages/admin-assets/default.html">pages/admin-assets/default</a> (upload) and <a href="../../mocks/dialogs/admin-asset-detail/default.html">dialogs/admin-asset-detail/default</a> (download).</p>
       <h3>Drift from the implemented admin</h3>
       <ul>
         <li>The admin draws icons with the Material Icons font (<code>&lt;span class="material-icons"&gt;build&lt;/span&gt;</code>). The system uses inline stroke SVGs; see the <a href="#mapping">mapping</a>.</li>

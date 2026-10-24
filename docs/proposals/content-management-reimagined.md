@@ -1,8 +1,13 @@
 # Content management, re-imagined
 
-**Status:** proposal. This document is not a requirement. Nothing here is
-implemented, and nothing here may be built until the L1/L2 requirements,
-detailed designs and mocks it names have been written (see "Phase 0").
+**Status:** sections 2 and 3 implemented on 24 October 2026 through
+L2-REQ-118 to L2-REQ-128, the designs in
+`docs/detailed-designs/admin-app/website-area/` and
+`docs/detailed-designs/public-app/render-home-sections/`, ADR 0018 to
+ADR 0021 and the mocks in `docs/mocks`. Section 5 (version history,
+scheduled publishing, a rich-text editor, drafts for pages and the board,
+finer roles) is not built. This document is not a requirement; the
+requirements and designs above describe what exists.
 
 **Question it answers:** if the admin screens that manage the public website,
 and the way that content surfaces on the public site, could be redesigned

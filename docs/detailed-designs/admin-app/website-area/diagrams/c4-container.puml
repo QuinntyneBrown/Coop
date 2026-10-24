@@ -1,0 +1,22 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — The Website area
+
+Person(office, "Office", "Keeps the public website")
+Person(visitor, "Visitor", "Reads the public site")
+System_Boundary(coop, "Coop") {
+  Container(adminApp, "Admin application", "Angular", "Website area at /website: site tree, page editor with preview pane, publish bar, board with the photo picker")
+  Container(publicApp, "Public application", "Angular", "Renders home.sections in order; preview mode with ?preview={token}")
+  Container(api, "Coop API", "ASP.NET Core", "api/site-content (published, draft, publish, discard, preview-token), api/pages (published flag, blocks), api/board-of-directors")
+  Container(cli, "Coop.Cli", "Console", "site-content publish, discard, export --draft, import --draft; page --published")
+  ContainerDb(db, "Coop database", "SQLite", "JsonContents (SiteContent, SiteContentDraft, BoardOfDirectors), Pages (Published, Sections)")
+}
+Rel(office, adminApp, "Uses", "HTTPS")
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(adminApp, api, "GET ?draft=true, PUT, POST publish, DELETE draft, POST preview-token; pages; board", "JSON/HTTPS, bearer token")
+Rel(adminApp, publicApp, "Embeds and opens /?preview={token}#section", "HTTPS, iframe and new tab")
+Rel(publicApp, api, "GET api/site-content[?preview], api/pages[?preview], api/board-of-directors, published documents", "JSON/HTTPS, anonymous")
+Rel(cli, db, "Same handlers in process (ADR 0012)", "EF Core")
+Rel(api, db, "Reads and writes", "EF Core")
+@enduml

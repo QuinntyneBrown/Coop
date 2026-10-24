@@ -1,348 +1,384 @@
 <app-site-header />
 
 <main id="main">
-  @let hero = home().hero;
-  <section class="own-hero" aria-labelledby="hero-title" data-testid="landing-hero">
-    <div class="own-container own-hero__inner">
-      <div class="own-hero__text">
-        <div>
-          @if (hero.eyebrow) {
-            <span class="own-eyebrow" data-testid="landing-hero-eyebrow">{{ hero.eyebrow }}</span>
-          }
-          <h1 id="hero-title" data-testid="landing-hero-title">{{ hero.title }}</h1>
-        </div>
-        @if (hero.lead) {
-          <p class="own-lead" data-testid="landing-hero-subtitle">{{ hero.lead }}</p>
-        }
-        <div class="own-hero__actions">
-          <a
-            class="own-btn own-btn--primary"
-            [href]="hero.primaryAction.href"
-            [appSiteLink]="hero.primaryAction"
-            data-testid="landing-hero-cta"
-            >{{ hero.primaryAction.label }}
-            <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M5 12h14m-6-6 6 6-6 6" /></svg
-          ></a>
-          <a
-            class="own-btn own-btn--secondary"
-            [href]="hero.secondaryAction.href"
-            [appSiteLink]="hero.secondaryAction"
-            data-testid="landing-hero-secondary-cta"
-            >{{ hero.secondaryAction.label }}</a
-          >
-        </div>
-      </div>
-      <div class="own-hero__media">
-        <img
-          [src]="hero.photo.src"
-          [width]="hero.photo.width"
-          [height]="hero.photo.height"
-          [alt]="hero.photo.alt"
-          (error)="showPhotoUnavailable($event)"
-          data-testid="landing-hero-photo"
-        />
-        @if (hero.badge) {
-          <span class="own-hero__badge"
-            ><svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" />
-              <path d="M12 7v6m-3-3h6" /></svg
-            ><span data-testid="landing-hero-badge">{{ hero.badge }}</span></span
-          >
-        }
-      </div>
-    </div>
-  </section>
-  @if (home().glance.figures.length > 0) {
-    <section class="own-container" aria-label="At a glance" data-testid="landing-stats">
-      <ul class="own-stats">
-        @for (figure of home().glance.figures; track $index) {
-          <li class="own-stat">
-            <span class="own-stat__value">{{ figure.value }}</span
-            ><span class="own-stat__label">{{ figure.label }}</span>
-          </li>
-        }
-      </ul>
-    </section>
-  }
-
-  <section class="own-section" id="about" aria-labelledby="about-title" data-testid="landing-about">
-    <div class="own-container">
-      <div class="own-section__head">
-        @if (home().about.eyebrow) {
-          <span class="own-eyebrow">{{ home().about.eyebrow }}</span>
-        }
-        <h2 id="about-title">{{ home().about.title }}</h2>
-        @if (home().about.lead) {
-          <p class="own-lead">{{ home().about.lead }}</p>
-        }
-      </div>
-      @if (home().about.values.length > 0) {
-        <ul class="own-values">
-          @for (value of home().about.values; track $index; let i = $index) {
-            <li
-              class="own-value"
-              [class.own-value--accent]="valueTones[i % 3] === 'accent'"
-              [class.own-value--plum]="valueTones[i % 3] === 'plum'"
-            >
-              <span class="own-value__icon">
-                @switch (value.icon) {
-                  @case ('members') {
-                    <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-                      <circle cx="9" cy="8" r="3.5" />
-                      <circle cx="17" cy="9" r="2.5" />
-                      <path d="M3 20a6 6 0 0 1 12 0M14 20a4 4 0 0 1 7-2.5" />
-                    </svg>
-                  }
-                  @case ('affordable') {
-                    <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M3 11 12 4l9 7" />
-                      <path d="M5 10v10h14V10" />
-                      <path
-                        d="M12 17.5s-3-2-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2-3 4-3 4z"
-                      />
-                    </svg>
-                  }
-                  @case ('company') {
-                    <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" />
-                      <path d="M16 10h2a2.5 2.5 0 0 1 0 5h-2M7 5v2M10 4v3M13 5v2" />
-                    </svg>
-                  }
-                }
-              </span>
-              <h3>{{ value.title }}</h3>
-              @if (value.text) {
-                <p>{{ value.text }}</p>
-              }
-            </li>
-          }
-        </ul>
-      }
-    </div>
-  </section>
-
-  @if (home().gallery.photos.length > 0) {
-    <section
-      class="own-section own-section--tint"
-      id="life"
-      aria-labelledby="life-title"
-      data-testid="landing-gallery"
-    >
-      <div class="own-container">
-        <div class="own-section__head">
-          @if (home().gallery.eyebrow) {
-            <span class="own-eyebrow">{{ home().gallery.eyebrow }}</span>
-          }
-          <h2 id="life-title">{{ home().gallery.title }}</h2>
-        </div>
-        <div class="own-gallery">
-          @for (item of home().gallery.photos; track $index) {
-            <figure [class]="'own-gallery__' + item.size">
-              <img
-                [src]="item.photo.src"
-                [width]="item.photo.width"
-                [height]="item.photo.height"
-                [alt]="item.photo.alt"
-                (error)="showPhotoUnavailable($event)"
-                loading="lazy"
-              />
-              @if (item.caption) {
-                <figcaption>{{ item.caption }}</figcaption>
-              }
-            </figure>
-          }
-        </div>
-      </div>
-    </section>
-  }
-
-  @if (home().features.rows.length > 0) {
-    <section
-      class="own-section"
-      aria-label="Our building and our community"
-      data-testid="landing-features"
-    >
-      <div class="own-container">
-        @for (row of home().features.rows; track $index; let odd = $odd) {
-          <div class="own-feature" [class.own-feature--flip]="odd">
-            <div class="own-feature__media">
-              <img
-                [src]="row.photo.src"
-                [width]="row.photo.width"
-                [height]="row.photo.height"
-                [alt]="row.photo.alt"
-                (error)="showPhotoUnavailable($event)"
-                loading="lazy"
-              />
-            </div>
-            <div class="own-feature__text">
+  @for (section of sections(); track section.kind) {
+    @switch (section.kind) {
+      @case ('hero') {
+        @let hero = section;
+        <section class="own-hero" id="top" aria-labelledby="hero-title" data-testid="landing-hero">
+          <div class="own-container own-hero__inner">
+            <div class="own-hero__text">
               <div>
-                @if (row.eyebrow) {
-                  <span class="own-eyebrow">{{ row.eyebrow }}</span>
+                @if (hero.eyebrow) {
+                  <span class="own-eyebrow" data-testid="landing-hero-eyebrow">{{
+                    hero.eyebrow
+                  }}</span>
                 }
-                <h2>{{ row.title }}</h2>
+                <h1 id="hero-title" data-testid="landing-hero-title">{{ hero.title }}</h1>
               </div>
-              @if (row.items.length > 0) {
-                <ul class="own-checklist">
-                  @for (item of row.items; track $index) {
-                    <li>
-                      <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="m8 12 3 3 5-6" />
-                      </svg>
-                      {{ item }}
-                    </li>
-                  }
-                </ul>
+              @if (hero.lead) {
+                <p class="own-lead" data-testid="landing-hero-subtitle">{{ hero.lead }}</p>
+              }
+              <div class="own-hero__actions">
+                <a
+                  class="own-btn own-btn--primary"
+                  [href]="hero.primaryAction.href"
+                  [appSiteLink]="hero.primaryAction"
+                  data-testid="landing-hero-cta"
+                  >{{ hero.primaryAction.label }}
+                  <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M5 12h14m-6-6 6 6-6 6" /></svg
+                ></a>
+                <a
+                  class="own-btn own-btn--secondary"
+                  [href]="hero.secondaryAction.href"
+                  [appSiteLink]="hero.secondaryAction"
+                  data-testid="landing-hero-secondary-cta"
+                  >{{ hero.secondaryAction.label }}</a
+                >
+              </div>
+            </div>
+            <div class="own-hero__media">
+              <img
+                [src]="hero.photo.src"
+                [width]="hero.photo.width"
+                [height]="hero.photo.height"
+                [alt]="hero.photo.alt"
+                (error)="showPhotoUnavailable($event)"
+                data-testid="landing-hero-photo"
+              />
+              @if (hero.badge) {
+                <span class="own-hero__badge"
+                  ><svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" />
+                    <path d="M12 7v6m-3-3h6" /></svg
+                  ><span data-testid="landing-hero-badge">{{ hero.badge }}</span></span
+                >
               }
             </div>
           </div>
-        }
-      </div>
-    </section>
-  }
-
-  <section
-    class="own-section own-section--tint"
-    id="events"
-    aria-labelledby="events-title"
-    data-testid="landing-notices-section"
-  >
-    <div class="own-container">
-      <div class="own-section__head">
-        @if (home().notices.eyebrow) {
-          <span class="own-eyebrow">{{ home().notices.eyebrow }}</span>
-        }
-        <h2 id="events-title">{{ home().notices.title }}</h2>
-        @if (home().notices.lead) {
-          <p class="own-lead">{{ home().notices.lead }}</p>
-        }
-      </div>
-      @if (notices().length > 0) {
-        <ul class="own-events">
-          @for (notice of notices(); track notice.id) {
-            <li class="own-event" data-testid="landing-notice-card">
-              <div class="own-event__date" aria-hidden="true">
-                <span class="own-event__day">{{ notice.day }}</span
-                ><span class="own-event__month">{{ notice.month }}</span>
-              </div>
-              <div class="own-event__body">
-                <h3>{{ notice.title }}</h3>
-                <p>{{ notice.excerpt }}</p>
-                <p class="own-event__meta">
-                  <span>
-                    <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="9" />
-                      <path d="M12 7v5l3 2" />
-                    </svg>
-                    <time [attr.datetime]="notice.dateTime">{{ notice.dateLabel }}</time>
-                  </span>
-                </p>
-              </div>
-            </li>
-          }
-        </ul>
-      } @else {
-        <p class="own-events__empty" data-testid="landing-notices-empty">
-          {{ home().notices.emptyMessage }}
-        </p>
+        </section>
       }
-    </div>
-  </section>
-
-  <section
-    class="own-section"
-    id="board"
-    aria-labelledby="board-title"
-    data-testid="landing-board-section"
-  >
-    <div class="own-container">
-      <div class="own-section__head">
-        @if (home().board.eyebrow) {
-          <span class="own-eyebrow">{{ home().board.eyebrow }}</span>
+      @case ('glance') {
+        @if (section.figures.length > 0) {
+          <section
+            class="own-container"
+            id="glance"
+            aria-label="At a glance"
+            data-testid="landing-stats"
+          >
+            <ul class="own-stats">
+              @for (figure of section.figures; track $index) {
+                <li class="own-stat">
+                  <span class="own-stat__value">{{ figure.value }}</span
+                  ><span class="own-stat__label">{{ figure.label }}</span>
+                </li>
+              }
+            </ul>
+          </section>
         }
-        <h2 id="board-title">{{ home().board.title }}</h2>
-      </div>
-      <ul class="own-people">
-        @for (member of boardMembers(); track member.name) {
-          <li class="own-person" data-testid="landing-board-member">
-            @if (member.avatarUrl) {
+      }
+      @case ('about') {
+        <section
+          class="own-section"
+          id="about"
+          aria-labelledby="about-title"
+          data-testid="landing-about"
+        >
+          <div class="own-container">
+            <div class="own-section__head">
+              @if (section.eyebrow) {
+                <span class="own-eyebrow">{{ section.eyebrow }}</span>
+              }
+              <h2 id="about-title">{{ section.title }}</h2>
+              @if (section.lead) {
+                <p class="own-lead">{{ section.lead }}</p>
+              }
+            </div>
+            @if (section.values.length > 0) {
+              <ul class="own-values">
+                @for (value of section.values; track $index; let i = $index) {
+                  <li
+                    class="own-value"
+                    [class.own-value--accent]="valueTones[i % 3] === 'accent'"
+                    [class.own-value--plum]="valueTones[i % 3] === 'plum'"
+                  >
+                    <span class="own-value__icon">
+                      @switch (value.icon) {
+                        @case ('members') {
+                          <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <circle cx="9" cy="8" r="3.5" />
+                            <circle cx="17" cy="9" r="2.5" />
+                            <path d="M3 20a6 6 0 0 1 12 0M14 20a4 4 0 0 1 7-2.5" />
+                          </svg>
+                        }
+                        @case ('affordable') {
+                          <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M3 11 12 4l9 7" />
+                            <path d="M5 10v10h14V10" />
+                            <path
+                              d="M12 17.5s-3-2-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2-3 4-3 4z"
+                            />
+                          </svg>
+                        }
+                        @case ('company') {
+                          <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" />
+                            <path d="M16 10h2a2.5 2.5 0 0 1 0 5h-2M7 5v2M10 4v3M13 5v2" />
+                          </svg>
+                        }
+                      }
+                    </span>
+                    <h3>{{ value.title }}</h3>
+                    @if (value.text) {
+                      <p>{{ value.text }}</p>
+                    }
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </section>
+      }
+      @case ('gallery') {
+        @if (section.photos.length > 0) {
+          <section
+            class="own-section own-section--tint"
+            id="life"
+            aria-labelledby="life-title"
+            data-testid="landing-gallery"
+          >
+            <div class="own-container">
+              <div class="own-section__head">
+                @if (section.eyebrow) {
+                  <span class="own-eyebrow">{{ section.eyebrow }}</span>
+                }
+                <h2 id="life-title">{{ section.title }}</h2>
+              </div>
+              <div class="own-gallery">
+                @for (item of section.photos; track $index) {
+                  <figure [class]="'own-gallery__' + item.size">
+                    <img
+                      [src]="item.photo.src"
+                      [width]="item.photo.width"
+                      [height]="item.photo.height"
+                      [alt]="item.photo.alt"
+                      (error)="showPhotoUnavailable($event)"
+                      loading="lazy"
+                    />
+                    @if (item.caption) {
+                      <figcaption>{{ item.caption }}</figcaption>
+                    }
+                  </figure>
+                }
+              </div>
+            </div>
+          </section>
+        }
+      }
+      @case ('features') {
+        @if (section.rows.length > 0) {
+          <section
+            class="own-section"
+            id="features"
+            aria-label="Our building and our community"
+            data-testid="landing-features"
+          >
+            <div class="own-container">
+              @for (row of section.rows; track $index; let odd = $odd) {
+                <div class="own-feature" [class.own-feature--flip]="odd">
+                  <div class="own-feature__media">
+                    <img
+                      [src]="row.photo.src"
+                      [width]="row.photo.width"
+                      [height]="row.photo.height"
+                      [alt]="row.photo.alt"
+                      (error)="showPhotoUnavailable($event)"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="own-feature__text">
+                    <div>
+                      @if (row.eyebrow) {
+                        <span class="own-eyebrow">{{ row.eyebrow }}</span>
+                      }
+                      <h2>{{ row.title }}</h2>
+                    </div>
+                    @if (row.items.length > 0) {
+                      <ul class="own-checklist">
+                        @for (item of row.items; track $index) {
+                          <li>
+                            <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10" />
+                              <path d="m8 12 3 3 5-6" />
+                            </svg>
+                            {{ item }}
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      }
+      @case ('notices') {
+        <section
+          class="own-section own-section--tint"
+          id="events"
+          aria-labelledby="events-title"
+          data-testid="landing-notices-section"
+        >
+          <div class="own-container">
+            <div class="own-section__head">
+              @if (section.eyebrow) {
+                <span class="own-eyebrow">{{ section.eyebrow }}</span>
+              }
+              <h2 id="events-title">{{ section.title }}</h2>
+              @if (section.lead) {
+                <p class="own-lead">{{ section.lead }}</p>
+              }
+            </div>
+            @if (notices().length > 0) {
+              <ul class="own-events">
+                @for (notice of notices(); track notice.id) {
+                  <li class="own-event" data-testid="landing-notice-card">
+                    <div class="own-event__date" aria-hidden="true">
+                      <span class="own-event__day">{{ notice.day }}</span
+                      ><span class="own-event__month">{{ notice.month }}</span>
+                    </div>
+                    <div class="own-event__body">
+                      <h3>{{ notice.title }}</h3>
+                      <p>{{ notice.excerpt }}</p>
+                      <p class="own-event__meta">
+                        <span>
+                          <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2" />
+                          </svg>
+                          <time [attr.datetime]="notice.dateTime">{{ notice.dateLabel }}</time>
+                        </span>
+                      </p>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="own-events__empty" data-testid="landing-notices-empty">
+                {{ section.emptyMessage }}
+              </p>
+            }
+          </div>
+        </section>
+      }
+      @case ('board') {
+        <section
+          class="own-section"
+          id="board"
+          aria-labelledby="board-title"
+          data-testid="landing-board-section"
+        >
+          <div class="own-container">
+            <div class="own-section__head">
+              @if (section.eyebrow) {
+                <span class="own-eyebrow">{{ section.eyebrow }}</span>
+              }
+              <h2 id="board-title">{{ section.title }}</h2>
+            </div>
+            <ul class="own-people">
+              @for (member of boardMembers(); track member.name) {
+                <li class="own-person" data-testid="landing-board-member">
+                  @if (member.avatarUrl) {
+                    <img
+                      [src]="member.avatarUrl"
+                      width="400"
+                      height="400"
+                      [alt]="'Portrait of ' + member.name"
+                      loading="lazy"
+                    />
+                  } @else {
+                    <span class="own-person__initials" aria-hidden="true">{{
+                      member.initials
+                    }}</span>
+                  }
+                  <h3>{{ member.name }}</h3>
+                  <p>{{ member.title }}</p>
+                </li>
+              }
+            </ul>
+          </div>
+        </section>
+      }
+      @case ('quote') {
+        <section
+          class="own-section own-section--tint"
+          id="quote"
+          aria-label="A word from a member"
+          data-testid="landing-quote"
+        >
+          <div class="own-container own-quote">
+            <div class="own-quote__media">
               <img
-                [src]="member.avatarUrl"
-                width="400"
-                height="400"
-                [alt]="'Portrait of ' + member.name"
+                [src]="section.photo.src"
+                [width]="section.photo.width"
+                [height]="section.photo.height"
+                [alt]="section.photo.alt"
+                (error)="showPhotoUnavailable($event)"
                 loading="lazy"
               />
-            } @else {
-              <span class="own-person__initials" aria-hidden="true">{{ member.initials }}</span>
+            </div>
+            <blockquote>
+              <p>{{ section.text }}</p>
+              @if (section.attribution) {
+                <footer>{{ section.attribution }}</footer>
+              }
+            </blockquote>
+          </div>
+        </section>
+      }
+      @case ('visit') {
+        <section
+          class="own-visit"
+          id="visit"
+          aria-labelledby="visit-title"
+          data-testid="landing-visit"
+        >
+          <div class="own-container own-visit__inner">
+            @let visit = section;
+            @if (visit.eyebrow) {
+              <span class="own-eyebrow">{{ visit.eyebrow }}</span>
             }
-            <h3>{{ member.name }}</h3>
-            <p>{{ member.title }}</p>
-          </li>
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section
-    class="own-section own-section--tint"
-    aria-label="A word from a member"
-    data-testid="landing-quote"
-  >
-    <div class="own-container own-quote">
-      <div class="own-quote__media">
-        <img
-          [src]="home().quote.photo.src"
-          [width]="home().quote.photo.width"
-          [height]="home().quote.photo.height"
-          [alt]="home().quote.photo.alt"
-          (error)="showPhotoUnavailable($event)"
-          loading="lazy"
-        />
-      </div>
-      <blockquote>
-        <p>{{ home().quote.text }}</p>
-        @if (home().quote.attribution) {
-          <footer>{{ home().quote.attribution }}</footer>
-        }
-      </blockquote>
-    </div>
-  </section>
-
-  <section class="own-visit" id="visit" aria-labelledby="visit-title" data-testid="landing-visit">
-    <div class="own-container own-visit__inner">
-      @let visit = home().visit;
-      @if (visit.eyebrow) {
-        <span class="own-eyebrow">{{ visit.eyebrow }}</span>
+            <h2 id="visit-title">{{ visit.title }}</h2>
+            @if (visit.lead) {
+              <p class="own-lead">{{ visit.lead }}</p>
+            }
+            @if (visit.phone) {
+              <a
+                class="own-visit__phone"
+                [href]="telHref(visit.phone)"
+                data-testid="landing-visit-phone"
+                >{{ visit.phone }}</a
+              >
+            }
+            @if (visit.hours) {
+              <p>{{ visit.hours }}</p>
+            }
+            <div class="own-visit__actions">
+              <a
+                class="own-btn own-btn--secondary"
+                [href]="visit.action.href"
+                [appSiteLink]="visit.action"
+                data-testid="landing-visit-action"
+                >{{ visit.action.label }}</a
+              >
+            </div>
+          </div>
+        </section>
       }
-      <h2 id="visit-title">{{ visit.title }}</h2>
-      @if (visit.lead) {
-        <p class="own-lead">{{ visit.lead }}</p>
-      }
-      @if (visit.phone) {
-        <a
-          class="own-visit__phone"
-          [href]="telHref(visit.phone)"
-          data-testid="landing-visit-phone"
-          >{{ visit.phone }}</a
-        >
-      }
-      @if (visit.hours) {
-        <p>{{ visit.hours }}</p>
-      }
-      <div class="own-visit__actions">
-        <a
-          class="own-btn own-btn--secondary"
-          [href]="visit.action.href"
-          [appSiteLink]="visit.action"
-          data-testid="landing-visit-action"
-          >{{ visit.action.label }}</a
-        >
-      </div>
-    </div>
-  </section>
+    }
+  }
 </main>
 
 <app-site-footer />

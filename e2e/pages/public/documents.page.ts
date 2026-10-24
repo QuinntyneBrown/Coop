@@ -1,4 +1,4 @@
-import { type Locator, type Page, expect } from '@playwright/test';
+import { type Locator, type Page, expect } from "@playwright/test";
 
 export class DocumentsPage {
   readonly page: Page;
@@ -17,6 +17,8 @@ export class DocumentsPage {
   readonly documentList: Locator;
   readonly documentCards: Locator;
   readonly emptyState: Locator;
+  readonly error: Locator;
+  readonly retryButton: Locator;
 
   // Document card contents
   readonly documentTitle: Locator;
@@ -46,49 +48,62 @@ export class DocumentsPage {
     this.page = page;
 
     this.pageTitle = page.locator('[data-testid="documents-page-title"]');
-    this.topBar = page.getByTestId('site-top-bar');
-    this.logo = page.getByTestId('site-logo');
-    this.notificationBell = page.getByTestId('dashboard-notification-bell');
-    this.menuButton = page.getByTestId('dashboard-hamburger-menu');
-    this.tabBar = page.getByTestId('bottom-tab-bar');
-    this.memberLinks = page.getByRole('link', { name: /^(Home|Requests|Messages|Profile)$/ });
+    this.topBar = page.getByTestId("site-top-bar");
+    this.logo = page.getByTestId("site-logo");
+    this.notificationBell = page.getByTestId("dashboard-notification-bell");
+    this.menuButton = page.getByTestId("dashboard-hamburger-menu");
+    this.tabBar = page.getByTestId("bottom-tab-bar");
+    this.memberLinks = page.getByRole("link", {
+      name: /^(Home|Requests|Messages|Profile)$/,
+    });
 
     this.filterTabs = page.locator('[data-testid="documents-filter-tabs"]');
     this.filterAll = page.locator('[data-testid="documents-filter-all"]');
-    this.filterNotices = page.locator('[data-testid="documents-filter-notices"]');
+    this.filterNotices = page.locator(
+      '[data-testid="documents-filter-notices"]',
+    );
     this.filterBylaws = page.locator('[data-testid="documents-filter-bylaws"]');
-    this.filterReports = page.locator('[data-testid="documents-filter-reports"]');
+    this.filterReports = page.locator(
+      '[data-testid="documents-filter-reports"]',
+    );
 
     this.documentList = page.locator('[data-testid="documents-list"]');
     this.documentCards = page.locator('[data-testid="document-card"]');
     this.emptyState = page.locator('[data-testid="documents-empty-state"]');
+    this.error = page.getByTestId("documents-error");
+    this.retryButton = page.getByTestId("documents-retry");
 
     this.documentTitle = page.locator('[data-testid="document-card-title"]');
     this.documentType = page.locator('[data-testid="document-card-type"]');
     this.documentDate = page.locator('[data-testid="document-card-date"]');
 
     this.documentViewer = page.locator('[data-testid="document-viewer"]');
-    this.documentViewerTitle = page.locator('[data-testid="document-viewer-title"]');
-    this.documentViewerContent = page.locator('[data-testid="document-viewer-content"]');
-    this.documentViewerText = this.documentViewerContent.locator('.viewer-content');
-    this.documentViewerClose = page.locator('[data-testid="document-viewer-close"]');
+    this.documentViewerTitle = page.locator(
+      '[data-testid="document-viewer-title"]',
+    );
+    this.documentViewerContent = page.locator(
+      '[data-testid="document-viewer-content"]',
+    );
+    this.documentViewerText =
+      this.documentViewerContent.locator(".viewer-content");
+    this.documentViewerClose = page.locator(
+      '[data-testid="document-viewer-close"]',
+    );
     this.downloadButton = page.locator('[data-testid="document-download-btn"]');
 
     this.loadingSpinner = page.locator('[data-testid="documents-loading"]');
   }
 
   async goto() {
-    await this.page.goto('/documents');
+    await this.page.goto("/documents");
   }
 
   async expectLoaded() {
     await expect(this.pageTitle).toBeVisible();
-    await expect(
-      this.documentList.or(this.emptyState),
-    ).toBeVisible();
+    await expect(this.documentList.or(this.emptyState)).toBeVisible();
   }
 
-  async filterByType(type: 'all' | 'notices' | 'bylaws' | 'reports') {
+  async filterByType(type: "all" | "notices" | "bylaws" | "reports") {
     const filters = {
       all: this.filterAll,
       notices: this.filterNotices,

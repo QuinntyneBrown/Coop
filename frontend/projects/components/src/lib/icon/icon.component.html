@@ -1,4 +1,51 @@
 @switch (libIcon()) {
+  @case ('heading') {
+    <svg:path d="M5 5v14M13 5v14M5 12h8M17 9l2-1v11" />
+  }
+  @case ('hide') {
+    <svg:path
+      d="M3 3l18 18M10.5 10.6a2 2 0 0 0 2.9 2.9M7 7.1C4.6 8.6 3 12 3 12s3 6 9 6c1.6 0 3-.4 4.2-1M10.3 6.2C10.8 6.1 11.4 6 12 6c6 0 9 6 9 6s-.7 1.4-2 2.8"
+    />
+  }
+  @case ('link') {
+    <svg:path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" />
+    <svg:path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
+  }
+  @case ('look') {
+    <svg:circle cx="12" cy="12" r="9" />
+    <svg:circle cx="8.5" cy="10" r="1.5" />
+    <svg:circle cx="12" cy="7.5" r="1.5" />
+    <svg:circle cx="15.5" cy="10" r="1.5" />
+    <svg:path d="M12 21a3 3 0 0 0 0-6h-1a1.5 1.5 0 0 1 0-3" />
+  }
+  @case ('paragraph') {
+    <svg:path d="M4 7h16M4 12h16M4 17h10" />
+  }
+  @case ('place') {
+    <svg:path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z" />
+    <svg:circle cx="12" cy="10" r="2" />
+  }
+  @case ('publish') {
+    <svg:path d="M12 16V4M6 10l6-6 6 6" />
+    <svg:path d="M4 20h16" />
+  }
+  @case ('show') {
+    <svg:path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6z" />
+    <svg:circle cx="12" cy="12" r="2.5" />
+  }
+  @case ('warning') {
+    <svg:path d="M12 3 2 20h20z" />
+    <svg:path d="M12 10v4M12 17h.01" />
+  }
+  @case ('bullets') {
+    <svg:circle cx="5" cy="7" r="1.5" />
+    <svg:circle cx="5" cy="12" r="1.5" />
+    <svg:circle cx="5" cy="17" r="1.5" />
+    <svg:path d="M10 7h10M10 12h10M10 17h10" />
+  }
+  @case ('discard') {
+    <svg:path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" />
+  }
   @case ('add') {
     <svg:path d="M12 5v14M5 12h14" />
   }

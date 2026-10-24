@@ -8,7 +8,7 @@ using Coop.Application.CMS.Pages.Queries.GetPages;
 
 namespace Coop.Cli.Commands;
 
-/// <summary>The <c>page</c> group: website pages (L2-REQ-108 AC3, L2-REQ-080).</summary>
+/// <summary>The <c>page</c> group: website pages with their Published flag (L2-REQ-108 AC3, L2-REQ-080, L2-REQ-127 AC5).</summary>
 public static class PageCommands
 {
     public static Command Create(CliRunner cli)
@@ -19,8 +19,8 @@ public static class PageCommands
         cli.SetAction(list, async context =>
         {
             var response = await context.SendAsync(new GetPagesRequest());
-            Table.Write(context.Output, new[] { "Address", "Title", "Id" },
-                response.Pages.Select(p => new[] { $"/pages/{p.Slug}", p.Title, p.PageId.ToString() }));
+            Table.Write(context.Output, new[] { "Address", "Title", "Published", "Id" },
+                response.Pages.Select(p => new[] { $"/pages/{p.Slug}", p.Title, p.Published ? "yes" : "no", p.PageId.ToString() }));
         });
         group.Subcommands.Add(list);
 
@@ -31,10 +31,11 @@ public static class PageCommands
         var newBodyFile = new Option<string?>("--body-file") { Description = "A file holding the new page text as simple HTML" };
         var heroImageUrl = new Option<string?>("--hero-image-url") { Description = "The hero photo's address, for example from asset upload; empty removes it" };
         var heroImageAlt = new Option<string?>("--hero-image-alt") { Description = "The hero photo's description for people who cannot see it" };
+        var published = new Option<bool>("--published") { Description = "Show the page in the website menu so visitors can open it" };
 
         var create = new Command("create", "Create a page, or return the one with this title's address")
         {
-            title, bodyFile, heroImageUrl, heroImageAlt,
+            title, bodyFile, heroImageUrl, heroImageAlt, published,
         };
         cli.SetAction(create, async context =>
         {
@@ -44,6 +45,7 @@ public static class PageCommands
                 Body = CliFiles.ReadText(context.Required(bodyFile)),
                 HeroImageUrl = Optional(context.Value(heroImageUrl)),
                 HeroImageAlt = Optional(context.Value(heroImageAlt)),
+                Published = context.Value(published),
             });
             WritePage(context, response.Page);
         });
@@ -52,20 +54,24 @@ public static class PageCommands
         var slug = new Option<string>("--slug") { Description = "The page's address after /pages/", Required = true };
         var update = new Command("update", "Change a page; options left out keep their values")
         {
-            slug, newTitle, newBodyFile, heroImageUrl, heroImageAlt,
+            slug, newTitle, newBodyFile, heroImageUrl, heroImageAlt, published,
         };
         cli.SetAction(update, async context =>
         {
             var page = await FindAsync(context, context.Required(slug));
             var newUrl = context.ParseResult.GetResult(heroImageUrl) is null ? page.HeroImageUrl : Optional(context.Value(heroImageUrl));
             var newAlt = context.ParseResult.GetResult(heroImageAlt) is null ? page.HeroImageAlt : Optional(context.Value(heroImageAlt));
+            // A new body file replaces the blocks with one Existing content block; otherwise the blocks are kept.
+            var bodyPath = context.Value(newBodyFile);
             var response = await context.SendAsync(new UpdatePageRequest
             {
                 PageId = page.PageId,
                 Title = context.Value(newTitle) ?? page.Title,
-                Body = context.Value(newBodyFile) is string path ? CliFiles.ReadText(path) : page.Body,
+                Body = bodyPath is null ? null : CliFiles.ReadText(bodyPath),
+                Sections = bodyPath is null ? page.Sections : null,
                 HeroImageUrl = newUrl,
                 HeroImageAlt = newUrl is null ? null : newAlt,
+                Published = context.ParseResult.GetResult(published) is { Implicit: false } ? context.Value(published) : page.Published,
             });
             WritePage(context, response.Page);
         });

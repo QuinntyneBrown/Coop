@@ -1,10 +1,10 @@
 {
-  "project": "Coop \u2014 implemented UI",
+  "project": "Coop — implemented UI",
   "screens": [
     {
       "id": "public-landing",
       "kind": "page",
-      "title": "Public \u00b7 Landing",
+      "title": "Public · Landing",
       "app": "public",
       "route": "/",
       "source": "Hand-written design reference (not captured), implemented by frontend/projects/public/src/app/pages/landing/landing.component.ts",
@@ -12,12 +12,18 @@
         "L2-REQ-053",
         "L2-REQ-068",
         "L2-REQ-070",
-        "L2-REQ-072"
+        "L2-REQ-072",
+        "L2-REQ-122",
+        "L2-REQ-125"
       ],
       "note": "Public landing page reimagined for Oakridge Women's Neighbourhood Housing Co-operative Inc.: the CMS-driven home page reimagined with a PAL Toronto-style structure (hero, at a glance, who we are, gallery, building and community, what's on, board, quote, visit, footer). Hand-written HTML on its own stylesheet (assets/own-site.css) with light and dark themes; not a capture of the implemented app.",
       "states": [
         "default",
-        "menu"
+        "menu",
+        "hidden",
+        "reordered",
+        "preview",
+        "preview-expired"
       ],
       "not_applicable": {
         "loading": "Marketing page rendered from published CMS content; no in-page loading presentation is proposed.",
@@ -28,18 +34,20 @@
     {
       "id": "public-documents",
       "kind": "page",
-      "title": "Public \u00b7 Documents",
+      "title": "Public · Documents",
       "app": "public",
       "route": "/documents",
       "source": "frontend/projects/public/src/app/pages/documents/documents.component.ts",
       "requirements": [
-        "L2-REQ-035"
+        "L2-REQ-035",
+        "L2-REQ-126"
       ],
-      "note": "",
+      "note": "Reads the published by-laws, notices and reports; when every request fails it says so and offers Try again (L2-REQ-126).",
       "states": [
         "default",
         "loading",
         "empty",
+        "error",
         "notices",
         "bylaws",
         "reports",
@@ -52,7 +60,7 @@
     {
       "id": "public-document-viewer",
       "kind": "dialog",
-      "title": "Public \u00b7 Document Viewer",
+      "title": "Public · Document Viewer",
       "app": "public",
       "route": "/documents",
       "source": "frontend/projects/public/src/app/pages/documents/documents.component.ts",
@@ -72,7 +80,7 @@
     {
       "id": "admin-landing",
       "kind": "page",
-      "title": "Admin \u00b7 Landing",
+      "title": "Admin · Landing",
       "app": "admin",
       "route": "/",
       "source": "frontend/projects/admin/src/app/features/landing/landing.component.ts",
@@ -94,7 +102,7 @@
     {
       "id": "admin-login",
       "kind": "page",
-      "title": "Admin \u00b7 Login",
+      "title": "Admin · Login",
       "app": "admin",
       "route": "/login",
       "source": "frontend/projects/admin/src/app/features/login/login.component.ts",
@@ -117,7 +125,7 @@
     {
       "id": "admin-register",
       "kind": "page",
-      "title": "Admin \u00b7 Register",
+      "title": "Admin · Register",
       "app": "admin",
       "route": "/register",
       "source": "frontend/projects/admin/src/app/features/register/register.component.ts",
@@ -142,7 +150,7 @@
     {
       "id": "admin-forgot-password",
       "kind": "page",
-      "title": "Admin \u00b7 Forgot Password",
+      "title": "Admin · Forgot Password",
       "app": "admin",
       "route": "/forgot-password",
       "source": "frontend/projects/admin/src/app/features/forgot-password/forgot-password.component.ts",
@@ -162,7 +170,7 @@
     {
       "id": "admin-dashboard",
       "kind": "page",
-      "title": "Admin \u00b7 Dashboard",
+      "title": "Admin · Dashboard",
       "app": "admin",
       "route": "/dashboard",
       "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
@@ -186,7 +194,7 @@
     {
       "id": "admin-documents",
       "kind": "page",
-      "title": "Admin \u00b7 Documents",
+      "title": "Admin · Documents",
       "app": "admin",
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
@@ -210,7 +218,7 @@
     {
       "id": "admin-document-viewer",
       "kind": "dialog",
-      "title": "Admin \u00b7 Document Viewer",
+      "title": "Admin · Document Viewer",
       "app": "admin",
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
@@ -230,7 +238,7 @@
     {
       "id": "admin-maintenance",
       "kind": "page",
-      "title": "Admin \u00b7 Maintenance",
+      "title": "Admin · Maintenance",
       "app": "admin",
       "route": "/maintenance",
       "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
@@ -268,7 +276,7 @@
     {
       "id": "admin-maintenance-create",
       "kind": "dialog",
-      "title": "Admin \u00b7 Maintenance Create",
+      "title": "Admin · Maintenance Create",
       "app": "admin",
       "route": "/maintenance",
       "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
@@ -288,7 +296,7 @@
     {
       "id": "admin-messaging",
       "kind": "page",
-      "title": "Admin \u00b7 Messaging",
+      "title": "Admin · Messaging",
       "app": "admin",
       "route": "/messages",
       "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
@@ -314,7 +322,7 @@
     {
       "id": "admin-new-conversation",
       "kind": "dialog",
-      "title": "Admin \u00b7 New Conversation",
+      "title": "Admin · New Conversation",
       "app": "admin",
       "route": "/messages",
       "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
@@ -334,7 +342,7 @@
     {
       "id": "admin-onboarding",
       "kind": "page",
-      "title": "Admin \u00b7 Onboarding",
+      "title": "Admin · Onboarding",
       "app": "admin",
       "route": "/onboarding",
       "source": "frontend/projects/admin/src/app/features/onboarding/onboarding.component.ts",
@@ -357,7 +365,7 @@
     {
       "id": "admin-profile",
       "kind": "page",
-      "title": "Admin \u00b7 Profile",
+      "title": "Admin · Profile",
       "app": "admin",
       "route": "/profile",
       "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
@@ -384,7 +392,7 @@
     {
       "id": "admin-profile-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Profile Saved",
+      "title": "Admin · Profile Saved",
       "app": "admin",
       "route": "/profile",
       "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
@@ -405,7 +413,7 @@
     {
       "id": "admin-profiles",
       "kind": "page",
-      "title": "Admin \u00b7 Profiles",
+      "title": "Admin · Profiles",
       "app": "admin",
       "route": "/profiles",
       "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
@@ -432,7 +440,7 @@
     {
       "id": "admin-profiles-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Profiles Saved",
+      "title": "Admin · Profiles Saved",
       "app": "admin",
       "route": "/profiles",
       "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
@@ -453,7 +461,7 @@
     {
       "id": "admin-users",
       "kind": "page",
-      "title": "Admin \u00b7 Users",
+      "title": "Admin · Users",
       "app": "admin",
       "route": "/users",
       "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
@@ -479,7 +487,7 @@
     {
       "id": "admin-user-create",
       "kind": "dialog",
-      "title": "Admin \u00b7 User Create",
+      "title": "Admin · User Create",
       "app": "admin",
       "route": "/users",
       "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
@@ -499,7 +507,7 @@
     {
       "id": "admin-user-edit",
       "kind": "dialog",
-      "title": "Admin \u00b7 User Edit",
+      "title": "Admin · User Edit",
       "app": "admin",
       "route": "/users",
       "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
@@ -519,7 +527,7 @@
     {
       "id": "admin-user-delete",
       "kind": "dialog",
-      "title": "Admin \u00b7 User Delete",
+      "title": "Admin · User Delete",
       "app": "admin",
       "route": "/users",
       "source": "frontend/projects/admin/src/app/features/users/users.component.ts",
@@ -539,7 +547,7 @@
     {
       "id": "admin-roles",
       "kind": "page",
-      "title": "Admin \u00b7 Roles",
+      "title": "Admin · Roles",
       "app": "admin",
       "route": "/roles",
       "source": "frontend/projects/admin/src/app/features/roles/roles.component.ts",
@@ -563,7 +571,7 @@
     {
       "id": "admin-assets",
       "kind": "page",
-      "title": "Admin \u00b7 Assets",
+      "title": "Admin · Assets",
       "app": "admin",
       "route": "/assets",
       "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
@@ -586,7 +594,7 @@
     {
       "id": "admin-asset-upload",
       "kind": "dialog",
-      "title": "Admin \u00b7 Asset Upload",
+      "title": "Admin · Asset Upload",
       "app": "admin",
       "route": "/assets",
       "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
@@ -606,7 +614,7 @@
     {
       "id": "admin-asset-detail",
       "kind": "dialog",
-      "title": "Admin \u00b7 Asset Detail",
+      "title": "Admin · Asset Detail",
       "app": "admin",
       "route": "/assets",
       "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
@@ -626,7 +634,7 @@
     {
       "id": "admin-asset-delete",
       "kind": "dialog",
-      "title": "Admin \u00b7 Asset Delete",
+      "title": "Admin · Asset Delete",
       "app": "admin",
       "route": "/assets",
       "source": "frontend/projects/admin/src/app/features/assets/assets.component.ts",
@@ -646,7 +654,7 @@
     {
       "id": "admin-invitations",
       "kind": "page",
-      "title": "Admin \u00b7 Invitations",
+      "title": "Admin · Invitations",
       "app": "admin",
       "route": "/invitations",
       "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
@@ -667,7 +675,7 @@
     {
       "id": "admin-invitation-create",
       "kind": "dialog",
-      "title": "Admin \u00b7 Invitation Create",
+      "title": "Admin · Invitation Create",
       "app": "admin",
       "route": "/invitations",
       "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
@@ -687,7 +695,7 @@
     {
       "id": "admin-invitation-created",
       "kind": "dialog",
-      "title": "Admin \u00b7 Invitation Created",
+      "title": "Admin · Invitation Created",
       "app": "admin",
       "route": "/invitations",
       "source": "frontend/projects/admin/src/app/features/invitations/invitations.component.ts",
@@ -707,7 +715,7 @@
     {
       "id": "admin-document-create",
       "kind": "dialog",
-      "title": "Admin \u00b7 Document Create",
+      "title": "Admin · Document Create",
       "app": "admin",
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
@@ -730,7 +738,7 @@
     {
       "id": "admin-document-delete",
       "kind": "dialog",
-      "title": "Admin \u00b7 Document Delete",
+      "title": "Admin · Document Delete",
       "app": "admin",
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
@@ -750,7 +758,7 @@
     {
       "id": "admin-settings",
       "kind": "page",
-      "title": "Admin \u00b7 Settings",
+      "title": "Admin · Settings",
       "app": "admin",
       "route": "/settings",
       "source": "frontend/projects/admin/src/app/features/settings/settings.component.ts",
@@ -773,7 +781,7 @@
     {
       "id": "admin-theme-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Theme Saved",
+      "title": "Admin · Theme Saved",
       "app": "admin",
       "route": "/settings",
       "source": "frontend/projects/admin/src/app/features/settings/settings.component.ts",
@@ -794,7 +802,7 @@
     {
       "id": "admin-change-password",
       "kind": "page",
-      "title": "Admin \u00b7 Change Password",
+      "title": "Admin · Change Password",
       "app": "admin",
       "route": "/change-password",
       "source": "frontend/projects/admin/src/app/features/change-password/change-password.component.ts",
@@ -817,7 +825,7 @@
     {
       "id": "admin-password-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Password Saved",
+      "title": "Admin · Password Saved",
       "app": "admin",
       "route": "/change-password",
       "source": "frontend/projects/admin/src/app/features/change-password/change-password.component.ts",
@@ -838,7 +846,7 @@
     {
       "id": "admin-dashboard-unread",
       "kind": "notification",
-      "title": "Admin \u00b7 Dashboard Unread",
+      "title": "Admin · Dashboard Unread",
       "app": "admin",
       "route": "/dashboard",
       "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
@@ -859,7 +867,7 @@
     {
       "id": "admin-member-dashboard",
       "kind": "page",
-      "title": "Admin \u00b7 Member Dashboard",
+      "title": "Admin · Member Dashboard",
       "app": "admin",
       "route": "/dashboard",
       "source": "frontend/projects/admin/src/app/features/dashboard/dashboard.component.ts",
@@ -882,7 +890,7 @@
     {
       "id": "admin-member-maintenance",
       "kind": "page",
-      "title": "Admin \u00b7 Member Maintenance",
+      "title": "Admin · Member Maintenance",
       "app": "admin",
       "route": "/maintenance",
       "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
@@ -916,7 +924,7 @@
     {
       "id": "admin-member-maintenance-create",
       "kind": "dialog",
-      "title": "Admin \u00b7 Member Maintenance Create",
+      "title": "Admin · Member Maintenance Create",
       "app": "admin",
       "route": "/maintenance",
       "source": "frontend/projects/admin/src/app/features/maintenance/maintenance.component.ts",
@@ -940,7 +948,7 @@
     {
       "id": "admin-member-documents",
       "kind": "page",
-      "title": "Admin \u00b7 Member Documents",
+      "title": "Admin · Member Documents",
       "app": "admin",
       "route": "/documents",
       "source": "frontend/projects/admin/src/app/features/documents/documents.component.ts",
@@ -962,7 +970,7 @@
     {
       "id": "admin-member-messaging",
       "kind": "page",
-      "title": "Admin \u00b7 Member Messaging",
+      "title": "Admin · Member Messaging",
       "app": "admin",
       "route": "/messages",
       "source": "frontend/projects/admin/src/app/features/messaging/messaging.component.ts",
@@ -987,7 +995,7 @@
     {
       "id": "admin-member-profile",
       "kind": "page",
-      "title": "Admin \u00b7 Member Profile",
+      "title": "Admin · Member Profile",
       "app": "admin",
       "route": "/profile",
       "source": "frontend/projects/admin/src/app/features/profiles/profiles.component.ts",
@@ -1023,7 +1031,7 @@
     {
       "id": "public-page",
       "kind": "page",
-      "title": "Public \u00b7 Page",
+      "title": "Public · Page",
       "app": "public",
       "route": "/pages/{slug}",
       "source": "Hand-written design reference, implemented by frontend/projects/public/src/app/pages/content-page/content-page.component.ts",
@@ -1046,58 +1054,17 @@
       }
     },
     {
-      "id": "admin-pages",
-      "kind": "page",
-      "title": "Admin \u00b7 Pages",
-      "app": "admin",
-      "route": "/pages",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
-      "requirements": [
-        "L2-REQ-080"
-      ],
-      "note": "Website pages the office manages: list, add, edit and remove.",
-      "states": [
-        "default",
-        "loading",
-        "empty",
-        "error"
-      ],
-      "not_applicable": {}
-    },
-    {
-      "id": "admin-page-editor",
-      "kind": "dialog",
-      "title": "Admin \u00b7 Page Editor",
-      "app": "admin",
-      "route": "/pages",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
-      "requirements": [
-        "L2-REQ-080",
-        "L2-REQ-097"
-      ],
-      "note": "Native dialog for a new or existing page.",
-      "opens_from": "admin-pages",
-      "states": [
-        "default",
-        "invalid",
-        "busy",
-        "failed",
-        "edit"
-      ],
-      "not_applicable": {}
-    },
-    {
       "id": "admin-page-remove",
       "kind": "dialog",
-      "title": "Admin \u00b7 Page Remove",
+      "title": "Admin · Page Remove",
       "app": "admin",
-      "route": "/pages",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "route": "/website/pages/{id}",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/page-editor/page-editor.component.ts",
       "requirements": [
         "L2-REQ-080"
       ],
       "note": "Confirmation before a page is removed.",
-      "opens_from": "admin-pages",
+      "opens_from": "admin-page-editor",
       "states": [
         "default",
         "busy"
@@ -1109,15 +1076,16 @@
     {
       "id": "admin-page-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Page Saved",
+      "title": "Admin · Page Saved",
       "app": "admin",
-      "route": "/pages",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/pages/pages.component.ts",
+      "route": "/website/pages/{id}",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/page-editor/page-editor.component.ts",
       "requirements": [
-        "L2-REQ-080"
+        "L2-REQ-080",
+        "L2-REQ-123"
       ],
       "note": "Status message after a page is saved or removed.",
-      "opens_from": "admin-pages",
+      "opens_from": "admin-page-editor",
       "states": [
         "success"
       ],
@@ -1130,14 +1098,14 @@
     {
       "id": "admin-board",
       "kind": "page",
-      "title": "Admin \u00b7 Board",
+      "title": "Admin · Board",
       "app": "admin",
-      "route": "/board",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "route": "/website/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/board/board.component.ts",
       "requirements": [
         "L2-REQ-085"
       ],
-      "note": "The Board of Directors list the home page shows: add, edit, reorder and remove.",
+      "note": "The Board of directors list under Website, reached from the site tree; each director has the photo picker.",
       "states": [
         "default",
         "loading",
@@ -1149,14 +1117,16 @@
     {
       "id": "admin-director-editor",
       "kind": "dialog",
-      "title": "Admin \u00b7 Director Editor",
+      "title": "Admin · Director Editor",
       "app": "admin",
-      "route": "/board",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "route": "/website/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/board/board.component.ts",
       "requirements": [
-        "L2-REQ-085"
+        "L2-REQ-085",
+        "L2-REQ-097",
+        "L2-REQ-124"
       ],
-      "note": "Native dialog for a new or existing director.",
+      "note": "Native dialog that edits one director: name, role and a photo chosen with the photo picker.",
       "opens_from": "admin-board",
       "states": [
         "default",
@@ -1170,10 +1140,10 @@
     {
       "id": "admin-director-remove",
       "kind": "dialog",
-      "title": "Admin \u00b7 Director Remove",
+      "title": "Admin · Director Remove",
       "app": "admin",
-      "route": "/board",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "route": "/website/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/board/board.component.ts",
       "requirements": [
         "L2-REQ-085"
       ],
@@ -1190,10 +1160,10 @@
     {
       "id": "admin-board-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Board Saved",
+      "title": "Admin · Board Saved",
       "app": "admin",
-      "route": "/board",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/board/board.component.ts",
+      "route": "/website/board",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/board/board.component.ts",
       "requirements": [
         "L2-REQ-085"
       ],
@@ -1211,60 +1181,164 @@
     {
       "id": "admin-website",
       "kind": "page",
-      "title": "Admin \u00b7 Website",
+      "title": "Admin · Website",
       "app": "admin",
       "route": "/website",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
       "requirements": [
-        "L2-REQ-095",
-        "L2-REQ-096"
+        "L2-REQ-118",
+        "L2-REQ-121"
       ],
-      "note": "The header, footer and home page blocks of the public website, each with a summary and an Edit action.",
+      "note": "The Website area: a site tree in the shape of the public site (Home, Pages with one entry per page and Add a page, Menu and footer, Board of directors, Photos, Look) and the publish bar that says whether there are unpublished changes.",
       "states": [
         "default",
+        "unpublished",
         "loading",
         "error"
       ],
       "not_applicable": {
-        "empty": "The screen always lists the same eleven blocks; a block with no items still has its card and Edit action."
+        "empty": "The site tree always lists Home, Menu and footer, Board of directors, Photos and Look; a site with no pages still shows Add a page."
       }
     },
     {
-      "id": "admin-content-editor",
-      "kind": "dialog",
-      "title": "Admin \u00b7 Content Editor",
+      "id": "admin-page-editor",
+      "kind": "page",
+      "title": "Admin · Page Editor",
       "app": "admin",
-      "route": "/website",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "route": "/website/home, /website/menu-and-footer, /website/pages/{id}, /website/pages/new",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/page-editor/page-editor.component.ts",
       "requirements": [
-        "L2-REQ-095",
-        "L2-REQ-096",
-        "L2-REQ-097",
-        "L2-REQ-098"
+        "L2-REQ-118",
+        "L2-REQ-119",
+        "L2-REQ-120",
+        "L2-REQ-121",
+        "L2-REQ-122"
       ],
-      "note": "Native dialog that edits one block: text fields, links as label and address, photos with their description, and repeatable lists.",
-      "opens_from": "admin-website",
+      "note": "The page editor screen: sections in public order on the left (show or hide, move up or down), the section form in the centre with a placement sentence, and a preview of the draft on the right; tabs at 400% zoom. Also edits the menu and footer and the website pages (banner plus body blocks).",
       "states": [
         "default",
-        "list",
+        "hidden",
+        "moving",
         "invalid",
+        "busy",
+        "saved",
+        "published",
+        "publish-failed",
+        "zoom-sections",
+        "zoom-preview",
+        "notices",
+        "board",
+        "linked-empty",
+        "gallery",
+        "menu",
+        "page",
+        "page-block",
+        "page-existing",
+        "page-unpublished",
+        "page-new",
+        "loading",
+        "error"
+      ],
+      "not_applicable": {
+        "empty": "A page always has at least its banner and the home page always has its nine sections; page-new shows a page with no body blocks yet."
+      }
+    },
+    {
+      "id": "admin-publish-confirm",
+      "kind": "dialog",
+      "title": "Admin · Publish Confirm",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/publish-bar/publish-bar.component.ts",
+      "requirements": [
+        "L2-REQ-121"
+      ],
+      "note": "Confirmation before the draft replaces the published website; publishing twice is harmless.",
+      "opens_from": "admin-page-editor",
+      "states": [
+        "default",
         "busy",
         "failed"
       ],
-      "not_applicable": {}
+      "not_applicable": {
+        "invalid": "The dialog has no fields to validate."
+      }
+    },
+    {
+      "id": "admin-discard-confirm",
+      "kind": "dialog",
+      "title": "Admin · Discard Confirm",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/publish-bar/publish-bar.component.ts",
+      "requirements": [
+        "L2-REQ-121"
+      ],
+      "note": "Confirmation before the draft is thrown away; the published website is unchanged.",
+      "opens_from": "admin-page-editor",
+      "states": [
+        "default",
+        "busy",
+        "failed"
+      ],
+      "not_applicable": {
+        "invalid": "The dialog has no fields to validate."
+      }
+    },
+    {
+      "id": "admin-website-published",
+      "kind": "notification",
+      "title": "Admin · Website Published",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/publish-bar/publish-bar.component.ts",
+      "requirements": [
+        "L2-REQ-121"
+      ],
+      "note": "Status message after the draft is published.",
+      "opens_from": "admin-page-editor",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The unpublished-changes banner is the publish bar, not a notification.",
+        "danger": "A failed publish shows in the dialog (failed) and on the screen (publish-failed)."
+      }
+    },
+    {
+      "id": "admin-website-discarded",
+      "kind": "notification",
+      "title": "Admin · Website Discarded",
+      "app": "admin",
+      "route": "/website",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/publish-bar/publish-bar.component.ts",
+      "requirements": [
+        "L2-REQ-121"
+      ],
+      "note": "Status message after the draft is discarded.",
+      "opens_from": "admin-page-editor",
+      "states": [
+        "success"
+      ],
+      "not_applicable": {
+        "info": "The screen has no info notification.",
+        "warning": "The screen has no warning notification.",
+        "danger": "A failed discard shows in the dialog (failed)."
+      }
     },
     {
       "id": "admin-photo-picker",
       "kind": "dialog",
-      "title": "Admin \u00b7 Photo Picker",
+      "title": "Admin · Photo Picker",
       "app": "admin",
-      "route": "/website",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "route": "/website/home",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/photo-picker/photo-picker.component.ts",
       "requirements": [
         "L2-REQ-097"
       ],
-      "note": "Second native dialog stacked over the block editor: pick a photo from the Assets library or upload a new one.",
-      "opens_from": "admin-content-editor",
+      "note": "Second native dialog stacked over the page editor or the director editor: pick a photo from the Photos library or upload a new one.",
+      "opens_from": "admin-page-editor",
       "states": [
         "default",
         "empty",
@@ -1279,16 +1353,16 @@
     {
       "id": "admin-website-saved",
       "kind": "notification",
-      "title": "Admin \u00b7 Website Saved",
+      "title": "Admin · Website Saved",
       "app": "admin",
-      "route": "/website",
-      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/website.component.ts",
+      "route": "/website/home",
+      "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/website/page-editor/page-editor.component.ts",
       "requirements": [
-        "L2-REQ-095",
-        "L2-REQ-096"
+        "L2-REQ-120",
+        "L2-REQ-121"
       ],
-      "note": "Status message after a block is saved.",
-      "opens_from": "admin-website",
+      "note": "Status message after a section is saved to the draft.",
+      "opens_from": "admin-page-editor",
       "states": [
         "success"
       ],
@@ -1301,7 +1375,7 @@
     {
       "id": "admin-notice-sent",
       "kind": "notification",
-      "title": "Admin \u00b7 Notice Sent",
+      "title": "Admin · Notice Sent",
       "app": "admin",
       "route": "/documents",
       "source": "Hand-written design reference, implemented by frontend/projects/admin/src/app/features/documents/documents.component.ts",

@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Changed on 24 October 2026.** The home page renders `home.sections` in the published order and skips hidden sections, reads the board from `api/board-of-directors` only, and supports preview mode; see `../render-home-sections/` (ADR 0021). The paragraphs below that name `JsonContentService`, `board-members` or a fixed order describe the page before that change.
+
 The home page is the first screen a visitor sees at `/` in the public
 application. It presents Oakridge Women's Neighbourhood Housing Co-operative (OWN) to
 prospective members, their families and current members in the warm,

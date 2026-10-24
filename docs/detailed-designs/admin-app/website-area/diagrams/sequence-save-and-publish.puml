@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Save a section to the draft, then publish
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Office" as actor
+actor "Visitor" as visitor
+box "Frontend — Admin application" #E0F2FE
+  participant "PageEditorComponent" as editor
+  participant "PublishBarComponent" as bar
+  participant "SiteContentService" as service
+end box
+box "Frontend — Public application" #DCFCE7
+  participant "LandingComponent" as landing
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  participant "Pipeline behaviors" as pipeline
+  participant "SaveSiteContentHandler" as save
+  participant "PublishSiteContentHandler" as publish
+  database "CoopDbContext" as db
+end box
+actor -> editor : open /website/home
+editor -> service : getDraft()
+service -> controller : GET api/site-content?draft=true (bearer)
+controller -> pipeline : Send(GetSiteContentDraftRequest)  [OfficeOnly, L2-REQ-128]
+pipeline --> service : 200 { siteContent (draft or published), hasDraft }
+editor -> editor : sections in home.sections order; first selected
+actor -> editor : edit "Welcome banner", "Save to draft"
+editor -> editor : validateBlock(section.fields, draft)  [L2-REQ-096 AC4]
+editor -> service : save(content with the section replaced)
+service -> controller : PUT api/site-content { siteContent }
+controller -> pipeline : Send(SaveSiteContentRequest)
+pipeline -> save : kind-by-kind rules passed; Write on JsonContent  [L2-REQ-122 AC6]
+save -> db : SiteContentDraft entry (add when missing), Json = content  [ADR 0018]
+controller --> service : 200 { siteContent }
+service -> bar : hasDraft = true
+editor --> actor : "Saved to your draft. Publish when you are ready for visitors to see it."  [L2-REQ-095 AC5]
+bar --> actor : "You have unpublished changes. Visitors still see the published website."  [L2-REQ-121 AC6]
+visitor -> landing : open /
+landing -> controller : GET api/site-content (anonymous)
+controller --> landing : published copy only  [L2-REQ-121 AC2]
+actor -> bar : "Publish", then "Publish" in the dialog
+bar -> service : publish()
+service -> controller : POST api/site-content/publish
+controller -> pipeline : Send(PublishSiteContentRequest)
+pipeline -> publish : office and Write on JsonContent
+alt a draft exists
+  publish -> db : SiteContent.Json = draft.Json; remove the draft; SaveChanges
+else no draft
+  publish -> publish : nothing changes (idempotent, ADR 0018)
+end
+controller --> service : 200 { siteContent, hasDraft: false }
+bar --> actor : "Your changes are now on the website."  [L2-REQ-121 AC7]
+visitor -> landing : open /
+controller --> landing : the former draft, published
+@enduml

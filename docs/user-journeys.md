@@ -12,13 +12,17 @@ Coop has two sites (ADR 0016):
   (L2-REQ-112). The office (staff, board members, system administrators and
   support) sees every area.
 
+The public site shows the published site content. The office edits a draft in
+the Website area, previews it on the public site through a short-lived token
+and publishes it in one step (ADR 0018 to ADR 0021).
+
 ## Visitors (public site)
 
 | # | Journey | Description |
 | --- | --- | --- |
-| 6 | Read documents | Filter published documents by type and open one in the viewer. |
-| 10 | Browse the home page | Read the hero, the home page sections, the board, notices and the footer. |
-| 11 | Read a website page | Open a page the office added from the site navigation. |
+| 6 | Read documents | Filter the published notices, by-laws and reports by type and open one in the viewer. |
+| 10 | Browse the home page | Read the published home page sections in the office's order, the board, notices and the footer. |
+| 11 | Read a website page | Open a published page the office added from the site navigation, with its banner and blocks. |
 | 14 | Use the phone menu | Open and close the navigation on a small screen. |
 
 ## Everyone who signs in (admin site)
@@ -53,10 +57,10 @@ Coop has two sites (ADR 0016):
 | 20 | Manage documents | Create, search, filter by tab and delete documents. |
 | 21 | Message members | Start conversations, search them and send messages. |
 | 22 | View the office dashboard | Metrics, recent requests, notices and quick actions. |
-| 23 | Edit website content | Edit the header, footer and home page blocks, lists and photos. |
-| 24 | Manage website pages | Create, edit and remove public website pages. |
+| 23 | Edit website content | Open the site tree, edit the home page sections and the menu and footer, reorder or hide sections, choose photos, preview the draft, then publish or discard it. |
+| 24 | Manage website pages | Add a page with a banner and body blocks, order the blocks, show it in the menu, publish it and remove it. |
 | 25 | Manage roles and privileges | Select a role and toggle its privileges. |
-| 26 | Manage the board of directors | Add, edit, reorder and remove directors. |
+| 26 | Manage the board of directors | Add, edit, reorder and remove directors; the home page and the landing page follow. |
 | 27 | Manage profiles | Select a profile, edit it, set a photo and a board title. |
-| 28 | Manage digital assets | Upload, search, view, download and delete images and files. |
-| 29 | Customize the theme | Change, save or reset theme colours by scope. |
+| 28 | Manage digital assets | Upload, search, open, download and delete the photos and files in the library. |
+| 29 | Customize the theme | Choose a scope, change the colours, check the preview, then save or reset. |

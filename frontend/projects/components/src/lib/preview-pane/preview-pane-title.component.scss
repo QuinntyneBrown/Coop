@@ -1,0 +1,11 @@
+// The title of the preview pane, with its icon. (docs/design-system/components/preview-pane.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font: var(--text-label);
+  color: var(--color-fg-default);
+}

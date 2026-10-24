@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import type { WebsitePage } from '../models/website-page';
 import type { WebsitePageDraft } from '../models/website-page-draft';
 
-/** Website page management (`/api/pages`, L2-REQ-080). */
+/** Website page management (`/api/pages`, L2-REQ-080, L2-REQ-123); the office reads every page, published or not. */
 @Injectable({ providedIn: 'root' })
 export class PageService {
   private readonly api = inject(ApiService);
@@ -36,7 +36,8 @@ export class PageService {
       title: draft.title.trim(),
       heroImageUrl: draft.heroImageUrl.trim() || null,
       heroImageAlt: draft.heroImageUrl.trim() ? draft.heroImageAlt.trim() || null : null,
-      body: draft.body,
+      published: draft.published,
+      sections: draft.sections,
     };
   }
 }

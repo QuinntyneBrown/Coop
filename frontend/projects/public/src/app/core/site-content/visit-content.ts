@@ -1,7 +1,8 @@
+import type { HomeSectionBase } from './home-section-base';
 import type { SiteLink } from './site-link';
 
 /** The "Visit or apply" band. */
-export interface VisitContent {
+export interface VisitContent extends HomeSectionBase<'visit'> {
   eyebrow: string;
   title: string;
   lead: string;

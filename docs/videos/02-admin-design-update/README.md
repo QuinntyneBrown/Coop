@@ -1,6 +1,6 @@
 # 02 · The admin site, on the Shelfie design
 
-> **Runtime:** 2 min 48 s · **Audience:** board members and office staff · **Prerequisites:** none
+> **Runtime:** 2 min 47 s · **Audience:** board members and office staff · **Prerequisites:** none
 
 **Video:** [02-admin-design-update.mp4](02-admin-design-update.mp4) · [Slides](slides.html) · **Audio:** [02-admin-design-update.mp3](02-admin-design-update.mp3) · [Transcript](script.md)
 

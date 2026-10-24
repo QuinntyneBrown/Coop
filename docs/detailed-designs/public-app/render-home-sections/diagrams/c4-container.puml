@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Render the home page from sections
+
+Person(visitor, "Visitor", "Reads the public home page")
+System_Boundary(coop, "Coop") {
+  Container(publicApp, "Public application", "Angular", "LandingComponent iterates home.sections and switches on kind; preview mode; Documents page from published endpoints")
+  Container(api, "Coop API", "ASP.NET Core", "api/site-content, api/pages, api/board-of-directors, api/notice|bylaw|report/published")
+  ContainerDb(db, "Coop database", "SQLite", "JsonContents, Pages, Documents")
+}
+Rel(visitor, publicApp, "Uses", "HTTPS")
+Rel(publicApp, api, "GET api/site-content[?preview] once per load; api/board-of-directors; api/notice/published; api/pages[?preview]", "JSON/HTTPS, anonymous")
+Rel(api, db, "Reads", "EF Core")
+@enduml

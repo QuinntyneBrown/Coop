@@ -103,11 +103,12 @@ Every command takes the global `--connection <connection string>` option and
 | `invitation list` | `coop invitation list` | `GetInvitationTokensRequest` |
 | `invitation create --value --type [--expires]` | `coop invitation create --value spring-2027 --type Member --expires 2027-06-30` | `CreateInvitationTokenRequest` |
 | `invitation remove --value` | `coop invitation remove --value spring-2027` | `RemoveInvitationTokenRequest` |
-| `site-content export [--file]` | `coop site-content export --file site.json` | `GetSiteContentRequest` |
-| `site-content import --file` | `coop site-content import --file site.json` | `SaveSiteContentRequest` |
+| `site-content export [--file] [--draft]` | `coop site-content export --file site.json --draft` | `GetSiteContentRequest`, `GetSiteContentDraftRequest` |
+| `site-content import --file [--draft]` | `coop site-content import --file site.json` | `SaveSiteContentRequest`, then `PublishSiteContentRequest` unless `--draft` |
+| `site-content publish` / `site-content discard` | `coop site-content publish` | `PublishSiteContentRequest`, `DiscardSiteContentDraftRequest` (both idempotent, ADR 0018) |
 | `page list` | `coop page list` | `GetPagesRequest` |
-| `page create --title --body-file [--hero-image-url --hero-image-alt]` | `coop page create --title "Our garden" --body-file garden.html` | `CreatePageRequest` |
-| `page update --slug [--title] [--body-file] [--hero-image-url] [--hero-image-alt]` | `coop page update --slug our-garden --title "Our rooftop garden"` | `GetPageBySlugRequest`, `UpdatePageRequest` |
+| `page create --title --body-file [--hero-image-url --hero-image-alt] [--published]` | `coop page create --title "Our garden" --body-file garden.html` | `CreatePageRequest` |
+| `page update --slug [--title] [--body-file] [--hero-image-url] [--hero-image-alt] [--published true\|false]` | `coop page update --slug our-garden --title "Our rooftop garden"` | `GetPageBySlugRequest`, `UpdatePageRequest` |
 | `page remove --slug` | `coop page remove --slug our-garden` | `RemovePageRequest` |
 | `board export [--file]` / `board import --file` | `coop board import --file board.json` | `GetBoardOfDirectorsRequest`, `SaveBoardOfDirectorsRequest` |
 | `asset list` | `coop asset list` | `GetDigitalAssetsRequest` |

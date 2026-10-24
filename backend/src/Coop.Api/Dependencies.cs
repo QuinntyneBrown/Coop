@@ -85,6 +85,8 @@ public static class Dependencies
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                // A home page section's "kind" may follow its other values (L2-REQ-122, ADR 0021).
+                options.JsonSerializerOptions.AllowOutOfOrderMetadataProperties = true;
             });
 
         return services;

@@ -1,0 +1,34 @@
+<div class="page-header">
+  <div>
+    <h1 data-testid="website-title">Website</h1>
+    <p class="subtitle">
+      Everything visitors see on the public website, laid out the way they see it. Choose a part of
+      the site to edit it.
+    </p>
+  </div>
+</div>
+
+<div class="stack">
+  <app-publish-bar />
+
+  @if (failed()) {
+    <div libAlert tone="danger" role="alert" data-testid="website-error">
+      <svg libIcon="error"></svg>
+      <div libAlertBody>
+        <span>We couldn't load the website. Check your connection and try again.</span>
+        <div libAlertActions>
+          <button type="button" libButton size="sm" (click)="retry()" data-testid="website-retry">
+            <svg libIcon="try-again"></svg>Try again
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+  <div libCard>
+    <app-site-tree cards (failed)="failed.set($event)" />
+  </div>
+  <p class="text-muted">
+    Documents and notices stay under Community. The “What's on” section of the home page shows the
+    published notices.
+  </p>
+</div>

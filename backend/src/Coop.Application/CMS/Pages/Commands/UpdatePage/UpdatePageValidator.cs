@@ -8,7 +8,7 @@ public class UpdatePageValidator : AbstractValidator<UpdatePageRequest>
     {
         RuleFor(x => x.PageId).NotEmpty();
         RuleFor(x => x.Title).PageTitle();
-        RuleFor(x => x.Body).PageBody();
+        RuleForEach(x => x.Sections).PageBlock();
         RuleFor(x => x.HeroImageUrl).PageHeroImageUrl();
         RuleFor(x => x.HeroImageAlt).PageHeroImageAlt(x => x.HeroImageUrl);
     }

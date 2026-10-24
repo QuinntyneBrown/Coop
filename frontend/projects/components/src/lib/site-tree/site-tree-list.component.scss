@@ -1,0 +1,17 @@
+// Site tree list (docs/design-system/components/site-tree.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+:host(:where(.site-tree__list--nested)) {
+  padding-left: var(--space-6);
+  border-left: var(--border-width-hairline) solid var(--color-border-default);
+  margin-left: var(--space-4);
+}

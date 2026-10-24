@@ -59,7 +59,9 @@ public static class SiteContentSeed
             },
             Home = new HomeContentDto
             {
-                Hero = new HeroDto
+                Sections = new()
+                {
+                new HeroDto
                 {
                     Eyebrow = "A co-operative for older women",
                     Title = "A home of our own, in the heart of Toronto.",
@@ -69,7 +71,7 @@ public static class SiteContentSeed
                     SecondaryAction = Link("How to apply", "/#visit"),
                     Photo = Photo(address("hero.svg"), "Our brick building with balconies and a rooftop garden. Two women chat on a bench out front while a neighbour walks her dog.", 1200, 900),
                 },
-                Glance = new GlanceDto
+                new GlanceDto
                 {
                     Figures = new()
                     {
@@ -78,7 +80,7 @@ public static class SiteContentSeed
                         new FigureDto { Value = "100%", Label = "run by the women who live here" },
                     },
                 },
-                About = new AboutDto
+                new AboutDto
                 {
                     Eyebrow = "Who we are",
                     Title = "Older women built this place. We still run it.",
@@ -90,7 +92,7 @@ public static class SiteContentSeed
                         new ValueCardDto { Icon = "company", Title = "Never far from company", Text = "Tea on Tuesdays, a choir on Thursdays, and a garden that always needs a hand." },
                     },
                 },
-                Gallery = new GalleryDto
+                new GalleryDto
                 {
                     Eyebrow = "A look around",
                     Title = "Come in. Have a look.",
@@ -104,7 +106,7 @@ public static class SiteContentSeed
                         GalleryPhoto(Photo(address("hero.svg"), "Our building seen from the park, with trees on either side and a bench out front.", 1200, 900), "Home, from the park", "small"),
                     },
                 },
-                Features = new FeaturesDto
+                new FeaturesDto
                 {
                     Rows = new()
                     {
@@ -124,21 +126,21 @@ public static class SiteContentSeed
                         },
                     },
                 },
-                Notices = new NoticesDto
+                new NoticesDto
                 {
                     Eyebrow = "What's on",
                     Title = "Something for every week.",
                     Lead = "Everyone is welcome. Bring a friend.",
                     EmptyMessage = "No notices right now. Check back soon.",
                 },
-                Board = new SectionHeadDto { Eyebrow = "Meet the board", Title = "Elected by neighbours, for neighbours." },
-                Quote = new QuoteDto
+                new BoardDto { Eyebrow = "Meet the board", Title = "Elected by neighbours, for neighbours." },
+                new QuoteDto
                 {
                     Text = "I came for an apartment I could afford. I stayed for the women down the hall.",
                     Attribution = "Beatrix, member since 2003",
                     Photo = Photo(address("quote.svg"), "Beatrix, laughing, in a green cardigan and a coral scarf.", 600, 600),
                 },
-                Visit = new VisitDto
+                new VisitDto
                 {
                     Eyebrow = "Visit or apply",
                     Title = "Come and see for yourself.",
@@ -146,6 +148,7 @@ public static class SiteContentSeed
                     Phone = "416 555 0142",
                     Hours = "Monday to Friday, 9 am to 4 pm",
                     Action = Link("Send us a note", "/#contact"),
+                },
                 },
             },
         };

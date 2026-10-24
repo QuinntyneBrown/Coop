@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -331,10 +338,10 @@ form.addEventListener("input", (event) =&gt; recheck(event.target)); // only aft
       <div class="ds-table-wrap"><table class="ds-table">
         <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mocks</th></tr></thead>
         <tbody>
-          <tr><td>Default</td><td>Empty or pre-filled fields; the primary button enabled. Pre-fill what the admin already knows (the role defaults to Member; an edit form shows the saved values).</td><td><a href="../../mocks/dialogs/admin-user-create/default.html">admin-user-create/default</a>, <a href="../../mocks/dialogs/admin-maintenance-create/default.html">admin-maintenance-create/default</a>, <a href="../../mocks/dialogs/admin-page-editor/edit.html">admin-page-editor/edit</a></td></tr>
-          <tr><td>Invalid</td><td>The error summary with links, focused; each field marked and explained.</td><td><a href="../../mocks/dialogs/admin-page-editor/invalid.html">admin-page-editor/invalid</a>, <a href="../../mocks/dialogs/admin-director-editor/invalid.html">admin-director-editor/invalid</a>, <a href="../../mocks/pages/admin-change-password/invalid.html">admin-change-password/invalid</a>, <a href="../../mocks/pages/admin-register/mismatch.html">admin-register/mismatch</a></td></tr>
-          <tr><td>Submitting</td><td>A busy primary button, readonly text, disabled selects and footer buttons.</td><td><a href="../../mocks/dialogs/admin-page-editor/busy.html">admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">admin-document-create/busy</a>, <a href="../../mocks/pages/admin-change-password/submitting.html">admin-change-password/submitting</a></td></tr>
-          <tr><td>Failed to send</td><td>A danger alert at the top of the form says nothing was lost and how to try again; every value stays.</td><td><a href="../../mocks/dialogs/admin-page-editor/failed.html">admin-page-editor/failed</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">admin-document-create/send-error</a>, <a href="../../mocks/pages/admin-login/error.html">admin-login/error</a></td></tr>
+          <tr><td>Default</td><td>Empty or pre-filled fields; the primary button enabled. Pre-fill what the admin already knows (the role defaults to Member; an edit form shows the saved values).</td><td><a href="../../mocks/dialogs/admin-user-create/default.html">admin-user-create/default</a>, <a href="../../mocks/dialogs/admin-maintenance-create/default.html">admin-maintenance-create/default</a>, <a href="../../mocks/pages/admin-page-editor/page.html">admin-page-editor/edit</a></td></tr>
+          <tr><td>Invalid</td><td>The error summary with links, focused; each field marked and explained.</td><td><a href="../../mocks/pages/admin-page-editor/invalid.html">admin-page-editor/invalid</a>, <a href="../../mocks/dialogs/admin-director-editor/invalid.html">admin-director-editor/invalid</a>, <a href="../../mocks/pages/admin-change-password/invalid.html">admin-change-password/invalid</a>, <a href="../../mocks/pages/admin-register/mismatch.html">admin-register/mismatch</a></td></tr>
+          <tr><td>Submitting</td><td>A busy primary button, readonly text, disabled selects and footer buttons.</td><td><a href="../../mocks/pages/admin-page-editor/busy.html">admin-page-editor/busy</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">admin-document-create/busy</a>, <a href="../../mocks/pages/admin-change-password/submitting.html">admin-change-password/submitting</a></td></tr>
+          <tr><td>Failed to send</td><td>A danger alert at the top of the form says nothing was lost and how to try again; every value stays.</td><td><a href="../../mocks/pages/admin-page-editor/publish-failed.html">admin-page-editor/failed</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">admin-document-create/send-error</a>, <a href="../../mocks/pages/admin-login/error.html">admin-login/error</a></td></tr>
           <tr><td>Success</td><td>The dialog closes and a status alert on the list names what changed; a page form shows a success alert at the top.</td><td><a href="../../mocks/notifications/admin-page-saved/success.html">admin-page-saved/success</a>, <a href="../../mocks/notifications/admin-password-saved/success.html">admin-password-saved/success</a>, <a href="../../mocks/notifications/admin-theme-saved/success.html">admin-theme-saved/success</a></td></tr>
         </tbody>
       </table></div>
@@ -423,7 +430,7 @@ form.addEventListener("input", (event) =&gt; recheck(event.target)); // only aft
         <li><a href="../../mocks/dialogs/admin-maintenance-create/default.html">dialogs/admin-maintenance-create/default</a>, <a href="../../mocks/dialogs/admin-maintenance-create/invalid.html">invalid</a></li>
         <li><a href="../../mocks/dialogs/admin-invitation-create/default.html">dialogs/admin-invitation-create/default</a>; <a href="../../mocks/dialogs/admin-asset-upload/default.html">dialogs/admin-asset-upload/default</a></li>
         <li><a href="../../mocks/dialogs/admin-document-create/default.html">dialogs/admin-document-create/default</a>, <a href="../../mocks/dialogs/admin-document-create/send.html">send</a>, <a href="../../mocks/dialogs/admin-document-create/busy.html">busy</a>, <a href="../../mocks/dialogs/admin-document-create/send-error.html">send-error</a></li>
-        <li><a href="../../mocks/dialogs/admin-page-editor/default.html">dialogs/admin-page-editor/default</a>, <a href="../../mocks/dialogs/admin-page-editor/invalid.html">invalid</a>, <a href="../../mocks/dialogs/admin-page-editor/busy.html">busy</a>, <a href="../../mocks/dialogs/admin-page-editor/failed.html">failed</a>; <a href="../../mocks/dialogs/admin-page-remove/default.html">dialogs/admin-page-remove/default</a></li>
+        <li><a href="../../mocks/pages/admin-page-editor/page.html">dialogs/admin-page-editor/default</a>, <a href="../../mocks/pages/admin-page-editor/invalid.html">invalid</a>, <a href="../../mocks/pages/admin-page-editor/busy.html">busy</a>, <a href="../../mocks/pages/admin-page-editor/publish-failed.html">failed</a>; <a href="../../mocks/dialogs/admin-page-remove/default.html">dialogs/admin-page-remove/default</a></li>
         <li><a href="../../mocks/pages/admin-change-password/invalid.html">pages/admin-change-password/invalid</a>, <a href="../../mocks/pages/admin-change-password/submitting.html">submitting</a>; <a href="../../mocks/pages/admin-login/error.html">pages/admin-login/error</a>; <a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a></li>
       </ul>
       <h3>Drift from the implemented admin</h3>

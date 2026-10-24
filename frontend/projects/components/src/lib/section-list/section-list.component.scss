@@ -1,0 +1,12 @@
+// The page editor's sections in the order visitors see them, n (docs/design-system/components/section-list.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  counter-reset: section;
+}

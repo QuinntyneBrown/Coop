@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocumentService, CoopDocument } from '../../core/services/document.service';
-import { catchError, of } from 'rxjs';
+import type { CoopDocument } from '../../core/models/coop-document';
+import { DocumentService } from '../../core/services/document.service';
 import { documentTypeLabel } from './document-type-label';
 
 @Component({
@@ -56,7 +56,7 @@ import { documentTypeLabel } from './document-type-label';
       </div>
 
       <!-- Document List -->
-      @if (filteredDocuments.length > 0) {
+      @if (!loading && filteredDocuments.length > 0) {
         <div class="document-list" data-testid="documents-list">
           @for (doc of filteredDocuments; track doc) {
             <div class="document-card card" data-testid="document-card" (click)="openDocument(doc)">
@@ -75,8 +75,34 @@ import { documentTypeLabel } from './document-type-label';
         </div>
       }
 
+      <!-- Nothing could be loaded (L2-REQ-126 AC2) -->
+      @if (!loading && failed) {
+        <div class="empty-state" role="alert" data-testid="documents-error">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--text-secondary)"
+            stroke-width="1.5"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          <p>We couldn't load the documents right now.</p>
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="loadDocuments()"
+            data-testid="documents-retry"
+          >
+            Try again
+          </button>
+        </div>
+      }
+
       <!-- Empty State -->
-      @if (!loading && filteredDocuments.length === 0) {
+      @if (!loading && !failed && filteredDocuments.length === 0) {
         <div class="empty-state" data-testid="documents-empty-state">
           <svg
             width="48"
@@ -346,6 +372,8 @@ export class DocumentsComponent implements OnInit {
   documents: CoopDocument[] = [];
   filteredDocuments: CoopDocument[] = [];
   loading = true;
+  /** True when none of the published-documents requests answered. */
+  failed = false;
   activeFilter = 'all';
   selectedDocument: CoopDocument | null = null;
 
@@ -353,21 +381,23 @@ export class DocumentsComponent implements OnInit {
     this.loadDocuments();
   }
 
+  /** The published notices, by-laws and reports; the documents of the requests that answered (L2-REQ-126). */
   loadDocuments() {
     this.loading = true;
-    // Try the combined endpoint first, fall back to published endpoints
-    this.documentService
-      .getAllDocuments()
-      .pipe(
-        catchError(() =>
-          this.documentService.getPublishedDocuments().pipe(catchError(() => of([]))),
-        ),
-      )
-      .subscribe((docs) => {
+    this.failed = false;
+    this.documentService.getPublishedDocuments().subscribe({
+      next: (docs) => {
         this.documents = docs;
         this.applyFilter();
         this.loading = false;
-      });
+      },
+      error: () => {
+        this.documents = [];
+        this.applyFilter();
+        this.failed = true;
+        this.loading = false;
+      },
+    });
   }
 
   filterBy(filter: string) {

@@ -1,0 +1,11 @@
+// Sidebar group heading (docs/design-system/components/sidebar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: block;
+  font: var(--text-overline);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  padding: var(--space-4) var(--space-3) var(--space-1);
+}

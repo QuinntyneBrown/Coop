@@ -73,6 +73,13 @@
       <li><a href="../components/skeleton.html">Skeleton</a></li>
       <li><a href="../components/empty-state.html">Empty state</a></li>
       <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/site-tree.html">Site tree</a></li>
+      <li><a href="../components/publish-bar.html">Publish bar</a></li>
+      <li><a href="../components/section-list.html">Section list</a></li>
+      <li><a href="../components/placement-note.html">Placement note</a></li>
+      <li><a href="../components/linked-summary.html">Linked summary</a></li>
+      <li><a href="../components/preview-pane.html">Preview pane</a></li>
+      <li><a href="../components/block-card.html">Block card</a></li>
     </ul></details>
     <details open><summary>Patterns</summary><ul>
       <li><a href="../patterns/forms.html">Forms</a></li>
@@ -151,7 +158,7 @@
       <h3>With a trailing icon</h3>
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--stack">
-          <p><a href="../../mocks/pages/admin-pages/default.html" style="display: inline-flex; align-items: center; gap: var(--space-1);">Open<span class="visually-hidden"> About us</span> on the website<svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></p>
+          <p><a href="../../mocks/pages/admin-page-editor/page.html" style="display: inline-flex; align-items: center; gap: var(--space-1);">Open<span class="visually-hidden"> About us</span> on the website<svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></p>
         </div>
         <div class="ds-example__caption"><span>The icon follows the words, is <code>aria-hidden</code>, and inherits the link colour. Every page card has this link, so a hidden span adds the page name: it reads "Open About us on the website". It means "this leaves the admin"; the link still opens in the same tab, so Back returns.</span></div>
         <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;a href="/pages/about-us"&gt;Open&lt;span class="visually-hidden"&gt; About us&lt;/span&gt; on the website&lt;svg class="icon icon--sm" aria-hidden="true" …&gt;&lt;/svg&gt;&lt;/a&gt;</code></pre></details>
@@ -254,8 +261,8 @@ a:hover { color: var(--color-fg-link-hover); text-decoration-thickness: var(--bo
       <div class="ds-dodont">
         <figure class="ds-do"><div class="ds-example__canvas"><p><a href="../../mocks/pages/admin-forgot-password/default.html">Forgot password?</a></p></div><figcaption>Keep the underline; it is how a link is told apart from text.</figcaption></figure>
         <figure class="ds-dont"><div class="ds-example__canvas"><p><a href="../../mocks/pages/admin-forgot-password/default.html" style="text-decoration: none;">Forgot password?</a></p></div><figcaption>"Forgot password?" and "View all" as implemented: no underline, so colour is the only cue, which fails WCAG 1.4.1.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-pages/default.html">Open<span class="visually-hidden"> About us</span> on the website</a><a href="../../mocks/pages/admin-pages/default.html">Open<span class="visually-hidden"> Our garden</span> on the website</a></div><figcaption>Repeated links carry the page name in a hidden span, so a screen reader's link list says where each goes.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-pages/default.html">Open on the website</a><a href="../../mocks/pages/admin-pages/default.html">Open on the website</a></div><figcaption>Three identical "Open on the website" links on Pages: out of context they are indistinguishable. A bare "View all" on the dashboard has the same problem.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-page-editor/page.html">Open<span class="visually-hidden"> About us</span> on the website</a><a href="../../mocks/pages/admin-page-editor/page.html">Open<span class="visually-hidden"> Our garden</span> on the website</a></div><figcaption>Repeated links carry the page name in a hidden span, so a screen reader's link list says where each goes.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><a href="../../mocks/pages/admin-page-editor/page.html">Open on the website</a><a href="../../mocks/pages/admin-page-editor/page.html">Open on the website</a></div><figcaption>Three identical "Open on the website" links on Pages: out of context they are indistinguishable. A bare "View all" on the dashboard has the same problem.</figcaption></figure>
         <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--ghost" type="button">Reset to default</button></div><figcaption>Resetting the theme changes data, so it is a button.</figcaption></figure>
         <figure class="ds-dont"><div class="ds-example__canvas"><p><a class="text-muted">Reset to Default</a></p></div><figcaption>An <code>&lt;a&gt;</code> with no <code>href</code>, as on Settings: it looks like a link, but the keyboard cannot reach it and it is not announced as anything.</figcaption></figure>
       </div>
@@ -293,9 +300,9 @@ a:hover { color: var(--color-fg-link-hover); text-decoration-thickness: var(--bo
         <li><a href="../../mocks/pages/admin-login/default.html">pages/admin-login/default</a> ("Forgot password?", "Sign up")</li>
         <li><a href="../../mocks/pages/admin-register/default.html">pages/admin-register/default</a> and <a href="../../mocks/pages/admin-forgot-password/default.html">pages/admin-forgot-password/default</a> ("Sign in", "Back to Sign In")</li>
         <li><a href="../../mocks/pages/admin-dashboard/default.html">pages/admin-dashboard/default</a> ("View all" in the Recent maintenance requests card)</li>
-        <li><a href="../../mocks/pages/admin-pages/default.html">pages/admin-pages/default</a> ("Open on the website" with a trailing icon)</li>
+        <li><a href="../../mocks/pages/admin-page-editor/page.html">pages/admin-pages/default</a> ("Open on the website" with a trailing icon)</li>
         <li><a href="../../mocks/pages/admin-maintenance/detail-photos.html">pages/admin-maintenance/detail-photos</a> (photo links that open a new tab)</li>
-        <li><a href="../../mocks/dialogs/admin-page-editor/invalid.html">dialogs/admin-page-editor/invalid</a> (error-summary links to fields)</li>
+        <li><a href="../../mocks/pages/admin-page-editor/invalid.html">dialogs/admin-page-editor/invalid</a> (error-summary links to fields)</li>
         <li><a href="../../mocks/pages/admin-documents/default.html">pages/admin-documents/default</a> (document cards as <code>role="link"</code>)</li>
         <li><a href="../../mocks/pages/admin-settings/default.html">pages/admin-settings/default</a> ("Reset to Default" without <code>href</code>)</li>
       </ul>

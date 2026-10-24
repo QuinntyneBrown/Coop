@@ -1,0 +1,21 @@
+@if (mode() !== 'none') {
+  <div class="own-preview-banner" role="status" data-testid="preview-banner">
+    <div class="own-container own-preview-banner__inner">
+      <svg class="own-icon" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6z" />
+        <circle cx="12" cy="12" r="2.5" />
+      </svg>
+      @if (mode() === 'preview') {
+        <span
+          ><strong>Preview.</strong> You are looking at unpublished changes. Visitors see the
+          published website.</span
+        >
+      } @else {
+        <span
+          ><strong>This preview link has expired.</strong> You are looking at the published website.
+          Open the preview again from the admin Website area.</span
+        >
+      }
+    </div>
+  </div>
+}

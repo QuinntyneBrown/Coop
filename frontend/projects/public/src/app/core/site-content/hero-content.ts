@@ -1,8 +1,9 @@
+import type { HomeSectionBase } from './home-section-base';
 import type { SiteLink } from './site-link';
 import type { SitePhoto } from './site-photo';
 
 /** The home page hero. */
-export interface HeroContent {
+export interface HeroContent extends HomeSectionBase<'hero'> {
   eyebrow: string;
   title: string;
   lead: string;

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — The Website area
+
+Person(office, "Office", "Staff, board members, system administrators and support who keep the public website")
+Person(visitor, "Visitor", "Reads the public site")
+System(coop, "Coop", "Cooperative management platform: admin app, public site, API and command-line tool")
+
+Rel(office, coop, "Edits the home page, pages, menu and footer and board in a draft; previews, publishes or discards it", "HTTPS")
+Rel(visitor, coop, "Sees the published website only", "HTTPS")
+@enduml

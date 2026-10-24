@@ -1,5 +1,5 @@
-import { test as base, expect } from '@playwright/test';
-import { MockApi } from './mock-api';
+import { test as base, expect } from "@playwright/test";
+import { MockApi } from "./mock-api";
 
 /**
  * Base test for every suite. Each test gets its own MockApi, installed on the

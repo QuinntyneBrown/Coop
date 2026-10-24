@@ -34,23 +34,9 @@ const boardMemberFrom = (raw: unknown): BoardMemberView | null => {
   };
 };
 
-/** Board members listed in the `BoardOfDirectors` CMS content. */
-export function boardMembersFrom(content: Json): BoardMemberView[] {
-  const members =
-    content?.['members'] ??
-    content?.['Members'] ??
-    content?.['boardMembers'] ??
-    content?.['BoardMembers'];
-  return Array.isArray(members)
-    ? members.map(boardMemberFrom).filter((m): m is BoardMemberView => m !== null)
-    : [];
-}
-
-/** Board members from `api/board-members` (an array) or `api/boardmembers` (`{ boardMembers }`). */
-export function boardMembersFromApi(response: unknown): BoardMemberView[] {
-  const list = Array.isArray(response)
-    ? response
-    : ((response as Record<string, unknown> | null)?.['boardMembers'] ?? []);
+/** The directors of `GET api/board-of-directors` (`{ directors }`), in the board's order (L2-REQ-124 AC6). */
+export function directorsFrom(response: unknown): BoardMemberView[] {
+  const list = (response as Record<string, unknown> | null)?.['directors'];
   return Array.isArray(list)
     ? list.map(boardMemberFrom).filter((m): m is BoardMemberView => m !== null)
     : [];

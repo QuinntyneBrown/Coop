@@ -1,237 +1,350 @@
 // Acceptance Test
-// Traces to: L2-REQ-080, L2-REQ-097
-// Description: An office administrator lists, adds, edits and removes the
-// website pages from the admin Pages screen: list, empty and error states,
-// the editor dialog with its validation (including the hero photo's
-// description), duplicate-title check, failed save and prefilled edit, and the
-// remove confirmation.
+// Traces to: L2-REQ-123, L2-REQ-080, L2-REQ-097, L2-REQ-119
+// Description: The office edits a website page on the page editor: the Page
+// banner fixed first with the title, photo, address link and the "Show this
+// page in the website menu" choice; body blocks added, moved and removed and
+// named by kind and text; Save page sends the whole page and the public page
+// follows; a new page starts out of the menu; the rules for the title, the
+// photo description and each block; a duplicate title; a failed save; the
+// Existing content block; the remove dialog; and the preview pane at the
+// page's address.
 
-import { test, expect } from '../../fixtures/admin/api.fixture';
-import { PagesPage } from '../../pages/admin/pages.page';
-import { SidebarComponent } from '../../pages/admin/sidebar.component';
+import { test, expect } from "../../fixtures/admin/api.fixture";
+import type { MockApi } from "../../fixtures/mock-api/mock-api";
+import { PageEditorPage } from "../../pages/admin/page-editor.page";
+import { WebsitePage } from "../../pages/admin/website.page";
 
-test.describe('Pages', () => {
-  let pages: PagesPage;
-  let sidebar: SidebarComponent;
+function page(mockApi: MockApi, slug: string) {
+  return mockApi.store.pages.find((p) => p.slug === slug)!;
+}
+
+test.describe("Website pages", () => {
+  let editor: PageEditorPage;
 
   test.beforeEach(async ({ authenticatedPage }) => {
-    pages = new PagesPage(authenticatedPage);
-    sidebar = new SidebarComponent(authenticatedPage);
+    editor = new PageEditorPage(authenticatedPage);
   });
 
-  test.describe('List', () => {
-    test('shows the Pages screen from the sidebar with every page and its address', async ({
-      mockApi,
-    }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.expectPageLoaded();
-      await sidebar.expectActiveLink('pages');
-      await expect(pages.cards).toHaveCount(1);
-      await expect(pages.cardAddress(seeded.title)).toHaveText(`/pages/${seeded.slug}`);
-      await expect(pages.card(seeded.title).getByTestId('page-card-edit')).toBeVisible();
-      await expect(pages.card(seeded.title).getByTestId('page-card-remove')).toBeVisible();
-    });
+  test("opens a page from the site tree with the banner first and the blocks named by kind and text", async ({
+    authenticatedPage,
+    mockApi,
+  }) => {
+    const website = new WebsitePage(authenticatedPage);
+    await website.goto();
+    await website.treeLink("How to apply").click();
 
-    test('lists pages oldest first', async ({ mockApi }) => {
-      mockApi.createPage({ title: 'Our garden', body: '<p>Tomatoes.</p>' });
-      await pages.goto();
-      await expect(pages.cards.getByTestId('page-card-title')).toHaveText([
-        'How to apply',
-        'Our garden',
-      ]);
-    });
-
-    test('says when there are no pages yet', async ({ mockApi }) => {
-      mockApi.store.pages = [];
-      await pages.goto();
-      await expect(pages.empty).toContainText('No pages yet');
-      await expect(pages.empty.getByRole('button', { name: 'New page' })).toBeVisible();
-      await expect(pages.cards).toHaveCount(0);
-    });
-
-    test('offers Try again when the list cannot be loaded', async ({ mockApi }) => {
-      mockApi.failing.add('GET pages');
-      await pages.goto();
-      await expect(pages.error).toContainText(
-        "We couldn't load the pages. Check your connection and try again.",
-      );
-      mockApi.failing.clear();
-      await pages.retryButton.click();
-      await expect(pages.cards).toHaveCount(1);
-      await expect(pages.error).toBeHidden();
-    });
+    await editor.expectLoaded("How to apply");
+    await expect(authenticatedPage).toHaveTitle(
+      "How to apply · OWN Housing Co-op Office",
+    );
+    expect(await editor.sectionNames()).toEqual([
+      "Page banner",
+      "Paragraph: Membership is open to women aged 55 and…",
+      "Heading: Who can apply",
+      "Bullet list",
+      "Heading: What happens next",
+      "Paragraph: Send the form to the office, then come…",
+      "Photo",
+      "Link button: Send us a note",
+    ]);
+    await expect(editor.sectionHeading).toHaveText("Page banner");
+    await expect(editor.placement).toHaveText(
+      "Appears at the top of the page: the title and the photo under it.",
+    );
+    await expect(editor.pageTitleInput).toHaveValue("How to apply");
+    await expect(editor.pageAddress).toHaveText(/\/pages\/how-to-apply/);
+    await expect(editor.pageAddress).toHaveAttribute(
+      "href",
+      "http://localhost:4201/pages/how-to-apply",
+    );
+    await expect(editor.pagePublished).toBeChecked();
+    await expect(editor.pageUnpublished).toHaveCount(0);
+    await expect(editor.hideButton).toHaveCount(0);
+    await expect(editor.moveUpButton).toBeDisabled();
+    await expect(editor.removeBlockButton).toBeDisabled();
+    await expect(editor.previewFrame).toHaveAttribute(
+      "src",
+      /^http:\/\/localhost:4201\/pages\/how-to-apply\?preview=/,
+    );
+    expect(page(mockApi, "how-to-apply").published).toBe(true);
   });
 
-  test.describe('New page', () => {
-    test('opens the editor with focus inside it and closes it with Cancel', async ({
-      authenticatedPage,
-    }) => {
-      await pages.goto();
-      await pages.openEditor();
-      await expect(pages.editorHeading).toHaveText('New page');
-      await expect(pages.titleInput).toBeFocused();
-      await pages.cancelButton.click();
-      await expect(pages.editor).toBeHidden();
-      await expect(pages.newPageButton).toBeFocused();
-    });
+  test("adds a heading and a paragraph, saves the page and the public page shows them in order", async ({
+    mockApi,
+  }) => {
+    const { pageId, slug } = page(mockApi, "how-to-apply");
+    await editor.gotoPage(pageId);
+    await editor.expectLoaded("How to apply");
 
-    test('closes the editor on Escape', async ({ authenticatedPage }) => {
-      await pages.goto();
-      await pages.openEditor();
-      await authenticatedPage.keyboard.press('Escape');
-      await expect(pages.editor).toBeHidden();
-    });
+    await editor.addBlockButton("heading").click();
+    await expect(editor.sectionHeading).toHaveText("Heading");
+    await expect(editor.placement).toHaveText(
+      "Appears in the page body, in this order.",
+    );
+    await editor.field("Heading").fill("Visiting us");
+    await editor.addBlockButton("paragraph").click();
+    await editor.field("Paragraph").fill("Ring the bell at the front door.");
+    expect(await editor.sectionNames()).toContain("Heading: Visiting us");
+    await editor.save();
 
-    test('adds a page that appears in the list with a success message', async ({ mockApi }) => {
-      await pages.goto();
-      await pages.openEditor();
-      await pages.fillEditor({
-        title: 'About us',
-        hero: 'courtyard-plan.png',
-        heroAlt: 'The front lobby, with an armchair beside a sunny window.',
-        body: '<p>Older women built this place.</p>',
-      });
-      await pages.save();
-      await expect(pages.editor).toBeHidden();
-      await expect(pages.notice).toHaveText('“About us” is now on the website.');
-      await expect(pages.cardAddress('About us')).toHaveText('/pages/about-us');
-      const stored = mockApi.store.pages.find((p) => p.slug === 'about-us');
-      const photo = mockApi.store.assets.find((a) => a.name === 'courtyard-plan.png');
-      expect(stored?.heroImageUrl).toMatch(new RegExp(`/digitalasset/serve/${photo?.digitalAssetId}$`));
-      expect(stored?.heroImageAlt).toBe('The front lobby, with an armchair beside a sunny window.');
-      expect(stored?.body).toBe('<p>Older women built this place.</p>');
-    });
-
-    test('keeps the dialog open and marks the missing title and text', async ({ mockApi }) => {
-      const before = mockApi.store.pages.length;
-      await pages.goto();
-      await pages.openEditor();
-      await pages.save();
-      await expect(pages.editor).toBeVisible();
-      await expect(pages.titleError).toHaveText('Give the page a title');
-      await expect(pages.bodyError).toHaveText('Write something for the page');
-      await expect(pages.titleInput).toHaveAttribute('aria-invalid', 'true');
-      await expect(pages.bodyInput).toHaveAttribute('aria-invalid', 'true');
-      await expect(pages.editorErrors).toBeVisible();
-      expect(mockApi.store.pages).toHaveLength(before);
-    });
-
-    test('asks for a description when the page has a hero photo', async ({ mockApi }) => {
-      const before = mockApi.store.pages.length;
-      await pages.goto();
-      await pages.openEditor();
-      await pages.fillEditor({
-        title: 'Our garden',
-        hero: 'courtyard-plan.png',
-        body: '<p>Herbs.</p>',
-      });
-      await pages.save();
-      await expect(pages.editor).toBeVisible();
-      await expect(pages.heroAltError).toHaveText(
-        'Describe this photo for people who cannot see it',
-      );
-      await expect(pages.heroAltInput).toHaveAttribute('aria-invalid', 'true');
-      await expect(pages.editorErrors).toBeVisible();
-      expect(mockApi.store.pages).toHaveLength(before);
-    });
-
-    test('refuses a title that another page already has', async ({ mockApi }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.openEditor();
-      await pages.fillEditor({ title: seeded.title.toUpperCase(), body: '<p>Again.</p>' });
-      await pages.save();
-      await expect(pages.editor).toBeVisible();
-      await expect(pages.titleError).toHaveText(
-        `There is already a page called “${seeded.title.toUpperCase()}”. Choose a different title.`,
-      );
-      expect(mockApi.store.pages).toHaveLength(1);
-    });
-
-    test('keeps the entered values and explains when the save fails', async ({ mockApi }) => {
-      mockApi.failing.add('POST pages');
-      await pages.goto();
-      await pages.openEditor();
-      await pages.fillEditor({ title: 'Our garden', body: '<p>Tomatoes in August.</p>' });
-      await pages.save();
-      await expect(pages.editor).toBeVisible();
-      await expect(pages.editorFailed).toHaveText("We couldn't save the page. Try again.");
-      await expect(pages.titleInput).toHaveValue('Our garden');
-      await expect(pages.bodyInput).toHaveValue('<p>Tomatoes in August.</p>');
-      mockApi.failing.clear();
-      await pages.save();
-      await expect(pages.editor).toBeHidden();
-      await expect(pages.cardAddress('Our garden')).toHaveText('/pages/our-garden');
-    });
+    await expect(editor.notice).toHaveText(
+      "“How to apply” is saved. Visitors can open it from the menu.",
+    );
+    const saved = page(mockApi, slug).sections;
+    expect(saved.slice(-2)).toEqual([
+      { kind: "heading", text: "Visiting us" },
+      { kind: "paragraph", text: "Ring the bell at the front door." },
+    ]);
+    const publicPage = await editor.openPublicPage(slug);
+    await expect(
+      publicPage.body.getByRole("heading", { name: "Visiting us" }),
+    ).toBeVisible();
+    await expect(
+      publicPage.body.getByText("Ring the bell at the front door."),
+    ).toBeVisible();
   });
 
-  test.describe('Edit page', () => {
-    test('opens the editor filled in and saves the changes', async ({ mockApi }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.openEditorFor(seeded.title);
-      await expect(pages.editorHeading).toHaveText('Edit page');
-      await expect(pages.titleInput).toHaveValue(seeded.title);
-      await expect(pages.heroPreview).toHaveAttribute('src', /\/own\/garden\.svg$/);
-      await expect(pages.heroName).toHaveText('Current photo: garden.svg');
-      await expect(pages.editor).not.toContainText('/own/garden.svg');
-      await expect(pages.heroAltInput).toHaveValue(seeded.heroImageAlt ?? '');
-      await expect(pages.bodyInput).toHaveValue(seeded.body);
-      await pages.fillEditor({ title: 'How to join', body: '<p>One form, one visit.</p>' });
-      await pages.save();
-      await expect(pages.editor).toBeHidden();
-      await expect(pages.notice).toHaveText('“How to join” is now on the website.');
-      await expect(pages.cardAddress('How to join')).toHaveText('/pages/how-to-join');
-      expect(mockApi.store.pages[0].body).toBe('<p>One form, one visit.</p>');
-    });
+  test("moves and removes blocks in the page held by the editor until it is saved", async ({
+    mockApi,
+  }) => {
+    const { pageId, slug } = page(mockApi, "how-to-apply");
+    await editor.gotoPage(pageId);
+    await editor.selectSection("Heading: Who can apply");
 
-    test('removes the hero photo', async ({ mockApi }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.openEditorFor(seeded.title);
-      await pages.heroRemoveButton.click();
-      await expect(pages.heroPreview).toBeHidden();
-      await expect(pages.heroName).toHaveText('No photo chosen yet');
-      await pages.save();
-      await expect(pages.editor).toBeHidden();
-      expect(mockApi.store.pages[0].heroImageUrl ?? '').toBe('');
-    });
+    await editor.moveUpButton.click();
+    await expect(editor.toolsStatus).toHaveText(
+      "“Heading: Who can apply” moved up to position 1.",
+    );
+    expect((await editor.sectionNames()).slice(0, 3)).toEqual([
+      "Page banner",
+      "Heading: Who can apply",
+      "Paragraph: Membership is open to women aged 55 and…",
+    ]);
+    await expect(editor.moveUpButton).toBeDisabled();
+    await expect(editor.moveUpButton).not.toBeFocused();
+    await expect(editor.moveDownButton).toBeFocused();
+
+    await editor.selectSection("Photo");
+    await editor.removeBlockButton.click();
+    await expect(editor.toolsStatus).toContainText(
+      "“Photo” was removed from the page.",
+    );
+    expect(await editor.sectionNames()).not.toContain("Photo");
+    expect(page(mockApi, slug).sections.some((s) => s.kind === "photo")).toBe(
+      true,
+    );
+
+    await editor.save();
+    await expect(editor.notice).toBeVisible();
+    const kinds = page(mockApi, slug).sections.map((s) => s.kind);
+    expect(kinds).toEqual([
+      "heading",
+      "paragraph",
+      "bullets",
+      "heading",
+      "paragraph",
+      "link",
+    ]);
   });
 
-  test.describe('Remove page', () => {
-    test('asks for confirmation and removes the page', async ({ mockApi }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.openRemoveFor(seeded.title);
-      await expect(pages.removeHeading).toHaveText(`Remove “${seeded.title}”?`);
-      await pages.removeConfirmButton.click();
-      await expect(pages.removeDialog).toBeHidden();
-      await expect(pages.notice).toHaveText(`“${seeded.title}” was removed from the website.`);
-      await expect(pages.empty).toBeVisible();
-      expect(mockApi.store.pages).toHaveLength(0);
-    });
+  test("a new page needs a title, starts out of the menu and gets its address from the title", async ({
+    authenticatedPage,
+    mockApi,
+  }) => {
+    await editor.gotoNewPage();
+    await editor.expectLoaded("Add a page");
+    await expect(editor.pageAddressNote).toHaveText(
+      "The page address comes from the title, for example /pages/our-history.",
+    );
+    await expect(editor.pagePublished).not.toBeChecked();
+    await expect(editor.pageUnpublished).toContainText(
+      "Not in the website menu yet.",
+    );
+    await expect(editor.saveButton).toHaveText("Create page");
 
-    test('keeps the page when the confirmation is cancelled', async ({ mockApi }) => {
-      const seeded = mockApi.store.pages[0];
-      await pages.goto();
-      await pages.openRemoveFor(seeded.title);
-      await pages.removeCancelButton.click();
-      await expect(pages.removeDialog).toBeHidden();
-      await expect(pages.card(seeded.title)).toBeVisible();
-      await expect(pages.card(seeded.title).getByTestId('page-card-remove')).toBeFocused();
-      expect(mockApi.store.pages).toHaveLength(1);
-    });
+    await editor.save();
+    await expect(editor.formErrors).toContainText("Give the page a title");
+    await expect(editor.formErrors).toBeFocused();
+
+    await editor.pageTitleInput.fill("Our history");
+    await editor.addBlockButton("bullets").click();
+    await editor
+      .field("Bullet list (one item per line)")
+      .fill("Opened in 1997\nRun by members");
+    await editor.save();
+
+    await expect(editor.notice).toHaveText(
+      "“Our history” is saved. It is not in the website menu yet.",
+    );
+    const created = page(mockApi, "our-history");
+    expect(created.published).toBe(false);
+    expect(created.sections).toEqual([
+      { kind: "bullets", items: ["Opened in 1997", "Run by members"] },
+    ]);
+    await expect(authenticatedPage).toHaveURL(
+      new RegExp(`/website/pages/${created.pageId}$`),
+    );
+    await expect(editor.pageAddress).toHaveText(/\/pages\/our-history/);
+    await expect(editor.saveButton).toHaveText("Save page");
+
+    const publicPage = await editor.openPublicPage("our-history");
+    await expect(publicPage.notFound).toBeVisible();
+    await expect(publicPage.navPageLink("Our history")).toHaveCount(0);
   });
 
-  test.describe('Reflow', () => {
-    test('fits a 360 px viewport without horizontal scrolling', async ({ authenticatedPage }) => {
-      await authenticatedPage.setViewportSize({ width: 360, height: 800 });
-      await pages.goto();
-      await pages.expectPageLoaded();
-      expect(await pages.hasHorizontalScroll()).toBe(false);
-      await pages.openEditor();
-      expect(await pages.hasHorizontalScroll()).toBe(false);
+  test("ticking Show this page in the website menu puts the page in the public menu", async ({
+    mockApi,
+  }) => {
+    const draft = mockApi.createPage({
+      title: "Our garden",
+      sections: [{ kind: "paragraph", text: "Tomatoes in August." }],
+      published: false,
     });
+    await editor.gotoPage(draft.pageId);
+    await expect(editor.pageUnpublished).toBeVisible();
+
+    await editor.pagePublished.check();
+    await editor.save();
+
+    await expect(editor.notice).toContainText(
+      "Visitors can open it from the menu.",
+    );
+    await expect(editor.pageUnpublished).toHaveCount(0);
+    expect(page(mockApi, "our-garden").published).toBe(true);
+    const publicPage = await editor.openPublicPage("our-garden");
+    await publicPage.expectPage("Our garden");
+    await expect(publicPage.navPageLink("Our garden")).toBeVisible();
+  });
+
+  test("names the empty blocks and the photo without a description before saving", async ({
+    mockApi,
+  }) => {
+    const { pageId } = page(mockApi, "how-to-apply");
+    await editor.gotoPage(pageId);
+    await editor.addBlockButton("heading").click();
+    await editor.selectSection("Page banner");
+    await editor.pageHeroAlt.fill("");
+
+    await editor.save();
+
+    await expect(editor.formErrors).toContainText(
+      "Describe this photo for people who cannot see it",
+    );
+    await expect(editor.formErrors).toContainText("Heading: Fill in “Heading”");
+    expect(page(mockApi, "how-to-apply").heroImageAlt).not.toBe("");
+  });
+
+  test("refuses a title another page already has and explains a failed save", async ({
+    mockApi,
+  }) => {
+    mockApi.createPage({ title: "Our garden", sections: [] });
+    const { pageId } = page(mockApi, "how-to-apply");
+    await editor.gotoPage(pageId);
+
+    await editor.pageTitleInput.fill("Our garden");
+    await editor.save();
+    await expect(editor.formErrors).toContainText(
+      "A page with this title already exists.",
+    );
+
+    mockApi.failing.add("PUT pages");
+    await editor.pageTitleInput.fill("How to apply");
+    await editor.save();
+    await expect(editor.formFailed).toHaveText(
+      "We couldn't save your changes. Try again.",
+    );
+    await expect(editor.pageTitleInput).toHaveValue("How to apply");
+  });
+
+  test("keeps the words of a page written before blocks as Existing content", async ({
+    mockApi,
+  }) => {
+    const old = mockApi.createPage({
+      title: "Written before",
+      body: "<h2>Then</h2><p>Words.</p>",
+    });
+    await editor.gotoPage(old.pageId);
+
+    await editor.selectSection("Existing content");
+
+    await expect(editor.field("Existing content")).toHaveValue(
+      "<h2>Then</h2><p>Words.</p>",
+    );
+    await expect(editor.formPane).toContainText(
+      "This is the page as it was written before, as simple HTML. Replace it with headings, paragraphs and photos over time.",
+    );
+    await editor.field("Existing content").fill("<p>Rewritten words.</p>");
+    await editor.save();
+    await expect(editor.notice).toBeVisible();
+    expect(page(mockApi, "written-before").sections).toEqual([
+      { kind: "html", html: "<p>Rewritten words.</p>" },
+    ]);
+  });
+
+  test("chooses and removes the banner photo", async ({ mockApi }) => {
+    const asset = mockApi.createAsset({
+      fileName: "lobby.png",
+      contentType: "image/png",
+      size: 68,
+    });
+    const plain = mockApi.createPage({ title: "Our lobby", sections: [] });
+    await editor.gotoPage(plain.pageId);
+    await expect(editor.pageHeroName).toHaveText("No photo chosen yet");
+    await expect(editor.pageHeroRemove).toHaveCount(0);
+
+    await editor.pageHeroChoose.click();
+    await expect(editor.picker).toBeVisible();
+    await editor.pickerOption("lobby.png").click();
+    await expect(editor.pageHeroName).toHaveText(/Current photo/);
+    await expect(editor.pageHeroAlt).toBeFocused();
+    await editor.pageHeroAlt.fill("The front lobby.");
+    await editor.save();
+    await expect(editor.notice).toBeVisible();
+    expect(page(mockApi, "our-lobby").heroImageUrl).toBe(
+      `http://localhost:5000/api/digitalasset/serve/${asset.digitalAssetId}`,
+    );
+
+    await editor.pageHeroRemove.click();
+    await expect(editor.pageHeroName).toHaveText("No photo chosen yet");
+    await editor.save();
+    await expect(editor.notice).toBeVisible();
+    expect(page(mockApi, "our-lobby").heroImageUrl).toBeNull();
+  });
+
+  test("Remove page asks first, then returns to the Website area without the page", async ({
+    authenticatedPage,
+    mockApi,
+  }) => {
+    const { pageId } = page(mockApi, "how-to-apply");
+    await editor.gotoPage(pageId);
+
+    await editor.removePageButton.click();
+    await expect(editor.removeDialog).toBeVisible();
+    await expect(editor.removeDialog.getByRole("heading")).toHaveText(
+      "Remove “How to apply”?",
+    );
+    await expect(editor.removeCancel).toBeFocused();
+    await editor.removeCancel.click();
+    await expect(editor.removeDialog).toBeHidden();
+    expect(mockApi.store.pages).toHaveLength(1);
+
+    await editor.removePageButton.click();
+    await editor.removeConfirm.click();
+
+    await expect(authenticatedPage).toHaveURL(/\/website$/);
+    expect(mockApi.store.pages).toHaveLength(0);
+    const website = new WebsitePage(authenticatedPage);
+    await expect(website.pageLinks).toHaveCount(0);
+  });
+
+  test("fits a 320 px viewport as tabs", async ({
+    authenticatedPage,
+    mockApi,
+  }) => {
+    await authenticatedPage.setViewportSize({ width: 320, height: 800 });
+    await editor.gotoPage(page(mockApi, "how-to-apply").pageId);
+    await editor.expectLoaded("How to apply");
+    expect(await editor.hasHorizontalScroll()).toBe(false);
+    await expect(editor.tabEdit).toHaveAttribute("aria-selected", "true");
   });
 });

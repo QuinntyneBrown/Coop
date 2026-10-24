@@ -1,8 +1,9 @@
 // Acceptance Test
 // Traces to: L2-REQ-080, L2-REQ-081, L2-REQ-097
-// Description: Website pages through the API: anonymous reads, idempotent
-// creation with a derived slug, update, removal, validation (including the
-// hero photo's description), and refusal of members and anonymous callers.
+// Description: Website pages through the API: anonymous reads of published
+// pages, idempotent creation with a derived slug, update, removal, validation
+// (including the hero photo's description), and refusal of members and
+// anonymous callers. Blocks and the Published flag are in PageBlocksTests.
 
 using System.Net;
 using System.Net.Http.Json;
@@ -18,7 +19,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
 
     private static async Task<JsonElement> CreatePageAsync(HttpClient admin, string title, string body = "<p>Some text.</p>", string? heroImageUrl = null, string? heroImageAlt = null)
     {
-        var response = await admin.PostAsJsonAsync("/api/pages", new { title, body, heroImageUrl, heroImageAlt });
+        var response = await admin.PostAsJsonAsync("/api/pages", new { title, body, heroImageUrl, heroImageAlt, published = true });
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
         return json.GetProperty("page");
@@ -48,7 +49,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
         Assert.Equal("About us", page.GetProperty("title").GetString());
         Assert.Equal("/own/lobby.svg", page.GetProperty("heroImageUrl").GetString());
         Assert.Equal("The front lobby, with an armchair beside a sunny window.", page.GetProperty("heroImageAlt").GetString());
-        Assert.Contains("Our story", page.GetProperty("body").GetString());
+        Assert.Contains("Our story", page.GetProperty("sections")[0].GetProperty("html").GetString());
     }
 
     [Fact]
@@ -60,7 +61,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
 
         var second = await CreatePageAsync(admin, "Café & Garden!", "<p>Different text.</p>");
         Assert.Equal(first.GetProperty("pageId").GetString(), second.GetProperty("pageId").GetString());
-        Assert.Equal("<p>Some text.</p>", second.GetProperty("body").GetString());
+        Assert.Equal("<p>Some text.</p>", second.GetProperty("sections")[0].GetProperty("html").GetString());
 
         var listed = await ListPagesAsync(_factory.CreateAnonymousClient());
         Assert.Single(listed, p => p.GetProperty("slug").GetString() == "cafe-garden");
@@ -79,13 +80,14 @@ public class PagesTests : IClassFixture<CoopApiFactory>
             title = "Our rooftop garden",
             heroImageUrl = (string?)null,
             body = "<p>Tomatoes in August.</p>",
+            published = true,
         });
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var anonymous = _factory.CreateAnonymousClient();
         var updated = (await anonymous.GetFromJsonAsync<JsonElement>("/api/pages/our-rooftop-garden")).GetProperty("page");
         Assert.Equal("Our rooftop garden", updated.GetProperty("title").GetString());
-        Assert.Equal("<p>Tomatoes in August.</p>", updated.GetProperty("body").GetString());
+        Assert.Equal("<p>Tomatoes in August.</p>", updated.GetProperty("sections")[0].GetProperty("html").GetString());
 
         var old = await anonymous.GetAsync("/api/pages/our-garden");
         Assert.Equal(HttpStatusCode.NotFound, old.StatusCode);
@@ -171,8 +173,7 @@ public class PagesTests : IClassFixture<CoopApiFactory>
     [InlineData("", "<p>Text</p>")]
     [InlineData("   ", "<p>Text</p>")]
     [InlineData("!!!", "<p>Text</p>")]
-    [InlineData("A valid title", "")]
-    public async Task Given_an_empty_title_a_title_without_letters_or_an_empty_body_then_the_create_is_rejected(string title, string body)
+    public async Task Given_an_empty_title_or_a_title_without_letters_then_the_create_is_rejected(string title, string body)
     {
         var admin = await _factory.CreateAdminClientAsync();
 

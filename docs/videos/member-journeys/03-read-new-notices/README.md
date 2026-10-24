@@ -1,6 +1,6 @@
 # Member journey 03 · Read new notices
 
-> **Runtime:** 2 min 12 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016)
+> **Runtime:** about 2 min 10 s · **Audience:** members, many of whom barely use the web · **Prerequisites:** signed in on the admin site as a member (ADR 0016)
 
 **Video:** [03-read-new-notices.mp4](03-read-new-notices.mp4) · [Slides](slides.html) · **Audio:** [03-read-new-notices.mp3](03-read-new-notices.mp3) · [Transcript](script.md)
 
