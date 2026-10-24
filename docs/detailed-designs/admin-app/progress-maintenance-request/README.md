@@ -67,7 +67,7 @@ so the status and its audit entry are written together.
 
 ### Admin application
 
-`MaintenanceComponent` (`frontend/projects/admin/src/app/features/maintenance/`)
+`MaintenanceComponent` (`frontend/projects/admin/src/app/features/operations/maintenance/`)
 shows one lifecycle button in the detail. `nextMaintenanceStep`
 (`next-maintenance-step.ts`) is a pure function from the status (string or
 number) to a `MaintenanceStep` (`maintenance-step.ts`) or null:

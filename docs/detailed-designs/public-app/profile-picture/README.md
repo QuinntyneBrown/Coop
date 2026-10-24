@@ -99,7 +99,7 @@ sender's initials (`sender-initials.ts`), so every message has one.
 
 ### Admin application
 
-`MaintenanceComponent` (`frontend/projects/admin/src/app/features/maintenance/`)
+`MaintenanceComponent` (`frontend/projects/admin/src/app/features/operations/maintenance/`)
 looks up the requester with `ProfileService.getAvatarUrl`
 (`GET api/profiles/{id}`) when a request is selected, and shows the picture
 as a 32 px circle before "Submitted by" when there is one.

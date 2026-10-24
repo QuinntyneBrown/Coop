@@ -88,7 +88,7 @@ change is needed.
 
 ### Admin application
 
-`BoardComponent` (`frontend/projects/admin/src/app/features/board/`,
+`BoardComponent` (`frontend/projects/admin/src/app/features/community/board/`,
 `board.component.ts`, `.html`, `.scss`) is the routed screen at `/board`,
 reached from the "Board" sidebar link. It owns these signals: `directors`,
 `status` (`loading`, `ready`, `error`), `notice` (the last success message),

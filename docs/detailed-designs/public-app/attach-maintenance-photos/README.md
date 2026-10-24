@@ -100,7 +100,7 @@ adds:
 
 ### Admin application
 
-`MaintenanceComponent` (`frontend/projects/admin/src/app/features/maintenance/`)
+`MaintenanceComponent` (`frontend/projects/admin/src/app/features/operations/maintenance/`)
 loads each digital asset of the selected request with
 `MaintenanceService.getPhoto` (`ApiService.getBlob`) and shows the photos in
 the detail's "Photos" list, each linking to the full picture.
