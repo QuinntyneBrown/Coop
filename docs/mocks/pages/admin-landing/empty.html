@@ -12,10 +12,25 @@
 <link rel="stylesheet" href="../../../design-system/assets/components.css">
 <link rel="stylesheet" href="../../assets/mock.css">
 <script src="../../assets/mock.js" defer></script>
+<style>
+/* The landing top bar (frontend/projects/admin/src/app/features/landing/landing.component.scss). */
+.landing-topbar { gap: var(--space-2); padding-block: var(--space-2); border-radius: var(--radius-xl); }
+/* Phones: one row, the name on two lines if needed (L2-REQ-090). */
+@media (max-width: 47.99rem) {
+  .landing-topbar { width: calc(100% - 2 * var(--space-2)); gap: var(--space-1); padding-inline: var(--space-2); }
+  .landing-topbar .topbar__spacer { display: none; }
+  .landing-topbar .topbar__brand { flex: 1 1 auto; min-width: 0; font-size: var(--font-size-lg); line-height: var(--line-height-tight); text-wrap: balance; }
+  .landing-topbar .nav-link, .landing-topbar .btn { flex: none; white-space: nowrap; }
+  .landing-topbar .nav-link { padding-inline: var(--space-2); }
+  .landing-topbar .btn { --btn-padding: var(--space-3); }
+}
+/* Below 360 px, as at 400% zoom, the links drop below the name. */
+@media (max-width: 22.49rem) { .landing-topbar { flex-wrap: wrap; } }
+</style>
 </head>
 <body>
 <a class="mock-skip" href="#main">Skip to content</a>
-<header class="topbar" style="gap: var(--space-2); flex-wrap: wrap; padding-block: var(--space-2); border-radius: var(--radius-xl);">
+<header class="topbar landing-topbar">
   <span class="topbar__brand"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect width="48" height="48" rx="14" style="fill: var(--color-accent);"/><circle cx="17" cy="27" r="8" style="fill: var(--color-accent-subtle);"/><circle cx="31" cy="27" r="8" style="fill: var(--color-accent-subtle-hover);"/><circle cx="24" cy="17" r="8" style="fill: var(--color-bg-surface);"/></svg></span>OWN Housing Co-op</span>
   <span class="topbar__spacer"></span>
   <a class="nav-link" href="../../pages/admin-login/default.html">Sign in</a>
