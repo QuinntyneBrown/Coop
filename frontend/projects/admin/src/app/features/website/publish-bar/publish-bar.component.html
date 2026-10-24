@@ -1,0 +1,140 @@
+<div class="stack">
+  <div role="status" aria-live="polite">
+    @if (notice()) {
+      <div libAlert tone="success">
+        <svg libIcon="success"></svg>
+        <div libAlertBody data-testid="publish-notice">{{ notice() }}</div>
+      </div>
+    }
+  </div>
+
+  <div libPublishBar [changes]="hasDraft()" role="status" data-testid="publish-bar">
+    <p libPublishBarText>
+      <svg [libIcon]="hasDraft() ? 'warning' : 'success'"></svg>
+      <span data-testid="publish-bar-text">
+        @if (hasDraft()) {
+          You have unpublished changes. Visitors still see the published website.
+        } @else {
+          Everything is published. Visitors see what you see.
+        }
+      </span>
+    </p>
+    <div libPublishBarActions>
+      <a libButton [href]="previewAddress()" target="_blank" rel="noopener">
+        <svg libIcon="open-in-new"></svg>Preview site<span class="visually-hidden">
+          (opens in a new tab)</span
+        >
+      </a>
+      <button
+        libButton
+        variant="primary"
+        type="button"
+        [disabled]="!hasDraft()"
+        aria-haspopup="dialog"
+        (click)="openPublish()"
+      >
+        <svg libIcon="publish"></svg>Publish
+      </button>
+      <button
+        libButton
+        variant="ghost"
+        type="button"
+        [disabled]="!hasDraft()"
+        aria-haspopup="dialog"
+        (click)="openDiscard()"
+      >
+        <svg libIcon="discard"></svg>Discard changes
+      </button>
+    </div>
+  </div>
+</div>
+
+<dialog
+  #publishDialog
+  libDialog
+  role="alertdialog"
+  aria-labelledby="publish-title"
+  aria-describedby="publish-intro"
+  data-testid="publish-dialog"
+>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
+        <svg libIcon="publish"></svg>
+      </div>
+      <h2 libDialogTitle id="publish-title">Publish your changes?</h2>
+    </div>
+    <div libDialogBody class="stack">
+      <p id="publish-intro">
+        Visitors will see the home page, menu, footer and pages as they are in your draft. You can
+        keep editing afterwards.
+      </p>
+      @if (publishFailed()) {
+        <div libAlert tone="danger" role="alert">
+          <svg libIcon="error"></svg>
+          <div libAlertBody>We couldn't publish your changes. Your draft is safe. Try again.</div>
+        </div>
+      }
+    </div>
+    <div libDialogFooter>
+      <button type="button" libButton autofocus [disabled]="busy()" (click)="closePublish()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        libButton
+        variant="primary"
+        [disabled]="busy()"
+        [attr.aria-busy]="busy() ? 'true' : null"
+        (click)="publish()"
+      >
+        {{ busy() ? 'Publishing…' : 'Publish' }}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<dialog
+  #discardDialog
+  libDialog
+  role="alertdialog"
+  aria-labelledby="discard-title"
+  aria-describedby="discard-intro"
+  data-testid="discard-dialog"
+>
+  <div libDialogPanel>
+    <div libDialogHeader>
+      <div libDialogIcon>
+        <svg libIcon="discard"></svg>
+      </div>
+      <h2 libDialogTitle id="discard-title">Discard your unpublished changes?</h2>
+    </div>
+    <div libDialogBody class="stack">
+      <p id="discard-intro">
+        The home page, menu, footer and pages go back to what visitors see now. This cannot be
+        undone.
+      </p>
+      @if (discardFailed()) {
+        <div libAlert tone="danger" role="alert">
+          <svg libIcon="error"></svg>
+          <div libAlertBody>We couldn't discard your changes. Try again.</div>
+        </div>
+      }
+    </div>
+    <div libDialogFooter>
+      <button type="button" libButton autofocus [disabled]="busy()" (click)="closeDiscard()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        libButton
+        variant="danger"
+        [disabled]="busy()"
+        [attr.aria-busy]="busy() ? 'true' : null"
+        (click)="discard()"
+      >
+        {{ busy() ? 'Discarding…' : 'Discard changes' }}
+      </button>
+    </div>
+  </div>
+</dialog>

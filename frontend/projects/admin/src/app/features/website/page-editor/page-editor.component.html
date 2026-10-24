@@ -12,6 +12,8 @@
 </div>
 
 <div class="stack">
+  <app-publish-bar (discarded)="load()" />
+
   <div role="status" aria-live="polite">
     @if (notice()) {
       <div libAlert tone="success">
@@ -234,7 +236,9 @@
           aria-labelledby="editor-tab-preview"
           [hidden]="tab() !== 'preview'"
           data-testid="editor-preview"
-        ></div>
+        >
+          <app-preview-pane [anchor]="selected().anchor" />
+        </div>
       </div>
     }
   }

@@ -7,16 +7,19 @@
 // switching sections, list items added, moved and removed, photos chosen or
 // uploaded, the linked What's on and Board sections with their counts and
 // Manage links, the three panes as tabs at 320 px, and the public site
-// showing what was saved.
+// showing what was saved once it is published.
 
 import { test, expect } from "../../fixtures/admin/api.fixture";
 import type { MockApi } from "../../fixtures/mock-api/mock-api";
 import { PageEditorPage } from "../../pages/admin/page-editor.page";
 
-/** The published site content in the mock store. */
-function published(mockApi: MockApi): Record<string, any> {
-  return mockApi.store.jsonContents.find((j) => j.name === "SiteContent")!
-    .content;
+/** The site content the office edits: the draft when a save wrote one, else the published copy (L2-REQ-121). */
+function draft(mockApi: MockApi): Record<string, any> {
+  const entries = mockApi.store.jsonContents;
+  return (
+    entries.find((j) => j.name === "SiteContentDraft") ??
+    entries.find((j) => j.name === "SiteContent")!
+  ).content;
 }
 
 /** A 1x1 PNG, the smallest real photo. */
@@ -107,7 +110,7 @@ test.describe("Page editor", () => {
       await expect(editor.field("Title")).toHaveValue(
         "Come home to the co-op.",
       );
-      expect(published(mockApi).home.hero.title).toBe(
+      expect(draft(mockApi).home.hero.title).toBe(
         "A home of our own, in the heart of Toronto.",
       );
 
@@ -135,6 +138,7 @@ test.describe("Page editor", () => {
   test.describe("Save a section", () => {
     test("saves a changed welcome banner and the public home page shows it", async ({
       mockApi,
+      api,
     }) => {
       await editor.gotoHome();
       await editor.field("Title").fill("Come home to the co-op.");
@@ -143,12 +147,11 @@ test.describe("Page editor", () => {
       await editor.save();
 
       await expect(editor.notice).toHaveText(
-        "Your changes are now on the website.",
+        "Saved to your draft. Publish when you are ready for visitors to see it.",
       );
-      expect(published(mockApi).home.hero.title).toBe(
-        "Come home to the co-op.",
-      );
+      expect(draft(mockApi).home.hero.title).toBe("Come home to the co-op.");
 
+      await api.post("site-content/publish", {});
       const home = await editor.openPublicHomePage();
       await expect(home.heroTitle).toHaveText("Come home to the co-op.");
       await expect(home.heroCta).toHaveText("Meet the board");
@@ -175,7 +178,7 @@ test.describe("Page editor", () => {
         "aria-invalid",
         "true",
       );
-      expect(published(mockApi).home.hero.title).toBe(
+      expect(draft(mockApi).home.hero.title).toBe(
         "A home of our own, in the heart of Toronto.",
       );
     });
@@ -188,7 +191,7 @@ test.describe("Page editor", () => {
       await expect(editor.fieldError("Address", "Main button")).toHaveText(
         "Use a page on this site, a web address, an e-mail address or a phone number.",
       );
-      expect(published(mockApi).home.hero.primaryAction.href).toBe("/#visit");
+      expect(draft(mockApi).home.hero.primaryAction.href).toBe("/#visit");
     });
 
     test("keeps the entered values and explains when the save fails", async ({
@@ -209,13 +212,14 @@ test.describe("Page editor", () => {
       mockApi.failing.clear();
       await editor.save();
       await expect(editor.notice).toBeVisible();
-      expect(published(mockApi).home.visit.title).toBe("Drop in any weekday.");
+      expect(draft(mockApi).home.visit.title).toBe("Drop in any weekday.");
     });
   });
 
   test.describe("Lists", () => {
     test("adds, moves and removes menu links and the public header follows", async ({
       mockApi,
+      api,
     }) => {
       await editor.gotoMenu();
       await expect(editor.itemButton("Move menu link 1 up")).toBeDisabled();
@@ -233,10 +237,15 @@ test.describe("Page editor", () => {
       await editor.save();
 
       await expect(editor.notice).toBeVisible();
-      expect(
-        published(mockApi).header.menuLinks.map((l: any) => l.label),
-      ).toEqual(["Home", "Living here", "What's on", "Our garden", "Contact"]);
+      expect(draft(mockApi).header.menuLinks.map((l: any) => l.label)).toEqual([
+        "Home",
+        "Living here",
+        "What's on",
+        "Our garden",
+        "Contact",
+      ]);
 
+      await api.post("site-content/publish", {});
       const home = await editor.openPublicHomePage();
       await home.page.setViewportSize({ width: 1280, height: 800 });
       await expect(home.navLink("Our garden")).toHaveAttribute(
@@ -257,7 +266,7 @@ test.describe("Page editor", () => {
       await editor.save();
 
       await expect(editor.notice).toBeVisible();
-      expect(published(mockApi).home.features.rows[0].items).toEqual([
+      expect(draft(mockApi).home.features.rows[0].items).toEqual([
         "Step-free entrance",
         "Two lifts",
       ]);
@@ -363,7 +372,7 @@ test.describe("Page editor", () => {
         .fill("Neighbours at the garden party.");
       await editor.save();
       await expect(editor.notice).toBeVisible();
-      const photo = published(mockApi).home.hero.photo;
+      const photo = draft(mockApi).home.hero.photo;
       expect(photo.src).toBe(
         `http://localhost:5000/api/digitalasset/serve/${asset.digitalAssetId}`,
       );
@@ -402,7 +411,7 @@ test.describe("Page editor", () => {
       const uploaded = mockApi.store.assets.find(
         (a) => a.name === "beatrix.png",
       )!;
-      expect(published(mockApi).home.quote.photo.src).toBe(
+      expect(draft(mockApi).home.quote.photo.src).toBe(
         `http://localhost:5000/api/digitalasset/serve/${uploaded.digitalAssetId}`,
       );
     });

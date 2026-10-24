@@ -1,0 +1,41 @@
+@use '../own-foundation' as own;
+
+/* The preview banner at the top of every page in preview mode (docs/mocks/assets/own-site.css, .own-preview-banner). */
+
+:host {
+  @include own.tokens;
+  display: block;
+  font: 400 var(--own-size-body) / var(--own-leading) var(--own-font);
+}
+
+@include own.base;
+
+.own-preview-banner {
+  background: var(--own-plum);
+  color: #fff;
+  font-size: var(--own-size-small);
+}
+
+.own-preview-banner__inner {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--own-space-3);
+  padding-block: var(--own-space-3);
+}
+
+.own-preview-banner .own-icon {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:host-context([data-theme='dark']) .own-preview-banner {
+  background: #f0d7f7;
+  color: #2b1a33;
+}

@@ -36,6 +36,9 @@ export class PageEditorPage {
   readonly linkedEmpty: Locator;
   readonly linkedLink: Locator;
 
+  readonly previewFrame: Locator;
+  readonly previewOpenLink: Locator;
+
   readonly tabSections: Locator;
   readonly tabEdit: Locator;
   readonly tabPreview: Locator;
@@ -72,6 +75,11 @@ export class PageEditorPage {
     this.linkedItems = page.getByTestId("linked-summary-items").locator("li");
     this.linkedEmpty = page.getByTestId("linked-summary-empty");
     this.linkedLink = page.getByTestId("linked-summary-link");
+
+    this.previewFrame = this.previewPane.locator("iframe");
+    this.previewOpenLink = this.previewPane.getByRole("link", {
+      name: /Open in a new tab/,
+    });
 
     this.tabSections = page.getByTestId("editor-tab-sections");
     this.tabEdit = page.getByTestId("editor-tab-edit");

@@ -1,4 +1,4 @@
-import { type Locator, type Page, expect } from '@playwright/test';
+import { type Locator, type Page, expect } from "@playwright/test";
 
 /**
  * The public home page (`/`), drawn in docs/mocks/pages/public-landing/.
@@ -52,6 +52,8 @@ export class LandingPage {
   readonly boardMembers: Locator;
 
   // Footer
+  readonly previewBanner: Locator;
+
   readonly footer: Locator;
   readonly footerPhone: Locator;
   readonly footerEmail: Locator;
@@ -61,55 +63,57 @@ export class LandingPage {
     this.page = page;
 
     // The header and footer are shared with the website pages (site-header, site-footer).
-    this.header = page.getByTestId('site-header');
-    this.brand = page.getByTestId('site-brand');
-    this.nav = page.getByTestId('site-nav');
-    this.signInLink = page.getByTestId('site-signin-link');
-    this.menuButton = page.getByTestId('site-menu-button');
-    this.menu = page.getByTestId('site-menu');
-    this.menuLinks = this.menu.getByTestId('site-menu-link');
-    this.menuSignInLink = page.getByTestId('site-menu-signin-link');
-    this.menuVisitLink = page.getByTestId('site-menu-visit-link');
-    this.navPageLinks = this.nav.getByTestId('site-nav-page-link');
-    this.menuPageLinks = this.menu.getByTestId('site-menu-page-link');
+    this.header = page.getByTestId("site-header");
+    this.brand = page.getByTestId("site-brand");
+    this.nav = page.getByTestId("site-nav");
+    this.signInLink = page.getByTestId("site-signin-link");
+    this.menuButton = page.getByTestId("site-menu-button");
+    this.menu = page.getByTestId("site-menu");
+    this.menuLinks = this.menu.getByTestId("site-menu-link");
+    this.menuSignInLink = page.getByTestId("site-menu-signin-link");
+    this.menuVisitLink = page.getByTestId("site-menu-visit-link");
+    this.navPageLinks = this.nav.getByTestId("site-nav-page-link");
+    this.menuPageLinks = this.menu.getByTestId("site-menu-page-link");
 
-    this.hero = page.getByTestId('landing-hero');
-    this.heroTitle = page.getByTestId('landing-hero-title');
-    this.heroSubtitle = page.getByTestId('landing-hero-subtitle');
-    this.heroCta = page.getByTestId('landing-hero-cta');
-    this.heroSecondaryCta = page.getByTestId('landing-hero-secondary-cta');
-    this.heroPhoto = page.getByTestId('landing-hero-photo');
-    this.heroEyebrow = page.getByTestId('landing-hero-eyebrow');
-    this.heroBadge = page.getByTestId('landing-hero-badge');
+    this.hero = page.getByTestId("landing-hero");
+    this.heroTitle = page.getByTestId("landing-hero-title");
+    this.heroSubtitle = page.getByTestId("landing-hero-subtitle");
+    this.heroCta = page.getByTestId("landing-hero-cta");
+    this.heroSecondaryCta = page.getByTestId("landing-hero-secondary-cta");
+    this.heroPhoto = page.getByTestId("landing-hero-photo");
+    this.heroEyebrow = page.getByTestId("landing-hero-eyebrow");
+    this.heroBadge = page.getByTestId("landing-hero-badge");
 
-    this.stats = page.getByTestId('landing-stats');
-    this.about = page.getByTestId('landing-about');
-    this.gallery = page.getByTestId('landing-gallery');
-    this.galleryPhotos = this.gallery.getByRole('img');
-    this.galleryCaptions = this.gallery.locator('figcaption');
-    this.features = page.getByTestId('landing-features');
-    this.quote = page.getByTestId('landing-quote');
-    this.visit = page.getByTestId('landing-visit');
-    this.visitPhone = page.getByTestId('landing-visit-phone');
-    this.visitAction = page.getByTestId('landing-visit-action');
+    this.stats = page.getByTestId("landing-stats");
+    this.about = page.getByTestId("landing-about");
+    this.gallery = page.getByTestId("landing-gallery");
+    this.galleryPhotos = this.gallery.getByRole("img");
+    this.galleryCaptions = this.gallery.locator("figcaption");
+    this.features = page.getByTestId("landing-features");
+    this.quote = page.getByTestId("landing-quote");
+    this.visit = page.getByTestId("landing-visit");
+    this.visitPhone = page.getByTestId("landing-visit-phone");
+    this.visitAction = page.getByTestId("landing-visit-action");
 
-    this.noticesSection = page.getByTestId('landing-notices-section');
-    this.noticeCards = page.getByTestId('landing-notice-card');
-    this.noticesEmpty = page.getByTestId('landing-notices-empty');
+    this.noticesSection = page.getByTestId("landing-notices-section");
+    this.noticeCards = page.getByTestId("landing-notice-card");
+    this.noticesEmpty = page.getByTestId("landing-notices-empty");
 
-    this.boardSection = page.getByTestId('landing-board-section');
-    this.boardMembers = page.getByTestId('landing-board-member');
+    this.boardSection = page.getByTestId("landing-board-section");
+    this.boardMembers = page.getByTestId("landing-board-member");
 
-    this.footer = page.getByTestId('site-footer');
-    this.footerPhone = page.getByTestId('site-footer-phone');
-    this.footerEmail = page.getByTestId('site-footer-email');
-    this.footerCopyright = page.getByTestId('site-footer-copyright');
+    this.previewBanner = page.getByTestId("preview-banner");
+
+    this.footer = page.getByTestId("site-footer");
+    this.footerPhone = page.getByTestId("site-footer-phone");
+    this.footerEmail = page.getByTestId("site-footer-email");
+    this.footerCopyright = page.getByTestId("site-footer-copyright");
   }
 
-  async goto() {
-    await this.page.goto('/');
+  async goto(search = "") {
+    await this.page.goto(`/${search}`);
     // CMS content renders after the mocked API responds; wait for requests to settle.
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   async expectLoaded() {
@@ -128,22 +132,22 @@ export class LandingPage {
 
   /** A link anywhere in the header by its visible name. */
   navLink(name: string): Locator {
-    return this.nav.getByRole('link', { name, exact: true });
+    return this.nav.getByRole("link", { name, exact: true });
   }
 
   footerLink(name: string): Locator {
-    return this.footer.getByRole('link', { name, exact: true });
+    return this.footer.getByRole("link", { name, exact: true });
   }
 
   footerHeading(name: string): Locator {
-    return this.footer.getByRole('heading', { name, exact: true });
+    return this.footer.getByRole("heading", { name, exact: true });
   }
 
   /** Counts the requests the page makes for the site content while it loads. */
   countSiteContentRequests(): () => number {
     let count = 0;
-    this.page.on('request', (request) => {
-      if (new URL(request.url()).pathname === '/api/site-content') count++;
+    this.page.on("request", (request) => {
+      if (new URL(request.url()).pathname === "/api/site-content") count++;
     });
     return () => count;
   }
@@ -159,10 +163,12 @@ export class LandingPage {
   /** Moves keyboard focus with Tab, as a visitor would, until the link has it. */
   async tabTo(link: Locator, maxPresses = 40) {
     for (let i = 0; i < maxPresses; i++) {
-      await this.page.keyboard.press('Tab');
+      await this.page.keyboard.press("Tab");
       if (await link.evaluate((el) => el === document.activeElement)) return;
     }
-    throw new Error(`Could not reach the link with Tab in ${maxPresses} presses`);
+    throw new Error(
+      `Could not reach the link with Tab in ${maxPresses} presses`,
+    );
   }
 
   /** The outline style the focused element draws, e.g. "solid" for the focus ring. */
@@ -176,13 +182,15 @@ export class LandingPage {
   }
 
   async closeMenuWithEscape() {
-    await this.page.keyboard.press('Escape');
+    await this.page.keyboard.press("Escape");
   }
 
   /** True when the document is wider than the viewport, i.e. horizontal scrolling is possible. */
   async hasHorizontalScroll(): Promise<boolean> {
     return this.page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth,
     );
   }
 }

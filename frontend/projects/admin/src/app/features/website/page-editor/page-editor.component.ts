@@ -71,6 +71,8 @@ import { readSection, writeSection } from '../fields/section-store';
 import { validateBlock } from '../fields/validate-block';
 import type { PickedPhoto } from '../photo-picker/picked-photo';
 import { PhotoPickerComponent } from '../photo-picker/photo-picker.component';
+import { PreviewPaneComponent } from '../preview-pane/preview-pane.component';
+import { PublishBarComponent } from '../publish-bar/publish-bar.component';
 import type { EditorMode } from './editor-mode';
 import type { EditorTab } from './editor-tab';
 import { type LinkedItem, linkedSummaryOf } from './linked-summary-of';
@@ -84,7 +86,9 @@ type LoadStatus = 'loading' | 'ready' | 'error';
  * them on the left, the selected section's form in the centre (drawn from the
  * section's fields, as the former block editor did) and the preview on the
  * right. Below 64rem the three panes are tabs. Edits the home page at
- * /website/home and the menu and footer at /website/menu-and-footer.
+ * /website/home and the menu and footer at /website/menu-and-footer. Every
+ * save goes to the draft; the publish bar publishes or discards it
+ * (L2-REQ-121).
  */
 @Component({
   selector: 'app-page-editor',
@@ -94,6 +98,8 @@ type LoadStatus = 'loading' | 'ready' | 'error';
     NgTemplateOutlet,
     RouterLink,
     PhotoPickerComponent,
+    PreviewPaneComponent,
+    PublishBarComponent,
     IconComponent,
     ButtonComponent,
     BreadcrumbComponent,
@@ -144,6 +150,7 @@ export class PageEditorComponent implements OnInit {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
   private readonly picker = viewChild(PhotoPickerComponent);
+  private readonly preview = viewChild(PreviewPaneComponent);
 
   readonly paths = APP_PATHS;
   readonly itemLegend = itemLegend;
@@ -186,7 +193,7 @@ export class PageEditorComponent implements OnInit {
 
   load(): void {
     this.status.set('loading');
-    this.siteContent.get().subscribe({
+    this.siteContent.getDraft().subscribe({
       next: (content) => {
         this.content.set(content);
         this.working = content;
@@ -269,7 +276,8 @@ export class PageEditorComponent implements OnInit {
         this.content.set(saved);
         this.working = saved;
         this.saving.set(false);
-        this.notice.set('Your changes are now on the website.');
+        this.notice.set('Saved to your draft. Publish when you are ready for visitors to see it.');
+        this.preview()?.reload();
       },
       error: () => {
         this.saving.set(false);

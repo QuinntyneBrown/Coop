@@ -1,0 +1,18 @@
+<section libPreviewPane aria-labelledby="preview-title">
+  <div libPreviewPaneHeader>
+    <h2 libPreviewPaneTitle id="preview-title"><svg libIcon="show"></svg>Preview</h2>
+    <a libButton size="sm" [href]="address()" target="_blank" rel="noopener">
+      <svg libIcon="open-in-new"></svg>Open in a new tab<span class="visually-hidden">
+        (opens in a new tab)</span
+      >
+    </a>
+  </div>
+  <p libPreviewPaneNote>
+    Shows your draft, scrolled to the section you are editing. Visitors see the published website.
+  </p>
+  <iframe
+    libPreviewPaneFrame
+    [src]="frameSource()"
+    title="Preview of the public website with your draft"
+  ></iframe>
+</section>

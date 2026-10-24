@@ -1,0 +1,18 @@
+// The bar on the Website screens that says whether there are unpublished changes, with Preview site, Publish and (docs/design-system/components/publish-bar.html). Rules come from
+// docs/design-system/assets/components.css in their order there; see ADR 0010.
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: var(--border-width-hairline) solid var(--color-border-default);
+  background: var(--color-bg-subtle);
+}
+
+:host(.publish-bar--changes) {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-fg);
+}
