@@ -7,7 +7,7 @@
 <meta name="mock:kind" content="page">
 <meta name="mock:screen" content="public-landing">
 <meta name="mock:state" content="default">
-<meta name="mock:requirements" content="L2-REQ-053 L2-REQ-068 L2-REQ-070 L2-REQ-072">
+<meta name="mock:requirements" content="L2-REQ-053, L2-REQ-068, L2-REQ-070, L2-REQ-072, L2-REQ-122, L2-REQ-125">
 <meta name="description" content="Proposal: the CMS-driven public home page reimagined for Oakridge Women's Neighbourhood Housing Co-operative, photo-forward and plain-spoken, with every block editable in admin.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/fonts.css">
@@ -284,7 +284,7 @@
   </div>
 </footer>
 
-<aside class="mock-bar"><details><summary>Public · Landing · default — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html" aria-current="page">default</a> <a href="menu.html">menu</a> <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button></nav><p class="mock-note">Hand-written design reference that the public app's landing page implements. Purple tags show which block the Co-op edits in the admin CMS; hide them with <code>?chrome=0</code>. People, events and contact details are fictional. Illustrations stand in for the Co-op's own photographs.</p></details></aside>
+<aside class="mock-bar"><details><summary>Public · Landing · default — review states</summary><nav aria-label="Mock states"><a href="../../index.html">All screens</a><a href="default.html" aria-current="page">default</a> <a href="menu.html">menu</a> <a href="hidden.html">hidden</a> <a href="reordered.html">reordered</a> <a href="preview.html">preview</a> <a href="preview-expired.html">preview-expired</a> <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button></nav><p class="mock-note">Hand-written design reference that the public app's landing page implements. Purple tags show which block the Co-op edits in the admin CMS; hide them with <code>?chrome=0</code>. People, events and contact details are fictional. Illustrations stand in for the Co-op's own photographs.</p></details></aside>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{const set=t=>{document.documentElement.dataset.theme=t;const b=document.querySelector('[data-theme-toggle]');if(b){b.setAttribute('aria-pressed',String(t==='dark'));b.textContent=t==='dark'?'☀ Light':'☾ Dark';}};if(new URLSearchParams(location.search).get('theme')==='dark')set('dark');document.querySelector('[data-theme-toggle]')?.addEventListener('click',()=>set(document.documentElement.dataset.theme==='dark'?'light':'dark'));});
 </script>
