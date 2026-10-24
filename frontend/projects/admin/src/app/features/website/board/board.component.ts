@@ -43,9 +43,16 @@ import {
   LoadingComponent,
   SpinnerComponent,
   TextFieldComponent,
+  PhotoPickerActionsComponent,
+  PhotoPickerBodyComponent,
+  PhotoPickerComponent as LibPhotoPickerComponent,
+  PictureListThumbComponent,
+  ListTitleComponent,
 } from 'components';
 import { APP_PATHS } from '../../../core/app-paths';
 import { BoardService } from '../../../core/services/board.service';
+import { PhotoPickerComponent } from '../photo-picker/photo-picker.component';
+import type { PickedPhoto } from '../photo-picker/picked-photo';
 import { SiteTreeComponent } from '../site-tree/site-tree.component';
 import type { Director } from '../../../core/models/director';
 import type { DirectorDraft } from '../../../core/models/director-draft';
@@ -106,6 +113,12 @@ const SAVE_FAILED = "We couldn't save the board list. Try again.";
     DialogIconComponent,
     DialogPanelComponent,
     DialogTitleComponent,
+    PhotoPickerComponent,
+    LibPhotoPickerComponent,
+    PhotoPickerBodyComponent,
+    PhotoPickerActionsComponent,
+    PictureListThumbComponent,
+    ListTitleComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -123,6 +136,7 @@ export class BoardComponent implements OnInit {
     'removeDialog',
     { read: ElementRef },
   );
+  private readonly picker = viewChild(PhotoPickerComponent);
 
   readonly initialsOf = initialsOf;
   readonly paths = APP_PATHS;
@@ -220,6 +234,28 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  /** Names the chosen portrait by its file name when the address has one (L2-REQ-124 AC5). */
+  photoName(src: string): string {
+    if (!src) return 'No photo chosen yet';
+    const name = src.split('/').pop() ?? '';
+    return name.includes('.') ? `Current photo: ${name}` : 'Current photo';
+  }
+
+  /** Opens the photo picker over the editor; the picked address becomes the director's photo. */
+  choosePhoto(): void {
+    this.picker()?.open(this.draft.photoUrl);
+  }
+
+  onPhotoPicked(photo: PickedPhoto): void {
+    this.draft = { ...this.draft, photoUrl: photo.src };
+    this.focus('[data-testid="director-photo-remove"]');
+  }
+
+  removePhoto(): void {
+    this.draft = { ...this.draft, photoUrl: '' };
+    this.focus('[data-testid="director-photo-choose"]');
+  }
+
   move(index: number, offset: -1 | 1): void {
     const directors = moveDirector(this.directors(), index, offset);
     if (directors === this.directors()) return;
@@ -288,6 +324,13 @@ export class BoardComponent implements OnInit {
   private clearMessages(): void {
     this.notice.set('');
     this.listError.set('');
+  }
+
+  /** Focuses the first element matching the selector once the view has updated. */
+  private focus(selector: string): void {
+    afterNextRender(() => this.host.nativeElement.querySelector<HTMLElement>(selector)?.focus(), {
+      injector: this.injector,
+    });
   }
 
   /** Keep focus on the moved director, on the same button while it is still enabled. */

@@ -39,13 +39,15 @@
       "route": "/documents",
       "source": "frontend/projects/public/src/app/pages/documents/documents.component.ts",
       "requirements": [
-        "L2-REQ-035"
+        "L2-REQ-035",
+        "L2-REQ-126"
       ],
-      "note": "",
+      "note": "Reads the published by-laws, notices and reports; when every request fails it says so and offers Try again (L2-REQ-126).",
       "states": [
         "default",
         "loading",
         "empty",
+        "error",
         "notices",
         "bylaws",
         "reports",

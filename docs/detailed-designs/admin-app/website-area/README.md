@@ -38,9 +38,9 @@ Terms used in this design:
   blocks
 - **draft** — the `SiteContentDraft` JSON content entry every save writes;
   the **published copy** is the `SiteContent` entry visitors read
-- **publish bar** — the row on every Website screen that says whether there
-  are unpublished changes and holds Preview site, Publish and Discard
-  changes
+- **publish bar** — the row on the Website landing and the page editors
+  that says whether there are unpublished changes and holds Preview site,
+  Publish and Discard changes
 - **preview token** — a short-lived, read-only token the public site
   presents as `?preview={token}` to read the draft and unpublished pages
 - **linked section** — a home page section whose items come from another
@@ -60,7 +60,7 @@ functions (`APP_PATHS.website`, `APP_PATHS.websiteHome`,
 `APP_PATHS.websiteLook`, and the existing areas). `core/app-titles.ts` holds
 the screen titles and `core/app-title-strategy.ts` an Angular
 `TitleStrategy` that sets the document title to
-"{title} · OWN Housing Co-op Admin" from each route's `title`
+"{title} · OWN Housing Co-op Office" from each route's `title`
 (`L2-REQ-118` AC5). `app.routes.ts`, the sidebar, the tab bar, the site
 tree and the breadcrumbs read from the registry; no feature repeats a route
 string.
@@ -279,15 +279,17 @@ endpoints and the dead calls removed.
 Backend acceptance tests in `backend/tests/Coop.Api.Tests/SiteContentDraftTests.cs`
 cover the draft, publish, discard, preview token and preview reads and their
 refusals; `SiteContentTests.cs` covers the section list's rules and the
-migration; `PagesTests.cs` covers blocks, the Published flag, the body
+migration; `PageBlocksTests.cs` covers blocks, the Published flag, the body
 migration and published-only reads; `backend/tests/Coop.Cli.Tests/ContentCommandTests.cs`
 covers the new commands. The Playwright `admin` project covers the area in
-`e2e/tests/admin/website.spec.ts` (site tree, publish bar), `page-editor.spec.ts`
-(sections, forms, hide and move, linked sections, preview pane, pages and
+`e2e/tests/admin/website.spec.ts` (site tree), `publish.spec.ts` (publish
+bar, dialogs, preview pane), `page-editor.spec.ts` (sections, forms, linked
+sections), `sections.spec.ts` (hide and move), `pages.spec.ts` (pages and
 blocks) and `board.spec.ts`, with page objects `e2e/pages/admin/website.page.ts`,
 `page-editor.page.ts`, `publish-bar.component.ts` and `board.page.ts`; the
-`public` project covers `landing.spec.ts`, `site-content.spec.ts`,
-`preview.spec.ts` and `documents.spec.ts`. The in-process mock API serves
+`public` project covers `landing.spec.ts`, `home-sections.spec.ts`,
+`site-content.spec.ts`, `preview.spec.ts`, `content-page.spec.ts` and
+`published-documents.spec.ts`. The in-process mock API serves
 the draft, publish, discard, preview-token and preview routes with the same
 rules and the same 401 and 403 answers.
 
@@ -299,6 +301,17 @@ rules and the same 401 and 403 answers.
   (ADR 0018).
 - The theme editor is reached as Look and keeps its logic and the Settings
   route; a contrast check for the public colours (drift D27) stays open.
+- The publish bar sits on the Website landing and the page editors, where
+  the mocks draw it; the board, Photos and Look screens show no bar since
+  they have no draft (`L2-REQ-121` AC6).
+- Creating a page keeps the editor on screen and replaces the address with
+  the page's own (`Location.replaceState`), so the saved message is heard.
+- A page's save message says whether visitors can open it ("… is saved.
+  Visitors can open it from the menu." or "… It is not in the website menu
+  yet."); the block tools report "moved … to position n" and "was removed
+  from the page. Save the page to keep the change."
+- The library's section list item takes `hiddenSection` rather than `hidden`,
+  which the browser would read as the native attribute.
 - Deferred, outside the proposal's sections 2 and 3: version history,
   scheduled publishing, a rich-text editor, a draft for pages or the board,
   finer roles.

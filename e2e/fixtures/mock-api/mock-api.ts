@@ -1053,28 +1053,27 @@ export class MockApi {
       return ok();
     });
 
-    // Documents (public app)
+    // Documents (public app): the published by-laws, notices and reports, newest first (L2-REQ-126).
     const docs = () =>
       newestFirst(s.documents, "createdOn").map((d) => this.documentView(d));
-    this.on("GET", "documents", () => ok({ documents: docs() }), true);
+    const publishedOf = (type: MockDocument["documentType"]) =>
+      docs().filter((d) => d.documentType === type && d.published);
     this.on(
       "GET",
-      "documents/:id",
-      (_ctx, [id]) => {
-        const doc = s.documents.find((d) => d.documentId === id);
-        return doc ? ok({ document: this.documentView(doc) }) : notFound();
-      },
+      "notice/published",
+      () => ok({ notices: publishedOf("Notice") }),
       true,
     );
     this.on(
       "GET",
-      "notice/published",
-      () =>
-        ok({
-          notices: docs().filter(
-            (d) => d.documentType === "Notice" && d.published,
-          ),
-        }),
+      "bylaw/published",
+      () => ok({ byLaws: publishedOf("ByLaw") }),
+      true,
+    );
+    this.on(
+      "GET",
+      "report/published",
+      () => ok({ reports: publishedOf("Report") }),
       true,
     );
 
@@ -1529,32 +1528,7 @@ export class MockApi {
     };
     this.on(
       "GET",
-      "json-content",
-      () =>
-        ok({
-          jsonContents: s.jsonContents.map((j) => ({
-            id: j.jsonContentId,
-            name: j.name,
-            content: j.content,
-          })),
-        }),
-      true,
-    );
-    this.on(
-      "GET",
       "json-content/name/:name",
-      (_ctx, [name]) => jsonContentView(name),
-      true,
-    );
-    this.on(
-      "GET",
-      "json-content/:name",
-      (_ctx, [name]) => jsonContentView(name),
-      true,
-    );
-    this.on(
-      "GET",
-      "jsoncontent/name/:name",
       (_ctx, [name]) => jsonContentView(name),
       true,
     );
@@ -1699,21 +1673,7 @@ export class MockApi {
       return ok({ directors: directorsView() });
     });
 
-    // Board, units, theme
-    this.on(
-      "GET",
-      "boardmembers",
-      () =>
-        ok({
-          boardMembers: s.profiles
-            .filter((p) => p.type === 1)
-            .map((p) => ({
-              name: `${p.firstname} ${p.lastname}`,
-              title: p.boardTitle ?? "",
-            })),
-        }),
-      true,
-    );
+    // Units, theme
     this.on(
       "GET",
       "units",

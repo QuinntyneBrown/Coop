@@ -270,24 +270,55 @@
           </p>
         }
       </div>
-      <div libFormField>
-        <label libFieldLabel for="director-photo-field"
-          >Photo address <span class="optional">(optional)</span></label
-        >
-        <input
-          libTextField
-          id="director-photo-field"
-          name="photoUrl"
-          type="url"
-          [(ngModel)]="draft.photoUrl"
-          aria-describedby="director-photo-help"
-          data-testid="director-photo-input"
-        />
-        <p libFieldHelp id="director-photo-help">
-          Paste the address of a portrait from the Assets library. Without one, the website shows
-          the director's initials.
-        </p>
-      </div>
+      <fieldset class="stack">
+        <legend>Photo <span class="optional">(optional)</span></legend>
+        <div libPhotoPicker>
+          @if (draft.photoUrl) {
+            <div libPictureListThumb class="director-photo__thumb">
+              <img
+                [src]="draft.photoUrl"
+                width="160"
+                height="160"
+                alt=""
+                data-testid="director-photo-preview"
+              />
+            </div>
+          }
+          <div libPhotoPickerBody>
+            <p libListTitle id="director-photo-name" data-testid="director-photo-name">
+              {{ photoName(draft.photoUrl) }}
+            </p>
+            <p libFieldHelp id="director-photo-help">
+              Pick a portrait from the Photos library. Without one, the website shows the director's
+              initials.
+            </p>
+            <div libPhotoPickerActions>
+              <button
+                type="button"
+                libButton
+                variant="primary"
+                aria-haspopup="dialog"
+                aria-describedby="director-photo-name director-photo-help"
+                (click)="choosePhoto()"
+                data-testid="director-photo-choose"
+              >
+                <svg libIcon="photo"></svg>Choose photo
+              </button>
+              @if (draft.photoUrl) {
+                <button
+                  type="button"
+                  libButton
+                  variant="ghost"
+                  (click)="removePhoto()"
+                  data-testid="director-photo-remove"
+                >
+                  <svg libIcon="delete"></svg>Remove photo
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </fieldset>
     </div>
     <div libDialogFooter>
       <button
@@ -367,3 +398,5 @@
     </div>
   </div>
 </dialog>
+
+<app-photo-picker (picked)="onPhotoPicked($event)" />

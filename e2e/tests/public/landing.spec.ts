@@ -170,7 +170,7 @@ test.describe("Home page", () => {
   });
 
   test.describe("Board", () => {
-    test("lists the board members from the BoardOfDirectors CMS content", async ({
+    test("lists the directors from the board list, in its order", async ({
       mockApi,
     }) => {
       const board = mockApi.store.jsonContents.find(
@@ -190,18 +190,23 @@ test.describe("Home page", () => {
       }
     });
 
-    test("falls back to the published board member profiles when the CMS list is empty", async ({
+    test("shows the heading only when the board list is empty, and reads no other source", async ({
       mockApi,
+      page,
     }) => {
       mockApi.store.jsonContents = mockApi.store.jsonContents.filter(
         (j) => j.name !== "BoardOfDirectors",
       );
-      const profiles = mockApi.store.profiles.filter((p) => p.type === 1);
+      const requests: string[] = [];
+      page.on("request", (request) => requests.push(request.url()));
       await landing.goto();
-      await expect(landing.boardMembers).toHaveCount(profiles.length);
-      await expect(
-        landing.boardMember(`${profiles[0].firstname} ${profiles[0].lastname}`),
-      ).toContainText(profiles[0].boardTitle!);
+      await expect(landing.boardSection).toBeVisible();
+      await expect(landing.boardMembers).toHaveCount(0);
+      expect(
+        requests.filter((url) =>
+          /boardmembers|board-members|json-content/.test(url),
+        ),
+      ).toEqual([]);
     });
   });
 

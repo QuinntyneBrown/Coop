@@ -141,7 +141,7 @@ start with `foundations/`.
 | `PageEditorTabsComponent` | `div[libPageEditorTabs]` | none | default | `section-list.html` |
 | `PageEditorPaneComponent` | `section[libPageEditorPane], div[libPageEditorPane]` | `pane` (required: `sections`, `form`, `preview`) | default | `section-list.html` |
 | `SectionListComponent` | `ol[libSectionList]` | none | default | `section-list.html` |
-| `SectionListItemComponent` | `li[libSectionListItem]` | `hidden`, `fixed` | default | `section-list.html` |
+| `SectionListItemComponent` | `li[libSectionListItem]` | `hiddenSection`, `fixed` | default | `section-list.html` |
 | `SectionListButtonComponent` | `button[libSectionListButton]` | none | default | `section-list.html` |
 | `SectionListToolsComponent` | `div[libSectionListTools]` | none | default | `section-list.html` |
 | `SectionListAddComponent` | `div[libSectionListAdd]` | none | default | `section-list.html` |
@@ -279,7 +279,7 @@ standalone component's `imports`. Because the path points at the source:
 
 | Left in the app | Reason |
 |-----------------|--------|
-| The feature screens (`LoginComponent`, `UsersComponent`, `PagesComponent` and the rest) | They hold feature logic and call services from the app. |
+| The feature screens (`LoginComponent`, `UsersComponent`, `BoardComponent` and the rest) | They hold feature logic and call services from the app. |
 | `LayoutComponent` (`app-layout`) | Layout used once: the app shell grid with the sidebar, the main region and the phone tab bar. Its links come from the app's route list. |
 | `SidebarComponent` (`app-sidebar`) | Holds feature logic (the signed-in user, sign-out and the app's links). It draws the library's `aside[libSidebar]` and its parts. |
 | `PhotoPickerComponent` (`app-photo-picker`, in `features/website/photo-picker/`) | Calls the assets service and holds the choose-or-upload flow. It draws the library's picture list. |

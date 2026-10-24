@@ -70,11 +70,11 @@ surface that serves both applications.
   emails without one are written to the API log.
 - Messaging between members and staff.
 - Digital asset upload, avatars, and anonymous serving of public assets.
-- Theme and JSON content management that drives the public site, and website
-  pages the office adds, edits and removes from the admin app that appear in
-  the public header navigation, the Board of Directors list the home page
-  shows, and every text, link and photo of the public header, footer and home
-  page, all kept from the admin app.
+- One Website area in the admin app for everything visitors see: the home
+  page as ordered sections that can be moved or hidden, the menu and footer,
+  website pages made of a banner and body blocks with a Published flag, the
+  Board of Directors list and the photo library. The site content has a
+  draft that the office previews on the public site and publishes when ready.
 - Invitation and onboarding flows for new members.
 - Event sourcing and audit trail for domain changes.
 - Static HTML references of the implemented screens under `docs/mocks/`,
@@ -120,7 +120,7 @@ On startup the API creates `coop.db` if it is missing and seeds fictional
 development data: roles and privileges, an `admin` user, a `member` user,
 sample board members, and the public site content the admin Website screen
 edits. The database has no migrations yet, so after an update that adds a
-column (such as the website page photo description) delete `coop.db` and
+column (such as the website page blocks and Published flag) delete `coop.db` and
 restart the API to recreate it. Swagger is available at `http://localhost:5000/swagger`
 in the Development environment. See [backend/README.md](backend/README.md) for the seed
 accounts and the backend layout.

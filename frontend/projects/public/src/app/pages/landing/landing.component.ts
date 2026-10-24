@@ -6,8 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { catchError, of, switchMap } from 'rxjs';
-import { JsonContentService } from '../../core/services/json-content.service';
+import { catchError, of } from 'rxjs';
 import { ApiService } from '../../core/services/api.service';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { SiteLinkDirective } from '../../core/site-content/site-link.directive';
@@ -17,15 +16,15 @@ import { SiteFooterComponent } from '../../layout/site-footer/site-footer.compon
 import { SiteHeaderComponent } from '../../layout/site-header/site-header.component';
 import type { BoardMemberView } from './board-member-view';
 import type { NoticeView } from './notice-view';
-import { boardMembersFrom, boardMembersFromApi, noticeViewFrom } from './landing-view-model';
+import { directorsFrom, noticeViewFrom } from './landing-view-model';
 
 /**
  * The public home page, drawn in docs/mocks/pages/public-landing/ (states
  * `default`, `menu`, `hidden` and `reordered`). Every text, link and photograph
  * is the published site content (L2-REQ-094, L2-REQ-096) over the built-in
  * defaults (L2-REQ-100), rendered section by section in the published order
- * by kind (L2-REQ-122, ADR 0021); the board list and notices come from their
- * own content.
+ * by kind (L2-REQ-122, ADR 0021); the directors come from the board list at
+ * api/board-of-directors and the notices from the published notices.
  * The header (with the phone menu) and footer are the shared site components.
  */
 @Component({
@@ -37,7 +36,6 @@ import { boardMembersFrom, boardMembersFromApi, noticeViewFrom } from './landing
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingComponent implements OnInit {
-  private readonly jsonContent = inject(JsonContentService);
   private readonly api = inject(ApiService);
 
   readonly content = inject(SiteContentService).content;
@@ -53,16 +51,11 @@ export class LandingComponent implements OnInit {
   readonly notices = signal<NoticeView[]>([]);
 
   ngOnInit(): void {
-    this.jsonContent
-      .getByName('BoardOfDirectors')
-      .pipe(
-        catchError(() => of(null)),
-        switchMap((board) => {
-          const members = boardMembersFrom(board?.content);
-          return members.length > 0 ? of(members) : this.boardMembersFromApi();
-        }),
-      )
-      .subscribe((members) => this.boardMembers.set(members));
+    // The board has one source: the board list (L2-REQ-124 AC6).
+    this.api
+      .get<unknown>('board-of-directors')
+      .pipe(catchError(() => of(null)))
+      .subscribe((response) => this.boardMembers.set(directorsFrom(response)));
 
     this.api
       .get<unknown>('notice/published')
@@ -75,13 +68,5 @@ export class LandingComponent implements OnInit {
           list.map(noticeViewFrom).filter((notice): notice is NoticeView => notice !== null),
         );
       });
-  }
-
-  /** Published board member profiles: the BFF list first, then the profile endpoint the mock serves. */
-  private boardMembersFromApi() {
-    return this.api.get<unknown>('board-members').pipe(
-      catchError(() => this.api.get<unknown>('boardmembers').pipe(catchError(() => of(null)))),
-      switchMap((response) => of(boardMembersFromApi(response))),
-    );
   }
 }

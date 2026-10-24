@@ -121,10 +121,11 @@ are gone.
 ### Tests
 
 The Playwright `public` project covers the order, hidden sections and the
-defaults in `e2e/tests/public/site-content.spec.ts` and
-`landing.spec.ts`, preview mode in `preview.spec.ts`, pages with blocks in
-`content-page.spec.ts` and the Documents page in `documents.spec.ts`, with
-the page objects in `e2e/pages/public/`. The mock API serves
+defaults in `e2e/tests/public/home-sections.spec.ts`, `site-content.spec.ts`
+and `landing.spec.ts`, preview mode in `preview.spec.ts`, pages with blocks
+in `content-page.spec.ts` and the Documents page in `documents.spec.ts` and
+`published-documents.spec.ts` (the published endpoints, the error state and
+the removed routes), with the page objects in `e2e/pages/public/`. The mock API serves
 `home.sections`, the preview routes, `board-of-directors`, the three
 published document routes and the pages with their `published` flag, and
 answers the removed routes with 404 (`L2-REQ-126` AC4).

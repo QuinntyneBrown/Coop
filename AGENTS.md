@@ -95,7 +95,10 @@ All areas have moved to this layout. The `api` library in `frontend/projects/`
 is still a scaffold; the `components` library holds the design system's
 presentation components that the admin uses, with a Storybook stories file
 beside each component (ADR 0017), and the public app does not use it yet.
-`backend/tests/` holds `Coop.Api.Tests` and `Coop.Cli.Tests`.
+`backend/tests/` holds `Coop.Api.Tests` and `Coop.Cli.Tests`. The admin manages
+the public website from one Website area (`frontend/projects/admin/src/app/features/website`):
+the site content has a draft that is previewed on the public site through a
+short-lived token and published in one step (ADR 0018 to ADR 0021).
 `Coop.Cli` resets the database (demo state or new instance) and administers
 users, roles, invitations and the public site content through the application
 handlers (ADR 0012); it has no `migrate` command because the database has no EF
