@@ -49,13 +49,15 @@ public static class Dependencies
 
         services.AddAuthorization();
 
-        // CORS
+        // CORS: the admin and public app origins, from the "Cors:AllowedOrigins" setting
+        var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+            ?? ["http://localhost:4200", "http://localhost:4201"];
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
             {
                 builder
-                    .WithOrigins("http://localhost:4200", "http://localhost:4201")
+                    .WithOrigins(allowedOrigins)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

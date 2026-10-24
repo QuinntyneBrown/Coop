@@ -274,13 +274,21 @@ feature is implemented; architecture decisions go in `docs/adr/`.
 
 A GitHub Actions workflow, `.github/workflows/ci.yml`, runs on pushes and pull
 requests to `main`. It builds and tests the backend (`dotnet test`) and lints
-and builds the frontend (`npm run lint`, `npm run build`). It does not deploy
-anything.
+and builds the frontend (`npm run lint`, `npm run build`).
 
-Before deploying anywhere, replace the development `Authentication:JwtKey` in
-`backend/src/Coop.Api/appsettings.json` with a secret supplied through environment
-variables or a secret store, and update the CORS origins in
-`backend/src/Coop.Api/Dependencies.cs`.
+A second workflow, `.github/workflows/deploy.yml`, publishes Coop to Azure on
+every push to `main` (ADR 0022): the API to the App Service web app
+`coop-esplanade-api`, the admin app to `coop-esplanade-app`
+(https://app.esplanade.technology) and the public site to
+`coop-esplanade-own` (https://own.esplanade.technology), all on one Basic
+plan in the `Coop` resource group. Each web app's publish profile is a
+repository secret (`AZURE_API_PUBLISH_PROFILE`, `AZURE_ADMIN_PUBLISH_PROFILE`,
+`AZURE_PUBLIC_PUBLISH_PROFILE`).
+
+The production API address is in each app's `src/environments/environment.ts`;
+`ng serve` and the Playwright suite use `environment.development.ts` instead.
+The API's JWT key, SQLite path and CORS origins (`Cors:AllowedOrigins`) are
+App Service app settings, so `appsettings.json` keeps only development values.
 
 ## Contributing
 
