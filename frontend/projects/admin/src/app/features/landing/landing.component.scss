@@ -1,7 +1,11 @@
 .landing-topbar {
   gap: var(--space-2);
-  /* At 400% zoom the links drop below the name rather than run off the edge (L2-REQ-090). */
+  /* At 400% zoom and on phones the links drop below the name rather than run off the edge (L2-REQ-090). */
   flex-wrap: wrap;
+  /* Room above and below a wrapped row, and corners that still read as a capsule on one row
+     but stay a rounded panel when the bar wraps to two. */
+  padding-block: var(--space-2);
+  border-radius: var(--radius-xl);
 }
 
 .landing-notice {
