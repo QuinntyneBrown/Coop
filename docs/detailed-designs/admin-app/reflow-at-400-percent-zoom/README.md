@@ -33,6 +33,7 @@ styles, beside the breakpoint the components already used.
 
 | Screen | Narrow layout |
 |--------|---------------|
+| Landing | The top bar keeps the name, Sign In and Register on one row: it sits 8 px from the screen edge, its gaps and the two links' padding tighten, and the name may take two lines. Only below 360 CSS px (`22.49rem`, as at 400% zoom) do Sign In and Register drop to a second row under the name. |
 | Dashboard | The top bar wraps and its search shrinks; the metric cards stack; quick actions sit two to a row. |
 | Maintenance | The status filter buttons wrap. |
 | Documents | The toolbar wraps and the document cards stack. |
@@ -59,7 +60,9 @@ sits inside it; a control inside a data table may sit in the table's own
 scrolling region. `e2e/tests/public/reflow.spec.ts` and
 `e2e/tests/admin/reflow.spec.ts` run it at 320 × 800 on every route of both
 apps, signed in where the route needs it, and the admin spec also uses the
-menu at that width. They run against the mock API.
+menu at that width. `e2e/tests/admin/landing.spec.ts` opens the admin landing
+page at 422 × 854 and 360 × 800 and checks that the name, Sign In and
+Register share one row inside the viewport. They run against the mock API.
 
 ## Requirements
 
