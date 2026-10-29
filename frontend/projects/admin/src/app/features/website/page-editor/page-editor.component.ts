@@ -81,6 +81,7 @@ import { PageService } from '../../../core/services/page.service';
 import { SiteContentService } from '../../../core/services/site-content.service';
 import { fromDraft, toDraft } from '../fields/block-draft';
 import type { ContentField } from '../fields/content-field';
+import { frenchLabel, frenchOf, frenchPath } from '../fields/french-text';
 import {
   isHomeSectionHidden,
   moveHomeSection,
@@ -125,7 +126,8 @@ type LoadStatus = 'loading' | 'ready' | 'error';
  * (L2-REQ-121), and one website page at /website/pages/{id} or a new one at
  * /website/pages/new, where the Page banner is fixed first, body blocks are
  * added, moved and removed, and "Save page" changes the page at once
- * (L2-REQ-123).
+ * (L2-REQ-123). Below each text visitors read is an optional field for its
+ * French (L2-REQ-130).
  */
 @Component({
   selector: 'app-page-editor',
@@ -213,6 +215,8 @@ export class PageEditorComponent implements OnInit {
 
   readonly paths = APP_PATHS;
   readonly itemLegend = itemLegend;
+  readonly frenchLabel = frenchLabel;
+  readonly frenchPath = frenchPath;
 
   readonly mode: EditorMode = (this.route.snapshot.data['mode'] as EditorMode) ?? 'home';
   /** In `page` mode, the page being edited; null for a new page. */
@@ -407,7 +411,12 @@ export class PageEditorComponent implements OnInit {
   }
 
   removeBannerPhoto(): void {
-    this.pageDraft.update((page) => ({ ...page, heroImageUrl: '', heroImageAlt: '' }));
+    this.pageDraft.update((page) => ({
+      ...page,
+      heroImageUrl: '',
+      heroImageAlt: '',
+      fr: { ...page['fr'], heroImageAlt: '' },
+    }));
     this.working = this.pageDraft() as unknown as SiteContent;
     this.focus('[data-testid="page-hero-choose"]');
   }
@@ -426,6 +435,12 @@ export class PageEditorComponent implements OnInit {
       title: String(page['title'] ?? ''),
       heroImageUrl: String(page['heroImageUrl'] ?? ''),
       heroImageAlt: String(page['heroImageAlt'] ?? ''),
+      fr: frenchOf({
+        title: String(page['fr']?.['title'] ?? '').trim(),
+        heroImageAlt: String(page['heroImageUrl'] ?? '').trim()
+          ? String(page['fr']?.['heroImageAlt'] ?? '').trim()
+          : '',
+      }),
       published: page['published'] === true,
       // The blocks as the editor holds them: keepEdits already turned the forms' values into blocks.
       sections: this.blocks().map((block) => ({ ...block, kind: String(block['kind']) })),
@@ -736,15 +751,20 @@ export class PageEditorComponent implements OnInit {
     const { target, path } = this.pickingFor;
     if (path === 'banner') {
       if (photo.src !== target['heroImageUrl']) {
-        this.pageDraft.update((page) => ({ ...page, heroImageUrl: photo.src, heroImageAlt: '' }));
+        this.pageDraft.update((page) => ({
+          ...page,
+          heroImageUrl: photo.src,
+          heroImageAlt: '',
+          fr: { ...page['fr'], heroImageAlt: '' },
+        }));
         this.working = this.pageDraft() as unknown as SiteContent;
       }
       this.focus('#page-hero-alt-field');
       return;
     }
     if (photo.src !== target['src']) {
-      // A new photo needs its own description.
-      Object.assign(target, photo, { alt: '' });
+      // A new photo needs its own description, in English and in French (L2-REQ-130 AC5).
+      Object.assign(target, photo, { alt: '', fr: { ...target['fr'], alt: '' } });
     }
     this.touchDraft();
     this.focus(`#${this.fieldId(`${path}.alt`)}`);
@@ -781,7 +801,14 @@ export class PageEditorComponent implements OnInit {
 
 /** A page the office has not saved yet: no title, no photo, not in the menu (L2-REQ-123 AC7). */
 function emptyPage(): ContentRecord {
-  return { title: '', heroImageUrl: '', heroImageAlt: '', published: false, sections: [] };
+  return {
+    title: '',
+    heroImageUrl: '',
+    heroImageAlt: '',
+    fr: { title: '', heroImageAlt: '' },
+    published: false,
+    sections: [],
+  };
 }
 
 /** The page as the editor holds it, from the page as saved. */
@@ -790,6 +817,7 @@ function draftOf(page: WebsitePage): ContentRecord {
     title: page.title,
     heroImageUrl: page.heroImageUrl ?? '',
     heroImageAlt: page.heroImageAlt ?? '',
+    fr: { title: page.fr?.title ?? '', heroImageAlt: page.fr?.heroImageAlt ?? '' },
     published: page.published,
     sections: structuredClone(page.sections ?? []),
   };
@@ -809,6 +837,10 @@ function validatePage(page: ContentRecord, sections: SectionDefinition[]): Recor
   } else if (alt.length > 250) {
     errors['heroImageAlt'] = 'Keep the description under 250 characters';
   }
+  if (String(page['fr']?.['title'] ?? '').trim().length > 120)
+    errors['fr.title'] = 'Keep “Page title in French” under 120 characters';
+  if (String(page['fr']?.['heroImageAlt'] ?? '').trim().length > 250)
+    errors['fr.heroImageAlt'] = 'Keep the French description under 250 characters';
   for (const section of sections.slice(1)) {
     const block = toDraft(section.fields, readSection(page, section));
     for (const [path, message] of Object.entries(validateBlock(section.fields, block))) {

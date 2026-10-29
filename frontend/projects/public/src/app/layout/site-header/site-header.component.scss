@@ -200,3 +200,47 @@
     gap: var(--own-space-3);
   }
 }
+
+/* The language bar above the header: the other language, named in that
+   language, at every width (L2-REQ-131 AC1). It scrolls away with the page,
+   so the sticky header stays as short as it was. */
+.own-lang-bar {
+  background: var(--own-canvas);
+  border-bottom: 1px solid var(--own-border);
+}
+.own-lang-bar__inner {
+  display: flex;
+  justify-content: flex-end;
+}
+.own-lang-bar__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--own-space-2);
+  min-height: var(--own-target);
+  padding: 0 var(--own-space-3);
+  border: 0;
+  border-radius: var(--own-radius-sm);
+  background: transparent;
+  color: var(--own-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.own-lang-bar__button:hover {
+  background: var(--own-surface);
+}
+
+/* The polite status that says the language changed (L2-REQ-131 AC2). */
+.own-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

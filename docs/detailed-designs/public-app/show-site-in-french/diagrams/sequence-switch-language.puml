@@ -1,0 +1,35 @@
+@startuml
+title UML sequence behaviour — A visitor switches the public site to French
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as visitor
+box "Frontend — Public application" #E0F2FE
+  participant "SiteHeaderComponent" as header
+  participant "LanguageService" as language
+  participant "SiteContentService" as service
+  participant "translate" as translate
+end box
+box "Backend — Coop API" #FEF3C7
+  participant "SiteContentController" as controller
+  database "CoopDbContext" as db
+end box
+
+visitor -> header : open /
+header -> language : language() (?lang=, else stored choice, else en)
+service -> controller : GET api/site-content
+controller -> db : SiteContent entry (with fr objects)
+db --> controller : JSON
+controller --> service : { siteContent }
+service -> service : mergeContent over SITE_DEFAULTS (keeps fr)
+service -> translate : translate(content, en)
+translate --> header : English content
+visitor -> header : press "Français"
+header -> language : toggle()
+language -> language : remember fr; <html lang="fr">
+header -> header : status "Le site est maintenant en français."
+service -> translate : translate(content, fr)
+translate --> header : French where written, English elsewhere
+@enduml

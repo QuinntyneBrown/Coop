@@ -22,6 +22,7 @@ export class ContentPage {
   readonly retryButton: Locator;
   readonly notFound: Locator;
   readonly goHomeLink: Locator;
+  readonly languageButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -41,6 +42,7 @@ export class ContentPage {
     this.retryButton = page.getByTestId('page-retry');
     this.notFound = page.getByTestId('page-not-found');
     this.goHomeLink = page.getByTestId('page-home-link');
+    this.languageButton = page.getByTestId('site-language-button');
   }
 
   async goto(slug: string) {

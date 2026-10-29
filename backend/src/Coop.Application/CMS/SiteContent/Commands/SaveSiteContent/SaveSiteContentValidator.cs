@@ -15,7 +15,7 @@ public class SaveSiteContentValidator : AbstractValidator<SaveSiteContentRequest
         var link = new LinkValidator();
         var photo = new PhotoValidator();
 
-        RuleFor(x => x.SiteContent).NotNull();
+        RuleFor(x => x.SiteContent).NotNull().ValidFrench();
         RuleFor(x => x.SiteContent.Header).NotNull().ChildRules(header =>
         {
             header.RuleFor(h => h.SiteName).RequiredText("Site name");

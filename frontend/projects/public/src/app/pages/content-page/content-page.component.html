@@ -61,7 +61,7 @@
     @case ('loading') {
       <section class="own-page-banner" aria-labelledby="page-title">
         <div class="own-container">
-          <h1 id="page-title">Loading…</h1>
+          <h1 id="page-title">{{ labels().pageLoading }}</h1>
         </div>
       </section>
       <div
@@ -70,40 +70,40 @@
         aria-live="polite"
         data-testid="page-loading"
       >
-        The page is on its way.
+        {{ labels().pageLoadingStatus }}
       </div>
     }
     @case ('error') {
       <section class="own-page-banner" aria-labelledby="page-title">
         <div class="own-container">
-          <h1 id="page-title">Something went wrong</h1>
+          <h1 id="page-title">{{ labels().pageError }}</h1>
         </div>
       </section>
       <div class="own-container own-page__missing" role="alert" data-testid="page-error">
-        <p class="own-lead">We couldn't load this page right now.</p>
-        <p>Check your connection, then try again.</p>
+        <p class="own-lead">{{ labels().pageErrorLead }}</p>
+        <p>{{ labels().pageErrorHelp }}</p>
         <button
           class="own-btn own-btn--primary"
           type="button"
           (click)="load()"
           data-testid="page-retry"
         >
-          Try again
+          {{ labels().tryAgain }}
         </button>
       </div>
     }
     @case ('not-found') {
       <section class="own-page-banner" aria-labelledby="page-title">
         <div class="own-container">
-          <h1 id="page-title" data-testid="page-title">We can't find that page</h1>
+          <h1 id="page-title" data-testid="page-title">{{ labels().pageNotFound }}</h1>
         </div>
       </section>
       <div class="own-container own-page__missing" data-testid="page-not-found">
-        <p class="own-lead">We can't find that page</p>
-        <p>It may have been removed, or the address may be wrong.</p>
-        <a class="own-btn own-btn--primary" routerLink="/" data-testid="page-home-link"
-          >Go to the home page</a
-        >
+        <p class="own-lead">{{ labels().pageNotFound }}</p>
+        <p>{{ labels().pageNotFoundHelp }}</p>
+        <a class="own-btn own-btn--primary" routerLink="/" data-testid="page-home-link">{{
+          labels().goHome
+        }}</a>
       </div>
     }
   }

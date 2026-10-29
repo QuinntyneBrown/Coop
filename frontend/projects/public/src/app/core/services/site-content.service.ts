@@ -1,8 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, of, switchMap, throwError } from 'rxjs';
 import { ApiService } from './api.service';
+import { LanguageService } from './language.service';
 import { PreviewService } from './preview.service';
+import { translate } from '../language/translate';
 import { mergeContent } from '../site-content/merge-content';
 import { mergeHomeSections } from '../site-content/merge-home-sections';
 import { SITE_DEFAULTS } from '../site-content/site-defaults';
@@ -15,14 +17,17 @@ import type { SiteContent } from '../site-content/site-content';
  * the built-in defaults show (L2-REQ-100). In preview mode the draft is
  * requested with the token; when the API refuses the token the published
  * content is requested instead and the preview is marked expired (L2-REQ-125 AC6).
+ * The content shows in the visitor's language, the English filling in
+ * wherever the French is missing (L2-REQ-131 AC4).
  */
 @Injectable({ providedIn: 'root' })
 export class SiteContentService {
   private readonly api = inject(ApiService);
   private readonly preview = inject(PreviewService);
+  private readonly language = inject(LanguageService).language;
   private readonly state = signal<SiteContent>(SITE_DEFAULTS);
 
-  readonly content = this.state.asReadonly();
+  readonly content = computed(() => translate(this.state(), this.language()));
 
   constructor() {
     this.request()

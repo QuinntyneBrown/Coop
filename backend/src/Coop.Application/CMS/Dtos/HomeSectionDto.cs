@@ -17,7 +17,7 @@ namespace Coop.Application.CMS.Dtos;
 [JsonDerivedType(typeof(BoardDto), "board")]
 [JsonDerivedType(typeof(QuoteDto), "quote")]
 [JsonDerivedType(typeof(VisitDto), "visit")]
-public abstract class HomeSectionDto
+public abstract class HomeSectionDto : TranslatableDto
 {
     public bool Hidden { get; set; }
 }

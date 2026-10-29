@@ -3,13 +3,16 @@ import {
   Component,
   ElementRef,
   OnInit,
+  computed,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { LanguageService } from '../../core/services/language.service';
 import { PageService } from '../../core/services/page.service';
+import { translate } from '../../core/language/translate';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { SiteLinkDirective } from '../../core/site-content/site-link.directive';
 import type { WebsitePage } from '../../core/models/website-page';
@@ -19,6 +22,8 @@ import type { WebsitePage } from '../../core/models/website-page';
  * home page section links followed by one link per website page
  * (L2-REQ-082), Member sign in, and the phone menu (L2-REQ-066, L2-REQ-067).
  * The name, links and buttons are the published site content (L2-REQ-095).
+ * The language button switches the site between English and French
+ * (L2-REQ-131).
  */
 @Component({
   selector: 'app-site-header',
@@ -34,8 +39,12 @@ export class SiteHeaderComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
 
+  readonly language = inject(LanguageService);
   readonly content = inject(SiteContentService).content;
-  readonly pages = signal<WebsitePage[]>([]);
+  private readonly loadedPages = signal<WebsitePage[]>([]);
+  readonly pages = computed(() => translate(this.loadedPages(), this.language.language()));
+  /** What the polite status says after the visitor switches language; empty until then. */
+  readonly languageStatus = signal('');
   readonly menuOpen = signal(false);
   /** The header is created per page, so the home check is taken once. */
   readonly isHome = this.router.url.split(/[?#]/)[0] === '/';
@@ -44,7 +53,13 @@ export class SiteHeaderComponent implements OnInit {
     this.pageService
       .getAll()
       .pipe(catchError(() => of([] as WebsitePage[])))
-      .subscribe((pages) => this.pages.set(pages));
+      .subscribe((pages) => this.loadedPages.set(pages));
+  }
+
+  /** Switches the language; the pressed button keeps focus, as it stays in place. */
+  switchLanguage(): void {
+    this.language.toggle();
+    this.languageStatus.set(this.language.labels().switched);
   }
 
   toggleMenu(): void {

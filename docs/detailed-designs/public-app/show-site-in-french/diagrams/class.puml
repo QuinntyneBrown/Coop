@@ -1,0 +1,60 @@
+@startuml
+title Class structure — The public site in English and French
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName Arial
+
+package "Coop.Application.CMS" {
+  abstract class TranslatableDto {
+    +Fr : Dictionary<string, JsonElement>?
+  }
+  class SiteHeaderDto
+  class SiteFooterDto
+  class LinkDto
+  abstract class HomeSectionDto
+  class PhotoDto
+  abstract class PageBlockDto
+  class PageDto
+  class FrenchText <<static>> {
+    +IsValid(value) : bool
+    +ValidFrench() : rule
+  }
+  class PageSections <<static>> {
+    +Serialize(blocks, fr) : string
+    +Parse(page) : List<PageBlockDto>
+    +French(page) : Dictionary?
+  }
+  TranslatableDto <|-- SiteHeaderDto
+  TranslatableDto <|-- SiteFooterDto
+  TranslatableDto <|-- LinkDto
+  TranslatableDto <|-- HomeSectionDto
+  TranslatableDto <|-- PhotoDto
+  TranslatableDto <|-- PageBlockDto
+  TranslatableDto <|-- PageDto
+}
+
+package "public app" {
+  class LanguageService {
+    +language : Signal<SiteLanguage>
+    +labels : Signal<UiLabels>
+    +other : Signal<SiteLanguage>
+    +toggle()
+  }
+  class "translate()" as translateFn
+  class "UI_TEXT" as uiText
+  class SiteContentService {
+    +content : Signal<SiteContent>
+  }
+  SiteContentService --> LanguageService
+  SiteContentService --> translateFn
+  LanguageService --> uiText
+}
+
+package "admin app" {
+  class "toDraft() / fromDraft()" as draft
+  class "frenchOf() / frenchLabel() / frenchPath()" as french
+  class PageEditorComponent
+  PageEditorComponent --> draft
+  draft --> french
+}
+@enduml

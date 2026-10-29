@@ -1,7 +1,7 @@
 namespace Coop.Application.CMS.Dtos;
 
 /// <summary>The site footer on every public page (L2-REQ-095).</summary>
-public class SiteFooterDto
+public class SiteFooterDto : TranslatableDto
 {
     public string ContactHeading { get; set; } = string.Empty;
     public string Organisation { get; set; } = string.Empty;

@@ -13,6 +13,6 @@ namespace Coop.Application.CMS.Dtos;
 [JsonDerivedType(typeof(PhotoBlockDto), "photo")]
 [JsonDerivedType(typeof(LinkBlockDto), "link")]
 [JsonDerivedType(typeof(HtmlBlockDto), "html")]
-public abstract class PageBlockDto
+public abstract class PageBlockDto : TranslatableDto
 {
 }

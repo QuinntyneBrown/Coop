@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Coop.Domain.Authorization;
 using Coop.Domain.Identity;
 using Coop.SharedKernel;
@@ -15,6 +16,8 @@ public class CreatePageRequest : IRequest<CreatePageResponse>
     public string? Body { get; set; }
     /// <summary>The body blocks in order.</summary>
     public List<Coop.Application.CMS.Dtos.PageBlockDto>? Sections { get; set; }
+    /// <summary>The French of the page's title and photo description (L2-REQ-129 AC2, ADR 0023).</summary>
+    public Dictionary<string, JsonElement>? Fr { get; set; }
     /// <summary>True when visitors may see the page (L2-REQ-123 AC5, AC7).</summary>
     public bool Published { get; set; }
 }

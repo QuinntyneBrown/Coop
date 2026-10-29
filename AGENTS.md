@@ -99,6 +99,9 @@ beside each component (ADR 0017), and the public app does not use it yet.
 the public website from one Website area (`frontend/projects/admin/src/app/features/website`):
 the site content has a draft that is previewed on the public site through a
 short-lived token and published in one step (ADR 0018 to ADR 0021).
+The public site shows in English or French. Each content item and page block
+can carry an `fr` object with its French, written in the same editor, and the
+English shows wherever no French was written (ADR 0023).
 `Coop.Cli` resets the database (demo state or new instance) and administers
 users, roles, invitations and the public site content through the application
 handlers (ADR 0012); it has no `migrate` command because the database has no EF

@@ -7,13 +7,12 @@
       </svg>
       @if (mode() === 'preview') {
         <span
-          ><strong>Preview.</strong> You are looking at unpublished changes. Visitors see the
-          published website.</span
+          ><strong>{{ labels().previewTitle }}</strong> {{ labels().previewText }}</span
         >
       } @else {
         <span
-          ><strong>This preview link has expired.</strong> You are looking at the published website.
-          Open the preview again from the admin Website area.</span
+          ><strong>{{ labels().previewExpiredTitle }}</strong>
+          {{ labels().previewExpiredText }}</span
         >
       }
     </div>

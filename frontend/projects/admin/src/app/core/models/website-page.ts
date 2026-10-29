@@ -9,6 +9,8 @@ export interface WebsitePage {
   heroImageAlt?: string | null;
   /** The body blocks in order. */
   sections: PageBlock[];
+  /** The French of the title and photo description, when the office wrote any (L2-REQ-129). */
+  fr?: { title?: string; heroImageAlt?: string };
   /** True when visitors can see the page in the menu and open it. */
   published: boolean;
 }

@@ -2,7 +2,8 @@
  * Lays published content over the built-in defaults value by value
  * (L2-REQ-100 AC3): a published string, even an empty one, wins; a published
  * positive number wins; a published list replaces the default list; any
- * missing or malformed value takes the default.
+ * missing or malformed value takes the default. A published object's `fr`
+ * object, its French text, is kept for `translate` (ADR 0023).
  */
 export function mergeContent<T>(defaults: T, published: unknown): T {
   if (Array.isArray(defaults)) {
@@ -17,6 +18,7 @@ export function mergeContent<T>(defaults: T, published: unknown): T {
     for (const [key, value] of Object.entries(defaults)) {
       merged[key] = mergeContent(value, source[key]);
     }
+    if (source['fr'] !== null && typeof source['fr'] === 'object') merged['fr'] = source['fr'];
     return merged as T;
   }
   if (typeof defaults === 'string') {

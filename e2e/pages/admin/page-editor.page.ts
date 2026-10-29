@@ -48,6 +48,7 @@ export class PageEditorPage {
   readonly previewPane: Locator;
   readonly sectionHeading: Locator;
   readonly placement: Locator;
+  readonly frenchNote: Locator;
   readonly formErrors: Locator;
   readonly formFailed: Locator;
   readonly saveButton: Locator;
@@ -109,6 +110,7 @@ export class PageEditorPage {
     this.previewPane = page.getByTestId("editor-preview");
     this.sectionHeading = page.getByTestId("section-heading");
     this.placement = page.getByTestId("section-placement");
+    this.frenchNote = page.getByTestId("section-french-note");
     this.formErrors = page.getByTestId("section-form-errors");
     this.formFailed = page.getByTestId("section-form-failed");
     this.saveButton = page.getByTestId("section-save");

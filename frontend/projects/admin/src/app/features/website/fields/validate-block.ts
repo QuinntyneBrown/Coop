@@ -1,5 +1,6 @@
 import type { ContentRecord } from '../../../core/models/content-record';
 import type { ContentField } from './content-field';
+import { frenchLabel } from './french-text';
 import { isSafeLink } from './safe-address';
 
 export const UNSAFE_LINK =
@@ -9,8 +10,9 @@ const TEXT_MAX_LENGTH = 2000;
 /**
  * Client-side checks before a save (L2-REQ-095 AC4, L2-REQ-096 AC4,
  * L2-REQ-097 AC2 and AC3, L2-REQ-098 AC1): a message per field path, such as
- * `title` or `menuLinks.2.href`. The API applies the same rules and stays
- * authoritative.
+ * `title` or `menuLinks.2.href`; a French text has the English field's length
+ * limit, at its own path such as `fr.title` (L2-REQ-130 AC6). The API applies
+ * the same rules and stays authoritative.
  */
 export function validateBlock(
   fields: ContentField[],
@@ -35,6 +37,12 @@ export function validateBlock(
         } else if (text.length > TEXT_MAX_LENGTH) {
           errors[path] = `Keep “${field.label}” under ${TEXT_MAX_LENGTH} characters`;
         }
+        const french = String(draft?.['fr']?.[field.key] ?? '').trim();
+        const limit = field.maxLength ?? TEXT_MAX_LENGTH;
+        if (french.length > limit) {
+          errors[`${prefix}fr.${field.key}`] =
+            `Keep “${frenchLabel(field.label)}” under ${limit} characters`;
+        }
         break;
       }
       case 'address': {
@@ -49,6 +57,8 @@ export function validateBlock(
         if (!alt) errors[`${path}.alt`] = 'Describe this photo for people who cannot see it';
         else if (alt.length > 250)
           errors[`${path}.alt`] = 'Keep the description under 250 characters';
+        if (String(value?.fr?.alt ?? '').trim().length > 250)
+          errors[`${path}.fr.alt`] = 'Keep the French description under 250 characters';
         break;
       }
       case 'group':

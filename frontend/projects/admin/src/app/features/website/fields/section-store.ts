@@ -27,7 +27,9 @@ export function writeSection<T extends ContentRecord>(
   if (section.path) return writePath(content, section.path, value);
   const sections = homeSections(content);
   const existing = sections.find((s) => s['kind'] === section.kind);
-  const updated = { ...existing, ...value, kind: section.kind };
+  const updated: ContentRecord = { ...existing, ...value, kind: section.kind };
+  // French the office emptied is gone from the value; drop the saved copy too.
+  if (!('fr' in value)) delete updated['fr'];
   const list = existing
     ? sections.map((s) => (s === existing ? updated : s))
     : [...sections, updated];

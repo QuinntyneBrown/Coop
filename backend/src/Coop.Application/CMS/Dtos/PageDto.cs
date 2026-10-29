@@ -3,7 +3,7 @@ using Coop.Domain.CMS;
 
 namespace Coop.Application.CMS.Dtos;
 
-public class PageDto
+public class PageDto : TranslatableDto
 {
     public Guid PageId { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -26,6 +26,7 @@ public class PageDto
             HeroImageUrl = page.HeroImageUrl,
             HeroImageAlt = page.HeroImageAlt,
             Sections = PageSections.Parse(page),
+            Fr = PageSections.French(page),
             Published = page.Published,
             CreatedOn = page.CreatedOn
         };

@@ -75,6 +75,10 @@ surface that serves both applications.
   website pages made of a banner and body blocks with a Published flag, the
   Board of Directors list and the photo library. The site content has a
   draft that the office previews on the public site and publishes when ready.
+- The public site in English and French: visitors switch language from the
+  bar above the header, and the office writes the French beside the English
+  in the Website area; the English shows wherever no French was written
+  (ADR 0023).
 - Invitation and onboarding flows for new members.
 - Event sourcing and audit trail for domain changes.
 - Static HTML references of the implemented screens under `docs/mocks/`,

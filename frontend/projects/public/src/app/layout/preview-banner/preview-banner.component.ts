@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LanguageService } from '../../core/services/language.service';
 import { PreviewService } from '../../core/services/preview.service';
 
 /**
@@ -15,4 +16,5 @@ import { PreviewService } from '../../core/services/preview.service';
 })
 export class PreviewBannerComponent {
   readonly mode = inject(PreviewService).mode;
+  readonly labels = inject(LanguageService).labels;
 }

@@ -64,7 +64,7 @@
           <section
             class="own-container"
             id="glance"
-            aria-label="At a glance"
+            [attr.aria-label]="labels().glance"
             data-testid="landing-stats"
           >
             <ul class="own-stats">
@@ -181,7 +181,7 @@
           <section
             class="own-section"
             id="features"
-            aria-label="Our building and our community"
+            [attr.aria-label]="labels().features"
             data-testid="landing-features"
           >
             <div class="own-container">
@@ -315,7 +315,7 @@
         <section
           class="own-section own-section--tint"
           id="quote"
-          aria-label="A word from a member"
+          [attr.aria-label]="labels().quote"
           data-testid="landing-quote"
         >
           <div class="own-container own-quote">

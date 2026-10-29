@@ -36,6 +36,7 @@ export class PageService {
       title: draft.title.trim(),
       heroImageUrl: draft.heroImageUrl.trim() || null,
       heroImageAlt: draft.heroImageUrl.trim() ? draft.heroImageAlt.trim() || null : null,
+      ...(draft.fr && { fr: draft.fr }),
       published: draft.published,
       sections: draft.sections,
     };

@@ -265,6 +265,10 @@
               <p libPlacementNote data-testid="section-placement">
                 <svg libIcon="place" size="sm"></svg><span>{{ section.placement }}</span>
               </p>
+              <p class="text-muted" data-testid="section-french-note">
+                Each text has an optional French version. Visitors who choose
+                <span lang="fr">Français</span> see it; where it is empty they see the English.
+              </p>
             </div>
             @if (errorList().length > 0) {
               <div
@@ -321,6 +325,26 @@
                 @if (errors()['title']) {
                   <p libFieldError id="page-title-error">
                     <span data-testid="field-error">{{ errors()['title'] }}</span>
+                  </p>
+                }
+              </div>
+              <div libFormField>
+                <label libFieldLabel for="content-fr-title-field">Page title in French</label>
+                <input
+                  libTextField
+                  id="content-fr-title-field"
+                  name="frTitle"
+                  type="text"
+                  lang="fr"
+                  autocomplete="off"
+                  [ngModel]="page['fr']['title']"
+                  (ngModelChange)="page['fr']['title'] = $event"
+                  [attr.aria-invalid]="errors()['fr.title'] ? 'true' : null"
+                  [attr.aria-describedby]="errors()['fr.title'] ? 'page-title-fr-error' : null"
+                />
+                @if (errors()['fr.title']) {
+                  <p libFieldError id="page-title-fr-error">
+                    <span data-testid="field-error">{{ errors()['fr.title'] }}</span>
                   </p>
                 }
               </div>
@@ -404,6 +428,29 @@
                   @if (errors()['heroImageAlt']) {
                     <p libFieldError id="page-hero-alt-error">
                       <span data-testid="field-error">{{ errors()['heroImageAlt'] }}</span>
+                    </p>
+                  }
+                </div>
+                <div libFormField>
+                  <label libFieldLabel for="content-fr-heroImageAlt-field"
+                    >Photo description in French</label
+                  >
+                  <textarea
+                    libTextarea
+                    id="content-fr-heroImageAlt-field"
+                    name="frHeroImageAlt"
+                    rows="3"
+                    lang="fr"
+                    [ngModel]="page['fr']['heroImageAlt']"
+                    (ngModelChange)="page['fr']['heroImageAlt'] = $event"
+                    [attr.aria-invalid]="errors()['fr.heroImageAlt'] ? 'true' : null"
+                    [attr.aria-describedby]="
+                      errors()['fr.heroImageAlt'] ? 'page-hero-alt-fr-error' : null
+                    "
+                  ></textarea>
+                  @if (errors()['fr.heroImageAlt']) {
+                    <p libFieldError id="page-hero-alt-fr-error">
+                      <span data-testid="field-error">{{ errors()['fr.heroImageAlt'] }}</span>
                     </p>
                   }
                 </div>
@@ -730,6 +777,26 @@
             </p>
           }
         </div>
+        @let frAltId = fieldId(path + '.fr.alt');
+        @let frAltError = errors()[path + '.fr.alt'];
+        <div libFormField>
+          <label libFieldLabel [for]="frAltId">Photo description in French</label>
+          <textarea
+            libTextarea
+            [id]="frAltId"
+            rows="3"
+            lang="fr"
+            [(ngModel)]="photo.fr.alt"
+            [ngModelOptions]="{ standalone: true }"
+            [attr.aria-invalid]="frAltError ? 'true' : null"
+            [attr.aria-describedby]="frAltError ? frAltId + '-error' : null"
+          ></textarea>
+          @if (frAltError) {
+            <p libFieldError [id]="frAltId + '-error'">
+              <span data-testid="field-error">{{ frAltError }}</span>
+            </p>
+          }
+        </div>
       </fieldset>
     }
     @default {
@@ -807,6 +874,44 @@
           </p>
         }
       </div>
+      <!-- The value's French, below it; addresses and choices are the same in both languages (L2-REQ-130 AC1). -->
+      @if (field.kind === 'text' || field.kind === 'textarea' || field.kind === 'lines') {
+        @let frPath = frenchPath(path, field.key);
+        @let frId = fieldId(frPath);
+        @let frError = errors()[frPath];
+        <div libFormField>
+          <label libFieldLabel [for]="frId">{{ frenchLabel(field.label) }}</label>
+          @if (field.kind === 'text') {
+            <input
+              libTextField
+              [id]="frId"
+              type="text"
+              lang="fr"
+              autocomplete="off"
+              [(ngModel)]="target.fr[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="frError ? 'true' : null"
+              [attr.aria-describedby]="frError ? frId + '-error' : null"
+            />
+          } @else {
+            <textarea
+              libTextarea
+              [id]="frId"
+              [rows]="field.kind === 'lines' ? 4 : 3"
+              lang="fr"
+              [(ngModel)]="target.fr[field.key]"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.aria-invalid]="frError ? 'true' : null"
+              [attr.aria-describedby]="frError ? frId + '-error' : null"
+            ></textarea>
+          }
+          @if (frError) {
+            <p libFieldError [id]="frId + '-error'">
+              <span data-testid="field-error">{{ frError }}</span>
+            </p>
+          }
+        </div>
+      }
     }
   }
 </ng-template>

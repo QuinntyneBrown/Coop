@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { catchError, of } from 'rxjs';
 import { ApiService } from '../../core/services/api.service';
+import { LanguageService } from '../../core/services/language.service';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { SiteLinkDirective } from '../../core/site-content/site-link.directive';
 import { showPhotoUnavailable } from '../../core/site-content/show-photo-unavailable';
@@ -39,6 +40,7 @@ export class LandingComponent implements OnInit {
   private readonly api = inject(ApiService);
 
   readonly content = inject(SiteContentService).content;
+  readonly labels = inject(LanguageService).labels;
   /** The home sections visitors see: the published order without the hidden ones (L2-REQ-122). */
   readonly sections = computed(() =>
     this.content().home.sections.filter((section) => !section.hidden),

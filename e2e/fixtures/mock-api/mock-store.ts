@@ -149,6 +149,8 @@ export interface MockPage {
   slug: string;
   heroImageUrl: string | null;
   heroImageAlt: string | null;
+  /** The French of the title and photo description, when the office wrote any (L2-REQ-129). */
+  fr?: Record<string, string>;
   sections: MockPageBlock[];
   published: boolean;
   createdOn: string;

@@ -19,6 +19,9 @@ export class LandingPage {
   readonly menuVisitLink: Locator;
   readonly navPageLinks: Locator;
   readonly menuPageLinks: Locator;
+  readonly skipLink: Locator;
+  readonly languageButton: Locator;
+  readonly languageStatus: Locator;
 
   // Hero
   readonly hero: Locator;
@@ -76,6 +79,9 @@ export class LandingPage {
     this.menuVisitLink = page.getByTestId("site-menu-visit-link");
     this.navPageLinks = this.nav.getByTestId("site-nav-page-link");
     this.menuPageLinks = this.menu.getByTestId("site-menu-page-link");
+    this.skipLink = page.locator(".own-skip");
+    this.languageButton = page.getByTestId("site-language-button");
+    this.languageStatus = page.getByTestId("site-language-status");
 
     this.hero = page.getByTestId("landing-hero");
     this.heroTitle = page.getByTestId("landing-hero-title");
@@ -182,6 +188,11 @@ export class LandingPage {
   /** The outline style the focused element draws, e.g. "solid" for the focus ring. */
   async focusOutline(link: Locator): Promise<string> {
     return link.evaluate((el) => getComputedStyle(el).outlineStyle);
+  }
+
+  /** The language the page says it is in, from `<html lang>`. */
+  htmlLang(): Promise<string | null> {
+    return this.page.locator("html").getAttribute("lang");
   }
 
   async openMenu() {

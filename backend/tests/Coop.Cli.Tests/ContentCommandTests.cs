@@ -1,5 +1,5 @@
 // Acceptance Test
-// Traces to: L2-REQ-108, L2-REQ-127, L2-REQ-099, L2-REQ-080, L2-REQ-086, L2-REQ-040, L2-REQ-041, L2-REQ-042, L2-REQ-045
+// Traces to: L2-REQ-108, L2-REQ-127, L2-REQ-129, L2-REQ-099, L2-REQ-080, L2-REQ-086, L2-REQ-040, L2-REQ-041, L2-REQ-042, L2-REQ-045
 // Description: site content and board export and import as JSON, the site
 // content draft published, discarded, exported and imported, pages, assets
 // and themes through the same handlers and validators as the API, checked
@@ -133,6 +133,19 @@ public class ContentCommandTests : IClassFixture<CliTestHost>, IDisposable
         Assert.Equal("OWN Housing Co-operative", saved["header"]!["siteName"]!.GetValue<string>());
         Assert.Equal("A home of our own.", saved["home"]!["sections"]![0]!["title"]!.GetValue<string>());
         Assert.False((await DraftAsync())["hasDraft"]!.GetValue<bool>());
+    }
+
+    [Fact]
+    public async Task Given_json_with_french_when_the_operator_imports_it_then_the_api_serves_the_french()
+    {
+        var content = await SiteContentAsync();
+        content["home"]!["sections"]![0]!["fr"] = new JsonObject { ["title"] = "Un chez-soi bien à nous." };
+
+        var result = await _host.RunAsync("site-content", "import", "--file", FileWith("french.json", content.ToJsonString()));
+
+        Assert.Equal(0, result.ExitCode);
+        var saved = await SiteContentAsync();
+        Assert.Equal("Un chez-soi bien à nous.", saved["home"]!["sections"]![0]!["fr"]!["title"]!.GetValue<string>());
     }
 
     [Fact]

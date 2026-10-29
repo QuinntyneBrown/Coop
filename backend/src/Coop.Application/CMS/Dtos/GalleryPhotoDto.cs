@@ -1,7 +1,7 @@
 namespace Coop.Application.CMS.Dtos;
 
 /// <summary>One gallery photograph; <c>Size</c> is wide, tall or small.</summary>
-public class GalleryPhotoDto
+public class GalleryPhotoDto : TranslatableDto
 {
     public PhotoDto Photo { get; set; } = new();
     public string Caption { get; set; } = string.Empty;

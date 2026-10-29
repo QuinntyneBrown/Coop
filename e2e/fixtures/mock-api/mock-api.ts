@@ -53,6 +53,13 @@ function sectionsFrom(sections: unknown, body: unknown): MockPageBlock[] {
   return html.trim() ? [{ kind: "html", html }] : [];
 }
 
+/** A page's own French, or undefined when it has none (PageSections, ADR 0023). */
+function frenchOf(fr: unknown): Record<string, string> | undefined {
+  return fr && typeof fr === "object" && Object.keys(fr).length > 0
+    ? (fr as Record<string, string>)
+    : undefined;
+}
+
 /** The API's block rules (PageBlockValidator, L2-REQ-123 AC3): the first problem, or null. */
 function blockError(block: any): string | null {
   const text = String(block?.text ?? "");
@@ -659,6 +666,7 @@ export class MockApi {
     published?: boolean;
     heroImageUrl?: string | null;
     heroImageAlt?: string | null;
+    fr?: Record<string, string>;
   }): MockPage {
     const slug = slugOf(data.title);
     const existing = this.store.pages.find((p) => p.slug === slug);
@@ -670,6 +678,7 @@ export class MockApi {
       heroImageUrl: data.heroImageUrl?.trim() || null,
       heroImageAlt:
         (data.heroImageUrl?.trim() && data.heroImageAlt?.trim()) || null,
+      ...(frenchOf(data.fr) && { fr: frenchOf(data.fr) }),
       sections: sectionsFrom(data.sections, data.body),
       published: data.published ?? true,
       createdOn: new Date().toISOString(),
@@ -1478,6 +1487,7 @@ export class MockApi {
             published: b.published === true,
             heroImageUrl: b.heroImageUrl,
             heroImageAlt: b.heroImageAlt,
+            fr: b.fr,
           }),
         ),
       });
@@ -1499,6 +1509,8 @@ export class MockApi {
       page.heroImageAlt =
         (page.heroImageUrl && String(b.heroImageAlt ?? "").trim()) || null;
       page.sections = sectionsFrom(b.sections, b.body);
+      if (frenchOf(b.fr)) page.fr = frenchOf(b.fr);
+      else delete page.fr;
       page.published = b.published === true;
       return ok({ page: this.pageView(page) });
     });
